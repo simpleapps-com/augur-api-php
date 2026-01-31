@@ -58,7 +58,7 @@ final class CategoriesResource
      * List category attributes.
      *
      * @fullPath api.items.categories.attributes.list
-     * @return BaseResponse<array<array<string, mixed>>>
+     * @return BaseResponse<array{attributes: array<array<string, mixed>>}>
      */
     public function listAttributes(int $itemCategoryUid): BaseResponse
     {
@@ -69,7 +69,7 @@ final class CategoriesResource
             ['itemCategoryUid' => (string) $itemCategoryUid],
         );
 
-        return BaseResponse::fromArray($response, static fn ($data) => $data ?? []);
+        return BaseResponse::fromArray($response, static fn ($data) => $data ?? ['attributes' => []]);
     }
 
     /**
@@ -93,9 +93,11 @@ final class CategoriesResource
     /**
      * List category items.
      *
+     * API returns nested structure: { data: { itemCategoryUid, took, total, items: [...] } }
+     *
      * @fullPath api.items.categories.items.list
      * @param array<string, mixed> $params
-     * @return BaseResponse<array<array<string, mixed>>>
+     * @return BaseResponse<array{itemCategoryUid: int, itemCategoryId?: string, itemCategoryDesc?: string, took: int, total: int, items: array<array<string, mixed>>}>
      */
     public function listItems(int $itemCategoryUid, array $params = []): BaseResponse
     {
@@ -106,6 +108,6 @@ final class CategoriesResource
             ['itemCategoryUid' => (string) $itemCategoryUid],
         );
 
-        return BaseResponse::fromArray($response, static fn ($data) => $data ?? []);
+        return BaseResponse::fromArray($response, static fn ($data) => $data ?? ['itemCategoryUid' => $itemCategoryUid, 'took' => 0, 'total' => 0, 'items' => []]);
     }
 }
