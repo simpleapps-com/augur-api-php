@@ -1,0 +1,66 @@
+{
+  "name": "simpleapps-com/augur-api",
+  "description": "PHP client for Augur API microservices",
+  "type": "library",
+  "license": "MIT",
+  "keywords": ["augur", "api", "client", "microservices", "php"],
+  "homepage": "https://augur-api.info",
+  "authors": [
+    {
+      "name": "SimpleApps",
+      "email": "info@simpleapps.com"
+    }
+  ],
+  "support": {
+    "issues": "https://github.com/simpleapps-com/augur-api-php/issues",
+    "docs": "https://augur-api.info"
+  },
+  "require": {
+    "php": ">=8.1",
+    "psr/http-client": "^1.0",
+    "psr/http-factory": "^1.0",
+    "psr/http-message": "^1.0 || ^2.0",
+    "php-http/discovery": "^1.14",
+    "nyholm/psr7": "^1.5"
+  },
+  "require-dev": {
+    "guzzlehttp/guzzle": "^7.0",
+    "phpunit/phpunit": "^10.0 || ^11.0",
+    "friendsofphp/php-cs-fixer": "^3.0",
+    "phpstan/phpstan": "^1.0",
+    "php-http/mock-client": "^1.5"
+  },
+  "suggest": {
+    "guzzlehttp/guzzle": "Default HTTP client implementation"
+  },
+  "autoload": {
+    "psr-4": {
+      "AugurApi\\": "src/AugurApi/"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "AugurApi\\Tests\\": "tests/"
+    }
+  },
+  "scripts": {
+    "test": "phpunit",
+    "test:coverage": "phpunit --coverage-text --coverage-html coverage",
+    "cs-check": "php-cs-fixer fix --dry-run --diff",
+    "cs-fix": "php-cs-fixer fix",
+    "analyse": "phpstan analyse src tests --level=8",
+    "check": [
+      "@cs-check",
+      "@analyse",
+      "@test"
+    ]
+  },
+  "config": {
+    "sort-packages": true,
+    "allow-plugins": {
+      "php-http/discovery": true
+    }
+  },
+  "minimum-stability": "stable",
+  "prefer-stable": true
+}
