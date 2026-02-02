@@ -13,24 +13,22 @@ final class RatesShopResourceTest extends AugurApiTestCase
 {
     public function testGet(): void
     {
+        // API returns array of rate objects directly in data field
         $this->mockResponse([
-            'rates' => [
-                [
-                    'serviceCode' => '03',
-                    'serviceName' => 'UPS Ground',
-                    'totalCharge' => 15.50,
-                    'currency' => 'USD',
-                    'deliveryDays' => 5,
-                ],
-                [
-                    'serviceCode' => '02',
-                    'serviceName' => 'UPS 2nd Day Air',
-                    'totalCharge' => 35.00,
-                    'currency' => 'USD',
-                    'deliveryDays' => 2,
-                ],
+            [
+                'serviceCode' => '03',
+                'serviceName' => 'UPS Ground',
+                'totalCharges' => 15.50,
+                'currencyCode' => 'USD',
+                'businessDaysInTransit' => 5,
             ],
-            'billingWeight' => 10.0,
+            [
+                'serviceCode' => '02',
+                'serviceName' => 'UPS 2nd Day Air',
+                'totalCharges' => 35.00,
+                'currencyCode' => 'USD',
+                'businessDaysInTransit' => 2,
+            ],
         ]);
 
         $response = $this->api->ups->ratesShop->get([
@@ -42,10 +40,10 @@ final class RatesShopResourceTest extends AugurApiTestCase
             'weightUnit' => 'LBS',
         ]);
 
-        $this->assertCount(2, $response->data['rates']);
-        $this->assertEquals('03', $response->data['rates'][0]['serviceCode']);
-        $this->assertEquals('UPS Ground', $response->data['rates'][0]['serviceName']);
-        $this->assertEquals(15.50, $response->data['rates'][0]['totalCharge']);
+        $this->assertCount(2, $response->data);
+        $this->assertEquals('03', $response->data[0]['serviceCode']);
+        $this->assertEquals('UPS Ground', $response->data[0]['serviceName']);
+        $this->assertEquals(15.50, $response->data[0]['totalCharges']);
         $this->assertRequestPath('/rates-shop');
         $this->assertRequestMethod('GET');
         $this->assertHasSiteIdHeader();
@@ -54,17 +52,15 @@ final class RatesShopResourceTest extends AugurApiTestCase
 
     public function testGetWithDimensions(): void
     {
+        // API returns array of rate objects directly in data field
         $this->mockResponse([
-            'rates' => [
-                [
-                    'serviceCode' => '03',
-                    'serviceName' => 'UPS Ground',
-                    'totalCharge' => 18.75,
-                    'currency' => 'USD',
-                ],
+            [
+                'serviceCode' => '03',
+                'serviceName' => 'UPS Ground',
+                'totalCharges' => 18.75,
+                'currencyCode' => 'USD',
+                'billingWeight' => 12.0,
             ],
-            'billingWeight' => 12.0,
-            'dimWeight' => 12.0,
         ]);
 
         $response = $this->api->ups->ratesShop->get([
@@ -78,23 +74,21 @@ final class RatesShopResourceTest extends AugurApiTestCase
             'height' => 10,
         ]);
 
-        $this->assertEquals(12.0, $response->data['dimWeight']);
-        $this->assertEquals(12.0, $response->data['billingWeight']);
+        $this->assertCount(1, $response->data);
+        $this->assertEquals(12.0, $response->data[0]['billingWeight']);
     }
 
     public function testGetInternational(): void
     {
+        // API returns array of rate objects directly in data field
         $this->mockResponse([
-            'rates' => [
-                [
-                    'serviceCode' => '07',
-                    'serviceName' => 'UPS Worldwide Express',
-                    'totalCharge' => 125.00,
-                    'currency' => 'USD',
-                    'deliveryDays' => 3,
-                ],
+            [
+                'serviceCode' => '07',
+                'serviceName' => 'UPS Worldwide Express',
+                'totalCharges' => 125.00,
+                'currencyCode' => 'USD',
+                'businessDaysInTransit' => 3,
             ],
-            'international' => true,
         ]);
 
         $response = $this->api->ups->ratesShop->get([
@@ -105,16 +99,14 @@ final class RatesShopResourceTest extends AugurApiTestCase
             'weight' => 5.0,
         ]);
 
-        $this->assertTrue($response->data['international']);
-        $this->assertEquals('UPS Worldwide Express', $response->data['rates'][0]['serviceName']);
+        $this->assertCount(1, $response->data);
+        $this->assertEquals('UPS Worldwide Express', $response->data[0]['serviceName']);
     }
 
     public function testGetReturnsBaseResponse(): void
     {
-        $this->mockResponse([
-            'rates' => [],
-            'message' => 'No rates available for this route',
-        ]);
+        // API returns empty array when no rates available
+        $this->mockResponse([]);
 
         $response = $this->api->ups->ratesShop->get([
             'originPostalCode' => '00000',
@@ -124,19 +116,18 @@ final class RatesShopResourceTest extends AugurApiTestCase
 
         $this->assertEquals(200, $response->status);
         $this->assertIsArray($response->data);
-        $this->assertEmpty($response->data['rates']);
+        $this->assertEmpty($response->data);
     }
 
     public function testGetWithResidentialFlag(): void
     {
+        // API returns array of rate objects directly in data field
         $this->mockResponse([
-            'rates' => [
-                [
-                    'serviceCode' => '03',
-                    'serviceName' => 'UPS Ground',
-                    'totalCharge' => 18.50,
-                    'residentialSurcharge' => 3.00,
-                ],
+            [
+                'serviceCode' => '03',
+                'serviceName' => 'UPS Ground',
+                'totalCharges' => 18.50,
+                'residentialSurcharge' => 3.00,
             ],
         ]);
 
@@ -147,7 +138,7 @@ final class RatesShopResourceTest extends AugurApiTestCase
             'residential' => true,
         ]);
 
-        $this->assertEquals(18.50, $response->data['rates'][0]['totalCharge']);
-        $this->assertEquals(3.00, $response->data['rates'][0]['residentialSurcharge']);
+        $this->assertEquals(18.50, $response->data[0]['totalCharges']);
+        $this->assertEquals(3.00, $response->data[0]['residentialSurcharge']);
     }
 }
