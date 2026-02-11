@@ -14,14 +14,14 @@ final class QuotesResourceTest extends AugurApiTestCase
     public function testList(): void
     {
         $this->mockListResponse([
-            ['quoteNo' => 'QUO001', 'total' => 500.00, 'status' => 'pending'],
-            ['quoteNo' => 'QUO002', 'total' => 750.00, 'status' => 'approved'],
+            ['orderNo' => 'ORD001', 'total' => 500.00, 'status' => 'pending'],
+            ['orderNo' => 'ORD002', 'total' => 750.00, 'status' => 'approved'],
         ]);
 
         $response = $this->api->customers->quotes->list('CUST001');
 
         $this->assertCount(2, $response->data);
-        $this->assertEquals('QUO001', $response->data[0]['quoteNo']);
+        $this->assertEquals('ORD001', $response->data[0]['orderNo']);
         $this->assertEquals(500.00, $response->data[0]['total']);
         $this->assertRequestPath('/customer/CUST001/quotes');
         $this->assertRequestMethod('GET');
@@ -32,7 +32,7 @@ final class QuotesResourceTest extends AugurApiTestCase
     public function testListWithParams(): void
     {
         $this->mockListResponse([
-            ['quoteNo' => 'QUO001', 'total' => 500.00],
+            ['orderNo' => 'ORD001', 'total' => 500.00],
         ]);
 
         $response = $this->api->customers->quotes->list('CUST001', ['limit' => 10, 'status' => 'pending']);
@@ -44,18 +44,18 @@ final class QuotesResourceTest extends AugurApiTestCase
     public function testGet(): void
     {
         $this->mockResponse([
-            'quoteNo' => 'QUO001',
+            'orderNo' => 'ORD001',
             'customerId' => 'CUST001',
             'total' => 500.00,
             'status' => 'pending',
             'expirationDate' => '2024-03-01',
         ]);
 
-        $response = $this->api->customers->quotes->get('CUST001', 'QUO001');
+        $response = $this->api->customers->quotes->get('CUST001', 'ORD001');
 
-        $this->assertEquals('QUO001', $response->data['quoteNo']);
+        $this->assertEquals('ORD001', $response->data['orderNo']);
         $this->assertEquals(500.00, $response->data['total']);
-        $this->assertRequestPath('/customer/CUST001/quotes/QUO001');
+        $this->assertRequestPath('/customer/CUST001/quotes/ORD001');
         $this->assertRequestMethod('GET');
     }
 }
