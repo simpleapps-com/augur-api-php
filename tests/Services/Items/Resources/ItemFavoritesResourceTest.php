@@ -26,7 +26,7 @@ final class ItemFavoritesResourceTest extends AugurApiTestCase
         $this->assertEquals(100, $response->data[0]['invMastUid']);
         $this->assertEquals('ITEM001', $response->data[0]['itemId']);
         $this->assertRequestMethod('GET');
-        $this->assertRequestPath('/item-favorites/12345');
+        $this->assertRequestPath('/item-favorites/12345/items');
     }
 
     public function testListWithParams(): void
@@ -43,6 +43,17 @@ final class ItemFavoritesResourceTest extends AugurApiTestCase
         $this->assertHasAuthHeader();
     }
 
+    public function testGet(): void
+    {
+        $this->mockResponse(['invMastUid' => 100, 'itemId' => 'ITEM001']);
+
+        $response = $this->api->items->itemFavorites->get(12345, 100);
+
+        $this->assertEquals(100, $response->data['invMastUid']);
+        $this->assertRequestMethod('GET');
+        $this->assertRequestPath('/item-favorites/12345/items/100');
+    }
+
     public function testCreate(): void
     {
         $this->mockResponse(['invMastUid' => 102, 'createdAt' => '2024-01-01T00:00:00Z']);
@@ -51,7 +62,7 @@ final class ItemFavoritesResourceTest extends AugurApiTestCase
 
         $this->assertEquals(102, $response->data['invMastUid']);
         $this->assertRequestMethod('POST');
-        $this->assertRequestPath('/item-favorites/12345');
+        $this->assertRequestPath('/item-favorites/12345/items');
     }
 
     public function testUpdate(): void
@@ -62,7 +73,7 @@ final class ItemFavoritesResourceTest extends AugurApiTestCase
 
         $this->assertEquals(5, $response->data['sortOrder']);
         $this->assertRequestMethod('PUT');
-        $this->assertRequestPath('/item-favorites/12345/100');
+        $this->assertRequestPath('/item-favorites/12345/items/100');
     }
 
     public function testDelete(): void
@@ -73,6 +84,6 @@ final class ItemFavoritesResourceTest extends AugurApiTestCase
 
         $this->assertTrue($response->data['success']);
         $this->assertRequestMethod('DELETE');
-        $this->assertRequestPath('/item-favorites/12345/100');
+        $this->assertRequestPath('/item-favorites/12345/items/100');
     }
 }

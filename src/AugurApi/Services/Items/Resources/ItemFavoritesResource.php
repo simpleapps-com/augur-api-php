@@ -33,12 +33,30 @@ final class ItemFavoritesResource
     {
         $response = $this->client->get(
             $this->baseUrl,
-            '/item-favorites/{usersId}',
+            '/item-favorites/{usersId}/items',
             $params,
             ['usersId' => (string) $usersId],
         );
 
         return BaseResponse::fromArray($response, static fn ($data) => $data ?? []);
+    }
+
+    /**
+     * Get a single user favorite.
+     *
+     * @fullPath api.items.itemFavorites.get
+     * @return BaseResponse<array<string, mixed>>
+     */
+    public function get(int $usersId, int $invMastUid): BaseResponse
+    {
+        $response = $this->client->get(
+            $this->baseUrl,
+            '/item-favorites/{usersId}/items/{invMastUid}',
+            [],
+            ['usersId' => (string) $usersId, 'invMastUid' => (string) $invMastUid],
+        );
+
+        return BaseResponse::fromArray($response, static fn ($d) => $d);
     }
 
     /**
@@ -52,7 +70,7 @@ final class ItemFavoritesResource
     {
         $response = $this->client->post(
             $this->baseUrl,
-            '/item-favorites/{usersId}',
+            '/item-favorites/{usersId}/items',
             $data,
             ['usersId' => (string) $usersId],
         );
@@ -71,7 +89,7 @@ final class ItemFavoritesResource
     {
         $response = $this->client->put(
             $this->baseUrl,
-            '/item-favorites/{usersId}/{invMastUid}',
+            '/item-favorites/{usersId}/items/{invMastUid}',
             $data,
             ['usersId' => (string) $usersId, 'invMastUid' => (string) $invMastUid],
         );
@@ -89,7 +107,7 @@ final class ItemFavoritesResource
     {
         $response = $this->client->delete(
             $this->baseUrl,
-            '/item-favorites/{usersId}/{invMastUid}',
+            '/item-favorites/{usersId}/items/{invMastUid}',
             ['usersId' => (string) $usersId, 'invMastUid' => (string) $invMastUid],
         );
 
