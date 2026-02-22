@@ -163,10 +163,10 @@ final class InvProfileHdrResource
     }
 
     /**
-     * Create inventory profile line.
+     * Create inventory profile lines (bulk).
      *
      * @fullPath api.vmi.invProfileHdr.invProfileLine.create
-     * @param array<string, mixed> $data
+     * @param list<array<string, mixed>> $data Array of line items to create
      * @return BaseResponse<array<string, mixed>>
      */
     public function createInvProfileLine(int $invProfileHdrUid, array $data): BaseResponse

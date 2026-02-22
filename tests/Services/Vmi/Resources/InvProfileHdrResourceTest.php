@@ -175,8 +175,7 @@ final class InvProfileHdrResourceTest extends AugurApiTestCase
         ]);
 
         $response = $this->api->vmi->invProfileHdr->createInvProfileLine(1, [
-            'invMastUid' => 1002,
-            'minQty' => 15,
+            ['invMastUid' => 1002, 'invProfileLineType' => 'products', 'minQty' => 15],
         ]);
 
         $this->assertEquals(3, $response->data['invProfileLineUid']);

@@ -53,7 +53,7 @@ final class Client
     }
 
     /**
-     * @param array<string, mixed> $data Request body
+     * @param array<int|string, mixed> $data Request body (object or list of objects)
      * @param array<string, string> $pathParams Path parameter substitutions
      * @return array<string, mixed>
      */
@@ -94,7 +94,7 @@ final class Client
 
     /**
      * @param array<string, mixed> $params Query parameters
-     * @param array<string, mixed>|null $data Request body
+     * @param array<int|string, mixed>|null $data Request body (object or list of objects)
      * @param array<string, string> $pathParams Path parameter substitutions
      * @return array<string, mixed>
      */
