@@ -105,6 +105,42 @@ final class VariantsResource
     }
 
     /**
+     * Get variant documents.
+     *
+     * @fullPath api.items.variants.doc.list
+     * @return BaseResponse<array<string, mixed>>
+     */
+    public function getDoc(int $itemVariantHdrUid): BaseResponse
+    {
+        $response = $this->client->get(
+            $this->baseUrl,
+            '/variants/{itemVariantHdrUid}/doc',
+            [],
+            ['itemVariantHdrUid' => (string) $itemVariantHdrUid],
+        );
+
+        return BaseResponse::fromArray($response, static fn ($data) => $data);
+    }
+
+    /**
+     * Get similar variants.
+     *
+     * @fullPath api.items.variants.similar.list
+     * @return BaseResponse<array<array<string, mixed>>>
+     */
+    public function getSimilar(int $itemVariantHdrUid): BaseResponse
+    {
+        $response = $this->client->get(
+            $this->baseUrl,
+            '/variants/{itemVariantHdrUid}/similar',
+            [],
+            ['itemVariantHdrUid' => (string) $itemVariantHdrUid],
+        );
+
+        return BaseResponse::fromArray($response, static fn ($data) => $data ?? []);
+    }
+
+    /**
      * List variant lines.
      *
      * @fullPath api.items.variants.lines.list

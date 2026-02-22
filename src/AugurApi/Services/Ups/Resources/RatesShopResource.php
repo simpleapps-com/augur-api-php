@@ -27,12 +27,12 @@ final class RatesShopResource
      *
      * @fullPath api.ups.ratesShop.get
      * @param array<string, mixed> $params
-     * @return BaseResponse<array<string, mixed>>
+     * @return BaseResponse<array<array<string, mixed>>>
      */
     public function get(array $params): BaseResponse
     {
         $response = $this->client->get($this->baseUrl, '/rates-shop', $params);
 
-        return BaseResponse::fromArray($response, static fn ($data) => $data);
+        return BaseResponse::fromArray($response, static fn ($data) => $data ?? []);
     }
 }

@@ -93,6 +93,40 @@ final class VariantsResourceTest extends AugurApiTestCase
         $this->assertRequestPath('/variants/1');
     }
 
+    public function testGetDoc(): void
+    {
+        $this->mockResponse([
+            'itemVariantHdrUid' => 1,
+            'documents' => [
+                ['docUid' => 1, 'docType' => 'pdf'],
+                ['docUid' => 2, 'docType' => 'image'],
+            ],
+        ]);
+
+        $response = $this->api->items->variants->getDoc(1);
+
+        $this->assertEquals(1, $response->data['itemVariantHdrUid']);
+        $this->assertCount(2, $response->data['documents']);
+        $this->assertRequestMethod('GET');
+        $this->assertRequestPath('/variants/1/doc');
+    }
+
+    public function testGetSimilar(): void
+    {
+        $this->mockListResponse([
+            ['invMastUid' => 400, 'itemId' => 'SIM001', 'similarity' => 0.95],
+            ['invMastUid' => 401, 'itemId' => 'SIM002', 'similarity' => 0.85],
+        ]);
+
+        $response = $this->api->items->variants->getSimilar(1);
+
+        $this->assertCount(2, $response->data);
+        $this->assertEquals('SIM001', $response->data[0]['itemId']);
+        $this->assertEquals(0.95, $response->data[0]['similarity']);
+        $this->assertRequestMethod('GET');
+        $this->assertRequestPath('/variants/1/similar');
+    }
+
     public function testListLines(): void
     {
         $this->mockListResponse([

@@ -13,8 +13,7 @@ final class RatesShopResourceTest extends AugurApiTestCase
 {
     public function testGet(): void
     {
-        // API returns array of rate objects directly in data field
-        $this->mockResponse([
+        $this->mockListResponse([
             [
                 'serviceCode' => '03',
                 'serviceName' => 'UPS Ground',
@@ -52,8 +51,7 @@ final class RatesShopResourceTest extends AugurApiTestCase
 
     public function testGetWithDimensions(): void
     {
-        // API returns array of rate objects directly in data field
-        $this->mockResponse([
+        $this->mockListResponse([
             [
                 'serviceCode' => '03',
                 'serviceName' => 'UPS Ground',
@@ -80,8 +78,7 @@ final class RatesShopResourceTest extends AugurApiTestCase
 
     public function testGetInternational(): void
     {
-        // API returns array of rate objects directly in data field
-        $this->mockResponse([
+        $this->mockListResponse([
             [
                 'serviceCode' => '07',
                 'serviceName' => 'UPS Worldwide Express',
@@ -105,8 +102,7 @@ final class RatesShopResourceTest extends AugurApiTestCase
 
     public function testGetReturnsBaseResponse(): void
     {
-        // API returns empty array when no rates available
-        $this->mockResponse([]);
+        $this->mockListResponse([]);
 
         $response = $this->api->ups->ratesShop->get([
             'originPostalCode' => '00000',
@@ -121,8 +117,7 @@ final class RatesShopResourceTest extends AugurApiTestCase
 
     public function testGetWithResidentialFlag(): void
     {
-        // API returns array of rate objects directly in data field
-        $this->mockResponse([
+        $this->mockListResponse([
             [
                 'serviceCode' => '03',
                 'serviceName' => 'UPS Ground',
