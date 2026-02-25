@@ -6,6 +6,7 @@ namespace AugurApi\Services\Customers\Resources;
 
 use AugurApi\Core\BaseResponse;
 use AugurApi\Core\Client;
+use AugurApi\Core\Schemas\EdgeCache;
 use AugurApi\Services\Customers\Schemas\Customer;
 use AugurApi\Services\Customers\Schemas\CustomerListParams;
 
@@ -74,12 +75,12 @@ final class CustomerResource
      * @fullPath api.customers.customer.getDoc
      * @return BaseResponse<array<string, mixed>>
      */
-    public function getDoc(string $customerId): BaseResponse
+    public function getDoc(string $customerId, ?EdgeCache $edgeCache = null): BaseResponse
     {
         $response = $this->client->get(
             $this->baseUrl,
             '/customer/{customerId}/doc',
-            [],
+            $edgeCache !== null ? ['edgeCache' => $edgeCache->value] : [],
             ['customerId' => $customerId],
         );
 
@@ -92,12 +93,12 @@ final class CustomerResource
      * @fullPath api.customers.customer.getAddresses
      * @return BaseResponse<array<array<string, mixed>>>
      */
-    public function getAddresses(string $customerId): BaseResponse
+    public function getAddresses(string $customerId, ?EdgeCache $edgeCache = null): BaseResponse
     {
         $response = $this->client->get(
             $this->baseUrl,
             '/customer/{customerId}/address',
-            [],
+            $edgeCache !== null ? ['edgeCache' => $edgeCache->value] : [],
             ['customerId' => $customerId],
         );
 
@@ -110,12 +111,12 @@ final class CustomerResource
      * @fullPath api.customers.customer.getContacts
      * @return BaseResponse<array<array<string, mixed>>>
      */
-    public function getContacts(string $customerId): BaseResponse
+    public function getContacts(string $customerId, ?EdgeCache $edgeCache = null): BaseResponse
     {
         $response = $this->client->get(
             $this->baseUrl,
             '/customer/{customerId}/contacts',
-            [],
+            $edgeCache !== null ? ['edgeCache' => $edgeCache->value] : [],
             ['customerId' => $customerId],
         );
 
@@ -147,12 +148,12 @@ final class CustomerResource
      * @fullPath api.customers.customer.getShipTo
      * @return BaseResponse<array<array<string, mixed>>>
      */
-    public function getShipTo(string $customerId): BaseResponse
+    public function getShipTo(string $customerId, ?EdgeCache $edgeCache = null): BaseResponse
     {
         $response = $this->client->get(
             $this->baseUrl,
             '/customer/{customerId}/ship-to',
-            [],
+            $edgeCache !== null ? ['edgeCache' => $edgeCache->value] : [],
             ['customerId' => $customerId],
         );
 

@@ -6,6 +6,7 @@ namespace AugurApi\Services\AgrSite\Resources;
 
 use AugurApi\Core\BaseResponse;
 use AugurApi\Core\Client;
+use AugurApi\Core\Schemas\EdgeCache;
 
 /**
  * Settings resource.
@@ -42,12 +43,12 @@ final class SettingsResource
      * @fullPath api.agrSite.settings.get
      * @return BaseResponse<array<string, mixed>>
      */
-    public function get(int $settingsUid): BaseResponse
+    public function get(int $settingsUid, ?EdgeCache $edgeCache = null): BaseResponse
     {
         $response = $this->client->get(
             $this->baseUrl,
             '/settings/{settingsUid}',
-            [],
+            $edgeCache !== null ? ['edgeCache' => $edgeCache->value] : [],
             ['settingsUid' => (string) $settingsUid],
         );
 

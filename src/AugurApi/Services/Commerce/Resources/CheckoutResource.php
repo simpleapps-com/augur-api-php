@@ -6,6 +6,7 @@ namespace AugurApi\Services\Commerce\Resources;
 
 use AugurApi\Core\BaseResponse;
 use AugurApi\Core\Client;
+use AugurApi\Core\Schemas\EdgeCache;
 
 /**
  * Checkout resource.
@@ -42,12 +43,12 @@ final class CheckoutResource
      * @fullPath api.commerce.checkout.get
      * @return BaseResponse<array<string, mixed>>
      */
-    public function get(int $checkoutUid): BaseResponse
+    public function get(int $checkoutUid, ?EdgeCache $edgeCache = null): BaseResponse
     {
         $response = $this->client->get(
             $this->baseUrl,
             '/checkout/{checkoutUid}',
-            [],
+            $edgeCache !== null ? ['edgeCache' => $edgeCache->value] : [],
             ['checkoutUid' => (string) $checkoutUid],
         );
 
@@ -60,12 +61,12 @@ final class CheckoutResource
      * @fullPath api.commerce.checkout.getDoc
      * @return BaseResponse<array<string, mixed>>
      */
-    public function getDoc(int $checkoutUid): BaseResponse
+    public function getDoc(int $checkoutUid, ?EdgeCache $edgeCache = null): BaseResponse
     {
         $response = $this->client->get(
             $this->baseUrl,
             '/checkout/{checkoutUid}/doc',
-            [],
+            $edgeCache !== null ? ['edgeCache' => $edgeCache->value] : [],
             ['checkoutUid' => (string) $checkoutUid],
         );
 

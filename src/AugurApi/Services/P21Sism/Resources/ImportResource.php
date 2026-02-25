@@ -6,6 +6,7 @@ namespace AugurApi\Services\P21Sism\Resources;
 
 use AugurApi\Core\BaseResponse;
 use AugurApi\Core\Client;
+use AugurApi\Core\Schemas\EdgeCache;
 
 /**
  * Import resource.
@@ -42,12 +43,12 @@ final class ImportResource
      * @fullPath api.p21Sism.import.get
      * @return BaseResponse<array<string, mixed>>
      */
-    public function get(string $importUid): BaseResponse
+    public function get(string $importUid, ?EdgeCache $edgeCache = null): BaseResponse
     {
         $response = $this->client->get(
             $this->baseUrl,
             '/import/{importUid}',
-            [],
+            $edgeCache !== null ? ['edgeCache' => $edgeCache->value] : [],
             ['importUid' => $importUid],
         );
 
@@ -124,12 +125,12 @@ final class ImportResource
      * @fullPath api.p21Sism.import.impOeHdr.get
      * @return BaseResponse<array<string, mixed>>
      */
-    public function getImpOeHdr(string $importUid): BaseResponse
+    public function getImpOeHdr(string $importUid, ?EdgeCache $edgeCache = null): BaseResponse
     {
         $response = $this->client->get(
             $this->baseUrl,
             '/import/{importUid}/imp-oe-hdr',
-            [],
+            $edgeCache !== null ? ['edgeCache' => $edgeCache->value] : [],
             ['importUid' => $importUid],
         );
 
@@ -161,12 +162,12 @@ final class ImportResource
      * @fullPath api.p21Sism.import.impOeHdrSalesrep.get
      * @return BaseResponse<array<string, mixed>>
      */
-    public function getImpOeHdrSalesrep(string $importUid): BaseResponse
+    public function getImpOeHdrSalesrep(string $importUid, ?EdgeCache $edgeCache = null): BaseResponse
     {
         $response = $this->client->get(
             $this->baseUrl,
             '/import/{importUid}/imp-oe-hdr-salesrep',
-            [],
+            $edgeCache !== null ? ['edgeCache' => $edgeCache->value] : [],
             ['importUid' => $importUid],
         );
 
@@ -198,12 +199,12 @@ final class ImportResource
      * @fullPath api.p21Sism.import.impOeHdrWeb.get
      * @return BaseResponse<array<string, mixed>>
      */
-    public function getImpOeHdrWeb(string $importUid): BaseResponse
+    public function getImpOeHdrWeb(string $importUid, ?EdgeCache $edgeCache = null): BaseResponse
     {
         $response = $this->client->get(
             $this->baseUrl,
             '/import/{importUid}/imp-oe-hdr-web',
-            [],
+            $edgeCache !== null ? ['edgeCache' => $edgeCache->value] : [],
             ['importUid' => $importUid],
         );
 

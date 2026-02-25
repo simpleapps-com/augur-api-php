@@ -6,6 +6,7 @@ namespace AugurApi\Services\Basecamp2\Resources;
 
 use AugurApi\Core\BaseResponse;
 use AugurApi\Core\Client;
+use AugurApi\Core\Schemas\EdgeCache;
 
 /**
  * Todolists resource.
@@ -42,12 +43,12 @@ final class TodolistsResource
      * @fullPath api.basecamp2.todolists.get
      * @return BaseResponse<array<string, mixed>>
      */
-    public function get(int $id): BaseResponse
+    public function get(int $id, ?EdgeCache $edgeCache = null): BaseResponse
     {
         $response = $this->client->get(
             $this->baseUrl,
             '/todolists/{id}',
-            [],
+            $edgeCache !== null ? ['edgeCache' => $edgeCache->value] : [],
             ['id' => (string) $id],
         );
 

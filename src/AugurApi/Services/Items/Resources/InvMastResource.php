@@ -6,6 +6,7 @@ namespace AugurApi\Services\Items\Resources;
 
 use AugurApi\Core\BaseResponse;
 use AugurApi\Core\Client;
+use AugurApi\Core\Schemas\EdgeCache;
 use AugurApi\Services\Items\Schemas\InvMast;
 use AugurApi\Services\Items\Schemas\InvMastListParams;
 
@@ -55,12 +56,12 @@ final class InvMastResource
      * @fullPath api.items.invMast.get
      * @return BaseResponse<InvMast>
      */
-    public function get(int $invMastUid): BaseResponse
+    public function get(int $invMastUid, ?EdgeCache $edgeCache = null): BaseResponse
     {
         $response = $this->client->get(
             $this->baseUrl,
             '/inv-mast/{invMastUid}',
-            [],
+            $edgeCache !== null ? ['edgeCache' => $edgeCache->value] : [],
             ['invMastUid' => (string) $invMastUid],
         );
 
@@ -95,12 +96,12 @@ final class InvMastResource
      * @fullPath api.items.invMast.getDoc
      * @return BaseResponse<array<string, mixed>>
      */
-    public function getDoc(int $invMastUid): BaseResponse
+    public function getDoc(int $invMastUid, ?EdgeCache $edgeCache = null): BaseResponse
     {
         $response = $this->client->get(
             $this->baseUrl,
             '/inv-mast/{invMastUid}/doc',
-            [],
+            $edgeCache !== null ? ['edgeCache' => $edgeCache->value] : [],
             ['invMastUid' => (string) $invMastUid],
         );
 
@@ -113,12 +114,12 @@ final class InvMastResource
      * @fullPath api.items.invMast.getStock
      * @return BaseResponse<array<array<string, mixed>>>
      */
-    public function getStock(int $invMastUid): BaseResponse
+    public function getStock(int $invMastUid, ?EdgeCache $edgeCache = null): BaseResponse
     {
         $response = $this->client->get(
             $this->baseUrl,
             '/inv-mast/{invMastUid}/stock',
-            [],
+            $edgeCache !== null ? ['edgeCache' => $edgeCache->value] : [],
             ['invMastUid' => (string) $invMastUid],
         );
 
@@ -316,12 +317,12 @@ final class InvMastResource
      * @fullPath api.items.invMast.getFaq
      * @return BaseResponse<array<string, mixed>>
      */
-    public function getFaq(int $invMastUid, int $invMastFaqUid): BaseResponse
+    public function getFaq(int $invMastUid, int $invMastFaqUid, ?EdgeCache $edgeCache = null): BaseResponse
     {
         $response = $this->client->get(
             $this->baseUrl,
             '/inv-mast/{invMastUid}/faq/{invMastFaqUid}',
-            [],
+            $edgeCache !== null ? ['edgeCache' => $edgeCache->value] : [],
             [
                 'invMastUid' => (string) $invMastUid,
                 'invMastFaqUid' => (string) $invMastFaqUid,
@@ -467,12 +468,12 @@ final class InvMastResource
      * @fullPath api.items.invMast.getLocationBin
      * @return BaseResponse<array<string, mixed>>
      */
-    public function getLocationBin(int $invMastUid, int $locationId, string $bin): BaseResponse
+    public function getLocationBin(int $invMastUid, int $locationId, string $bin, ?EdgeCache $edgeCache = null): BaseResponse
     {
         $response = $this->client->get(
             $this->baseUrl,
             '/inv-mast/{invMastUid}/locations/{locationId}/bins/{bin}',
-            [],
+            $edgeCache !== null ? ['edgeCache' => $edgeCache->value] : [],
             [
                 'invMastUid' => (string) $invMastUid,
                 'locationId' => (string) $locationId,
@@ -489,12 +490,12 @@ final class InvMastResource
      * @fullPath api.items.invMast.getSimilar
      * @return BaseResponse<array<array<string, mixed>>>
      */
-    public function getSimilar(int $invMastUid): BaseResponse
+    public function getSimilar(int $invMastUid, ?EdgeCache $edgeCache = null): BaseResponse
     {
         $response = $this->client->get(
             $this->baseUrl,
             '/inv-mast/{invMastUid}/similar',
-            [],
+            $edgeCache !== null ? ['edgeCache' => $edgeCache->value] : [],
             ['invMastUid' => (string) $invMastUid],
         );
 

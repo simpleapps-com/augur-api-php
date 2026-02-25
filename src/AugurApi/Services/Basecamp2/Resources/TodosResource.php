@@ -6,6 +6,7 @@ namespace AugurApi\Services\Basecamp2\Resources;
 
 use AugurApi\Core\BaseResponse;
 use AugurApi\Core\Client;
+use AugurApi\Core\Schemas\EdgeCache;
 
 /**
  * Todos resource.
@@ -42,12 +43,12 @@ final class TodosResource
      * @fullPath api.basecamp2.todos.get
      * @return BaseResponse<array<string, mixed>>
      */
-    public function get(int $id): BaseResponse
+    public function get(int $id, ?EdgeCache $edgeCache = null): BaseResponse
     {
         $response = $this->client->get(
             $this->baseUrl,
             '/todos/{id}',
-            [],
+            $edgeCache !== null ? ['edgeCache' => $edgeCache->value] : [],
             ['id' => (string) $id],
         );
 
@@ -98,12 +99,12 @@ final class TodosResource
      * @fullPath api.basecamp2.todos.getMetrics
      * @return BaseResponse<array<string, mixed>>
      */
-    public function getMetrics(int $id): BaseResponse
+    public function getMetrics(int $id, ?EdgeCache $edgeCache = null): BaseResponse
     {
         $response = $this->client->get(
             $this->baseUrl,
             '/todos/{id}/metrics',
-            [],
+            $edgeCache !== null ? ['edgeCache' => $edgeCache->value] : [],
             ['id' => (string) $id],
         );
 
@@ -130,12 +131,12 @@ final class TodosResource
      * @fullPath api.basecamp2.todos.getSummary
      * @return BaseResponse<array<string, mixed>>
      */
-    public function getSummary(int $id): BaseResponse
+    public function getSummary(int $id, ?EdgeCache $edgeCache = null): BaseResponse
     {
         $response = $this->client->get(
             $this->baseUrl,
             '/todos-summary/{id}',
-            [],
+            $edgeCache !== null ? ['edgeCache' => $edgeCache->value] : [],
             ['id' => (string) $id],
         );
 
@@ -148,12 +149,12 @@ final class TodosResource
      * @fullPath api.basecamp2.todos.getEvent
      * @return BaseResponse<array<string, mixed>>
      */
-    public function getEvent(int $id, int $eventNum): BaseResponse
+    public function getEvent(int $id, int $eventNum, ?EdgeCache $edgeCache = null): BaseResponse
     {
         $response = $this->client->get(
             $this->baseUrl,
             '/todos/{id}/events/{eventNum}',
-            [],
+            $edgeCache !== null ? ['edgeCache' => $edgeCache->value] : [],
             ['id' => (string) $id, 'eventNum' => (string) $eventNum],
         );
 
@@ -185,12 +186,12 @@ final class TodosResource
      * @fullPath api.basecamp2.todos.getSession
      * @return BaseResponse<array<string, mixed>>
      */
-    public function getSession(int $id, int $sessionId): BaseResponse
+    public function getSession(int $id, int $sessionId, ?EdgeCache $edgeCache = null): BaseResponse
     {
         $response = $this->client->get(
             $this->baseUrl,
             '/todos/{id}/sessions/{sessionId}',
-            [],
+            $edgeCache !== null ? ['edgeCache' => $edgeCache->value] : [],
             ['id' => (string) $id, 'sessionId' => (string) $sessionId],
         );
 

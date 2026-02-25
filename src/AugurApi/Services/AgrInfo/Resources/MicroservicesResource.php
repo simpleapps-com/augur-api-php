@@ -6,6 +6,7 @@ namespace AugurApi\Services\AgrInfo\Resources;
 
 use AugurApi\Core\BaseResponse;
 use AugurApi\Core\Client;
+use AugurApi\Core\Schemas\EdgeCache;
 
 /**
  * Microservices resource.
@@ -42,12 +43,12 @@ final class MicroservicesResource
      * @fullPath api.agrInfo.microservices.get
      * @return BaseResponse<array<string, mixed>>
      */
-    public function get(int $microservicesUid): BaseResponse
+    public function get(int $microservicesUid, ?EdgeCache $edgeCache = null): BaseResponse
     {
         $response = $this->client->get(
             $this->baseUrl,
             '/microservices/{microservicesUid}',
-            [],
+            $edgeCache !== null ? ['edgeCache' => $edgeCache->value] : [],
             ['microservicesUid' => (string) $microservicesUid],
         );
 

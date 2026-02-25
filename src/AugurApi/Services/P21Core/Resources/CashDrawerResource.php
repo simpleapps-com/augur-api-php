@@ -6,6 +6,7 @@ namespace AugurApi\Services\P21Core\Resources;
 
 use AugurApi\Core\BaseResponse;
 use AugurApi\Core\Client;
+use AugurApi\Core\Schemas\EdgeCache;
 
 /**
  * Cash drawer resource.
@@ -42,12 +43,12 @@ final class CashDrawerResource
      * @fullPath api.p21Core.cashDrawer.get
      * @return BaseResponse<array<string, mixed>>
      */
-    public function get(int $cashDrawerUid): BaseResponse
+    public function get(int $cashDrawerUid, ?EdgeCache $edgeCache = null): BaseResponse
     {
         $response = $this->client->get(
             $this->baseUrl,
             '/cash_drawer/{cashDrawerUid}',
-            [],
+            $edgeCache !== null ? ['edgeCache' => $edgeCache->value] : [],
             ['cashDrawerUid' => (string) $cashDrawerUid],
         );
 

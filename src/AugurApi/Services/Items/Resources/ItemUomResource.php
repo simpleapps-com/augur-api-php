@@ -6,6 +6,7 @@ namespace AugurApi\Services\Items\Resources;
 
 use AugurApi\Core\BaseResponse;
 use AugurApi\Core\Client;
+use AugurApi\Core\Schemas\EdgeCache;
 
 /**
  * Item UOM resource.
@@ -42,12 +43,12 @@ final class ItemUomResource
      * @fullPath api.items.itemUom.get
      * @return BaseResponse<array<string, mixed>>
      */
-    public function get(int $itemUomUid): BaseResponse
+    public function get(int $itemUomUid, ?EdgeCache $edgeCache = null): BaseResponse
     {
         $response = $this->client->get(
             $this->baseUrl,
             '/item-uom/{itemUomUid}',
-            [],
+            $edgeCache !== null ? ['edgeCache' => $edgeCache->value] : [],
             ['itemUomUid' => (string) $itemUomUid],
         );
 

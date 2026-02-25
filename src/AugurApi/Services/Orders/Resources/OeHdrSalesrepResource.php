@@ -6,6 +6,7 @@ namespace AugurApi\Services\Orders\Resources;
 
 use AugurApi\Core\BaseResponse;
 use AugurApi\Core\Client;
+use AugurApi\Core\Schemas\EdgeCache;
 
 /**
  * Order entry header salesrep resource.
@@ -47,12 +48,12 @@ final class OeHdrSalesrepResource
      * @fullPath api.orders.oeHdrSalesrep.getOeHdrDoc
      * @return BaseResponse<array<string, mixed>>
      */
-    public function getOeHdrDoc(string $salesrepId, string $orderNo): BaseResponse
+    public function getOeHdrDoc(string $salesrepId, string $orderNo, ?EdgeCache $edgeCache = null): BaseResponse
     {
         $response = $this->client->get(
             $this->baseUrl,
             '/oe-hdr-salesrep/{salesrepId}/oe-hdr/{orderNo}/doc',
-            [],
+            $edgeCache !== null ? ['edgeCache' => $edgeCache->value] : [],
             ['salesrepId' => $salesrepId, 'orderNo' => $orderNo],
         );
 

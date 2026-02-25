@@ -6,6 +6,7 @@ namespace AugurApi\Services\Items\Resources;
 
 use AugurApi\Core\BaseResponse;
 use AugurApi\Core\Client;
+use AugurApi\Core\Schemas\EdgeCache;
 
 /**
  * Locations resource.
@@ -47,12 +48,12 @@ final class LocationsResource
      * @fullPath api.items.locations.bins.get
      * @return BaseResponse<array<string, mixed>>
      */
-    public function getBin(string $locationId, string $bin): BaseResponse
+    public function getBin(string $locationId, string $bin, ?EdgeCache $edgeCache = null): BaseResponse
     {
         $response = $this->client->get(
             $this->baseUrl,
             '/locations/{locationId}/bins/{bin}',
-            [],
+            $edgeCache !== null ? ['edgeCache' => $edgeCache->value] : [],
             ['locationId' => $locationId, 'bin' => $bin],
         );
 

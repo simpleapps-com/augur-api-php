@@ -6,6 +6,7 @@ namespace AugurApi\Services\Nexus\Resources;
 
 use AugurApi\Core\BaseResponse;
 use AugurApi\Core\Client;
+use AugurApi\Core\Schemas\EdgeCache;
 
 /**
  * Transfer shipping resource.
@@ -42,12 +43,12 @@ final class TransferShippingResource
      * @fullPath api.nexus.transferShipping.get
      * @return BaseResponse<array<string, mixed>>
      */
-    public function get(int $transferReceiptUid): BaseResponse
+    public function get(int $transferReceiptUid, ?EdgeCache $edgeCache = null): BaseResponse
     {
         $response = $this->client->get(
             $this->baseUrl,
             '/transfer-shipping/{transferReceiptUid}',
-            [],
+            $edgeCache !== null ? ['edgeCache' => $edgeCache->value] : [],
             ['transferReceiptUid' => (string) $transferReceiptUid],
         );
 

@@ -6,6 +6,7 @@ namespace AugurApi\Services\Items\Resources;
 
 use AugurApi\Core\BaseResponse;
 use AugurApi\Core\Client;
+use AugurApi\Core\Schemas\EdgeCache;
 
 /**
  * Item Wishlist resource.
@@ -66,12 +67,12 @@ final class ItemWishlistResource
      * @fullPath api.items.itemWishlist.hdr.get
      * @return BaseResponse<array<array<string, mixed>>>
      */
-    public function getHdr(int $usersId, int $itemWishlistHdrUid): BaseResponse
+    public function getHdr(int $usersId, int $itemWishlistHdrUid, ?EdgeCache $edgeCache = null): BaseResponse
     {
         $response = $this->client->get(
             $this->baseUrl,
             '/item-wishlist/{usersId}/hdr/{itemWishlistHdrUid}',
-            [],
+            $edgeCache !== null ? ['edgeCache' => $edgeCache->value] : [],
             ['usersId' => (string) $usersId, 'itemWishlistHdrUid' => (string) $itemWishlistHdrUid],
         );
 

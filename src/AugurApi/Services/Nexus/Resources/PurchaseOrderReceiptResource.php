@@ -6,6 +6,7 @@ namespace AugurApi\Services\Nexus\Resources;
 
 use AugurApi\Core\BaseResponse;
 use AugurApi\Core\Client;
+use AugurApi\Core\Schemas\EdgeCache;
 
 /**
  * Purchase order receipt resource.
@@ -42,12 +43,12 @@ final class PurchaseOrderReceiptResource
      * @fullPath api.nexus.purchaseOrderReceipt.get
      * @return BaseResponse<array<string, mixed>>
      */
-    public function get(int $purchaseOrderReceiptUid): BaseResponse
+    public function get(int $purchaseOrderReceiptUid, ?EdgeCache $edgeCache = null): BaseResponse
     {
         $response = $this->client->get(
             $this->baseUrl,
             '/purchase-order-receipt/{purchaseOrderReceiptUid}',
-            [],
+            $edgeCache !== null ? ['edgeCache' => $edgeCache->value] : [],
             ['purchaseOrderReceiptUid' => (string) $purchaseOrderReceiptUid],
         );
 

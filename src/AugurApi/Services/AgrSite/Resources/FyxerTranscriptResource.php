@@ -6,6 +6,7 @@ namespace AugurApi\Services\AgrSite\Resources;
 
 use AugurApi\Core\BaseResponse;
 use AugurApi\Core\Client;
+use AugurApi\Core\Schemas\EdgeCache;
 
 /**
  * Fyxer transcript resource.
@@ -42,12 +43,12 @@ final class FyxerTranscriptResource
      * @fullPath api.agrSite.fyxerTranscript.get
      * @return BaseResponse<array<string, mixed>>
      */
-    public function get(int $fyxerTranscriptHdrUid): BaseResponse
+    public function get(int $fyxerTranscriptHdrUid, ?EdgeCache $edgeCache = null): BaseResponse
     {
         $response = $this->client->get(
             $this->baseUrl,
             '/fyxer-transcript/{fyxerTranscriptHdrUid}',
-            [],
+            $edgeCache !== null ? ['edgeCache' => $edgeCache->value] : [],
             ['fyxerTranscriptHdrUid' => (string) $fyxerTranscriptHdrUid],
         );
 

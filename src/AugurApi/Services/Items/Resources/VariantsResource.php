@@ -6,6 +6,7 @@ namespace AugurApi\Services\Items\Resources;
 
 use AugurApi\Core\BaseResponse;
 use AugurApi\Core\Client;
+use AugurApi\Core\Schemas\EdgeCache;
 
 /**
  * Variants resource.
@@ -42,12 +43,12 @@ final class VariantsResource
      * @fullPath api.items.variants.get
      * @return BaseResponse<array<string, mixed>>
      */
-    public function get(int $itemVariantHdrUid): BaseResponse
+    public function get(int $itemVariantHdrUid, ?EdgeCache $edgeCache = null): BaseResponse
     {
         $response = $this->client->get(
             $this->baseUrl,
             '/variants/{itemVariantHdrUid}',
-            [],
+            $edgeCache !== null ? ['edgeCache' => $edgeCache->value] : [],
             ['itemVariantHdrUid' => (string) $itemVariantHdrUid],
         );
 
@@ -110,12 +111,12 @@ final class VariantsResource
      * @fullPath api.items.variants.doc.list
      * @return BaseResponse<array<string, mixed>>
      */
-    public function getDoc(int $itemVariantHdrUid): BaseResponse
+    public function getDoc(int $itemVariantHdrUid, ?EdgeCache $edgeCache = null): BaseResponse
     {
         $response = $this->client->get(
             $this->baseUrl,
             '/variants/{itemVariantHdrUid}/doc',
-            [],
+            $edgeCache !== null ? ['edgeCache' => $edgeCache->value] : [],
             ['itemVariantHdrUid' => (string) $itemVariantHdrUid],
         );
 
@@ -128,12 +129,12 @@ final class VariantsResource
      * @fullPath api.items.variants.similar.list
      * @return BaseResponse<array<array<string, mixed>>>
      */
-    public function getSimilar(int $itemVariantHdrUid): BaseResponse
+    public function getSimilar(int $itemVariantHdrUid, ?EdgeCache $edgeCache = null): BaseResponse
     {
         $response = $this->client->get(
             $this->baseUrl,
             '/variants/{itemVariantHdrUid}/similar',
-            [],
+            $edgeCache !== null ? ['edgeCache' => $edgeCache->value] : [],
             ['itemVariantHdrUid' => (string) $itemVariantHdrUid],
         );
 
@@ -146,12 +147,12 @@ final class VariantsResource
      * @fullPath api.items.variants.lines.list
      * @return BaseResponse<array<array<string, mixed>>>
      */
-    public function listLines(int $itemVariantHdrUid): BaseResponse
+    public function listLines(int $itemVariantHdrUid, ?EdgeCache $edgeCache = null): BaseResponse
     {
         $response = $this->client->get(
             $this->baseUrl,
             '/variants/{itemVariantHdrUid}/lines',
-            [],
+            $edgeCache !== null ? ['edgeCache' => $edgeCache->value] : [],
             ['itemVariantHdrUid' => (string) $itemVariantHdrUid],
         );
 
@@ -164,12 +165,12 @@ final class VariantsResource
      * @fullPath api.items.variants.lines.get
      * @return BaseResponse<array<string, mixed>>
      */
-    public function getLine(int $itemVariantHdrUid, int $itemVariantLineUid): BaseResponse
+    public function getLine(int $itemVariantHdrUid, int $itemVariantLineUid, ?EdgeCache $edgeCache = null): BaseResponse
     {
         $response = $this->client->get(
             $this->baseUrl,
             '/variants/{itemVariantHdrUid}/lines/{itemVariantLineUid}',
-            [],
+            $edgeCache !== null ? ['edgeCache' => $edgeCache->value] : [],
             [
                 'itemVariantHdrUid' => (string) $itemVariantHdrUid,
                 'itemVariantLineUid' => (string) $itemVariantLineUid,
@@ -265,12 +266,12 @@ final class VariantsResource
      * @fullPath api.items.variants.attributes.get
      * @return BaseResponse<array<string, mixed>>
      */
-    public function getAttribute(int $itemVariantHdrUid, int $attributeUid): BaseResponse
+    public function getAttribute(int $itemVariantHdrUid, int $attributeUid, ?EdgeCache $edgeCache = null): BaseResponse
     {
         $response = $this->client->get(
             $this->baseUrl,
             '/variants/{itemVariantHdrUid}/attributes/{attributeUid}',
-            [],
+            $edgeCache !== null ? ['edgeCache' => $edgeCache->value] : [],
             [
                 'itemVariantHdrUid' => (string) $itemVariantHdrUid,
                 'attributeUid' => (string) $attributeUid,

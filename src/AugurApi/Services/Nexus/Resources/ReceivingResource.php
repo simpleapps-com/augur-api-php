@@ -6,6 +6,7 @@ namespace AugurApi\Services\Nexus\Resources;
 
 use AugurApi\Core\BaseResponse;
 use AugurApi\Core\Client;
+use AugurApi\Core\Schemas\EdgeCache;
 
 /**
  * Receiving resource.
@@ -42,12 +43,12 @@ final class ReceivingResource
      * @fullPath api.nexus.receiving.get
      * @return BaseResponse<array<string, mixed>>
      */
-    public function get(int $receivingUid): BaseResponse
+    public function get(int $receivingUid, ?EdgeCache $edgeCache = null): BaseResponse
     {
         $response = $this->client->get(
             $this->baseUrl,
             '/receiving/{receivingUid}',
-            [],
+            $edgeCache !== null ? ['edgeCache' => $edgeCache->value] : [],
             ['receivingUid' => (string) $receivingUid],
         );
 

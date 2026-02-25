@@ -6,6 +6,7 @@ namespace AugurApi\Services\Items\Resources;
 
 use AugurApi\Core\BaseResponse;
 use AugurApi\Core\Client;
+use AugurApi\Core\Schemas\EdgeCache;
 
 /**
  * Item Favorites resource.
@@ -47,12 +48,12 @@ final class ItemFavoritesResource
      * @fullPath api.items.itemFavorites.get
      * @return BaseResponse<array<string, mixed>>
      */
-    public function get(int $usersId, int $invMastUid): BaseResponse
+    public function get(int $usersId, int $invMastUid, ?EdgeCache $edgeCache = null): BaseResponse
     {
         $response = $this->client->get(
             $this->baseUrl,
             '/item-favorites/{usersId}/items/{invMastUid}',
-            [],
+            $edgeCache !== null ? ['edgeCache' => $edgeCache->value] : [],
             ['usersId' => (string) $usersId, 'invMastUid' => (string) $invMastUid],
         );
 

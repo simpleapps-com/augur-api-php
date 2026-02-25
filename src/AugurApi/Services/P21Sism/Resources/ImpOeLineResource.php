@@ -6,6 +6,7 @@ namespace AugurApi\Services\P21Sism\Resources;
 
 use AugurApi\Core\BaseResponse;
 use AugurApi\Core\Client;
+use AugurApi\Core\Schemas\EdgeCache;
 
 /**
  * Import order entry line resource.
@@ -42,12 +43,12 @@ final class ImpOeLineResource
      * @fullPath api.p21Sism.impOeLine.get
      * @return BaseResponse<array<string, mixed>>
      */
-    public function get(int $importUid, int $lineNo): BaseResponse
+    public function get(int $importUid, int $lineNo, ?EdgeCache $edgeCache = null): BaseResponse
     {
         $response = $this->client->get(
             $this->baseUrl,
             '/imp_oe_line/{importUid}/{lineNo}',
-            [],
+            $edgeCache !== null ? ['edgeCache' => $edgeCache->value] : [],
             [
                 'importUid' => (string) $importUid,
                 'lineNo' => (string) $lineNo,

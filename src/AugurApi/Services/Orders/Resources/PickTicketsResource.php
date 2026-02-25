@@ -6,6 +6,7 @@ namespace AugurApi\Services\Orders\Resources;
 
 use AugurApi\Core\BaseResponse;
 use AugurApi\Core\Client;
+use AugurApi\Core\Schemas\EdgeCache;
 
 /**
  * Pick tickets resource.
@@ -42,12 +43,12 @@ final class PickTicketsResource
      * @fullPath api.orders.pickTickets.get
      * @return BaseResponse<array<string, mixed>>
      */
-    public function get(string $pickTicketNo): BaseResponse
+    public function get(string $pickTicketNo, ?EdgeCache $edgeCache = null): BaseResponse
     {
         $response = $this->client->get(
             $this->baseUrl,
             '/pick-tickets/{pickTicketNo}',
-            [],
+            $edgeCache !== null ? ['edgeCache' => $edgeCache->value] : [],
             ['pickTicketNo' => $pickTicketNo],
         );
 
@@ -79,12 +80,12 @@ final class PickTicketsResource
      * @fullPath api.orders.pickTickets.getLine
      * @return BaseResponse<array<string, mixed>>
      */
-    public function getLine(string $pickTicketNo, int $lineNumber): BaseResponse
+    public function getLine(string $pickTicketNo, int $lineNumber, ?EdgeCache $edgeCache = null): BaseResponse
     {
         $response = $this->client->get(
             $this->baseUrl,
             '/pick-tickets/{pickTicketNo}/lines/{lineNumber}',
-            [],
+            $edgeCache !== null ? ['edgeCache' => $edgeCache->value] : [],
             ['pickTicketNo' => $pickTicketNo, 'lineNumber' => (string) $lineNumber],
         );
 

@@ -6,6 +6,7 @@ namespace AugurApi\Services\Basecamp2\Resources;
 
 use AugurApi\Core\BaseResponse;
 use AugurApi\Core\Client;
+use AugurApi\Core\Schemas\EdgeCache;
 
 /**
  * Comments resource.
@@ -42,12 +43,12 @@ final class CommentsResource
      * @fullPath api.basecamp2.comments.get
      * @return BaseResponse<array<string, mixed>>
      */
-    public function get(int $id): BaseResponse
+    public function get(int $id, ?EdgeCache $edgeCache = null): BaseResponse
     {
         $response = $this->client->get(
             $this->baseUrl,
             '/comments/{id}',
-            [],
+            $edgeCache !== null ? ['edgeCache' => $edgeCache->value] : [],
             ['id' => (string) $id],
         );
 

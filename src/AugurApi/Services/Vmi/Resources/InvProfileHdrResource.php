@@ -6,6 +6,7 @@ namespace AugurApi\Services\Vmi\Resources;
 
 use AugurApi\Core\BaseResponse;
 use AugurApi\Core\Client;
+use AugurApi\Core\Schemas\EdgeCache;
 
 /**
  * InvProfileHdr resource.
@@ -42,12 +43,12 @@ final class InvProfileHdrResource
      * @fullPath api.vmi.invProfileHdr.get
      * @return BaseResponse<array<string, mixed>>
      */
-    public function get(int $invProfileHdrUid): BaseResponse
+    public function get(int $invProfileHdrUid, ?EdgeCache $edgeCache = null): BaseResponse
     {
         $response = $this->client->get(
             $this->baseUrl,
             '/inv-profile-hdr/{invProfileHdrUid}',
-            [],
+            $edgeCache !== null ? ['edgeCache' => $edgeCache->value] : [],
             ['invProfileHdrUid' => (string) $invProfileHdrUid],
         );
 
@@ -147,12 +148,12 @@ final class InvProfileHdrResource
      * @fullPath api.vmi.invProfileHdr.invProfileLine.get
      * @return BaseResponse<array<string, mixed>>
      */
-    public function getInvProfileLine(int $invProfileHdrUid, int $invProfileLineUid): BaseResponse
+    public function getInvProfileLine(int $invProfileHdrUid, int $invProfileLineUid, ?EdgeCache $edgeCache = null): BaseResponse
     {
         $response = $this->client->get(
             $this->baseUrl,
             '/inv-profile-hdr/{invProfileHdrUid}/inv-profile-line/{invProfileLineUid}',
-            [],
+            $edgeCache !== null ? ['edgeCache' => $edgeCache->value] : [],
             [
                 'invProfileHdrUid' => (string) $invProfileHdrUid,
                 'invProfileLineUid' => (string) $invProfileLineUid,

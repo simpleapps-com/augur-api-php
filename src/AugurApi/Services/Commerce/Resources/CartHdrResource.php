@@ -6,6 +6,7 @@ namespace AugurApi\Services\Commerce\Resources;
 
 use AugurApi\Core\BaseResponse;
 use AugurApi\Core\Client;
+use AugurApi\Core\Schemas\EdgeCache;
 
 /**
  * Cart header resource.
@@ -56,12 +57,12 @@ final class CartHdrResource
      * @fullPath api.commerce.cartHdr.getAlsoBought
      * @return BaseResponse<array<array<string, mixed>>>
      */
-    public function getAlsoBought(int $cartHdrUid): BaseResponse
+    public function getAlsoBought(int $cartHdrUid, ?EdgeCache $edgeCache = null): BaseResponse
     {
         $response = $this->client->get(
             $this->baseUrl,
             '/cart-hdr/{cartHdrUid}/also-bought',
-            [],
+            $edgeCache !== null ? ['edgeCache' => $edgeCache->value] : [],
             ['cartHdrUid' => (string) $cartHdrUid],
         );
 

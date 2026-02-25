@@ -6,6 +6,7 @@ namespace AugurApi\Services\P21Pim\Resources;
 
 use AugurApi\Core\BaseResponse;
 use AugurApi\Core\Client;
+use AugurApi\Core\Schemas\EdgeCache;
 
 /**
  * Podcasts resource.
@@ -42,12 +43,12 @@ final class PodcastsResource
      * @fullPath api.p21Pim.podcasts.get
      * @return BaseResponse<array<string, mixed>>
      */
-    public function get(int $podcastsUid): BaseResponse
+    public function get(int $podcastsUid, ?EdgeCache $edgeCache = null): BaseResponse
     {
         $response = $this->client->get(
             $this->baseUrl,
             '/podcasts/{podcastsUid}',
-            [],
+            $edgeCache !== null ? ['edgeCache' => $edgeCache->value] : [],
             ['podcastsUid' => (string) $podcastsUid],
         );
 

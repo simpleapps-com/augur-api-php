@@ -6,6 +6,7 @@ namespace AugurApi\Services\Legacy\Resources;
 
 use AugurApi\Core\BaseResponse;
 use AugurApi\Core\Client;
+use AugurApi\Core\Schemas\EdgeCache;
 
 /**
  * Item Category resource.
@@ -28,12 +29,12 @@ final class ItemCategoryResource
      * @fullPath api.legacy.itemCategory.get
      * @return BaseResponse<array<string, mixed>>
      */
-    public function get(int $itemCategoryUid): BaseResponse
+    public function get(int $itemCategoryUid, ?EdgeCache $edgeCache = null): BaseResponse
     {
         $response = $this->client->get(
             $this->baseUrl,
             '/item-category/{itemCategoryUid}',
-            [],
+            $edgeCache !== null ? ['edgeCache' => $edgeCache->value] : [],
             ['itemCategoryUid' => (string) $itemCategoryUid],
         );
 

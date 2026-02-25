@@ -6,6 +6,7 @@ namespace AugurApi\Services\Items\Resources;
 
 use AugurApi\Core\BaseResponse;
 use AugurApi\Core\Client;
+use AugurApi\Core\Schemas\EdgeCache;
 
 /**
  * Attribute Groups resource.
@@ -42,12 +43,12 @@ final class AttributeGroupsResource
      * @fullPath api.items.attributeGroups.get
      * @return BaseResponse<array<string, mixed>>
      */
-    public function get(int $attributeGroupUid): BaseResponse
+    public function get(int $attributeGroupUid, ?EdgeCache $edgeCache = null): BaseResponse
     {
         $response = $this->client->get(
             $this->baseUrl,
             '/attribute-groups/{attributeGroupUid}',
-            [],
+            $edgeCache !== null ? ['edgeCache' => $edgeCache->value] : [],
             ['attributeGroupUid' => (string) $attributeGroupUid],
         );
 
@@ -129,12 +130,12 @@ final class AttributeGroupsResource
      * @fullPath api.items.attributeGroups.attributes.get
      * @return BaseResponse<array<string, mixed>>
      */
-    public function getAttribute(int $attributeGroupUid, int $attributeXAttributeGroupUid): BaseResponse
+    public function getAttribute(int $attributeGroupUid, int $attributeXAttributeGroupUid, ?EdgeCache $edgeCache = null): BaseResponse
     {
         $response = $this->client->get(
             $this->baseUrl,
             '/attribute-groups/{attributeGroupUid}/attributes/{attributeXAttributeGroupUid}',
-            [],
+            $edgeCache !== null ? ['edgeCache' => $edgeCache->value] : [],
             [
                 'attributeGroupUid' => (string) $attributeGroupUid,
                 'attributeXAttributeGroupUid' => (string) $attributeXAttributeGroupUid,

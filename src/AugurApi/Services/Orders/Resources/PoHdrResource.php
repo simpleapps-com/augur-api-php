@@ -6,6 +6,7 @@ namespace AugurApi\Services\Orders\Resources;
 
 use AugurApi\Core\BaseResponse;
 use AugurApi\Core\Client;
+use AugurApi\Core\Schemas\EdgeCache;
 
 /**
  * Purchase order header resource.
@@ -42,12 +43,12 @@ final class PoHdrResource
      * @fullPath api.orders.poHdr.get
      * @return BaseResponse<array<string, mixed>>
      */
-    public function get(string $poNo): BaseResponse
+    public function get(string $poNo, ?EdgeCache $edgeCache = null): BaseResponse
     {
         $response = $this->client->get(
             $this->baseUrl,
             '/po-hdr/{poNo}',
-            [],
+            $edgeCache !== null ? ['edgeCache' => $edgeCache->value] : [],
             ['poNo' => $poNo],
         );
 
@@ -60,12 +61,12 @@ final class PoHdrResource
      * @fullPath api.orders.poHdr.getDoc
      * @return BaseResponse<array<string, mixed>>
      */
-    public function getDoc(string $poNo): BaseResponse
+    public function getDoc(string $poNo, ?EdgeCache $edgeCache = null): BaseResponse
     {
         $response = $this->client->get(
             $this->baseUrl,
             '/po-hdr/{poNo}/doc',
-            [],
+            $edgeCache !== null ? ['edgeCache' => $edgeCache->value] : [],
             ['poNo' => $poNo],
         );
 

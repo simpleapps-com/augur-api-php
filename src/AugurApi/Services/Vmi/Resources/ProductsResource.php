@@ -6,6 +6,7 @@ namespace AugurApi\Services\Vmi\Resources;
 
 use AugurApi\Core\BaseResponse;
 use AugurApi\Core\Client;
+use AugurApi\Core\Schemas\EdgeCache;
 
 /**
  * Products resource.
@@ -56,12 +57,12 @@ final class ProductsResource
      * @fullPath api.vmi.products.get
      * @return BaseResponse<array<string, mixed>>
      */
-    public function get(int $productsUid): BaseResponse
+    public function get(int $productsUid, ?EdgeCache $edgeCache = null): BaseResponse
     {
         $response = $this->client->get(
             $this->baseUrl,
             '/products/{productsUid}',
-            [],
+            $edgeCache !== null ? ['edgeCache' => $edgeCache->value] : [],
             ['productsUid' => (string) $productsUid],
         );
 

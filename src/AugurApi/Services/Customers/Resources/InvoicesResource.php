@@ -6,6 +6,7 @@ namespace AugurApi\Services\Customers\Resources;
 
 use AugurApi\Core\BaseResponse;
 use AugurApi\Core\Client;
+use AugurApi\Core\Schemas\EdgeCache;
 
 /**
  * Invoices resource.
@@ -47,12 +48,12 @@ final class InvoicesResource
      * @fullPath api.customers.invoices.get
      * @return BaseResponse<array<string, mixed>>
      */
-    public function get(string $customerId, string $invoiceNo): BaseResponse
+    public function get(string $customerId, string $invoiceNo, ?EdgeCache $edgeCache = null): BaseResponse
     {
         $response = $this->client->get(
             $this->baseUrl,
             '/customer/{customerId}/invoices/{invoiceNo}',
-            [],
+            $edgeCache !== null ? ['edgeCache' => $edgeCache->value] : [],
             ['customerId' => $customerId, 'invoiceNo' => $invoiceNo],
         );
 

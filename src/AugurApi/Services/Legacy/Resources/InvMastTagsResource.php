@@ -6,6 +6,7 @@ namespace AugurApi\Services\Legacy\Resources;
 
 use AugurApi\Core\BaseResponse;
 use AugurApi\Core\Client;
+use AugurApi\Core\Schemas\EdgeCache;
 
 /**
  * Inv Mast Tags resource.
@@ -47,12 +48,12 @@ final class InvMastTagsResource
      * @fullPath api.legacy.invMastTags.get
      * @return BaseResponse<array<string, mixed>>
      */
-    public function get(int $invMastUid, int $invMastTagsUid): BaseResponse
+    public function get(int $invMastUid, int $invMastTagsUid, ?EdgeCache $edgeCache = null): BaseResponse
     {
         $response = $this->client->get(
             $this->baseUrl,
             '/inv-mast/{invMastUid}/tags/{invMastTagsUid}',
-            [],
+            $edgeCache !== null ? ['edgeCache' => $edgeCache->value] : [],
             ['invMastUid' => (string) $invMastUid, 'invMastTagsUid' => (string) $invMastTagsUid],
         );
 

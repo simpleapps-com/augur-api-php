@@ -6,6 +6,7 @@ namespace AugurApi\Services\Customers\Resources;
 
 use AugurApi\Core\BaseResponse;
 use AugurApi\Core\Client;
+use AugurApi\Core\Schemas\EdgeCache;
 
 /**
  * Contacts resource.
@@ -28,12 +29,12 @@ final class ContactsResource
      * @fullPath api.customers.contacts.getCustomers
      * @return BaseResponse<array<array<string, mixed>>>
      */
-    public function getCustomers(int $id): BaseResponse
+    public function getCustomers(int $id, ?EdgeCache $edgeCache = null): BaseResponse
     {
         $response = $this->client->get(
             $this->baseUrl,
             '/contacts/{id}/customers',
-            [],
+            $edgeCache !== null ? ['edgeCache' => $edgeCache->value] : [],
             ['id' => (string) $id],
         );
 
@@ -46,12 +47,12 @@ final class ContactsResource
      * @fullPath api.customers.contacts.getDoc
      * @return BaseResponse<array<string, mixed>>
      */
-    public function getDoc(int $id): BaseResponse
+    public function getDoc(int $id, ?EdgeCache $edgeCache = null): BaseResponse
     {
         $response = $this->client->get(
             $this->baseUrl,
             '/contacts/{id}/doc',
-            [],
+            $edgeCache !== null ? ['edgeCache' => $edgeCache->value] : [],
             ['id' => (string) $id],
         );
 
@@ -64,12 +65,12 @@ final class ContactsResource
      * @fullPath api.customers.contacts.getWebAllowance
      * @return BaseResponse<array<string, mixed>>
      */
-    public function getWebAllowance(int $id): BaseResponse
+    public function getWebAllowance(int $id, ?EdgeCache $edgeCache = null): BaseResponse
     {
         $response = $this->client->get(
             $this->baseUrl,
             '/contacts/{id}/web-allowance',
-            [],
+            $edgeCache !== null ? ['edgeCache' => $edgeCache->value] : [],
             ['id' => (string) $id],
         );
 

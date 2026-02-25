@@ -6,6 +6,7 @@ namespace AugurApi\Services\OpenSearch\Resources;
 
 use AugurApi\Core\BaseResponse;
 use AugurApi\Core\Client;
+use AugurApi\Core\Schemas\EdgeCache;
 
 /**
  * Items resource for OpenSearch.
@@ -42,12 +43,12 @@ final class ItemsResource
      * @fullPath api.openSearch.items.get
      * @return BaseResponse<array<string, mixed>>
      */
-    public function get(int $invMastUid): BaseResponse
+    public function get(int $invMastUid, ?EdgeCache $edgeCache = null): BaseResponse
     {
         $response = $this->client->get(
             $this->baseUrl,
             '/items/{invMastUid}',
-            [],
+            $edgeCache !== null ? ['edgeCache' => $edgeCache->value] : [],
             ['invMastUid' => (string) $invMastUid],
         );
 
@@ -79,12 +80,12 @@ final class ItemsResource
      * @fullPath api.openSearch.items.refreshItem
      * @return BaseResponse<array<string, mixed>>
      */
-    public function refreshItem(int $invMastUid): BaseResponse
+    public function refreshItem(int $invMastUid, ?EdgeCache $edgeCache = null): BaseResponse
     {
         $response = $this->client->get(
             $this->baseUrl,
             '/items/{invMastUid}/refresh',
-            [],
+            $edgeCache !== null ? ['edgeCache' => $edgeCache->value] : [],
             ['invMastUid' => (string) $invMastUid],
         );
 

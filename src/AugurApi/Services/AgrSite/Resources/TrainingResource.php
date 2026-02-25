@@ -6,6 +6,7 @@ namespace AugurApi\Services\AgrSite\Resources;
 
 use AugurApi\Core\BaseResponse;
 use AugurApi\Core\Client;
+use AugurApi\Core\Schemas\EdgeCache;
 
 /**
  * Training resource.
@@ -42,12 +43,12 @@ final class TrainingResource
      * @fullPath api.agrSite.training.get
      * @return BaseResponse<array<string, mixed>>
      */
-    public function get(int $trainingSetUid): BaseResponse
+    public function get(int $trainingSetUid, ?EdgeCache $edgeCache = null): BaseResponse
     {
         $response = $this->client->get(
             $this->baseUrl,
             '/training/{trainingSetUid}',
-            [],
+            $edgeCache !== null ? ['edgeCache' => $edgeCache->value] : [],
             ['trainingSetUid' => (string) $trainingSetUid],
         );
 
@@ -148,12 +149,12 @@ final class TrainingResource
      * @fullPath api.agrSite.training.getConversation
      * @return BaseResponse<array<string, mixed>>
      */
-    public function getConversation(int $trainingSetUid, int $trainingConvUid): BaseResponse
+    public function getConversation(int $trainingSetUid, int $trainingConvUid, ?EdgeCache $edgeCache = null): BaseResponse
     {
         $response = $this->client->get(
             $this->baseUrl,
             '/training/{trainingSetUid}/conversations/{trainingConvUid}',
-            [],
+            $edgeCache !== null ? ['edgeCache' => $edgeCache->value] : [],
             [
                 'trainingSetUid' => (string) $trainingSetUid,
                 'trainingConvUid' => (string) $trainingConvUid,
@@ -233,12 +234,12 @@ final class TrainingResource
      * @fullPath api.agrSite.training.getMessage
      * @return BaseResponse<array<string, mixed>>
      */
-    public function getMessage(int $trainingSetUid, int $trainingConvUid, int $trainingMsgUid): BaseResponse
+    public function getMessage(int $trainingSetUid, int $trainingConvUid, int $trainingMsgUid, ?EdgeCache $edgeCache = null): BaseResponse
     {
         $response = $this->client->get(
             $this->baseUrl,
             '/training/{trainingSetUid}/conversations/{trainingConvUid}/messages/{trainingMsgUid}',
-            [],
+            $edgeCache !== null ? ['edgeCache' => $edgeCache->value] : [],
             [
                 'trainingSetUid' => (string) $trainingSetUid,
                 'trainingConvUid' => (string) $trainingConvUid,

@@ -6,6 +6,7 @@ namespace AugurApi\Services\Items\Resources;
 
 use AugurApi\Core\BaseResponse;
 use AugurApi\Core\Client;
+use AugurApi\Core\Schemas\EdgeCache;
 
 /**
  * Attributes resource.
@@ -42,12 +43,12 @@ final class AttributesResource
      * @fullPath api.items.attributes.get
      * @return BaseResponse<array<string, mixed>>
      */
-    public function get(int $attributeUid): BaseResponse
+    public function get(int $attributeUid, ?EdgeCache $edgeCache = null): BaseResponse
     {
         $response = $this->client->get(
             $this->baseUrl,
             '/attributes/{attributeUid}',
-            [],
+            $edgeCache !== null ? ['edgeCache' => $edgeCache->value] : [],
             ['attributeUid' => (string) $attributeUid],
         );
 
@@ -129,12 +130,12 @@ final class AttributesResource
      * @fullPath api.items.attributes.values.get
      * @return BaseResponse<array<string, mixed>>
      */
-    public function getValue(int $attributeUid, int $attributeValueUid): BaseResponse
+    public function getValue(int $attributeUid, int $attributeValueUid, ?EdgeCache $edgeCache = null): BaseResponse
     {
         $response = $this->client->get(
             $this->baseUrl,
             '/attributes/{attributeUid}/values/{attributeValueUid}',
-            [],
+            $edgeCache !== null ? ['edgeCache' => $edgeCache->value] : [],
             ['attributeUid' => (string) $attributeUid, 'attributeValueUid' => (string) $attributeValueUid],
         );
 

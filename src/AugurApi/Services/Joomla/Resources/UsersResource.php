@@ -6,6 +6,7 @@ namespace AugurApi\Services\Joomla\Resources;
 
 use AugurApi\Core\BaseResponse;
 use AugurApi\Core\Client;
+use AugurApi\Core\Schemas\EdgeCache;
 
 /**
  * Users resource.
@@ -42,12 +43,12 @@ final class UsersResource
      * @fullPath api.joomla.users.get
      * @return BaseResponse<array<string, mixed>>
      */
-    public function get(int $id): BaseResponse
+    public function get(int $id, ?EdgeCache $edgeCache = null): BaseResponse
     {
         $response = $this->client->get(
             $this->baseUrl,
             '/users/{id}',
-            [],
+            $edgeCache !== null ? ['edgeCache' => $edgeCache->value] : [],
             ['id' => (string) $id],
         );
 
@@ -60,12 +61,12 @@ final class UsersResource
      * @fullPath api.joomla.users.getDoc
      * @return BaseResponse<array<string, mixed>>
      */
-    public function getDoc(int $id): BaseResponse
+    public function getDoc(int $id, ?EdgeCache $edgeCache = null): BaseResponse
     {
         $response = $this->client->get(
             $this->baseUrl,
             '/users/{id}/doc',
-            [],
+            $edgeCache !== null ? ['edgeCache' => $edgeCache->value] : [],
             ['id' => (string) $id],
         );
 
@@ -78,12 +79,12 @@ final class UsersResource
      * @fullPath api.joomla.users.getTrinity
      * @return BaseResponse<array<string, mixed>>
      */
-    public function getTrinity(int $id): BaseResponse
+    public function getTrinity(int $id, ?EdgeCache $edgeCache = null): BaseResponse
     {
         $response = $this->client->get(
             $this->baseUrl,
             '/users/{id}/trinity',
-            [],
+            $edgeCache !== null ? ['edgeCache' => $edgeCache->value] : [],
             ['id' => (string) $id],
         );
 
@@ -160,12 +161,12 @@ final class UsersResource
      * @fullPath api.joomla.users.getGroups
      * @return BaseResponse<array<array<string, mixed>>>
      */
-    public function getGroups(int $id): BaseResponse
+    public function getGroups(int $id, ?EdgeCache $edgeCache = null): BaseResponse
     {
         $response = $this->client->get(
             $this->baseUrl,
             '/users/{id}/groups',
-            [],
+            $edgeCache !== null ? ['edgeCache' => $edgeCache->value] : [],
             ['id' => (string) $id],
         );
 
@@ -178,12 +179,12 @@ final class UsersResource
      * @fullPath api.joomla.users.getGroup
      * @return BaseResponse<array<string, mixed>>
      */
-    public function getGroup(int $id, int $groupId): BaseResponse
+    public function getGroup(int $id, int $groupId, ?EdgeCache $edgeCache = null): BaseResponse
     {
         $response = $this->client->get(
             $this->baseUrl,
             '/users/{id}/groups/{groupId}',
-            [],
+            $edgeCache !== null ? ['edgeCache' => $edgeCache->value] : [],
             ['id' => (string) $id, 'groupId' => (string) $groupId],
         );
 

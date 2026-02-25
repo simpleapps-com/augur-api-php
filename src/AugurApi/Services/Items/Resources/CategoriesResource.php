@@ -6,6 +6,7 @@ namespace AugurApi\Services\Items\Resources;
 
 use AugurApi\Core\BaseResponse;
 use AugurApi\Core\Client;
+use AugurApi\Core\Schemas\EdgeCache;
 
 /**
  * Categories resource.
@@ -42,12 +43,12 @@ final class CategoriesResource
      * @fullPath api.items.categories.get
      * @return BaseResponse<array<string, mixed>>
      */
-    public function get(int $itemCategoryUid): BaseResponse
+    public function get(int $itemCategoryUid, ?EdgeCache $edgeCache = null): BaseResponse
     {
         $response = $this->client->get(
             $this->baseUrl,
             '/categories/{itemCategoryUid}',
-            [],
+            $edgeCache !== null ? ['edgeCache' => $edgeCache->value] : [],
             ['itemCategoryUid' => (string) $itemCategoryUid],
         );
 
@@ -60,12 +61,12 @@ final class CategoriesResource
      * @fullPath api.items.categories.attributes.list
      * @return BaseResponse<array{attributes: array<array<string, mixed>>}>
      */
-    public function listAttributes(int $itemCategoryUid): BaseResponse
+    public function listAttributes(int $itemCategoryUid, ?EdgeCache $edgeCache = null): BaseResponse
     {
         $response = $this->client->get(
             $this->baseUrl,
             '/categories/{itemCategoryUid}/attributes',
-            [],
+            $edgeCache !== null ? ['edgeCache' => $edgeCache->value] : [],
             ['itemCategoryUid' => (string) $itemCategoryUid],
         );
 
@@ -78,12 +79,12 @@ final class CategoriesResource
      * @fullPath api.items.categories.images.list
      * @return BaseResponse<array<array<string, mixed>>>
      */
-    public function listImages(int $itemCategoryUid): BaseResponse
+    public function listImages(int $itemCategoryUid, ?EdgeCache $edgeCache = null): BaseResponse
     {
         $response = $this->client->get(
             $this->baseUrl,
             '/categories/{itemCategoryUid}/images',
-            [],
+            $edgeCache !== null ? ['edgeCache' => $edgeCache->value] : [],
             ['itemCategoryUid' => (string) $itemCategoryUid],
         );
 

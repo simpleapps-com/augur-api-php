@@ -6,6 +6,7 @@ namespace AugurApi\Services\P21Apis\Resources;
 
 use AugurApi\Core\BaseResponse;
 use AugurApi\Core\Client;
+use AugurApi\Core\Schemas\EdgeCache;
 
 /**
  * Transaction purchase order receipt resource.
@@ -28,12 +29,12 @@ final class TransPurchaseOrderReceiptResource
      * @fullPath api.p21Apis.transPurchaseOrderReceipt.get
      * @return BaseResponse<array<string, mixed>>
      */
-    public function get(string $poNo): BaseResponse
+    public function get(string $poNo, ?EdgeCache $edgeCache = null): BaseResponse
     {
         $response = $this->client->get(
             $this->baseUrl,
             '/trans-purchase-order-receipt/{poNo}',
-            [],
+            $edgeCache !== null ? ['edgeCache' => $edgeCache->value] : [],
             ['poNo' => $poNo],
         );
 

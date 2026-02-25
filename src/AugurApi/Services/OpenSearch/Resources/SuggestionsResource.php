@@ -6,6 +6,7 @@ namespace AugurApi\Services\OpenSearch\Resources;
 
 use AugurApi\Core\BaseResponse;
 use AugurApi\Core\Client;
+use AugurApi\Core\Schemas\EdgeCache;
 
 /**
  * Suggestions resource.
@@ -42,12 +43,12 @@ final class SuggestionsResource
      * @fullPath api.openSearch.suggestions.get
      * @return BaseResponse<array<string, mixed>>
      */
-    public function get(int $suggestionsUid): BaseResponse
+    public function get(int $suggestionsUid, ?EdgeCache $edgeCache = null): BaseResponse
     {
         $response = $this->client->get(
             $this->baseUrl,
             '/suggestions/{suggestionsUid}',
-            [],
+            $edgeCache !== null ? ['edgeCache' => $edgeCache->value] : [],
             ['suggestionsUid' => (string) $suggestionsUid],
         );
 

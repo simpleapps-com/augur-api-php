@@ -6,6 +6,7 @@ namespace AugurApi\Services\Nexus\Resources;
 
 use AugurApi\Core\BaseResponse;
 use AugurApi\Core\Client;
+use AugurApi\Core\Schemas\EdgeCache;
 
 /**
  * Bin transfer resource.
@@ -42,12 +43,12 @@ final class BinTransferResource
      * @fullPath api.nexus.binTransfer.get
      * @return BaseResponse<array<string, mixed>>
      */
-    public function get(int $binTransferHdrUid): BaseResponse
+    public function get(int $binTransferHdrUid, ?EdgeCache $edgeCache = null): BaseResponse
     {
         $response = $this->client->get(
             $this->baseUrl,
             '/bin-transfer/{binTransferHdrUid}',
-            [],
+            $edgeCache !== null ? ['edgeCache' => $edgeCache->value] : [],
             ['binTransferHdrUid' => (string) $binTransferHdrUid],
         );
 
@@ -60,12 +61,12 @@ final class BinTransferResource
      * @fullPath api.nexus.binTransfer.getStatus
      * @return BaseResponse<array<string, mixed>>
      */
-    public function getStatus(int $binTransferHdrUid): BaseResponse
+    public function getStatus(int $binTransferHdrUid, ?EdgeCache $edgeCache = null): BaseResponse
     {
         $response = $this->client->get(
             $this->baseUrl,
             '/bin-transfer/{binTransferHdrUid}/status',
-            [],
+            $edgeCache !== null ? ['edgeCache' => $edgeCache->value] : [],
             ['binTransferHdrUid' => (string) $binTransferHdrUid],
         );
 

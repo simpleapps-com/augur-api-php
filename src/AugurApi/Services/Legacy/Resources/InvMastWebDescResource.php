@@ -6,6 +6,7 @@ namespace AugurApi\Services\Legacy\Resources;
 
 use AugurApi\Core\BaseResponse;
 use AugurApi\Core\Client;
+use AugurApi\Core\Schemas\EdgeCache;
 
 /**
  * Inv Mast Web Desc resource.
@@ -47,12 +48,12 @@ final class InvMastWebDescResource
      * @fullPath api.legacy.invMastWebDesc.get
      * @return BaseResponse<array<string, mixed>>
      */
-    public function get(int $invMastUid, int $invMastWebDescUid): BaseResponse
+    public function get(int $invMastUid, int $invMastWebDescUid, ?EdgeCache $edgeCache = null): BaseResponse
     {
         $response = $this->client->get(
             $this->baseUrl,
             '/inv-mast/{invMastUid}/web-desc/{invMastWebDescUid}',
-            [],
+            $edgeCache !== null ? ['edgeCache' => $edgeCache->value] : [],
             ['invMastUid' => (string) $invMastUid, 'invMastWebDescUid' => (string) $invMastWebDescUid],
         );
 

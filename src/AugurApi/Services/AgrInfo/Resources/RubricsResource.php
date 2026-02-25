@@ -6,6 +6,7 @@ namespace AugurApi\Services\AgrInfo\Resources;
 
 use AugurApi\Core\BaseResponse;
 use AugurApi\Core\Client;
+use AugurApi\Core\Schemas\EdgeCache;
 
 /**
  * Rubrics resource.
@@ -42,12 +43,12 @@ final class RubricsResource
      * @fullPath api.agrInfo.rubrics.get
      * @return BaseResponse<array<string, mixed>>
      */
-    public function get(int $rubricsUid): BaseResponse
+    public function get(int $rubricsUid, ?EdgeCache $edgeCache = null): BaseResponse
     {
         $response = $this->client->get(
             $this->baseUrl,
             '/rubrics/{rubricsUid}',
-            [],
+            $edgeCache !== null ? ['edgeCache' => $edgeCache->value] : [],
             ['rubricsUid' => (string) $rubricsUid],
         );
 

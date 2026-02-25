@@ -6,6 +6,7 @@ namespace AugurApi\Services\Joomla\Resources;
 
 use AugurApi\Core\BaseResponse;
 use AugurApi\Core\Client;
+use AugurApi\Core\Schemas\EdgeCache;
 
 /**
  * Content resource.
@@ -42,12 +43,12 @@ final class ContentResource
      * @fullPath api.joomla.content.get
      * @return BaseResponse<array<string, mixed>>
      */
-    public function get(int $id): BaseResponse
+    public function get(int $id, ?EdgeCache $edgeCache = null): BaseResponse
     {
         $response = $this->client->get(
             $this->baseUrl,
             '/content/{id}',
-            [],
+            $edgeCache !== null ? ['edgeCache' => $edgeCache->value] : [],
             ['id' => (string) $id],
         );
 
@@ -60,12 +61,12 @@ final class ContentResource
      * @fullPath api.joomla.content.getDoc
      * @return BaseResponse<array<string, mixed>>
      */
-    public function getDoc(int $id): BaseResponse
+    public function getDoc(int $id, ?EdgeCache $edgeCache = null): BaseResponse
     {
         $response = $this->client->get(
             $this->baseUrl,
             '/content/{id}/doc',
-            [],
+            $edgeCache !== null ? ['edgeCache' => $edgeCache->value] : [],
             ['id' => (string) $id],
         );
 

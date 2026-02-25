@@ -6,6 +6,7 @@ namespace AugurApi\Services\Commerce\Resources;
 
 use AugurApi\Core\BaseResponse;
 use AugurApi\Core\Client;
+use AugurApi\Core\Schemas\EdgeCache;
 
 /**
  * Cart line resource.
@@ -28,12 +29,12 @@ final class CartLineResource
      * @fullPath api.commerce.cartLine.get
      * @return BaseResponse<array<array<string, mixed>>>
      */
-    public function get(int $cartHdrUid): BaseResponse
+    public function get(int $cartHdrUid, ?EdgeCache $edgeCache = null): BaseResponse
     {
         $response = $this->client->get(
             $this->baseUrl,
             '/cart-line/{cartHdrUid}',
-            [],
+            $edgeCache !== null ? ['edgeCache' => $edgeCache->value] : [],
             ['cartHdrUid' => (string) $cartHdrUid],
         );
 

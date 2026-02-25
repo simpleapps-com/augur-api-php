@@ -6,6 +6,7 @@ namespace AugurApi\Services\Items\Resources;
 
 use AugurApi\Core\BaseResponse;
 use AugurApi\Core\Client;
+use AugurApi\Core\Schemas\EdgeCache;
 
 /**
  * Contracts resource.
@@ -28,12 +29,12 @@ final class ContractsResource
      * @fullPath api.items.contracts.attributes.list
      * @return BaseResponse<array<array<string, mixed>>>
      */
-    public function listAttributes(int $jobNo): BaseResponse
+    public function listAttributes(int $jobNo, ?EdgeCache $edgeCache = null): BaseResponse
     {
         $response = $this->client->get(
             $this->baseUrl,
             '/contracts/{jobNo}/attributes',
-            [],
+            $edgeCache !== null ? ['edgeCache' => $edgeCache->value] : [],
             ['jobNo' => (string) $jobNo],
         );
 

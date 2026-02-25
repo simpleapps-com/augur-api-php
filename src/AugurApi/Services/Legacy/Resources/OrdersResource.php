@@ -6,6 +6,7 @@ namespace AugurApi\Services\Legacy\Resources;
 
 use AugurApi\Core\BaseResponse;
 use AugurApi\Core\Client;
+use AugurApi\Core\Schemas\EdgeCache;
 
 /**
  * Orders resource.
@@ -28,12 +29,12 @@ final class OrdersResource
      * @fullPath api.legacy.orders.reset
      * @return BaseResponse<array<string, mixed>>
      */
-    public function reset(int $id): BaseResponse
+    public function reset(int $id, ?EdgeCache $edgeCache = null): BaseResponse
     {
         $response = $this->client->get(
             $this->baseUrl,
             '/orders/{id}/reset',
-            [],
+            $edgeCache !== null ? ['edgeCache' => $edgeCache->value] : [],
             ['id' => (string) $id],
         );
 

@@ -6,6 +6,7 @@ namespace AugurApi\Services\P21Core\Resources;
 
 use AugurApi\Core\BaseResponse;
 use AugurApi\Core\Client;
+use AugurApi\Core\Schemas\EdgeCache;
 
 /**
  * Address resource.
@@ -42,12 +43,12 @@ final class AddressResource
      * @fullPath api.p21Core.address.get
      * @return BaseResponse<array<string, mixed>>
      */
-    public function get(int $id): BaseResponse
+    public function get(int $id, ?EdgeCache $edgeCache = null): BaseResponse
     {
         $response = $this->client->get(
             $this->baseUrl,
             '/address/{id}',
-            [],
+            $edgeCache !== null ? ['edgeCache' => $edgeCache->value] : [],
             ['id' => (string) $id],
         );
 
@@ -79,12 +80,12 @@ final class AddressResource
      * @fullPath api.p21Core.address.default.get
      * @return BaseResponse<array<string, mixed>>
      */
-    public function getDefault(int $id): BaseResponse
+    public function getDefault(int $id, ?EdgeCache $edgeCache = null): BaseResponse
     {
         $response = $this->client->get(
             $this->baseUrl,
             '/address/{id}/default',
-            [],
+            $edgeCache !== null ? ['edgeCache' => $edgeCache->value] : [],
             ['id' => (string) $id],
         );
 

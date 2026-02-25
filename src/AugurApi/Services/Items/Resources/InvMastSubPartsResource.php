@@ -6,6 +6,7 @@ namespace AugurApi\Services\Items\Resources;
 
 use AugurApi\Core\BaseResponse;
 use AugurApi\Core\Client;
+use AugurApi\Core\Schemas\EdgeCache;
 
 /**
  * Inv Mast Sub Parts resource.
@@ -28,12 +29,12 @@ final class InvMastSubPartsResource
      * @fullPath api.items.invMastSubParts.list
      * @return BaseResponse<array<array<string, mixed>>>
      */
-    public function list(int $invMastUid): BaseResponse
+    public function list(int $invMastUid, ?EdgeCache $edgeCache = null): BaseResponse
     {
         $response = $this->client->get(
             $this->baseUrl,
             '/inv-mast-sub-parts/{invMastUid}',
-            [],
+            $edgeCache !== null ? ['edgeCache' => $edgeCache->value] : [],
             ['invMastUid' => (string) $invMastUid],
         );
 

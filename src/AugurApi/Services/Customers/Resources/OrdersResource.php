@@ -6,6 +6,7 @@ namespace AugurApi\Services\Customers\Resources;
 
 use AugurApi\Core\BaseResponse;
 use AugurApi\Core\Client;
+use AugurApi\Core\Schemas\EdgeCache;
 
 /**
  * Orders resource.
@@ -47,12 +48,12 @@ final class OrdersResource
      * @fullPath api.customers.orders.get
      * @return BaseResponse<array<string, mixed>>
      */
-    public function get(string $customerId, string $orderNo): BaseResponse
+    public function get(string $customerId, string $orderNo, ?EdgeCache $edgeCache = null): BaseResponse
     {
         $response = $this->client->get(
             $this->baseUrl,
             '/customer/{customerId}/orders/{orderNo}',
-            [],
+            $edgeCache !== null ? ['edgeCache' => $edgeCache->value] : [],
             ['customerId' => $customerId, 'orderNo' => $orderNo],
         );
 

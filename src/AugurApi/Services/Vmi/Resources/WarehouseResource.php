@@ -6,6 +6,7 @@ namespace AugurApi\Services\Vmi\Resources;
 
 use AugurApi\Core\BaseResponse;
 use AugurApi\Core\Client;
+use AugurApi\Core\Schemas\EdgeCache;
 
 /**
  * Warehouse resource.
@@ -42,12 +43,12 @@ final class WarehouseResource
      * @fullPath api.vmi.warehouse.get
      * @return BaseResponse<array<string, mixed>>
      */
-    public function get(int $warehouseUid): BaseResponse
+    public function get(int $warehouseUid, ?EdgeCache $edgeCache = null): BaseResponse
     {
         $response = $this->client->get(
             $this->baseUrl,
             '/warehouse/{warehouseUid}',
-            [],
+            $edgeCache !== null ? ['edgeCache' => $edgeCache->value] : [],
             ['warehouseUid' => (string) $warehouseUid],
         );
 
@@ -281,12 +282,12 @@ final class WarehouseResource
      * @fullPath api.vmi.warehouse.getUser
      * @return BaseResponse<array<string, mixed>>
      */
-    public function getUser(int $warehouseUid, int $usersId): BaseResponse
+    public function getUser(int $warehouseUid, int $usersId, ?EdgeCache $edgeCache = null): BaseResponse
     {
         $response = $this->client->get(
             $this->baseUrl,
             '/warehouse/{warehouseUid}/users/{usersId}',
-            [],
+            $edgeCache !== null ? ['edgeCache' => $edgeCache->value] : [],
             ['warehouseUid' => (string) $warehouseUid, 'usersId' => (string) $usersId],
         );
 

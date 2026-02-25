@@ -6,6 +6,7 @@ namespace AugurApi\Services\Items\Resources;
 
 use AugurApi\Core\BaseResponse;
 use AugurApi\Core\Client;
+use AugurApi\Core\Schemas\EdgeCache;
 use AugurApi\Services\Items\Schemas\Brand;
 use AugurApi\Services\Items\Schemas\BrandsListParams;
 
@@ -55,12 +56,12 @@ final class BrandsResource
      * @fullPath api.items.brands.get
      * @return BaseResponse<Brand>
      */
-    public function get(int $brandsUid): BaseResponse
+    public function get(int $brandsUid, ?EdgeCache $edgeCache = null): BaseResponse
     {
         $response = $this->client->get(
             $this->baseUrl,
             '/brands/{brandsUid}',
-            [],
+            $edgeCache !== null ? ['edgeCache' => $edgeCache->value] : [],
             ['brandsUid' => (string) $brandsUid],
         );
 
@@ -132,12 +133,12 @@ final class BrandsResource
      * @fullPath api.items.brands.getAttributes
      * @return BaseResponse<array<array<string, mixed>>>
      */
-    public function getAttributes(int $brandsUid): BaseResponse
+    public function getAttributes(int $brandsUid, ?EdgeCache $edgeCache = null): BaseResponse
     {
         $response = $this->client->get(
             $this->baseUrl,
             '/brands/{brandsUid}/attributes',
-            [],
+            $edgeCache !== null ? ['edgeCache' => $edgeCache->value] : [],
             ['brandsUid' => (string) $brandsUid],
         );
 

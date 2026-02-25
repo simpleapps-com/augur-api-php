@@ -6,6 +6,7 @@ namespace AugurApi\Services\Pricing\Resources;
 
 use AugurApi\Core\BaseResponse;
 use AugurApi\Core\Client;
+use AugurApi\Core\Schemas\EdgeCache;
 
 /**
  * Job price header resource.
@@ -42,12 +43,12 @@ final class JobPriceHdrResource
      * @fullPath api.pricing.jobPriceHdr.get
      * @return BaseResponse<array<string, mixed>>
      */
-    public function get(int $jobPriceHdrUid): BaseResponse
+    public function get(int $jobPriceHdrUid, ?EdgeCache $edgeCache = null): BaseResponse
     {
         $response = $this->client->get(
             $this->baseUrl,
             '/job-price-hdr/{jobPriceHdrUid}',
-            [],
+            $edgeCache !== null ? ['edgeCache' => $edgeCache->value] : [],
             ['jobPriceHdrUid' => (string) $jobPriceHdrUid],
         );
 
@@ -79,12 +80,12 @@ final class JobPriceHdrResource
      * @fullPath api.pricing.jobPriceHdr.getLine
      * @return BaseResponse<array<string, mixed>>
      */
-    public function getLine(int $jobPriceHdrUid, int $jobPriceLineUid): BaseResponse
+    public function getLine(int $jobPriceHdrUid, int $jobPriceLineUid, ?EdgeCache $edgeCache = null): BaseResponse
     {
         $response = $this->client->get(
             $this->baseUrl,
             '/job-price-hdr/{jobPriceHdrUid}/lines/{jobPriceLineUid}',
-            [],
+            $edgeCache !== null ? ['edgeCache' => $edgeCache->value] : [],
             [
                 'jobPriceHdrUid' => (string) $jobPriceHdrUid,
                 'jobPriceLineUid' => (string) $jobPriceLineUid,

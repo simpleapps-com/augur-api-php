@@ -6,6 +6,7 @@ namespace AugurApi\Services\Orders\Resources;
 
 use AugurApi\Core\BaseResponse;
 use AugurApi\Core\Client;
+use AugurApi\Core\Schemas\EdgeCache;
 
 /**
  * Invoice header resource.
@@ -28,12 +29,12 @@ final class InvoiceHdrResource
      * @fullPath api.orders.invoiceHdr.reprint
      * @return BaseResponse<array<string, mixed>>
      */
-    public function reprint(string $invoiceNo): BaseResponse
+    public function reprint(string $invoiceNo, ?EdgeCache $edgeCache = null): BaseResponse
     {
         $response = $this->client->get(
             $this->baseUrl,
             '/invoice-hdr/{invoiceNo}/reprint',
-            [],
+            $edgeCache !== null ? ['edgeCache' => $edgeCache->value] : [],
             ['invoiceNo' => $invoiceNo],
         );
 

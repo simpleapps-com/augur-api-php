@@ -6,6 +6,7 @@ namespace AugurApi\Services\Vmi\Resources;
 
 use AugurApi\Core\BaseResponse;
 use AugurApi\Core\Client;
+use AugurApi\Core\Schemas\EdgeCache;
 
 /**
  * Sections resource.
@@ -42,12 +43,12 @@ final class SectionsResource
      * @fullPath api.vmi.sections.get
      * @return BaseResponse<array<string, mixed>>
      */
-    public function get(int $sectionsUid): BaseResponse
+    public function get(int $sectionsUid, ?EdgeCache $edgeCache = null): BaseResponse
     {
         $response = $this->client->get(
             $this->baseUrl,
             '/sections/{sectionsUid}',
-            [],
+            $edgeCache !== null ? ['edgeCache' => $edgeCache->value] : [],
             ['sectionsUid' => (string) $sectionsUid],
         );
 

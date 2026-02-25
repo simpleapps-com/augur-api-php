@@ -6,6 +6,7 @@ namespace AugurApi\Services\P21Core\Resources;
 
 use AugurApi\Core\BaseResponse;
 use AugurApi\Core\Client;
+use AugurApi\Core\Schemas\EdgeCache;
 
 /**
  * Location resource.
@@ -42,12 +43,12 @@ final class LocationResource
      * @fullPath api.p21Core.location.get
      * @return BaseResponse<array<string, mixed>>
      */
-    public function get(int $locationId): BaseResponse
+    public function get(int $locationId, ?EdgeCache $edgeCache = null): BaseResponse
     {
         $response = $this->client->get(
             $this->baseUrl,
             '/location/{locationId}',
-            [],
+            $edgeCache !== null ? ['edgeCache' => $edgeCache->value] : [],
             ['locationId' => (string) $locationId],
         );
 

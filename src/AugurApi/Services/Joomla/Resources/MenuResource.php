@@ -6,6 +6,7 @@ namespace AugurApi\Services\Joomla\Resources;
 
 use AugurApi\Core\BaseResponse;
 use AugurApi\Core\Client;
+use AugurApi\Core\Schemas\EdgeCache;
 
 /**
  * Menu resource.
@@ -28,12 +29,12 @@ final class MenuResource
      * @fullPath api.joomla.menu.getDoc
      * @return BaseResponse<array<string, mixed>>
      */
-    public function getDoc(int $id): BaseResponse
+    public function getDoc(int $id, ?EdgeCache $edgeCache = null): BaseResponse
     {
         $response = $this->client->get(
             $this->baseUrl,
             '/menu/{id}/doc',
-            [],
+            $edgeCache !== null ? ['edgeCache' => $edgeCache->value] : [],
             ['id' => (string) $id],
         );
 

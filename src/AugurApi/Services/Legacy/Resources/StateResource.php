@@ -6,6 +6,7 @@ namespace AugurApi\Services\Legacy\Resources;
 
 use AugurApi\Core\BaseResponse;
 use AugurApi\Core\Client;
+use AugurApi\Core\Schemas\EdgeCache;
 
 /**
  * State resource.
@@ -42,12 +43,12 @@ final class StateResource
      * @fullPath api.legacy.state.get
      * @return BaseResponse<array<string, mixed>>
      */
-    public function get(int $stateUid): BaseResponse
+    public function get(int $stateUid, ?EdgeCache $edgeCache = null): BaseResponse
     {
         $response = $this->client->get(
             $this->baseUrl,
             '/legacy/state/{stateUid}',
-            [],
+            $edgeCache !== null ? ['edgeCache' => $edgeCache->value] : [],
             ['stateUid' => (string) $stateUid],
         );
 

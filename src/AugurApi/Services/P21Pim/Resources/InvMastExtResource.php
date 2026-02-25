@@ -6,6 +6,7 @@ namespace AugurApi\Services\P21Pim\Resources;
 
 use AugurApi\Core\BaseResponse;
 use AugurApi\Core\Client;
+use AugurApi\Core\Schemas\EdgeCache;
 
 /**
  * Inventory master extension resource.
@@ -42,12 +43,12 @@ final class InvMastExtResource
      * @fullPath api.p21Pim.invMastExt.get
      * @return BaseResponse<array<string, mixed>>
      */
-    public function get(int $invMastExtUid): BaseResponse
+    public function get(int $invMastExtUid, ?EdgeCache $edgeCache = null): BaseResponse
     {
         $response = $this->client->get(
             $this->baseUrl,
             '/inv-mast-ext/{invMastExtUid}',
-            [],
+            $edgeCache !== null ? ['edgeCache' => $edgeCache->value] : [],
             ['invMastExtUid' => (string) $invMastExtUid],
         );
 

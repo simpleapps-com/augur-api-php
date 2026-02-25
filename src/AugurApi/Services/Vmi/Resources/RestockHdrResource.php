@@ -6,6 +6,7 @@ namespace AugurApi\Services\Vmi\Resources;
 
 use AugurApi\Core\BaseResponse;
 use AugurApi\Core\Client;
+use AugurApi\Core\Schemas\EdgeCache;
 
 /**
  * RestockHdr resource.
@@ -42,12 +43,12 @@ final class RestockHdrResource
      * @fullPath api.vmi.restockHdr.get
      * @return BaseResponse<array<string, mixed>>
      */
-    public function get(int $restockHdrUid): BaseResponse
+    public function get(int $restockHdrUid, ?EdgeCache $edgeCache = null): BaseResponse
     {
         $response = $this->client->get(
             $this->baseUrl,
             '/restock-hdr/{restockHdrUid}',
-            [],
+            $edgeCache !== null ? ['edgeCache' => $edgeCache->value] : [],
             ['restockHdrUid' => (string) $restockHdrUid],
         );
 
