@@ -24,6 +24,20 @@ final class MenuResource
     }
 
     /**
+     * Get menu list.
+     *
+     * @fullPath api.joomla.menu.list
+     * @param array<string, mixed> $params
+     * @return BaseResponse<array<array<string, mixed>>>
+     */
+    public function list(array $params = []): BaseResponse
+    {
+        $response = $this->client->get($this->baseUrl, '/menu', $params);
+
+        return BaseResponse::fromArray($response, static fn ($data) => $data ?? []);
+    }
+
+    /**
      * Get menu doc.
      *
      * @fullPath api.joomla.menu.getDoc
