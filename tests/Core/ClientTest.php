@@ -440,6 +440,46 @@ final class ClientTest extends TestCase
         $this->assertStringContainsString('/items/123', (string) $request->getUri());
     }
 
+    public function testPostDoesNotRetryOn500Error(): void
+    {
+        // Only one 500 response — if POST retried, mock client would fail
+        $this->addResponse(['message' => 'Server error'], 500);
+
+        $this->expectException(AugurApiException::class);
+        $this->expectExceptionCode(500);
+
+        $this->client->post('https://api.example.com', '/items', ['name' => 'test']);
+    }
+
+    public function testPutDoesNotRetryOn500Error(): void
+    {
+        $this->addResponse(['message' => 'Server error'], 500);
+
+        $this->expectException(AugurApiException::class);
+        $this->expectExceptionCode(500);
+
+        $this->client->put('https://api.example.com', '/items/1', ['name' => 'updated']);
+    }
+
+    public function testDeleteDoesNotRetryOn500Error(): void
+    {
+        $this->addResponse(['message' => 'Server error'], 500);
+
+        $this->expectException(AugurApiException::class);
+        $this->expectExceptionCode(500);
+
+        $this->client->delete('https://api.example.com', '/items/1');
+    }
+
+    public function testPostDoesNotRetryOnRateLimit(): void
+    {
+        $this->addResponse(['message' => 'Rate limited'], 429);
+
+        $this->expectException(RateLimitException::class);
+
+        $this->client->post('https://api.example.com', '/items', ['name' => 'test']);
+    }
+
     public function testPublicEndpointWithBasePath(): void
     {
         $this->addResponse(['data' => 'pong']);

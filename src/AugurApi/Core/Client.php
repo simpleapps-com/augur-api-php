@@ -106,6 +106,29 @@ final class Client
         ?array $data = null,
         array $pathParams = [],
     ): array {
+        $request = $this->buildRequest($method, $baseUrl, $path, $params, $data, $pathParams);
+
+        // Only retry idempotent GET requests; POST/PUT/DELETE fail fast
+        if ($method === 'GET') {
+            return $this->executeWithRetry($request);
+        }
+
+        return $this->executeOnce($request);
+    }
+
+    /**
+     * @param array<string, mixed> $params Query parameters
+     * @param array<int|string, mixed>|null $data Request body (object or list of objects)
+     * @param array<string, string> $pathParams Path parameter substitutions
+     */
+    private function buildRequest(
+        string $method,
+        string $baseUrl,
+        string $path,
+        array $params,
+        ?array $data,
+        array $pathParams,
+    ): RequestInterface {
         $resolvedPath = $this->resolvePath($path, $pathParams);
         $url = $baseUrl . $resolvedPath;
 
@@ -123,7 +146,19 @@ final class Client
             $request = $request->withHeader('Content-Type', 'application/json');
         }
 
-        return $this->executeWithRetry($request);
+        return $request;
+    }
+
+    /**
+     * Execute a request once without retry logic.
+     * Used for non-idempotent methods (POST, PUT, DELETE).
+     *
+     * @return array<string, mixed>
+     */
+    private function executeOnce(RequestInterface $request): array
+    {
+        $response = $this->httpClient->sendRequest($request);
+        return $this->handleResponse($response);
     }
 
     /**
