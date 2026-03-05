@@ -110,7 +110,7 @@ final class UsersResource
      *
      * @fullPath api.joomla.users.update
      * @param array<string, mixed> $data
-     * @return BaseResponse<array<string, mixed>>
+     * @return BaseResponse<bool>
      */
     public function update(int $id, array $data): BaseResponse
     {
@@ -121,7 +121,7 @@ final class UsersResource
             ['id' => (string) $id],
         );
 
-        return BaseResponse::fromArray($response, static fn ($d) => $d);
+        return BaseResponse::fromArray($response, static fn ($data) => (bool) $data);
     }
 
     /**

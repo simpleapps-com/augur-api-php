@@ -116,15 +116,11 @@ final class UsersResourceTest extends AugurApiTestCase
 
     public function testUpdate(): void
     {
-        $this->mockResponse([
-            'id' => 1,
-            'username' => 'admin',
-            'name' => 'Updated Admin',
-        ]);
+        $this->mockSuccessResponse();
 
         $response = $this->api->joomla->users->update(1, ['name' => 'Updated Admin']);
 
-        $this->assertEquals('Updated Admin', $response->data['name']);
+        $this->assertTrue($response->data);
         $this->assertRequestPath('/users/1');
         $this->assertRequestMethod('PUT');
     }
