@@ -6,6 +6,7 @@ namespace AugurApi\Services\Items\Resources;
 
 use AugurApi\Core\BaseResponse;
 use AugurApi\Core\Client;
+use AugurApi\Core\Exceptions\ValidationException;
 use AugurApi\Core\Schemas\EdgeCache;
 
 /**
@@ -40,15 +41,30 @@ final class CategoriesResource
     /**
      * Get category details.
      *
+     * When $itemCategoryUid is 0, the `path` param is required to resolve the category by URL path.
+     *
      * @fullPath api.items.categories.get
+     * @param array<string, mixed> $params
      * @return BaseResponse<array<string, mixed>>
      */
-    public function get(int $itemCategoryUid, ?EdgeCache $edgeCache = null): BaseResponse
+    public function get(int $itemCategoryUid, array $params = []): BaseResponse
     {
+        if ($itemCategoryUid === 0) {
+            $path = $params['path'] ?? '';
+            if ($path === '' || trim($path) === '') {
+                throw new ValidationException(
+                    'categories->get() requires `path` in params when itemCategoryUid is 0. '
+                    . 'Use itemCategoryUid: 0 with a path to resolve a category by its URL path.',
+                    400,
+                    ['itemCategoryUid' => 'path is required when itemCategoryUid is 0'],
+                );
+            }
+        }
+
         $response = $this->client->get(
             $this->baseUrl,
             '/categories/{itemCategoryUid}',
-            $edgeCache !== null ? ['edgeCache' => $edgeCache->value] : [],
+            $params,
             ['itemCategoryUid' => (string) $itemCategoryUid],
         );
 
@@ -63,6 +79,15 @@ final class CategoriesResource
      */
     public function listAttributes(int $itemCategoryUid, ?EdgeCache $edgeCache = null): BaseResponse
     {
+        if ($itemCategoryUid === 0) {
+            throw new ValidationException(
+                'categories->listAttributes() does not support itemCategoryUid: 0. '
+                . 'Resolve the category UID first using categories->get(0, [\'path\' => ...]) then use the resolved UID.',
+                400,
+                ['itemCategoryUid' => 'itemCategoryUid: 0 is not supported for this endpoint'],
+            );
+        }
+
         $response = $this->client->get(
             $this->baseUrl,
             '/categories/{itemCategoryUid}/attributes',
@@ -81,6 +106,15 @@ final class CategoriesResource
      */
     public function listImages(int $itemCategoryUid, ?EdgeCache $edgeCache = null): BaseResponse
     {
+        if ($itemCategoryUid === 0) {
+            throw new ValidationException(
+                'categories->listImages() does not support itemCategoryUid: 0. '
+                . 'Resolve the category UID first using categories->get(0, [\'path\' => ...]) then use the resolved UID.',
+                400,
+                ['itemCategoryUid' => 'itemCategoryUid: 0 is not supported for this endpoint'],
+            );
+        }
+
         $response = $this->client->get(
             $this->baseUrl,
             '/categories/{itemCategoryUid}/images',
@@ -102,6 +136,15 @@ final class CategoriesResource
      */
     public function listItems(int $itemCategoryUid, array $params = []): BaseResponse
     {
+        if ($itemCategoryUid === 0) {
+            throw new ValidationException(
+                'categories->listItems() does not support itemCategoryUid: 0. '
+                . 'Resolve the category UID first using categories->get(0, [\'path\' => ...]) then use the resolved UID.',
+                400,
+                ['itemCategoryUid' => 'itemCategoryUid: 0 is not supported for this endpoint'],
+            );
+        }
+
         $response = $this->client->get(
             $this->baseUrl,
             '/categories/{itemCategoryUid}/items',

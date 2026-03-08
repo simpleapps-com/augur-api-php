@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace AugurApi\Tests\Services\Items\Resources;
 
+use AugurApi\Core\Exceptions\ValidationException;
 use AugurApi\Tests\AugurApiTestCase;
 
 /**
@@ -130,5 +131,54 @@ final class CategoriesResourceTest extends AugurApiTestCase
 
         $this->assertCount(1, $response->data['items']);
         $this->assertEquals(100, $response->data['total']);
+    }
+
+    public function testGetUidZeroWithoutPathThrows(): void
+    {
+        $this->expectException(ValidationException::class);
+        $this->expectExceptionMessage('requires `path`');
+        $this->api->items->categories->get(0);
+    }
+
+    public function testGetUidZeroWithEmptyPathThrows(): void
+    {
+        $this->expectException(ValidationException::class);
+        $this->expectExceptionMessage('requires `path`');
+        $this->api->items->categories->get(0, ['path' => '']);
+    }
+
+    public function testGetUidZeroWithPathSucceeds(): void
+    {
+        $this->mockResponse([
+            'itemCategoryUid' => 2091,
+            'itemCategoryDesc' => 'ASSEMBLIES',
+        ]);
+
+        $response = $this->api->items->categories->get(0, ['path' => 'Store/Category/Sub']);
+
+        $this->assertEquals(2091, $response->data['itemCategoryUid']);
+        $this->assertRequestMethod('GET');
+        $this->assertRequestPath('/categories/0');
+    }
+
+    public function testListAttributesUidZeroThrows(): void
+    {
+        $this->expectException(ValidationException::class);
+        $this->expectExceptionMessage('does not support itemCategoryUid: 0');
+        $this->api->items->categories->listAttributes(0);
+    }
+
+    public function testListImagesUidZeroThrows(): void
+    {
+        $this->expectException(ValidationException::class);
+        $this->expectExceptionMessage('does not support itemCategoryUid: 0');
+        $this->api->items->categories->listImages(0);
+    }
+
+    public function testListItemsUidZeroThrows(): void
+    {
+        $this->expectException(ValidationException::class);
+        $this->expectExceptionMessage('does not support itemCategoryUid: 0');
+        $this->api->items->categories->listItems(0);
     }
 }
