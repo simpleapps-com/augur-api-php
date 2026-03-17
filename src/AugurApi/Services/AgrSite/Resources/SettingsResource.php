@@ -23,6 +23,9 @@ final class SettingsResource
     /**
      * GET /settings
      *
+     * Response data type: array
+     * Known fields: settingsUid, serviceName, name, value, dateCreated, dateLastModified, updateCd, statusCd, ... (9 total)
+     *
      * @param array<string, mixed> $params
      * @return BaseResponse<array<string, mixed>>
      */
@@ -35,6 +38,9 @@ final class SettingsResource
 
     /**
      * POST /settings
+     *
+     * Response data type: object
+     * Known fields: settingsUid, serviceName, name, value, dateCreated, dateLastModified, updateCd, statusCd, ... (9 total)
      *
      * @param array<string, mixed> $data
      * @return BaseResponse<array<string, mixed>>
@@ -65,6 +71,9 @@ final class SettingsResource
     /**
      * GET /settings/{settingsUid}
      *
+     * Response data type: object
+     * Known fields: settingsUid, serviceName, name, value, dateCreated, dateLastModified, updateCd, statusCd, ... (9 total)
+     *
      * @param array<string, mixed> $params
      * @return BaseResponse<array<string, mixed>>
      */
@@ -82,6 +91,9 @@ final class SettingsResource
 
     /**
      * PUT /settings/{settingsUid}
+     *
+     * Response data type: object
+     * Known fields: settingsUid, serviceName, name, value, dateCreated, dateLastModified, updateCd, statusCd, ... (9 total)
      *
      * @param array<string, mixed> $data
      * @return BaseResponse<array<string, mixed>>

@@ -23,6 +23,9 @@ final class LocationResource
     /**
      * GET /location
      *
+     * Response data type: array
+     * Known fields: locationId, companyId, defaultBranchId, deleteFlag, dateCreated, dateLastModified, lastMaintainedBy, locationName, ... (19 total)
+     *
      * @param array<string, mixed> $params
      * @return BaseResponse<array<string, mixed>>
      */
@@ -35,6 +38,9 @@ final class LocationResource
 
     /**
      * GET /location/{locationId}
+     *
+     * Response data type: object
+     * Known fields: locationId, companyId, defaultBranchId, deleteFlag, dateCreated, dateLastModified, lastMaintainedBy, locationName, ... (19 total)
      *
      * @param array<string, mixed> $params
      * @return BaseResponse<array<string, mixed>>

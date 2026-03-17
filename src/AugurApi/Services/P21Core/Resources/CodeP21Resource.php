@@ -23,6 +23,9 @@ final class CodeP21Resource
     /**
      * GET /code-p21
      *
+     * Response data type: array
+     * Known fields: codeUid, codeNo, languageId, codeDescription, rowStatusFlag, dateCreated, dateLastModified, lastMaintainedBy, ... (10 total)
+     *
      * @param array<string, mixed> $params
      * @return BaseResponse<array<string, mixed>>
      */

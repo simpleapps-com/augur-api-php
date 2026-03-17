@@ -23,6 +23,9 @@ final class BrandsResource
     /**
      * GET /brands
      *
+     * Response data type: array
+     * Known fields: brandsUid, brandsName, brandsId, brandsDesc, dateCreated, dateLastModified, updateCd, statusCd, ... (10 total)
+     *
      * @param array<string, mixed> $params
      * @return BaseResponse<array<string, mixed>>
      */
@@ -36,6 +39,9 @@ final class BrandsResource
     /**
      * POST /brands
      *
+     * Response data type: object
+     * Known fields: brandsUid, brandsName, brandsId, brandsDesc, dateCreated, dateLastModified, updateCd, statusCd, ... (10 total)
+     *
      * @param array<string, mixed> $data
      * @return BaseResponse<array<string, mixed>>
      */
@@ -48,6 +54,9 @@ final class BrandsResource
 
     /**
      * DELETE /brands/{brandsUid}
+     *
+     * Response data type: object
+     * Known fields: brandsUid, brandsName, brandsId, brandsDesc, dateCreated, dateLastModified, updateCd, statusCd, ... (10 total)
      *
      * @return BaseResponse<array<string, mixed>>
      */
@@ -64,6 +73,9 @@ final class BrandsResource
 
     /**
      * GET /brands/{brandsUid}
+     *
+     * Response data type: object
+     * Known fields: brandsUid, brandsName, brandsId, brandsDesc, dateCreated, dateLastModified, updateCd, statusCd, ... (10 total)
      *
      * @param array<string, mixed> $params
      * @return BaseResponse<array<string, mixed>>
@@ -82,6 +94,9 @@ final class BrandsResource
 
     /**
      * PUT /brands/{brandsUid}
+     *
+     * Response data type: object
+     * Known fields: brandsUid, brandsName, brandsId, brandsDesc, dateCreated, dateLastModified, updateCd, statusCd, ... (10 total)
      *
      * @param array<string, mixed> $data
      * @return BaseResponse<array<string, mixed>>

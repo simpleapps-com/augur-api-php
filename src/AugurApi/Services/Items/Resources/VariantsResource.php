@@ -218,6 +218,9 @@ final class VariantsResource
     /**
      * GET /variants/{itemVariantHdrUid}/lines
      *
+     * Response data type: array
+     * Known fields: itemVariantLineUid, itemVariantHdrUid, invMastUid, dateCreated, dateLastModified, updateCd, statusCd, processCd, ... (10 total)
+     *
      * @param array<string, mixed> $params
      * @return BaseResponse<array<string, mixed>>
      */
@@ -235,6 +238,9 @@ final class VariantsResource
 
     /**
      * POST /variants/{itemVariantHdrUid}/lines
+     *
+     * Response data type: object
+     * Known fields: itemVariantLineUid, itemVariantHdrUid, invMastUid, dateCreated, dateLastModified, updateCd, statusCd, processCd, ... (10 total)
      *
      * @param array<string, mixed> $data
      * @return BaseResponse<array<string, mixed>>
@@ -254,6 +260,9 @@ final class VariantsResource
     /**
      * DELETE /variants/{itemVariantHdrUid}/lines/{itemVariantLineUid}
      *
+     * Response data type: object
+     * Known fields: itemVariantLineUid, itemVariantHdrUid, invMastUid, dateCreated, dateLastModified, updateCd, statusCd, processCd, ... (10 total)
+     *
      * @return BaseResponse<array<string, mixed>>
      */
     public function deleteLines(int $itemVariantHdrUid, int $itemVariantLineUid): BaseResponse
@@ -269,6 +278,9 @@ final class VariantsResource
 
     /**
      * GET /variants/{itemVariantHdrUid}/lines/{itemVariantLineUid}
+     *
+     * Response data type: object
+     * Known fields: itemVariantLineUid, itemVariantHdrUid, invMastUid, dateCreated, dateLastModified, updateCd, statusCd, processCd, ... (10 total)
      *
      * @param array<string, mixed> $params
      * @return BaseResponse<array<string, mixed>>
@@ -287,6 +299,9 @@ final class VariantsResource
 
     /**
      * PUT /variants/{itemVariantHdrUid}/lines/{itemVariantLineUid}
+     *
+     * Response data type: object
+     * Known fields: itemVariantLineUid, itemVariantHdrUid, invMastUid, dateCreated, dateLastModified, updateCd, statusCd, processCd, ... (10 total)
      *
      * @param array<string, mixed> $data
      * @return BaseResponse<array<string, mixed>>

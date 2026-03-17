@@ -23,6 +23,9 @@ final class JobPriceHdrResource
     /**
      * GET /job-price-hdr
      *
+     * Response data type: array
+     * Known fields: jobPriceHdrUid, jobNo, jobDescription, companyId, customerId, salesLocId, contractNo, contactId, ... (35 total)
+     *
      * @param array<string, mixed> $params
      * @return BaseResponse<array<string, mixed>>
      */
@@ -35,6 +38,9 @@ final class JobPriceHdrResource
 
     /**
      * GET /job-price-hdr/{jobPriceHdrUid}
+     *
+     * Response data type: object
+     * Known fields: jobPriceHdrUid, jobNo, jobDescription, companyId, customerId, salesLocId, contractNo, contactId, ... (35 total)
      *
      * @param array<string, mixed> $params
      * @return BaseResponse<array<string, mixed>>
@@ -54,6 +60,9 @@ final class JobPriceHdrResource
     /**
      * GET /job-price-hdr/{jobPriceHdrUid}/lines
      *
+     * Response data type: array
+     * Known fields: jobPriceLineUid, jobPriceHdrUid, invMastUid, uom, unitSize, pricingMethod, sourcePrice, price, ... (54 total)
+     *
      * @param array<string, mixed> $params
      * @return BaseResponse<array<string, mixed>>
      */
@@ -71,6 +80,9 @@ final class JobPriceHdrResource
 
     /**
      * GET /job-price-hdr/{jobPriceHdrUid}/lines/{jobPriceLineUid}
+     *
+     * Response data type: object
+     * Known fields: jobPriceLineUid, jobPriceHdrUid, invMastUid, uom, unitSize, pricingMethod, sourcePrice, price, ... (54 total)
      *
      * @param array<string, mixed> $params
      * @return BaseResponse<array<string, mixed>>

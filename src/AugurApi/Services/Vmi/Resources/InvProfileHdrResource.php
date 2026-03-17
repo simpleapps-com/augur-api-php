@@ -36,6 +36,9 @@ final class InvProfileHdrResource
     /**
      * POST /inv-profile-hdr
      *
+     * Response data type: object
+     * Known fields: invProfileHdrUid, invProfileHdrId, invProfileHdrDesc, customerId, dateCreated, dateLastModified, updateCd, statusCd, ... (9 total)
+     *
      * @param array<string, mixed> $data
      * @return BaseResponse<array<string, mixed>>
      */
@@ -101,6 +104,9 @@ final class InvProfileHdrResource
     /**
      * PUT /inv-profile-hdr/{invProfileHdrUid}
      *
+     * Response data type: object
+     * Known fields: invProfileHdrUid, invProfileHdrId, invProfileHdrDesc, customerId, dateCreated, dateLastModified, updateCd, statusCd, ... (9 total)
+     *
      * @param array<string, mixed> $data
      * @return BaseResponse<array<string, mixed>>
      */
@@ -118,6 +124,9 @@ final class InvProfileHdrResource
 
     /**
      * GET /inv-profile-hdr/{invProfileHdrUid}/inv-profile-line
+     *
+     * Response data type: array
+     * Known fields: invProfileLineUid, invProfileHdrUid, invMastUid, invProfileLineType, invProfileHdrMinQty, invProfileHdrMaxQty, invProfileHdrReorderQty, dateCreated, ... (14 total)
      *
      * @param array<string, mixed> $params
      * @return BaseResponse<array<string, mixed>>
@@ -137,6 +146,9 @@ final class InvProfileHdrResource
     /**
      * POST /inv-profile-hdr/{invProfileHdrUid}/inv-profile-line
      *
+     * Response data type: object
+     * Known fields: invProfileLineUid, invProfileHdrUid, invMastUid, invProfileLineType, invProfileHdrMinQty, invProfileHdrMaxQty, invProfileHdrReorderQty, dateCreated, ... (14 total)
+     *
      * @param array<string, mixed> $data
      * @return BaseResponse<array<string, mixed>>
      */
@@ -155,6 +167,9 @@ final class InvProfileHdrResource
     /**
      * DELETE /inv-profile-hdr/{invProfileHdrUid}/inv-profile-line/{invProfileLineUid}
      *
+     * Response data type: object
+     * Known fields: invProfileLineUid, invProfileHdrUid, invMastUid, invProfileLineType, invProfileHdrMinQty, invProfileHdrMaxQty, invProfileHdrReorderQty, dateCreated, ... (14 total)
+     *
      * @return BaseResponse<array<string, mixed>>
      */
     public function deleteInvProfileLine(int $invProfileHdrUid, int $invProfileLineUid): BaseResponse
@@ -170,6 +185,9 @@ final class InvProfileHdrResource
 
     /**
      * GET /inv-profile-hdr/{invProfileHdrUid}/inv-profile-line/{invProfileLineUid}
+     *
+     * Response data type: object
+     * Known fields: invProfileLineUid, invProfileHdrUid, invMastUid, invProfileLineType, invProfileHdrMinQty, invProfileHdrMaxQty, invProfileHdrReorderQty, dateCreated, ... (14 total)
      *
      * @param array<string, mixed> $params
      * @return BaseResponse<array<string, mixed>>
@@ -188,6 +206,9 @@ final class InvProfileHdrResource
 
     /**
      * PUT /inv-profile-hdr/{invProfileHdrUid}/inv-profile-line/{invProfileLineUid}
+     *
+     * Response data type: object
+     * Known fields: invProfileLineUid, invProfileHdrUid, invMastUid, invProfileLineType, invProfileHdrMinQty, invProfileHdrMaxQty, invProfileHdrReorderQty, dateCreated, ... (14 total)
      *
      * @param array<string, mixed> $data
      * @return BaseResponse<array<string, mixed>>

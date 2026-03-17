@@ -49,6 +49,9 @@ final class UsersResource
     /**
      * POST /users/verify-password
      *
+     * Response data type: object
+     * Known fields: id, isVerified, username, token, email
+     *
      * @param array<string, mixed> $data
      * @return BaseResponse<array<string, mixed>>
      */

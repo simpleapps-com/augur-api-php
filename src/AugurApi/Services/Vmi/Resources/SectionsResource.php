@@ -23,6 +23,9 @@ final class SectionsResource
     /**
      * GET /sections
      *
+     * Response data type: array
+     * Known fields: sectionsUid, customerId, sectionsId, sectionsName, sectionsDesc, dateCreated, dateLastModified, updateCd, ... (10 total)
+     *
      * @param array<string, mixed> $params
      * @return BaseResponse<array<string, mixed>>
      */
@@ -36,6 +39,9 @@ final class SectionsResource
     /**
      * POST /sections
      *
+     * Response data type: object
+     * Known fields: sectionsUid, customerId, sectionsId, sectionsName, sectionsDesc, dateCreated, dateLastModified, updateCd, ... (10 total)
+     *
      * @param array<string, mixed> $data
      * @return BaseResponse<array<string, mixed>>
      */
@@ -48,6 +54,9 @@ final class SectionsResource
 
     /**
      * DELETE /sections/{sectionsUid}
+     *
+     * Response data type: object
+     * Known fields: sectionsUid, customerId, sectionsId, sectionsName, sectionsDesc, dateCreated, dateLastModified, updateCd, ... (10 total)
      *
      * @return BaseResponse<array<string, mixed>>
      */
@@ -64,6 +73,9 @@ final class SectionsResource
 
     /**
      * GET /sections/{sectionsUid}
+     *
+     * Response data type: object
+     * Known fields: sectionsUid, customerId, sectionsId, sectionsName, sectionsDesc, dateCreated, dateLastModified, updateCd, ... (10 total)
      *
      * @param array<string, mixed> $params
      * @return BaseResponse<array<string, mixed>>
@@ -82,6 +94,9 @@ final class SectionsResource
 
     /**
      * PUT /sections/{sectionsUid}
+     *
+     * Response data type: object
+     * Known fields: sectionsUid, customerId, sectionsId, sectionsName, sectionsDesc, dateCreated, dateLastModified, updateCd, ... (10 total)
      *
      * @param array<string, mixed> $data
      * @return BaseResponse<array<string, mixed>>

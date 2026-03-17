@@ -23,6 +23,9 @@ final class ProjectsResource
     /**
      * GET /projects
      *
+     * Response data type: array
+     * Known fields: id, name, description, updatedAt, createdAt, lastEventAt, url, appUrl, ... (18 total)
+     *
      * @param array<string, mixed> $params
      * @return BaseResponse<array<string, mixed>>
      */
@@ -35,6 +38,9 @@ final class ProjectsResource
 
     /**
      * GET /projects/{id}
+     *
+     * Response data type: object
+     * Known fields: id, name, description, updatedAt, createdAt, lastEventAt, url, appUrl, ... (18 total)
      *
      * @param array<string, mixed> $params
      * @return BaseResponse<array<string, mixed>>
@@ -54,6 +60,9 @@ final class ProjectsResource
     /**
      * GET /projects/{id}/metrics
      *
+     * Response data type: array
+     * Known fields: id, projectsId, todolistId, assigneeId, creatorId, todosContent, todosStatusCd, isStale, ... (29 total)
+     *
      * @param array<string, mixed> $params
      * @return BaseResponse<array<string, mixed>>
      */
@@ -71,6 +80,9 @@ final class ProjectsResource
 
     /**
      * GET /projects/{id}/todolists
+     *
+     * Response data type: array
+     * Known fields: id, name, description, updatedAt, createdAt, lastEventAt, url, appUrl, ... (18 total)
      *
      * @param array<string, mixed> $params
      * @return BaseResponse<array<string, mixed>>
@@ -90,6 +102,9 @@ final class ProjectsResource
     /**
      * GET /projects/{id}/todos
      *
+     * Response data type: array
+     * Known fields: id, name, description, updatedAt, createdAt, lastEventAt, url, appUrl, ... (18 total)
+     *
      * @param array<string, mixed> $params
      * @return BaseResponse<array<string, mixed>>
      */
@@ -107,6 +122,9 @@ final class ProjectsResource
 
     /**
      * GET /projects/{projectId}/todolists/{todolistId}/todos
+     *
+     * Response data type: array
+     * Known fields: id, name, description, updatedAt, createdAt, lastEventAt, url, appUrl, ... (18 total)
      *
      * @param array<string, mixed> $params
      * @return BaseResponse<array<string, mixed>>

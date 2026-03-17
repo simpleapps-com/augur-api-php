@@ -23,6 +23,9 @@ final class DistributorsResource
     /**
      * GET /distributors
      *
+     * Response data type: array
+     * Known fields: distributorsUid, customerId, distributorsId, distributorsName, distributorsDesc, distributorsEmail, distributorsAccount, dateCreated, ... (12 total)
+     *
      * @param array<string, mixed> $params
      * @return BaseResponse<array<string, mixed>>
      */
@@ -36,6 +39,9 @@ final class DistributorsResource
     /**
      * POST /distributors
      *
+     * Response data type: object
+     * Known fields: distributorsUid, customerId, distributorsId, distributorsName, distributorsDesc, distributorsEmail, distributorsAccount, dateCreated, ... (12 total)
+     *
      * @param array<string, mixed> $data
      * @return BaseResponse<array<string, mixed>>
      */
@@ -48,6 +54,9 @@ final class DistributorsResource
 
     /**
      * DELETE /distributors/{distributorsUid}
+     *
+     * Response data type: object
+     * Known fields: distributorsUid, customerId, distributorsId, distributorsName, distributorsDesc, distributorsEmail, distributorsAccount, dateCreated, ... (12 total)
      *
      * @return BaseResponse<array<string, mixed>>
      */
@@ -64,6 +73,9 @@ final class DistributorsResource
 
     /**
      * GET /distributors/{distributorsUid}
+     *
+     * Response data type: object
+     * Known fields: distributorsUid, customerId, distributorsId, distributorsName, distributorsDesc, distributorsEmail, distributorsAccount, dateCreated, ... (12 total)
      *
      * @param array<string, mixed> $params
      * @return BaseResponse<array<string, mixed>>
@@ -82,6 +94,9 @@ final class DistributorsResource
 
     /**
      * PUT /distributors/{distributorsUid}
+     *
+     * Response data type: object
+     * Known fields: distributorsUid, customerId, distributorsId, distributorsName, distributorsDesc, distributorsEmail, distributorsAccount, dateCreated, ... (12 total)
      *
      * @param array<string, mixed> $data
      * @return BaseResponse<array<string, mixed>>
@@ -118,6 +133,9 @@ final class DistributorsResource
 
     /**
      * POST /distributors/{distributorsUid}/products
+     *
+     * Response data type: array
+     * Known fields: productsUid, distributorsUid, productsId, productsDesc, defaultSellingUnit, dateCreated, dateLastModified, updateCd, ... (13 total)
      *
      * @param array<string, mixed> $data
      * @return BaseResponse<array<string, mixed>>

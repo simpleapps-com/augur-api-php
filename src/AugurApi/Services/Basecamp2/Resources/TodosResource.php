@@ -23,6 +23,9 @@ final class TodosResource
     /**
      * GET /todos
      *
+     * Response data type: array
+     * Known fields: id, todolistId, content, dueAt, dueOn, updatedAt, createdAt, completedAt, ... (29 total)
+     *
      * @param array<string, mixed> $params
      * @return BaseResponse<array<string, mixed>>
      */
@@ -35,6 +38,9 @@ final class TodosResource
 
     /**
      * GET /todos/{id}
+     *
+     * Response data type: object
+     * Known fields: id, todolistId, content, dueAt, dueOn, updatedAt, createdAt, completedAt, ... (29 total)
      *
      * @param array<string, mixed> $params
      * @return BaseResponse<array<string, mixed>>
@@ -54,6 +60,9 @@ final class TodosResource
     /**
      * GET /todos/{id}/comments
      *
+     * Response data type: array
+     * Known fields: id, todolistId, content, dueAt, dueOn, updatedAt, createdAt, completedAt, ... (29 total)
+     *
      * @param array<string, mixed> $params
      * @return BaseResponse<array<string, mixed>>
      */
@@ -71,6 +80,9 @@ final class TodosResource
 
     /**
      * GET /todos/{id}/events
+     *
+     * Response data type: array
+     * Known fields: id, eventNum, eventTypeCd, peopleId, eventAt, commentId, dateCreated, dateLastModified, ... (12 total)
      *
      * @param array<string, mixed> $params
      * @return BaseResponse<array<string, mixed>>
@@ -90,6 +102,9 @@ final class TodosResource
     /**
      * GET /todos/{id}/events/{eventNum}
      *
+     * Response data type: object
+     * Known fields: id, eventNum, eventTypeCd, peopleId, eventAt, commentId, dateCreated, dateLastModified, ... (12 total)
+     *
      * @param array<string, mixed> $params
      * @return BaseResponse<array<string, mixed>>
      */
@@ -107,6 +122,9 @@ final class TodosResource
 
     /**
      * GET /todos/{id}/metrics
+     *
+     * Response data type: object
+     * Known fields: id, projectsId, todolistId, assigneeId, creatorId, todosContent, todosStatusCd, isStale, ... (29 total)
      *
      * @param array<string, mixed> $params
      * @return BaseResponse<array<string, mixed>>
@@ -126,6 +144,9 @@ final class TodosResource
     /**
      * GET /todos/{id}/sessions
      *
+     * Response data type: array
+     * Known fields: todosSessionsUid, todosId, sessionNum, sessionStatusCd, subject, problem, investigation, plan, ... (14 total)
+     *
      * @param array<string, mixed> $params
      * @return BaseResponse<array<string, mixed>>
      */
@@ -143,6 +164,9 @@ final class TodosResource
 
     /**
      * POST /todos/{id}/sessions
+     *
+     * Response data type: object
+     * Known fields: todosSessionsUid, todosId, sessionNum, sessionStatusCd, subject, problem, investigation, plan, ... (14 total)
      *
      * @param array<string, mixed> $data
      * @return BaseResponse<array<string, mixed>>
@@ -162,6 +186,9 @@ final class TodosResource
     /**
      * DELETE /todos/{id}/sessions/{sessionId}
      *
+     * Response data type: object
+     * Known fields: todosSessionsUid, todosId, sessionNum, sessionStatusCd, subject, problem, investigation, plan, ... (14 total)
+     *
      * @return BaseResponse<array<string, mixed>>
      */
     public function deleteSessions(int $id, int $sessionId): BaseResponse
@@ -177,6 +204,9 @@ final class TodosResource
 
     /**
      * GET /todos/{id}/sessions/{sessionId}
+     *
+     * Response data type: object
+     * Known fields: todosSessionsUid, todosId, sessionNum, sessionStatusCd, subject, problem, investigation, plan, ... (14 total)
      *
      * @param array<string, mixed> $params
      * @return BaseResponse<array<string, mixed>>
@@ -195,6 +225,9 @@ final class TodosResource
 
     /**
      * PUT /todos/{id}/sessions/{sessionId}
+     *
+     * Response data type: object
+     * Known fields: todosSessionsUid, todosId, sessionNum, sessionStatusCd, subject, problem, investigation, plan, ... (14 total)
      *
      * @param array<string, mixed> $data
      * @return BaseResponse<array<string, mixed>>

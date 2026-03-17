@@ -23,6 +23,9 @@ final class ItemCategoryResource
     /**
      * GET /item-category/{itemCategoryUid}
      *
+     * Response data type: object
+     * Known fields: itemCategoryUid, itemCategoryId, itemCategoryDesc, article, boxFolderId, masterCategoryFlag, parentCategoryFlag, displayOnWebFlag, ... (26 total)
+     *
      * @param array<string, mixed> $params
      * @return BaseResponse<array<string, mixed>>
      */

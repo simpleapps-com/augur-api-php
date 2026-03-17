@@ -23,6 +23,9 @@ final class EventsResource
     /**
      * GET /events
      *
+     * Response data type: array
+     * Known fields: id, eventNum, eventTypeCd, peopleId, eventAt, commentId, dateCreated, dateLastModified, ... (12 total)
+     *
      * @param array<string, mixed> $params
      * @return BaseResponse<array<string, mixed>>
      */

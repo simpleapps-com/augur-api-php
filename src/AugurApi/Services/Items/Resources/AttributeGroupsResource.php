@@ -36,6 +36,9 @@ final class AttributeGroupsResource
     /**
      * POST /attribute-groups
      *
+     * Response data type: object
+     * Known fields: attributeGroupUid, attributeGroupId, attributeGroupDesc, rowStatusFlag, dateCreated, createdBy, dateLastModified, lastMaintainedBy, ... (15 total)
+     *
      * @param array<string, mixed> $data
      * @return BaseResponse<array<string, mixed>>
      */
@@ -82,6 +85,9 @@ final class AttributeGroupsResource
 
     /**
      * PUT /attribute-groups/{attributeGroupUid}
+     *
+     * Response data type: object
+     * Known fields: attributeGroupUid, attributeGroupId, attributeGroupDesc, rowStatusFlag, dateCreated, createdBy, dateLastModified, lastMaintainedBy, ... (15 total)
      *
      * @param array<string, mixed> $data
      * @return BaseResponse<array<string, mixed>>
@@ -170,6 +176,9 @@ final class AttributeGroupsResource
 
     /**
      * PUT /attribute-groups/{attributeGroupUid}/attributes/{attributeXAttributeGroupUid}
+     *
+     * Response data type: object
+     * Known fields: attributeXAttributeGroupUid, requiredFlag, rowStatusFlag, dateCreated, createdBy, dateLastModified, lastMaintainedBy, attributeUid, ... (13 total)
      *
      * @param array<string, mixed> $data
      * @return BaseResponse<array<string, mixed>>

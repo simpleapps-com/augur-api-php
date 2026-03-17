@@ -23,6 +23,9 @@ final class TrainingResource
     /**
      * GET /training
      *
+     * Response data type: array
+     * Known fields: trainingSetUid, name, description, formatType, systemPrompt, developerPrompt, modelTarget, trainSplitPct, ... (15 total)
+     *
      * @param array<string, mixed> $params
      * @return BaseResponse<array<string, mixed>>
      */
@@ -36,6 +39,9 @@ final class TrainingResource
     /**
      * POST /training
      *
+     * Response data type: object
+     * Known fields: trainingSetUid, name, description, formatType, systemPrompt, developerPrompt, modelTarget, trainSplitPct, ... (15 total)
+     *
      * @param array<string, mixed> $data
      * @return BaseResponse<array<string, mixed>>
      */
@@ -48,6 +54,9 @@ final class TrainingResource
 
     /**
      * DELETE /training/{trainingSetUid}
+     *
+     * Response data type: object
+     * Known fields: trainingSetUid, name, description, formatType, systemPrompt, developerPrompt, modelTarget, trainSplitPct, ... (15 total)
      *
      * @return BaseResponse<array<string, mixed>>
      */
@@ -64,6 +73,9 @@ final class TrainingResource
 
     /**
      * GET /training/{trainingSetUid}
+     *
+     * Response data type: object
+     * Known fields: trainingSetUid, name, description, formatType, systemPrompt, developerPrompt, modelTarget, trainSplitPct, ... (15 total)
      *
      * @param array<string, mixed> $params
      * @return BaseResponse<array<string, mixed>>
@@ -83,6 +95,9 @@ final class TrainingResource
     /**
      * PUT /training/{trainingSetUid}
      *
+     * Response data type: object
+     * Known fields: trainingSetUid, name, description, formatType, systemPrompt, developerPrompt, modelTarget, trainSplitPct, ... (15 total)
+     *
      * @param array<string, mixed> $data
      * @return BaseResponse<array<string, mixed>>
      */
@@ -100,6 +115,9 @@ final class TrainingResource
 
     /**
      * GET /training/{trainingSetUid}/conversations
+     *
+     * Response data type: array
+     * Known fields: trainingConvUid, trainingSetUid, sourceType, generatorModel, serviceName, dataTypeName, dataTypeUid, category, ... (16 total)
      *
      * @param array<string, mixed> $params
      * @return BaseResponse<array<string, mixed>>
@@ -119,6 +137,9 @@ final class TrainingResource
     /**
      * POST /training/{trainingSetUid}/conversations
      *
+     * Response data type: object
+     * Known fields: trainingConvUid, trainingSetUid, sourceType, generatorModel, serviceName, dataTypeName, dataTypeUid, category, ... (16 total)
+     *
      * @param array<string, mixed> $data
      * @return BaseResponse<array<string, mixed>>
      */
@@ -137,6 +158,9 @@ final class TrainingResource
     /**
      * DELETE /training/{trainingSetUid}/conversations/{trainingConvUid}
      *
+     * Response data type: object
+     * Known fields: trainingConvUid, trainingSetUid, sourceType, generatorModel, serviceName, dataTypeName, dataTypeUid, category, ... (16 total)
+     *
      * @return BaseResponse<array<string, mixed>>
      */
     public function deleteConversations(int $trainingConvUid, int $trainingSetUid): BaseResponse
@@ -152,6 +176,9 @@ final class TrainingResource
 
     /**
      * GET /training/{trainingSetUid}/conversations/{trainingConvUid}
+     *
+     * Response data type: object
+     * Known fields: trainingConvUid, trainingSetUid, sourceType, generatorModel, serviceName, dataTypeName, dataTypeUid, category, ... (16 total)
      *
      * @param array<string, mixed> $params
      * @return BaseResponse<array<string, mixed>>
@@ -171,6 +198,9 @@ final class TrainingResource
     /**
      * PUT /training/{trainingSetUid}/conversations/{trainingConvUid}
      *
+     * Response data type: object
+     * Known fields: trainingConvUid, trainingSetUid, sourceType, generatorModel, serviceName, dataTypeName, dataTypeUid, category, ... (16 total)
+     *
      * @param array<string, mixed> $data
      * @return BaseResponse<array<string, mixed>>
      */
@@ -188,6 +218,9 @@ final class TrainingResource
 
     /**
      * GET /training/{trainingSetUid}/conversations/{trainingConvUid}/messages
+     *
+     * Response data type: array
+     * Known fields: trainingMsgUid, trainingConvUid, sequenceNo, role, channel, content, analysis, commentary, ... (16 total)
      *
      * @param array<string, mixed> $params
      * @return BaseResponse<array<string, mixed>>
@@ -207,6 +240,9 @@ final class TrainingResource
     /**
      * POST /training/{trainingSetUid}/conversations/{trainingConvUid}/messages
      *
+     * Response data type: object
+     * Known fields: trainingMsgUid, trainingConvUid, sequenceNo, role, channel, content, analysis, commentary, ... (16 total)
+     *
      * @param array<string, mixed> $data
      * @return BaseResponse<array<string, mixed>>
      */
@@ -225,6 +261,9 @@ final class TrainingResource
     /**
      * DELETE /training/{trainingSetUid}/conversations/{trainingConvUid}/messages/{trainingMsgUid}
      *
+     * Response data type: object
+     * Known fields: trainingMsgUid, trainingConvUid, sequenceNo, role, channel, content, analysis, commentary, ... (16 total)
+     *
      * @return BaseResponse<array<string, mixed>>
      */
     public function deleteConversationsMessages(int $trainingConvUid, int $trainingMsgUid, int $trainingSetUid): BaseResponse
@@ -240,6 +279,9 @@ final class TrainingResource
 
     /**
      * GET /training/{trainingSetUid}/conversations/{trainingConvUid}/messages/{trainingMsgUid}
+     *
+     * Response data type: object
+     * Known fields: trainingMsgUid, trainingConvUid, sequenceNo, role, channel, content, analysis, commentary, ... (16 total)
      *
      * @param array<string, mixed> $params
      * @return BaseResponse<array<string, mixed>>
@@ -258,6 +300,9 @@ final class TrainingResource
 
     /**
      * PUT /training/{trainingSetUid}/conversations/{trainingConvUid}/messages/{trainingMsgUid}
+     *
+     * Response data type: object
+     * Known fields: trainingMsgUid, trainingConvUid, sequenceNo, role, channel, content, analysis, commentary, ... (16 total)
      *
      * @param array<string, mixed> $data
      * @return BaseResponse<array<string, mixed>>

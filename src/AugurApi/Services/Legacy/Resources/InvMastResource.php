@@ -41,6 +41,9 @@ final class InvMastResource
     /**
      * GET /inv-mast/{invMastUid}/tags
      *
+     * Response data type: array
+     * Known fields: invMastTagsUid, invMastUid, tag, updateCd, statusCd, processCd, dateCreated, dateLastModified
+     *
      * @param array<string, mixed> $params
      * @return BaseResponse<array<string, mixed>>
      */
@@ -58,6 +61,9 @@ final class InvMastResource
 
     /**
      * POST /inv-mast/{invMastUid}/tags
+     *
+     * Response data type: object
+     * Known fields: invMastTagsUid, invMastUid, tag, updateCd, statusCd, processCd, dateCreated, dateLastModified
      *
      * @param array<string, mixed> $data
      * @return BaseResponse<array<string, mixed>>
@@ -88,6 +94,9 @@ final class InvMastResource
     /**
      * GET /inv-mast/{invMastUid}/tags/{invMastTagsUid}
      *
+     * Response data type: object
+     * Known fields: invMastTagsUid, invMastUid, tag, updateCd, statusCd, processCd, dateCreated, dateLastModified
+     *
      * @param array<string, mixed> $params
      * @return BaseResponse<array<string, mixed>>
      */
@@ -105,6 +114,9 @@ final class InvMastResource
 
     /**
      * PUT /inv-mast/{invMastUid}/tags/{invMastTagsUid}
+     *
+     * Response data type: object
+     * Known fields: invMastTagsUid, invMastUid, tag, updateCd, statusCd, processCd, dateCreated, dateLastModified
      *
      * @param array<string, mixed> $data
      * @return BaseResponse<array<string, mixed>>
@@ -124,6 +136,9 @@ final class InvMastResource
     /**
      * GET /inv-mast/{invMastUid}/web-desc
      *
+     * Response data type: array
+     * Known fields: invMastWebDescUid, invMastUid, webDesc1, webDesc2, webDesc3, webDesc4, webDescFull, dateCreated, ... (13 total)
+     *
      * @param array<string, mixed> $params
      * @return BaseResponse<array<string, mixed>>
      */
@@ -141,6 +156,9 @@ final class InvMastResource
 
     /**
      * POST /inv-mast/{invMastUid}/web-desc
+     *
+     * Response data type: object
+     * Known fields: invMastWebDescUid, invMastUid, webDesc1, webDesc2, webDesc3, webDesc4, webDescFull, dateCreated, ... (13 total)
      *
      * @param array<string, mixed> $data
      * @return BaseResponse<array<string, mixed>>
@@ -176,6 +194,9 @@ final class InvMastResource
     /**
      * GET /inv-mast/{invMastUid}/web-desc/{invMastWebDescUid}
      *
+     * Response data type: object
+     * Known fields: invMastWebDescUid, invMastUid, webDesc1, webDesc2, webDesc3, webDesc4, webDescFull, dateCreated, ... (13 total)
+     *
      * @param array<string, mixed> $params
      * @return BaseResponse<array<string, mixed>>
      */
@@ -193,6 +214,9 @@ final class InvMastResource
 
     /**
      * PUT /inv-mast/{invMastUid}/web-desc/{invMastWebDescUid}
+     *
+     * Response data type: object
+     * Known fields: invMastWebDescUid, invMastUid, webDesc1, webDesc2, webDesc3, webDesc4, webDescFull, dateCreated, ... (13 total)
      *
      * @param array<string, mixed> $data
      * @return BaseResponse<array<string, mixed>>

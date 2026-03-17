@@ -23,6 +23,9 @@ final class CashDrawerResource
     /**
      * GET /cash-drawer
      *
+     * Response data type: array
+     * Known fields: cashDrawerId, companyId, cashDrawerDescription, currentSequenceNo, openingBalance, withdrawals, deposits, currentBalance, ... (22 total)
+     *
      * @param array<string, mixed> $params
      * @return BaseResponse<array<string, mixed>>
      */
@@ -35,6 +38,9 @@ final class CashDrawerResource
 
     /**
      * GET /cash-drawer/{cashDrawerUid}
+     *
+     * Response data type: object
+     * Known fields: cashDrawerId, companyId, cashDrawerDescription, currentSequenceNo, openingBalance, withdrawals, deposits, currentBalance, ... (22 total)
      *
      * @param array<string, mixed> $params
      * @return BaseResponse<array<string, mixed>>

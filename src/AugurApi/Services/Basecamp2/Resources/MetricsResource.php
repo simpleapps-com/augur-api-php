@@ -23,6 +23,9 @@ final class MetricsResource
     /**
      * GET /metrics
      *
+     * Response data type: array
+     * Known fields: id, projectsId, todolistId, assigneeId, creatorId, todosContent, todosStatusCd, isStale, ... (29 total)
+     *
      * @param array<string, mixed> $params
      * @return BaseResponse<array<string, mixed>>
      */

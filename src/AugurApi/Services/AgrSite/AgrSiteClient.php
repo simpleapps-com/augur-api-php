@@ -47,6 +47,6 @@ final class AgrSiteClient extends BaseServiceClient
 
     protected function getServiceName(): string
     {
-        return 'agr-site';
+        return 'agrSite';
     }
 }

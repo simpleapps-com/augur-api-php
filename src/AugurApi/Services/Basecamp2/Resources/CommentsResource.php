@@ -23,6 +23,9 @@ final class CommentsResource
     /**
      * GET /comments
      *
+     * Response data type: array
+     * Known fields: id, content, updatedAt, createdAt, creatorId, updateCd, statusCd, processCd, ... (16 total)
+     *
      * @param array<string, mixed> $params
      * @return BaseResponse<array<string, mixed>>
      */
@@ -35,6 +38,9 @@ final class CommentsResource
 
     /**
      * GET /comments/{id}
+     *
+     * Response data type: object
+     * Known fields: id, content, updatedAt, createdAt, creatorId, updateCd, statusCd, processCd, ... (16 total)
      *
      * @param array<string, mixed> $params
      * @return BaseResponse<array<string, mixed>>

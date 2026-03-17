@@ -23,6 +23,9 @@ final class ItemUomResource
     /**
      * GET /item-uom
      *
+     * Response data type: array
+     * Known fields: unitOfMeasure, deleteFlag, dateCreated, dateLastModified, lastMaintainedBy, unitSize, sellingUnit, purchasingUnit, ... (17 total)
+     *
      * @param array<string, mixed> $params
      * @return BaseResponse<array<string, mixed>>
      */
@@ -35,6 +38,9 @@ final class ItemUomResource
 
     /**
      * GET /item-uom/{itemUomUid}
+     *
+     * Response data type: object
+     * Known fields: unitOfMeasure, deleteFlag, dateCreated, dateLastModified, lastMaintainedBy, unitSize, sellingUnit, purchasingUnit, ... (17 total)
      *
      * @param array<string, mixed> $params
      * @return BaseResponse<array<string, mixed>>

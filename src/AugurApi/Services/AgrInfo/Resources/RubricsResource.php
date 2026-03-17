@@ -23,6 +23,9 @@ final class RubricsResource
     /**
      * GET /rubrics
      *
+     * Response data type: array
+     * Known fields: rubricsUid, title, id, content, updateCd, statusCd, processCd, dateCreated, ... (9 total)
+     *
      * @param array<string, mixed> $params
      * @return BaseResponse<array<string, mixed>>
      */
@@ -65,6 +68,9 @@ final class RubricsResource
     /**
      * GET /rubrics/{rubricsUid}
      *
+     * Response data type: object
+     * Known fields: rubricsUid, title, id, content, updateCd, statusCd, processCd, dateCreated, ... (9 total)
+     *
      * @param array<string, mixed> $params
      * @return BaseResponse<array<string, mixed>>
      */
@@ -82,6 +88,9 @@ final class RubricsResource
 
     /**
      * PUT /rubrics/{rubricsUid}
+     *
+     * Response data type: object
+     * Known fields: rubricsUid, title, id, content, updateCd, statusCd, processCd, dateCreated, ... (9 total)
      *
      * @param array<string, mixed> $data
      * @return BaseResponse<array<string, mixed>>

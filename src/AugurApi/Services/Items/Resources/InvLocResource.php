@@ -23,6 +23,9 @@ final class InvLocResource
     /**
      * GET /inv-loc
      *
+     * Response data type: array
+     * Known fields: companyId, locationId, invMastUid, qtyOnHand, qtyInProcess, dateCreated, dateLastModified, nextDueInPoDate, ... (53 total)
+     *
      * @param array<string, mixed> $params
      * @return BaseResponse<array<string, mixed>>
      */

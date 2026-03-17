@@ -23,6 +23,9 @@ final class TodosSummaryResource
     /**
      * GET /todos-summary
      *
+     * Response data type: array
+     * Known fields: id, summary, summaryTokens, context, contextTokens, modelName, vector, vectorCd, ... (19 total)
+     *
      * @param array<string, mixed> $params
      * @return BaseResponse<array<string, mixed>>
      */
@@ -35,6 +38,9 @@ final class TodosSummaryResource
 
     /**
      * GET /todos-summary/{id}
+     *
+     * Response data type: object
+     * Known fields: id, summary, summaryTokens, context, contextTokens, modelName, vector, vectorCd, ... (19 total)
      *
      * @param array<string, mixed> $params
      * @return BaseResponse<array<string, mixed>>

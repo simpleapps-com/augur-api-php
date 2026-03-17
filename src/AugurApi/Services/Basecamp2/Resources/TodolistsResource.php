@@ -23,6 +23,9 @@ final class TodolistsResource
     /**
      * GET /todolists
      *
+     * Response data type: array
+     * Known fields: id, name, description, updatedAt, createdAt, url, appUrl, completedFlag, ... (19 total)
+     *
      * @param array<string, mixed> $params
      * @return BaseResponse<array<string, mixed>>
      */
@@ -35,6 +38,9 @@ final class TodolistsResource
 
     /**
      * GET /todolists/{id}
+     *
+     * Response data type: object
+     * Known fields: id, name, description, updatedAt, createdAt, url, appUrl, completedFlag, ... (19 total)
      *
      * @param array<string, mixed> $params
      * @return BaseResponse<array<string, mixed>>

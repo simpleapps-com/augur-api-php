@@ -23,6 +23,9 @@ final class PeopleResource
     /**
      * GET /people
      *
+     * Response data type: array
+     * Known fields: id, identityId, name, emailAddress, adminFlag, trashedFlag, updatedAt, createdAt, ... (15 total)
+     *
      * @param array<string, mixed> $params
      * @return BaseResponse<array<string, mixed>>
      */
@@ -35,6 +38,9 @@ final class PeopleResource
 
     /**
      * GET /people/{id}
+     *
+     * Response data type: object
+     * Known fields: id, identityId, name, emailAddress, adminFlag, trashedFlag, updatedAt, createdAt, ... (15 total)
      *
      * @param array<string, mixed> $params
      * @return BaseResponse<array<string, mixed>>
@@ -54,6 +60,9 @@ final class PeopleResource
     /**
      * GET /people/{id}/metrics
      *
+     * Response data type: array
+     * Known fields: id, projectsId, todolistId, assigneeId, creatorId, todosContent, todosStatusCd, isStale, ... (29 total)
+     *
      * @param array<string, mixed> $params
      * @return BaseResponse<array<string, mixed>>
      */
@@ -72,6 +81,9 @@ final class PeopleResource
     /**
      * GET /people/{id}/todos
      *
+     * Response data type: array
+     * Known fields: id, identityId, name, emailAddress, adminFlag, trashedFlag, updatedAt, createdAt, ... (15 total)
+     *
      * @param array<string, mixed> $params
      * @return BaseResponse<array<string, mixed>>
      */
@@ -89,6 +101,9 @@ final class PeopleResource
 
     /**
      * GET /people/{personId}/projects/{projectId}/todos
+     *
+     * Response data type: array
+     * Known fields: id, identityId, name, emailAddress, adminFlag, trashedFlag, updatedAt, createdAt, ... (15 total)
      *
      * @param array<string, mixed> $params
      * @return BaseResponse<array<string, mixed>>

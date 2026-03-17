@@ -23,6 +23,9 @@ final class ProductsResource
     /**
      * GET /products
      *
+     * Response data type: array
+     * Known fields: productsUid, distributorsUid, productsId, productsDesc, defaultSellingUnit, dateCreated, dateLastModified, updateCd, ... (13 total)
+     *
      * @param array<string, mixed> $params
      * @return BaseResponse<array<string, mixed>>
      */
@@ -36,6 +39,9 @@ final class ProductsResource
     /**
      * GET /products/find
      *
+     * Response data type: array
+     * Known fields: productsUid, distributorsUid, productsId, productsDesc, defaultSellingUnit, dateCreated, dateLastModified, updateCd, ... (13 total)
+     *
      * @param array<string, mixed> $params
      * @return BaseResponse<array<string, mixed>>
      */
@@ -48,6 +54,9 @@ final class ProductsResource
 
     /**
      * DELETE /products/{productsUid}
+     *
+     * Response data type: object
+     * Known fields: productsUid, distributorsUid, productsId, productsDesc, defaultSellingUnit, dateCreated, dateLastModified, updateCd, ... (13 total)
      *
      * @return BaseResponse<array<string, mixed>>
      */
@@ -64,6 +73,9 @@ final class ProductsResource
 
     /**
      * GET /products/{productsUid}
+     *
+     * Response data type: object
+     * Known fields: productsUid, distributorsUid, productsId, productsDesc, defaultSellingUnit, dateCreated, dateLastModified, updateCd, ... (13 total)
      *
      * @param array<string, mixed> $params
      * @return BaseResponse<array<string, mixed>>
@@ -83,6 +95,9 @@ final class ProductsResource
     /**
      * PUT /products/{productsUid}
      *
+     * Response data type: object
+     * Known fields: productsUid, distributorsUid, productsId, productsDesc, defaultSellingUnit, dateCreated, dateLastModified, updateCd, ... (13 total)
+     *
      * @param array<string, mixed> $data
      * @return BaseResponse<array<string, mixed>>
      */
@@ -100,6 +115,9 @@ final class ProductsResource
 
     /**
      * PUT /products/{productsUid}/enable
+     *
+     * Response data type: array
+     * Known fields: productsUid, distributorsUid, productsId, productsDesc, defaultSellingUnit, dateCreated, dateLastModified, updateCd, ... (13 total)
      *
      * @param array<string, mixed> $data
      * @return BaseResponse<array<string, mixed>>

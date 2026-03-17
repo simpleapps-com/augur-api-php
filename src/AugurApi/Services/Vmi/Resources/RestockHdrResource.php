@@ -23,6 +23,9 @@ final class RestockHdrResource
     /**
      * GET /restock-hdr
      *
+     * Response data type: array
+     * Known fields: restockHdrUid, warehouseUid, distributorsUid, dateCreated, dateLastModified, updateCd, statusCd, processCd, ... (15 total)
+     *
      * @param array<string, mixed> $params
      * @return BaseResponse<array<string, mixed>>
      */
@@ -36,6 +39,9 @@ final class RestockHdrResource
     /**
      * POST /restock-hdr
      *
+     * Response data type: object
+     * Known fields: restockHdrUid, warehouseUid, distributorsUid, dateCreated, dateLastModified, updateCd, statusCd, processCd, ... (15 total)
+     *
      * @param array<string, mixed> $data
      * @return BaseResponse<array<string, mixed>>
      */
@@ -48,6 +54,9 @@ final class RestockHdrResource
 
     /**
      * DELETE /restock-hdr/{restockHdrUid}
+     *
+     * Response data type: object
+     * Known fields: restockHdrUid, warehouseUid, distributorsUid, dateCreated, dateLastModified, updateCd, statusCd, processCd, ... (15 total)
      *
      * @return BaseResponse<array<string, mixed>>
      */
@@ -64,6 +73,9 @@ final class RestockHdrResource
 
     /**
      * GET /restock-hdr/{restockHdrUid}
+     *
+     * Response data type: object
+     * Known fields: restockHdrUid, warehouseUid, distributorsUid, dateCreated, dateLastModified, updateCd, statusCd, processCd, ... (15 total)
      *
      * @param array<string, mixed> $params
      * @return BaseResponse<array<string, mixed>>
@@ -82,6 +94,9 @@ final class RestockHdrResource
 
     /**
      * PUT /restock-hdr/{restockHdrUid}
+     *
+     * Response data type: object
+     * Known fields: restockHdrUid, warehouseUid, distributorsUid, dateCreated, dateLastModified, updateCd, statusCd, processCd, ... (15 total)
      *
      * @param array<string, mixed> $data
      * @return BaseResponse<array<string, mixed>>

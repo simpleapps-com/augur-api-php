@@ -23,6 +23,9 @@ final class PickTicketsResource
     /**
      * GET /pick-tickets
      *
+     * Response data type: array
+     * Known fields: pickTicketNo, orderNo, companyId, carrierId, trackingNo, instructions, shipDate, invoiceNo, ... (19 total)
+     *
      * @param array<string, mixed> $params
      * @return BaseResponse<array<string, mixed>>
      */
@@ -35,6 +38,9 @@ final class PickTicketsResource
 
     /**
      * GET /pick-tickets/{pickTicketNo}
+     *
+     * Response data type: object
+     * Known fields: pickTicketNo, orderNo, companyId, carrierId, trackingNo, instructions, shipDate, invoiceNo, ... (19 total)
      *
      * @param array<string, mixed> $params
      * @return BaseResponse<array<string, mixed>>
@@ -54,6 +60,9 @@ final class PickTicketsResource
     /**
      * GET /pick-tickets/{pickTicketNo}/lines
      *
+     * Response data type: array
+     * Known fields: pickTicketNo, lineNumber, companyId, printQuantity, shipQuantity, dateCreated, dateLastModified, unitOfMeasure, ... (19 total)
+     *
      * @param array<string, mixed> $params
      * @return BaseResponse<array<string, mixed>>
      */
@@ -71,6 +80,9 @@ final class PickTicketsResource
 
     /**
      * GET /pick-tickets/{pickTicketNo}/lines/{lineNumber}
+     *
+     * Response data type: object
+     * Known fields: pickTicketNo, lineNumber, companyId, printQuantity, shipQuantity, dateCreated, dateLastModified, unitOfMeasure, ... (19 total)
      *
      * @param array<string, mixed> $params
      * @return BaseResponse<array<string, mixed>>

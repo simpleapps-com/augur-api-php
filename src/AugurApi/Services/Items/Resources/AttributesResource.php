@@ -23,6 +23,9 @@ final class AttributesResource
     /**
      * GET /attributes
      *
+     * Response data type: array
+     * Known fields: attributeUid, attributeDesc, extendedDesc, attributeId, dataType, maxLength, noOfDecimal, rowStatusFlag, ... (18 total)
+     *
      * @param array<string, mixed> $params
      * @return BaseResponse<array<string, mixed>>
      */
@@ -35,6 +38,9 @@ final class AttributesResource
 
     /**
      * POST /attributes
+     *
+     * Response data type: object
+     * Known fields: attributeUid, attributeDesc, extendedDesc, attributeId, dataType, maxLength, noOfDecimal, rowStatusFlag, ... (18 total)
      *
      * @param array<string, mixed> $data
      * @return BaseResponse<array<string, mixed>>
@@ -65,6 +71,9 @@ final class AttributesResource
     /**
      * GET /attributes/{attributeUid}
      *
+     * Response data type: object
+     * Known fields: attributeUid, attributeDesc, extendedDesc, attributeId, dataType, maxLength, noOfDecimal, rowStatusFlag, ... (18 total)
+     *
      * @param array<string, mixed> $params
      * @return BaseResponse<array<string, mixed>>
      */
@@ -82,6 +91,9 @@ final class AttributesResource
 
     /**
      * PUT /attributes/{attributeUid}
+     *
+     * Response data type: object
+     * Known fields: attributeUid, attributeDesc, extendedDesc, attributeId, dataType, maxLength, noOfDecimal, rowStatusFlag, ... (18 total)
      *
      * @param array<string, mixed> $data
      * @return BaseResponse<array<string, mixed>>
@@ -101,6 +113,9 @@ final class AttributesResource
     /**
      * GET /attributes/{attributeUid}/values
      *
+     * Response data type: array
+     * Known fields: attributeValueUid, attributeUid, attributeValue, rowStatusFlag, dateCreated, createdBy, dateLastModified, lastMaintainedBy, ... (13 total)
+     *
      * @param array<string, mixed> $params
      * @return BaseResponse<array<string, mixed>>
      */
@@ -118,6 +133,9 @@ final class AttributesResource
 
     /**
      * POST /attributes/{attributeUid}/values
+     *
+     * Response data type: object
+     * Known fields: attributeValueUid, attributeUid, attributeValue, rowStatusFlag, dateCreated, createdBy, dateLastModified, lastMaintainedBy, ... (13 total)
      *
      * @param array<string, mixed> $data
      * @return BaseResponse<array<string, mixed>>
@@ -137,6 +155,9 @@ final class AttributesResource
     /**
      * DELETE /attributes/{attributeUid}/values/{attributeValueUid}
      *
+     * Response data type: object
+     * Known fields: attributeValueUid, attributeUid, attributeValue, rowStatusFlag, dateCreated, createdBy, dateLastModified, lastMaintainedBy, ... (13 total)
+     *
      * @return BaseResponse<array<string, mixed>>
      */
     public function deleteValues(int $attributeUid, int $attributeValueUid): BaseResponse
@@ -152,6 +173,9 @@ final class AttributesResource
 
     /**
      * GET /attributes/{attributeUid}/values/{attributeValueUid}
+     *
+     * Response data type: object
+     * Known fields: attributeValueUid, attributeUid, attributeValue, rowStatusFlag, dateCreated, createdBy, dateLastModified, lastMaintainedBy, ... (13 total)
      *
      * @param array<string, mixed> $params
      * @return BaseResponse<array<string, mixed>>
@@ -170,6 +194,9 @@ final class AttributesResource
 
     /**
      * PUT /attributes/{attributeUid}/values/{attributeValueUid}
+     *
+     * Response data type: object
+     * Known fields: attributeValueUid, attributeUid, attributeValue, rowStatusFlag, dateCreated, createdBy, dateLastModified, lastMaintainedBy, ... (13 total)
      *
      * @param array<string, mixed> $data
      * @return BaseResponse<array<string, mixed>>

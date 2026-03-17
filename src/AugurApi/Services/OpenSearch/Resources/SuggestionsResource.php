@@ -23,6 +23,9 @@ final class SuggestionsResource
     /**
      * GET /suggestions
      *
+     * Response data type: array
+     * Known fields: suggestionsUid, queryStringUid, suggestionsString, suggestionsMetaphone, avgTotalResults, dateCreated, dateLastModified, updateCd, ... (10 total)
+     *
      * @param array<string, mixed> $params
      * @return BaseResponse<array<string, mixed>>
      */
@@ -48,6 +51,9 @@ final class SuggestionsResource
 
     /**
      * GET /suggestions/{suggestionsUid}
+     *
+     * Response data type: object
+     * Known fields: suggestionsUid, queryStringUid, suggestionsString, suggestionsMetaphone, avgTotalResults, dateCreated, dateLastModified, updateCd, ... (10 total)
      *
      * @param array<string, mixed> $params
      * @return BaseResponse<array<string, mixed>>

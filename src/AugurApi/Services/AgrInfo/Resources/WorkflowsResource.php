@@ -23,6 +23,9 @@ final class WorkflowsResource
     /**
      * GET /workflows
      *
+     * Response data type: array
+     * Known fields: workflowsUid, workflowsId, title, description, services, workflow, dateCreated, dateLastModified, ... (11 total)
+     *
      * @param array<string, mixed> $params
      * @return BaseResponse<array<string, mixed>>
      */
@@ -35,6 +38,9 @@ final class WorkflowsResource
 
     /**
      * POST /workflows
+     *
+     * Response data type: object
+     * Known fields: workflowsUid, workflowsId, title, description, services, workflow, dateCreated, dateLastModified, ... (11 total)
      *
      * @param array<string, mixed> $data
      * @return BaseResponse<array<string, mixed>>
@@ -65,6 +71,9 @@ final class WorkflowsResource
     /**
      * GET /workflows/{workflowsUid}
      *
+     * Response data type: object
+     * Known fields: workflowsUid, workflowsId, title, description, services, workflow, dateCreated, dateLastModified, ... (11 total)
+     *
      * @param array<string, mixed> $params
      * @return BaseResponse<array<string, mixed>>
      */
@@ -82,6 +91,9 @@ final class WorkflowsResource
 
     /**
      * PUT /workflows/{workflowsUid}
+     *
+     * Response data type: object
+     * Known fields: workflowsUid, workflowsId, title, description, services, workflow, dateCreated, dateLastModified, ... (11 total)
      *
      * @param array<string, mixed> $data
      * @return BaseResponse<array<string, mixed>>

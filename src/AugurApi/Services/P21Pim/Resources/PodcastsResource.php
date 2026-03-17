@@ -23,6 +23,9 @@ final class PodcastsResource
     /**
      * GET /podcasts
      *
+     * Response data type: array
+     * Known fields: podcastsUid, title, path, transcript, dateCreated, dateLastModified, updateCd, statusCd, ... (9 total)
+     *
      * @param array<string, mixed> $params
      * @return BaseResponse<array<string, mixed>>
      */
@@ -64,6 +67,9 @@ final class PodcastsResource
 
     /**
      * GET /podcasts/{podcastsUid}
+     *
+     * Response data type: object
+     * Known fields: podcastsUid, title, path, transcript, dateCreated, dateLastModified, updateCd, statusCd, ... (9 total)
      *
      * @param array<string, mixed> $params
      * @return BaseResponse<array<string, mixed>>

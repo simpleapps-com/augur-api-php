@@ -103,6 +103,9 @@ final class InvMastResource
     /**
      * POST /inv-mast/{invMastUid}/attributes
      *
+     * Response data type: object
+     * Known fields: itemAttributeValueUid, invMastUid, attributeUid, attributeValue, dateCreated, createdBy, dateLastModified, lastMaintainedBy, ... (13 total)
+     *
      * @param array<string, mixed> $data
      * @return BaseResponse<array<string, mixed>>
      */
@@ -139,6 +142,9 @@ final class InvMastResource
     /**
      * POST /inv-mast/{invMastUid}/attributes/{attributeUid}/values
      *
+     * Response data type: object
+     * Known fields: itemAttributeValueUid, invMastUid, attributeUid, attributeValue, dateCreated, createdBy, dateLastModified, lastMaintainedBy, ... (13 total)
+     *
      * @param array<string, mixed> $data
      * @return BaseResponse<array<string, mixed>>
      */
@@ -172,6 +178,9 @@ final class InvMastResource
 
     /**
      * PUT /inv-mast/{invMastUid}/attributes/{attributeUid}/values/{attributeValueUid}
+     *
+     * Response data type: object
+     * Known fields: itemAttributeValueUid, invMastUid, attributeUid, attributeValue, dateCreated, createdBy, dateLastModified, lastMaintainedBy, ... (13 total)
      *
      * @param array<string, mixed> $data
      * @return BaseResponse<array<string, mixed>>
@@ -220,6 +229,9 @@ final class InvMastResource
     /**
      * GET /inv-mast/{invMastUid}/faq
      *
+     * Response data type: array
+     * Known fields: invMastFaqUid, invMastUid, question, answer, generatedAnswer, sourceCount, dateCreated, dateLastModified, ... (16 total)
+     *
      * @param array<string, mixed> $params
      * @return BaseResponse<array<string, mixed>>
      */
@@ -237,6 +249,9 @@ final class InvMastResource
 
     /**
      * POST /inv-mast/{invMastUid}/faq
+     *
+     * Response data type: array
+     * Known fields: invMastFaqUid, invMastUid, question, answer, generatedAnswer, sourceCount, dateCreated, dateLastModified, ... (16 total)
      *
      * @param array<string, mixed> $data
      * @return BaseResponse<array<string, mixed>>
@@ -256,6 +271,9 @@ final class InvMastResource
     /**
      * DELETE /inv-mast/{invMastUid}/faq/{invMastFaqUid}
      *
+     * Response data type: object
+     * Known fields: invMastFaqUid, invMastUid, question, answer, generatedAnswer, sourceCount, dateCreated, dateLastModified, ... (16 total)
+     *
      * @return BaseResponse<array<string, mixed>>
      */
     public function deleteFaq(int $invMastFaqUid, int $invMastUid): BaseResponse
@@ -271,6 +289,9 @@ final class InvMastResource
 
     /**
      * GET /inv-mast/{invMastUid}/faq/{invMastFaqUid}
+     *
+     * Response data type: object
+     * Known fields: invMastFaqUid, invMastUid, question, answer, generatedAnswer, sourceCount, dateCreated, dateLastModified, ... (16 total)
      *
      * @param array<string, mixed> $params
      * @return BaseResponse<array<string, mixed>>
@@ -289,6 +310,9 @@ final class InvMastResource
 
     /**
      * PUT /inv-mast/{invMastUid}/faq/{invMastFaqUid}
+     *
+     * Response data type: object
+     * Known fields: invMastFaqUid, invMastUid, question, answer, generatedAnswer, sourceCount, dateCreated, dateLastModified, ... (16 total)
      *
      * @param array<string, mixed> $data
      * @return BaseResponse<array<string, mixed>>

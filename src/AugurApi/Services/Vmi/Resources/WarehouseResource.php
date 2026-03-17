@@ -23,6 +23,9 @@ final class WarehouseResource
     /**
      * GET /warehouse
      *
+     * Response data type: array
+     * Known fields: warehouseUid, warehouseId, warehouseName, warehouseDesc, dateCreated, dateLastModified, updateCd, statusCd, ... (11 total)
+     *
      * @param array<string, mixed> $params
      * @return BaseResponse<array<string, mixed>>
      */
@@ -36,6 +39,9 @@ final class WarehouseResource
     /**
      * POST /warehouse
      *
+     * Response data type: object
+     * Known fields: warehouseUid, warehouseId, warehouseName, warehouseDesc, dateCreated, dateLastModified, updateCd, statusCd, ... (11 total)
+     *
      * @param array<string, mixed> $data
      * @return BaseResponse<array<string, mixed>>
      */
@@ -48,6 +54,9 @@ final class WarehouseResource
 
     /**
      * DELETE /warehouse/{warehouseUid}
+     *
+     * Response data type: object
+     * Known fields: warehouseUid, warehouseId, warehouseName, warehouseDesc, dateCreated, dateLastModified, updateCd, statusCd, ... (11 total)
      *
      * @return BaseResponse<array<string, mixed>>
      */
@@ -64,6 +73,9 @@ final class WarehouseResource
 
     /**
      * GET /warehouse/{warehouseUid}
+     *
+     * Response data type: object
+     * Known fields: warehouseUid, warehouseId, warehouseName, warehouseDesc, dateCreated, dateLastModified, updateCd, statusCd, ... (11 total)
      *
      * @param array<string, mixed> $params
      * @return BaseResponse<array<string, mixed>>
@@ -82,6 +94,9 @@ final class WarehouseResource
 
     /**
      * PUT /warehouse/{warehouseUid}
+     *
+     * Response data type: object
+     * Known fields: warehouseUid, warehouseId, warehouseName, warehouseDesc, dateCreated, dateLastModified, updateCd, statusCd, ... (11 total)
      *
      * @param array<string, mixed> $data
      * @return BaseResponse<array<string, mixed>>

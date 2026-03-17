@@ -23,6 +23,9 @@ final class GeoCodesPostalCodesResource
     /**
      * GET /geo-codes-postal-codes
      *
+     * Response data type: array
+     * Known fields: geoCodesPostalCodesUid, countryCode, postalCode, placeName, adminName1, adminCode1, adminName2, adminCode2, ... (18 total)
+     *
      * @param array<string, mixed> $params
      * @return BaseResponse<array<string, mixed>>
      */
@@ -35,6 +38,9 @@ final class GeoCodesPostalCodesResource
 
     /**
      * GET /geo-codes-postal-codes/{geoCodesPostalCodesUid}
+     *
+     * Response data type: object
+     * Known fields: geoCodesPostalCodesUid, countryCode, postalCode, placeName, adminName1, adminCode1, adminName2, adminCode2, ... (18 total)
      *
      * @param array<string, mixed> $params
      * @return BaseResponse<array<string, mixed>>

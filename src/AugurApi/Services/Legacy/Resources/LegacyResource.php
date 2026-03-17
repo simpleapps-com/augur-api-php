@@ -23,6 +23,9 @@ final class LegacyResource
     /**
      * GET /legacy/state
      *
+     * Response data type: array
+     * Known fields: stateUid, countryUid, twoLetterCode, stateName, dateCreated, createdBy, dateLastModified, lastMaintainedBy, ... (17 total)
+     *
      * @param array<string, mixed> $params
      * @return BaseResponse<array<string, mixed>>
      */
@@ -65,6 +68,9 @@ final class LegacyResource
     /**
      * GET /legacy/state/{stateUid}
      *
+     * Response data type: object
+     * Known fields: stateUid, countryUid, twoLetterCode, stateName, dateCreated, createdBy, dateLastModified, lastMaintainedBy, ... (17 total)
+     *
      * @param array<string, mixed> $params
      * @return BaseResponse<array<string, mixed>>
      */
@@ -82,6 +88,9 @@ final class LegacyResource
 
     /**
      * PUT /legacy/state/{stateUid}
+     *
+     * Response data type: object
+     * Known fields: stateUid, countryUid, twoLetterCode, stateName, dateCreated, createdBy, dateLastModified, lastMaintainedBy, ... (17 total)
      *
      * @param array<string, mixed> $data
      * @return BaseResponse<array<string, mixed>>

@@ -23,6 +23,9 @@ final class CompanyResource
     /**
      * GET /company
      *
+     * Response data type: array
+     * Known fields: companyUid, companyId, companyName, dateCreated, dateLastModified, deleteFlag, updateCd, lastMaintainedBy, ... (14 total)
+     *
      * @param array<string, mixed> $params
      * @return BaseResponse<array<string, mixed>>
      */
@@ -35,6 +38,9 @@ final class CompanyResource
 
     /**
      * GET /company/{companyUid}
+     *
+     * Response data type: object
+     * Known fields: companyUid, companyId, companyName, dateCreated, dateLastModified, deleteFlag, updateCd, lastMaintainedBy, ... (14 total)
      *
      * @param array<string, mixed> $params
      * @return BaseResponse<array<string, mixed>>

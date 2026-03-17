@@ -23,6 +23,9 @@ final class NotificationsResource
     /**
      * POST /notifications
      *
+     * Response data type: object
+     * Known fields: notificationsUid, serviceName, dataTypeName, type, dataTypeUid, dateCreated, dateLastModified, updateCd, ... (10 total)
+     *
      * @param array<string, mixed> $data
      * @return BaseResponse<array<string, mixed>>
      */

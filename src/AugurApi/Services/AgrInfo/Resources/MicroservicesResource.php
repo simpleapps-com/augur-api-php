@@ -23,6 +23,9 @@ final class MicroservicesResource
     /**
      * GET /microservices
      *
+     * Response data type: array
+     * Known fields: microservicesUid, name, id, updateCd, statusCd, processCd, dateCreated, dateLastModified
+     *
      * @param array<string, mixed> $params
      * @return BaseResponse<array<string, mixed>>
      */
@@ -35,6 +38,9 @@ final class MicroservicesResource
 
     /**
      * POST /microservices
+     *
+     * Response data type: object
+     * Known fields: microservicesUid, name, id, updateCd, statusCd, processCd, dateCreated, dateLastModified
      *
      * @param array<string, mixed> $data
      * @return BaseResponse<array<string, mixed>>
@@ -65,6 +71,9 @@ final class MicroservicesResource
     /**
      * GET /microservices/{microservicesUid}
      *
+     * Response data type: object
+     * Known fields: microservicesUid, name, id, updateCd, statusCd, processCd, dateCreated, dateLastModified
+     *
      * @param array<string, mixed> $params
      * @return BaseResponse<array<string, mixed>>
      */
@@ -82,6 +91,9 @@ final class MicroservicesResource
 
     /**
      * PUT /microservices/{microservicesUid}
+     *
+     * Response data type: object
+     * Known fields: microservicesUid, name, id, updateCd, statusCd, processCd, dateCreated, dateLastModified
      *
      * @param array<string, mixed> $data
      * @return BaseResponse<array<string, mixed>>

@@ -23,6 +23,9 @@ final class FyxerTranscriptResource
     /**
      * GET /fyxer-transcript
      *
+     * Response data type: array
+     * Known fields: fyxerTranscriptHdrUid, link, summary, transcript, dateRecorded, dateCreated, dateLastModified, updateCd, ... (11 total)
+     *
      * @param array<string, mixed> $params
      * @return BaseResponse<array<string, mixed>>
      */
@@ -35,6 +38,9 @@ final class FyxerTranscriptResource
 
     /**
      * POST /fyxer-transcript
+     *
+     * Response data type: object
+     * Known fields: fyxerTranscriptHdrUid, link, summary, transcript, dateRecorded, dateCreated, dateLastModified, updateCd, ... (11 total)
      *
      * @param array<string, mixed> $data
      * @return BaseResponse<array<string, mixed>>
@@ -65,6 +71,9 @@ final class FyxerTranscriptResource
     /**
      * GET /fyxer-transcript/{fyxerTranscriptHdrUid}
      *
+     * Response data type: object
+     * Known fields: fyxerTranscriptHdrUid, link, summary, transcript, dateRecorded, dateCreated, dateLastModified, updateCd, ... (11 total)
+     *
      * @param array<string, mixed> $params
      * @return BaseResponse<array<string, mixed>>
      */
@@ -82,6 +91,9 @@ final class FyxerTranscriptResource
 
     /**
      * PUT /fyxer-transcript/{fyxerTranscriptHdrUid}
+     *
+     * Response data type: object
+     * Known fields: fyxerTranscriptHdrUid, link, summary, transcript, dateRecorded, dateCreated, dateLastModified, updateCd, ... (11 total)
      *
      * @param array<string, mixed> $data
      * @return BaseResponse<array<string, mixed>>

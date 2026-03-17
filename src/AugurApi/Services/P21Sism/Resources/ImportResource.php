@@ -62,6 +62,9 @@ final class ImportResource
     /**
      * DELETE /import/{importUid}
      *
+     * Response data type: object
+     * Known fields: importUid, scheduledImportMasterUid, dateCreated, dateLastModified, sourceName, sourceId, importState, jsonData, ... (11 total)
+     *
      * @return BaseResponse<array<string, mixed>>
      */
     public function delete(string $importUid): BaseResponse
@@ -77,6 +80,9 @@ final class ImportResource
 
     /**
      * GET /import/{importUid}
+     *
+     * Response data type: object
+     * Known fields: importUid, scheduledImportMasterUid, dateCreated, dateLastModified, sourceName, sourceId, importState, jsonData, ... (11 total)
      *
      * @param array<string, mixed> $params
      * @return BaseResponse<array<string, mixed>>
@@ -95,6 +101,9 @@ final class ImportResource
 
     /**
      * PUT /import/{importUid}
+     *
+     * Response data type: object
+     * Known fields: importUid, scheduledImportMasterUid, dateCreated, dateLastModified, sourceName, sourceId, importState, jsonData, ... (11 total)
      *
      * @param array<string, mixed> $data
      * @return BaseResponse<array<string, mixed>>
