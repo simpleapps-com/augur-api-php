@@ -6,14 +6,11 @@ namespace AugurApi\Services\Commerce\Resources;
 
 use AugurApi\Core\BaseResponse;
 use AugurApi\Core\Client;
-use AugurApi\Core\Schemas\EdgeCache;
 
 /**
- * Cart header resource.
+ * cartHdr resource — generated from spec.
  *
- * @fullPath api.commerce.cartHdr
- * @service commerce
- * @domain commerce
+ * DO NOT EDIT — regenerate with: python shared/scripts/generate-php.py commerce
  */
 final class CartHdrResource
 {
@@ -24,48 +21,46 @@ final class CartHdrResource
     }
 
     /**
-     * List cart headers by user_id.
+     * GET /cart-hdr/list
      *
-     * @fullPath api.commerce.cartHdr.list
      * @param array<string, mixed> $params
-     * @return BaseResponse<array<array<string, mixed>>>
+     * @return BaseResponse<array<string, mixed>>
      */
-    public function list(array $params = []): BaseResponse
+    public function listList(array $params = []): BaseResponse
     {
-        $response = $this->client->get($this->baseUrl, '/cart-hdr/list', $params);
+        $response = $this->client->get($this->baseUrl, '/list', $params);
 
-        return BaseResponse::fromArray($response, static fn ($data) => $data ?? []);
+        return BaseResponse::fromArray($response, static fn ($data) => $data);
     }
 
     /**
-     * Lookup cart header.
+     * GET /cart-hdr/lookup
      *
-     * @fullPath api.commerce.cartHdr.lookup
      * @param array<string, mixed> $params
-     * @return BaseResponse<array<array<string, mixed>>>
+     * @return BaseResponse<array<string, mixed>>
      */
-    public function lookup(array $params = []): BaseResponse
+    public function getLookup(array $params = []): BaseResponse
     {
-        $response = $this->client->get($this->baseUrl, '/cart-hdr/lookup', $params);
+        $response = $this->client->get($this->baseUrl, '/lookup', $params);
 
-        return BaseResponse::fromArray($response, static fn ($data) => $data ?? []);
+        return BaseResponse::fromArray($response, static fn ($data) => $data);
     }
 
     /**
-     * List also bought data for cart header.
+     * GET /cart-hdr/{cartHdrUid}/also-bought
      *
-     * @fullPath api.commerce.cartHdr.getAlsoBought
-     * @return BaseResponse<array<array<string, mixed>>>
+     * @param array<string, mixed> $params
+     * @return BaseResponse<array<string, mixed>>
      */
-    public function getAlsoBought(int $cartHdrUid, ?EdgeCache $edgeCache = null): BaseResponse
+    public function listAlsoBought(int $cart_hdr_uid, array $params = []): BaseResponse
     {
         $response = $this->client->get(
             $this->baseUrl,
-            '/cart-hdr/{cartHdrUid}/also-bought',
-            $edgeCache !== null ? ['edgeCache' => $edgeCache->value] : [],
-            ['cartHdrUid' => (string) $cartHdrUid],
+            '/{cartHdrUid}/also-bought',
+            $params,
+            ['cart_hdr_uid' => (string) $cart_hdr_uid],
         );
 
-        return BaseResponse::fromArray($response, static fn ($data) => $data ?? []);
+        return BaseResponse::fromArray($response, static fn ($data) => $data);
     }
 }

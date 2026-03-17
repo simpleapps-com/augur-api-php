@@ -17,11 +17,9 @@ use AugurApi\Services\AgrSite\Resources\SettingsResource;
 use AugurApi\Services\AgrSite\Resources\TrainingResource;
 
 /**
- * Agr Site service client.
+ * AgrSite service client — generated from spec.
  *
- * @fullPath api.agrSite
- * @service agr_site
- * @domain augur
+ * DO NOT EDIT — regenerate with: python shared/scripts/generate-php.py agr-site
  */
 final class AgrSiteClient extends BaseServiceClient
 {
@@ -37,18 +35,18 @@ final class AgrSiteClient extends BaseServiceClient
     public function __construct(Client $client, Config $config)
     {
         parent::__construct($client, $config);
-        $this->context = new ContextResource($client, $this->baseUrl);
-        $this->fyxerTranscript = new FyxerTranscriptResource($client, $this->baseUrl);
-        $this->geoCodesPostalCodes = new GeoCodesPostalCodesResource($client, $this->baseUrl);
-        $this->metaFiles = new MetaFilesResource($client, $this->baseUrl);
-        $this->notifications = new NotificationsResource($client, $this->baseUrl);
-        $this->openSearch = new OpenSearchResource($client, $this->baseUrl);
-        $this->settings = new SettingsResource($client, $this->baseUrl);
-        $this->training = new TrainingResource($client, $this->baseUrl);
+        $this->context = new ContextResource($client, $this->baseUrl . '/context');
+        $this->fyxerTranscript = new FyxerTranscriptResource($client, $this->baseUrl . '/fyxer-transcript');
+        $this->geoCodesPostalCodes = new GeoCodesPostalCodesResource($client, $this->baseUrl . '/geo-codes-postal-codes');
+        $this->metaFiles = new MetaFilesResource($client, $this->baseUrl . '/meta-files');
+        $this->notifications = new NotificationsResource($client, $this->baseUrl . '/notifications');
+        $this->openSearch = new OpenSearchResource($client, $this->baseUrl . '/open-search');
+        $this->settings = new SettingsResource($client, $this->baseUrl . '/settings');
+        $this->training = new TrainingResource($client, $this->baseUrl . '/training');
     }
 
     protected function getServiceName(): string
     {
-        return 'agrSite';
+        return 'agr-site';
     }
 }

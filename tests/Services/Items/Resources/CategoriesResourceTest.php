@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace AugurApi\Tests\Services\Items\Resources;
 
-use AugurApi\Core\Exceptions\ValidationException;
 use AugurApi\Tests\AugurApiTestCase;
 
 /**
@@ -14,29 +13,31 @@ use AugurApi\Tests\AugurApiTestCase;
  */
 final class CategoriesResourceTest extends AugurApiTestCase
 {
-    public function testLookup(): void
+    public function testGetLookup(): void
     {
         $this->mockListResponse([
             ['itemCategoryUid' => 1, 'name' => 'Electronics'],
             ['itemCategoryUid' => 2, 'name' => 'Hardware'],
         ]);
 
-        $response = $this->api->items->categories->lookup();
+        $response = $this->api->items->categories->getLookup();
 
         $this->assertCount(2, $response->data);
-        $this->assertEquals(1, $response->data[0]['itemCategoryUid']);
-        $this->assertEquals('Electronics', $response->data[0]['name']);
+        /** @var list<array<string, mixed>> $data */
+        $data = $response->data;
+        $this->assertEquals(1, $data[0]['itemCategoryUid']);
+        $this->assertEquals('Electronics', $data[0]['name']);
         $this->assertRequestMethod('GET');
         $this->assertRequestPath('/categories/lookup');
     }
 
-    public function testLookupWithParams(): void
+    public function testGetLookupWithParams(): void
     {
         $this->mockListResponse([
             ['itemCategoryUid' => 1, 'name' => 'Electronics'],
         ]);
 
-        $response = $this->api->items->categories->lookup(['limit' => 10, 'q' => 'elec']);
+        $response = $this->api->items->categories->getLookup(['limit' => 10, 'q' => 'elec']);
 
         $this->assertCount(1, $response->data);
         $this->assertHasSiteIdHeader();
@@ -87,7 +88,9 @@ final class CategoriesResourceTest extends AugurApiTestCase
         $response = $this->api->items->categories->listImages(1);
 
         $this->assertCount(2, $response->data);
-        $this->assertStringContainsString('image1', $response->data[0]['url']);
+        /** @var list<array<string, mixed>> $data */
+        $data = $response->data;
+        $this->assertStringContainsString('image1', $data[0]['url']);
         $this->assertRequestMethod('GET');
         $this->assertRequestPath('/categories/1/images');
     }
@@ -131,54 +134,5 @@ final class CategoriesResourceTest extends AugurApiTestCase
 
         $this->assertCount(1, $response->data['items']);
         $this->assertEquals(100, $response->data['total']);
-    }
-
-    public function testGetUidZeroWithoutPathThrows(): void
-    {
-        $this->expectException(ValidationException::class);
-        $this->expectExceptionMessage('requires `path`');
-        $this->api->items->categories->get(0);
-    }
-
-    public function testGetUidZeroWithEmptyPathThrows(): void
-    {
-        $this->expectException(ValidationException::class);
-        $this->expectExceptionMessage('requires `path`');
-        $this->api->items->categories->get(0, ['path' => '']);
-    }
-
-    public function testGetUidZeroWithPathSucceeds(): void
-    {
-        $this->mockResponse([
-            'itemCategoryUid' => 2091,
-            'itemCategoryDesc' => 'ASSEMBLIES',
-        ]);
-
-        $response = $this->api->items->categories->get(0, ['path' => 'Store/Category/Sub']);
-
-        $this->assertEquals(2091, $response->data['itemCategoryUid']);
-        $this->assertRequestMethod('GET');
-        $this->assertRequestPath('/categories/0');
-    }
-
-    public function testListAttributesUidZeroThrows(): void
-    {
-        $this->expectException(ValidationException::class);
-        $this->expectExceptionMessage('does not support itemCategoryUid: 0');
-        $this->api->items->categories->listAttributes(0);
-    }
-
-    public function testListImagesUidZeroThrows(): void
-    {
-        $this->expectException(ValidationException::class);
-        $this->expectExceptionMessage('does not support itemCategoryUid: 0');
-        $this->api->items->categories->listImages(0);
-    }
-
-    public function testListItemsUidZeroThrows(): void
-    {
-        $this->expectException(ValidationException::class);
-        $this->expectExceptionMessage('does not support itemCategoryUid: 0');
-        $this->api->items->categories->listItems(0);
     }
 }

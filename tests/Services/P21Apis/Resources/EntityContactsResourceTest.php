@@ -20,7 +20,7 @@ final class EntityContactsResourceTest extends AugurApiTestCase
             'message' => 'Entity contacts refresh triggered',
         ]);
 
-        $response = $this->api->p21Apis->entityContacts->refresh();
+        $response = $this->api->p21Apis->entityContacts->getRefresh();
 
         $this->assertTrue($response->data['success']);
         $this->assertRequestMethod('GET');
@@ -36,7 +36,7 @@ final class EntityContactsResourceTest extends AugurApiTestCase
             'count' => 100,
         ]);
 
-        $response = $this->api->p21Apis->entityContacts->refresh(['forceUpdate' => true]);
+        $response = $this->api->p21Apis->entityContacts->getRefresh(['forceUpdate' => true]);
 
         $this->assertTrue($response->data['success']);
         $this->assertEquals(100, $response->data['count']);

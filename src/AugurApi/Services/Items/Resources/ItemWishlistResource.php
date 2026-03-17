@@ -6,14 +6,11 @@ namespace AugurApi\Services\Items\Resources;
 
 use AugurApi\Core\BaseResponse;
 use AugurApi\Core\Client;
-use AugurApi\Core\Schemas\EdgeCache;
 
 /**
- * Item Wishlist resource.
+ * itemWishlist resource — generated from spec.
  *
- * @fullPath api.items.itemWishlist
- * @service items
- * @domain user-preferences
+ * DO NOT EDIT — regenerate with: python shared/scripts/generate-php.py items
  */
 final class ItemWishlistResource
 {
@@ -24,132 +21,122 @@ final class ItemWishlistResource
     }
 
     /**
-     * List user wishlists.
+     * GET /item-wishlist/{usersId}
      *
-     * @fullPath api.items.itemWishlist.list
      * @param array<string, mixed> $params
-     * @return BaseResponse<array<array<string, mixed>>>
+     * @return BaseResponse<array<string, mixed>>
      */
-    public function list(int $usersId, array $params = []): BaseResponse
+    public function get(int $usersId, array $params = []): BaseResponse
     {
         $response = $this->client->get(
             $this->baseUrl,
-            '/item-wishlist/{usersId}',
+            '/{usersId}',
             $params,
             ['usersId' => (string) $usersId],
-        );
-
-        return BaseResponse::fromArray($response, static fn ($data) => $data ?? []);
-    }
-
-    /**
-     * Create user wishlist.
-     *
-     * @fullPath api.items.itemWishlist.create
-     * @param array<string, mixed> $data
-     * @return BaseResponse<array<string, mixed>>
-     */
-    public function create(int $usersId, array $data): BaseResponse
-    {
-        $response = $this->client->post(
-            $this->baseUrl,
-            '/item-wishlist/{usersId}',
-            $data,
-            ['usersId' => (string) $usersId],
-        );
-
-        return BaseResponse::fromArray($response, static fn ($d) => $d);
-    }
-
-    /**
-     * Get wishlist header (returns line items).
-     *
-     * @fullPath api.items.itemWishlist.hdr.get
-     * @return BaseResponse<array<array<string, mixed>>>
-     */
-    public function getHdr(int $usersId, int $itemWishlistHdrUid, ?EdgeCache $edgeCache = null): BaseResponse
-    {
-        $response = $this->client->get(
-            $this->baseUrl,
-            '/item-wishlist/{usersId}/hdr/{itemWishlistHdrUid}',
-            $edgeCache !== null ? ['edgeCache' => $edgeCache->value] : [],
-            ['usersId' => (string) $usersId, 'itemWishlistHdrUid' => (string) $itemWishlistHdrUid],
-        );
-
-        return BaseResponse::fromArray($response, static fn ($data) => $data ?? []);
-    }
-
-    /**
-     * Create wishlist header.
-     *
-     * @fullPath api.items.itemWishlist.hdr.create
-     * @param array<string, mixed> $data
-     * @return BaseResponse<array<string, mixed>>
-     */
-    public function createHdr(int $usersId, int $itemWishlistHdrUid, array $data): BaseResponse
-    {
-        $response = $this->client->post(
-            $this->baseUrl,
-            '/item-wishlist/{usersId}/hdr/{itemWishlistHdrUid}',
-            $data,
-            ['usersId' => (string) $usersId, 'itemWishlistHdrUid' => (string) $itemWishlistHdrUid],
-        );
-
-        return BaseResponse::fromArray($response, static fn ($d) => $d);
-    }
-
-    /**
-     * Update wishlist header.
-     *
-     * @fullPath api.items.itemWishlist.hdr.update
-     * @param array<string, mixed> $data
-     * @return BaseResponse<array<string, mixed>>
-     */
-    public function updateHdr(int $usersId, int $itemWishlistHdrUid, array $data): BaseResponse
-    {
-        $response = $this->client->put(
-            $this->baseUrl,
-            '/item-wishlist/{usersId}/hdr/{itemWishlistHdrUid}',
-            $data,
-            ['usersId' => (string) $usersId, 'itemWishlistHdrUid' => (string) $itemWishlistHdrUid],
-        );
-
-        return BaseResponse::fromArray($response, static fn ($d) => $d);
-    }
-
-    /**
-     * Delete wishlist header.
-     *
-     * @fullPath api.items.itemWishlist.hdr.delete
-     * @return BaseResponse<array<string, mixed>>
-     */
-    public function deleteHdr(int $usersId, int $itemWishlistHdrUid): BaseResponse
-    {
-        $response = $this->client->delete(
-            $this->baseUrl,
-            '/item-wishlist/{usersId}/hdr/{itemWishlistHdrUid}',
-            ['usersId' => (string) $usersId, 'itemWishlistHdrUid' => (string) $itemWishlistHdrUid],
         );
 
         return BaseResponse::fromArray($response, static fn ($data) => $data);
     }
 
     /**
-     * Delete wishlist line.
+     * POST /item-wishlist/{usersId}
      *
-     * @fullPath api.items.itemWishlist.hdr.line.delete
+     * @param array<string, mixed> $data
      * @return BaseResponse<array<string, mixed>>
      */
-    public function deleteLine(int $usersId, int $itemWishlistHdrUid, int $itemWishlistLineUid): BaseResponse
+    public function create(int $usersId, array $data = []): BaseResponse
+    {
+        $response = $this->client->post(
+            $this->baseUrl,
+            '/{usersId}',
+            $data,
+            ['usersId' => (string) $usersId],
+        );
+
+        return BaseResponse::fromArray($response, static fn ($data) => $data);
+    }
+
+    /**
+     * DELETE /item-wishlist/{usersId}/hdr/{itemWishlistHdrUid}
+     *
+     * @return BaseResponse<array<string, mixed>>
+     */
+    public function deleteHdr(int $itemWishlistHdrUid, int $usersId): BaseResponse
     {
         $response = $this->client->delete(
             $this->baseUrl,
-            '/item-wishlist/{usersId}/hdr/{itemWishlistHdrUid}/line/{itemWishlistLineUid}',
-            [
-                'usersId' => (string) $usersId,
-                'itemWishlistHdrUid' => (string) $itemWishlistHdrUid,
-                'itemWishlistLineUid' => (string) $itemWishlistLineUid,
-            ],
+            '/{usersId}/hdr/{itemWishlistHdrUid}',
+            ['itemWishlistHdrUid' => (string) $itemWishlistHdrUid, 'usersId' => (string) $usersId],
+        );
+
+        return BaseResponse::fromArray($response, static fn ($data) => $data);
+    }
+
+    /**
+     * GET /item-wishlist/{usersId}/hdr/{itemWishlistHdrUid}
+     *
+     * @param array<string, mixed> $params
+     * @return BaseResponse<array<string, mixed>>
+     */
+    public function getHdr(int $itemWishlistHdrUid, int $usersId, array $params = []): BaseResponse
+    {
+        $response = $this->client->get(
+            $this->baseUrl,
+            '/{usersId}/hdr/{itemWishlistHdrUid}',
+            $params,
+            ['itemWishlistHdrUid' => (string) $itemWishlistHdrUid, 'usersId' => (string) $usersId],
+        );
+
+        return BaseResponse::fromArray($response, static fn ($data) => $data);
+    }
+
+    /**
+     * POST /item-wishlist/{usersId}/hdr/{itemWishlistHdrUid}
+     *
+     * @param array<string, mixed> $data
+     * @return BaseResponse<array<string, mixed>>
+     */
+    public function createHdr(int $itemWishlistHdrUid, int $usersId, array $data = []): BaseResponse
+    {
+        $response = $this->client->post(
+            $this->baseUrl,
+            '/{usersId}/hdr/{itemWishlistHdrUid}',
+            $data,
+            ['itemWishlistHdrUid' => (string) $itemWishlistHdrUid, 'usersId' => (string) $usersId],
+        );
+
+        return BaseResponse::fromArray($response, static fn ($data) => $data);
+    }
+
+    /**
+     * PUT /item-wishlist/{usersId}/hdr/{itemWishlistHdrUid}
+     *
+     * @param array<string, mixed> $data
+     * @return BaseResponse<array<string, mixed>>
+     */
+    public function updateHdr(int $itemWishlistHdrUid, int $usersId, array $data = []): BaseResponse
+    {
+        $response = $this->client->put(
+            $this->baseUrl,
+            '/{usersId}/hdr/{itemWishlistHdrUid}',
+            $data,
+            ['itemWishlistHdrUid' => (string) $itemWishlistHdrUid, 'usersId' => (string) $usersId],
+        );
+
+        return BaseResponse::fromArray($response, static fn ($data) => $data);
+    }
+
+    /**
+     * DELETE /item-wishlist/{usersId}/hdr/{itemWishlistHdrUid}/line/{itemWishlistLineUid}
+     *
+     * @return BaseResponse<array<string, mixed>>
+     */
+    public function deleteHdrLine(int $itemWishlistHdrUid, int $itemWishlistLineUid, int $usersId): BaseResponse
+    {
+        $response = $this->client->delete(
+            $this->baseUrl,
+            '/{usersId}/hdr/{itemWishlistHdrUid}/line/{itemWishlistLineUid}',
+            ['itemWishlistHdrUid' => (string) $itemWishlistHdrUid, 'itemWishlistLineUid' => (string) $itemWishlistLineUid, 'usersId' => (string) $usersId],
         );
 
         return BaseResponse::fromArray($response, static fn ($data) => $data);

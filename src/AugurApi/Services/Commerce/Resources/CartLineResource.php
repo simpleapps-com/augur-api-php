@@ -6,14 +6,11 @@ namespace AugurApi\Services\Commerce\Resources;
 
 use AugurApi\Core\BaseResponse;
 use AugurApi\Core\Client;
-use AugurApi\Core\Schemas\EdgeCache;
 
 /**
- * Cart line resource.
+ * cartLine resource — generated from spec.
  *
- * @fullPath api.commerce.cartLine
- * @service commerce
- * @domain commerce
+ * DO NOT EDIT — regenerate with: python shared/scripts/generate-php.py commerce
  */
 final class CartLineResource
 {
@@ -24,92 +21,88 @@ final class CartLineResource
     }
 
     /**
-     * Get cart lines.
+     * DELETE /cart-line/{cartHdrUid}
      *
-     * @fullPath api.commerce.cartLine.get
-     * @return BaseResponse<array<array<string, mixed>>>
+     * @return BaseResponse<array<string, mixed>>
      */
-    public function get(int $cartHdrUid, ?EdgeCache $edgeCache = null): BaseResponse
+    public function delete(int $cart_hdr_uid): BaseResponse
+    {
+        $response = $this->client->delete(
+            $this->baseUrl,
+            '/{cartHdrUid}',
+            ['cart_hdr_uid' => (string) $cart_hdr_uid],
+        );
+
+        return BaseResponse::fromArray($response, static fn ($data) => $data);
+    }
+
+    /**
+     * GET /cart-line/{cartHdrUid}
+     *
+     * @param array<string, mixed> $params
+     * @return BaseResponse<array<string, mixed>>
+     */
+    public function get(int $cart_hdr_uid, array $params = []): BaseResponse
     {
         $response = $this->client->get(
             $this->baseUrl,
-            '/cart-line/{cartHdrUid}',
-            $edgeCache !== null ? ['edgeCache' => $edgeCache->value] : [],
-            ['cartHdrUid' => (string) $cartHdrUid],
+            '/{cartHdrUid}',
+            $params,
+            ['cart_hdr_uid' => (string) $cart_hdr_uid],
         );
 
-        return BaseResponse::fromArray($response, static fn ($data) => $data ?? []);
+        return BaseResponse::fromArray($response, static fn ($data) => $data);
     }
 
     /**
-     * Delete all cart lines.
+     * POST /cart-line/{cartHdrUid}/add
      *
-     * @fullPath api.commerce.cartLine.deleteAll
-     * @return BaseResponse<bool>
-     */
-    public function deleteAll(int $cartHdrUid): BaseResponse
-    {
-        $response = $this->client->delete(
-            $this->baseUrl,
-            '/cart-line/{cartHdrUid}',
-            ['cartHdrUid' => (string) $cartHdrUid],
-        );
-
-        return BaseResponse::fromArray($response, static fn ($data) => (bool) $data);
-    }
-
-    /**
-     * Add item to the cart.
-     *
-     * @fullPath api.commerce.cartLine.add
      * @param array<string, mixed> $data
      * @return BaseResponse<array<string, mixed>>
      */
-    public function add(int $cartHdrUid, array $data): BaseResponse
+    public function createAdd(int $cart_hdr_uid, array $data = []): BaseResponse
     {
         $response = $this->client->post(
             $this->baseUrl,
-            '/cart-line/{cartHdrUid}/add',
+            '/{cartHdrUid}/add',
             $data,
-            ['cartHdrUid' => (string) $cartHdrUid],
+            ['cart_hdr_uid' => (string) $cart_hdr_uid],
         );
 
-        return BaseResponse::fromArray($response, static fn ($d) => $d);
+        return BaseResponse::fromArray($response, static fn ($data) => $data);
     }
 
     /**
-     * Update item in the cart.
+     * DELETE /cart-line/{cartHdrUid}/lines/{lineNo}
      *
-     * @fullPath api.commerce.cartLine.update
-     * @param array<string, mixed> $data
      * @return BaseResponse<array<string, mixed>>
      */
-    public function update(int $cartHdrUid, array $data): BaseResponse
-    {
-        $response = $this->client->post(
-            $this->baseUrl,
-            '/cart-line/{cartHdrUid}/update',
-            $data,
-            ['cartHdrUid' => (string) $cartHdrUid],
-        );
-
-        return BaseResponse::fromArray($response, static fn ($d) => $d);
-    }
-
-    /**
-     * Delete a specific cart line.
-     *
-     * @fullPath api.commerce.cartLine.deleteLine
-     * @return BaseResponse<bool>
-     */
-    public function deleteLine(int $cartHdrUid, int $lineNo): BaseResponse
+    public function deleteLines(int $cart_hdr_uid, int $line_no): BaseResponse
     {
         $response = $this->client->delete(
             $this->baseUrl,
-            '/cart-line/{cartHdrUid}/lines/{lineNo}',
-            ['cartHdrUid' => (string) $cartHdrUid, 'lineNo' => (string) $lineNo],
+            '/{cartHdrUid}/lines/{lineNo}',
+            ['cart_hdr_uid' => (string) $cart_hdr_uid, 'line_no' => (string) $line_no],
         );
 
-        return BaseResponse::fromArray($response, static fn ($data) => (bool) $data);
+        return BaseResponse::fromArray($response, static fn ($data) => $data);
+    }
+
+    /**
+     * POST /cart-line/{cartHdrUid}/update
+     *
+     * @param array<string, mixed> $data
+     * @return BaseResponse<array<string, mixed>>
+     */
+    public function createUpdate(int $cart_hdr_uid, array $data = []): BaseResponse
+    {
+        $response = $this->client->post(
+            $this->baseUrl,
+            '/{cartHdrUid}/update',
+            $data,
+            ['cart_hdr_uid' => (string) $cart_hdr_uid],
+        );
+
+        return BaseResponse::fromArray($response, static fn ($data) => $data);
     }
 }

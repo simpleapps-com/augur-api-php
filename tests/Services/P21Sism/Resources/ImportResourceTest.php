@@ -22,9 +22,11 @@ final class ImportResourceTest extends AugurApiTestCase
 
         $response = $this->api->p21Sism->import->list();
 
-        $this->assertCount(2, $response->data);
-        $this->assertEquals('IMP001', $response->data[0]['importUid']);
-        $this->assertEquals('pending', $response->data[0]['status']);
+        /** @var list<array<string, mixed>> $data */
+        $data = $response->data;
+        $this->assertCount(2, $data);
+        $this->assertEquals('IMP001', $data[0]['importUid']);
+        $this->assertEquals('pending', $data[0]['status']);
         $this->assertRequestMethod('GET');
         $this->assertRequestPath('/import');
         $this->assertHasSiteIdHeader();
@@ -99,8 +101,10 @@ final class ImportResourceTest extends AugurApiTestCase
 
         $response = $this->api->p21Sism->import->listRecent();
 
-        $this->assertCount(2, $response->data);
-        $this->assertEquals('IMP001', $response->data[0]['importUid']);
+        /** @var list<array<string, mixed>> $data */
+        $data = $response->data;
+        $this->assertCount(2, $data);
+        $this->assertEquals('IMP001', $data[0]['importUid']);
         $this->assertRequestMethod('GET');
         $this->assertRequestPath('/import/recent');
     }
@@ -126,8 +130,10 @@ final class ImportResourceTest extends AugurApiTestCase
 
         $response = $this->api->p21Sism->import->listStuck();
 
-        $this->assertCount(1, $response->data);
-        $this->assertEquals('stuck', $response->data[0]['status']);
+        /** @var list<array<string, mixed>> $data */
+        $data = $response->data;
+        $this->assertCount(1, $data);
+        $this->assertEquals('stuck', $data[0]['status']);
         $this->assertRequestMethod('GET');
         $this->assertRequestPath('/import/stuck');
     }
@@ -154,7 +160,7 @@ final class ImportResourceTest extends AugurApiTestCase
             'totalAmount' => 1500.00,
         ]);
 
-        $response = $this->api->p21Sism->import->getImpOeHdr('IMP001');
+        $response = $this->api->p21Sism->import->listImpOeHdr('IMP001');
 
         $this->assertEquals('IMP001', $response->data['importUid']);
         $this->assertEquals('CUST001', $response->data['customerId']);
@@ -190,7 +196,7 @@ final class ImportResourceTest extends AugurApiTestCase
             'commission' => 5.0,
         ]);
 
-        $response = $this->api->p21Sism->import->getImpOeHdrSalesrep('IMP001');
+        $response = $this->api->p21Sism->import->listImpOeHdrSalesrep('IMP001');
 
         $this->assertEquals('IMP001', $response->data['importUid']);
         $this->assertEquals('REP001', $response->data['salesrepId']);
@@ -226,7 +232,7 @@ final class ImportResourceTest extends AugurApiTestCase
             'ipAddress' => '192.168.1.1',
         ]);
 
-        $response = $this->api->p21Sism->import->getImpOeHdrWeb('IMP001');
+        $response = $this->api->p21Sism->import->listImpOeHdrWeb('IMP001');
 
         $this->assertEquals('IMP001', $response->data['importUid']);
         $this->assertEquals('WEB12345', $response->data['webOrderId']);

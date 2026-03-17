@@ -23,8 +23,14 @@ final class CompanyResourceTest extends AugurApiTestCase
         $response = $this->api->p21Core->company->list();
 
         $this->assertCount(2, $response->data);
-        $this->assertEquals(1, $response->data[0]['companyUid']);
-        $this->assertEquals('Company A', $response->data[0]['companyName']);
+
+        /** @var list<array<string, mixed>> $data */
+        $data = $response->data;
+        $this->assertEquals(1, $data[0]['companyUid']);
+
+        /** @var list<array<string, mixed>> $data */
+        $data = $response->data;
+        $this->assertEquals('Company A', $data[0]['companyName']);
         $this->assertRequestMethod('GET');
         $this->assertRequestPath('/company');
         $this->assertHasSiteIdHeader();

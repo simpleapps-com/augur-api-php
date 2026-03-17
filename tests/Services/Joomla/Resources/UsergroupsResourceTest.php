@@ -22,8 +22,10 @@ final class UsergroupsResourceTest extends AugurApiTestCase
         $response = $this->api->joomla->usergroups->list();
 
         $this->assertCount(3, $response->data);
-        $this->assertEquals('Public', $response->data[0]['title']);
-        $this->assertEquals('Registered', $response->data[1]['title']);
+        /** @var list<array<string, mixed>> $data */
+        $data = $response->data;
+        $this->assertEquals('Public', $data[0]['title']);
+        $this->assertEquals('Registered', $data[1]['title']);
         $this->assertRequestPath('/usergroups');
         $this->assertRequestMethod('GET');
         $this->assertHasSiteIdHeader();

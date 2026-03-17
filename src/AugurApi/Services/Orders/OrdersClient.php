@@ -14,11 +14,9 @@ use AugurApi\Services\Orders\Resources\PickTicketsResource;
 use AugurApi\Services\Orders\Resources\PoHdrResource;
 
 /**
- * Orders service client.
+ * Orders service client — generated from spec.
  *
- * @fullPath api.orders
- * @service orders
- * @domain order-management
+ * DO NOT EDIT — regenerate with: python shared/scripts/generate-php.py orders
  */
 final class OrdersClient extends BaseServiceClient
 {
@@ -31,11 +29,11 @@ final class OrdersClient extends BaseServiceClient
     public function __construct(Client $client, Config $config)
     {
         parent::__construct($client, $config);
-        $this->invoiceHdr = new InvoiceHdrResource($client, $this->baseUrl);
-        $this->oeHdr = new OeHdrResource($client, $this->baseUrl);
-        $this->oeHdrSalesrep = new OeHdrSalesrepResource($client, $this->baseUrl);
-        $this->pickTickets = new PickTicketsResource($client, $this->baseUrl);
-        $this->poHdr = new PoHdrResource($client, $this->baseUrl);
+        $this->invoiceHdr = new InvoiceHdrResource($client, $this->baseUrl . '/invoice-hdr');
+        $this->oeHdr = new OeHdrResource($client, $this->baseUrl . '/oe-hdr');
+        $this->oeHdrSalesrep = new OeHdrSalesrepResource($client, $this->baseUrl . '/oe-hdr-salesrep');
+        $this->pickTickets = new PickTicketsResource($client, $this->baseUrl . '/pick-tickets');
+        $this->poHdr = new PoHdrResource($client, $this->baseUrl . '/po-hdr');
     }
 
     protected function getServiceName(): string

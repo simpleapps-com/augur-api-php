@@ -18,11 +18,17 @@ final class StateResourceTest extends AugurApiTestCase
             ['stateUid' => 2, 'stateCode' => 'TX', 'stateName' => 'Texas'],
         ]);
 
-        $response = $this->api->legacy->state->list();
+        $response = $this->api->legacy->legacy->listState();
 
         $this->assertCount(2, $response->data);
-        $this->assertEquals('CA', $response->data[0]['stateCode']);
-        $this->assertEquals('California', $response->data[0]['stateName']);
+
+        /** @var list<array<string, mixed>> $data */
+        $data = $response->data;
+        $this->assertEquals('CA', $data[0]['stateCode']);
+
+        /** @var list<array<string, mixed>> $data */
+        $data = $response->data;
+        $this->assertEquals('California', $data[0]['stateName']);
         $this->assertRequestPath('/legacy/state');
         $this->assertRequestMethod('GET');
         $this->assertHasSiteIdHeader();
@@ -35,7 +41,7 @@ final class StateResourceTest extends AugurApiTestCase
             ['stateUid' => 1, 'stateCode' => 'CA'],
         ]);
 
-        $response = $this->api->legacy->state->list(['limit' => 10, 'countryCode' => 'US']);
+        $response = $this->api->legacy->legacy->listState(['limit' => 10, 'countryCode' => 'US']);
 
         $this->assertCount(1, $response->data);
         $this->assertRequestPath('/legacy/state');
@@ -50,7 +56,7 @@ final class StateResourceTest extends AugurApiTestCase
             'countryCode' => 'US',
         ]);
 
-        $response = $this->api->legacy->state->get(1);
+        $response = $this->api->legacy->legacy->getState(1);
 
         $this->assertEquals(1, $response->data['stateUid']);
         $this->assertEquals('CA', $response->data['stateCode']);
@@ -68,7 +74,7 @@ final class StateResourceTest extends AugurApiTestCase
             'countryCode' => 'US',
         ], 201);
 
-        $response = $this->api->legacy->state->create([
+        $response = $this->api->legacy->legacy->createState([
             'stateCode' => 'PR',
             'stateName' => 'Puerto Rico',
             'countryCode' => 'US',
@@ -88,7 +94,7 @@ final class StateResourceTest extends AugurApiTestCase
             'stateName' => 'California State',
         ]);
 
-        $response = $this->api->legacy->state->update(1, ['stateName' => 'California State']);
+        $response = $this->api->legacy->legacy->updateState(1, ['stateName' => 'California State']);
 
         $this->assertEquals('California State', $response->data['stateName']);
         $this->assertRequestPath('/legacy/state/1');
@@ -99,7 +105,7 @@ final class StateResourceTest extends AugurApiTestCase
     {
         $this->mockResponse(['deleted' => true]);
 
-        $response = $this->api->legacy->state->delete(1);
+        $response = $this->api->legacy->legacy->deleteState(1);
 
         $this->assertTrue($response->data['deleted']);
         $this->assertRequestPath('/legacy/state/1');

@@ -6,14 +6,11 @@ namespace AugurApi\Services\P21Pim\Resources;
 
 use AugurApi\Core\BaseResponse;
 use AugurApi\Core\Client;
-use AugurApi\Core\Schemas\EdgeCache;
 
 /**
- * Inventory master extension resource.
+ * invMastExt resource — generated from spec.
  *
- * @fullPath api.p21Pim.invMastExt
- * @service p21-pim
- * @domain inventory-management
+ * DO NOT EDIT — regenerate with: python shared/scripts/generate-php.py p21-pim
  */
 final class InvMastExtResource
 {
@@ -24,82 +21,78 @@ final class InvMastExtResource
     }
 
     /**
-     * List inventory master extensions with filtering and pagination.
+     * GET /inv-mast-ext
      *
-     * @fullPath api.p21Pim.invMastExt.list
      * @param array<string, mixed> $params
-     * @return BaseResponse<array<array<string, mixed>>>
+     * @return BaseResponse<array<string, mixed>>
      */
     public function list(array $params = []): BaseResponse
     {
-        $response = $this->client->get($this->baseUrl, '/inv-mast-ext', $params);
+        $response = $this->client->get($this->baseUrl, '', $params);
 
-        return BaseResponse::fromArray($response, static fn ($data) => $data ?? []);
+        return BaseResponse::fromArray($response, static fn ($data) => $data);
     }
 
     /**
-     * Get a specific inventory master extension by UID.
+     * POST /inv-mast-ext
      *
-     * @fullPath api.p21Pim.invMastExt.get
+     * @param array<string, mixed> $data
      * @return BaseResponse<array<string, mixed>>
      */
-    public function get(int $invMastExtUid, ?EdgeCache $edgeCache = null): BaseResponse
+    public function create(array $data = []): BaseResponse
     {
-        $response = $this->client->get(
+        $response = $this->client->post($this->baseUrl, '', $data);
+
+        return BaseResponse::fromArray($response, static fn ($data) => $data);
+    }
+
+    /**
+     * DELETE /inv-mast-ext/{invMastExtUid}
+     *
+     * @return BaseResponse<array<string, mixed>>
+     */
+    public function delete(int $inv_mast_ext_uid): BaseResponse
+    {
+        $response = $this->client->delete(
             $this->baseUrl,
-            '/inv-mast-ext/{invMastExtUid}',
-            $edgeCache !== null ? ['edgeCache' => $edgeCache->value] : [],
-            ['invMastExtUid' => (string) $invMastExtUid],
+            '/{invMastExtUid}',
+            ['inv_mast_ext_uid' => (string) $inv_mast_ext_uid],
         );
 
         return BaseResponse::fromArray($response, static fn ($data) => $data);
     }
 
     /**
-     * Create a new inventory master extension record.
+     * GET /inv-mast-ext/{invMastExtUid}
      *
-     * @fullPath api.p21Pim.invMastExt.create
-     * @param array<string, mixed> $data
+     * @param array<string, mixed> $params
      * @return BaseResponse<array<string, mixed>>
      */
-    public function create(array $data): BaseResponse
+    public function get(int $inv_mast_ext_uid, array $params = []): BaseResponse
     {
-        $response = $this->client->post($this->baseUrl, '/inv-mast-ext', $data);
+        $response = $this->client->get(
+            $this->baseUrl,
+            '/{invMastExtUid}',
+            $params,
+            ['inv_mast_ext_uid' => (string) $inv_mast_ext_uid],
+        );
 
-        return BaseResponse::fromArray($response, static fn ($d) => $d);
+        return BaseResponse::fromArray($response, static fn ($data) => $data);
     }
 
     /**
-     * Update an existing inventory master extension.
+     * PUT /inv-mast-ext/{invMastExtUid}
      *
-     * @fullPath api.p21Pim.invMastExt.update
      * @param array<string, mixed> $data
      * @return BaseResponse<array<string, mixed>>
      */
-    public function update(int $invMastExtUid, array $data): BaseResponse
+    public function update(int $inv_mast_ext_uid, array $data = []): BaseResponse
     {
         $response = $this->client->put(
             $this->baseUrl,
-            '/inv-mast-ext/{invMastExtUid}',
+            '/{invMastExtUid}',
             $data,
-            ['invMastExtUid' => (string) $invMastExtUid],
-        );
-
-        return BaseResponse::fromArray($response, static fn ($d) => $d);
-    }
-
-    /**
-     * Soft delete an inventory master extension (sets status_cd to 700).
-     *
-     * @fullPath api.p21Pim.invMastExt.delete
-     * @return BaseResponse<array<string, mixed>>
-     */
-    public function delete(int $invMastExtUid): BaseResponse
-    {
-        $response = $this->client->delete(
-            $this->baseUrl,
-            '/inv-mast-ext/{invMastExtUid}',
-            ['invMastExtUid' => (string) $invMastExtUid],
+            ['inv_mast_ext_uid' => (string) $inv_mast_ext_uid],
         );
 
         return BaseResponse::fromArray($response, static fn ($data) => $data);

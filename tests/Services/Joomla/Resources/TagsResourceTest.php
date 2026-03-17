@@ -21,7 +21,9 @@ final class TagsResourceTest extends AugurApiTestCase
         $response = $this->api->joomla->tags->list();
 
         $this->assertCount(2, $response->data);
-        $this->assertEquals('Technology', $response->data[0]['title']);
+        /** @var list<array<string, mixed>> $data */
+        $data = $response->data;
+        $this->assertEquals('Technology', $data[0]['title']);
         $this->assertRequestPath('/tags');
         $this->assertRequestMethod('GET');
         $this->assertHasSiteIdHeader();

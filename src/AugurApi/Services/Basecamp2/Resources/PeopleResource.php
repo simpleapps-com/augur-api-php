@@ -6,14 +6,11 @@ namespace AugurApi\Services\Basecamp2\Resources;
 
 use AugurApi\Core\BaseResponse;
 use AugurApi\Core\Client;
-use AugurApi\Core\Schemas\EdgeCache;
 
 /**
- * People resource.
+ * people resource — generated from spec.
  *
- * @fullPath api.basecamp2.people
- * @service basecamp2
- * @domain project-management
+ * DO NOT EDIT — regenerate with: python shared/scripts/generate-php.py basecamp2
  */
 final class PeopleResource
 {
@@ -24,31 +21,30 @@ final class PeopleResource
     }
 
     /**
-     * List people with filters.
+     * GET /people
      *
-     * @fullPath api.basecamp2.people.list
      * @param array<string, mixed> $params
-     * @return BaseResponse<array<array<string, mixed>>>
+     * @return BaseResponse<array<string, mixed>>
      */
     public function list(array $params = []): BaseResponse
     {
-        $response = $this->client->get($this->baseUrl, '/people', $params);
+        $response = $this->client->get($this->baseUrl, '', $params);
 
-        return BaseResponse::fromArray($response, static fn ($data) => $data ?? []);
+        return BaseResponse::fromArray($response, static fn ($data) => $data);
     }
 
     /**
-     * Get person by ID.
+     * GET /people/{id}
      *
-     * @fullPath api.basecamp2.people.get
+     * @param array<string, mixed> $params
      * @return BaseResponse<array<string, mixed>>
      */
-    public function get(int $id, ?EdgeCache $edgeCache = null): BaseResponse
+    public function get(int $id, array $params = []): BaseResponse
     {
         $response = $this->client->get(
             $this->baseUrl,
-            '/people/{id}',
-            $edgeCache !== null ? ['edgeCache' => $edgeCache->value] : [],
+            '/{id}',
+            $params,
             ['id' => (string) $id],
         );
 
@@ -56,57 +52,54 @@ final class PeopleResource
     }
 
     /**
-     * List todos for person.
+     * GET /people/{id}/metrics
      *
-     * @fullPath api.basecamp2.people.getTodos
-     * @param array<string, mixed> $params
-     * @return BaseResponse<array<array<string, mixed>>>
-     */
-    public function getTodos(int $id, array $params = []): BaseResponse
-    {
-        $response = $this->client->get(
-            $this->baseUrl,
-            '/people/{id}/todos',
-            $params,
-            ['id' => (string) $id],
-        );
-
-        return BaseResponse::fromArray($response, static fn ($data) => $data ?? []);
-    }
-
-    /**
-     * List todos for person on project.
-     *
-     * @fullPath api.basecamp2.people.getProjectTodos
-     * @param array<string, mixed> $params
-     * @return BaseResponse<array<array<string, mixed>>>
-     */
-    public function getProjectTodos(int $personId, int $projectId, array $params = []): BaseResponse
-    {
-        $response = $this->client->get(
-            $this->baseUrl,
-            '/people/{personId}/projects/{projectId}/todos',
-            $params,
-            ['personId' => (string) $personId, 'projectId' => (string) $projectId],
-        );
-
-        return BaseResponse::fromArray($response, static fn ($data) => $data ?? []);
-    }
-
-    /**
-     * List todo metrics by person.
-     *
-     * @fullPath api.basecamp2.people.getMetrics
      * @param array<string, mixed> $params
      * @return BaseResponse<array<string, mixed>>
      */
-    public function getMetrics(int $id, array $params = []): BaseResponse
+    public function listMetrics(int $id, array $params = []): BaseResponse
     {
         $response = $this->client->get(
             $this->baseUrl,
-            '/people/{id}/metrics',
+            '/{id}/metrics',
             $params,
             ['id' => (string) $id],
+        );
+
+        return BaseResponse::fromArray($response, static fn ($data) => $data);
+    }
+
+    /**
+     * GET /people/{id}/todos
+     *
+     * @param array<string, mixed> $params
+     * @return BaseResponse<array<string, mixed>>
+     */
+    public function listTodos(int $id, array $params = []): BaseResponse
+    {
+        $response = $this->client->get(
+            $this->baseUrl,
+            '/{id}/todos',
+            $params,
+            ['id' => (string) $id],
+        );
+
+        return BaseResponse::fromArray($response, static fn ($data) => $data);
+    }
+
+    /**
+     * GET /people/{personId}/projects/{projectId}/todos
+     *
+     * @param array<string, mixed> $params
+     * @return BaseResponse<array<string, mixed>>
+     */
+    public function listProjectsTodos(int $personId, int $projectId, array $params = []): BaseResponse
+    {
+        $response = $this->client->get(
+            $this->baseUrl,
+            '/{personId}/projects/{projectId}/todos',
+            $params,
+            ['personId' => (string) $personId, 'projectId' => (string) $projectId],
         );
 
         return BaseResponse::fromArray($response, static fn ($data) => $data);

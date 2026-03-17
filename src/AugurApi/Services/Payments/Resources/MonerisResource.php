@@ -8,11 +8,9 @@ use AugurApi\Core\BaseResponse;
 use AugurApi\Core\Client;
 
 /**
- * Moneris payment resource.
+ * moneris resource — generated from spec.
  *
- * @fullPath api.payments.moneris
- * @service payments
- * @domain payments
+ * DO NOT EDIT — regenerate with: python shared/scripts/generate-php.py payments
  */
 final class MonerisResource
 {
@@ -23,29 +21,27 @@ final class MonerisResource
     }
 
     /**
-     * Pre-authorize a transaction.
+     * GET /moneris/pre-auth
      *
-     * @fullPath api.payments.moneris.preAuth
      * @param array<string, mixed> $params
      * @return BaseResponse<array<string, mixed>>
      */
-    public function preAuth(array $params): BaseResponse
+    public function listPreAuth(array $params = []): BaseResponse
     {
-        $response = $this->client->get($this->baseUrl, '/moneris/pre-auth', $params);
+        $response = $this->client->get($this->baseUrl, '/pre-auth', $params);
 
         return BaseResponse::fromArray($response, static fn ($data) => $data);
     }
 
     /**
-     * Complete a pre-authorization transaction.
+     * GET /moneris/pre-auth-complete
      *
-     * @fullPath api.payments.moneris.preAuthComplete
      * @param array<string, mixed> $params
      * @return BaseResponse<array<string, mixed>>
      */
-    public function preAuthComplete(array $params): BaseResponse
+    public function listPreAuthComplete(array $params = []): BaseResponse
     {
-        $response = $this->client->get($this->baseUrl, '/moneris/pre-auth-complete', $params);
+        $response = $this->client->get($this->baseUrl, '/pre-auth-complete', $params);
 
         return BaseResponse::fromArray($response, static fn ($data) => $data);
     }

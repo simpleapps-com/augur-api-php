@@ -8,11 +8,9 @@ use AugurApi\Core\BaseResponse;
 use AugurApi\Core\Client;
 
 /**
- * Usergroups resource.
+ * usergroups resource — generated from spec.
  *
- * @fullPath api.joomla.usergroups
- * @service joomla
- * @domain cms
+ * DO NOT EDIT — regenerate with: python shared/scripts/generate-php.py joomla
  */
 final class UsergroupsResource
 {
@@ -23,16 +21,15 @@ final class UsergroupsResource
     }
 
     /**
-     * Get user groups.
+     * GET /usergroups
      *
-     * @fullPath api.joomla.usergroups.list
      * @param array<string, mixed> $params
-     * @return BaseResponse<array<array<string, mixed>>>
+     * @return BaseResponse<array<string, mixed>>
      */
     public function list(array $params = []): BaseResponse
     {
-        $response = $this->client->get($this->baseUrl, '/usergroups', $params);
+        $response = $this->client->get($this->baseUrl, '', $params);
 
-        return BaseResponse::fromArray($response, static fn ($data) => $data ?? []);
+        return BaseResponse::fromArray($response, static fn ($data) => $data);
     }
 }

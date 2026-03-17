@@ -6,14 +6,11 @@ namespace AugurApi\Services\Customers\Resources;
 
 use AugurApi\Core\BaseResponse;
 use AugurApi\Core\Client;
-use AugurApi\Core\Schemas\EdgeCache;
 
 /**
- * Contacts User Defined resource.
+ * contactsUd resource — generated from spec.
  *
- * @fullPath api.customers.contactsUd
- * @service customers
- * @domain customer-management
+ * DO NOT EDIT — regenerate with: python shared/scripts/generate-php.py customers
  */
 final class ContactsUdResource
 {
@@ -24,17 +21,17 @@ final class ContactsUdResource
     }
 
     /**
-     * List user defined fields for a contact.
+     * GET /contacts-ud/{id}
      *
-     * @fullPath api.customers.contactsUd.get
+     * @param array<string, mixed> $params
      * @return BaseResponse<array<string, mixed>>
      */
-    public function get(int $id, ?EdgeCache $edgeCache = null): BaseResponse
+    public function get(int $id, array $params = []): BaseResponse
     {
         $response = $this->client->get(
             $this->baseUrl,
-            '/contacts-ud/{id}',
-            $edgeCache !== null ? ['edgeCache' => $edgeCache->value] : [],
+            '/{id}',
+            $params,
             ['id' => (string) $id],
         );
 

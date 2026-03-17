@@ -6,14 +6,11 @@ namespace AugurApi\Services\Vmi\Resources;
 
 use AugurApi\Core\BaseResponse;
 use AugurApi\Core\Client;
-use AugurApi\Core\Schemas\EdgeCache;
 
 /**
- * Distributors resource.
+ * distributors resource — generated from spec.
  *
- * @fullPath api.vmi.distributors
- * @service vmi
- * @domain inventory
+ * DO NOT EDIT — regenerate with: python shared/scripts/generate-php.py vmi
  */
 final class DistributorsResource
 {
@@ -24,31 +21,41 @@ final class DistributorsResource
     }
 
     /**
-     * List distributors.
+     * GET /distributors
      *
-     * @fullPath api.vmi.distributors.list
      * @param array<string, mixed> $params
-     * @return BaseResponse<array<array<string, mixed>>>
+     * @return BaseResponse<array<string, mixed>>
      */
     public function list(array $params = []): BaseResponse
     {
-        $response = $this->client->get($this->baseUrl, '/distributors', $params);
+        $response = $this->client->get($this->baseUrl, '', $params);
 
-        return BaseResponse::fromArray($response, static fn ($data) => $data ?? []);
+        return BaseResponse::fromArray($response, static fn ($data) => $data);
     }
 
     /**
-     * Get distributor details.
+     * POST /distributors
      *
-     * @fullPath api.vmi.distributors.get
+     * @param array<string, mixed> $data
      * @return BaseResponse<array<string, mixed>>
      */
-    public function get(int $distributorsUid, ?EdgeCache $edgeCache = null): BaseResponse
+    public function create(array $data = []): BaseResponse
     {
-        $response = $this->client->get(
+        $response = $this->client->post($this->baseUrl, '', $data);
+
+        return BaseResponse::fromArray($response, static fn ($data) => $data);
+    }
+
+    /**
+     * DELETE /distributors/{distributorsUid}
+     *
+     * @return BaseResponse<array<string, mixed>>
+     */
+    public function delete(int $distributorsUid): BaseResponse
+    {
+        $response = $this->client->delete(
             $this->baseUrl,
-            '/distributors/{distributorsUid}',
-            $edgeCache !== null ? ['edgeCache' => $edgeCache->value] : [],
+            '/{distributorsUid}',
             ['distributorsUid' => (string) $distributorsUid],
         );
 
@@ -56,71 +63,74 @@ final class DistributorsResource
     }
 
     /**
-     * Create distributor.
+     * GET /distributors/{distributorsUid}
      *
-     * @fullPath api.vmi.distributors.create
-     * @param array<string, mixed> $data
+     * @param array<string, mixed> $params
      * @return BaseResponse<array<string, mixed>>
      */
-    public function create(array $data): BaseResponse
+    public function get(int $distributorsUid, array $params = []): BaseResponse
     {
-        $response = $this->client->post($this->baseUrl, '/distributors', $data);
+        $response = $this->client->get(
+            $this->baseUrl,
+            '/{distributorsUid}',
+            $params,
+            ['distributorsUid' => (string) $distributorsUid],
+        );
 
-        return BaseResponse::fromArray($response, static fn ($d) => $d);
+        return BaseResponse::fromArray($response, static fn ($data) => $data);
     }
 
     /**
-     * Update distributor.
+     * PUT /distributors/{distributorsUid}
      *
-     * @fullPath api.vmi.distributors.update
      * @param array<string, mixed> $data
      * @return BaseResponse<array<string, mixed>>
      */
-    public function update(int $distributorsUid, array $data): BaseResponse
+    public function update(int $distributorsUid, array $data = []): BaseResponse
     {
         $response = $this->client->put(
             $this->baseUrl,
-            '/distributors/{distributorsUid}',
+            '/{distributorsUid}',
             $data,
             ['distributorsUid' => (string) $distributorsUid],
         );
 
-        return BaseResponse::fromArray($response, static fn ($d) => $d);
+        return BaseResponse::fromArray($response, static fn ($data) => $data);
     }
 
     /**
-     * Delete distributor.
+     * PUT /distributors/{distributorsUid}/enable
      *
-     * @fullPath api.vmi.distributors.delete
-     * @return BaseResponse<bool>
-     */
-    public function delete(int $distributorsUid): BaseResponse
-    {
-        $response = $this->client->delete(
-            $this->baseUrl,
-            '/distributors/{distributorsUid}',
-            ['distributorsUid' => (string) $distributorsUid],
-        );
-
-        return BaseResponse::fromArray($response, static fn ($data) => (bool) $data);
-    }
-
-    /**
-     * Enable/Disable/Delete distributor.
-     *
-     * @fullPath api.vmi.distributors.enable
      * @param array<string, mixed> $data
      * @return BaseResponse<array<string, mixed>>
      */
-    public function enable(int $distributorsUid, array $data): BaseResponse
+    public function updateEnable(int $distributorsUid, array $data = []): BaseResponse
     {
         $response = $this->client->put(
             $this->baseUrl,
-            '/distributors/{distributorsUid}/enable',
+            '/{distributorsUid}/enable',
             $data,
             ['distributorsUid' => (string) $distributorsUid],
         );
 
-        return BaseResponse::fromArray($response, static fn ($d) => $d);
+        return BaseResponse::fromArray($response, static fn ($data) => $data);
+    }
+
+    /**
+     * POST /distributors/{distributorsUid}/products
+     *
+     * @param array<string, mixed> $data
+     * @return BaseResponse<array<string, mixed>>
+     */
+    public function createProducts(int $distributorsUid, array $data = []): BaseResponse
+    {
+        $response = $this->client->post(
+            $this->baseUrl,
+            '/{distributorsUid}/products',
+            $data,
+            ['distributorsUid' => (string) $distributorsUid],
+        );
+
+        return BaseResponse::fromArray($response, static fn ($data) => $data);
     }
 }

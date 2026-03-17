@@ -18,7 +18,7 @@ final class MonerisResourceTest extends AugurApiTestCase
             'amount' => 100.00,
         ]);
 
-        $response = $this->api->payments->moneris->preAuth([
+        $response = $this->api->payments->moneris->listPreAuth([
             'dataKey' => 'dk_test123',
             'amount' => 100.00,
             'orderId' => 'ORD001',
@@ -40,7 +40,7 @@ final class MonerisResourceTest extends AugurApiTestCase
             'avsResult' => 'Y',
         ]);
 
-        $response = $this->api->payments->moneris->preAuth([
+        $response = $this->api->payments->moneris->listPreAuth([
             'dataKey' => 'dk_test456',
             'amount' => 250.00,
             'orderId' => 'ORD002',
@@ -59,7 +59,7 @@ final class MonerisResourceTest extends AugurApiTestCase
             'approved' => false,
         ]);
 
-        $response = $this->api->payments->moneris->preAuth([
+        $response = $this->api->payments->moneris->listPreAuth([
             'dataKey' => 'dk_declined',
             'amount' => 500.00,
             'orderId' => 'ORD003',
@@ -79,7 +79,7 @@ final class MonerisResourceTest extends AugurApiTestCase
             'completedAmount' => 100.00,
         ]);
 
-        $response = $this->api->payments->moneris->preAuthComplete([
+        $response = $this->api->payments->moneris->listPreAuthComplete([
             'transactionId' => 'TXN123456',
             'orderId' => 'ORD001',
             'amount' => 100.00,
@@ -101,7 +101,7 @@ final class MonerisResourceTest extends AugurApiTestCase
             'responseCode' => '00',
         ]);
 
-        $response = $this->api->payments->moneris->preAuthComplete([
+        $response = $this->api->payments->moneris->listPreAuthComplete([
             'transactionId' => 'TXN789012',
             'orderId' => 'ORD002',
             'amount' => 200.00,

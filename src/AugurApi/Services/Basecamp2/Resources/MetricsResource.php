@@ -8,11 +8,9 @@ use AugurApi\Core\BaseResponse;
 use AugurApi\Core\Client;
 
 /**
- * Metrics resource.
+ * metrics resource — generated from spec.
  *
- * @fullPath api.basecamp2.metrics
- * @service basecamp2
- * @domain project-management
+ * DO NOT EDIT — regenerate with: python shared/scripts/generate-php.py basecamp2
  */
 final class MetricsResource
 {
@@ -23,16 +21,15 @@ final class MetricsResource
     }
 
     /**
-     * List all metrics with pagination.
+     * GET /metrics
      *
-     * @fullPath api.basecamp2.metrics.list
-     * @param array<string, mixed> $params List parameters including pagination and ordering
-     * @return BaseResponse<array<array<string, mixed>>>
+     * @param array<string, mixed> $params
+     * @return BaseResponse<array<string, mixed>>
      */
     public function list(array $params = []): BaseResponse
     {
-        $response = $this->client->get($this->baseUrl, '/metrics', $params);
+        $response = $this->client->get($this->baseUrl, '', $params);
 
-        return BaseResponse::fromArray($response, static fn ($data) => $data ?? []);
+        return BaseResponse::fromArray($response, static fn ($data) => $data);
     }
 }

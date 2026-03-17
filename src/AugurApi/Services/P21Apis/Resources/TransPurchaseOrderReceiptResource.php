@@ -6,14 +6,11 @@ namespace AugurApi\Services\P21Apis\Resources;
 
 use AugurApi\Core\BaseResponse;
 use AugurApi\Core\Client;
-use AugurApi\Core\Schemas\EdgeCache;
 
 /**
- * Transaction purchase order receipt resource.
+ * transPurchaseOrderReceipt resource — generated from spec.
  *
- * @fullPath api.p21Apis.transPurchaseOrderReceipt
- * @service p21-apis
- * @domain purchase-order-management
+ * DO NOT EDIT — regenerate with: python shared/scripts/generate-php.py p21-apis
  */
 final class TransPurchaseOrderReceiptResource
 {
@@ -24,39 +21,38 @@ final class TransPurchaseOrderReceiptResource
     }
 
     /**
-     * Get purchase order receipt details by PO number.
+     * GET /trans-purchase-order-receipt/{poNo}
      *
-     * @fullPath api.p21Apis.transPurchaseOrderReceipt.get
+     * @param array<string, mixed> $params
      * @return BaseResponse<array<string, mixed>>
      */
-    public function get(string $poNo, ?EdgeCache $edgeCache = null): BaseResponse
+    public function get(string $po_no, array $params = []): BaseResponse
     {
         $response = $this->client->get(
             $this->baseUrl,
-            '/trans-purchase-order-receipt/{poNo}',
-            $edgeCache !== null ? ['edgeCache' => $edgeCache->value] : [],
-            ['poNo' => $poNo],
+            '/{poNo}',
+            $params,
+            ['po_no' => (string) $po_no],
         );
 
         return BaseResponse::fromArray($response, static fn ($data) => $data);
     }
 
     /**
-     * Update purchase order receipt by PO number.
+     * PUT /trans-purchase-order-receipt/{poNo}
      *
-     * @fullPath api.p21Apis.transPurchaseOrderReceipt.update
      * @param array<string, mixed> $data
      * @return BaseResponse<array<string, mixed>>
      */
-    public function update(string $poNo, array $data): BaseResponse
+    public function update(string $po_no, array $data = []): BaseResponse
     {
         $response = $this->client->put(
             $this->baseUrl,
-            '/trans-purchase-order-receipt/{poNo}',
+            '/{poNo}',
             $data,
-            ['poNo' => $poNo],
+            ['po_no' => (string) $po_no],
         );
 
-        return BaseResponse::fromArray($response, static fn ($d) => $d);
+        return BaseResponse::fromArray($response, static fn ($data) => $data);
     }
 }

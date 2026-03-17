@@ -8,11 +8,9 @@ use AugurApi\Core\BaseResponse;
 use AugurApi\Core\Client;
 
 /**
- * Entity customers resource.
+ * entityCustomers resource — generated from spec.
  *
- * @fullPath api.p21Apis.entityCustomers
- * @service p21-apis
- * @domain entity-data-management
+ * DO NOT EDIT — regenerate with: python shared/scripts/generate-php.py p21-apis
  */
 final class EntityCustomersResource
 {
@@ -23,15 +21,14 @@ final class EntityCustomersResource
     }
 
     /**
-     * Trigger entity customers data refresh for synchronization.
+     * GET /entity-customers/refresh
      *
-     * @fullPath api.p21Apis.entityCustomers.refresh.get
      * @param array<string, mixed> $params
      * @return BaseResponse<array<string, mixed>>
      */
-    public function refresh(array $params = []): BaseResponse
+    public function getRefresh(array $params = []): BaseResponse
     {
-        $response = $this->client->get($this->baseUrl, '/entity-customers/refresh', $params);
+        $response = $this->client->get($this->baseUrl, '/refresh', $params);
 
         return BaseResponse::fromArray($response, static fn ($data) => $data);
     }

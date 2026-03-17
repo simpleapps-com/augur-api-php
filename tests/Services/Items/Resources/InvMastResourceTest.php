@@ -4,8 +4,6 @@ declare(strict_types=1);
 
 namespace AugurApi\Tests\Services\Items\Resources;
 
-use AugurApi\Services\Items\Schemas\InvMast;
-use AugurApi\Services\Items\Schemas\InvMastListParams;
 use AugurApi\Tests\AugurApiTestCase;
 
 /**
@@ -25,9 +23,10 @@ final class InvMastResourceTest extends AugurApiTestCase
         $response = $this->api->items->invMast->list();
 
         $this->assertCount(2, $response->data);
-        $this->assertInstanceOf(InvMast::class, $response->data[0]);
-        $this->assertEquals(100, $response->data[0]->invMastUid);
-        $this->assertEquals('ITEM001', $response->data[0]->itemId);
+        /** @var list<array<string, mixed>> $data */
+        $data = $response->data;
+        $this->assertEquals(100, $data[0]['invMastUid']);
+        $this->assertEquals('ITEM001', $data[0]['itemId']);
         $this->assertRequestMethod('GET');
         $this->assertRequestPath('/inv-mast');
     }
@@ -38,8 +37,7 @@ final class InvMastResourceTest extends AugurApiTestCase
             ['invMastUid' => 100, 'itemId' => 'ITEM001'],
         ], 500);
 
-        $params = new InvMastListParams(limit: 25, offset: 0);
-        $response = $this->api->items->invMast->list($params);
+        $response = $this->api->items->invMast->list(['limit' => 25, 'offset' => 0]);
 
         $this->assertCount(1, $response->data);
         $this->assertEquals(500, $response->total);
@@ -69,24 +67,22 @@ final class InvMastResourceTest extends AugurApiTestCase
 
         $response = $this->api->items->invMast->get(100);
 
-        $this->assertInstanceOf(InvMast::class, $response->data);
-        $this->assertEquals(100, $response->data->invMastUid);
-        $this->assertEquals('ITEM001', $response->data->itemId);
+        $this->assertEquals(100, $response->data['invMastUid']);
+        $this->assertEquals('ITEM001', $response->data['itemId']);
         $this->assertRequestMethod('GET');
         $this->assertRequestPath('/inv-mast/100');
     }
 
-    public function testLookup(): void
+    public function testGetLookup(): void
     {
         $this->mockListResponse([
             ['invMastUid' => 100, 'itemId' => 'ITEM001'],
             ['invMastUid' => 101, 'itemId' => 'ITEM002'],
         ]);
 
-        $response = $this->api->items->invMast->lookup(['q' => 'ITEM']);
+        $response = $this->api->items->invMast->getLookup(['q' => 'ITEM']);
 
         $this->assertCount(2, $response->data);
-        $this->assertInstanceOf(InvMast::class, $response->data[0]);
         $this->assertRequestMethod('GET');
         $this->assertRequestPath('/inv-mast/lookup');
     }
@@ -119,60 +115,66 @@ final class InvMastResourceTest extends AugurApiTestCase
         $response = $this->api->items->invMast->getStock(100);
 
         $this->assertCount(2, $response->data);
-        $this->assertEquals('WH001', $response->data[0]['locationId']);
-        $this->assertEquals(50, $response->data[0]['qtyOnHand']);
+        /** @var list<array<string, mixed>> $data */
+        $data = $response->data;
+        $this->assertEquals('WH001', $data[0]['locationId']);
+        $this->assertEquals(50, $data[0]['qtyOnHand']);
         $this->assertRequestMethod('GET');
         $this->assertRequestPath('/inv-mast/100/stock');
     }
 
-    public function testGetAlternateCode(): void
+    public function testListAlternateCode(): void
     {
         $this->mockListResponse([
             ['alternateCode' => 'ALT001', 'codeType' => 'UPC'],
             ['alternateCode' => 'ALT002', 'codeType' => 'MPN'],
         ]);
 
-        $response = $this->api->items->invMast->getAlternateCode(100);
+        $response = $this->api->items->invMast->listAlternateCode(100);
 
         $this->assertCount(2, $response->data);
-        $this->assertEquals('ALT001', $response->data[0]['alternateCode']);
+        /** @var list<array<string, mixed>> $data */
+        $data = $response->data;
+        $this->assertEquals('ALT001', $data[0]['alternateCode']);
         $this->assertRequestMethod('GET');
         $this->assertRequestPath('/inv-mast/100/alternate-code');
     }
 
-    public function testGetAlternateCodeWithParams(): void
+    public function testListAlternateCodeWithParams(): void
     {
         $this->mockListResponse([
             ['alternateCode' => 'ALT001', 'codeType' => 'UPC'],
         ]);
 
-        $response = $this->api->items->invMast->getAlternateCode(100, ['codeType' => 'UPC']);
+        $response = $this->api->items->invMast->listAlternateCode(100, ['codeType' => 'UPC']);
 
         $this->assertCount(1, $response->data);
     }
 
-    public function testGetAttributes(): void
+    public function testListAttributes(): void
     {
         $this->mockListResponse([
             ['attributeUid' => 1, 'name' => 'Color', 'value' => 'Red'],
             ['attributeUid' => 2, 'name' => 'Size', 'value' => 'Large'],
         ]);
 
-        $response = $this->api->items->invMast->getAttributes(100);
+        $response = $this->api->items->invMast->listAttributes(100);
 
         $this->assertCount(2, $response->data);
-        $this->assertEquals('Color', $response->data[0]['name']);
+        /** @var list<array<string, mixed>> $data */
+        $data = $response->data;
+        $this->assertEquals('Color', $data[0]['name']);
         $this->assertRequestMethod('GET');
         $this->assertRequestPath('/inv-mast/100/attributes');
     }
 
-    public function testGetAttributesWithParams(): void
+    public function testListAttributesWithParams(): void
     {
         $this->mockListResponse([
             ['attributeUid' => 1, 'name' => 'Color'],
         ]);
 
-        $response = $this->api->items->invMast->getAttributes(100, ['limit' => 10]);
+        $response = $this->api->items->invMast->listAttributes(100, ['limit' => 10]);
 
         $this->assertCount(1, $response->data);
     }
@@ -191,61 +193,67 @@ final class InvMastResourceTest extends AugurApiTestCase
         $this->assertRequestPath('/inv-mast/100/attributes');
     }
 
-    public function testGetAttributeValues(): void
+    public function testListAttributesValues(): void
     {
         $this->mockListResponse([
             ['attributeValueUid' => 1, 'value' => 'Red'],
             ['attributeValueUid' => 2, 'value' => 'Blue'],
         ]);
 
-        $response = $this->api->items->invMast->getAttributeValues(100, 1);
+        // Generated signature: listAttributesValues(int $attributeUid, int $invMastUid, ...)
+        $response = $this->api->items->invMast->listAttributesValues(1, 100);
 
         $this->assertCount(2, $response->data);
-        $this->assertEquals('Red', $response->data[0]['value']);
+        /** @var list<array<string, mixed>> $data */
+        $data = $response->data;
+        $this->assertEquals('Red', $data[0]['value']);
         $this->assertRequestMethod('GET');
         $this->assertRequestPath('/inv-mast/100/attributes/1/values');
     }
 
-    public function testGetAttributeValuesWithParams(): void
+    public function testListAttributesValuesWithParams(): void
     {
         $this->mockListResponse([
             ['attributeValueUid' => 1, 'value' => 'Red'],
         ]);
 
-        $response = $this->api->items->invMast->getAttributeValues(100, 1, ['limit' => 5]);
+        $response = $this->api->items->invMast->listAttributesValues(1, 100, ['limit' => 5]);
 
         $this->assertCount(1, $response->data);
     }
 
-    public function testCreateAttributeValues(): void
+    public function testCreateAttributesValues(): void
     {
         $this->mockResponse(['attributeValueUid' => 3, 'value' => 'Green']);
 
-        $response = $this->api->items->invMast->createAttributeValues(100, 1, ['value' => 'Green']);
+        // Generated signature: createAttributesValues(int $attributeUid, int $invMastUid, ...)
+        $response = $this->api->items->invMast->createAttributesValues(1, 100, ['value' => 'Green']);
 
         $this->assertEquals(3, $response->data['attributeValueUid']);
         $this->assertRequestMethod('POST');
         $this->assertRequestPath('/inv-mast/100/attributes/1/values');
     }
 
-    public function testUpdateAttributeValue(): void
+    public function testUpdateAttributesValues(): void
     {
         $this->mockResponse(['attributeValueUid' => 1, 'value' => 'Dark Red']);
 
-        $response = $this->api->items->invMast->updateAttributeValue(100, 1, 1, ['value' => 'Dark Red']);
+        // Generated signature: updateAttributesValues(int $attributeUid, int $attributeValueUid, int $invMastUid, ...)
+        $response = $this->api->items->invMast->updateAttributesValues(1, 1, 100, ['value' => 'Dark Red']);
 
         $this->assertEquals('Dark Red', $response->data['value']);
         $this->assertRequestMethod('PUT');
         $this->assertRequestPath('/inv-mast/100/attributes/1/values/1');
     }
 
-    public function testDeleteAttributeValue(): void
+    public function testDeleteAttributesValues(): void
     {
-        $this->mockResponse(['success' => true]);
+        $this->mockSuccessResponse();
 
-        $response = $this->api->items->invMast->deleteAttributeValue(100, 1, 1);
+        // Generated signature: deleteAttributesValues(int $attributeUid, int $attributeValueUid, int $invMastUid)
+        $response = $this->api->items->invMast->deleteAttributesValues(1, 1, 100);
 
-        $this->assertTrue($response->data);
+        $this->assertTrue($response->data['success']);
         $this->assertRequestMethod('DELETE');
         $this->assertRequestPath('/inv-mast/100/attributes/1/values/1');
     }
@@ -260,7 +268,9 @@ final class InvMastResourceTest extends AugurApiTestCase
         $response = $this->api->items->invMast->listFaq(100);
 
         $this->assertCount(2, $response->data);
-        $this->assertEquals('What is this?', $response->data[0]['question']);
+        /** @var list<array<string, mixed>> $data */
+        $data = $response->data;
+        $this->assertEquals('What is this?', $data[0]['question']);
         $this->assertRequestMethod('GET');
         $this->assertRequestPath('/inv-mast/100/faq');
     }
@@ -285,7 +295,8 @@ final class InvMastResourceTest extends AugurApiTestCase
             'answer' => 'A test item.',
         ]);
 
-        $response = $this->api->items->invMast->getFaq(100, 1);
+        // Generated signature: getFaq(int $invMastFaqUid, int $invMastUid, ...)
+        $response = $this->api->items->invMast->getFaq(1, 100);
 
         $this->assertEquals(1, $response->data['invMastFaqUid']);
         $this->assertEquals('What is this?', $response->data['question']);
@@ -319,7 +330,8 @@ final class InvMastResourceTest extends AugurApiTestCase
             'answer' => 'Updated answer.',
         ]);
 
-        $response = $this->api->items->invMast->updateFaq(100, 1, [
+        // Generated signature: updateFaq(int $invMastFaqUid, int $invMastUid, ...)
+        $response = $this->api->items->invMast->updateFaq(1, 100, [
             'question' => 'Updated question?',
             'answer' => 'Updated answer.',
         ]);
@@ -331,97 +343,104 @@ final class InvMastResourceTest extends AugurApiTestCase
 
     public function testDeleteFaq(): void
     {
-        $this->mockResponse(['success' => true]);
+        $this->mockSuccessResponse();
 
-        $response = $this->api->items->invMast->deleteFaq(100, 1);
+        // Generated signature: deleteFaq(int $invMastFaqUid, int $invMastUid)
+        $response = $this->api->items->invMast->deleteFaq(1, 100);
 
-        $this->assertTrue($response->data);
+        $this->assertTrue($response->data['success']);
         $this->assertRequestMethod('DELETE');
         $this->assertRequestPath('/inv-mast/100/faq/1');
     }
 
-    public function testGetAccessories(): void
+    public function testListInvAccessory(): void
     {
         $this->mockListResponse([
             ['invMastUid' => 200, 'itemId' => 'ACC001'],
             ['invMastUid' => 201, 'itemId' => 'ACC002'],
         ]);
 
-        $response = $this->api->items->invMast->getAccessories(100);
+        $response = $this->api->items->invMast->listInvAccessory(100);
 
         $this->assertCount(2, $response->data);
-        $this->assertEquals('ACC001', $response->data[0]['itemId']);
+        /** @var list<array<string, mixed>> $data */
+        $data = $response->data;
+        $this->assertEquals('ACC001', $data[0]['itemId']);
         $this->assertRequestMethod('GET');
         $this->assertRequestPath('/inv-mast/100/inv-accessory');
     }
 
-    public function testGetAccessoriesWithParams(): void
+    public function testListInvAccessoryWithParams(): void
     {
         $this->mockListResponse([
             ['invMastUid' => 200, 'itemId' => 'ACC001'],
         ], 20);
 
-        $response = $this->api->items->invMast->getAccessories(100, ['limit' => 10]);
+        $response = $this->api->items->invMast->listInvAccessory(100, ['limit' => 10]);
 
         $this->assertCount(1, $response->data);
         $this->assertEquals(20, $response->total);
     }
 
-    public function testGetSubstitutes(): void
+    public function testListInvSub(): void
     {
         $this->mockListResponse([
             ['invMastUid' => 300, 'itemId' => 'SUB001'],
             ['invMastUid' => 301, 'itemId' => 'SUB002'],
         ]);
 
-        $response = $this->api->items->invMast->getSubstitutes(100);
+        $response = $this->api->items->invMast->listInvSub(100);
 
         $this->assertCount(2, $response->data);
-        $this->assertEquals('SUB001', $response->data[0]['itemId']);
+        /** @var list<array<string, mixed>> $data */
+        $data = $response->data;
+        $this->assertEquals('SUB001', $data[0]['itemId']);
         $this->assertRequestMethod('GET');
         $this->assertRequestPath('/inv-mast/100/inv-sub');
     }
 
-    public function testGetSubstitutesWithParams(): void
+    public function testListInvSubWithParams(): void
     {
         $this->mockListResponse([
             ['invMastUid' => 300, 'itemId' => 'SUB001'],
         ], 15);
 
-        $response = $this->api->items->invMast->getSubstitutes(100, ['limit' => 5]);
+        $response = $this->api->items->invMast->listInvSub(100, ['limit' => 5]);
 
         $this->assertCount(1, $response->data);
         $this->assertEquals(15, $response->total);
     }
 
-    public function testGetLocationBins(): void
+    public function testListLocationsBins(): void
     {
         $this->mockListResponse([
             ['bin' => 'A-01-01', 'qtyOnHand' => 10],
             ['bin' => 'A-01-02', 'qtyOnHand' => 5],
         ]);
 
-        $response = $this->api->items->invMast->getLocationBins(100, 1);
+        $response = $this->api->items->invMast->listLocationsBins(100, 1);
 
         $this->assertCount(2, $response->data);
-        $this->assertEquals('A-01-01', $response->data[0]['bin']);
+        /** @var list<array<string, mixed>> $data */
+        $data = $response->data;
+        $this->assertEquals('A-01-01', $data[0]['bin']);
         $this->assertRequestMethod('GET');
         $this->assertRequestPath('/inv-mast/100/locations/1/bins');
     }
 
-    public function testGetLocationBinsWithParams(): void
+    public function testListLocationsBinsWithParams(): void
     {
         $this->mockListResponse([
             ['bin' => 'A-01-01', 'qtyOnHand' => 10],
         ], 50);
 
-        $response = $this->api->items->invMast->getLocationBins(100, 1, ['limit' => 25]);
+        $response = $this->api->items->invMast->listLocationsBins(100, 1, ['limit' => 25]);
 
         $this->assertCount(1, $response->data);
         $this->assertEquals(50, $response->total);
     }
 
-    public function testGetLocationBin(): void
+    public function testGetLocationsBins(): void
     {
         $this->mockResponse([
             'bin' => 'A-01-01',
@@ -432,7 +451,8 @@ final class InvMastResourceTest extends AugurApiTestCase
             'maxQty' => 20,
         ]);
 
-        $response = $this->api->items->invMast->getLocationBin(100, 1, 'A-01-01');
+        // Generated signature: getLocationsBins(string $bin, int $invMastUid, int $locationId, ...)
+        $response = $this->api->items->invMast->getLocationsBins('A-01-01', 100, 1);
 
         $this->assertEquals('A-01-01', $response->data['bin']);
         $this->assertEquals(10, $response->data['qtyOnHand']);
@@ -440,18 +460,20 @@ final class InvMastResourceTest extends AugurApiTestCase
         $this->assertRequestPath('/inv-mast/100/locations/1/bins/A-01-01');
     }
 
-    public function testGetSimilar(): void
+    public function testListSimilar(): void
     {
         $this->mockListResponse([
             ['invMastUid' => 400, 'itemId' => 'SIM001', 'similarity' => 0.95],
             ['invMastUid' => 401, 'itemId' => 'SIM002', 'similarity' => 0.85],
         ]);
 
-        $response = $this->api->items->invMast->getSimilar(100);
+        $response = $this->api->items->invMast->listSimilar(100);
 
         $this->assertCount(2, $response->data);
-        $this->assertEquals('SIM001', $response->data[0]['itemId']);
-        $this->assertEquals(0.95, $response->data[0]['similarity']);
+        /** @var list<array<string, mixed>> $data */
+        $data = $response->data;
+        $this->assertEquals('SIM001', $data[0]['itemId']);
+        $this->assertEquals(0.95, $data[0]['similarity']);
         $this->assertRequestMethod('GET');
         $this->assertRequestPath('/inv-mast/100/similar');
     }

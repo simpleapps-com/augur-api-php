@@ -6,14 +6,11 @@ namespace AugurApi\Services\Items\Resources;
 
 use AugurApi\Core\BaseResponse;
 use AugurApi\Core\Client;
-use AugurApi\Core\Schemas\EdgeCache;
 
 /**
- * Attribute Groups resource.
+ * attributeGroups resource — generated from spec.
  *
- * @fullPath api.items.attributeGroups
- * @service items
- * @domain inventory-management
+ * DO NOT EDIT — regenerate with: python shared/scripts/generate-php.py items
  */
 final class AttributeGroupsResource
 {
@@ -24,81 +21,41 @@ final class AttributeGroupsResource
     }
 
     /**
-     * List all attribute groups.
+     * GET /attribute-groups
      *
-     * @fullPath api.items.attributeGroups.list
      * @param array<string, mixed> $params
-     * @return BaseResponse<array<array<string, mixed>>>
+     * @return BaseResponse<array<string, mixed>>
      */
     public function list(array $params = []): BaseResponse
     {
-        $response = $this->client->get($this->baseUrl, '/attribute-groups', $params);
-
-        return BaseResponse::fromArray($response, static fn ($data) => $data ?? []);
-    }
-
-    /**
-     * Get attribute group by ID.
-     *
-     * @fullPath api.items.attributeGroups.get
-     * @return BaseResponse<array<string, mixed>>
-     */
-    public function get(int $attributeGroupUid, ?EdgeCache $edgeCache = null): BaseResponse
-    {
-        $response = $this->client->get(
-            $this->baseUrl,
-            '/attribute-groups/{attributeGroupUid}',
-            $edgeCache !== null ? ['edgeCache' => $edgeCache->value] : [],
-            ['attributeGroupUid' => (string) $attributeGroupUid],
-        );
+        $response = $this->client->get($this->baseUrl, '', $params);
 
         return BaseResponse::fromArray($response, static fn ($data) => $data);
     }
 
     /**
-     * Create new attribute group.
+     * POST /attribute-groups
      *
-     * @fullPath api.items.attributeGroups.create
      * @param array<string, mixed> $data
      * @return BaseResponse<array<string, mixed>>
      */
-    public function create(array $data): BaseResponse
+    public function create(array $data = []): BaseResponse
     {
-        $response = $this->client->post($this->baseUrl, '/attribute-groups', $data);
+        $response = $this->client->post($this->baseUrl, '', $data);
 
-        return BaseResponse::fromArray($response, static fn ($d) => $d);
+        return BaseResponse::fromArray($response, static fn ($data) => $data);
     }
 
     /**
-     * Update attribute group.
+     * DELETE /attribute-groups/{attributeGroupUid}
      *
-     * @fullPath api.items.attributeGroups.update
-     * @param array<string, mixed> $data
-     * @return BaseResponse<array<string, mixed>>
-     */
-    public function update(int $attributeGroupUid, array $data): BaseResponse
-    {
-        $response = $this->client->put(
-            $this->baseUrl,
-            '/attribute-groups/{attributeGroupUid}',
-            $data,
-            ['attributeGroupUid' => (string) $attributeGroupUid],
-        );
-
-        return BaseResponse::fromArray($response, static fn ($d) => $d);
-    }
-
-    /**
-     * Delete attribute group.
-     *
-     * @fullPath api.items.attributeGroups.delete
      * @return BaseResponse<array<string, mixed>>
      */
     public function delete(int $attributeGroupUid): BaseResponse
     {
         $response = $this->client->delete(
             $this->baseUrl,
-            '/attribute-groups/{attributeGroupUid}',
+            '/{attributeGroupUid}',
             ['attributeGroupUid' => (string) $attributeGroupUid],
         );
 
@@ -106,101 +63,124 @@ final class AttributeGroupsResource
     }
 
     /**
-     * List attributes in attribute group.
+     * GET /attribute-groups/{attributeGroupUid}
      *
-     * @fullPath api.items.attributeGroups.attributes.list
      * @param array<string, mixed> $params
-     * @return BaseResponse<array<array<string, mixed>>>
+     * @return BaseResponse<array<string, mixed>>
+     */
+    public function get(int $attributeGroupUid, array $params = []): BaseResponse
+    {
+        $response = $this->client->get(
+            $this->baseUrl,
+            '/{attributeGroupUid}',
+            $params,
+            ['attributeGroupUid' => (string) $attributeGroupUid],
+        );
+
+        return BaseResponse::fromArray($response, static fn ($data) => $data);
+    }
+
+    /**
+     * PUT /attribute-groups/{attributeGroupUid}
+     *
+     * @param array<string, mixed> $data
+     * @return BaseResponse<array<string, mixed>>
+     */
+    public function update(int $attributeGroupUid, array $data = []): BaseResponse
+    {
+        $response = $this->client->put(
+            $this->baseUrl,
+            '/{attributeGroupUid}',
+            $data,
+            ['attributeGroupUid' => (string) $attributeGroupUid],
+        );
+
+        return BaseResponse::fromArray($response, static fn ($data) => $data);
+    }
+
+    /**
+     * GET /attribute-groups/{attributeGroupUid}/attributes
+     *
+     * @param array<string, mixed> $params
+     * @return BaseResponse<array<string, mixed>>
      */
     public function listAttributes(int $attributeGroupUid, array $params = []): BaseResponse
     {
         $response = $this->client->get(
             $this->baseUrl,
-            '/attribute-groups/{attributeGroupUid}/attributes',
+            '/{attributeGroupUid}/attributes',
             $params,
             ['attributeGroupUid' => (string) $attributeGroupUid],
-        );
-
-        return BaseResponse::fromArray($response, static fn ($data) => $data ?? []);
-    }
-
-    /**
-     * Get attribute group attribute association.
-     *
-     * @fullPath api.items.attributeGroups.attributes.get
-     * @return BaseResponse<array<string, mixed>>
-     */
-    public function getAttribute(int $attributeGroupUid, int $attributeXAttributeGroupUid, ?EdgeCache $edgeCache = null): BaseResponse
-    {
-        $response = $this->client->get(
-            $this->baseUrl,
-            '/attribute-groups/{attributeGroupUid}/attributes/{attributeXAttributeGroupUid}',
-            $edgeCache !== null ? ['edgeCache' => $edgeCache->value] : [],
-            [
-                'attributeGroupUid' => (string) $attributeGroupUid,
-                'attributeXAttributeGroupUid' => (string) $attributeXAttributeGroupUid,
-            ],
         );
 
         return BaseResponse::fromArray($response, static fn ($data) => $data);
     }
 
     /**
-     * Add attribute to attribute group.
+     * POST /attribute-groups/{attributeGroupUid}/attributes
      *
-     * @fullPath api.items.attributeGroups.attributes.create
      * @param array<string, mixed> $data
      * @return BaseResponse<array<string, mixed>>
      */
-    public function createAttribute(int $attributeGroupUid, array $data): BaseResponse
+    public function createAttributes(int $attributeGroupUid, array $data = []): BaseResponse
     {
         $response = $this->client->post(
             $this->baseUrl,
-            '/attribute-groups/{attributeGroupUid}/attributes',
+            '/{attributeGroupUid}/attributes',
             $data,
             ['attributeGroupUid' => (string) $attributeGroupUid],
         );
 
-        return BaseResponse::fromArray($response, static fn ($d) => $d);
+        return BaseResponse::fromArray($response, static fn ($data) => $data);
     }
 
     /**
-     * Update attribute group attribute association.
+     * DELETE /attribute-groups/{attributeGroupUid}/attributes/{attributeXAttributeGroupUid}
      *
-     * @fullPath api.items.attributeGroups.attributes.update
-     * @param array<string, mixed> $data
      * @return BaseResponse<array<string, mixed>>
      */
-    public function updateAttribute(int $attributeGroupUid, int $attributeXAttributeGroupUid, array $data): BaseResponse
-    {
-        $response = $this->client->put(
-            $this->baseUrl,
-            '/attribute-groups/{attributeGroupUid}/attributes/{attributeXAttributeGroupUid}',
-            $data,
-            [
-                'attributeGroupUid' => (string) $attributeGroupUid,
-                'attributeXAttributeGroupUid' => (string) $attributeXAttributeGroupUid,
-            ],
-        );
-
-        return BaseResponse::fromArray($response, static fn ($d) => $d);
-    }
-
-    /**
-     * Remove attribute from attribute group.
-     *
-     * @fullPath api.items.attributeGroups.attributes.delete
-     * @return BaseResponse<array<string, mixed>>
-     */
-    public function deleteAttribute(int $attributeGroupUid, int $attributeXAttributeGroupUid): BaseResponse
+    public function deleteAttributes(int $attributeGroupUid, int $attributeXAttributeGroupUid): BaseResponse
     {
         $response = $this->client->delete(
             $this->baseUrl,
-            '/attribute-groups/{attributeGroupUid}/attributes/{attributeXAttributeGroupUid}',
-            [
-                'attributeGroupUid' => (string) $attributeGroupUid,
-                'attributeXAttributeGroupUid' => (string) $attributeXAttributeGroupUid,
-            ],
+            '/{attributeGroupUid}/attributes/{attributeXAttributeGroupUid}',
+            ['attributeGroupUid' => (string) $attributeGroupUid, 'attributeXAttributeGroupUid' => (string) $attributeXAttributeGroupUid],
+        );
+
+        return BaseResponse::fromArray($response, static fn ($data) => $data);
+    }
+
+    /**
+     * GET /attribute-groups/{attributeGroupUid}/attributes/{attributeXAttributeGroupUid}
+     *
+     * @param array<string, mixed> $params
+     * @return BaseResponse<array<string, mixed>>
+     */
+    public function getAttributes(int $attributeGroupUid, int $attributeXAttributeGroupUid, array $params = []): BaseResponse
+    {
+        $response = $this->client->get(
+            $this->baseUrl,
+            '/{attributeGroupUid}/attributes/{attributeXAttributeGroupUid}',
+            $params,
+            ['attributeGroupUid' => (string) $attributeGroupUid, 'attributeXAttributeGroupUid' => (string) $attributeXAttributeGroupUid],
+        );
+
+        return BaseResponse::fromArray($response, static fn ($data) => $data);
+    }
+
+    /**
+     * PUT /attribute-groups/{attributeGroupUid}/attributes/{attributeXAttributeGroupUid}
+     *
+     * @param array<string, mixed> $data
+     * @return BaseResponse<array<string, mixed>>
+     */
+    public function updateAttributes(int $attributeGroupUid, int $attributeXAttributeGroupUid, array $data = []): BaseResponse
+    {
+        $response = $this->client->put(
+            $this->baseUrl,
+            '/{attributeGroupUid}/attributes/{attributeXAttributeGroupUid}',
+            $data,
+            ['attributeGroupUid' => (string) $attributeGroupUid, 'attributeXAttributeGroupUid' => (string) $attributeXAttributeGroupUid],
         );
 
         return BaseResponse::fromArray($response, static fn ($data) => $data);

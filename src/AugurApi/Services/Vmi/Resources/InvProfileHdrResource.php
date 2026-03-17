@@ -6,14 +6,11 @@ namespace AugurApi\Services\Vmi\Resources;
 
 use AugurApi\Core\BaseResponse;
 use AugurApi\Core\Client;
-use AugurApi\Core\Schemas\EdgeCache;
 
 /**
- * InvProfileHdr resource.
+ * invProfileHdr resource — generated from spec.
  *
- * @fullPath api.vmi.invProfileHdr
- * @service vmi
- * @domain inventory
+ * DO NOT EDIT — regenerate with: python shared/scripts/generate-php.py vmi
  */
 final class InvProfileHdrResource
 {
@@ -24,206 +21,186 @@ final class InvProfileHdrResource
     }
 
     /**
-     * List inventory profile headers.
+     * GET /inv-profile-hdr
      *
-     * @fullPath api.vmi.invProfileHdr.list
      * @param array<string, mixed> $params
-     * @return BaseResponse<array<array<string, mixed>>>
+     * @return BaseResponse<array<string, mixed>>
      */
     public function list(array $params = []): BaseResponse
     {
-        $response = $this->client->get($this->baseUrl, '/inv-profile-hdr', $params);
+        $response = $this->client->get($this->baseUrl, '', $params);
 
-        return BaseResponse::fromArray($response, static fn ($data) => $data ?? []);
+        return BaseResponse::fromArray($response, static fn ($data) => $data);
     }
 
     /**
-     * Get inventory profile header details.
+     * POST /inv-profile-hdr
      *
-     * @fullPath api.vmi.invProfileHdr.get
+     * @param array<string, mixed> $data
      * @return BaseResponse<array<string, mixed>>
      */
-    public function get(int $invProfileHdrUid, ?EdgeCache $edgeCache = null): BaseResponse
+    public function create(array $data = []): BaseResponse
     {
-        $response = $this->client->get(
+        $response = $this->client->post($this->baseUrl, '', $data);
+
+        return BaseResponse::fromArray($response, static fn ($data) => $data);
+    }
+
+    /**
+     * POST /inv-profile-hdr/{customerId}/upload
+     *
+     * @param array<string, mixed> $data
+     * @return BaseResponse<array<string, mixed>>
+     */
+    public function createUpload(int $customerId, array $data = []): BaseResponse
+    {
+        $response = $this->client->post(
             $this->baseUrl,
-            '/inv-profile-hdr/{invProfileHdrUid}',
-            $edgeCache !== null ? ['edgeCache' => $edgeCache->value] : [],
-            ['invProfileHdrUid' => (string) $invProfileHdrUid],
+            '/{customerId}/upload',
+            $data,
+            ['customerId' => (string) $customerId],
         );
 
         return BaseResponse::fromArray($response, static fn ($data) => $data);
     }
 
     /**
-     * Create inventory profile header.
+     * DELETE /inv-profile-hdr/{invProfileHdrUid}
      *
-     * @fullPath api.vmi.invProfileHdr.create
-     * @param array<string, mixed> $data
      * @return BaseResponse<array<string, mixed>>
-     */
-    public function create(array $data): BaseResponse
-    {
-        $response = $this->client->post($this->baseUrl, '/inv-profile-hdr', $data);
-
-        return BaseResponse::fromArray($response, static fn ($d) => $d);
-    }
-
-    /**
-     * Update inventory profile header.
-     *
-     * @fullPath api.vmi.invProfileHdr.update
-     * @param array<string, mixed> $data
-     * @return BaseResponse<array<string, mixed>>
-     */
-    public function update(int $invProfileHdrUid, array $data): BaseResponse
-    {
-        $response = $this->client->put(
-            $this->baseUrl,
-            '/inv-profile-hdr/{invProfileHdrUid}',
-            $data,
-            ['invProfileHdrUid' => (string) $invProfileHdrUid],
-        );
-
-        return BaseResponse::fromArray($response, static fn ($d) => $d);
-    }
-
-    /**
-     * Delete inventory profile header.
-     *
-     * @fullPath api.vmi.invProfileHdr.delete
-     * @return BaseResponse<bool>
      */
     public function delete(int $invProfileHdrUid): BaseResponse
     {
         $response = $this->client->delete(
             $this->baseUrl,
-            '/inv-profile-hdr/{invProfileHdrUid}',
+            '/{invProfileHdrUid}',
             ['invProfileHdrUid' => (string) $invProfileHdrUid],
-        );
-
-        return BaseResponse::fromArray($response, static fn ($data) => (bool) $data);
-    }
-
-    /**
-     * Upload Excel file to create inventory profile headers.
-     *
-     * @fullPath api.vmi.invProfileHdr.upload.create
-     * @return BaseResponse<array<string, mixed>>
-     */
-    public function uploadCreate(int $customerId): BaseResponse
-    {
-        $response = $this->client->post(
-            $this->baseUrl,
-            '/inv-profile-hdr/{customerId}/upload',
-            [],
-            ['customerId' => (string) $customerId],
-        );
-
-        return BaseResponse::fromArray($response, static fn ($d) => $d);
-    }
-
-    /**
-     * List inventory profile lines for a header.
-     *
-     * @fullPath api.vmi.invProfileHdr.invProfileLine.list
-     * @param array<string, mixed> $params
-     * @return BaseResponse<array<array<string, mixed>>>
-     */
-    public function listInvProfileLine(int $invProfileHdrUid, array $params = []): BaseResponse
-    {
-        $response = $this->client->get(
-            $this->baseUrl,
-            '/inv-profile-hdr/{invProfileHdrUid}/inv-profile-line',
-            $params,
-            ['invProfileHdrUid' => (string) $invProfileHdrUid],
-        );
-
-        return BaseResponse::fromArray($response, static fn ($data) => $data ?? []);
-    }
-
-    /**
-     * Get inventory profile line details.
-     *
-     * @fullPath api.vmi.invProfileHdr.invProfileLine.get
-     * @return BaseResponse<array<string, mixed>>
-     */
-    public function getInvProfileLine(int $invProfileHdrUid, int $invProfileLineUid, ?EdgeCache $edgeCache = null): BaseResponse
-    {
-        $response = $this->client->get(
-            $this->baseUrl,
-            '/inv-profile-hdr/{invProfileHdrUid}/inv-profile-line/{invProfileLineUid}',
-            $edgeCache !== null ? ['edgeCache' => $edgeCache->value] : [],
-            [
-                'invProfileHdrUid' => (string) $invProfileHdrUid,
-                'invProfileLineUid' => (string) $invProfileLineUid,
-            ],
         );
 
         return BaseResponse::fromArray($response, static fn ($data) => $data);
     }
 
     /**
-     * Create inventory profile lines (bulk).
+     * GET /inv-profile-hdr/{invProfileHdrUid}
      *
-     * @fullPath api.vmi.invProfileHdr.invProfileLine.create
-     * @param list<array<string, mixed>> $data Array of line items to create
+     * @param array<string, mixed> $params
      * @return BaseResponse<array<string, mixed>>
      */
-    public function createInvProfileLine(int $invProfileHdrUid, array $data): BaseResponse
+    public function get(int $invProfileHdrUid, array $params = []): BaseResponse
     {
-        $response = $this->client->post(
+        $response = $this->client->get(
             $this->baseUrl,
-            '/inv-profile-hdr/{invProfileHdrUid}/inv-profile-line',
+            '/{invProfileHdrUid}',
+            $params,
+            ['invProfileHdrUid' => (string) $invProfileHdrUid],
+        );
+
+        return BaseResponse::fromArray($response, static fn ($data) => $data);
+    }
+
+    /**
+     * PUT /inv-profile-hdr/{invProfileHdrUid}
+     *
+     * @param array<string, mixed> $data
+     * @return BaseResponse<array<string, mixed>>
+     */
+    public function update(int $invProfileHdrUid, array $data = []): BaseResponse
+    {
+        $response = $this->client->put(
+            $this->baseUrl,
+            '/{invProfileHdrUid}',
             $data,
             ['invProfileHdrUid' => (string) $invProfileHdrUid],
         );
 
-        return BaseResponse::fromArray($response, static fn ($d) => $d);
+        return BaseResponse::fromArray($response, static fn ($data) => $data);
     }
 
     /**
-     * Update inventory profile line.
+     * GET /inv-profile-hdr/{invProfileHdrUid}/inv-profile-line
      *
-     * @fullPath api.vmi.invProfileHdr.invProfileLine.update
+     * @param array<string, mixed> $params
+     * @return BaseResponse<array<string, mixed>>
+     */
+    public function listInvProfileLine(int $invProfileHdrUid, array $params = []): BaseResponse
+    {
+        $response = $this->client->get(
+            $this->baseUrl,
+            '/{invProfileHdrUid}/inv-profile-line',
+            $params,
+            ['invProfileHdrUid' => (string) $invProfileHdrUid],
+        );
+
+        return BaseResponse::fromArray($response, static fn ($data) => $data);
+    }
+
+    /**
+     * POST /inv-profile-hdr/{invProfileHdrUid}/inv-profile-line
+     *
      * @param array<string, mixed> $data
      * @return BaseResponse<array<string, mixed>>
      */
-    public function updateInvProfileLine(
-        int $invProfileHdrUid,
-        int $invProfileLineUid,
-        array $data,
-    ): BaseResponse {
-        $response = $this->client->put(
+    public function createInvProfileLine(int $invProfileHdrUid, array $data = []): BaseResponse
+    {
+        $response = $this->client->post(
             $this->baseUrl,
-            '/inv-profile-hdr/{invProfileHdrUid}/inv-profile-line/{invProfileLineUid}',
+            '/{invProfileHdrUid}/inv-profile-line',
             $data,
-            [
-                'invProfileHdrUid' => (string) $invProfileHdrUid,
-                'invProfileLineUid' => (string) $invProfileLineUid,
-            ],
+            ['invProfileHdrUid' => (string) $invProfileHdrUid],
         );
 
-        return BaseResponse::fromArray($response, static fn ($d) => $d);
+        return BaseResponse::fromArray($response, static fn ($data) => $data);
     }
 
     /**
-     * Delete inventory profile line.
+     * DELETE /inv-profile-hdr/{invProfileHdrUid}/inv-profile-line/{invProfileLineUid}
      *
-     * @fullPath api.vmi.invProfileHdr.invProfileLine.delete
-     * @return BaseResponse<bool>
+     * @return BaseResponse<array<string, mixed>>
      */
     public function deleteInvProfileLine(int $invProfileHdrUid, int $invProfileLineUid): BaseResponse
     {
         $response = $this->client->delete(
             $this->baseUrl,
-            '/inv-profile-hdr/{invProfileHdrUid}/inv-profile-line/{invProfileLineUid}',
-            [
-                'invProfileHdrUid' => (string) $invProfileHdrUid,
-                'invProfileLineUid' => (string) $invProfileLineUid,
-            ],
+            '/{invProfileHdrUid}/inv-profile-line/{invProfileLineUid}',
+            ['invProfileHdrUid' => (string) $invProfileHdrUid, 'invProfileLineUid' => (string) $invProfileLineUid],
         );
 
-        return BaseResponse::fromArray($response, static fn ($data) => (bool) $data);
+        return BaseResponse::fromArray($response, static fn ($data) => $data);
+    }
+
+    /**
+     * GET /inv-profile-hdr/{invProfileHdrUid}/inv-profile-line/{invProfileLineUid}
+     *
+     * @param array<string, mixed> $params
+     * @return BaseResponse<array<string, mixed>>
+     */
+    public function getInvProfileLine(int $invProfileHdrUid, int $invProfileLineUid, array $params = []): BaseResponse
+    {
+        $response = $this->client->get(
+            $this->baseUrl,
+            '/{invProfileHdrUid}/inv-profile-line/{invProfileLineUid}',
+            $params,
+            ['invProfileHdrUid' => (string) $invProfileHdrUid, 'invProfileLineUid' => (string) $invProfileLineUid],
+        );
+
+        return BaseResponse::fromArray($response, static fn ($data) => $data);
+    }
+
+    /**
+     * PUT /inv-profile-hdr/{invProfileHdrUid}/inv-profile-line/{invProfileLineUid}
+     *
+     * @param array<string, mixed> $data
+     * @return BaseResponse<array<string, mixed>>
+     */
+    public function updateInvProfileLine(int $invProfileHdrUid, int $invProfileLineUid, array $data = []): BaseResponse
+    {
+        $response = $this->client->put(
+            $this->baseUrl,
+            '/{invProfileHdrUid}/inv-profile-line/{invProfileLineUid}',
+            $data,
+            ['invProfileHdrUid' => (string) $invProfileHdrUid, 'invProfileLineUid' => (string) $invProfileLineUid],
+        );
+
+        return BaseResponse::fromArray($response, static fn ($data) => $data);
     }
 }

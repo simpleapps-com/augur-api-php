@@ -8,11 +8,9 @@ use AugurApi\Core\BaseResponse;
 use AugurApi\Core\Client;
 
 /**
- * Events resource.
+ * events resource — generated from spec.
  *
- * @fullPath api.basecamp2.events
- * @service basecamp2
- * @domain project-management
+ * DO NOT EDIT — regenerate with: python shared/scripts/generate-php.py basecamp2
  */
 final class EventsResource
 {
@@ -23,16 +21,15 @@ final class EventsResource
     }
 
     /**
-     * List all events with pagination.
+     * GET /events
      *
-     * @fullPath api.basecamp2.events.list
-     * @param array<string, mixed> $params List parameters including pagination and ordering
-     * @return BaseResponse<array<array<string, mixed>>>
+     * @param array<string, mixed> $params
+     * @return BaseResponse<array<string, mixed>>
      */
     public function list(array $params = []): BaseResponse
     {
-        $response = $this->client->get($this->baseUrl, '/events', $params);
+        $response = $this->client->get($this->baseUrl, '', $params);
 
-        return BaseResponse::fromArray($response, static fn ($data) => $data ?? []);
+        return BaseResponse::fromArray($response, static fn ($data) => $data);
     }
 }

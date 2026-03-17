@@ -8,11 +8,9 @@ use AugurApi\Core\BaseResponse;
 use AugurApi\Core\Client;
 
 /**
- * Internal resource.
+ * internal resource — generated from spec.
  *
- * @fullPath api.items.internal
- * @service items
- * @domain document-generation
+ * DO NOT EDIT — regenerate with: python shared/scripts/generate-php.py items
  */
 final class InternalResource
 {
@@ -23,16 +21,15 @@ final class InternalResource
     }
 
     /**
-     * Generate PDF document.
+     * POST /internal/pdf
      *
-     * @fullPath api.items.internal.pdf.create
      * @param array<string, mixed> $data
      * @return BaseResponse<array<string, mixed>>
      */
-    public function createPdf(array $data): BaseResponse
+    public function createPdf(array $data = []): BaseResponse
     {
-        $response = $this->client->post($this->baseUrl, '/internal/pdf', $data);
+        $response = $this->client->post($this->baseUrl, '/pdf', $data);
 
-        return BaseResponse::fromArray($response, static fn ($d) => $d);
+        return BaseResponse::fromArray($response, static fn ($data) => $data);
     }
 }

@@ -23,8 +23,10 @@ final class ItemCategoryResourceTest extends AugurApiTestCase
         $response = $this->api->items->itemCategory->list();
 
         $this->assertCount(2, $response->data);
-        $this->assertEquals(1, $response->data[0]['itemCategoryUid']);
-        $this->assertEquals('Electronics', $response->data[0]['name']);
+        /** @var list<array<string, mixed>> $data */
+        $data = $response->data;
+        $this->assertEquals(1, $data[0]['itemCategoryUid']);
+        $this->assertEquals('Electronics', $data[0]['name']);
         $this->assertRequestMethod('GET');
         $this->assertRequestPath('/item-category');
     }
@@ -50,10 +52,12 @@ final class ItemCategoryResourceTest extends AugurApiTestCase
             ['itemCategoryUid' => 2, 'name' => 'Electrical'],
         ]);
 
-        $response = $this->api->items->itemCategory->lookup();
+        $response = $this->api->items->itemCategory->getLookup();
 
         $this->assertCount(2, $response->data);
-        $this->assertEquals('Electronics', $response->data[0]['name']);
+        /** @var list<array<string, mixed>> $data */
+        $data = $response->data;
+        $this->assertEquals('Electronics', $data[0]['name']);
         $this->assertRequestMethod('GET');
         $this->assertRequestPath('/item-category/lookup');
     }
@@ -64,7 +68,7 @@ final class ItemCategoryResourceTest extends AugurApiTestCase
             ['itemCategoryUid' => 1, 'name' => 'Electronics'],
         ]);
 
-        $response = $this->api->items->itemCategory->lookup(['q' => 'elec', 'limit' => 10]);
+        $response = $this->api->items->itemCategory->getLookup(['q' => 'elec', 'limit' => 10]);
 
         $this->assertCount(1, $response->data);
     }
@@ -96,7 +100,9 @@ final class ItemCategoryResourceTest extends AugurApiTestCase
         $response = $this->api->items->itemCategory->listDoc(1);
 
         $this->assertCount(2, $response->data);
-        $this->assertEquals('Spec Sheet', $response->data[0]['name']);
+        /** @var list<array<string, mixed>> $data */
+        $data = $response->data;
+        $this->assertEquals('Spec Sheet', $data[0]['name']);
         $this->assertRequestMethod('GET');
         $this->assertRequestPath('/item-category/1/doc');
     }

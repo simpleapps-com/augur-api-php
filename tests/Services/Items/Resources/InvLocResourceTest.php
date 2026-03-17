@@ -23,8 +23,10 @@ final class InvLocResourceTest extends AugurApiTestCase
         $response = $this->api->items->invLoc->list();
 
         $this->assertCount(2, $response->data);
-        $this->assertEquals(1, $response->data[0]['invLocUid']);
-        $this->assertEquals('WH001', $response->data[0]['locationId']);
+        /** @var list<array<string, mixed>> $data */
+        $data = $response->data;
+        $this->assertEquals(1, $data[0]['invLocUid']);
+        $this->assertEquals('WH001', $data[0]['locationId']);
         $this->assertRequestMethod('GET');
         $this->assertRequestPath('/inv-loc');
     }

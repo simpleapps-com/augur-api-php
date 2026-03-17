@@ -6,14 +6,11 @@ namespace AugurApi\Services\Pricing\Resources;
 
 use AugurApi\Core\BaseResponse;
 use AugurApi\Core\Client;
-use AugurApi\Core\Schemas\EdgeCache;
 
 /**
- * Job price header resource.
+ * jobPriceHdr resource — generated from spec.
  *
- * @fullPath api.pricing.jobPriceHdr
- * @service pricing
- * @domain pricing
+ * DO NOT EDIT — regenerate with: python shared/scripts/generate-php.py pricing
  */
 final class JobPriceHdrResource
 {
@@ -24,31 +21,30 @@ final class JobPriceHdrResource
     }
 
     /**
-     * List job price headers.
+     * GET /job-price-hdr
      *
-     * @fullPath api.pricing.jobPriceHdr.list
      * @param array<string, mixed> $params
-     * @return BaseResponse<array<array<string, mixed>>>
+     * @return BaseResponse<array<string, mixed>>
      */
     public function list(array $params = []): BaseResponse
     {
-        $response = $this->client->get($this->baseUrl, '/job-price-hdr', $params);
+        $response = $this->client->get($this->baseUrl, '', $params);
 
-        return BaseResponse::fromArray($response, static fn ($data) => $data ?? []);
+        return BaseResponse::fromArray($response, static fn ($data) => $data);
     }
 
     /**
-     * Get job price header details.
+     * GET /job-price-hdr/{jobPriceHdrUid}
      *
-     * @fullPath api.pricing.jobPriceHdr.get
+     * @param array<string, mixed> $params
      * @return BaseResponse<array<string, mixed>>
      */
-    public function get(int $jobPriceHdrUid, ?EdgeCache $edgeCache = null): BaseResponse
+    public function get(int $jobPriceHdrUid, array $params = []): BaseResponse
     {
         $response = $this->client->get(
             $this->baseUrl,
-            '/job-price-hdr/{jobPriceHdrUid}',
-            $edgeCache !== null ? ['edgeCache' => $edgeCache->value] : [],
+            '/{jobPriceHdrUid}',
+            $params,
             ['jobPriceHdrUid' => (string) $jobPriceHdrUid],
         );
 
@@ -56,40 +52,36 @@ final class JobPriceHdrResource
     }
 
     /**
-     * List job price lines.
+     * GET /job-price-hdr/{jobPriceHdrUid}/lines
      *
-     * @fullPath api.pricing.jobPriceHdr.getLines
      * @param array<string, mixed> $params
-     * @return BaseResponse<array<array<string, mixed>>>
+     * @return BaseResponse<array<string, mixed>>
      */
-    public function getLines(int $jobPriceHdrUid, array $params = []): BaseResponse
+    public function listLines(int $jobPriceHdrUid, array $params = []): BaseResponse
     {
         $response = $this->client->get(
             $this->baseUrl,
-            '/job-price-hdr/{jobPriceHdrUid}/lines',
+            '/{jobPriceHdrUid}/lines',
             $params,
             ['jobPriceHdrUid' => (string) $jobPriceHdrUid],
         );
 
-        return BaseResponse::fromArray($response, static fn ($data) => $data ?? []);
+        return BaseResponse::fromArray($response, static fn ($data) => $data);
     }
 
     /**
-     * Get job price line details.
+     * GET /job-price-hdr/{jobPriceHdrUid}/lines/{jobPriceLineUid}
      *
-     * @fullPath api.pricing.jobPriceHdr.getLine
+     * @param array<string, mixed> $params
      * @return BaseResponse<array<string, mixed>>
      */
-    public function getLine(int $jobPriceHdrUid, int $jobPriceLineUid, ?EdgeCache $edgeCache = null): BaseResponse
+    public function getLines(int $jobPriceHdrUid, int $jobPriceLineUid, array $params = []): BaseResponse
     {
         $response = $this->client->get(
             $this->baseUrl,
-            '/job-price-hdr/{jobPriceHdrUid}/lines/{jobPriceLineUid}',
-            $edgeCache !== null ? ['edgeCache' => $edgeCache->value] : [],
-            [
-                'jobPriceHdrUid' => (string) $jobPriceHdrUid,
-                'jobPriceLineUid' => (string) $jobPriceLineUid,
-            ],
+            '/{jobPriceHdrUid}/lines/{jobPriceLineUid}',
+            $params,
+            ['jobPriceHdrUid' => (string) $jobPriceHdrUid, 'jobPriceLineUid' => (string) $jobPriceLineUid],
         );
 
         return BaseResponse::fromArray($response, static fn ($data) => $data);

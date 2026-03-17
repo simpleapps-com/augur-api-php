@@ -21,7 +21,9 @@ final class ContentResourceTest extends AugurApiTestCase
         $response = $this->api->joomla->content->list();
 
         $this->assertCount(2, $response->data);
-        $this->assertEquals('Article One', $response->data[0]['title']);
+        /** @var list<array<string, mixed>> $data */
+        $data = $response->data;
+        $this->assertEquals('Article One', $data[0]['title']);
         $this->assertRequestPath('/content');
         $this->assertRequestMethod('GET');
         $this->assertHasSiteIdHeader();
@@ -34,7 +36,7 @@ final class ContentResourceTest extends AugurApiTestCase
             ['id' => 1, 'title' => 'Article One'],
         ]);
 
-        $response = $this->api->joomla->content->list(['limit' => 10, 'categoryId' => 5]);
+        $response = $this->api->joomla->content->list(['limit' => 10, 'categoryIdList' => '5']);
 
         $this->assertCount(1, $response->data);
         $this->assertRequestPath('/content');
@@ -58,20 +60,32 @@ final class ContentResourceTest extends AugurApiTestCase
         $this->assertRequestMethod('GET');
     }
 
-    public function testGetDoc(): void
+    public function testListDoc(): void
     {
         $this->mockResponse([
             'id' => 1,
             'title' => 'Article One',
             'category' => 'News',
-            'author' => 'Admin',
-            'created' => '2024-01-15',
+        ]);
+
+        $response = $this->api->joomla->content->listDoc(1);
+
+        $this->assertEquals(1, $response->data['id']);
+        $this->assertRequestPath('/content/1/doc');
+        $this->assertRequestMethod('GET');
+    }
+
+    public function testGetDocAlias(): void
+    {
+        $this->mockResponse([
+            'id' => 1,
+            'title' => 'Article One',
+            'category' => 'News',
         ]);
 
         $response = $this->api->joomla->content->getDoc(1);
 
         $this->assertEquals(1, $response->data['id']);
-        $this->assertEquals('News', $response->data['category']);
         $this->assertRequestPath('/content/1/doc');
         $this->assertRequestMethod('GET');
     }

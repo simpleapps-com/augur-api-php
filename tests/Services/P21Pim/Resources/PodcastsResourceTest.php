@@ -23,8 +23,14 @@ final class PodcastsResourceTest extends AugurApiTestCase
         $response = $this->api->p21Pim->podcasts->list();
 
         $this->assertCount(2, $response->data);
-        $this->assertEquals(1, $response->data[0]['podcastsUid']);
-        $this->assertEquals('Product Update Episode 1', $response->data[0]['title']);
+
+        /** @var list<array<string, mixed>> $data */
+        $data = $response->data;
+        $this->assertEquals(1, $data[0]['podcastsUid']);
+
+        /** @var list<array<string, mixed>> $data */
+        $data = $response->data;
+        $this->assertEquals('Product Update Episode 1', $data[0]['title']);
         $this->assertRequestMethod('GET');
         $this->assertRequestPath('/podcasts');
         $this->assertHasSiteIdHeader();

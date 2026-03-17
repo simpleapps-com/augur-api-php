@@ -8,11 +8,9 @@ use AugurApi\Core\BaseResponse;
 use AugurApi\Core\Client;
 
 /**
- * Ship-To resource.
+ * shipTo resource — generated from spec.
  *
- * @fullPath api.customers.shipTo
- * @service customers
- * @domain customer-management
+ * DO NOT EDIT — regenerate with: python shared/scripts/generate-php.py customers
  */
 final class ShipToResource
 {
@@ -23,33 +21,14 @@ final class ShipToResource
     }
 
     /**
-     * List customer ship-to addresses.
+     * GET /ship-to/refresh
      *
-     * @fullPath api.customers.shipTo.list
      * @param array<string, mixed> $params
-     * @return BaseResponse<array<array<string, mixed>>>
-     */
-    public function list(string $customerId, array $params = []): BaseResponse
-    {
-        $response = $this->client->get(
-            $this->baseUrl,
-            '/customer/{customerId}/ship-to',
-            $params,
-            ['customerId' => $customerId],
-        );
-
-        return BaseResponse::fromArray($response, static fn ($data) => $data ?? []);
-    }
-
-    /**
-     * Trigger a data refresh.
-     *
-     * @fullPath api.customers.shipTo.refresh
      * @return BaseResponse<array<string, mixed>>
      */
-    public function refresh(): BaseResponse
+    public function getRefresh(array $params = []): BaseResponse
     {
-        $response = $this->client->get($this->baseUrl, '/ship-to/refresh');
+        $response = $this->client->get($this->baseUrl, '/refresh', $params);
 
         return BaseResponse::fromArray($response, static fn ($data) => $data);
     }

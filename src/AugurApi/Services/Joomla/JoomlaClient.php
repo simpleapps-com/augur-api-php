@@ -7,6 +7,7 @@ namespace AugurApi\Services\Joomla;
 use AugurApi\Core\BaseServiceClient;
 use AugurApi\Core\Client;
 use AugurApi\Core\Config;
+use AugurApi\Services\Joomla\Resources\CategoriesResource;
 use AugurApi\Services\Joomla\Resources\ContentResource;
 use AugurApi\Services\Joomla\Resources\MenuResource;
 use AugurApi\Services\Joomla\Resources\TagsResource;
@@ -14,14 +15,13 @@ use AugurApi\Services\Joomla\Resources\UsergroupsResource;
 use AugurApi\Services\Joomla\Resources\UsersResource;
 
 /**
- * Joomla service client.
+ * Joomla service client — generated from spec.
  *
- * @fullPath api.joomla
- * @service joomla
- * @domain cms
+ * DO NOT EDIT — regenerate with: python shared/scripts/generate-php.py joomla
  */
 final class JoomlaClient extends BaseServiceClient
 {
+    public readonly CategoriesResource $categories;
     public readonly ContentResource $content;
     public readonly MenuResource $menu;
     public readonly TagsResource $tags;
@@ -31,11 +31,12 @@ final class JoomlaClient extends BaseServiceClient
     public function __construct(Client $client, Config $config)
     {
         parent::__construct($client, $config);
-        $this->content = new ContentResource($client, $this->baseUrl);
-        $this->menu = new MenuResource($client, $this->baseUrl);
-        $this->tags = new TagsResource($client, $this->baseUrl);
-        $this->usergroups = new UsergroupsResource($client, $this->baseUrl);
-        $this->users = new UsersResource($client, $this->baseUrl);
+        $this->categories = new CategoriesResource($client, $this->baseUrl . '/categories');
+        $this->content = new ContentResource($client, $this->baseUrl . '/content');
+        $this->menu = new MenuResource($client, $this->baseUrl . '/menu');
+        $this->tags = new TagsResource($client, $this->baseUrl . '/tags');
+        $this->usergroups = new UsergroupsResource($client, $this->baseUrl . '/usergroups');
+        $this->users = new UsersResource($client, $this->baseUrl . '/users');
     }
 
     protected function getServiceName(): string

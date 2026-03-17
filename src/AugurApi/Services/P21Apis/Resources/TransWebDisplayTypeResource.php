@@ -8,11 +8,9 @@ use AugurApi\Core\BaseResponse;
 use AugurApi\Core\Client;
 
 /**
- * Transaction web display type resource.
+ * transWebDisplayType resource — generated from spec.
  *
- * @fullPath api.p21Apis.transWebDisplayType
- * @service p21-apis
- * @domain web-display-management
+ * DO NOT EDIT — regenerate with: python shared/scripts/generate-php.py p21-apis
  */
 final class TransWebDisplayTypeResource
 {
@@ -23,98 +21,92 @@ final class TransWebDisplayTypeResource
     }
 
     /**
-     * Create a new transaction web display type.
+     * POST /trans-web-display-type
      *
-     * @fullPath api.p21Apis.transWebDisplayType.create
      * @param array<string, mixed> $data
      * @return BaseResponse<array<string, mixed>>
      */
-    public function create(array $data): BaseResponse
+    public function create(array $data = []): BaseResponse
     {
-        $response = $this->client->post($this->baseUrl, '/trans-web-display-type', $data);
-
-        return BaseResponse::fromArray($response, static fn ($d) => $d);
-    }
-
-    /**
-     * Get transaction web display type details by display type UID.
-     *
-     * @fullPath api.p21Apis.transWebDisplayType.get
-     * @param array<string, mixed> $params
-     * @return BaseResponse<array<string, mixed>>
-     */
-    public function get(int $webDisplayTypeUid, array $params = []): BaseResponse
-    {
-        $response = $this->client->get(
-            $this->baseUrl,
-            '/trans-web-display-type/{webDisplayTypeUid}',
-            $params,
-            ['webDisplayTypeUid' => (string) $webDisplayTypeUid],
-        );
+        $response = $this->client->post($this->baseUrl, '', $data);
 
         return BaseResponse::fromArray($response, static fn ($data) => $data);
     }
 
     /**
-     * Update transaction web display type by display type UID.
+     * GET /trans-web-display-type/defaults
      *
-     * @fullPath api.p21Apis.transWebDisplayType.update
-     * @param array<string, mixed> $data
+     * @param array<string, mixed> $params
      * @return BaseResponse<array<string, mixed>>
      */
-    public function update(int $webDisplayTypeUid, array $data): BaseResponse
+    public function listDefaults(array $params = []): BaseResponse
     {
-        $response = $this->client->put(
-            $this->baseUrl,
-            '/trans-web-display-type/{webDisplayTypeUid}',
-            $data,
-            ['webDisplayTypeUid' => (string) $webDisplayTypeUid],
-        );
+        $response = $this->client->get($this->baseUrl, '/defaults', $params);
 
-        return BaseResponse::fromArray($response, static fn ($d) => $d);
+        return BaseResponse::fromArray($response, static fn ($data) => $data);
     }
 
     /**
-     * Delete transaction web display type by display type UID.
+     * GET /trans-web-display-type/definition
      *
-     * @fullPath api.p21Apis.transWebDisplayType.delete
+     * @param array<string, mixed> $params
      * @return BaseResponse<array<string, mixed>>
      */
-    public function delete(int $webDisplayTypeUid): BaseResponse
+    public function listDefinition(array $params = []): BaseResponse
+    {
+        $response = $this->client->get($this->baseUrl, '/definition', $params);
+
+        return BaseResponse::fromArray($response, static fn ($data) => $data);
+    }
+
+    /**
+     * DELETE /trans-web-display-type/{webDisplayTypeUid}
+     *
+     * @return BaseResponse<array<string, mixed>>
+     */
+    public function delete(int $web_display_type_uid): BaseResponse
     {
         $response = $this->client->delete(
             $this->baseUrl,
-            '/trans-web-display-type/{webDisplayTypeUid}',
-            ['webDisplayTypeUid' => (string) $webDisplayTypeUid],
+            '/{webDisplayTypeUid}',
+            ['web_display_type_uid' => (string) $web_display_type_uid],
         );
 
         return BaseResponse::fromArray($response, static fn ($data) => $data);
     }
 
     /**
-     * Get web display type defaults for configuration setup.
+     * GET /trans-web-display-type/{webDisplayTypeUid}
      *
-     * @fullPath api.p21Apis.transWebDisplayType.defaults.get
      * @param array<string, mixed> $params
      * @return BaseResponse<array<string, mixed>>
      */
-    public function getDefaults(array $params = []): BaseResponse
+    public function get(int $web_display_type_uid, array $params = []): BaseResponse
     {
-        $response = $this->client->get($this->baseUrl, '/trans-web-display-type/defaults', $params);
+        $response = $this->client->get(
+            $this->baseUrl,
+            '/{webDisplayTypeUid}',
+            $params,
+            ['web_display_type_uid' => (string) $web_display_type_uid],
+        );
 
         return BaseResponse::fromArray($response, static fn ($data) => $data);
     }
 
     /**
-     * Get web display type definition for service schema information.
+     * PUT /trans-web-display-type/{webDisplayTypeUid}
      *
-     * @fullPath api.p21Apis.transWebDisplayType.definition.get
-     * @param array<string, mixed> $params
+     * @param array<string, mixed> $data
      * @return BaseResponse<array<string, mixed>>
      */
-    public function getDefinition(array $params = []): BaseResponse
+    public function update(int $web_display_type_uid, array $data = []): BaseResponse
     {
-        $response = $this->client->get($this->baseUrl, '/trans-web-display-type/definition', $params);
+        $response = $this->client->put(
+            $this->baseUrl,
+            '/{webDisplayTypeUid}',
+            $data,
+            ['web_display_type_uid' => (string) $web_display_type_uid],
+        );
 
         return BaseResponse::fromArray($response, static fn ($data) => $data);
     }

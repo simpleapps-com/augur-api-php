@@ -8,11 +8,9 @@ use AugurApi\Core\BaseResponse;
 use AugurApi\Core\Client;
 
 /**
- * OpenSearch resource.
+ * openSearch resource — generated from spec.
  *
- * @fullPath api.agrSite.openSearch
- * @service agr_site
- * @domain search-optimization
+ * DO NOT EDIT — regenerate with: python shared/scripts/generate-php.py agr-site
  */
 final class OpenSearchResource
 {
@@ -23,15 +21,14 @@ final class OpenSearchResource
     }
 
     /**
-     * Get text embedding for search optimization.
+     * GET /open-search/embedding
      *
-     * @fullPath api.agrSite.openSearch.getEmbedding
      * @param array<string, mixed> $params
      * @return BaseResponse<array<string, mixed>>
      */
-    public function getEmbedding(array $params): BaseResponse
+    public function listEmbedding(array $params = []): BaseResponse
     {
-        $response = $this->client->get($this->baseUrl, '/open-search/embedding', $params);
+        $response = $this->client->get($this->baseUrl, '/embedding', $params);
 
         return BaseResponse::fromArray($response, static fn ($data) => $data);
     }

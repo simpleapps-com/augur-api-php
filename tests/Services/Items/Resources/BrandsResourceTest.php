@@ -4,87 +4,60 @@ declare(strict_types=1);
 
 namespace AugurApi\Tests\Services\Items\Resources;
 
-use AugurApi\AugurApiClient;
-use AugurApi\Services\Items\Schemas\Brand;
-use AugurApi\Services\Items\Schemas\BrandsListParams;
-use Http\Mock\Client as MockClient;
-use Nyholm\Psr7\Factory\Psr17Factory;
-use Nyholm\Psr7\Response;
-use PHPUnit\Framework\TestCase;
+use AugurApi\Tests\AugurApiTestCase;
 
-final class BrandsResourceTest extends TestCase
+/**
+ * Tests for BrandsResource.
+ *
+ * @covers \AugurApi\Services\Items\Resources\BrandsResource
+ */
+final class BrandsResourceTest extends AugurApiTestCase
 {
-    private MockClient $mockClient;
-    private AugurApiClient $api;
-
-    protected function setUp(): void
+    public function testList(): void
     {
-        $this->mockClient = new MockClient();
-        $factory = new Psr17Factory();
+        $this->mockListResponse([
+            ['brandsUid' => 1, 'brandName' => 'Brand A'],
+            ['brandsUid' => 2, 'brandName' => 'Brand B'],
+        ]);
 
-        $this->api = new AugurApiClient(
-            siteId: 'TEST123',
-            bearerToken: 'test-token',
-            httpClient: $this->mockClient,
-            requestFactory: $factory,
-            streamFactory: $factory,
-        );
-    }
-
-    public function testListBrands(): void
-    {
-        $this->mockClient->addResponse(
-            new Response(200, ['Content-Type' => 'application/json'], (string) json_encode([
-                'data' => [
-                    ['brandsUid' => 1, 'brandName' => 'Brand A'],
-                    ['brandsUid' => 2, 'brandName' => 'Brand B'],
-                ],
-                'status' => 200,
-                'total' => 2,
-            ])),
-        );
-
-        $params = new BrandsListParams(limit: 10, orderBy: 'brandName');
-        $response = $this->api->items->brands->list($params);
+        $response = $this->api->items->brands->list();
 
         $this->assertCount(2, $response->data);
-        $this->assertInstanceOf(Brand::class, $response->data[0]);
-        $this->assertEquals('Brand A', $response->data[0]->brandName);
-        $this->assertEquals(2, $response->total);
+        /** @var list<array<string, mixed>> $data */
+        $data = $response->data;
+        $this->assertEquals('Brand A', $data[0]['brandName']);
+        $this->assertRequestMethod('GET');
+        $this->assertRequestPath('/brands');
     }
 
-    public function testListBrandsWithArray(): void
+    public function testListWithParams(): void
     {
-        $this->mockClient->addResponse(
-            new Response(200, ['Content-Type' => 'application/json'], (string) json_encode([
-                'data' => [['brandsUid' => 1]],
-                'status' => 200,
-            ])),
-        );
+        $this->mockListResponse([
+            ['brandsUid' => 1, 'brandName' => 'Brand A'],
+        ]);
 
-        $response = $this->api->items->brands->list(['limit' => 5]);
+        $response = $this->api->items->brands->list(['limit' => 10, 'orderBy' => 'brandName']);
 
         $this->assertCount(1, $response->data);
+        $this->assertHasSiteIdHeader();
+        $this->assertHasAuthHeader();
     }
 
-    public function testListBrandsWithNoParams(): void
+    public function testListWithNoParams(): void
     {
-        $this->mockClient->addResponse(
-            new Response(200, ['Content-Type' => 'application/json'], (string) json_encode([
-                'data' => [['brandsUid' => 1]],
-                'status' => 200,
-            ])),
-        );
+        $this->mockListResponse([
+            ['brandsUid' => 1],
+        ]);
 
         $response = $this->api->items->brands->list();
 
         $this->assertCount(1, $response->data);
     }
 
-    public function testListBrandsWithNullData(): void
+    public function testListWithNullData(): void
     {
         $this->mockClient->addResponse(
-            new Response(200, ['Content-Type' => 'application/json'], (string) json_encode([
+            new \Nyholm\Psr7\Response(200, ['Content-Type' => 'application/json'], (string) json_encode([
                 'data' => null,
                 'status' => 200,
             ])),
@@ -92,57 +65,46 @@ final class BrandsResourceTest extends TestCase
 
         $response = $this->api->items->brands->list();
 
-        $this->assertIsArray($response->data);
-        $this->assertCount(0, $response->data);
+        $this->assertNull($response->data);
     }
 
-    public function testGetBrand(): void
+    public function testGet(): void
     {
-        $this->mockClient->addResponse(
-            new Response(200, ['Content-Type' => 'application/json'], (string) json_encode([
-                'data' => ['brandsUid' => 1, 'brandName' => 'Brand A'],
-                'status' => 200,
-            ])),
-        );
+        $this->mockResponse(['brandsUid' => 1, 'brandName' => 'Brand A']);
 
         $response = $this->api->items->brands->get(1);
 
-        $this->assertInstanceOf(Brand::class, $response->data);
-        $this->assertEquals(1, $response->data->brandsUid);
+        $this->assertEquals(1, $response->data['brandsUid']);
+        $this->assertRequestMethod('GET');
+        $this->assertRequestPath('/brands/1');
     }
 
-    public function testCreateBrand(): void
+    public function testCreate(): void
     {
-        $this->mockClient->addResponse(
-            new Response(201, ['Content-Type' => 'application/json'], (string) json_encode([
-                'data' => ['brandsUid' => 3, 'brandName' => 'New Brand'],
-                'status' => 201,
-            ])),
-        );
+        $this->mockResponse(['brandsUid' => 3, 'brandName' => 'New Brand']);
 
         $response = $this->api->items->brands->create(['brandName' => 'New Brand']);
 
-        $this->assertEquals(3, $response->data->brandsUid);
+        $this->assertEquals(3, $response->data['brandsUid']);
+        $this->assertRequestMethod('POST');
+        $this->assertRequestPath('/brands');
     }
 
-    public function testUpdateBrand(): void
+    public function testUpdate(): void
     {
-        $this->mockClient->addResponse(
-            new Response(200, ['Content-Type' => 'application/json'], (string) json_encode([
-                'data' => ['brandsUid' => 1, 'brandName' => 'Updated Brand'],
-                'status' => 200,
-            ])),
-        );
+        $this->mockResponse(['brandsUid' => 1, 'brandName' => 'Updated Brand']);
 
         $response = $this->api->items->brands->update(1, ['brandName' => 'Updated Brand']);
 
-        $this->assertEquals('Updated Brand', $response->data->brandName);
+        $this->assertEquals('Updated Brand', $response->data['brandName']);
+        $this->assertRequestMethod('PUT');
+        $this->assertRequestPath('/brands/1');
     }
 
-    public function testDeleteBrand(): void
+    public function testDelete(): void
     {
         $this->mockClient->addResponse(
-            new Response(200, ['Content-Type' => 'application/json'], (string) json_encode([
+            new \Nyholm\Psr7\Response(200, ['Content-Type' => 'application/json'], (string) json_encode([
                 'data' => true,
                 'status' => 200,
             ])),
@@ -151,56 +113,50 @@ final class BrandsResourceTest extends TestCase
         $response = $this->api->items->brands->delete(1);
 
         $this->assertTrue($response->data);
+        $this->assertRequestMethod('DELETE');
+        $this->assertRequestPath('/brands/1');
     }
 
-    public function testGetAttributes(): void
+    public function testListAttributes(): void
     {
-        $this->mockClient->addResponse(
-            new Response(200, ['Content-Type' => 'application/json'], (string) json_encode([
-                'data' => [
-                    ['attributeId' => 1, 'name' => 'Color'],
-                    ['attributeId' => 2, 'name' => 'Size'],
-                ],
-                'status' => 200,
-            ])),
-        );
+        $this->mockListResponse([
+            ['attributeId' => 1, 'name' => 'Color'],
+            ['attributeId' => 2, 'name' => 'Size'],
+        ]);
 
-        $response = $this->api->items->brands->getAttributes(1);
+        $response = $this->api->items->brands->listAttributes(1);
 
         $this->assertIsArray($response->data);
         $this->assertCount(2, $response->data);
+        $this->assertRequestMethod('GET');
+        $this->assertRequestPath('/brands/1/attributes');
     }
 
-    public function testGetItems(): void
+    public function testListItems(): void
     {
-        $this->mockClient->addResponse(
-            new Response(200, ['Content-Type' => 'application/json'], (string) json_encode([
-                'data' => [
-                    ['invMastUid' => 100, 'itemId' => 'ITEM-001'],
-                    ['invMastUid' => 101, 'itemId' => 'ITEM-002'],
-                ],
-                'status' => 200,
-                'total' => 2,
-            ])),
-        );
+        $this->mockListResponse([
+            ['invMastUid' => 100, 'itemId' => 'ITEM-001'],
+            ['invMastUid' => 101, 'itemId' => 'ITEM-002'],
+        ]);
 
-        $response = $this->api->items->brands->getItems(1);
+        $response = $this->api->items->brands->listItems(1);
 
         $this->assertIsArray($response->data);
         $this->assertCount(2, $response->data);
+        $this->assertRequestMethod('GET');
+        $this->assertRequestPath('/brands/1/items');
     }
 
-    public function testGetItemsWithParams(): void
+    public function testListItemsWithParams(): void
     {
-        $this->mockClient->addResponse(
-            new Response(200, ['Content-Type' => 'application/json'], (string) json_encode([
-                'data' => [['invMastUid' => 100]],
-                'status' => 200,
-            ])),
-        );
+        $this->mockListResponse([
+            ['invMastUid' => 100],
+        ]);
 
-        $response = $this->api->items->brands->getItems(1, ['limit' => 10]);
+        $response = $this->api->items->brands->listItems(1, ['limit' => 10]);
 
         $this->assertIsArray($response->data);
+        $this->assertRequestMethod('GET');
+        $this->assertRequestPath('/brands/1/items');
     }
 }

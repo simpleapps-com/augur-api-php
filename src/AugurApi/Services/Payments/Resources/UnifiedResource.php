@@ -8,11 +8,9 @@ use AugurApi\Core\BaseResponse;
 use AugurApi\Core\Client;
 
 /**
- * Unified payment resource.
+ * unified resource — generated from spec.
  *
- * @fullPath api.payments.unified
- * @service payments
- * @domain payments
+ * DO NOT EDIT — regenerate with: python shared/scripts/generate-php.py payments
  */
 final class UnifiedResource
 {
@@ -23,85 +21,79 @@ final class UnifiedResource
     }
 
     /**
-     * Create a transaction with customer and account information.
+     * GET /unified/account-query
      *
-     * @fullPath api.payments.unified.transactionSetup
      * @param array<string, mixed> $params
      * @return BaseResponse<array<string, mixed>>
      */
-    public function transactionSetup(array $params): BaseResponse
+    public function listAccountQuery(array $params = []): BaseResponse
     {
-        $response = $this->client->get($this->baseUrl, '/unified/transaction-setup', $params);
+        $response = $this->client->get($this->baseUrl, '/account-query', $params);
 
         return BaseResponse::fromArray($response, static fn ($data) => $data);
     }
 
     /**
-     * Validate a transaction with customer and account information.
+     * GET /unified/billing-update
      *
-     * @fullPath api.payments.unified.validate
      * @param array<string, mixed> $params
      * @return BaseResponse<array<string, mixed>>
      */
-    public function validate(array $params): BaseResponse
+    public function listBillingUpdate(array $params = []): BaseResponse
     {
-        $response = $this->client->get($this->baseUrl, '/unified/validate', $params);
+        $response = $this->client->get($this->baseUrl, '/billing-update', $params);
 
         return BaseResponse::fromArray($response, static fn ($data) => $data);
     }
 
     /**
-     * Get account query with transaction setup id.
+     * GET /unified/card-info
      *
-     * @fullPath api.payments.unified.accountQuery
      * @param array<string, mixed> $params
      * @return BaseResponse<array<string, mixed>>
      */
-    public function accountQuery(array $params): BaseResponse
+    public function listCardInfo(array $params = []): BaseResponse
     {
-        $response = $this->client->get($this->baseUrl, '/unified/account-query', $params);
+        $response = $this->client->get($this->baseUrl, '/card-info', $params);
 
         return BaseResponse::fromArray($response, static fn ($data) => $data);
     }
 
     /**
-     * Update billing information with transaction setup id.
+     * GET /unified/surcharge
      *
-     * @fullPath api.payments.unified.billingUpdate
      * @param array<string, mixed> $params
      * @return BaseResponse<array<string, mixed>>
      */
-    public function billingUpdate(array $params): BaseResponse
+    public function listSurcharge(array $params = []): BaseResponse
     {
-        $response = $this->client->get($this->baseUrl, '/unified/billing-update', $params);
+        $response = $this->client->get($this->baseUrl, '/surcharge', $params);
 
         return BaseResponse::fromArray($response, static fn ($data) => $data);
     }
 
     /**
-     * Get card information with transaction setup id.
+     * GET /unified/transaction-setup
      *
-     * @fullPath api.payments.unified.cardInfo
      * @param array<string, mixed> $params
      * @return BaseResponse<array<string, mixed>>
      */
-    public function cardInfo(array $params): BaseResponse
+    public function listTransactionSetup(array $params = []): BaseResponse
     {
-        $response = $this->client->get($this->baseUrl, '/unified/card-info', $params);
+        $response = $this->client->get($this->baseUrl, '/transaction-setup', $params);
 
         return BaseResponse::fromArray($response, static fn ($data) => $data);
     }
 
     /**
-     * Get surcharge with payment account id.
+     * GET /unified/validate
      *
-     * @fullPath api.payments.unified.surcharge
      * @param array<string, mixed> $params
      * @return BaseResponse<array<string, mixed>>
      */
-    public function surcharge(array $params): BaseResponse
+    public function listValidate(array $params = []): BaseResponse
     {
-        $response = $this->client->get($this->baseUrl, '/unified/surcharge', $params);
+        $response = $this->client->get($this->baseUrl, '/validate', $params);
 
         return BaseResponse::fromArray($response, static fn ($data) => $data);
     }

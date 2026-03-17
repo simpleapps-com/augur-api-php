@@ -18,10 +18,13 @@ final class InvMastWebDescResourceTest extends AugurApiTestCase
             ['invMastWebDescUid' => 2, 'description' => 'Detailed description'],
         ]);
 
-        $response = $this->api->legacy->invMastWebDesc->list(12345);
+        $response = $this->api->legacy->invMast->listWebDesc(12345);
 
         $this->assertCount(2, $response->data);
-        $this->assertEquals('Short description', $response->data[0]['description']);
+
+        /** @var list<array<string, mixed>> $data */
+        $data = $response->data;
+        $this->assertEquals('Short description', $data[0]['description']);
         $this->assertRequestPath('/inv-mast/12345/web-desc');
         $this->assertRequestMethod('GET');
         $this->assertHasSiteIdHeader();
@@ -34,7 +37,7 @@ final class InvMastWebDescResourceTest extends AugurApiTestCase
             ['invMastWebDescUid' => 1, 'description' => 'Short description'],
         ]);
 
-        $response = $this->api->legacy->invMastWebDesc->list(12345, ['limit' => 10]);
+        $response = $this->api->legacy->invMast->listWebDesc(12345, ['limit' => 10]);
 
         $this->assertCount(1, $response->data);
         $this->assertRequestPath('/inv-mast/12345/web-desc');
@@ -49,7 +52,7 @@ final class InvMastWebDescResourceTest extends AugurApiTestCase
             'descType' => 'long',
         ]);
 
-        $response = $this->api->legacy->invMastWebDesc->get(12345, 1);
+        $response = $this->api->legacy->invMast->getWebDesc(12345, 1);
 
         $this->assertEquals(1, $response->data['invMastWebDescUid']);
         $this->assertEquals('Full product description', $response->data['description']);
@@ -66,7 +69,7 @@ final class InvMastWebDescResourceTest extends AugurApiTestCase
             'descType' => 'short',
         ], 201);
 
-        $response = $this->api->legacy->invMastWebDesc->create(12345, [
+        $response = $this->api->legacy->invMast->createWebDesc(12345, [
             'description' => 'New description',
             'descType' => 'short',
         ]);
@@ -84,7 +87,7 @@ final class InvMastWebDescResourceTest extends AugurApiTestCase
             'description' => 'Updated description',
         ]);
 
-        $response = $this->api->legacy->invMastWebDesc->update(12345, 1, [
+        $response = $this->api->legacy->invMast->updateWebDesc(12345, 1, [
             'description' => 'Updated description',
         ]);
 
@@ -97,7 +100,7 @@ final class InvMastWebDescResourceTest extends AugurApiTestCase
     {
         $this->mockResponse(['deleted' => true]);
 
-        $response = $this->api->legacy->invMastWebDesc->delete(12345, 1);
+        $response = $this->api->legacy->invMast->deleteWebDesc(12345, 1);
 
         $this->assertTrue($response->data['deleted']);
         $this->assertRequestPath('/inv-mast/12345/web-desc/1');

@@ -8,11 +8,9 @@ use AugurApi\Core\BaseResponse;
 use AugurApi\Core\Client;
 
 /**
- * Notifications resource.
+ * notifications resource — generated from spec.
  *
- * @fullPath api.agrSite.notifications
- * @service agr_site
- * @domain notification-management
+ * DO NOT EDIT — regenerate with: python shared/scripts/generate-php.py agr-site
  */
 final class NotificationsResource
 {
@@ -23,16 +21,15 @@ final class NotificationsResource
     }
 
     /**
-     * Create notification.
+     * POST /notifications
      *
-     * @fullPath api.agrSite.notifications.create
      * @param array<string, mixed> $data
      * @return BaseResponse<array<string, mixed>>
      */
-    public function create(array $data): BaseResponse
+    public function create(array $data = []): BaseResponse
     {
-        $response = $this->client->post($this->baseUrl, '/notifications', $data);
+        $response = $this->client->post($this->baseUrl, '', $data);
 
-        return BaseResponse::fromArray($response, static fn ($d) => $d);
+        return BaseResponse::fromArray($response, static fn ($data) => $data);
     }
 }

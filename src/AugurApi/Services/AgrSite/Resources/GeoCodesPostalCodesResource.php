@@ -6,14 +6,11 @@ namespace AugurApi\Services\AgrSite\Resources;
 
 use AugurApi\Core\BaseResponse;
 use AugurApi\Core\Client;
-use AugurApi\Core\Schemas\EdgeCache;
 
 /**
- * Geo codes postal codes resource.
+ * geoCodesPostalCodes resource — generated from spec.
  *
- * @fullPath api.agrSite.geoCodesPostalCodes
- * @service agr_site
- * @domain augur
+ * DO NOT EDIT — regenerate with: python shared/scripts/generate-php.py agr-site
  */
 final class GeoCodesPostalCodesResource
 {
@@ -24,31 +21,30 @@ final class GeoCodesPostalCodesResource
     }
 
     /**
-     * List postal codes.
+     * GET /geo-codes-postal-codes
      *
-     * @fullPath api.agrSite.geoCodesPostalCodes.list
      * @param array<string, mixed> $params
-     * @return BaseResponse<array<array<string, mixed>>>
+     * @return BaseResponse<array<string, mixed>>
      */
     public function list(array $params = []): BaseResponse
     {
-        $response = $this->client->get($this->baseUrl, '/geo-codes-postal-codes', $params);
+        $response = $this->client->get($this->baseUrl, '', $params);
 
-        return BaseResponse::fromArray($response, static fn ($data) => $data ?? []);
+        return BaseResponse::fromArray($response, static fn ($data) => $data);
     }
 
     /**
-     * Get postal code details.
+     * GET /geo-codes-postal-codes/{geoCodesPostalCodesUid}
      *
-     * @fullPath api.agrSite.geoCodesPostalCodes.get
+     * @param array<string, mixed> $params
      * @return BaseResponse<array<string, mixed>>
      */
-    public function get(int $geoCodesPostalCodesUid, ?EdgeCache $edgeCache = null): BaseResponse
+    public function get(int $geoCodesPostalCodesUid, array $params = []): BaseResponse
     {
         $response = $this->client->get(
             $this->baseUrl,
-            '/geo-codes-postal-codes/{geoCodesPostalCodesUid}',
-            $edgeCache !== null ? ['edgeCache' => $edgeCache->value] : [],
+            '/{geoCodesPostalCodesUid}',
+            $params,
             ['geoCodesPostalCodesUid' => (string) $geoCodesPostalCodesUid],
         );
 

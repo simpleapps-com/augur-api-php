@@ -16,7 +16,7 @@ final class ChatGptResourceTest extends AugurApiTestCase
             'tokens' => 25,
         ]);
 
-        $response = $this->api->gregorovich->chatGpt->ask([
+        $response = $this->api->gregorovich->chatGpt->getAsk([
             'question' => 'What is the capital of France?',
         ]);
 
@@ -35,7 +35,7 @@ final class ChatGptResourceTest extends AugurApiTestCase
             'tokens' => 50,
         ]);
 
-        $response = $this->api->gregorovich->chatGpt->ask([
+        $response = $this->api->gregorovich->chatGpt->getAsk([
             'question' => 'What is the price?',
             'context' => 'Product document context here',
         ]);
@@ -51,7 +51,7 @@ final class ChatGptResourceTest extends AugurApiTestCase
             'tokens' => 10,
         ]);
 
-        $response = $this->api->gregorovich->chatGpt->ask([
+        $response = $this->api->gregorovich->chatGpt->getAsk([
             'question' => 'Simple question',
             'model' => 'gpt-3.5-turbo',
         ]);
@@ -67,7 +67,7 @@ final class ChatGptResourceTest extends AugurApiTestCase
             'tokens' => 5,
         ]);
 
-        $response = $this->api->gregorovich->chatGpt->ask([
+        $response = $this->api->gregorovich->chatGpt->getAsk([
             'question' => 'Give a detailed answer.',
             'maxTokens' => 100,
         ]);

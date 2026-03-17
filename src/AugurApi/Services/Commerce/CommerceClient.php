@@ -12,11 +12,9 @@ use AugurApi\Services\Commerce\Resources\CartLineResource;
 use AugurApi\Services\Commerce\Resources\CheckoutResource;
 
 /**
- * Commerce service client.
+ * Commerce service client — generated from spec.
  *
- * @fullPath api.commerce
- * @service commerce
- * @domain commerce
+ * DO NOT EDIT — regenerate with: python shared/scripts/generate-php.py commerce
  */
 final class CommerceClient extends BaseServiceClient
 {
@@ -27,9 +25,9 @@ final class CommerceClient extends BaseServiceClient
     public function __construct(Client $client, Config $config)
     {
         parent::__construct($client, $config);
-        $this->cartHdr = new CartHdrResource($client, $this->baseUrl);
-        $this->cartLine = new CartLineResource($client, $this->baseUrl);
-        $this->checkout = new CheckoutResource($client, $this->baseUrl);
+        $this->cartHdr = new CartHdrResource($client, $this->baseUrl . '/cart-hdr');
+        $this->cartLine = new CartLineResource($client, $this->baseUrl . '/cart-line');
+        $this->checkout = new CheckoutResource($client, $this->baseUrl . '/checkout');
     }
 
     protected function getServiceName(): string

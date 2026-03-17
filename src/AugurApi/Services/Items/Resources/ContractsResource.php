@@ -6,14 +6,11 @@ namespace AugurApi\Services\Items\Resources;
 
 use AugurApi\Core\BaseResponse;
 use AugurApi\Core\Client;
-use AugurApi\Core\Schemas\EdgeCache;
 
 /**
- * Contracts resource.
+ * contracts resource — generated from spec.
  *
- * @fullPath api.items.contracts
- * @service items
- * @domain contract-management
+ * DO NOT EDIT — regenerate with: python shared/scripts/generate-php.py items
  */
 final class ContractsResource
 {
@@ -24,39 +21,38 @@ final class ContractsResource
     }
 
     /**
-     * List contract item attributes.
+     * GET /contracts/{jobNo}/attributes
      *
-     * @fullPath api.items.contracts.attributes.list
-     * @return BaseResponse<array<array<string, mixed>>>
+     * @param array<string, mixed> $params
+     * @return BaseResponse<array<string, mixed>>
      */
-    public function listAttributes(int $jobNo, ?EdgeCache $edgeCache = null): BaseResponse
+    public function listAttributes(int $jobNo, array $params = []): BaseResponse
     {
         $response = $this->client->get(
             $this->baseUrl,
-            '/contracts/{jobNo}/attributes',
-            $edgeCache !== null ? ['edgeCache' => $edgeCache->value] : [],
+            '/{jobNo}/attributes',
+            $params,
             ['jobNo' => (string) $jobNo],
         );
 
-        return BaseResponse::fromArray($response, static fn ($data) => $data ?? []);
+        return BaseResponse::fromArray($response, static fn ($data) => $data);
     }
 
     /**
-     * List contract items for a job.
+     * GET /contracts/{jobNo}/items
      *
-     * @fullPath api.items.contracts.items.list
      * @param array<string, mixed> $params
-     * @return BaseResponse<array<array<string, mixed>>>
+     * @return BaseResponse<array<string, mixed>>
      */
     public function listItems(int $jobNo, array $params = []): BaseResponse
     {
         $response = $this->client->get(
             $this->baseUrl,
-            '/contracts/{jobNo}/items',
+            '/{jobNo}/items',
             $params,
             ['jobNo' => (string) $jobNo],
         );
 
-        return BaseResponse::fromArray($response, static fn ($data) => $data ?? []);
+        return BaseResponse::fromArray($response, static fn ($data) => $data);
     }
 }

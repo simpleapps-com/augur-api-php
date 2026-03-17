@@ -6,14 +6,11 @@ namespace AugurApi\Services\OpenSearch\Resources;
 
 use AugurApi\Core\BaseResponse;
 use AugurApi\Core\Client;
-use AugurApi\Core\Schemas\EdgeCache;
 
 /**
- * Suggestions resource.
+ * suggestions resource — generated from spec.
  *
- * @fullPath api.openSearch.suggestions
- * @service open_search
- * @domain search
+ * DO NOT EDIT — regenerate with: python shared/scripts/generate-php.py open-search
  */
 final class SuggestionsResource
 {
@@ -24,47 +21,45 @@ final class SuggestionsResource
     }
 
     /**
-     * List suggestions.
+     * GET /suggestions
      *
-     * @fullPath api.openSearch.suggestions.list
      * @param array<string, mixed> $params
-     * @return BaseResponse<array<array<string, mixed>>>
+     * @return BaseResponse<array<string, mixed>>
      */
     public function list(array $params = []): BaseResponse
     {
-        $response = $this->client->get($this->baseUrl, '/suggestions', $params);
-
-        return BaseResponse::fromArray($response, static fn ($data) => $data ?? []);
-    }
-
-    /**
-     * Get suggestion details.
-     *
-     * @fullPath api.openSearch.suggestions.get
-     * @return BaseResponse<array<string, mixed>>
-     */
-    public function get(int $suggestionsUid, ?EdgeCache $edgeCache = null): BaseResponse
-    {
-        $response = $this->client->get(
-            $this->baseUrl,
-            '/suggestions/{suggestionsUid}',
-            $edgeCache !== null ? ['edgeCache' => $edgeCache->value] : [],
-            ['suggestionsUid' => (string) $suggestionsUid],
-        );
+        $response = $this->client->get($this->baseUrl, '', $params);
 
         return BaseResponse::fromArray($response, static fn ($data) => $data);
     }
 
     /**
-     * Get search suggestions for autocomplete.
+     * GET /suggestions/suggest
      *
-     * @fullPath api.openSearch.suggestions.suggest
      * @param array<string, mixed> $params
      * @return BaseResponse<array<string, mixed>>
      */
-    public function suggest(array $params = []): BaseResponse
+    public function listSuggest(array $params = []): BaseResponse
     {
-        $response = $this->client->get($this->baseUrl, '/suggestions/suggest', $params);
+        $response = $this->client->get($this->baseUrl, '/suggest', $params);
+
+        return BaseResponse::fromArray($response, static fn ($data) => $data);
+    }
+
+    /**
+     * GET /suggestions/{suggestionsUid}
+     *
+     * @param array<string, mixed> $params
+     * @return BaseResponse<array<string, mixed>>
+     */
+    public function get(int $suggestionsUid, array $params = []): BaseResponse
+    {
+        $response = $this->client->get(
+            $this->baseUrl,
+            '/{suggestionsUid}',
+            $params,
+            ['suggestionsUid' => (string) $suggestionsUid],
+        );
 
         return BaseResponse::fromArray($response, static fn ($data) => $data);
     }

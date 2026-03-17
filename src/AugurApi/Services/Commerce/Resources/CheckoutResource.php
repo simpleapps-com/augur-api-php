@@ -6,14 +6,11 @@ namespace AugurApi\Services\Commerce\Resources;
 
 use AugurApi\Core\BaseResponse;
 use AugurApi\Core\Client;
-use AugurApi\Core\Schemas\EdgeCache;
 
 /**
- * Checkout resource.
+ * checkout resource — generated from spec.
  *
- * @fullPath api.commerce.checkout
- * @service commerce
- * @domain commerce
+ * DO NOT EDIT — regenerate with: python shared/scripts/generate-php.py commerce
  */
 final class CheckoutResource
 {
@@ -24,126 +21,134 @@ final class CheckoutResource
     }
 
     /**
-     * Create new checkout.
+     * POST /checkout
      *
-     * @fullPath api.commerce.checkout.create
      * @param array<string, mixed> $data
      * @return BaseResponse<array<string, mixed>>
      */
-    public function create(array $data): BaseResponse
+    public function create(array $data = []): BaseResponse
     {
-        $response = $this->client->post($this->baseUrl, '/checkout', $data);
+        $response = $this->client->post($this->baseUrl, '', $data);
 
-        return BaseResponse::fromArray($response, static fn ($d) => $d);
+        return BaseResponse::fromArray($response, static fn ($data) => $data);
     }
 
     /**
-     * Get checkout details.
+     * GET /checkout/{checkoutUid}
      *
-     * @fullPath api.commerce.checkout.get
+     * @param array<string, mixed> $params
      * @return BaseResponse<array<string, mixed>>
      */
-    public function get(int $checkoutUid, ?EdgeCache $edgeCache = null): BaseResponse
+    public function get(int $checkout_uid, array $params = []): BaseResponse
     {
         $response = $this->client->get(
             $this->baseUrl,
-            '/checkout/{checkoutUid}',
-            $edgeCache !== null ? ['edgeCache' => $edgeCache->value] : [],
-            ['checkoutUid' => (string) $checkoutUid],
+            '/{checkoutUid}',
+            $params,
+            ['checkout_uid' => (string) $checkout_uid],
         );
 
         return BaseResponse::fromArray($response, static fn ($data) => $data);
     }
 
     /**
-     * Get checkout document.
+     * PUT /checkout/{checkoutUid}/activate
      *
-     * @fullPath api.commerce.checkout.getDoc
+     * @param array<string, mixed> $data
      * @return BaseResponse<array<string, mixed>>
      */
-    public function getDoc(int $checkoutUid, ?EdgeCache $edgeCache = null): BaseResponse
+    public function updateActivate(int $checkout_uid, array $data = []): BaseResponse
+    {
+        $response = $this->client->put(
+            $this->baseUrl,
+            '/{checkoutUid}/activate',
+            $data,
+            ['checkout_uid' => (string) $checkout_uid],
+        );
+
+        return BaseResponse::fromArray($response, static fn ($data) => $data);
+    }
+
+    /**
+     * GET /checkout/{checkoutUid}/doc
+     *
+     * @param array<string, mixed> $params
+     * @return BaseResponse<array<string, mixed>>
+     */
+    public function listDoc(int $checkout_uid, array $params = []): BaseResponse
     {
         $response = $this->client->get(
             $this->baseUrl,
-            '/checkout/{checkoutUid}/doc',
-            $edgeCache !== null ? ['edgeCache' => $edgeCache->value] : [],
-            ['checkoutUid' => (string) $checkoutUid],
+            '/{checkoutUid}/doc',
+            $params,
+            ['checkout_uid' => (string) $checkout_uid],
         );
 
         return BaseResponse::fromArray($response, static fn ($data) => $data);
     }
 
     /**
-     * Validate checkout.
+     * Alias for listDoc — GET /checkout/{checkoutUid}/doc
      *
-     * @fullPath api.commerce.checkout.validate
+     * @param array<string, mixed> $params
      * @return BaseResponse<array<string, mixed>>
      */
-    public function validate(int $checkoutUid): BaseResponse
+    public function getDoc(int $checkout_uid, array $params = []): BaseResponse
     {
-        $response = $this->client->put(
-            $this->baseUrl,
-            '/checkout/{checkoutUid}/validate',
-            [],
-            ['checkoutUid' => (string) $checkoutUid],
-        );
-
-        return BaseResponse::fromArray($response, static fn ($data) => $data);
+        return $this->listDoc($checkout_uid, $params);
     }
 
     /**
-     * Activate checkout.
+     * POST /checkout/{checkoutUid}/prophet21-hdr
      *
-     * @fullPath api.commerce.checkout.activate
-     * @return BaseResponse<array<string, mixed>>
-     */
-    public function activate(int $checkoutUid): BaseResponse
-    {
-        $response = $this->client->put(
-            $this->baseUrl,
-            '/checkout/{checkoutUid}/activate',
-            [],
-            ['checkoutUid' => (string) $checkoutUid],
-        );
-
-        return BaseResponse::fromArray($response, static fn ($data) => $data);
-    }
-
-    /**
-     * Create new P21 checkout.
-     *
-     * @fullPath api.commerce.checkout.createProphet21Hdr
      * @param array<string, mixed> $data
      * @return BaseResponse<array<string, mixed>>
      */
-    public function createProphet21Hdr(int $checkoutUid, array $data): BaseResponse
+    public function createProphet21Hdr(int $checkout_uid, array $data = []): BaseResponse
     {
         $response = $this->client->post(
             $this->baseUrl,
-            '/checkout/{checkoutUid}/prophet21-hdr',
+            '/{checkoutUid}/prophet21-hdr',
             $data,
-            ['checkoutUid' => (string) $checkoutUid],
+            ['checkout_uid' => (string) $checkout_uid],
         );
 
-        return BaseResponse::fromArray($response, static fn ($d) => $d);
+        return BaseResponse::fromArray($response, static fn ($data) => $data);
     }
 
     /**
-     * Add items to Prophet 21 checkout.
+     * POST /checkout/{checkoutUid}/prophet21-hdr/{prophet21HdrUid}/prophet21-line
      *
-     * @fullPath api.commerce.checkout.addProphet21Line
      * @param array<string, mixed> $data
      * @return BaseResponse<array<string, mixed>>
      */
-    public function addProphet21Line(int $checkoutUid, int $prophet21HdrUid, array $data): BaseResponse
+    public function createProphet21HdrProphet21Line(int $checkout_uid, int $prophet21_hdr_uid, array $data = []): BaseResponse
     {
         $response = $this->client->post(
             $this->baseUrl,
-            '/checkout/{checkoutUid}/prophet21-hdr/{prophet21HdrUid}/prophet21-line',
+            '/{checkoutUid}/prophet21-hdr/{prophet21HdrUid}/prophet21-line',
             $data,
-            ['checkoutUid' => (string) $checkoutUid, 'prophet21HdrUid' => (string) $prophet21HdrUid],
+            ['checkout_uid' => (string) $checkout_uid, 'prophet21_hdr_uid' => (string) $prophet21_hdr_uid],
         );
 
-        return BaseResponse::fromArray($response, static fn ($d) => $d);
+        return BaseResponse::fromArray($response, static fn ($data) => $data);
+    }
+
+    /**
+     * PUT /checkout/{checkoutUid}/validate
+     *
+     * @param array<string, mixed> $data
+     * @return BaseResponse<array<string, mixed>>
+     */
+    public function updateValidate(int $checkout_uid, array $data = []): BaseResponse
+    {
+        $response = $this->client->put(
+            $this->baseUrl,
+            '/{checkoutUid}/validate',
+            $data,
+            ['checkout_uid' => (string) $checkout_uid],
+        );
+
+        return BaseResponse::fromArray($response, static fn ($data) => $data);
     }
 }

@@ -13,19 +13,21 @@ use AugurApi\Tests\AugurApiTestCase;
  */
 final class InvMastSubPartsResourceTest extends AugurApiTestCase
 {
-    public function testList(): void
+    public function testGet(): void
     {
         $this->mockListResponse([
             ['subPartUid' => 1, 'subPartInvMastUid' => 200, 'qty' => 2],
             ['subPartUid' => 2, 'subPartInvMastUid' => 201, 'qty' => 1],
         ]);
 
-        $response = $this->api->items->invMastSubParts->list(100);
+        $response = $this->api->items->invMastSubParts->get(100);
 
         $this->assertCount(2, $response->data);
-        $this->assertEquals(1, $response->data[0]['subPartUid']);
-        $this->assertEquals(200, $response->data[0]['subPartInvMastUid']);
-        $this->assertEquals(2, $response->data[0]['qty']);
+        /** @var list<array<string, mixed>> $data */
+        $data = $response->data;
+        $this->assertEquals(1, $data[0]['subPartUid']);
+        $this->assertEquals(200, $data[0]['subPartInvMastUid']);
+        $this->assertEquals(2, $data[0]['qty']);
         $this->assertRequestMethod('GET');
         $this->assertRequestPath('/inv-mast-sub-parts/100');
         $this->assertHasSiteIdHeader();

@@ -21,7 +21,10 @@ final class MicroservicesResourceTest extends AugurApiTestCase
         $response = $this->api->agrInfo->microservices->list();
 
         $this->assertCount(2, $response->data);
-        $this->assertEquals('Service A', $response->data[0]['name']);
+
+        /** @var list<array<string, mixed>> $data */
+        $data = $response->data;
+        $this->assertEquals('Service A', $data[0]['name']);
         $this->assertRequestPath('/microservices');
         $this->assertRequestMethod('GET');
         $this->assertHasSiteIdHeader();
@@ -96,7 +99,7 @@ final class MicroservicesResourceTest extends AugurApiTestCase
 
         $response = $this->api->agrInfo->microservices->delete(1);
 
-        $this->assertTrue($response->data);
+        $this->assertIsArray($response->data);
         $this->assertRequestPath('/microservices/1');
         $this->assertRequestMethod('DELETE');
     }

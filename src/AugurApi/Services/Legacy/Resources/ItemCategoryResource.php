@@ -6,14 +6,11 @@ namespace AugurApi\Services\Legacy\Resources;
 
 use AugurApi\Core\BaseResponse;
 use AugurApi\Core\Client;
-use AugurApi\Core\Schemas\EdgeCache;
 
 /**
- * Item Category resource.
+ * itemCategory resource — generated from spec.
  *
- * @fullPath api.legacy.itemCategory
- * @service legacy
- * @domain augur
+ * DO NOT EDIT — regenerate with: python shared/scripts/generate-php.py legacy
  */
 final class ItemCategoryResource
 {
@@ -24,17 +21,17 @@ final class ItemCategoryResource
     }
 
     /**
-     * Get Item Category Details.
+     * GET /item-category/{itemCategoryUid}
      *
-     * @fullPath api.legacy.itemCategory.get
+     * @param array<string, mixed> $params
      * @return BaseResponse<array<string, mixed>>
      */
-    public function get(int $itemCategoryUid, ?EdgeCache $edgeCache = null): BaseResponse
+    public function get(int $itemCategoryUid, array $params = []): BaseResponse
     {
         $response = $this->client->get(
             $this->baseUrl,
-            '/item-category/{itemCategoryUid}',
-            $edgeCache !== null ? ['edgeCache' => $edgeCache->value] : [],
+            '/{itemCategoryUid}',
+            $params,
             ['itemCategoryUid' => (string) $itemCategoryUid],
         );
 

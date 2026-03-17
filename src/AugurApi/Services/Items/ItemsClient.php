@@ -27,11 +27,9 @@ use AugurApi\Services\Items\Resources\P21Resource;
 use AugurApi\Services\Items\Resources\VariantsResource;
 
 /**
- * Items service client.
+ * Items service client — generated from spec.
  *
- * @fullPath api.items
- * @service items
- * @domain inventory-management
+ * DO NOT EDIT — regenerate with: python shared/scripts/generate-php.py items
  */
 final class ItemsClient extends BaseServiceClient
 {
@@ -42,8 +40,8 @@ final class ItemsClient extends BaseServiceClient
     public readonly ContractsResource $contracts;
     public readonly InternalResource $internal;
     public readonly InvLocResource $invLoc;
-    public readonly InvMastLinksResource $invMastLinks;
     public readonly InvMastResource $invMast;
+    public readonly InvMastLinksResource $invMastLinks;
     public readonly InvMastSubPartsResource $invMastSubParts;
     public readonly InvMastUdResource $invMastUd;
     public readonly ItemCategoryResource $itemCategory;
@@ -57,24 +55,24 @@ final class ItemsClient extends BaseServiceClient
     public function __construct(Client $client, Config $config)
     {
         parent::__construct($client, $config);
-        $this->attributeGroups = new AttributeGroupsResource($client, $this->baseUrl);
-        $this->attributes = new AttributesResource($client, $this->baseUrl);
-        $this->brands = new BrandsResource($client, $this->baseUrl);
-        $this->categories = new CategoriesResource($client, $this->baseUrl);
-        $this->contracts = new ContractsResource($client, $this->baseUrl);
-        $this->internal = new InternalResource($client, $this->baseUrl);
-        $this->invLoc = new InvLocResource($client, $this->baseUrl);
-        $this->invMastLinks = new InvMastLinksResource($client, $this->baseUrl);
-        $this->invMast = new InvMastResource($client, $this->baseUrl);
-        $this->invMastSubParts = new InvMastSubPartsResource($client, $this->baseUrl);
-        $this->invMastUd = new InvMastUdResource($client, $this->baseUrl);
-        $this->itemCategory = new ItemCategoryResource($client, $this->baseUrl);
-        $this->itemFavorites = new ItemFavoritesResource($client, $this->baseUrl);
-        $this->itemUom = new ItemUomResource($client, $this->baseUrl);
-        $this->itemWishlist = new ItemWishlistResource($client, $this->baseUrl);
-        $this->locations = new LocationsResource($client, $this->baseUrl);
-        $this->p21 = new P21Resource($client, $this->baseUrl);
-        $this->variants = new VariantsResource($client, $this->baseUrl);
+        $this->attributeGroups = new AttributeGroupsResource($client, $this->baseUrl . '/attribute-groups');
+        $this->attributes = new AttributesResource($client, $this->baseUrl . '/attributes');
+        $this->brands = new BrandsResource($client, $this->baseUrl . '/brands');
+        $this->categories = new CategoriesResource($client, $this->baseUrl . '/categories');
+        $this->contracts = new ContractsResource($client, $this->baseUrl . '/contracts');
+        $this->internal = new InternalResource($client, $this->baseUrl . '/internal');
+        $this->invLoc = new InvLocResource($client, $this->baseUrl . '/inv-loc');
+        $this->invMast = new InvMastResource($client, $this->baseUrl . '/inv-mast');
+        $this->invMastLinks = new InvMastLinksResource($client, $this->baseUrl . '/inv-mast-links');
+        $this->invMastSubParts = new InvMastSubPartsResource($client, $this->baseUrl . '/inv-mast-sub-parts');
+        $this->invMastUd = new InvMastUdResource($client, $this->baseUrl . '/inv-mast-ud');
+        $this->itemCategory = new ItemCategoryResource($client, $this->baseUrl . '/item-category');
+        $this->itemFavorites = new ItemFavoritesResource($client, $this->baseUrl . '/item-favorites');
+        $this->itemUom = new ItemUomResource($client, $this->baseUrl . '/item-uom');
+        $this->itemWishlist = new ItemWishlistResource($client, $this->baseUrl . '/item-wishlist');
+        $this->locations = new LocationsResource($client, $this->baseUrl . '/locations');
+        $this->p21 = new P21Resource($client, $this->baseUrl . '/p21');
+        $this->variants = new VariantsResource($client, $this->baseUrl . '/variants');
     }
 
     protected function getServiceName(): string

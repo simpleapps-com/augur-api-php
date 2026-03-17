@@ -18,11 +18,17 @@ final class AlsoBoughtResourceTest extends AugurApiTestCase
             ['itemId' => 'ITEM002', 'purchaseCount' => 30],
         ]);
 
-        $response = $this->api->legacy->alsoBought->list(12345);
+        $response = $this->api->legacy->invMast->listAlsoBought(12345);
 
         $this->assertCount(2, $response->data);
-        $this->assertEquals('ITEM001', $response->data[0]['itemId']);
-        $this->assertEquals(50, $response->data[0]['purchaseCount']);
+
+        /** @var list<array<string, mixed>> $data */
+        $data = $response->data;
+        $this->assertEquals('ITEM001', $data[0]['itemId']);
+
+        /** @var list<array<string, mixed>> $data */
+        $data = $response->data;
+        $this->assertEquals(50, $data[0]['purchaseCount']);
         $this->assertRequestPath('/inv-mast/12345/also-bought');
         $this->assertRequestMethod('GET');
         $this->assertHasSiteIdHeader();
@@ -35,7 +41,7 @@ final class AlsoBoughtResourceTest extends AugurApiTestCase
             ['itemId' => 'ITEM001', 'purchaseCount' => 50],
         ]);
 
-        $response = $this->api->legacy->alsoBought->list(12345, ['limit' => 10]);
+        $response = $this->api->legacy->invMast->listAlsoBought(12345, ['limit' => 10]);
 
         $this->assertCount(1, $response->data);
         $this->assertRequestPath('/inv-mast/12345/also-bought');

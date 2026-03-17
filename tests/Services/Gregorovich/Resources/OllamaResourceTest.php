@@ -16,7 +16,7 @@ final class OllamaResourceTest extends AugurApiTestCase
             'done' => true,
         ]);
 
-        $response = $this->api->gregorovich->ollama->generate([
+        $response = $this->api->gregorovich->ollama->createGenerate([
             'prompt' => 'Write a product description.',
             'model' => 'llama2',
         ]);
@@ -37,7 +37,7 @@ final class OllamaResourceTest extends AugurApiTestCase
             'done' => true,
         ]);
 
-        $response = $this->api->gregorovich->ollama->generate([
+        $response = $this->api->gregorovich->ollama->createGenerate([
             'prompt' => 'Write a PHP function.',
             'model' => 'codellama',
         ]);
@@ -54,7 +54,7 @@ final class OllamaResourceTest extends AugurApiTestCase
             'context' => [1, 2, 3, 4, 5],
         ]);
 
-        $response = $this->api->gregorovich->ollama->generate([
+        $response = $this->api->gregorovich->ollama->createGenerate([
             'prompt' => 'Continue the conversation.',
             'model' => 'llama2',
             'context' => [1, 2, 3, 4, 5],
@@ -71,7 +71,7 @@ final class OllamaResourceTest extends AugurApiTestCase
             'done' => true,
         ]);
 
-        $response = $this->api->gregorovich->ollama->generate([
+        $response = $this->api->gregorovich->ollama->createGenerate([
             'prompt' => 'Be creative.',
             'model' => 'llama2',
             'options' => [
@@ -91,7 +91,7 @@ final class OllamaResourceTest extends AugurApiTestCase
             'done' => false,
         ]);
 
-        $response = $this->api->gregorovich->ollama->generate([
+        $response = $this->api->gregorovich->ollama->createGenerate([
             'prompt' => 'Generate streaming response.',
             'model' => 'llama2',
             'stream' => true,

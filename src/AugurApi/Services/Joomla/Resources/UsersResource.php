@@ -6,14 +6,11 @@ namespace AugurApi\Services\Joomla\Resources;
 
 use AugurApi\Core\BaseResponse;
 use AugurApi\Core\Client;
-use AugurApi\Core\Schemas\EdgeCache;
 
 /**
- * Users resource.
+ * users resource — generated from spec.
  *
- * @fullPath api.joomla.users
- * @service joomla
- * @domain cms
+ * DO NOT EDIT — regenerate with: python shared/scripts/generate-php.py joomla
  */
 final class UsersResource
 {
@@ -24,189 +21,194 @@ final class UsersResource
     }
 
     /**
-     * Get user list.
+     * GET /users
      *
-     * @fullPath api.joomla.users.list
      * @param array<string, mixed> $params
-     * @return BaseResponse<array<array<string, mixed>>>
+     * @return BaseResponse<array<string, mixed>>
      */
     public function list(array $params = []): BaseResponse
     {
-        $response = $this->client->get($this->baseUrl, '/users', $params);
-
-        return BaseResponse::fromArray($response, static fn ($data) => $data ?? []);
-    }
-
-    /**
-     * Get user detail.
-     *
-     * @fullPath api.joomla.users.get
-     * @return BaseResponse<array<string, mixed>>
-     */
-    public function get(int $id, ?EdgeCache $edgeCache = null): BaseResponse
-    {
-        $response = $this->client->get(
-            $this->baseUrl,
-            '/users/{id}',
-            $edgeCache !== null ? ['edgeCache' => $edgeCache->value] : [],
-            ['id' => (string) $id],
-        );
+        $response = $this->client->get($this->baseUrl, '', $params);
 
         return BaseResponse::fromArray($response, static fn ($data) => $data);
     }
 
     /**
-     * Get user doc.
+     * POST /users
      *
-     * @fullPath api.joomla.users.getDoc
-     * @return BaseResponse<array<string, mixed>>
-     */
-    public function getDoc(int $id, ?EdgeCache $edgeCache = null): BaseResponse
-    {
-        $response = $this->client->get(
-            $this->baseUrl,
-            '/users/{id}/doc',
-            $edgeCache !== null ? ['edgeCache' => $edgeCache->value] : [],
-            ['id' => (string) $id],
-        );
-
-        return BaseResponse::fromArray($response, static fn ($data) => $data);
-    }
-
-    /**
-     * Get trinity user doc.
-     *
-     * @fullPath api.joomla.users.getTrinity
-     * @return BaseResponse<array<string, mixed>>
-     */
-    public function getTrinity(int $id, ?EdgeCache $edgeCache = null): BaseResponse
-    {
-        $response = $this->client->get(
-            $this->baseUrl,
-            '/users/{id}/trinity',
-            $edgeCache !== null ? ['edgeCache' => $edgeCache->value] : [],
-            ['id' => (string) $id],
-        );
-
-        return BaseResponse::fromArray($response, static fn ($data) => $data);
-    }
-
-    /**
-     * Create a user.
-     *
-     * @fullPath api.joomla.users.create
      * @param array<string, mixed> $data
      * @return BaseResponse<array<string, mixed>>
      */
-    public function create(array $data): BaseResponse
+    public function create(array $data = []): BaseResponse
     {
-        $response = $this->client->post($this->baseUrl, '/users', $data);
+        $response = $this->client->post($this->baseUrl, '', $data);
 
-        return BaseResponse::fromArray($response, static fn ($d) => $d);
+        return BaseResponse::fromArray($response, static fn ($data) => $data);
     }
 
     /**
-     * Update user.
+     * POST /users/verify-password
      *
-     * @fullPath api.joomla.users.update
      * @param array<string, mixed> $data
-     * @return BaseResponse<bool>
+     * @return BaseResponse<array<string, mixed>>
      */
-    public function update(int $id, array $data): BaseResponse
+    public function createVerifyPassword(array $data = []): BaseResponse
     {
-        $response = $this->client->put(
-            $this->baseUrl,
-            '/users/{id}',
-            $data,
-            ['id' => (string) $id],
-        );
+        $response = $this->client->post($this->baseUrl, '/verify-password', $data);
 
-        return BaseResponse::fromArray($response, static fn ($data) => (bool) $data);
+        return BaseResponse::fromArray($response, static fn ($data) => $data);
     }
 
     /**
-     * Block user.
+     * DELETE /users/{id}
      *
-     * @fullPath api.joomla.users.block
-     * @return BaseResponse<bool>
+     * @return BaseResponse<array<string, mixed>>
      */
-    public function block(int $id): BaseResponse
+    public function delete(int $id): BaseResponse
     {
         $response = $this->client->delete(
             $this->baseUrl,
-            '/users/{id}',
+            '/{id}',
             ['id' => (string) $id],
-        );
-
-        return BaseResponse::fromArray($response, static fn ($data) => (bool) $data);
-    }
-
-    /**
-     * Verify the password for a user.
-     *
-     * @fullPath api.joomla.users.verifyPassword
-     * @param array<string, mixed> $data
-     * @return BaseResponse<array<string, mixed>>
-     */
-    public function verifyPassword(array $data): BaseResponse
-    {
-        $response = $this->client->post($this->baseUrl, '/users/verify-password', $data);
-
-        return BaseResponse::fromArray($response, static fn ($d) => $d);
-    }
-
-    /**
-     * List user groups.
-     *
-     * @fullPath api.joomla.users.getGroups
-     * @return BaseResponse<array<array<string, mixed>>>
-     */
-    public function getGroups(int $id, ?EdgeCache $edgeCache = null): BaseResponse
-    {
-        $response = $this->client->get(
-            $this->baseUrl,
-            '/users/{id}/groups',
-            $edgeCache !== null ? ['edgeCache' => $edgeCache->value] : [],
-            ['id' => (string) $id],
-        );
-
-        return BaseResponse::fromArray($response, static fn ($data) => $data ?? []);
-    }
-
-    /**
-     * Get user group.
-     *
-     * @fullPath api.joomla.users.getGroup
-     * @return BaseResponse<array<string, mixed>>
-     */
-    public function getGroup(int $id, int $groupId, ?EdgeCache $edgeCache = null): BaseResponse
-    {
-        $response = $this->client->get(
-            $this->baseUrl,
-            '/users/{id}/groups/{groupId}',
-            $edgeCache !== null ? ['edgeCache' => $edgeCache->value] : [],
-            ['id' => (string) $id, 'groupId' => (string) $groupId],
         );
 
         return BaseResponse::fromArray($response, static fn ($data) => $data);
     }
 
     /**
-     * Create/update user group mapping.
+     * GET /users/{id}
      *
-     * @fullPath api.joomla.users.updateGroups
+     * @param array<string, mixed> $params
+     * @return BaseResponse<array<string, mixed>>
+     */
+    public function get(int $id, array $params = []): BaseResponse
+    {
+        $response = $this->client->get(
+            $this->baseUrl,
+            '/{id}',
+            $params,
+            ['id' => (string) $id],
+        );
+
+        return BaseResponse::fromArray($response, static fn ($data) => $data);
+    }
+
+    /**
+     * PUT /users/{id}
+     *
      * @param array<string, mixed> $data
      * @return BaseResponse<array<string, mixed>>
      */
-    public function updateGroups(int $id, array $data): BaseResponse
+    public function update(int $id, array $data = []): BaseResponse
     {
-        $response = $this->client->post(
+        $response = $this->client->put(
             $this->baseUrl,
-            '/users/{id}/groups',
+            '/{id}',
             $data,
             ['id' => (string) $id],
         );
 
-        return BaseResponse::fromArray($response, static fn ($d) => $d);
+        return BaseResponse::fromArray($response, static fn ($data) => $data);
+    }
+
+    /**
+     * GET /users/{id}/doc
+     *
+     * @param array<string, mixed> $params
+     * @return BaseResponse<array<string, mixed>>
+     */
+    public function listDoc(int $id, array $params = []): BaseResponse
+    {
+        $response = $this->client->get(
+            $this->baseUrl,
+            '/{id}/doc',
+            $params,
+            ['id' => (string) $id],
+        );
+
+        return BaseResponse::fromArray($response, static fn ($data) => $data);
+    }
+
+    /**
+     * Alias for listDoc — GET /users/{id}/doc
+     *
+     * @param array<string, mixed> $params
+     * @return BaseResponse<array<string, mixed>>
+     */
+    public function getDoc(int $id, array $params = []): BaseResponse
+    {
+        return $this->listDoc($id, $params);
+    }
+
+    /**
+     * GET /users/{id}/groups
+     *
+     * @param array<string, mixed> $params
+     * @return BaseResponse<array<string, mixed>>
+     */
+    public function listGroups(int $id, array $params = []): BaseResponse
+    {
+        $response = $this->client->get(
+            $this->baseUrl,
+            '/{id}/groups',
+            $params,
+            ['id' => (string) $id],
+        );
+
+        return BaseResponse::fromArray($response, static fn ($data) => $data);
+    }
+
+    /**
+     * POST /users/{id}/groups
+     *
+     * @param array<string, mixed> $data
+     * @return BaseResponse<array<string, mixed>>
+     */
+    public function createGroups(int $id, array $data = []): BaseResponse
+    {
+        $response = $this->client->post(
+            $this->baseUrl,
+            '/{id}/groups',
+            $data,
+            ['id' => (string) $id],
+        );
+
+        return BaseResponse::fromArray($response, static fn ($data) => $data);
+    }
+
+    /**
+     * GET /users/{id}/groups/{groupId}
+     *
+     * @param array<string, mixed> $params
+     * @return BaseResponse<array<string, mixed>>
+     */
+    public function getGroups(int $groupId, int $id, array $params = []): BaseResponse
+    {
+        $response = $this->client->get(
+            $this->baseUrl,
+            '/{id}/groups/{groupId}',
+            $params,
+            ['groupId' => (string) $groupId, 'id' => (string) $id],
+        );
+
+        return BaseResponse::fromArray($response, static fn ($data) => $data);
+    }
+
+    /**
+     * GET /users/{id}/trinity
+     *
+     * @param array<string, mixed> $params
+     * @return BaseResponse<array<string, mixed>>
+     */
+    public function listTrinity(int $id, array $params = []): BaseResponse
+    {
+        $response = $this->client->get(
+            $this->baseUrl,
+            '/{id}/trinity',
+            $params,
+            ['id' => (string) $id],
+        );
+
+        return BaseResponse::fromArray($response, static fn ($data) => $data);
     }
 }

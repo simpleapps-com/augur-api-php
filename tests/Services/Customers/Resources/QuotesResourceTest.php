@@ -7,55 +7,57 @@ namespace AugurApi\Tests\Services\Customers\Resources;
 use AugurApi\Tests\AugurApiTestCase;
 
 /**
- * Tests for QuotesResource.
+ * Tests for quote endpoints on CustomerResource.
  */
 final class QuotesResourceTest extends AugurApiTestCase
 {
-    public function testList(): void
+    public function testListQuotes(): void
     {
         $this->mockListResponse([
-            ['orderNo' => 'ORD001', 'total' => 500.00, 'status' => 'pending'],
-            ['orderNo' => 'ORD002', 'total' => 750.00, 'status' => 'approved'],
+            ['orderNo' => 5001, 'total' => 500.00, 'status' => 'pending'],
+            ['orderNo' => 5002, 'total' => 750.00, 'status' => 'approved'],
         ]);
 
-        $response = $this->api->customers->quotes->list('CUST001');
+        $response = $this->api->customers->customer->listQuotes(1001);
 
         $this->assertCount(2, $response->data);
-        $this->assertEquals('ORD001', $response->data[0]['orderNo']);
-        $this->assertEquals(500.00, $response->data[0]['total']);
-        $this->assertRequestPath('/customer/CUST001/quotes');
+        /** @var list<array<string, mixed>> $data */
+        $data = $response->data;
+        $this->assertEquals(5001, $data[0]['orderNo']);
+        $this->assertEquals(500.00, $data[0]['total']);
+        $this->assertRequestPath('/customer/1001/quotes');
         $this->assertRequestMethod('GET');
         $this->assertHasSiteIdHeader();
         $this->assertHasAuthHeader();
     }
 
-    public function testListWithParams(): void
+    public function testListQuotesWithParams(): void
     {
         $this->mockListResponse([
-            ['orderNo' => 'ORD001', 'total' => 500.00],
+            ['orderNo' => 5001, 'total' => 500.00],
         ]);
 
-        $response = $this->api->customers->quotes->list('CUST001', ['limit' => 10, 'status' => 'pending']);
+        $response = $this->api->customers->customer->listQuotes(1001, ['limit' => 10]);
 
         $this->assertCount(1, $response->data);
-        $this->assertRequestPath('/customer/CUST001/quotes');
+        $this->assertRequestPath('/customer/1001/quotes');
     }
 
-    public function testGet(): void
+    public function testGetQuotes(): void
     {
         $this->mockResponse([
-            'orderNo' => 'ORD001',
-            'customerId' => 'CUST001',
+            'orderNo' => 5001,
+            'customerId' => 1001,
             'total' => 500.00,
             'status' => 'pending',
             'expirationDate' => '2024-03-01',
         ]);
 
-        $response = $this->api->customers->quotes->get('CUST001', 'ORD001');
+        $response = $this->api->customers->customer->getQuotes(1001, 5001);
 
-        $this->assertEquals('ORD001', $response->data['orderNo']);
+        $this->assertEquals(5001, $response->data['orderNo']);
         $this->assertEquals(500.00, $response->data['total']);
-        $this->assertRequestPath('/customer/CUST001/quotes/ORD001');
+        $this->assertRequestPath('/customer/1001/quotes/5001');
         $this->assertRequestMethod('GET');
     }
 }

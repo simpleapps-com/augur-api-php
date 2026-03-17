@@ -23,8 +23,14 @@ final class ProductsResourceTest extends AugurApiTestCase
         $response = $this->api->vmi->products->list();
 
         $this->assertCount(2, $response->data);
-        $this->assertEquals(1, $response->data[0]['productsUid']);
-        $this->assertEquals('PROD001', $response->data[0]['productId']);
+
+        /** @var list<array<string, mixed>> $data */
+        $data = $response->data;
+        $this->assertEquals(1, $data[0]['productsUid']);
+
+        /** @var list<array<string, mixed>> $data */
+        $data = $response->data;
+        $this->assertEquals('PROD001', $data[0]['productId']);
         $this->assertRequestMethod('GET');
         $this->assertRequestPath('/products');
         $this->assertHasSiteIdHeader();
@@ -50,10 +56,13 @@ final class ProductsResourceTest extends AugurApiTestCase
             ['productsUid' => 2, 'productId' => 'PROD002', 'name' => 'Widget B'],
         ]);
 
-        $response = $this->api->vmi->products->find();
+        $response = $this->api->vmi->products->listFind();
 
         $this->assertCount(2, $response->data);
-        $this->assertEquals('Widget A', $response->data[0]['name']);
+
+        /** @var list<array<string, mixed>> $data */
+        $data = $response->data;
+        $this->assertEquals('Widget A', $data[0]['name']);
         $this->assertRequestMethod('GET');
         $this->assertRequestPath('/products/find');
     }
@@ -64,7 +73,7 @@ final class ProductsResourceTest extends AugurApiTestCase
             ['productsUid' => 1, 'productId' => 'PROD001'],
         ]);
 
-        $response = $this->api->vmi->products->find(['q' => 'widget', 'active' => true]);
+        $response = $this->api->vmi->products->listFind(['q' => 'widget', 'active' => true]);
 
         $this->assertCount(1, $response->data);
         $this->assertHasSiteIdHeader();
@@ -96,7 +105,7 @@ final class ProductsResourceTest extends AugurApiTestCase
             'name' => 'New Product',
         ]);
 
-        $response = $this->api->vmi->products->create(1, [
+        $response = $this->api->vmi->distributors->createProducts(1, [
             'productId' => 'PROD003',
             'name' => 'New Product',
         ]);
@@ -130,7 +139,7 @@ final class ProductsResourceTest extends AugurApiTestCase
 
         $response = $this->api->vmi->products->delete(1);
 
-        $this->assertTrue($response->data);
+        $this->assertIsArray($response->data);
         $this->assertRequestMethod('DELETE');
         $this->assertRequestPath('/products/1');
     }
@@ -142,7 +151,7 @@ final class ProductsResourceTest extends AugurApiTestCase
             'active' => true,
         ]);
 
-        $response = $this->api->vmi->products->enable(1);
+        $response = $this->api->vmi->products->updateEnable(1);
 
         $this->assertTrue($response->data['active']);
         $this->assertRequestMethod('PUT');
@@ -156,7 +165,7 @@ final class ProductsResourceTest extends AugurApiTestCase
             'active' => false,
         ]);
 
-        $response = $this->api->vmi->products->enable(1, ['active' => false]);
+        $response = $this->api->vmi->products->updateEnable(1, ['active' => false]);
 
         $this->assertFalse($response->data['active']);
         $this->assertHasSiteIdHeader();

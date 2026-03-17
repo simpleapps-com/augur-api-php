@@ -21,8 +21,10 @@ final class SettingsResourceTest extends AugurApiTestCase
         $response = $this->api->agrSite->settings->list();
 
         $this->assertCount(2, $response->data);
-        $this->assertEquals('theme', $response->data[0]['key']);
-        $this->assertEquals('dark', $response->data[0]['value']);
+        /** @var list<array<string, mixed>> $data */
+        $data = $response->data;
+        $this->assertEquals('theme', $data[0]['key']);
+        $this->assertEquals('dark', $data[0]['value']);
         $this->assertRequestPath('/settings');
         $this->assertRequestMethod('GET');
         $this->assertHasSiteIdHeader();
@@ -99,7 +101,8 @@ final class SettingsResourceTest extends AugurApiTestCase
 
         $response = $this->api->agrSite->settings->delete(1);
 
-        $this->assertTrue($response->data);
+        $this->assertIsArray($response->data);
+        $this->assertTrue($response->data['success']);
         $this->assertRequestPath('/settings/1');
         $this->assertRequestMethod('DELETE');
     }

@@ -23,8 +23,14 @@ final class InvMastExtResourceTest extends AugurApiTestCase
         $response = $this->api->p21Pim->invMastExt->list();
 
         $this->assertCount(2, $response->data);
-        $this->assertEquals(1, $response->data[0]['invMastExtUid']);
-        $this->assertEquals(100, $response->data[0]['invMastUid']);
+
+        /** @var list<array<string, mixed>> $data */
+        $data = $response->data;
+        $this->assertEquals(1, $data[0]['invMastExtUid']);
+
+        /** @var list<array<string, mixed>> $data */
+        $data = $response->data;
+        $this->assertEquals(100, $data[0]['invMastUid']);
         $this->assertRequestMethod('GET');
         $this->assertRequestPath('/inv-mast-ext');
         $this->assertHasSiteIdHeader();

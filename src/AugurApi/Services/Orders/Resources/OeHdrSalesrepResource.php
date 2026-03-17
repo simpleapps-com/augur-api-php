@@ -6,14 +6,11 @@ namespace AugurApi\Services\Orders\Resources;
 
 use AugurApi\Core\BaseResponse;
 use AugurApi\Core\Client;
-use AugurApi\Core\Schemas\EdgeCache;
 
 /**
- * Order entry header salesrep resource.
+ * oeHdrSalesrep resource — generated from spec.
  *
- * @fullPath api.orders.oeHdrSalesrep
- * @service orders
- * @domain order-management
+ * DO NOT EDIT — regenerate with: python shared/scripts/generate-php.py orders
  */
 final class OeHdrSalesrepResource
 {
@@ -24,39 +21,49 @@ final class OeHdrSalesrepResource
     }
 
     /**
-     * Get order entry header data for salesrep.
+     * GET /oe-hdr-salesrep/{salesrep-id}/oe-hdr
      *
-     * @fullPath api.orders.oeHdrSalesrep.getOeHdr
      * @param array<string, mixed> $params
-     * @return BaseResponse<array<array<string, mixed>>>
-     */
-    public function getOeHdr(string $salesrepId, array $params = []): BaseResponse
-    {
-        $response = $this->client->get(
-            $this->baseUrl,
-            '/oe-hdr-salesrep/{salesrepId}/oe-hdr',
-            $params,
-            ['salesrepId' => $salesrepId],
-        );
-
-        return BaseResponse::fromArray($response, static fn ($data) => $data ?? []);
-    }
-
-    /**
-     * Get order entry header details for salesrep.
-     *
-     * @fullPath api.orders.oeHdrSalesrep.getOeHdrDoc
      * @return BaseResponse<array<string, mixed>>
      */
-    public function getOeHdrDoc(string $salesrepId, string $orderNo, ?EdgeCache $edgeCache = null): BaseResponse
+    public function listOeHdr(int $salesRepId, array $params = []): BaseResponse
     {
         $response = $this->client->get(
             $this->baseUrl,
-            '/oe-hdr-salesrep/{salesrepId}/oe-hdr/{orderNo}/doc',
-            $edgeCache !== null ? ['edgeCache' => $edgeCache->value] : [],
-            ['salesrepId' => $salesrepId, 'orderNo' => $orderNo],
+            '/{salesrep-id}/oe-hdr',
+            $params,
+            ['salesRepId' => (string) $salesRepId],
         );
 
         return BaseResponse::fromArray($response, static fn ($data) => $data);
+    }
+
+    /**
+     * GET /oe-hdr-salesrep/{salesrep_id}/oe-hdr/{orderNo}/doc
+     *
+     * @param array<string, mixed> $params
+     * @return BaseResponse<array<string, mixed>>
+     */
+    public function listOeHdrDoc(int $orderNo, int $salesRepId, array $params = []): BaseResponse
+    {
+        $response = $this->client->get(
+            $this->baseUrl,
+            '/{salesrep_id}/oe-hdr/{orderNo}/doc',
+            $params,
+            ['orderNo' => (string) $orderNo, 'salesRepId' => (string) $salesRepId],
+        );
+
+        return BaseResponse::fromArray($response, static fn ($data) => $data);
+    }
+
+    /**
+     * Alias for listOeHdrDoc — GET /oe-hdr-salesrep/{salesrep_id}/oe-hdr/{orderNo}/doc
+     *
+     * @param array<string, mixed> $params
+     * @return BaseResponse<array<string, mixed>>
+     */
+    public function getOeHdrDoc(int $orderNo, int $salesRepId, array $params = []): BaseResponse
+    {
+        return $this->listOeHdrDoc($orderNo, $salesRepId, $params);
     }
 }

@@ -6,14 +6,11 @@ namespace AugurApi\Services\P21Core\Resources;
 
 use AugurApi\Core\BaseResponse;
 use AugurApi\Core\Client;
-use AugurApi\Core\Schemas\EdgeCache;
 
 /**
- * Address resource.
+ * address resource — generated from spec.
  *
- * @fullPath api.p21Core.address
- * @service p21-core
- * @domain address-and-shipping-management
+ * DO NOT EDIT — regenerate with: python shared/scripts/generate-php.py p21-core
  */
 final class AddressResource
 {
@@ -24,86 +21,42 @@ final class AddressResource
     }
 
     /**
-     * List all addresses with filtering capabilities.
+     * GET /address
      *
-     * @fullPath api.p21Core.address.list
      * @param array<string, mixed> $params
-     * @return BaseResponse<array<array<string, mixed>>>
+     * @return BaseResponse<array<string, mixed>>
      */
     public function list(array $params = []): BaseResponse
     {
-        $response = $this->client->get($this->baseUrl, '/address', $params);
-
-        return BaseResponse::fromArray($response, static fn ($data) => $data ?? []);
-    }
-
-    /**
-     * Get address details by ID.
-     *
-     * @fullPath api.p21Core.address.get
-     * @return BaseResponse<array<string, mixed>>
-     */
-    public function get(int $id, ?EdgeCache $edgeCache = null): BaseResponse
-    {
-        $response = $this->client->get(
-            $this->baseUrl,
-            '/address/{id}',
-            $edgeCache !== null ? ['edgeCache' => $edgeCache->value] : [],
-            ['id' => (string) $id],
-        );
+        $response = $this->client->get($this->baseUrl, '', $params);
 
         return BaseResponse::fromArray($response, static fn ($data) => $data);
     }
 
     /**
-     * Get corporate address list.
+     * GET /address/refresh
      *
-     * @fullPath api.p21Core.address.corpAddress.list
      * @param array<string, mixed> $params
-     * @return BaseResponse<array<array<string, mixed>>>
-     */
-    public function getCorpAddress(int $id, array $params = []): BaseResponse
-    {
-        $response = $this->client->get(
-            $this->baseUrl,
-            '/address/{id}/corp-address',
-            $params,
-            ['id' => (string) $id],
-        );
-
-        return BaseResponse::fromArray($response, static fn ($data) => $data ?? []);
-    }
-
-    /**
-     * Get default address.
-     *
-     * @fullPath api.p21Core.address.default.get
      * @return BaseResponse<array<string, mixed>>
      */
-    public function getDefault(int $id, ?EdgeCache $edgeCache = null): BaseResponse
+    public function getRefresh(array $params = []): BaseResponse
     {
-        $response = $this->client->get(
-            $this->baseUrl,
-            '/address/{id}/default',
-            $edgeCache !== null ? ['edgeCache' => $edgeCache->value] : [],
-            ['id' => (string) $id],
-        );
+        $response = $this->client->get($this->baseUrl, '/refresh', $params);
 
         return BaseResponse::fromArray($response, static fn ($data) => $data);
     }
 
     /**
-     * Enable or disable address as shipping method.
+     * GET /address/{id}
      *
-     * @fullPath api.p21Core.address.enable.get
      * @param array<string, mixed> $params
      * @return BaseResponse<array<string, mixed>>
      */
-    public function enable(int $id, array $params = []): BaseResponse
+    public function get(int $id, array $params = []): BaseResponse
     {
         $response = $this->client->get(
             $this->baseUrl,
-            '/address/{id}/enable',
+            '/{id}',
             $params,
             ['id' => (string) $id],
         );
@@ -112,14 +65,55 @@ final class AddressResource
     }
 
     /**
-     * Trigger data refresh for address synchronization.
+     * GET /address/{id}/corp-address
      *
-     * @fullPath api.p21Core.address.refresh.get
+     * @param array<string, mixed> $params
      * @return BaseResponse<array<string, mixed>>
      */
-    public function refresh(): BaseResponse
+    public function listCorpAddress(int $id, array $params = []): BaseResponse
     {
-        $response = $this->client->get($this->baseUrl, '/address/refresh');
+        $response = $this->client->get(
+            $this->baseUrl,
+            '/{id}/corp-address',
+            $params,
+            ['id' => (string) $id],
+        );
+
+        return BaseResponse::fromArray($response, static fn ($data) => $data);
+    }
+
+    /**
+     * GET /address/{id}/default
+     *
+     * @param array<string, mixed> $params
+     * @return BaseResponse<array<string, mixed>>
+     */
+    public function listDefault(int $id, array $params = []): BaseResponse
+    {
+        $response = $this->client->get(
+            $this->baseUrl,
+            '/{id}/default',
+            $params,
+            ['id' => (string) $id],
+        );
+
+        return BaseResponse::fromArray($response, static fn ($data) => $data);
+    }
+
+    /**
+     * GET /address/{id}/enable
+     *
+     * @param array<string, mixed> $params
+     * @return BaseResponse<array<string, mixed>>
+     */
+    public function getEnable(int $id, array $params = []): BaseResponse
+    {
+        $response = $this->client->get(
+            $this->baseUrl,
+            '/{id}/enable',
+            $params,
+            ['id' => (string) $id],
+        );
 
         return BaseResponse::fromArray($response, static fn ($data) => $data);
     }

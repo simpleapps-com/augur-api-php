@@ -12,11 +12,9 @@ use AugurApi\Services\Pricing\Resources\PriceEngineResource;
 use AugurApi\Services\Pricing\Resources\TaxEngineResource;
 
 /**
- * Pricing service client.
+ * Pricing service client — generated from spec.
  *
- * @fullPath api.pricing
- * @service pricing
- * @domain pricing
+ * DO NOT EDIT — regenerate with: python shared/scripts/generate-php.py pricing
  */
 final class PricingClient extends BaseServiceClient
 {
@@ -27,9 +25,9 @@ final class PricingClient extends BaseServiceClient
     public function __construct(Client $client, Config $config)
     {
         parent::__construct($client, $config);
-        $this->jobPriceHdr = new JobPriceHdrResource($client, $this->baseUrl);
-        $this->priceEngine = new PriceEngineResource($client, $this->baseUrl);
-        $this->taxEngine = new TaxEngineResource($client, $this->baseUrl);
+        $this->jobPriceHdr = new JobPriceHdrResource($client, $this->baseUrl . '/job-price-hdr');
+        $this->priceEngine = new PriceEngineResource($client, $this->baseUrl . '/price-engine');
+        $this->taxEngine = new TaxEngineResource($client, $this->baseUrl . '/tax-engine');
     }
 
     protected function getServiceName(): string

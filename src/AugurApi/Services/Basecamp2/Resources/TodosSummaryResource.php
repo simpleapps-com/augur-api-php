@@ -6,14 +6,11 @@ namespace AugurApi\Services\Basecamp2\Resources;
 
 use AugurApi\Core\BaseResponse;
 use AugurApi\Core\Client;
-use AugurApi\Core\Schemas\EdgeCache;
 
 /**
- * TodosSummary resource.
+ * todosSummary resource — generated from spec.
  *
- * @fullPath api.basecamp2.todosSummary
- * @service basecamp2
- * @domain project-management
+ * DO NOT EDIT — regenerate with: python shared/scripts/generate-php.py basecamp2
  */
 final class TodosSummaryResource
 {
@@ -24,31 +21,30 @@ final class TodosSummaryResource
     }
 
     /**
-     * List all todo summaries with pagination and filtering.
+     * GET /todos-summary
      *
-     * @fullPath api.basecamp2.todosSummary.list
-     * @param array<string, mixed> $params List parameters including pagination and filters
-     * @return BaseResponse<array<array<string, mixed>>>
+     * @param array<string, mixed> $params
+     * @return BaseResponse<array<string, mixed>>
      */
     public function list(array $params = []): BaseResponse
     {
-        $response = $this->client->get($this->baseUrl, '/todos-summary', $params);
+        $response = $this->client->get($this->baseUrl, '', $params);
 
-        return BaseResponse::fromArray($response, static fn ($data) => $data ?? []);
+        return BaseResponse::fromArray($response, static fn ($data) => $data);
     }
 
     /**
-     * Get a specific todo summary by ID.
+     * GET /todos-summary/{id}
      *
-     * @fullPath api.basecamp2.todosSummary.get
+     * @param array<string, mixed> $params
      * @return BaseResponse<array<string, mixed>>
      */
-    public function get(int $id, ?EdgeCache $edgeCache = null): BaseResponse
+    public function get(int $id, array $params = []): BaseResponse
     {
         $response = $this->client->get(
             $this->baseUrl,
-            '/todos-summary/{id}',
-            $edgeCache !== null ? ['edgeCache' => $edgeCache->value] : [],
+            '/{id}',
+            $params,
             ['id' => (string) $id],
         );
 

@@ -6,14 +6,11 @@ namespace AugurApi\Services\OpenSearch\Resources;
 
 use AugurApi\Core\BaseResponse;
 use AugurApi\Core\Client;
-use AugurApi\Core\Schemas\EdgeCache;
 
 /**
- * Items resource for OpenSearch.
+ * items resource — generated from spec.
  *
- * @fullPath api.openSearch.items
- * @service open_search
- * @domain search
+ * DO NOT EDIT — regenerate with: python shared/scripts/generate-php.py open-search
  */
 final class ItemsResource
 {
@@ -24,31 +21,48 @@ final class ItemsResource
     }
 
     /**
-     * List items.
+     * GET /items
      *
-     * @fullPath api.openSearch.items.list
      * @param array<string, mixed> $params
-     * @return BaseResponse<array<array<string, mixed>>>
+     * @return BaseResponse<array<string, mixed>>
      */
     public function list(array $params = []): BaseResponse
     {
-        $response = $this->client->get($this->baseUrl, '/items', $params);
+        $response = $this->client->get($this->baseUrl, '', $params);
 
-        return BaseResponse::fromArray($response, static fn ($data) => $data ?? []);
+        return BaseResponse::fromArray($response, static fn ($data) => $data);
     }
 
     /**
-     * Get item document.
+     * PUT /items/refresh
      *
-     * @fullPath api.openSearch.items.get
+     * @param array<string, mixed> $data
      * @return BaseResponse<array<string, mixed>>
      */
-    public function get(int $invMastUid, ?EdgeCache $edgeCache = null): BaseResponse
+    public function updateRefresh(array $data = []): BaseResponse
+    {
+        $response = $this->client->put(
+            $this->baseUrl,
+            '/refresh',
+            $data,
+            [],
+        );
+
+        return BaseResponse::fromArray($response, static fn ($data) => $data);
+    }
+
+    /**
+     * GET /items/{invMastUid}
+     *
+     * @param array<string, mixed> $params
+     * @return BaseResponse<array<string, mixed>>
+     */
+    public function get(int $invMastUid, array $params = []): BaseResponse
     {
         $response = $this->client->get(
             $this->baseUrl,
-            '/items/{invMastUid}',
-            $edgeCache !== null ? ['edgeCache' => $edgeCache->value] : [],
+            '/{invMastUid}',
+            $params,
             ['invMastUid' => (string) $invMastUid],
         );
 
@@ -56,51 +70,37 @@ final class ItemsResource
     }
 
     /**
-     * Update item document.
+     * PUT /items/{invMastUid}
      *
-     * @fullPath api.openSearch.items.update
      * @param array<string, mixed> $data
      * @return BaseResponse<array<string, mixed>>
      */
-    public function update(int $invMastUid, array $data): BaseResponse
+    public function update(int $invMastUid, array $data = []): BaseResponse
     {
         $response = $this->client->put(
             $this->baseUrl,
-            '/items/{invMastUid}',
+            '/{invMastUid}',
             $data,
             ['invMastUid' => (string) $invMastUid],
         );
 
-        return BaseResponse::fromArray($response, static fn ($d) => $d);
-    }
-
-    /**
-     * Refresh item document.
-     *
-     * @fullPath api.openSearch.items.refreshItem
-     * @return BaseResponse<array<string, mixed>>
-     */
-    public function refreshItem(int $invMastUid, ?EdgeCache $edgeCache = null): BaseResponse
-    {
-        $response = $this->client->get(
-            $this->baseUrl,
-            '/items/{invMastUid}/refresh',
-            $edgeCache !== null ? ['edgeCache' => $edgeCache->value] : [],
-            ['invMastUid' => (string) $invMastUid],
-        );
-
         return BaseResponse::fromArray($response, static fn ($data) => $data);
     }
 
     /**
-     * Refresh all items.
+     * GET /items/{invMastUid}/refresh
      *
-     * @fullPath api.openSearch.items.refresh
+     * @param array<string, mixed> $params
      * @return BaseResponse<array<string, mixed>>
      */
-    public function refresh(): BaseResponse
+    public function getRefresh(int $invMastUid, array $params = []): BaseResponse
     {
-        $response = $this->client->put($this->baseUrl, '/items/refresh', []);
+        $response = $this->client->get(
+            $this->baseUrl,
+            '/{invMastUid}/refresh',
+            $params,
+            ['invMastUid' => (string) $invMastUid],
+        );
 
         return BaseResponse::fromArray($response, static fn ($data) => $data);
     }

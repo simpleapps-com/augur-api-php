@@ -13,11 +13,9 @@ use AugurApi\Services\Payments\Resources\PaytraceResource;
 use AugurApi\Services\Payments\Resources\UnifiedResource;
 
 /**
- * Payments service client.
+ * Payments service client — generated from spec.
  *
- * @fullPath api.payments
- * @service payments
- * @domain payments
+ * DO NOT EDIT — regenerate with: python shared/scripts/generate-php.py payments
  */
 final class PaymentsClient extends BaseServiceClient
 {
@@ -29,10 +27,10 @@ final class PaymentsClient extends BaseServiceClient
     public function __construct(Client $client, Config $config)
     {
         parent::__construct($client, $config);
-        $this->element = new ElementResource($client, $this->baseUrl);
-        $this->moneris = new MonerisResource($client, $this->baseUrl);
-        $this->paytrace = new PaytraceResource($client, $this->baseUrl);
-        $this->unified = new UnifiedResource($client, $this->baseUrl);
+        $this->element = new ElementResource($client, $this->baseUrl . '/element');
+        $this->moneris = new MonerisResource($client, $this->baseUrl . '/moneris');
+        $this->paytrace = new PaytraceResource($client, $this->baseUrl . '/paytrace');
+        $this->unified = new UnifiedResource($client, $this->baseUrl . '/unified');
     }
 
     protected function getServiceName(): string

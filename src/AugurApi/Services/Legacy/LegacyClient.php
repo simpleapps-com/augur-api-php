@@ -7,38 +7,30 @@ namespace AugurApi\Services\Legacy;
 use AugurApi\Core\BaseServiceClient;
 use AugurApi\Core\Client;
 use AugurApi\Core\Config;
-use AugurApi\Services\Legacy\Resources\AlsoBoughtResource;
-use AugurApi\Services\Legacy\Resources\InvMastTagsResource;
-use AugurApi\Services\Legacy\Resources\InvMastWebDescResource;
+use AugurApi\Services\Legacy\Resources\InvMastResource;
 use AugurApi\Services\Legacy\Resources\ItemCategoryResource;
+use AugurApi\Services\Legacy\Resources\LegacyResource;
 use AugurApi\Services\Legacy\Resources\OrdersResource;
-use AugurApi\Services\Legacy\Resources\StateResource;
 
 /**
- * Legacy service client.
+ * Legacy service client — generated from spec.
  *
- * @fullPath api.legacy
- * @service legacy
- * @domain augur
+ * DO NOT EDIT — regenerate with: python shared/scripts/generate-php.py legacy
  */
 final class LegacyClient extends BaseServiceClient
 {
-    public readonly AlsoBoughtResource $alsoBought;
-    public readonly InvMastTagsResource $invMastTags;
-    public readonly InvMastWebDescResource $invMastWebDesc;
+    public readonly InvMastResource $invMast;
     public readonly ItemCategoryResource $itemCategory;
+    public readonly LegacyResource $legacy;
     public readonly OrdersResource $orders;
-    public readonly StateResource $state;
 
     public function __construct(Client $client, Config $config)
     {
         parent::__construct($client, $config);
-        $this->alsoBought = new AlsoBoughtResource($client, $this->baseUrl);
-        $this->invMastTags = new InvMastTagsResource($client, $this->baseUrl);
-        $this->invMastWebDesc = new InvMastWebDescResource($client, $this->baseUrl);
-        $this->itemCategory = new ItemCategoryResource($client, $this->baseUrl);
-        $this->orders = new OrdersResource($client, $this->baseUrl);
-        $this->state = new StateResource($client, $this->baseUrl);
+        $this->invMast = new InvMastResource($client, $this->baseUrl . '/inv-mast');
+        $this->itemCategory = new ItemCategoryResource($client, $this->baseUrl . '/item-category');
+        $this->legacy = new LegacyResource($client, $this->baseUrl . '/legacy');
+        $this->orders = new OrdersResource($client, $this->baseUrl . '/orders');
     }
 
     protected function getServiceName(): string

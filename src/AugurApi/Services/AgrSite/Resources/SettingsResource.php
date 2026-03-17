@@ -6,14 +6,11 @@ namespace AugurApi\Services\AgrSite\Resources;
 
 use AugurApi\Core\BaseResponse;
 use AugurApi\Core\Client;
-use AugurApi\Core\Schemas\EdgeCache;
 
 /**
- * Settings resource.
+ * settings resource — generated from spec.
  *
- * @fullPath api.agrSite.settings
- * @service agr_site
- * @domain augur
+ * DO NOT EDIT — regenerate with: python shared/scripts/generate-php.py agr-site
  */
 final class SettingsResource
 {
@@ -24,31 +21,41 @@ final class SettingsResource
     }
 
     /**
-     * List settings.
+     * GET /settings
      *
-     * @fullPath api.agrSite.settings.list
      * @param array<string, mixed> $params
-     * @return BaseResponse<array<array<string, mixed>>>
+     * @return BaseResponse<array<string, mixed>>
      */
     public function list(array $params = []): BaseResponse
     {
-        $response = $this->client->get($this->baseUrl, '/settings', $params);
+        $response = $this->client->get($this->baseUrl, '', $params);
 
-        return BaseResponse::fromArray($response, static fn ($data) => $data ?? []);
+        return BaseResponse::fromArray($response, static fn ($data) => $data);
     }
 
     /**
-     * Get settings details.
+     * POST /settings
      *
-     * @fullPath api.agrSite.settings.get
+     * @param array<string, mixed> $data
      * @return BaseResponse<array<string, mixed>>
      */
-    public function get(int $settingsUid, ?EdgeCache $edgeCache = null): BaseResponse
+    public function create(array $data = []): BaseResponse
     {
-        $response = $this->client->get(
+        $response = $this->client->post($this->baseUrl, '', $data);
+
+        return BaseResponse::fromArray($response, static fn ($data) => $data);
+    }
+
+    /**
+     * DELETE /settings/{settingsUid}
+     *
+     * @return BaseResponse<array<string, mixed>>
+     */
+    public function delete(int $settingsUid): BaseResponse
+    {
+        $response = $this->client->delete(
             $this->baseUrl,
-            '/settings/{settingsUid}',
-            $edgeCache !== null ? ['edgeCache' => $edgeCache->value] : [],
+            '/{settingsUid}',
             ['settingsUid' => (string) $settingsUid],
         );
 
@@ -56,52 +63,38 @@ final class SettingsResource
     }
 
     /**
-     * Create settings.
+     * GET /settings/{settingsUid}
      *
-     * @fullPath api.agrSite.settings.create
-     * @param array<string, mixed> $data
+     * @param array<string, mixed> $params
      * @return BaseResponse<array<string, mixed>>
      */
-    public function create(array $data): BaseResponse
+    public function get(int $settingsUid, array $params = []): BaseResponse
     {
-        $response = $this->client->post($this->baseUrl, '/settings', $data);
+        $response = $this->client->get(
+            $this->baseUrl,
+            '/{settingsUid}',
+            $params,
+            ['settingsUid' => (string) $settingsUid],
+        );
 
-        return BaseResponse::fromArray($response, static fn ($d) => $d);
+        return BaseResponse::fromArray($response, static fn ($data) => $data);
     }
 
     /**
-     * Update settings.
+     * PUT /settings/{settingsUid}
      *
-     * @fullPath api.agrSite.settings.update
      * @param array<string, mixed> $data
      * @return BaseResponse<array<string, mixed>>
      */
-    public function update(int $settingsUid, array $data): BaseResponse
+    public function update(int $settingsUid, array $data = []): BaseResponse
     {
         $response = $this->client->put(
             $this->baseUrl,
-            '/settings/{settingsUid}',
+            '/{settingsUid}',
             $data,
             ['settingsUid' => (string) $settingsUid],
         );
 
-        return BaseResponse::fromArray($response, static fn ($d) => $d);
-    }
-
-    /**
-     * Delete settings.
-     *
-     * @fullPath api.agrSite.settings.delete
-     * @return BaseResponse<bool>
-     */
-    public function delete(int $settingsUid): BaseResponse
-    {
-        $response = $this->client->delete(
-            $this->baseUrl,
-            '/settings/{settingsUid}',
-            ['settingsUid' => (string) $settingsUid],
-        );
-
-        return BaseResponse::fromArray($response, static fn ($data) => (bool) $data);
+        return BaseResponse::fromArray($response, static fn ($data) => $data);
     }
 }

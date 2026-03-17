@@ -8,11 +8,9 @@ use AugurApi\Core\BaseResponse;
 use AugurApi\Core\Client;
 
 /**
- * Element payment resource.
+ * element resource — generated from spec.
  *
- * @fullPath api.payments.element
- * @service payments
- * @domain payments
+ * DO NOT EDIT — regenerate with: python shared/scripts/generate-php.py payments
  */
 final class ElementResource
 {
@@ -23,16 +21,15 @@ final class ElementResource
     }
 
     /**
-     * Create payment account token from card data.
+     * POST /element/payment
      *
-     * @fullPath api.payments.element.createPayment
      * @param array<string, mixed> $data
      * @return BaseResponse<array<string, mixed>>
      */
-    public function createPayment(array $data): BaseResponse
+    public function createPayment(array $data = []): BaseResponse
     {
-        $response = $this->client->post($this->baseUrl, '/element/payment', $data);
+        $response = $this->client->post($this->baseUrl, '/payment', $data);
 
-        return BaseResponse::fromArray($response, static fn ($d) => $d);
+        return BaseResponse::fromArray($response, static fn ($data) => $data);
     }
 }

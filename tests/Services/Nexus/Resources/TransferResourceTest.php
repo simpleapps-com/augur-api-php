@@ -21,8 +21,14 @@ final class TransferResourceTest extends AugurApiTestCase
         $response = $this->api->nexus->transfer->list();
 
         $this->assertCount(2, $response->data);
-        $this->assertEquals(1, $response->data[0]['transferUid']);
-        $this->assertEquals('in_transit', $response->data[0]['status']);
+
+        /** @var list<array<string, mixed>> $data */
+        $data = $response->data;
+        $this->assertEquals(1, $data[0]['transferUid']);
+
+        /** @var list<array<string, mixed>> $data */
+        $data = $response->data;
+        $this->assertEquals('in_transit', $data[0]['status']);
         $this->assertRequestPath('/transfer');
         $this->assertRequestMethod('GET');
         $this->assertHasSiteIdHeader();

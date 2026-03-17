@@ -15,13 +15,9 @@ use AugurApi\Services\P21Core\Resources\LocationResource;
 use AugurApi\Services\P21Core\Resources\PaymentTypesResource;
 
 /**
- * P21 Core service client.
+ * P21Core service client — generated from spec.
  *
- * Prophet 21 core data (address, branch, company, location, users, etc.).
- *
- * @fullPath api.p21Core
- * @service p21_core
- * @domain p21
+ * DO NOT EDIT — regenerate with: python shared/scripts/generate-php.py p21-core
  */
 final class P21CoreClient extends BaseServiceClient
 {
@@ -35,12 +31,12 @@ final class P21CoreClient extends BaseServiceClient
     public function __construct(Client $client, Config $config)
     {
         parent::__construct($client, $config);
-        $this->address = new AddressResource($client, $this->baseUrl);
-        $this->cashDrawer = new CashDrawerResource($client, $this->baseUrl);
-        $this->codeP21 = new CodeP21Resource($client, $this->baseUrl);
-        $this->company = new CompanyResource($client, $this->baseUrl);
-        $this->location = new LocationResource($client, $this->baseUrl);
-        $this->paymentTypes = new PaymentTypesResource($client, $this->baseUrl);
+        $this->address = new AddressResource($client, $this->baseUrl . '/address');
+        $this->cashDrawer = new CashDrawerResource($client, $this->baseUrl . '/cash-drawer');
+        $this->codeP21 = new CodeP21Resource($client, $this->baseUrl . '/code-p21');
+        $this->company = new CompanyResource($client, $this->baseUrl . '/company');
+        $this->location = new LocationResource($client, $this->baseUrl . '/location');
+        $this->paymentTypes = new PaymentTypesResource($client, $this->baseUrl . '/payment-types');
     }
 
     protected function getServiceName(): string

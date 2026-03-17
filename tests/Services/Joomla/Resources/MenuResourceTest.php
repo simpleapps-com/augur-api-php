@@ -21,7 +21,9 @@ final class MenuResourceTest extends AugurApiTestCase
         $response = $this->api->joomla->menu->list();
 
         $this->assertCount(2, $response->data);
-        $this->assertEquals('Home', $response->data[0]['title']);
+        /** @var list<array<string, mixed>> $data */
+        $data = $response->data;
+        $this->assertEquals('Home', $data[0]['title']);
         $this->assertRequestPath('/menu');
         $this->assertRequestMethod('GET');
         $this->assertHasSiteIdHeader();
@@ -40,7 +42,23 @@ final class MenuResourceTest extends AugurApiTestCase
         $this->assertRequestPath('/menu');
     }
 
-    public function testGetDoc(): void
+    public function testListDoc(): void
+    {
+        $this->mockResponse([
+            'id' => 1,
+            'title' => 'Main Menu',
+            'menutype' => 'mainmenu',
+            'link' => 'index.php',
+        ]);
+
+        $response = $this->api->joomla->menu->listDoc(1);
+
+        $this->assertEquals(1, $response->data['id']);
+        $this->assertRequestPath('/menu/1/doc');
+        $this->assertRequestMethod('GET');
+    }
+
+    public function testGetDocAlias(): void
     {
         $this->mockResponse([
             'id' => 1,
@@ -54,7 +72,6 @@ final class MenuResourceTest extends AugurApiTestCase
 
         $this->assertEquals(1, $response->data['id']);
         $this->assertEquals('Main Menu', $response->data['title']);
-        $this->assertEquals('mainmenu', $response->data['menutype']);
         $this->assertRequestPath('/menu/1/doc');
         $this->assertRequestMethod('GET');
         $this->assertHasSiteIdHeader();

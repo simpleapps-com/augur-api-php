@@ -13,29 +13,31 @@ use AugurApi\Tests\AugurApiTestCase;
  */
 final class ItemWishlistResourceTest extends AugurApiTestCase
 {
-    public function testList(): void
+    public function testGet(): void
     {
         $this->mockListResponse([
             ['itemWishlistHdrUid' => 1, 'name' => 'My Wishlist'],
             ['itemWishlistHdrUid' => 2, 'name' => 'Work Items'],
         ]);
 
-        $response = $this->api->items->itemWishlist->list(12345);
+        $response = $this->api->items->itemWishlist->get(12345);
 
         $this->assertCount(2, $response->data);
-        $this->assertEquals(1, $response->data[0]['itemWishlistHdrUid']);
-        $this->assertEquals('My Wishlist', $response->data[0]['name']);
+        /** @var list<array<string, mixed>> $data */
+        $data = $response->data;
+        $this->assertEquals(1, $data[0]['itemWishlistHdrUid']);
+        $this->assertEquals('My Wishlist', $data[0]['name']);
         $this->assertRequestMethod('GET');
         $this->assertRequestPath('/item-wishlist/12345');
     }
 
-    public function testListWithParams(): void
+    public function testGetWithParams(): void
     {
         $this->mockListResponse([
             ['itemWishlistHdrUid' => 1, 'name' => 'My Wishlist'],
         ], 10);
 
-        $response = $this->api->items->itemWishlist->list(12345, ['limit' => 10, 'offset' => 0]);
+        $response = $this->api->items->itemWishlist->get(12345, ['limit' => 10, 'offset' => 0]);
 
         $this->assertCount(1, $response->data);
         $this->assertEquals(10, $response->total);
@@ -62,10 +64,13 @@ final class ItemWishlistResourceTest extends AugurApiTestCase
             ['itemWishlistLineUid' => 2, 'invMastUid' => 101],
         ]);
 
-        $response = $this->api->items->itemWishlist->getHdr(12345, 1);
+        // Generated signature: getHdr(int $itemWishlistHdrUid, int $usersId, ...)
+        $response = $this->api->items->itemWishlist->getHdr(1, 12345);
 
         $this->assertCount(2, $response->data);
-        $this->assertEquals(1, $response->data[0]['itemWishlistLineUid']);
+        /** @var list<array<string, mixed>> $data */
+        $data = $response->data;
+        $this->assertEquals(1, $data[0]['itemWishlistLineUid']);
         $this->assertRequestMethod('GET');
         $this->assertRequestPath('/item-wishlist/12345/hdr/1');
     }
@@ -74,7 +79,8 @@ final class ItemWishlistResourceTest extends AugurApiTestCase
     {
         $this->mockResponse(['itemWishlistLineUid' => 3, 'invMastUid' => 102]);
 
-        $response = $this->api->items->itemWishlist->createHdr(12345, 1, ['invMastUid' => 102, 'qty' => 5]);
+        // Generated signature: createHdr(int $itemWishlistHdrUid, int $usersId, ...)
+        $response = $this->api->items->itemWishlist->createHdr(1, 12345, ['invMastUid' => 102, 'qty' => 5]);
 
         $this->assertEquals(3, $response->data['itemWishlistLineUid']);
         $this->assertRequestMethod('POST');
@@ -85,7 +91,8 @@ final class ItemWishlistResourceTest extends AugurApiTestCase
     {
         $this->mockResponse(['itemWishlistHdrUid' => 1, 'name' => 'Updated Wishlist']);
 
-        $response = $this->api->items->itemWishlist->updateHdr(12345, 1, ['name' => 'Updated Wishlist']);
+        // Generated signature: updateHdr(int $itemWishlistHdrUid, int $usersId, ...)
+        $response = $this->api->items->itemWishlist->updateHdr(1, 12345, ['name' => 'Updated Wishlist']);
 
         $this->assertEquals('Updated Wishlist', $response->data['name']);
         $this->assertRequestMethod('PUT');
@@ -96,18 +103,20 @@ final class ItemWishlistResourceTest extends AugurApiTestCase
     {
         $this->mockSuccessResponse();
 
-        $response = $this->api->items->itemWishlist->deleteHdr(12345, 1);
+        // Generated signature: deleteHdr(int $itemWishlistHdrUid, int $usersId)
+        $response = $this->api->items->itemWishlist->deleteHdr(1, 12345);
 
         $this->assertTrue($response->data['success']);
         $this->assertRequestMethod('DELETE');
         $this->assertRequestPath('/item-wishlist/12345/hdr/1');
     }
 
-    public function testDeleteLine(): void
+    public function testDeleteHdrLine(): void
     {
         $this->mockSuccessResponse();
 
-        $response = $this->api->items->itemWishlist->deleteLine(12345, 1, 10);
+        // Generated signature: deleteHdrLine(int $itemWishlistHdrUid, int $itemWishlistLineUid, int $usersId)
+        $response = $this->api->items->itemWishlist->deleteHdrLine(1, 10, 12345);
 
         $this->assertTrue($response->data['success']);
         $this->assertRequestMethod('DELETE');

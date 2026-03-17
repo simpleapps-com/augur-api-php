@@ -8,11 +8,9 @@ use AugurApi\Core\BaseResponse;
 use AugurApi\Core\Client;
 
 /**
- * US resource.
+ * us resource — generated from spec.
  *
- * @fullPath api.smartyStreets.us
- * @service smarty_streets
- * @domain address-validation-and-geocoding
+ * DO NOT EDIT — regenerate with: python shared/scripts/generate-php.py smarty-streets
  */
 final class UsResource
 {
@@ -23,15 +21,14 @@ final class UsResource
     }
 
     /**
-     * Validate and standardize US addresses.
+     * GET /us/lookup
      *
-     * @fullPath api.smartyStreets.us.lookup.get
      * @param array<string, mixed> $params
      * @return BaseResponse<array<string, mixed>>
      */
-    public function lookup(array $params): BaseResponse
+    public function getLookup(array $params = []): BaseResponse
     {
-        $response = $this->client->get($this->baseUrl, '/us/lookup', $params);
+        $response = $this->client->get($this->baseUrl, '/lookup', $params);
 
         return BaseResponse::fromArray($response, static fn ($data) => $data);
     }

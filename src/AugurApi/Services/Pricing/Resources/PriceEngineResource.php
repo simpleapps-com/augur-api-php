@@ -8,11 +8,9 @@ use AugurApi\Core\BaseResponse;
 use AugurApi\Core\Client;
 
 /**
- * Price engine resource.
+ * priceEngine resource — generated from spec.
  *
- * @fullPath api.pricing.priceEngine
- * @service pricing
- * @domain pricing
+ * DO NOT EDIT — regenerate with: python shared/scripts/generate-php.py pricing
  */
 final class PriceEngineResource
 {
@@ -23,15 +21,14 @@ final class PriceEngineResource
     }
 
     /**
-     * Get item price.
+     * GET /price-engine
      *
-     * @fullPath api.pricing.priceEngine.getPrice
      * @param array<string, mixed> $params
      * @return BaseResponse<array<string, mixed>>
      */
-    public function getPrice(array $params): BaseResponse
+    public function list(array $params = []): BaseResponse
     {
-        $response = $this->client->get($this->baseUrl, '/price-engine', $params);
+        $response = $this->client->get($this->baseUrl, '', $params);
 
         return BaseResponse::fromArray($response, static fn ($data) => $data);
     }

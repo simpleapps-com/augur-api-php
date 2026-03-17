@@ -6,14 +6,11 @@ namespace AugurApi\Services\Basecamp2\Resources;
 
 use AugurApi\Core\BaseResponse;
 use AugurApi\Core\Client;
-use AugurApi\Core\Schemas\EdgeCache;
 
 /**
- * Todos resource.
+ * todos resource — generated from spec.
  *
- * @fullPath api.basecamp2.todos
- * @service basecamp2
- * @domain project-management
+ * DO NOT EDIT — regenerate with: python shared/scripts/generate-php.py basecamp2
  */
 final class TodosResource
 {
@@ -24,232 +21,193 @@ final class TodosResource
     }
 
     /**
-     * List todos.
+     * GET /todos
      *
-     * @fullPath api.basecamp2.todos.list
      * @param array<string, mixed> $params
-     * @return BaseResponse<array<array<string, mixed>>>
+     * @return BaseResponse<array<string, mixed>>
      */
     public function list(array $params = []): BaseResponse
     {
-        $response = $this->client->get($this->baseUrl, '/todos', $params);
-
-        return BaseResponse::fromArray($response, static fn ($data) => $data ?? []);
-    }
-
-    /**
-     * Get todo details.
-     *
-     * @fullPath api.basecamp2.todos.get
-     * @return BaseResponse<array<string, mixed>>
-     */
-    public function get(int $id, ?EdgeCache $edgeCache = null): BaseResponse
-    {
-        $response = $this->client->get(
-            $this->baseUrl,
-            '/todos/{id}',
-            $edgeCache !== null ? ['edgeCache' => $edgeCache->value] : [],
-            ['id' => (string) $id],
-        );
+        $response = $this->client->get($this->baseUrl, '', $params);
 
         return BaseResponse::fromArray($response, static fn ($data) => $data);
     }
 
     /**
-     * List comments for todo.
+     * GET /todos/{id}
      *
-     * @fullPath api.basecamp2.todos.getComments
      * @param array<string, mixed> $params
-     * @return BaseResponse<array<array<string, mixed>>>
+     * @return BaseResponse<array<string, mixed>>
      */
-    public function getComments(int $id, array $params = []): BaseResponse
+    public function get(int $id, array $params = []): BaseResponse
     {
         $response = $this->client->get(
             $this->baseUrl,
-            '/todos/{id}/comments',
+            '/{id}',
             $params,
             ['id' => (string) $id],
         );
 
-        return BaseResponse::fromArray($response, static fn ($data) => $data ?? []);
+        return BaseResponse::fromArray($response, static fn ($data) => $data);
     }
 
     /**
-     * List events for a todo.
+     * GET /todos/{id}/comments
      *
-     * @fullPath api.basecamp2.todos.getEvents
      * @param array<string, mixed> $params
-     * @return BaseResponse<array<array<string, mixed>>>
+     * @return BaseResponse<array<string, mixed>>
      */
-    public function getEvents(int $id, array $params = []): BaseResponse
+    public function listComments(int $id, array $params = []): BaseResponse
     {
         $response = $this->client->get(
             $this->baseUrl,
-            '/todos/{id}/events',
+            '/{id}/comments',
             $params,
             ['id' => (string) $id],
         );
 
-        return BaseResponse::fromArray($response, static fn ($data) => $data ?? []);
-    }
-
-    /**
-     * Get todo metrics detail.
-     *
-     * @fullPath api.basecamp2.todos.getMetrics
-     * @return BaseResponse<array<string, mixed>>
-     */
-    public function getMetrics(int $id, ?EdgeCache $edgeCache = null): BaseResponse
-    {
-        $response = $this->client->get(
-            $this->baseUrl,
-            '/todos/{id}/metrics',
-            $edgeCache !== null ? ['edgeCache' => $edgeCache->value] : [],
-            ['id' => (string) $id],
-        );
-
         return BaseResponse::fromArray($response, static fn ($data) => $data);
     }
 
     /**
-     * List todo summaries.
+     * GET /todos/{id}/events
      *
-     * @fullPath api.basecamp2.todos.listSummaries
      * @param array<string, mixed> $params
-     * @return BaseResponse<array<array<string, mixed>>>
-     */
-    public function listSummaries(array $params = []): BaseResponse
-    {
-        $response = $this->client->get($this->baseUrl, '/todos-summary', $params);
-
-        return BaseResponse::fromArray($response, static fn ($data) => $data ?? []);
-    }
-
-    /**
-     * Get todo summary details.
-     *
-     * @fullPath api.basecamp2.todos.getSummary
      * @return BaseResponse<array<string, mixed>>
      */
-    public function getSummary(int $id, ?EdgeCache $edgeCache = null): BaseResponse
+    public function listEvents(int $id, array $params = []): BaseResponse
     {
         $response = $this->client->get(
             $this->baseUrl,
-            '/todos-summary/{id}',
-            $edgeCache !== null ? ['edgeCache' => $edgeCache->value] : [],
-            ['id' => (string) $id],
-        );
-
-        return BaseResponse::fromArray($response, static fn ($data) => $data);
-    }
-
-    /**
-     * Get a specific event for a todo.
-     *
-     * @fullPath api.basecamp2.todos.getEvent
-     * @return BaseResponse<array<string, mixed>>
-     */
-    public function getEvent(int $id, int $eventNum, ?EdgeCache $edgeCache = null): BaseResponse
-    {
-        $response = $this->client->get(
-            $this->baseUrl,
-            '/todos/{id}/events/{eventNum}',
-            $edgeCache !== null ? ['edgeCache' => $edgeCache->value] : [],
-            ['id' => (string) $id, 'eventNum' => (string) $eventNum],
-        );
-
-        return BaseResponse::fromArray($response, static fn ($data) => $data);
-    }
-
-    /**
-     * List sessions for a todo.
-     *
-     * @fullPath api.basecamp2.todos.getSessions
-     * @param array<string, mixed> $params
-     * @return BaseResponse<array<array<string, mixed>>>
-     */
-    public function getSessions(int $id, array $params = []): BaseResponse
-    {
-        $response = $this->client->get(
-            $this->baseUrl,
-            '/todos/{id}/sessions',
+            '/{id}/events',
             $params,
             ['id' => (string) $id],
         );
 
-        return BaseResponse::fromArray($response, static fn ($data) => $data ?? []);
+        return BaseResponse::fromArray($response, static fn ($data) => $data);
     }
 
     /**
-     * Get a specific session for a todo.
+     * GET /todos/{id}/events/{eventNum}
      *
-     * @fullPath api.basecamp2.todos.getSession
+     * @param array<string, mixed> $params
      * @return BaseResponse<array<string, mixed>>
      */
-    public function getSession(int $id, int $sessionId, ?EdgeCache $edgeCache = null): BaseResponse
+    public function getEvents(int $event_num, int $id, array $params = []): BaseResponse
     {
         $response = $this->client->get(
             $this->baseUrl,
-            '/todos/{id}/sessions/{sessionId}',
-            $edgeCache !== null ? ['edgeCache' => $edgeCache->value] : [],
-            ['id' => (string) $id, 'sessionId' => (string) $sessionId],
+            '/{id}/events/{eventNum}',
+            $params,
+            ['event_num' => (string) $event_num, 'id' => (string) $id],
         );
 
         return BaseResponse::fromArray($response, static fn ($data) => $data);
     }
 
     /**
-     * Create a new session for a todo.
+     * GET /todos/{id}/metrics
      *
-     * @fullPath api.basecamp2.todos.createSession
+     * @param array<string, mixed> $params
+     * @return BaseResponse<array<string, mixed>>
+     */
+    public function listMetrics(int $id, array $params = []): BaseResponse
+    {
+        $response = $this->client->get(
+            $this->baseUrl,
+            '/{id}/metrics',
+            $params,
+            ['id' => (string) $id],
+        );
+
+        return BaseResponse::fromArray($response, static fn ($data) => $data);
+    }
+
+    /**
+     * GET /todos/{id}/sessions
+     *
+     * @param array<string, mixed> $params
+     * @return BaseResponse<array<string, mixed>>
+     */
+    public function listSessions(int $id, array $params = []): BaseResponse
+    {
+        $response = $this->client->get(
+            $this->baseUrl,
+            '/{id}/sessions',
+            $params,
+            ['id' => (string) $id],
+        );
+
+        return BaseResponse::fromArray($response, static fn ($data) => $data);
+    }
+
+    /**
+     * POST /todos/{id}/sessions
+     *
      * @param array<string, mixed> $data
      * @return BaseResponse<array<string, mixed>>
      */
-    public function createSession(int $id, array $data = []): BaseResponse
+    public function createSessions(int $id, array $data = []): BaseResponse
     {
         $response = $this->client->post(
             $this->baseUrl,
-            '/todos/{id}/sessions',
+            '/{id}/sessions',
             $data,
             ['id' => (string) $id],
         );
 
-        return BaseResponse::fromArray($response, static fn ($res) => $res);
+        return BaseResponse::fromArray($response, static fn ($data) => $data);
     }
 
     /**
-     * Update an existing session for a todo.
+     * DELETE /todos/{id}/sessions/{sessionId}
      *
-     * @fullPath api.basecamp2.todos.updateSession
+     * @return BaseResponse<array<string, mixed>>
+     */
+    public function deleteSessions(int $id, int $sessionId): BaseResponse
+    {
+        $response = $this->client->delete(
+            $this->baseUrl,
+            '/{id}/sessions/{sessionId}',
+            ['id' => (string) $id, 'sessionId' => (string) $sessionId],
+        );
+
+        return BaseResponse::fromArray($response, static fn ($data) => $data);
+    }
+
+    /**
+     * GET /todos/{id}/sessions/{sessionId}
+     *
+     * @param array<string, mixed> $params
+     * @return BaseResponse<array<string, mixed>>
+     */
+    public function getSessions(int $id, int $sessionId, array $params = []): BaseResponse
+    {
+        $response = $this->client->get(
+            $this->baseUrl,
+            '/{id}/sessions/{sessionId}',
+            $params,
+            ['id' => (string) $id, 'sessionId' => (string) $sessionId],
+        );
+
+        return BaseResponse::fromArray($response, static fn ($data) => $data);
+    }
+
+    /**
+     * PUT /todos/{id}/sessions/{sessionId}
+     *
      * @param array<string, mixed> $data
      * @return BaseResponse<array<string, mixed>>
      */
-    public function updateSession(int $id, int $sessionId, array $data = []): BaseResponse
+    public function updateSessions(int $id, int $sessionId, array $data = []): BaseResponse
     {
         $response = $this->client->put(
             $this->baseUrl,
-            '/todos/{id}/sessions/{sessionId}',
+            '/{id}/sessions/{sessionId}',
             $data,
             ['id' => (string) $id, 'sessionId' => (string) $sessionId],
         );
 
-        return BaseResponse::fromArray($response, static fn ($res) => $res);
-    }
-
-    /**
-     * Delete a session for a todo.
-     *
-     * @fullPath api.basecamp2.todos.deleteSession
-     * @return BaseResponse<array<string, mixed>>
-     */
-    public function deleteSession(int $id, int $sessionId): BaseResponse
-    {
-        $response = $this->client->delete(
-            $this->baseUrl,
-            '/todos/{id}/sessions/{sessionId}',
-            ['id' => (string) $id, 'sessionId' => (string) $sessionId],
-        );
-
-        return BaseResponse::fromArray($response, static fn ($res) => $res);
+        return BaseResponse::fromArray($response, static fn ($data) => $data);
     }
 }

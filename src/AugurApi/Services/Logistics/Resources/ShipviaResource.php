@@ -8,11 +8,9 @@ use AugurApi\Core\BaseResponse;
 use AugurApi\Core\Client;
 
 /**
- * ShipVia resource.
+ * shipvia resource — generated from spec.
  *
- * @fullPath api.logistics.shipvia
- * @service logistics
- * @domain shipping
+ * DO NOT EDIT — regenerate with: python shared/scripts/generate-php.py logistics
  */
 final class ShipviaResource
 {
@@ -23,29 +21,27 @@ final class ShipviaResource
     }
 
     /**
-     * Get ShipVia shipping rates from multiple carriers.
+     * GET /shipvia/rates
      *
-     * @fullPath api.logistics.shipvia.getRates
      * @param array<string, mixed> $params
      * @return BaseResponse<array<string, mixed>>
      */
-    public function getRates(array $params): BaseResponse
+    public function listRates(array $params = []): BaseResponse
     {
-        $response = $this->client->get($this->baseUrl, '/shipvia/rates', $params);
+        $response = $this->client->get($this->baseUrl, '/rates', $params);
 
         return BaseResponse::fromArray($response, static fn ($data) => $data);
     }
 
     /**
-     * Get ShipVia LTL (Less-Than-Truckload) freight rates from multiple carriers.
+     * GET /shipvia/rates/ltl
      *
-     * @fullPath api.logistics.shipvia.getLtlRates
      * @param array<string, mixed> $params
      * @return BaseResponse<array<string, mixed>>
      */
-    public function getLtlRates(array $params): BaseResponse
+    public function listRatesLtl(array $params = []): BaseResponse
     {
-        $response = $this->client->get($this->baseUrl, '/shipvia/rates/ltl', $params);
+        $response = $this->client->get($this->baseUrl, '/rates/ltl', $params);
 
         return BaseResponse::fromArray($response, static fn ($data) => $data);
     }

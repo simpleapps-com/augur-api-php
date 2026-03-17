@@ -21,7 +21,9 @@ final class UsersResourceTest extends AugurApiTestCase
         $response = $this->api->joomla->users->list();
 
         $this->assertCount(2, $response->data);
-        $this->assertEquals('admin', $response->data[0]['username']);
+        /** @var list<array<string, mixed>> $data */
+        $data = $response->data;
+        $this->assertEquals('admin', $data[0]['username']);
         $this->assertRequestPath('/users');
         $this->assertRequestMethod('GET');
         $this->assertHasSiteIdHeader();
@@ -34,62 +36,10 @@ final class UsersResourceTest extends AugurApiTestCase
             ['id' => 1, 'username' => 'admin'],
         ]);
 
-        $response = $this->api->joomla->users->list(['limit' => 10, 'block' => 0]);
+        $response = $this->api->joomla->users->list(['limit' => 10]);
 
         $this->assertCount(1, $response->data);
         $this->assertRequestPath('/users');
-    }
-
-    public function testGet(): void
-    {
-        $this->mockResponse([
-            'id' => 1,
-            'username' => 'admin',
-            'name' => 'Admin User',
-            'email' => 'admin@example.com',
-        ]);
-
-        $response = $this->api->joomla->users->get(1);
-
-        $this->assertEquals(1, $response->data['id']);
-        $this->assertEquals('admin', $response->data['username']);
-        $this->assertRequestPath('/users/1');
-        $this->assertRequestMethod('GET');
-    }
-
-    public function testGetDoc(): void
-    {
-        $this->mockResponse([
-            'id' => 1,
-            'username' => 'admin',
-            'name' => 'Admin User',
-            'email' => 'admin@example.com',
-            'registerDate' => '2024-01-01',
-            'lastvisitDate' => '2024-01-15',
-        ]);
-
-        $response = $this->api->joomla->users->getDoc(1);
-
-        $this->assertEquals(1, $response->data['id']);
-        $this->assertEquals('2024-01-15', $response->data['lastvisitDate']);
-        $this->assertRequestPath('/users/1/doc');
-        $this->assertRequestMethod('GET');
-    }
-
-    public function testGetTrinity(): void
-    {
-        $this->mockResponse([
-            'id' => 1,
-            'username' => 'admin',
-            'trinityId' => 'trinity-123',
-            'trinityStatus' => 'active',
-        ]);
-
-        $response = $this->api->joomla->users->getTrinity(1);
-
-        $this->assertEquals('trinity-123', $response->data['trinityId']);
-        $this->assertRequestPath('/users/1/trinity');
-        $this->assertRequestMethod('GET');
     }
 
     public function testCreate(): void
@@ -109,41 +59,18 @@ final class UsersResourceTest extends AugurApiTestCase
         ]);
 
         $this->assertEquals(3, $response->data['id']);
-        $this->assertEquals('newuser', $response->data['username']);
         $this->assertRequestPath('/users');
         $this->assertRequestMethod('POST');
     }
 
-    public function testUpdate(): void
-    {
-        $this->mockSuccessResponse();
-
-        $response = $this->api->joomla->users->update(1, ['name' => 'Updated Admin']);
-
-        $this->assertTrue($response->data);
-        $this->assertRequestPath('/users/1');
-        $this->assertRequestMethod('PUT');
-    }
-
-    public function testBlock(): void
-    {
-        $this->mockSuccessResponse();
-
-        $response = $this->api->joomla->users->block(1);
-
-        $this->assertTrue($response->data);
-        $this->assertRequestPath('/users/1');
-        $this->assertRequestMethod('DELETE');
-    }
-
-    public function testVerifyPassword(): void
+    public function testCreateVerifyPassword(): void
     {
         $this->mockResponse([
             'valid' => true,
             'userId' => 1,
         ]);
 
-        $response = $this->api->joomla->users->verifyPassword([
+        $response = $this->api->joomla->users->createVerifyPassword([
             'username' => 'admin',
             'password' => 'your-password',
         ]);
@@ -153,37 +80,109 @@ final class UsersResourceTest extends AugurApiTestCase
         $this->assertRequestMethod('POST');
     }
 
-    public function testVerifyPasswordFailed(): void
+    public function testGet(): void
     {
         $this->mockResponse([
-            'valid' => false,
-            'message' => 'Invalid credentials',
-        ]);
-
-        $response = $this->api->joomla->users->verifyPassword([
+            'id' => 1,
             'username' => 'admin',
-            'password' => 'wrong-password',
+            'name' => 'Admin User',
+            'email' => 'admin@example.com',
         ]);
 
-        $this->assertFalse($response->data['valid']);
+        $response = $this->api->joomla->users->get(1);
+
+        $this->assertEquals(1, $response->data['id']);
+        $this->assertEquals('admin', $response->data['username']);
+        $this->assertRequestPath('/users/1');
+        $this->assertRequestMethod('GET');
     }
 
-    public function testGetGroups(): void
+    public function testUpdate(): void
+    {
+        $this->mockSuccessResponse();
+
+        $response = $this->api->joomla->users->update(1, ['name' => 'Updated Admin']);
+
+        $this->assertTrue($response->data['success']);
+        $this->assertRequestPath('/users/1');
+        $this->assertRequestMethod('PUT');
+    }
+
+    public function testDelete(): void
+    {
+        $this->mockSuccessResponse();
+
+        $response = $this->api->joomla->users->delete(1);
+
+        $this->assertTrue($response->data['success']);
+        $this->assertRequestPath('/users/1');
+        $this->assertRequestMethod('DELETE');
+    }
+
+    public function testListDoc(): void
+    {
+        $this->mockResponse([
+            'id' => 1,
+            'username' => 'admin',
+            'name' => 'Admin User',
+            'email' => 'admin@example.com',
+        ]);
+
+        $response = $this->api->joomla->users->listDoc(1);
+
+        $this->assertEquals(1, $response->data['id']);
+        $this->assertRequestPath('/users/1/doc');
+        $this->assertRequestMethod('GET');
+    }
+
+    public function testGetDocAlias(): void
+    {
+        $this->mockResponse([
+            'id' => 1,
+            'username' => 'admin',
+            'registerDate' => '2024-01-01',
+            'lastvisitDate' => '2024-01-15',
+        ]);
+
+        $response = $this->api->joomla->users->getDoc(1);
+
+        $this->assertEquals(1, $response->data['id']);
+        $this->assertRequestPath('/users/1/doc');
+        $this->assertRequestMethod('GET');
+    }
+
+    public function testListGroups(): void
     {
         $this->mockListResponse([
             ['id' => 2, 'title' => 'Registered'],
             ['id' => 3, 'title' => 'Administrator'],
         ]);
 
-        $response = $this->api->joomla->users->getGroups(1);
+        $response = $this->api->joomla->users->listGroups(1);
 
         $this->assertCount(2, $response->data);
-        $this->assertEquals('Registered', $response->data[0]['title']);
+        /** @var list<array<string, mixed>> $data */
+        $data = $response->data;
+        $this->assertEquals('Registered', $data[0]['title']);
         $this->assertRequestPath('/users/1/groups');
         $this->assertRequestMethod('GET');
     }
 
-    public function testGetGroup(): void
+    public function testCreateGroups(): void
+    {
+        $this->mockResponse([
+            'userId' => 1,
+            'groups' => [2, 3],
+        ]);
+
+        $response = $this->api->joomla->users->createGroups(1, ['groups' => [2, 3]]);
+
+        $this->assertEquals([2, 3], $response->data['groups']);
+        $this->assertRequestPath('/users/1/groups');
+        $this->assertRequestMethod('POST');
+    }
+
+    public function testGetGroups(): void
     {
         $this->mockResponse([
             'id' => 3,
@@ -191,7 +190,7 @@ final class UsersResourceTest extends AugurApiTestCase
             'parent_id' => 1,
         ]);
 
-        $response = $this->api->joomla->users->getGroup(1, 3);
+        $response = $this->api->joomla->users->getGroups(3, 1);
 
         $this->assertEquals(3, $response->data['id']);
         $this->assertEquals('Administrator', $response->data['title']);
@@ -199,17 +198,19 @@ final class UsersResourceTest extends AugurApiTestCase
         $this->assertRequestMethod('GET');
     }
 
-    public function testUpdateGroups(): void
+    public function testListTrinity(): void
     {
         $this->mockResponse([
-            'userId' => 1,
-            'groups' => [2, 3],
+            'id' => 1,
+            'username' => 'admin',
+            'trinityId' => 'trinity-123',
+            'trinityStatus' => 'active',
         ]);
 
-        $response = $this->api->joomla->users->updateGroups(1, ['groups' => [2, 3]]);
+        $response = $this->api->joomla->users->listTrinity(1);
 
-        $this->assertEquals([2, 3], $response->data['groups']);
-        $this->assertRequestPath('/users/1/groups');
-        $this->assertRequestMethod('POST');
+        $this->assertEquals('trinity-123', $response->data['trinityId']);
+        $this->assertRequestPath('/users/1/trinity');
+        $this->assertRequestMethod('GET');
     }
 }

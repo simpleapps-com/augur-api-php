@@ -40,9 +40,18 @@ final class RatesShopResourceTest extends AugurApiTestCase
         ]);
 
         $this->assertCount(2, $response->data);
-        $this->assertEquals('03', $response->data[0]['serviceCode']);
-        $this->assertEquals('UPS Ground', $response->data[0]['serviceName']);
-        $this->assertEquals(15.50, $response->data[0]['totalCharges']);
+
+        /** @var list<array<string, mixed>> $data */
+        $data = $response->data;
+        $this->assertEquals('03', $data[0]['serviceCode']);
+
+        /** @var list<array<string, mixed>> $data */
+        $data = $response->data;
+        $this->assertEquals('UPS Ground', $data[0]['serviceName']);
+
+        /** @var list<array<string, mixed>> $data */
+        $data = $response->data;
+        $this->assertEquals(15.50, $data[0]['totalCharges']);
         $this->assertRequestPath('/rates-shop');
         $this->assertRequestMethod('GET');
         $this->assertHasSiteIdHeader();
@@ -73,7 +82,10 @@ final class RatesShopResourceTest extends AugurApiTestCase
         ]);
 
         $this->assertCount(1, $response->data);
-        $this->assertEquals(12.0, $response->data[0]['billingWeight']);
+
+        /** @var list<array<string, mixed>> $data */
+        $data = $response->data;
+        $this->assertEquals(12.0, $data[0]['billingWeight']);
     }
 
     public function testGetInternational(): void
@@ -97,7 +109,10 @@ final class RatesShopResourceTest extends AugurApiTestCase
         ]);
 
         $this->assertCount(1, $response->data);
-        $this->assertEquals('UPS Worldwide Express', $response->data[0]['serviceName']);
+
+        /** @var list<array<string, mixed>> $data */
+        $data = $response->data;
+        $this->assertEquals('UPS Worldwide Express', $data[0]['serviceName']);
     }
 
     public function testGetReturnsBaseResponse(): void
@@ -133,7 +148,13 @@ final class RatesShopResourceTest extends AugurApiTestCase
             'residential' => true,
         ]);
 
-        $this->assertEquals(18.50, $response->data[0]['totalCharges']);
-        $this->assertEquals(3.00, $response->data[0]['residentialSurcharge']);
+
+        /** @var list<array<string, mixed>> $data */
+        $data = $response->data;
+        $this->assertEquals(18.50, $data[0]['totalCharges']);
+
+        /** @var list<array<string, mixed>> $data */
+        $data = $response->data;
+        $this->assertEquals(3.00, $data[0]['residentialSurcharge']);
     }
 }

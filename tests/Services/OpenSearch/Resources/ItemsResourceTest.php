@@ -18,7 +18,10 @@ final class ItemsResourceTest extends AugurApiTestCase
         $response = $this->api->openSearch->items->list();
 
         $this->assertCount(2, $response->data);
-        $this->assertEquals('ITEM001', $response->data[0]['itemId']);
+
+        /** @var list<array<string, mixed>> $data */
+        $data = $response->data;
+        $this->assertEquals('ITEM001', $data[0]['itemId']);
         $this->assertRequestPath('/items');
         $this->assertRequestMethod('GET');
         $this->assertHasAuthHeader();
@@ -103,7 +106,7 @@ final class ItemsResourceTest extends AugurApiTestCase
             'timestamp' => '2024-01-15T10:30:00Z',
         ]);
 
-        $response = $this->api->openSearch->items->refreshItem(123);
+        $response = $this->api->openSearch->items->getRefresh(123);
 
         $this->assertTrue($response->data['refreshed']);
         $this->assertRequestPath('/items/123/refresh');
@@ -118,7 +121,7 @@ final class ItemsResourceTest extends AugurApiTestCase
             'estimatedTime' => '5 minutes',
         ]);
 
-        $response = $this->api->openSearch->items->refresh();
+        $response = $this->api->openSearch->items->updateRefresh();
 
         $this->assertEquals('started', $response->data['status']);
         $this->assertEquals(1500, $response->data['itemsQueued']);

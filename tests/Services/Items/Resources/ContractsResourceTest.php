@@ -23,8 +23,10 @@ final class ContractsResourceTest extends AugurApiTestCase
         $response = $this->api->items->contracts->listAttributes(12345);
 
         $this->assertCount(2, $response->data);
-        $this->assertEquals(1, $response->data[0]['attributeUid']);
-        $this->assertEquals('Contract Type', $response->data[0]['name']);
+        /** @var list<array<string, mixed>> $data */
+        $data = $response->data;
+        $this->assertEquals(1, $data[0]['attributeUid']);
+        $this->assertEquals('Contract Type', $data[0]['name']);
         $this->assertRequestMethod('GET');
         $this->assertRequestPath('/contracts/12345/attributes');
     }
@@ -39,8 +41,10 @@ final class ContractsResourceTest extends AugurApiTestCase
         $response = $this->api->items->contracts->listItems(12345);
 
         $this->assertCount(2, $response->data);
-        $this->assertEquals('ITEM001', $response->data[0]['itemId']);
-        $this->assertEquals(99.99, $response->data[0]['contractPrice']);
+        /** @var list<array<string, mixed>> $data */
+        $data = $response->data;
+        $this->assertEquals('ITEM001', $data[0]['itemId']);
+        $this->assertEquals(99.99, $data[0]['contractPrice']);
         $this->assertEquals(50, $response->total);
         $this->assertRequestMethod('GET');
         $this->assertRequestPath('/contracts/12345/items');

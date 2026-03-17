@@ -7,6 +7,7 @@ namespace AugurApi\Tests\Services\Logistics;
 use AugurApi\Services\Logistics\LogisticsClient;
 use AugurApi\Services\Logistics\Resources\ShipviaResource;
 use AugurApi\Services\Logistics\Resources\SpeedshipResource;
+use AugurApi\Services\Logistics\Resources\UpsResource;
 use AugurApi\Tests\AugurApiTestCase;
 
 final class LogisticsClientTest extends AugurApiTestCase
@@ -54,6 +55,11 @@ final class LogisticsClientTest extends AugurApiTestCase
     public function testSpeedshipResourceAccess(): void
     {
         $this->assertInstanceOf(SpeedshipResource::class, $this->api->logistics->speedship);
+    }
+
+    public function testUpsResourceAccess(): void
+    {
+        $this->assertInstanceOf(UpsResource::class, $this->api->logistics->ups);
     }
 
     public function testServiceClientIsCached(): void

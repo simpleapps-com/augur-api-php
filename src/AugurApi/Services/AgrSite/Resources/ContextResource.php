@@ -8,11 +8,9 @@ use AugurApi\Core\BaseResponse;
 use AugurApi\Core\Client;
 
 /**
- * Context resource.
+ * context resource — generated from spec.
  *
- * @fullPath api.agrSite.context
- * @service agr_site
- * @domain site-context
+ * DO NOT EDIT — regenerate with: python shared/scripts/generate-php.py agr-site
  */
 final class ContextResource
 {
@@ -23,9 +21,8 @@ final class ContextResource
     }
 
     /**
-     * Get context for a site.
+     * GET /context/{siteId}
      *
-     * @fullPath api.agrSite.context.get
      * @param array<string, mixed> $params
      * @return BaseResponse<array<string, mixed>>
      */
@@ -33,9 +30,9 @@ final class ContextResource
     {
         $response = $this->client->get(
             $this->baseUrl,
-            '/context/{siteId}',
+            '/{siteId}',
             $params,
-            ['siteId' => $siteId],
+            ['siteId' => (string) $siteId],
         );
 
         return BaseResponse::fromArray($response, static fn ($data) => $data);

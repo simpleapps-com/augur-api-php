@@ -23,9 +23,18 @@ final class CodeP21ResourceTest extends AugurApiTestCase
         $response = $this->api->p21Core->codeP21->list();
 
         $this->assertCount(2, $response->data);
-        $this->assertEquals('STAT', $response->data[0]['codeId']);
-        $this->assertEquals('A', $response->data[0]['codeValue']);
-        $this->assertEquals('Active', $response->data[0]['description']);
+
+        /** @var list<array<string, mixed>> $data */
+        $data = $response->data;
+        $this->assertEquals('STAT', $data[0]['codeId']);
+
+        /** @var list<array<string, mixed>> $data */
+        $data = $response->data;
+        $this->assertEquals('A', $data[0]['codeValue']);
+
+        /** @var list<array<string, mixed>> $data */
+        $data = $response->data;
+        $this->assertEquals('Active', $data[0]['description']);
         $this->assertRequestMethod('GET');
         $this->assertRequestPath('/code-p21');
         $this->assertHasSiteIdHeader();
@@ -56,6 +65,9 @@ final class CodeP21ResourceTest extends AugurApiTestCase
         $response = $this->api->p21Core->codeP21->list(['codeId' => 'PRIORITY']);
 
         $this->assertCount(3, $response->data);
-        $this->assertEquals('High', $response->data[0]['description']);
+
+        /** @var list<array<string, mixed>> $data */
+        $data = $response->data;
+        $this->assertEquals('High', $data[0]['description']);
     }
 }

@@ -8,11 +8,9 @@ use AugurApi\Core\BaseResponse;
 use AugurApi\Core\Client;
 
 /**
- * Tax engine resource.
+ * taxEngine resource — generated from spec.
  *
- * @fullPath api.pricing.taxEngine
- * @service pricing
- * @domain pricing
+ * DO NOT EDIT — regenerate with: python shared/scripts/generate-php.py pricing
  */
 final class TaxEngineResource
 {
@@ -23,16 +21,15 @@ final class TaxEngineResource
     }
 
     /**
-     * Run tax engine.
+     * POST /tax-engine
      *
-     * @fullPath api.pricing.taxEngine.calculate
      * @param array<string, mixed> $data
      * @return BaseResponse<array<string, mixed>>
      */
-    public function calculate(array $data): BaseResponse
+    public function create(array $data = []): BaseResponse
     {
-        $response = $this->client->post($this->baseUrl, '/tax-engine', $data);
+        $response = $this->client->post($this->baseUrl, '', $data);
 
-        return BaseResponse::fromArray($response, static fn ($d) => $d);
+        return BaseResponse::fromArray($response, static fn ($data) => $data);
     }
 }

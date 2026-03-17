@@ -13,19 +13,21 @@ use AugurApi\Tests\AugurApiTestCase;
  */
 final class InvMastLinksResourceTest extends AugurApiTestCase
 {
-    public function testList(): void
+    public function testGet(): void
     {
         $this->mockListResponse([
             ['linkUid' => 1, 'linkedInvMastUid' => 200, 'linkType' => 'related'],
             ['linkUid' => 2, 'linkedInvMastUid' => 201, 'linkType' => 'accessory'],
         ]);
 
-        $response = $this->api->items->invMastLinks->list(100);
+        $response = $this->api->items->invMastLinks->get(100);
 
         $this->assertCount(2, $response->data);
-        $this->assertEquals(1, $response->data[0]['linkUid']);
-        $this->assertEquals(200, $response->data[0]['linkedInvMastUid']);
-        $this->assertEquals('related', $response->data[0]['linkType']);
+        /** @var list<array<string, mixed>> $data */
+        $data = $response->data;
+        $this->assertEquals(1, $data[0]['linkUid']);
+        $this->assertEquals(200, $data[0]['linkedInvMastUid']);
+        $this->assertEquals('related', $data[0]['linkType']);
         $this->assertRequestMethod('GET');
         $this->assertRequestPath('/inv-mast-links/100');
         $this->assertHasSiteIdHeader();

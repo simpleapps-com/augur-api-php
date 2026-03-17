@@ -8,11 +8,9 @@ use AugurApi\Core\BaseResponse;
 use AugurApi\Core\Client;
 
 /**
- * ChatGpt resource.
+ * chatGpt resource — generated from spec.
  *
- * @fullPath api.gregorovich.chatGpt
- * @service gregorovich
- * @domain ai-conversation
+ * DO NOT EDIT — regenerate with: python shared/scripts/generate-php.py gregorovich
  */
 final class ChatGptResource
 {
@@ -23,15 +21,14 @@ final class ChatGptResource
     }
 
     /**
-     * Ask ChatGPT a question.
+     * GET /chat-gpt/ask
      *
-     * @fullPath api.gregorovich.chatGpt.ask.get
      * @param array<string, mixed> $params
      * @return BaseResponse<array<string, mixed>>
      */
-    public function ask(array $params): BaseResponse
+    public function getAsk(array $params = []): BaseResponse
     {
-        $response = $this->client->get($this->baseUrl, '/chat-gpt/ask', $params);
+        $response = $this->client->get($this->baseUrl, '/ask', $params);
 
         return BaseResponse::fromArray($response, static fn ($data) => $data);
     }

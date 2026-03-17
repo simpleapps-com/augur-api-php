@@ -6,14 +6,11 @@ namespace AugurApi\Services\Orders\Resources;
 
 use AugurApi\Core\BaseResponse;
 use AugurApi\Core\Client;
-use AugurApi\Core\Schemas\EdgeCache;
 
 /**
- * Order entry header resource.
+ * oeHdr resource — generated from spec.
  *
- * @fullPath api.orders.oeHdr
- * @service orders
- * @domain order-management
+ * DO NOT EDIT — regenerate with: python shared/scripts/generate-php.py orders
  */
 final class OeHdrResource
 {
@@ -24,34 +21,44 @@ final class OeHdrResource
     }
 
     /**
-     * Lookup order entry header summary.
+     * GET /oe-hdr/lookup
      *
-     * @fullPath api.orders.oeHdr.lookup
      * @param array<string, mixed> $params
-     * @return BaseResponse<array<array<string, mixed>>>
+     * @return BaseResponse<array<string, mixed>>
      */
-    public function lookup(array $params = []): BaseResponse
+    public function getLookup(array $params = []): BaseResponse
     {
-        $response = $this->client->get($this->baseUrl, '/oe-hdr/lookup', $params);
+        $response = $this->client->get($this->baseUrl, '/lookup', $params);
 
-        return BaseResponse::fromArray($response, static fn ($data) => $data ?? []);
+        return BaseResponse::fromArray($response, static fn ($data) => $data);
     }
 
     /**
-     * Get the order document.
+     * GET /oe-hdr/{orderNo}/doc
      *
-     * @fullPath api.orders.oeHdr.getDoc
+     * @param array<string, mixed> $params
      * @return BaseResponse<array<string, mixed>>
      */
-    public function getDoc(string $orderNo, ?EdgeCache $edgeCache = null): BaseResponse
+    public function listDoc(int $orderNo, array $params = []): BaseResponse
     {
         $response = $this->client->get(
             $this->baseUrl,
-            '/oe-hdr/{orderNo}/doc',
-            $edgeCache !== null ? ['edgeCache' => $edgeCache->value] : [],
-            ['orderNo' => $orderNo],
+            '/{orderNo}/doc',
+            $params,
+            ['orderNo' => (string) $orderNo],
         );
 
         return BaseResponse::fromArray($response, static fn ($data) => $data);
+    }
+
+    /**
+     * Alias for listDoc — GET /oe-hdr/{orderNo}/doc
+     *
+     * @param array<string, mixed> $params
+     * @return BaseResponse<array<string, mixed>>
+     */
+    public function getDoc(int $orderNo, array $params = []): BaseResponse
+    {
+        return $this->listDoc($orderNo, $params);
     }
 }

@@ -21,8 +21,14 @@ final class BinTransferResourceTest extends AugurApiTestCase
         $response = $this->api->nexus->binTransfer->list();
 
         $this->assertCount(2, $response->data);
-        $this->assertEquals(1, $response->data[0]['binTransferHdrUid']);
-        $this->assertEquals('pending', $response->data[0]['status']);
+
+        /** @var list<array<string, mixed>> $data */
+        $data = $response->data;
+        $this->assertEquals(1, $data[0]['binTransferHdrUid']);
+
+        /** @var list<array<string, mixed>> $data */
+        $data = $response->data;
+        $this->assertEquals('pending', $data[0]['status']);
         $this->assertRequestPath('/bin-transfer');
         $this->assertRequestMethod('GET');
         $this->assertHasSiteIdHeader();

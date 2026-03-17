@@ -6,14 +6,11 @@ namespace AugurApi\Services\AgrSite\Resources;
 
 use AugurApi\Core\BaseResponse;
 use AugurApi\Core\Client;
-use AugurApi\Core\Schemas\EdgeCache;
 
 /**
- * Training resource.
+ * training resource — generated from spec.
  *
- * @fullPath api.agrSite.training
- * @service agr_site
- * @domain augur
+ * DO NOT EDIT — regenerate with: python shared/scripts/generate-php.py agr-site
  */
 final class TrainingResource
 {
@@ -24,295 +21,256 @@ final class TrainingResource
     }
 
     /**
-     * List training sets.
+     * GET /training
      *
-     * @fullPath api.agrSite.training.list
      * @param array<string, mixed> $params
-     * @return BaseResponse<array<array<string, mixed>>>
+     * @return BaseResponse<array<string, mixed>>
      */
     public function list(array $params = []): BaseResponse
     {
-        $response = $this->client->get($this->baseUrl, '/training', $params);
-
-        return BaseResponse::fromArray($response, static fn ($data) => $data ?? []);
-    }
-
-    /**
-     * Get training set details.
-     *
-     * @fullPath api.agrSite.training.get
-     * @return BaseResponse<array<string, mixed>>
-     */
-    public function get(int $trainingSetUid, ?EdgeCache $edgeCache = null): BaseResponse
-    {
-        $response = $this->client->get(
-            $this->baseUrl,
-            '/training/{trainingSetUid}',
-            $edgeCache !== null ? ['edgeCache' => $edgeCache->value] : [],
-            ['trainingSetUid' => (string) $trainingSetUid],
-        );
+        $response = $this->client->get($this->baseUrl, '', $params);
 
         return BaseResponse::fromArray($response, static fn ($data) => $data);
     }
 
     /**
-     * Create training set.
+     * POST /training
      *
-     * @fullPath api.agrSite.training.create
      * @param array<string, mixed> $data
      * @return BaseResponse<array<string, mixed>>
      */
-    public function create(array $data): BaseResponse
+    public function create(array $data = []): BaseResponse
     {
-        $response = $this->client->post($this->baseUrl, '/training', $data);
+        $response = $this->client->post($this->baseUrl, '', $data);
 
-        return BaseResponse::fromArray($response, static fn ($d) => $d);
+        return BaseResponse::fromArray($response, static fn ($data) => $data);
     }
 
     /**
-     * Update training set.
+     * DELETE /training/{trainingSetUid}
      *
-     * @fullPath api.agrSite.training.update
-     * @param array<string, mixed> $data
      * @return BaseResponse<array<string, mixed>>
-     */
-    public function update(int $trainingSetUid, array $data): BaseResponse
-    {
-        $response = $this->client->put(
-            $this->baseUrl,
-            '/training/{trainingSetUid}',
-            $data,
-            ['trainingSetUid' => (string) $trainingSetUid],
-        );
-
-        return BaseResponse::fromArray($response, static fn ($d) => $d);
-    }
-
-    /**
-     * Delete training set.
-     *
-     * @fullPath api.agrSite.training.delete
-     * @return BaseResponse<bool>
      */
     public function delete(int $trainingSetUid): BaseResponse
     {
         $response = $this->client->delete(
             $this->baseUrl,
-            '/training/{trainingSetUid}',
+            '/{trainingSetUid}',
             ['trainingSetUid' => (string) $trainingSetUid],
         );
 
-        return BaseResponse::fromArray($response, static fn ($data) => (bool) $data);
+        return BaseResponse::fromArray($response, static fn ($data) => $data);
     }
 
     /**
-     * List conversations.
+     * GET /training/{trainingSetUid}
      *
-     * @fullPath api.agrSite.training.listConversations
      * @param array<string, mixed> $params
-     * @return BaseResponse<array<array<string, mixed>>>
+     * @return BaseResponse<array<string, mixed>>
+     */
+    public function get(int $trainingSetUid, array $params = []): BaseResponse
+    {
+        $response = $this->client->get(
+            $this->baseUrl,
+            '/{trainingSetUid}',
+            $params,
+            ['trainingSetUid' => (string) $trainingSetUid],
+        );
+
+        return BaseResponse::fromArray($response, static fn ($data) => $data);
+    }
+
+    /**
+     * PUT /training/{trainingSetUid}
+     *
+     * @param array<string, mixed> $data
+     * @return BaseResponse<array<string, mixed>>
+     */
+    public function update(int $trainingSetUid, array $data = []): BaseResponse
+    {
+        $response = $this->client->put(
+            $this->baseUrl,
+            '/{trainingSetUid}',
+            $data,
+            ['trainingSetUid' => (string) $trainingSetUid],
+        );
+
+        return BaseResponse::fromArray($response, static fn ($data) => $data);
+    }
+
+    /**
+     * GET /training/{trainingSetUid}/conversations
+     *
+     * @param array<string, mixed> $params
+     * @return BaseResponse<array<string, mixed>>
      */
     public function listConversations(int $trainingSetUid, array $params = []): BaseResponse
     {
         $response = $this->client->get(
             $this->baseUrl,
-            '/training/{trainingSetUid}/conversations',
+            '/{trainingSetUid}/conversations',
             $params,
             ['trainingSetUid' => (string) $trainingSetUid],
-        );
-
-        return BaseResponse::fromArray($response, static fn ($data) => $data ?? []);
-    }
-
-    /**
-     * Create conversation.
-     *
-     * @fullPath api.agrSite.training.createConversation
-     * @param array<string, mixed> $data
-     * @return BaseResponse<array<string, mixed>>
-     */
-    public function createConversation(int $trainingSetUid, array $data): BaseResponse
-    {
-        $response = $this->client->post(
-            $this->baseUrl,
-            '/training/{trainingSetUid}/conversations',
-            $data,
-            ['trainingSetUid' => (string) $trainingSetUid],
-        );
-
-        return BaseResponse::fromArray($response, static fn ($d) => $d);
-    }
-
-    /**
-     * Get conversation details.
-     *
-     * @fullPath api.agrSite.training.getConversation
-     * @return BaseResponse<array<string, mixed>>
-     */
-    public function getConversation(int $trainingSetUid, int $trainingConvUid, ?EdgeCache $edgeCache = null): BaseResponse
-    {
-        $response = $this->client->get(
-            $this->baseUrl,
-            '/training/{trainingSetUid}/conversations/{trainingConvUid}',
-            $edgeCache !== null ? ['edgeCache' => $edgeCache->value] : [],
-            [
-                'trainingSetUid' => (string) $trainingSetUid,
-                'trainingConvUid' => (string) $trainingConvUid,
-            ],
         );
 
         return BaseResponse::fromArray($response, static fn ($data) => $data);
     }
 
     /**
-     * Update conversation.
+     * POST /training/{trainingSetUid}/conversations
      *
-     * @fullPath api.agrSite.training.updateConversation
      * @param array<string, mixed> $data
      * @return BaseResponse<array<string, mixed>>
      */
-    public function updateConversation(int $trainingSetUid, int $trainingConvUid, array $data): BaseResponse
+    public function createConversations(int $trainingSetUid, array $data = []): BaseResponse
     {
-        $response = $this->client->put(
+        $response = $this->client->post(
             $this->baseUrl,
-            '/training/{trainingSetUid}/conversations/{trainingConvUid}',
+            '/{trainingSetUid}/conversations',
             $data,
-            [
-                'trainingSetUid' => (string) $trainingSetUid,
-                'trainingConvUid' => (string) $trainingConvUid,
-            ],
+            ['trainingSetUid' => (string) $trainingSetUid],
         );
 
-        return BaseResponse::fromArray($response, static fn ($d) => $d);
+        return BaseResponse::fromArray($response, static fn ($data) => $data);
     }
 
     /**
-     * Delete conversation.
+     * DELETE /training/{trainingSetUid}/conversations/{trainingConvUid}
      *
-     * @fullPath api.agrSite.training.deleteConversation
-     * @return BaseResponse<bool>
+     * @return BaseResponse<array<string, mixed>>
      */
-    public function deleteConversation(int $trainingSetUid, int $trainingConvUid): BaseResponse
+    public function deleteConversations(int $trainingConvUid, int $trainingSetUid): BaseResponse
     {
         $response = $this->client->delete(
             $this->baseUrl,
-            '/training/{trainingSetUid}/conversations/{trainingConvUid}',
-            [
-                'trainingSetUid' => (string) $trainingSetUid,
-                'trainingConvUid' => (string) $trainingConvUid,
-            ],
+            '/{trainingSetUid}/conversations/{trainingConvUid}',
+            ['trainingConvUid' => (string) $trainingConvUid, 'trainingSetUid' => (string) $trainingSetUid],
         );
 
-        return BaseResponse::fromArray($response, static fn ($data) => (bool) $data);
+        return BaseResponse::fromArray($response, static fn ($data) => $data);
     }
 
     /**
-     * List messages.
+     * GET /training/{trainingSetUid}/conversations/{trainingConvUid}
      *
-     * @fullPath api.agrSite.training.listMessages
      * @param array<string, mixed> $params
-     * @return BaseResponse<array<array<string, mixed>>>
-     */
-    public function listMessages(int $trainingSetUid, int $trainingConvUid, array $params = []): BaseResponse
-    {
-        $response = $this->client->get(
-            $this->baseUrl,
-            '/training/{trainingSetUid}/conversations/{trainingConvUid}/messages',
-            $params,
-            [
-                'trainingSetUid' => (string) $trainingSetUid,
-                'trainingConvUid' => (string) $trainingConvUid,
-            ],
-        );
-
-        return BaseResponse::fromArray($response, static fn ($data) => $data ?? []);
-    }
-
-    /**
-     * Get message details.
-     *
-     * @fullPath api.agrSite.training.getMessage
      * @return BaseResponse<array<string, mixed>>
      */
-    public function getMessage(int $trainingSetUid, int $trainingConvUid, int $trainingMsgUid, ?EdgeCache $edgeCache = null): BaseResponse
+    public function getConversations(int $trainingConvUid, int $trainingSetUid, array $params = []): BaseResponse
     {
         $response = $this->client->get(
             $this->baseUrl,
-            '/training/{trainingSetUid}/conversations/{trainingConvUid}/messages/{trainingMsgUid}',
-            $edgeCache !== null ? ['edgeCache' => $edgeCache->value] : [],
-            [
-                'trainingSetUid' => (string) $trainingSetUid,
-                'trainingConvUid' => (string) $trainingConvUid,
-                'trainingMsgUid' => (string) $trainingMsgUid,
-            ],
+            '/{trainingSetUid}/conversations/{trainingConvUid}',
+            $params,
+            ['trainingConvUid' => (string) $trainingConvUid, 'trainingSetUid' => (string) $trainingSetUid],
         );
 
         return BaseResponse::fromArray($response, static fn ($data) => $data);
     }
 
     /**
-     * Create message.
+     * PUT /training/{trainingSetUid}/conversations/{trainingConvUid}
      *
-     * @fullPath api.agrSite.training.createMessage
      * @param array<string, mixed> $data
      * @return BaseResponse<array<string, mixed>>
      */
-    public function createMessage(int $trainingSetUid, int $trainingConvUid, array $data): BaseResponse
-    {
-        $response = $this->client->post(
-            $this->baseUrl,
-            '/training/{trainingSetUid}/conversations/{trainingConvUid}/messages',
-            $data,
-            [
-                'trainingSetUid' => (string) $trainingSetUid,
-                'trainingConvUid' => (string) $trainingConvUid,
-            ],
-        );
-
-        return BaseResponse::fromArray($response, static fn ($d) => $d);
-    }
-
-    /**
-     * Update message.
-     *
-     * @fullPath api.agrSite.training.updateMessage
-     * @param array<string, mixed> $data
-     * @return BaseResponse<array<string, mixed>>
-     */
-    public function updateMessage(int $trainingSetUid, int $trainingConvUid, int $trainingMsgUid, array $data): BaseResponse
+    public function updateConversations(int $trainingConvUid, int $trainingSetUid, array $data = []): BaseResponse
     {
         $response = $this->client->put(
             $this->baseUrl,
-            '/training/{trainingSetUid}/conversations/{trainingConvUid}/messages/{trainingMsgUid}',
+            '/{trainingSetUid}/conversations/{trainingConvUid}',
             $data,
-            [
-                'trainingSetUid' => (string) $trainingSetUid,
-                'trainingConvUid' => (string) $trainingConvUid,
-                'trainingMsgUid' => (string) $trainingMsgUid,
-            ],
+            ['trainingConvUid' => (string) $trainingConvUid, 'trainingSetUid' => (string) $trainingSetUid],
         );
 
-        return BaseResponse::fromArray($response, static fn ($d) => $d);
+        return BaseResponse::fromArray($response, static fn ($data) => $data);
     }
 
     /**
-     * Delete message.
+     * GET /training/{trainingSetUid}/conversations/{trainingConvUid}/messages
      *
-     * @fullPath api.agrSite.training.deleteMessage
-     * @return BaseResponse<bool>
+     * @param array<string, mixed> $params
+     * @return BaseResponse<array<string, mixed>>
      */
-    public function deleteMessage(int $trainingSetUid, int $trainingConvUid, int $trainingMsgUid): BaseResponse
+    public function listConversationsMessages(int $trainingConvUid, int $trainingSetUid, array $params = []): BaseResponse
+    {
+        $response = $this->client->get(
+            $this->baseUrl,
+            '/{trainingSetUid}/conversations/{trainingConvUid}/messages',
+            $params,
+            ['trainingConvUid' => (string) $trainingConvUid, 'trainingSetUid' => (string) $trainingSetUid],
+        );
+
+        return BaseResponse::fromArray($response, static fn ($data) => $data);
+    }
+
+    /**
+     * POST /training/{trainingSetUid}/conversations/{trainingConvUid}/messages
+     *
+     * @param array<string, mixed> $data
+     * @return BaseResponse<array<string, mixed>>
+     */
+    public function createConversationsMessages(int $trainingConvUid, int $trainingSetUid, array $data = []): BaseResponse
+    {
+        $response = $this->client->post(
+            $this->baseUrl,
+            '/{trainingSetUid}/conversations/{trainingConvUid}/messages',
+            $data,
+            ['trainingConvUid' => (string) $trainingConvUid, 'trainingSetUid' => (string) $trainingSetUid],
+        );
+
+        return BaseResponse::fromArray($response, static fn ($data) => $data);
+    }
+
+    /**
+     * DELETE /training/{trainingSetUid}/conversations/{trainingConvUid}/messages/{trainingMsgUid}
+     *
+     * @return BaseResponse<array<string, mixed>>
+     */
+    public function deleteConversationsMessages(int $trainingConvUid, int $trainingMsgUid, int $trainingSetUid): BaseResponse
     {
         $response = $this->client->delete(
             $this->baseUrl,
-            '/training/{trainingSetUid}/conversations/{trainingConvUid}/messages/{trainingMsgUid}',
-            [
-                'trainingSetUid' => (string) $trainingSetUid,
-                'trainingConvUid' => (string) $trainingConvUid,
-                'trainingMsgUid' => (string) $trainingMsgUid,
-            ],
+            '/{trainingSetUid}/conversations/{trainingConvUid}/messages/{trainingMsgUid}',
+            ['trainingConvUid' => (string) $trainingConvUid, 'trainingMsgUid' => (string) $trainingMsgUid, 'trainingSetUid' => (string) $trainingSetUid],
         );
 
-        return BaseResponse::fromArray($response, static fn ($data) => (bool) $data);
+        return BaseResponse::fromArray($response, static fn ($data) => $data);
+    }
+
+    /**
+     * GET /training/{trainingSetUid}/conversations/{trainingConvUid}/messages/{trainingMsgUid}
+     *
+     * @param array<string, mixed> $params
+     * @return BaseResponse<array<string, mixed>>
+     */
+    public function getConversationsMessages(int $trainingConvUid, int $trainingMsgUid, int $trainingSetUid, array $params = []): BaseResponse
+    {
+        $response = $this->client->get(
+            $this->baseUrl,
+            '/{trainingSetUid}/conversations/{trainingConvUid}/messages/{trainingMsgUid}',
+            $params,
+            ['trainingConvUid' => (string) $trainingConvUid, 'trainingMsgUid' => (string) $trainingMsgUid, 'trainingSetUid' => (string) $trainingSetUid],
+        );
+
+        return BaseResponse::fromArray($response, static fn ($data) => $data);
+    }
+
+    /**
+     * PUT /training/{trainingSetUid}/conversations/{trainingConvUid}/messages/{trainingMsgUid}
+     *
+     * @param array<string, mixed> $data
+     * @return BaseResponse<array<string, mixed>>
+     */
+    public function updateConversationsMessages(int $trainingConvUid, int $trainingMsgUid, int $trainingSetUid, array $data = []): BaseResponse
+    {
+        $response = $this->client->put(
+            $this->baseUrl,
+            '/{trainingSetUid}/conversations/{trainingConvUid}/messages/{trainingMsgUid}',
+            $data,
+            ['trainingConvUid' => (string) $trainingConvUid, 'trainingMsgUid' => (string) $trainingMsgUid, 'trainingSetUid' => (string) $trainingSetUid],
+        );
+
+        return BaseResponse::fromArray($response, static fn ($data) => $data);
     }
 }

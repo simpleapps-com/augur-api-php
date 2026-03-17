@@ -6,14 +6,11 @@ namespace AugurApi\Services\AgrSite\Resources;
 
 use AugurApi\Core\BaseResponse;
 use AugurApi\Core\Client;
-use AugurApi\Core\Schemas\EdgeCache;
 
 /**
- * Fyxer transcript resource.
+ * fyxerTranscript resource — generated from spec.
  *
- * @fullPath api.agrSite.fyxerTranscript
- * @service agr_site
- * @domain augur
+ * DO NOT EDIT — regenerate with: python shared/scripts/generate-php.py agr-site
  */
 final class FyxerTranscriptResource
 {
@@ -24,31 +21,41 @@ final class FyxerTranscriptResource
     }
 
     /**
-     * List Fyxer transcripts.
+     * GET /fyxer-transcript
      *
-     * @fullPath api.agrSite.fyxerTranscript.list
      * @param array<string, mixed> $params
-     * @return BaseResponse<array<array<string, mixed>>>
+     * @return BaseResponse<array<string, mixed>>
      */
     public function list(array $params = []): BaseResponse
     {
-        $response = $this->client->get($this->baseUrl, '/fyxer-transcript', $params);
+        $response = $this->client->get($this->baseUrl, '', $params);
 
-        return BaseResponse::fromArray($response, static fn ($data) => $data ?? []);
+        return BaseResponse::fromArray($response, static fn ($data) => $data);
     }
 
     /**
-     * Get Fyxer transcript details.
+     * POST /fyxer-transcript
      *
-     * @fullPath api.agrSite.fyxerTranscript.get
+     * @param array<string, mixed> $data
      * @return BaseResponse<array<string, mixed>>
      */
-    public function get(int $fyxerTranscriptHdrUid, ?EdgeCache $edgeCache = null): BaseResponse
+    public function create(array $data = []): BaseResponse
     {
-        $response = $this->client->get(
+        $response = $this->client->post($this->baseUrl, '', $data);
+
+        return BaseResponse::fromArray($response, static fn ($data) => $data);
+    }
+
+    /**
+     * DELETE /fyxer-transcript/{fyxerTranscriptHdrUid}
+     *
+     * @return BaseResponse<array<string, mixed>>
+     */
+    public function delete(int $fyxerTranscriptHdrUid): BaseResponse
+    {
+        $response = $this->client->delete(
             $this->baseUrl,
-            '/fyxer-transcript/{fyxerTranscriptHdrUid}',
-            $edgeCache !== null ? ['edgeCache' => $edgeCache->value] : [],
+            '/{fyxerTranscriptHdrUid}',
             ['fyxerTranscriptHdrUid' => (string) $fyxerTranscriptHdrUid],
         );
 
@@ -56,52 +63,38 @@ final class FyxerTranscriptResource
     }
 
     /**
-     * Create Fyxer transcript.
+     * GET /fyxer-transcript/{fyxerTranscriptHdrUid}
      *
-     * @fullPath api.agrSite.fyxerTranscript.create
-     * @param array<string, mixed> $data
+     * @param array<string, mixed> $params
      * @return BaseResponse<array<string, mixed>>
      */
-    public function create(array $data): BaseResponse
+    public function get(int $fyxerTranscriptHdrUid, array $params = []): BaseResponse
     {
-        $response = $this->client->post($this->baseUrl, '/fyxer-transcript', $data);
+        $response = $this->client->get(
+            $this->baseUrl,
+            '/{fyxerTranscriptHdrUid}',
+            $params,
+            ['fyxerTranscriptHdrUid' => (string) $fyxerTranscriptHdrUid],
+        );
 
-        return BaseResponse::fromArray($response, static fn ($d) => $d);
+        return BaseResponse::fromArray($response, static fn ($data) => $data);
     }
 
     /**
-     * Update Fyxer transcript.
+     * PUT /fyxer-transcript/{fyxerTranscriptHdrUid}
      *
-     * @fullPath api.agrSite.fyxerTranscript.update
      * @param array<string, mixed> $data
      * @return BaseResponse<array<string, mixed>>
      */
-    public function update(int $fyxerTranscriptHdrUid, array $data): BaseResponse
+    public function update(int $fyxerTranscriptHdrUid, array $data = []): BaseResponse
     {
         $response = $this->client->put(
             $this->baseUrl,
-            '/fyxer-transcript/{fyxerTranscriptHdrUid}',
+            '/{fyxerTranscriptHdrUid}',
             $data,
             ['fyxerTranscriptHdrUid' => (string) $fyxerTranscriptHdrUid],
         );
 
-        return BaseResponse::fromArray($response, static fn ($d) => $d);
-    }
-
-    /**
-     * Delete Fyxer transcript.
-     *
-     * @fullPath api.agrSite.fyxerTranscript.delete
-     * @return BaseResponse<bool>
-     */
-    public function delete(int $fyxerTranscriptHdrUid): BaseResponse
-    {
-        $response = $this->client->delete(
-            $this->baseUrl,
-            '/fyxer-transcript/{fyxerTranscriptHdrUid}',
-            ['fyxerTranscriptHdrUid' => (string) $fyxerTranscriptHdrUid],
-        );
-
-        return BaseResponse::fromArray($response, static fn ($data) => (bool) $data);
+        return BaseResponse::fromArray($response, static fn ($data) => $data);
     }
 }

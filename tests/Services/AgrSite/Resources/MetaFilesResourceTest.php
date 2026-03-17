@@ -12,7 +12,7 @@ use Nyholm\Psr7\Response;
  */
 final class MetaFilesResourceTest extends AugurApiTestCase
 {
-    public function testGetRobots(): void
+    public function testListRobots(): void
     {
         $robotsContent = "User-agent: *\nDisallow: /admin/\nAllow: /";
 
@@ -23,7 +23,7 @@ final class MetaFilesResourceTest extends AugurApiTestCase
             ])),
         );
 
-        $response = $this->api->agrSite->metaFiles->getRobots();
+        $response = $this->api->agrSite->metaFiles->listRobots();
 
         $this->assertEquals($robotsContent, $response->data);
         $this->assertRequestPath('/meta-files/robots');
@@ -32,7 +32,7 @@ final class MetaFilesResourceTest extends AugurApiTestCase
         $this->assertHasAuthHeader();
     }
 
-    public function testGetRobotsEmptyContent(): void
+    public function testListRobotsEmptyContent(): void
     {
         $this->mockClient->addResponse(
             new Response(200, ['Content-Type' => 'application/json'], (string) json_encode([
@@ -41,7 +41,7 @@ final class MetaFilesResourceTest extends AugurApiTestCase
             ])),
         );
 
-        $response = $this->api->agrSite->metaFiles->getRobots();
+        $response = $this->api->agrSite->metaFiles->listRobots();
 
         $this->assertEquals('', $response->data);
     }

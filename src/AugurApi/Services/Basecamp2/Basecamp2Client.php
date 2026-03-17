@@ -17,11 +17,9 @@ use AugurApi\Services\Basecamp2\Resources\TodosResource;
 use AugurApi\Services\Basecamp2\Resources\TodosSummaryResource;
 
 /**
- * Basecamp2 service client.
+ * Basecamp2 service client — generated from spec.
  *
- * @fullPath api.basecamp2
- * @service basecamp2
- * @domain project-management
+ * DO NOT EDIT — regenerate with: python shared/scripts/generate-php.py basecamp2
  */
 final class Basecamp2Client extends BaseServiceClient
 {
@@ -37,14 +35,14 @@ final class Basecamp2Client extends BaseServiceClient
     public function __construct(Client $client, Config $config)
     {
         parent::__construct($client, $config);
-        $this->comments = new CommentsResource($client, $this->baseUrl);
-        $this->events = new EventsResource($client, $this->baseUrl);
-        $this->metrics = new MetricsResource($client, $this->baseUrl);
-        $this->people = new PeopleResource($client, $this->baseUrl);
-        $this->projects = new ProjectsResource($client, $this->baseUrl);
-        $this->todolists = new TodolistsResource($client, $this->baseUrl);
-        $this->todos = new TodosResource($client, $this->baseUrl);
-        $this->todosSummary = new TodosSummaryResource($client, $this->baseUrl);
+        $this->comments = new CommentsResource($client, $this->baseUrl . '/comments');
+        $this->events = new EventsResource($client, $this->baseUrl . '/events');
+        $this->metrics = new MetricsResource($client, $this->baseUrl . '/metrics');
+        $this->people = new PeopleResource($client, $this->baseUrl . '/people');
+        $this->projects = new ProjectsResource($client, $this->baseUrl . '/projects');
+        $this->todolists = new TodolistsResource($client, $this->baseUrl . '/todolists');
+        $this->todos = new TodosResource($client, $this->baseUrl . '/todos');
+        $this->todosSummary = new TodosSummaryResource($client, $this->baseUrl . '/todos-summary');
     }
 
     protected function getServiceName(): string

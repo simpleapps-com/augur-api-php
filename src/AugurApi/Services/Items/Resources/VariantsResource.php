@@ -6,14 +6,11 @@ namespace AugurApi\Services\Items\Resources;
 
 use AugurApi\Core\BaseResponse;
 use AugurApi\Core\Client;
-use AugurApi\Core\Schemas\EdgeCache;
 
 /**
- * Variants resource.
+ * variants resource — generated from spec.
  *
- * @fullPath api.items.variants
- * @service items
- * @domain inventory-management
+ * DO NOT EDIT — regenerate with: python shared/scripts/generate-php.py items
  */
 final class VariantsResource
 {
@@ -24,81 +21,41 @@ final class VariantsResource
     }
 
     /**
-     * List product variants.
+     * GET /variants
      *
-     * @fullPath api.items.variants.list
      * @param array<string, mixed> $params
-     * @return BaseResponse<array<array<string, mixed>>>
+     * @return BaseResponse<array<string, mixed>>
      */
     public function list(array $params = []): BaseResponse
     {
-        $response = $this->client->get($this->baseUrl, '/variants', $params);
-
-        return BaseResponse::fromArray($response, static fn ($data) => $data ?? []);
-    }
-
-    /**
-     * Get product variant.
-     *
-     * @fullPath api.items.variants.get
-     * @return BaseResponse<array<string, mixed>>
-     */
-    public function get(int $itemVariantHdrUid, ?EdgeCache $edgeCache = null): BaseResponse
-    {
-        $response = $this->client->get(
-            $this->baseUrl,
-            '/variants/{itemVariantHdrUid}',
-            $edgeCache !== null ? ['edgeCache' => $edgeCache->value] : [],
-            ['itemVariantHdrUid' => (string) $itemVariantHdrUid],
-        );
+        $response = $this->client->get($this->baseUrl, '', $params);
 
         return BaseResponse::fromArray($response, static fn ($data) => $data);
     }
 
     /**
-     * Create product variant.
+     * POST /variants
      *
-     * @fullPath api.items.variants.create
      * @param array<string, mixed> $data
      * @return BaseResponse<array<string, mixed>>
      */
-    public function create(array $data): BaseResponse
+    public function create(array $data = []): BaseResponse
     {
-        $response = $this->client->post($this->baseUrl, '/variants', $data);
+        $response = $this->client->post($this->baseUrl, '', $data);
 
-        return BaseResponse::fromArray($response, static fn ($d) => $d);
+        return BaseResponse::fromArray($response, static fn ($data) => $data);
     }
 
     /**
-     * Update product variant.
+     * DELETE /variants/{itemVariantHdrUid}
      *
-     * @fullPath api.items.variants.update
-     * @param array<string, mixed> $data
-     * @return BaseResponse<array<string, mixed>>
-     */
-    public function update(int $itemVariantHdrUid, array $data): BaseResponse
-    {
-        $response = $this->client->put(
-            $this->baseUrl,
-            '/variants/{itemVariantHdrUid}',
-            $data,
-            ['itemVariantHdrUid' => (string) $itemVariantHdrUid],
-        );
-
-        return BaseResponse::fromArray($response, static fn ($d) => $d);
-    }
-
-    /**
-     * Delete product variant.
-     *
-     * @fullPath api.items.variants.delete
      * @return BaseResponse<array<string, mixed>>
      */
     public function delete(int $itemVariantHdrUid): BaseResponse
     {
         $response = $this->client->delete(
             $this->baseUrl,
-            '/variants/{itemVariantHdrUid}',
+            '/{itemVariantHdrUid}',
             ['itemVariantHdrUid' => (string) $itemVariantHdrUid],
         );
 
@@ -106,17 +63,17 @@ final class VariantsResource
     }
 
     /**
-     * Get variant documents.
+     * GET /variants/{itemVariantHdrUid}
      *
-     * @fullPath api.items.variants.doc.list
+     * @param array<string, mixed> $params
      * @return BaseResponse<array<string, mixed>>
      */
-    public function getDoc(int $itemVariantHdrUid, ?EdgeCache $edgeCache = null): BaseResponse
+    public function get(int $itemVariantHdrUid, array $params = []): BaseResponse
     {
         $response = $this->client->get(
             $this->baseUrl,
-            '/variants/{itemVariantHdrUid}/doc',
-            $edgeCache !== null ? ['edgeCache' => $edgeCache->value] : [],
+            '/{itemVariantHdrUid}',
+            $params,
             ['itemVariantHdrUid' => (string) $itemVariantHdrUid],
         );
 
@@ -124,219 +81,241 @@ final class VariantsResource
     }
 
     /**
-     * Get similar variants.
+     * PUT /variants/{itemVariantHdrUid}
      *
-     * @fullPath api.items.variants.similar.list
-     * @return BaseResponse<array<array<string, mixed>>>
-     */
-    public function getSimilar(int $itemVariantHdrUid, ?EdgeCache $edgeCache = null): BaseResponse
-    {
-        $response = $this->client->get(
-            $this->baseUrl,
-            '/variants/{itemVariantHdrUid}/similar',
-            $edgeCache !== null ? ['edgeCache' => $edgeCache->value] : [],
-            ['itemVariantHdrUid' => (string) $itemVariantHdrUid],
-        );
-
-        return BaseResponse::fromArray($response, static fn ($data) => $data ?? []);
-    }
-
-    /**
-     * List variant lines.
-     *
-     * @fullPath api.items.variants.lines.list
-     * @return BaseResponse<array<array<string, mixed>>>
-     */
-    public function listLines(int $itemVariantHdrUid, ?EdgeCache $edgeCache = null): BaseResponse
-    {
-        $response = $this->client->get(
-            $this->baseUrl,
-            '/variants/{itemVariantHdrUid}/lines',
-            $edgeCache !== null ? ['edgeCache' => $edgeCache->value] : [],
-            ['itemVariantHdrUid' => (string) $itemVariantHdrUid],
-        );
-
-        return BaseResponse::fromArray($response, static fn ($data) => $data ?? []);
-    }
-
-    /**
-     * Get variant line.
-     *
-     * @fullPath api.items.variants.lines.get
-     * @return BaseResponse<array<string, mixed>>
-     */
-    public function getLine(int $itemVariantHdrUid, int $itemVariantLineUid, ?EdgeCache $edgeCache = null): BaseResponse
-    {
-        $response = $this->client->get(
-            $this->baseUrl,
-            '/variants/{itemVariantHdrUid}/lines/{itemVariantLineUid}',
-            $edgeCache !== null ? ['edgeCache' => $edgeCache->value] : [],
-            [
-                'itemVariantHdrUid' => (string) $itemVariantHdrUid,
-                'itemVariantLineUid' => (string) $itemVariantLineUid,
-            ],
-        );
-
-        return BaseResponse::fromArray($response, static fn ($data) => $data);
-    }
-
-    /**
-     * Create variant line.
-     *
-     * @fullPath api.items.variants.lines.create
      * @param array<string, mixed> $data
      * @return BaseResponse<array<string, mixed>>
      */
-    public function createLine(int $itemVariantHdrUid, array $data): BaseResponse
-    {
-        $response = $this->client->post(
-            $this->baseUrl,
-            '/variants/{itemVariantHdrUid}/lines',
-            $data,
-            ['itemVariantHdrUid' => (string) $itemVariantHdrUid],
-        );
-
-        return BaseResponse::fromArray($response, static fn ($d) => $d);
-    }
-
-    /**
-     * Update variant line.
-     *
-     * @fullPath api.items.variants.lines.update
-     * @param array<string, mixed> $data
-     * @return BaseResponse<array<string, mixed>>
-     */
-    public function updateLine(int $itemVariantHdrUid, int $itemVariantLineUid, array $data): BaseResponse
+    public function update(int $itemVariantHdrUid, array $data = []): BaseResponse
     {
         $response = $this->client->put(
             $this->baseUrl,
-            '/variants/{itemVariantHdrUid}/lines/{itemVariantLineUid}',
+            '/{itemVariantHdrUid}',
             $data,
-            [
-                'itemVariantHdrUid' => (string) $itemVariantHdrUid,
-                'itemVariantLineUid' => (string) $itemVariantLineUid,
-            ],
-        );
-
-        return BaseResponse::fromArray($response, static fn ($d) => $d);
-    }
-
-    /**
-     * Delete variant line.
-     *
-     * @fullPath api.items.variants.lines.delete
-     * @return BaseResponse<array<string, mixed>>
-     */
-    public function deleteLine(int $itemVariantHdrUid, int $itemVariantLineUid): BaseResponse
-    {
-        $response = $this->client->delete(
-            $this->baseUrl,
-            '/variants/{itemVariantHdrUid}/lines/{itemVariantLineUid}',
-            [
-                'itemVariantHdrUid' => (string) $itemVariantHdrUid,
-                'itemVariantLineUid' => (string) $itemVariantLineUid,
-            ],
+            ['itemVariantHdrUid' => (string) $itemVariantHdrUid],
         );
 
         return BaseResponse::fromArray($response, static fn ($data) => $data);
     }
 
     /**
-     * List variant attributes.
+     * GET /variants/{itemVariantHdrUid}/attributes
      *
-     * @fullPath api.items.variants.attributes.list
      * @param array<string, mixed> $params
-     * @return BaseResponse<array<array<string, mixed>>>
+     * @return BaseResponse<array<string, mixed>>
      */
     public function listAttributes(int $itemVariantHdrUid, array $params = []): BaseResponse
     {
         $response = $this->client->get(
             $this->baseUrl,
-            '/variants/{itemVariantHdrUid}/attributes',
+            '/{itemVariantHdrUid}/attributes',
             $params,
             ['itemVariantHdrUid' => (string) $itemVariantHdrUid],
-        );
-
-        return BaseResponse::fromArray($response, static fn ($data) => $data ?? []);
-    }
-
-    /**
-     * Get variant attribute.
-     *
-     * @fullPath api.items.variants.attributes.get
-     * @return BaseResponse<array<string, mixed>>
-     */
-    public function getAttribute(int $itemVariantHdrUid, int $attributeUid, ?EdgeCache $edgeCache = null): BaseResponse
-    {
-        $response = $this->client->get(
-            $this->baseUrl,
-            '/variants/{itemVariantHdrUid}/attributes/{attributeUid}',
-            $edgeCache !== null ? ['edgeCache' => $edgeCache->value] : [],
-            [
-                'itemVariantHdrUid' => (string) $itemVariantHdrUid,
-                'attributeUid' => (string) $attributeUid,
-            ],
         );
 
         return BaseResponse::fromArray($response, static fn ($data) => $data);
     }
 
     /**
-     * Create variant attribute.
+     * POST /variants/{itemVariantHdrUid}/attributes
      *
-     * @fullPath api.items.variants.attributes.create
      * @param array<string, mixed> $data
      * @return BaseResponse<array<string, mixed>>
      */
-    public function createAttribute(int $itemVariantHdrUid, array $data): BaseResponse
+    public function createAttributes(int $itemVariantHdrUid, array $data = []): BaseResponse
     {
         $response = $this->client->post(
             $this->baseUrl,
-            '/variants/{itemVariantHdrUid}/attributes',
+            '/{itemVariantHdrUid}/attributes',
             $data,
             ['itemVariantHdrUid' => (string) $itemVariantHdrUid],
         );
 
-        return BaseResponse::fromArray($response, static fn ($d) => $d);
+        return BaseResponse::fromArray($response, static fn ($data) => $data);
     }
 
     /**
-     * Update variant attribute.
+     * DELETE /variants/{itemVariantHdrUid}/attributes/{attributeUid}
      *
-     * @fullPath api.items.variants.attributes.update
-     * @param array<string, mixed> $data
      * @return BaseResponse<array<string, mixed>>
      */
-    public function updateAttribute(int $itemVariantHdrUid, int $attributeUid, array $data): BaseResponse
-    {
-        $response = $this->client->put(
-            $this->baseUrl,
-            '/variants/{itemVariantHdrUid}/attributes/{attributeUid}',
-            $data,
-            [
-                'itemVariantHdrUid' => (string) $itemVariantHdrUid,
-                'attributeUid' => (string) $attributeUid,
-            ],
-        );
-
-        return BaseResponse::fromArray($response, static fn ($d) => $d);
-    }
-
-    /**
-     * Delete variant attribute.
-     *
-     * @fullPath api.items.variants.attributes.delete
-     * @return BaseResponse<array<string, mixed>>
-     */
-    public function deleteAttribute(int $itemVariantHdrUid, int $attributeUid): BaseResponse
+    public function deleteAttributes(int $attributeUid, int $itemVariantHdrUid): BaseResponse
     {
         $response = $this->client->delete(
             $this->baseUrl,
-            '/variants/{itemVariantHdrUid}/attributes/{attributeUid}',
-            [
-                'itemVariantHdrUid' => (string) $itemVariantHdrUid,
-                'attributeUid' => (string) $attributeUid,
-            ],
+            '/{itemVariantHdrUid}/attributes/{attributeUid}',
+            ['attributeUid' => (string) $attributeUid, 'itemVariantHdrUid' => (string) $itemVariantHdrUid],
+        );
+
+        return BaseResponse::fromArray($response, static fn ($data) => $data);
+    }
+
+    /**
+     * GET /variants/{itemVariantHdrUid}/attributes/{attributeUid}
+     *
+     * @param array<string, mixed> $params
+     * @return BaseResponse<array<string, mixed>>
+     */
+    public function getAttributes(int $attributeUid, int $itemVariantHdrUid, array $params = []): BaseResponse
+    {
+        $response = $this->client->get(
+            $this->baseUrl,
+            '/{itemVariantHdrUid}/attributes/{attributeUid}',
+            $params,
+            ['attributeUid' => (string) $attributeUid, 'itemVariantHdrUid' => (string) $itemVariantHdrUid],
+        );
+
+        return BaseResponse::fromArray($response, static fn ($data) => $data);
+    }
+
+    /**
+     * PUT /variants/{itemVariantHdrUid}/attributes/{attributeUid}
+     *
+     * @param array<string, mixed> $data
+     * @return BaseResponse<array<string, mixed>>
+     */
+    public function updateAttributes(int $attributeUid, int $itemVariantHdrUid, array $data = []): BaseResponse
+    {
+        $response = $this->client->put(
+            $this->baseUrl,
+            '/{itemVariantHdrUid}/attributes/{attributeUid}',
+            $data,
+            ['attributeUid' => (string) $attributeUid, 'itemVariantHdrUid' => (string) $itemVariantHdrUid],
+        );
+
+        return BaseResponse::fromArray($response, static fn ($data) => $data);
+    }
+
+    /**
+     * GET /variants/{itemVariantHdrUid}/doc
+     *
+     * @param array<string, mixed> $params
+     * @return BaseResponse<array<string, mixed>>
+     */
+    public function listDoc(int $itemVariantHdrUid, array $params = []): BaseResponse
+    {
+        $response = $this->client->get(
+            $this->baseUrl,
+            '/{itemVariantHdrUid}/doc',
+            $params,
+            ['itemVariantHdrUid' => (string) $itemVariantHdrUid],
+        );
+
+        return BaseResponse::fromArray($response, static fn ($data) => $data);
+    }
+
+    /**
+     * Alias for listDoc — GET /variants/{itemVariantHdrUid}/doc
+     *
+     * @param array<string, mixed> $params
+     * @return BaseResponse<array<string, mixed>>
+     */
+    public function getDoc(int $itemVariantHdrUid, array $params = []): BaseResponse
+    {
+        return $this->listDoc($itemVariantHdrUid, $params);
+    }
+
+    /**
+     * GET /variants/{itemVariantHdrUid}/lines
+     *
+     * @param array<string, mixed> $params
+     * @return BaseResponse<array<string, mixed>>
+     */
+    public function listLines(int $itemVariantHdrUid, array $params = []): BaseResponse
+    {
+        $response = $this->client->get(
+            $this->baseUrl,
+            '/{itemVariantHdrUid}/lines',
+            $params,
+            ['itemVariantHdrUid' => (string) $itemVariantHdrUid],
+        );
+
+        return BaseResponse::fromArray($response, static fn ($data) => $data);
+    }
+
+    /**
+     * POST /variants/{itemVariantHdrUid}/lines
+     *
+     * @param array<string, mixed> $data
+     * @return BaseResponse<array<string, mixed>>
+     */
+    public function createLines(int $itemVariantHdrUid, array $data = []): BaseResponse
+    {
+        $response = $this->client->post(
+            $this->baseUrl,
+            '/{itemVariantHdrUid}/lines',
+            $data,
+            ['itemVariantHdrUid' => (string) $itemVariantHdrUid],
+        );
+
+        return BaseResponse::fromArray($response, static fn ($data) => $data);
+    }
+
+    /**
+     * DELETE /variants/{itemVariantHdrUid}/lines/{itemVariantLineUid}
+     *
+     * @return BaseResponse<array<string, mixed>>
+     */
+    public function deleteLines(int $itemVariantHdrUid, int $itemVariantLineUid): BaseResponse
+    {
+        $response = $this->client->delete(
+            $this->baseUrl,
+            '/{itemVariantHdrUid}/lines/{itemVariantLineUid}',
+            ['itemVariantHdrUid' => (string) $itemVariantHdrUid, 'itemVariantLineUid' => (string) $itemVariantLineUid],
+        );
+
+        return BaseResponse::fromArray($response, static fn ($data) => $data);
+    }
+
+    /**
+     * GET /variants/{itemVariantHdrUid}/lines/{itemVariantLineUid}
+     *
+     * @param array<string, mixed> $params
+     * @return BaseResponse<array<string, mixed>>
+     */
+    public function getLines(int $itemVariantHdrUid, int $itemVariantLineUid, array $params = []): BaseResponse
+    {
+        $response = $this->client->get(
+            $this->baseUrl,
+            '/{itemVariantHdrUid}/lines/{itemVariantLineUid}',
+            $params,
+            ['itemVariantHdrUid' => (string) $itemVariantHdrUid, 'itemVariantLineUid' => (string) $itemVariantLineUid],
+        );
+
+        return BaseResponse::fromArray($response, static fn ($data) => $data);
+    }
+
+    /**
+     * PUT /variants/{itemVariantHdrUid}/lines/{itemVariantLineUid}
+     *
+     * @param array<string, mixed> $data
+     * @return BaseResponse<array<string, mixed>>
+     */
+    public function updateLines(int $itemVariantHdrUid, int $itemVariantLineUid, array $data = []): BaseResponse
+    {
+        $response = $this->client->put(
+            $this->baseUrl,
+            '/{itemVariantHdrUid}/lines/{itemVariantLineUid}',
+            $data,
+            ['itemVariantHdrUid' => (string) $itemVariantHdrUid, 'itemVariantLineUid' => (string) $itemVariantLineUid],
+        );
+
+        return BaseResponse::fromArray($response, static fn ($data) => $data);
+    }
+
+    /**
+     * GET /variants/{itemVariantHdrUid}/similar
+     *
+     * @param array<string, mixed> $params
+     * @return BaseResponse<array<string, mixed>>
+     */
+    public function listSimilar(int $itemVariantHdrUid, array $params = []): BaseResponse
+    {
+        $response = $this->client->get(
+            $this->baseUrl,
+            '/{itemVariantHdrUid}/similar',
+            $params,
+            ['itemVariantHdrUid' => (string) $itemVariantHdrUid],
         );
 
         return BaseResponse::fromArray($response, static fn ($data) => $data);

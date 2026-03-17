@@ -6,14 +6,11 @@ namespace AugurApi\Services\Items\Resources;
 
 use AugurApi\Core\BaseResponse;
 use AugurApi\Core\Client;
-use AugurApi\Core\Schemas\EdgeCache;
 
 /**
- * Item Category resource.
+ * itemCategory resource — generated from spec.
  *
- * @fullPath api.items.itemCategory
- * @service items
- * @domain inventory-management
+ * DO NOT EDIT — regenerate with: python shared/scripts/generate-php.py items
  */
 final class ItemCategoryResource
 {
@@ -24,45 +21,43 @@ final class ItemCategoryResource
     }
 
     /**
-     * List item categories.
+     * GET /item-category
      *
-     * @fullPath api.items.itemCategory.list
      * @param array<string, mixed> $params
-     * @return BaseResponse<array<array<string, mixed>>>
+     * @return BaseResponse<array<string, mixed>>
      */
     public function list(array $params = []): BaseResponse
     {
-        $response = $this->client->get($this->baseUrl, '/item-category', $params);
+        $response = $this->client->get($this->baseUrl, '', $params);
 
-        return BaseResponse::fromArray($response, static fn ($data) => $data ?? []);
+        return BaseResponse::fromArray($response, static fn ($data) => $data);
     }
 
     /**
-     * Lookup item categories.
+     * GET /item-category/lookup
      *
-     * @fullPath api.items.itemCategory.lookup.get
      * @param array<string, mixed> $params
-     * @return BaseResponse<array<array<string, mixed>>>
-     */
-    public function lookup(array $params = []): BaseResponse
-    {
-        $response = $this->client->get($this->baseUrl, '/item-category/lookup', $params);
-
-        return BaseResponse::fromArray($response, static fn ($data) => $data ?? []);
-    }
-
-    /**
-     * Get item category details.
-     *
-     * @fullPath api.items.itemCategory.get
      * @return BaseResponse<array<string, mixed>>
      */
-    public function get(int $itemCategoryUid, ?EdgeCache $edgeCache = null): BaseResponse
+    public function getLookup(array $params = []): BaseResponse
+    {
+        $response = $this->client->get($this->baseUrl, '/lookup', $params);
+
+        return BaseResponse::fromArray($response, static fn ($data) => $data);
+    }
+
+    /**
+     * GET /item-category/{itemCategoryUid}
+     *
+     * @param array<string, mixed> $params
+     * @return BaseResponse<array<string, mixed>>
+     */
+    public function get(int $itemCategoryUid, array $params = []): BaseResponse
     {
         $response = $this->client->get(
             $this->baseUrl,
-            '/item-category/{itemCategoryUid}',
-            $edgeCache !== null ? ['edgeCache' => $edgeCache->value] : [],
+            '/{itemCategoryUid}',
+            $params,
             ['itemCategoryUid' => (string) $itemCategoryUid],
         );
 
@@ -70,20 +65,31 @@ final class ItemCategoryResource
     }
 
     /**
-     * List item category documents.
+     * GET /item-category/{itemCategoryUid}/doc
      *
-     * @fullPath api.items.itemCategory.doc.list
-     * @return BaseResponse<array<array<string, mixed>>>
+     * @param array<string, mixed> $params
+     * @return BaseResponse<array<string, mixed>>
      */
-    public function listDoc(int $itemCategoryUid, ?EdgeCache $edgeCache = null): BaseResponse
+    public function listDoc(int $itemCategoryUid, array $params = []): BaseResponse
     {
         $response = $this->client->get(
             $this->baseUrl,
-            '/item-category/{itemCategoryUid}/doc',
-            $edgeCache !== null ? ['edgeCache' => $edgeCache->value] : [],
+            '/{itemCategoryUid}/doc',
+            $params,
             ['itemCategoryUid' => (string) $itemCategoryUid],
         );
 
-        return BaseResponse::fromArray($response, static fn ($data) => $data ?? []);
+        return BaseResponse::fromArray($response, static fn ($data) => $data);
+    }
+
+    /**
+     * Alias for listDoc — GET /item-category/{itemCategoryUid}/doc
+     *
+     * @param array<string, mixed> $params
+     * @return BaseResponse<array<string, mixed>>
+     */
+    public function getDoc(int $itemCategoryUid, array $params = []): BaseResponse
+    {
+        return $this->listDoc($itemCategoryUid, $params);
     }
 }

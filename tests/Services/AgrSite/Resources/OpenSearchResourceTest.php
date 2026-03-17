@@ -19,7 +19,7 @@ final class OpenSearchResourceTest extends AugurApiTestCase
             'model' => 'text-embedding-ada-002',
         ]);
 
-        $response = $this->api->agrSite->openSearch->getEmbedding(['text' => 'Test input text']);
+        $response = $this->api->agrSite->openSearch->listEmbedding(['text' => 'Test input text']);
 
         $this->assertIsArray($response->data);
         $this->assertEquals('Test input text', $response->data['text']);
@@ -39,7 +39,7 @@ final class OpenSearchResourceTest extends AugurApiTestCase
             'model' => 'custom-model',
         ]);
 
-        $response = $this->api->agrSite->openSearch->getEmbedding([
+        $response = $this->api->agrSite->openSearch->listEmbedding([
             'text' => 'Another test',
             'model' => 'custom-model',
         ]);

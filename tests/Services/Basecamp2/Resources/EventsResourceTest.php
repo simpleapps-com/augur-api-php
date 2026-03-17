@@ -21,8 +21,14 @@ final class EventsResourceTest extends AugurApiTestCase
         $response = $this->api->basecamp2->events->list();
 
         $this->assertCount(2, $response->data);
-        $this->assertEquals('created', $response->data[0]['action']);
-        $this->assertEquals('Todo', $response->data[0]['recordable_type']);
+
+        /** @var list<array<string, mixed>> $data */
+        $data = $response->data;
+        $this->assertEquals('created', $data[0]['action']);
+
+        /** @var list<array<string, mixed>> $data */
+        $data = $response->data;
+        $this->assertEquals('Todo', $data[0]['recordable_type']);
         $this->assertRequestPath('/events');
         $this->assertRequestMethod('GET');
         $this->assertHasSiteIdHeader();

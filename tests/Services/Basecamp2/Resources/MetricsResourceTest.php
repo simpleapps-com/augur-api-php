@@ -21,8 +21,14 @@ final class MetricsResourceTest extends AugurApiTestCase
         $response = $this->api->basecamp2->metrics->list();
 
         $this->assertCount(2, $response->data);
-        $this->assertEquals('completion_rate', $response->data[0]['metric_type']);
-        $this->assertEquals(85.5, $response->data[0]['value']);
+
+        /** @var list<array<string, mixed>> $data */
+        $data = $response->data;
+        $this->assertEquals('completion_rate', $data[0]['metric_type']);
+
+        /** @var list<array<string, mixed>> $data */
+        $data = $response->data;
+        $this->assertEquals(85.5, $data[0]['value']);
         $this->assertRequestPath('/metrics');
         $this->assertRequestMethod('GET');
         $this->assertHasSiteIdHeader();

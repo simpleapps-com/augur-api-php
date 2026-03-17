@@ -15,7 +15,7 @@ final class AkashaResourceTest extends AugurApiTestCase
     {
         $this->mockResponse(['content' => 'Generated AI response']);
 
-        $response = $this->api->agrInfo->akasha->generate([
+        $response = $this->api->agrInfo->akasha->createGenerate([
             'prompt' => 'Test prompt',
             'model' => 'default',
         ]);
@@ -32,7 +32,7 @@ final class AkashaResourceTest extends AugurApiTestCase
     {
         $this->mockResponse(['content' => 'Default response']);
 
-        $response = $this->api->agrInfo->akasha->generate();
+        $response = $this->api->agrInfo->akasha->createGenerate();
 
         $this->assertIsArray($response->data);
         $this->assertRequestMethod('POST');

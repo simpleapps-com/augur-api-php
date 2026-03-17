@@ -6,14 +6,11 @@ namespace AugurApi\Services\Joomla\Resources;
 
 use AugurApi\Core\BaseResponse;
 use AugurApi\Core\Client;
-use AugurApi\Core\Schemas\EdgeCache;
 
 /**
- * Menu resource.
+ * menu resource — generated from spec.
  *
- * @fullPath api.joomla.menu
- * @service joomla
- * @domain cms
+ * DO NOT EDIT — regenerate with: python shared/scripts/generate-php.py joomla
  */
 final class MenuResource
 {
@@ -24,34 +21,44 @@ final class MenuResource
     }
 
     /**
-     * Get menu list.
+     * GET /menu
      *
-     * @fullPath api.joomla.menu.list
      * @param array<string, mixed> $params
-     * @return BaseResponse<array<array<string, mixed>>>
+     * @return BaseResponse<array<string, mixed>>
      */
     public function list(array $params = []): BaseResponse
     {
-        $response = $this->client->get($this->baseUrl, '/menu', $params);
+        $response = $this->client->get($this->baseUrl, '', $params);
 
-        return BaseResponse::fromArray($response, static fn ($data) => $data ?? []);
+        return BaseResponse::fromArray($response, static fn ($data) => $data);
     }
 
     /**
-     * Get menu doc.
+     * GET /menu/{id}/doc
      *
-     * @fullPath api.joomla.menu.getDoc
+     * @param array<string, mixed> $params
      * @return BaseResponse<array<string, mixed>>
      */
-    public function getDoc(int $id, ?EdgeCache $edgeCache = null): BaseResponse
+    public function listDoc(int $id, array $params = []): BaseResponse
     {
         $response = $this->client->get(
             $this->baseUrl,
-            '/menu/{id}/doc',
-            $edgeCache !== null ? ['edgeCache' => $edgeCache->value] : [],
+            '/{id}/doc',
+            $params,
             ['id' => (string) $id],
         );
 
         return BaseResponse::fromArray($response, static fn ($data) => $data);
+    }
+
+    /**
+     * Alias for listDoc — GET /menu/{id}/doc
+     *
+     * @param array<string, mixed> $params
+     * @return BaseResponse<array<string, mixed>>
+     */
+    public function getDoc(int $id, array $params = []): BaseResponse
+    {
+        return $this->listDoc($id, $params);
     }
 }

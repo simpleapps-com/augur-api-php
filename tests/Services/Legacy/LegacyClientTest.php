@@ -5,17 +5,12 @@ declare(strict_types=1);
 namespace AugurApi\Tests\Services\Legacy;
 
 use AugurApi\Services\Legacy\LegacyClient;
-use AugurApi\Services\Legacy\Resources\AlsoBoughtResource;
-use AugurApi\Services\Legacy\Resources\InvMastTagsResource;
-use AugurApi\Services\Legacy\Resources\InvMastWebDescResource;
+use AugurApi\Services\Legacy\Resources\InvMastResource;
 use AugurApi\Services\Legacy\Resources\ItemCategoryResource;
+use AugurApi\Services\Legacy\Resources\LegacyResource;
 use AugurApi\Services\Legacy\Resources\OrdersResource;
-use AugurApi\Services\Legacy\Resources\StateResource;
 use AugurApi\Tests\AugurApiTestCase;
 
-/**
- * Tests for LegacyClient.
- */
 final class LegacyClientTest extends AugurApiTestCase
 {
     public function testLegacyClientAccess(): void
@@ -23,19 +18,9 @@ final class LegacyClientTest extends AugurApiTestCase
         $this->assertInstanceOf(LegacyClient::class, $this->api->legacy);
     }
 
-    public function testAlsoBoughtResourceAccess(): void
+    public function testInvMastResourceAccess(): void
     {
-        $this->assertInstanceOf(AlsoBoughtResource::class, $this->api->legacy->alsoBought);
-    }
-
-    public function testInvMastTagsResourceAccess(): void
-    {
-        $this->assertInstanceOf(InvMastTagsResource::class, $this->api->legacy->invMastTags);
-    }
-
-    public function testInvMastWebDescResourceAccess(): void
-    {
-        $this->assertInstanceOf(InvMastWebDescResource::class, $this->api->legacy->invMastWebDesc);
+        $this->assertInstanceOf(InvMastResource::class, $this->api->legacy->invMast);
     }
 
     public function testItemCategoryResourceAccess(): void
@@ -43,14 +28,14 @@ final class LegacyClientTest extends AugurApiTestCase
         $this->assertInstanceOf(ItemCategoryResource::class, $this->api->legacy->itemCategory);
     }
 
+    public function testLegacyResourceAccess(): void
+    {
+        $this->assertInstanceOf(LegacyResource::class, $this->api->legacy->legacy);
+    }
+
     public function testOrdersResourceAccess(): void
     {
         $this->assertInstanceOf(OrdersResource::class, $this->api->legacy->orders);
-    }
-
-    public function testStateResourceAccess(): void
-    {
-        $this->assertInstanceOf(StateResource::class, $this->api->legacy->state);
     }
 
     public function testHealthCheck(): void
@@ -86,5 +71,12 @@ final class LegacyClientTest extends AugurApiTestCase
         $this->assertRequestPath('/whoami');
         $this->assertRequestMethod('GET');
         $this->assertHasSiteIdHeader();
+    }
+
+    public function testServiceClientIsCached(): void
+    {
+        $legacy1 = $this->api->legacy;
+        $legacy2 = $this->api->legacy;
+        $this->assertSame($legacy1, $legacy2);
     }
 }

@@ -15,7 +15,7 @@ final class JoomlaResourceTest extends AugurApiTestCase
     {
         $this->mockResponse(['content' => 'Joomla AI generated content']);
 
-        $response = $this->api->agrInfo->joomla->generate([
+        $response = $this->api->agrInfo->joomla->createGenerate([
             'prompt' => 'Test Joomla prompt',
             'model' => 'joomla-model',
         ]);
@@ -32,7 +32,7 @@ final class JoomlaResourceTest extends AugurApiTestCase
     {
         $this->mockResponse(['content' => 'Default Joomla response']);
 
-        $response = $this->api->agrInfo->joomla->generate();
+        $response = $this->api->agrInfo->joomla->createGenerate();
 
         $this->assertIsArray($response->data);
         $this->assertRequestMethod('POST');

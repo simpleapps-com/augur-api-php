@@ -23,8 +23,14 @@ final class InvProfileHdrResourceTest extends AugurApiTestCase
         $response = $this->api->vmi->invProfileHdr->list();
 
         $this->assertCount(2, $response->data);
-        $this->assertEquals(1, $response->data[0]['invProfileHdrUid']);
-        $this->assertEquals('Profile A', $response->data[0]['name']);
+
+        /** @var list<array<string, mixed>> $data */
+        $data = $response->data;
+        $this->assertEquals(1, $data[0]['invProfileHdrUid']);
+
+        /** @var list<array<string, mixed>> $data */
+        $data = $response->data;
+        $this->assertEquals('Profile A', $data[0]['name']);
         $this->assertRequestMethod('GET');
         $this->assertRequestPath('/inv-profile-hdr');
         $this->assertHasSiteIdHeader();
@@ -101,7 +107,7 @@ final class InvProfileHdrResourceTest extends AugurApiTestCase
 
         $response = $this->api->vmi->invProfileHdr->delete(1);
 
-        $this->assertTrue($response->data);
+        $this->assertIsArray($response->data);
         $this->assertRequestMethod('DELETE');
         $this->assertRequestPath('/inv-profile-hdr/1');
     }
@@ -114,7 +120,7 @@ final class InvProfileHdrResourceTest extends AugurApiTestCase
             'status' => 'success',
         ]);
 
-        $response = $this->api->vmi->invProfileHdr->uploadCreate(100);
+        $response = $this->api->vmi->invProfileHdr->createUpload(100);
 
         $this->assertEquals(100, $response->data['customerId']);
         $this->assertEquals(5, $response->data['profilesCreated']);
@@ -132,7 +138,10 @@ final class InvProfileHdrResourceTest extends AugurApiTestCase
         $response = $this->api->vmi->invProfileHdr->listInvProfileLine(1);
 
         $this->assertCount(2, $response->data);
-        $this->assertEquals(1, $response->data[0]['invProfileLineUid']);
+
+        /** @var list<array<string, mixed>> $data */
+        $data = $response->data;
+        $this->assertEquals(1, $data[0]['invProfileLineUid']);
         $this->assertRequestMethod('GET');
         $this->assertRequestPath('/inv-profile-hdr/1/inv-profile-line');
     }
@@ -174,9 +183,11 @@ final class InvProfileHdrResourceTest extends AugurApiTestCase
             'minQty' => 15,
         ]);
 
-        $response = $this->api->vmi->invProfileHdr->createInvProfileLine(1, [
+        /** @var array<string, mixed> $lineData */
+        $lineData = [
             ['invMastUid' => 1002, 'invProfileLineType' => 'products', 'minQty' => 15],
-        ]);
+        ];
+        $response = $this->api->vmi->invProfileHdr->createInvProfileLine(1, $lineData);
 
         $this->assertEquals(3, $response->data['invProfileLineUid']);
         $this->assertRequestMethod('POST');
@@ -205,7 +216,7 @@ final class InvProfileHdrResourceTest extends AugurApiTestCase
 
         $response = $this->api->vmi->invProfileHdr->deleteInvProfileLine(1, 1);
 
-        $this->assertTrue($response->data);
+        $this->assertIsArray($response->data);
         $this->assertRequestMethod('DELETE');
         $this->assertRequestPath('/inv-profile-hdr/1/inv-profile-line/1');
     }

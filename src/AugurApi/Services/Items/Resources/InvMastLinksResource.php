@@ -6,14 +6,11 @@ namespace AugurApi\Services\Items\Resources;
 
 use AugurApi\Core\BaseResponse;
 use AugurApi\Core\Client;
-use AugurApi\Core\Schemas\EdgeCache;
 
 /**
- * Inv Mast Links resource.
+ * invMastLinks resource — generated from spec.
  *
- * @fullPath api.items.invMastLinks
- * @service items
- * @domain inventory-management
+ * DO NOT EDIT — regenerate with: python shared/scripts/generate-php.py items
  */
 final class InvMastLinksResource
 {
@@ -24,20 +21,20 @@ final class InvMastLinksResource
     }
 
     /**
-     * List inventory master links.
+     * GET /inv-mast-links/{invMastUid}
      *
-     * @fullPath api.items.invMastLinks.list
-     * @return BaseResponse<array<array<string, mixed>>>
+     * @param array<string, mixed> $params
+     * @return BaseResponse<array<string, mixed>>
      */
-    public function list(int $invMastUid, ?EdgeCache $edgeCache = null): BaseResponse
+    public function get(int $invMastUid, array $params = []): BaseResponse
     {
         $response = $this->client->get(
             $this->baseUrl,
-            '/inv-mast-links/{invMastUid}',
-            $edgeCache !== null ? ['edgeCache' => $edgeCache->value] : [],
+            '/{invMastUid}',
+            $params,
             ['invMastUid' => (string) $invMastUid],
         );
 
-        return BaseResponse::fromArray($response, static fn ($data) => $data ?? []);
+        return BaseResponse::fromArray($response, static fn ($data) => $data);
     }
 }

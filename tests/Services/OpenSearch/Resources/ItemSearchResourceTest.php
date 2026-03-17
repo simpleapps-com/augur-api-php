@@ -19,7 +19,7 @@ final class ItemSearchResourceTest extends AugurApiTestCase
             'query' => 'test',
         ]);
 
-        $response = $this->api->openSearch->itemSearch->search(['q' => 'test']);
+        $response = $this->api->openSearch->itemSearch->list(['q' => 'test']);
 
         $this->assertCount(2, $response->data['hits']);
         $this->assertEquals('ITEM001', $response->data['hits'][0]['itemId']);
@@ -37,7 +37,7 @@ final class ItemSearchResourceTest extends AugurApiTestCase
             'total' => 1,
         ]);
 
-        $response = $this->api->openSearch->itemSearch->search([
+        $response = $this->api->openSearch->itemSearch->list([
             'q' => 'product',
             'brand' => 'BrandA',
             'category' => 'Electronics',
@@ -57,7 +57,7 @@ final class ItemSearchResourceTest extends AugurApiTestCase
             'perPage' => 10,
         ]);
 
-        $response = $this->api->openSearch->itemSearch->search([
+        $response = $this->api->openSearch->itemSearch->list([
             'q' => 'item',
             'page' => 2,
             'perPage' => 10,
@@ -74,7 +74,7 @@ final class ItemSearchResourceTest extends AugurApiTestCase
             'total' => 0,
         ]);
 
-        $response = $this->api->openSearch->itemSearch->search([]);
+        $response = $this->api->openSearch->itemSearch->list([]);
 
         $this->assertEmpty($response->data['hits']);
         $this->assertEquals(0, $response->data['total']);
@@ -90,7 +90,7 @@ final class ItemSearchResourceTest extends AugurApiTestCase
             'query' => 'shirt',
         ]);
 
-        $response = $this->api->openSearch->itemSearch->getAttributes(['q' => 'shirt']);
+        $response = $this->api->openSearch->itemSearch->listAttributes(['q' => 'shirt']);
 
         $this->assertCount(2, $response->data['attributes']);
         $this->assertEquals('Color', $response->data['attributes'][0]['name']);
@@ -107,7 +107,7 @@ final class ItemSearchResourceTest extends AugurApiTestCase
             ],
         ]);
 
-        $response = $this->api->openSearch->itemSearch->getAttributes([
+        $response = $this->api->openSearch->itemSearch->listAttributes([
             'q' => 'shirt',
             'category' => 'Apparel',
         ]);
@@ -121,7 +121,7 @@ final class ItemSearchResourceTest extends AugurApiTestCase
             'attributes' => [],
         ]);
 
-        $response = $this->api->openSearch->itemSearch->getAttributes([]);
+        $response = $this->api->openSearch->itemSearch->listAttributes([]);
 
         $this->assertEmpty($response->data['attributes']);
     }

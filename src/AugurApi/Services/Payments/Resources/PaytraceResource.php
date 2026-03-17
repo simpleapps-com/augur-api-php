@@ -8,11 +8,9 @@ use AugurApi\Core\BaseResponse;
 use AugurApi\Core\Client;
 
 /**
- * Paytrace payment resource.
+ * paytrace resource — generated from spec.
  *
- * @fullPath api.payments.paytrace
- * @service payments
- * @domain payments
+ * DO NOT EDIT — regenerate with: python shared/scripts/generate-php.py payments
  */
 final class PaytraceResource
 {
@@ -23,72 +21,67 @@ final class PaytraceResource
     }
 
     /**
-     * Authorize a credit card transaction (pre-auth).
+     * POST /paytrace/authorization
      *
-     * @fullPath api.payments.paytrace.authorization
      * @param array<string, mixed> $data
      * @return BaseResponse<array<string, mixed>>
      */
-    public function authorization(array $data): BaseResponse
+    public function createAuthorization(array $data = []): BaseResponse
     {
-        $response = $this->client->post($this->baseUrl, '/paytrace/authorization', $data);
+        $response = $this->client->post($this->baseUrl, '/authorization', $data);
 
-        return BaseResponse::fromArray($response, static fn ($d) => $d);
+        return BaseResponse::fromArray($response, static fn ($data) => $data);
     }
 
     /**
-     * Capture a previously authorized transaction.
+     * POST /paytrace/capture
      *
-     * @fullPath api.payments.paytrace.capture
      * @param array<string, mixed> $data
      * @return BaseResponse<array<string, mixed>>
      */
-    public function capture(array $data): BaseResponse
+    public function createCapture(array $data = []): BaseResponse
     {
-        $response = $this->client->post($this->baseUrl, '/paytrace/capture', $data);
+        $response = $this->client->post($this->baseUrl, '/capture', $data);
 
-        return BaseResponse::fromArray($response, static fn ($d) => $d);
+        return BaseResponse::fromArray($response, static fn ($data) => $data);
     }
 
     /**
-     * Process a sale transaction (authorize and capture).
+     * POST /paytrace/refund
      *
-     * @fullPath api.payments.paytrace.sale
      * @param array<string, mixed> $data
      * @return BaseResponse<array<string, mixed>>
      */
-    public function sale(array $data): BaseResponse
+    public function createRefund(array $data = []): BaseResponse
     {
-        $response = $this->client->post($this->baseUrl, '/paytrace/sale', $data);
+        $response = $this->client->post($this->baseUrl, '/refund', $data);
 
-        return BaseResponse::fromArray($response, static fn ($d) => $d);
+        return BaseResponse::fromArray($response, static fn ($data) => $data);
     }
 
     /**
-     * Refund a settled transaction.
+     * POST /paytrace/sale
      *
-     * @fullPath api.payments.paytrace.refund
      * @param array<string, mixed> $data
      * @return BaseResponse<array<string, mixed>>
      */
-    public function refund(array $data): BaseResponse
+    public function createSale(array $data = []): BaseResponse
     {
-        $response = $this->client->post($this->baseUrl, '/paytrace/refund', $data);
+        $response = $this->client->post($this->baseUrl, '/sale', $data);
 
-        return BaseResponse::fromArray($response, static fn ($d) => $d);
+        return BaseResponse::fromArray($response, static fn ($data) => $data);
     }
 
     /**
-     * Void a pending transaction.
+     * POST /paytrace/void
      *
-     * @fullPath api.payments.paytrace.void
      * @param array<string, mixed> $data
      * @return BaseResponse<array<string, mixed>>
      */
-    public function void(array $data): BaseResponse
+    public function createVoid(array $data = []): BaseResponse
     {
-        $response = $this->client->post($this->baseUrl, '/paytrace/void', $data);
+        $response = $this->client->post($this->baseUrl, '/void', $data);
 
-        return BaseResponse::fromArray($response, static fn ($d) => $d);
+        return BaseResponse::fromArray($response, static fn ($data) => $data);
     }
 }

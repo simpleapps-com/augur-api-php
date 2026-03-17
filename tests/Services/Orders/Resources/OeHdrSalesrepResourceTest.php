@@ -8,54 +8,58 @@ use AugurApi\Tests\AugurApiTestCase;
 
 final class OeHdrSalesrepResourceTest extends AugurApiTestCase
 {
-    public function testGetOeHdr(): void
+    public function testListOeHdr(): void
     {
         $this->mockListResponse([
             [
-                'orderNo' => 'ORD001',
+                'orderNo' => 1001,
                 'customerId' => 'CUST001',
                 'orderDate' => '2024-01-15',
                 'total' => 2500.00,
             ],
             [
-                'orderNo' => 'ORD002',
+                'orderNo' => 1002,
                 'customerId' => 'CUST002',
                 'orderDate' => '2024-01-16',
                 'total' => 3500.00,
             ],
         ]);
 
-        $response = $this->api->orders->oeHdrSalesrep->getOeHdr('SALES001');
+        $response = $this->api->orders->oeHdrSalesrep->listOeHdr(100);
 
         $this->assertCount(2, $response->data);
-        $this->assertEquals('ORD001', $response->data[0]['orderNo']);
-        $this->assertRequestPath('/oe-hdr-salesrep/SALES001/oe-hdr');
+        /** @var list<array<string, mixed>> $data */
+        $data = $response->data;
+        $this->assertEquals(1001, $data[0]['orderNo']);
+        $this->assertRequestPath('/oe-hdr-salesrep/100/oe-hdr');
         $this->assertRequestMethod('GET');
         $this->assertHasAuthHeader();
     }
 
-    public function testGetOeHdrWithParams(): void
+    public function testListOeHdrWithParams(): void
     {
         $this->mockListResponse([
-            ['orderNo' => 'ORD001', 'status' => 'open'],
+            ['orderNo' => 1001, 'status' => 'open'],
         ]);
 
-        $response = $this->api->orders->oeHdrSalesrep->getOeHdr('SALES001', [
+        $response = $this->api->orders->oeHdrSalesrep->listOeHdr(100, [
             'status' => 'open',
             'limit' => 10,
         ]);
 
         $this->assertCount(1, $response->data);
-        $this->assertEquals('open', $response->data[0]['status']);
+        /** @var list<array<string, mixed>> $data */
+        $data = $response->data;
+        $this->assertEquals('open', $data[0]['status']);
     }
 
-    public function testGetOeHdrWithDateRange(): void
+    public function testListOeHdrWithDateRange(): void
     {
         $this->mockListResponse([
-            ['orderNo' => 'ORD003', 'orderDate' => '2024-01-10'],
+            ['orderNo' => 1003, 'orderDate' => '2024-01-10'],
         ]);
 
-        $response = $this->api->orders->oeHdrSalesrep->getOeHdr('SALES001', [
+        $response = $this->api->orders->oeHdrSalesrep->listOeHdr(100, [
             'startDate' => '2024-01-01',
             'endDate' => '2024-01-15',
         ]);
@@ -63,22 +67,22 @@ final class OeHdrSalesrepResourceTest extends AugurApiTestCase
         $this->assertCount(1, $response->data);
     }
 
-    public function testGetOeHdrEmpty(): void
+    public function testListOeHdrEmpty(): void
     {
         $this->mockListResponse([]);
 
-        $response = $this->api->orders->oeHdrSalesrep->getOeHdr('SALES999');
+        $response = $this->api->orders->oeHdrSalesrep->listOeHdr(999);
 
         $this->assertIsArray($response->data);
         $this->assertEmpty($response->data);
-        $this->assertRequestPath('/oe-hdr-salesrep/SALES999/oe-hdr');
+        $this->assertRequestPath('/oe-hdr-salesrep/999/oe-hdr');
     }
 
-    public function testGetOeHdrDoc(): void
+    public function testListOeHdrDoc(): void
     {
         $this->mockResponse([
-            'orderNo' => 'ORD001',
-            'salesrepId' => 'SALES001',
+            'orderNo' => 12345,
+            'salesrepId' => 100,
             'customerId' => 'CUST001',
             'customerName' => 'Test Customer',
             'total' => 2500.00,
@@ -88,27 +92,27 @@ final class OeHdrSalesrepResourceTest extends AugurApiTestCase
             ],
         ]);
 
-        $response = $this->api->orders->oeHdrSalesrep->getOeHdrDoc('SALES001', 'ORD001');
+        $response = $this->api->orders->oeHdrSalesrep->listOeHdrDoc(12345, 100);
 
-        $this->assertEquals('ORD001', $response->data['orderNo']);
-        $this->assertEquals('SALES001', $response->data['salesrepId']);
+        $this->assertEquals(12345, $response->data['orderNo']);
+        $this->assertEquals(100, $response->data['salesrepId']);
         $this->assertEquals(125.00, $response->data['commission']);
         $this->assertCount(1, $response->data['lines']);
-        $this->assertRequestPath('/oe-hdr-salesrep/SALES001/oe-hdr/ORD001/doc');
+        $this->assertRequestPath('/oe-hdr-salesrep/100/oe-hdr/12345/doc');
         $this->assertRequestMethod('GET');
     }
 
-    public function testGetOeHdrDocWithDifferentIds(): void
+    public function testGetOeHdrDocAlias(): void
     {
         $this->mockResponse([
-            'orderNo' => 'ORD999',
-            'salesrepId' => 'SALES002',
+            'orderNo' => 99999,
+            'salesrepId' => 200,
         ]);
 
-        $response = $this->api->orders->oeHdrSalesrep->getOeHdrDoc('SALES002', 'ORD999');
+        $response = $this->api->orders->oeHdrSalesrep->getOeHdrDoc(99999, 200);
 
-        $this->assertEquals('ORD999', $response->data['orderNo']);
-        $this->assertEquals('SALES002', $response->data['salesrepId']);
-        $this->assertRequestPath('/oe-hdr-salesrep/SALES002/oe-hdr/ORD999/doc');
+        $this->assertEquals(99999, $response->data['orderNo']);
+        $this->assertEquals(200, $response->data['salesrepId']);
+        $this->assertRequestPath('/oe-hdr-salesrep/200/oe-hdr/99999/doc');
     }
 }

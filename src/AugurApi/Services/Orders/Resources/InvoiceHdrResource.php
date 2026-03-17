@@ -6,14 +6,11 @@ namespace AugurApi\Services\Orders\Resources;
 
 use AugurApi\Core\BaseResponse;
 use AugurApi\Core\Client;
-use AugurApi\Core\Schemas\EdgeCache;
 
 /**
- * Invoice header resource.
+ * invoiceHdr resource — generated from spec.
  *
- * @fullPath api.orders.invoiceHdr
- * @service orders
- * @domain order-management
+ * DO NOT EDIT — regenerate with: python shared/scripts/generate-php.py orders
  */
 final class InvoiceHdrResource
 {
@@ -24,18 +21,18 @@ final class InvoiceHdrResource
     }
 
     /**
-     * Reprint an invoice.
+     * GET /invoice-hdr/{invoiceNo}/reprint
      *
-     * @fullPath api.orders.invoiceHdr.reprint
+     * @param array<string, mixed> $params
      * @return BaseResponse<array<string, mixed>>
      */
-    public function reprint(string $invoiceNo, ?EdgeCache $edgeCache = null): BaseResponse
+    public function listReprint(int $invoiceNo, array $params = []): BaseResponse
     {
         $response = $this->client->get(
             $this->baseUrl,
-            '/invoice-hdr/{invoiceNo}/reprint',
-            $edgeCache !== null ? ['edgeCache' => $edgeCache->value] : [],
-            ['invoiceNo' => $invoiceNo],
+            '/{invoiceNo}/reprint',
+            $params,
+            ['invoiceNo' => (string) $invoiceNo],
         );
 
         return BaseResponse::fromArray($response, static fn ($data) => $data);

@@ -6,16 +6,11 @@ namespace AugurApi\Services\Items\Resources;
 
 use AugurApi\Core\BaseResponse;
 use AugurApi\Core\Client;
-use AugurApi\Core\Schemas\EdgeCache;
-use AugurApi\Services\Items\Schemas\Brand;
-use AugurApi\Services\Items\Schemas\BrandsListParams;
 
 /**
- * Brands resource.
+ * brands resource — generated from spec.
  *
- * @fullPath api.items.brands
- * @service items
- * @domain inventory-management
+ * DO NOT EDIT — regenerate with: python shared/scripts/generate-php.py items
  */
 final class BrandsResource
 {
@@ -26,143 +21,116 @@ final class BrandsResource
     }
 
     /**
-     * List all brands.
+     * GET /brands
      *
-     * @fullPath api.items.brands.list
-     * @param BrandsListParams|array<string, mixed>|null $params
-     * @return BaseResponse<array<Brand>>
+     * @param array<string, mixed> $params
+     * @return BaseResponse<array<string, mixed>>
      */
-    public function list(BrandsListParams|array|null $params = null): BaseResponse
+    public function list(array $params = []): BaseResponse
     {
-        $queryParams = match (true) {
-            $params instanceof BrandsListParams => $params->toArray(),
-            is_array($params) => $params,
-            default => [],
-        };
+        $response = $this->client->get($this->baseUrl, '', $params);
 
-        $response = $this->client->get($this->baseUrl, '/brands', $queryParams);
-
-        return BaseResponse::fromArray($response, static function ($data): array {
-            if (!is_array($data)) {
-                return [];
-            }
-            return array_map(static fn ($item) => Brand::fromArray($item), $data);
-        });
+        return BaseResponse::fromArray($response, static fn ($data) => $data);
     }
 
     /**
-     * Get a brand by UID.
+     * POST /brands
      *
-     * @fullPath api.items.brands.get
-     * @return BaseResponse<Brand>
-     */
-    public function get(int $brandsUid, ?EdgeCache $edgeCache = null): BaseResponse
-    {
-        $response = $this->client->get(
-            $this->baseUrl,
-            '/brands/{brandsUid}',
-            $edgeCache !== null ? ['edgeCache' => $edgeCache->value] : [],
-            ['brandsUid' => (string) $brandsUid],
-        );
-
-        return BaseResponse::fromArray(
-            $response,
-            static fn ($data) => Brand::fromArray($data),
-        );
-    }
-
-    /**
-     * Create a new brand.
-     *
-     * @fullPath api.items.brands.create
      * @param array<string, mixed> $data
-     * @return BaseResponse<Brand>
+     * @return BaseResponse<array<string, mixed>>
      */
-    public function create(array $data): BaseResponse
+    public function create(array $data = []): BaseResponse
     {
-        $response = $this->client->post($this->baseUrl, '/brands', $data);
+        $response = $this->client->post($this->baseUrl, '', $data);
 
-        return BaseResponse::fromArray(
-            $response,
-            static fn ($data) => Brand::fromArray($data),
-        );
+        return BaseResponse::fromArray($response, static fn ($data) => $data);
     }
 
     /**
-     * Update a brand.
+     * DELETE /brands/{brandsUid}
      *
-     * @fullPath api.items.brands.update
-     * @param array<string, mixed> $data
-     * @return BaseResponse<Brand>
-     */
-    public function update(int $brandsUid, array $data): BaseResponse
-    {
-        $response = $this->client->put(
-            $this->baseUrl,
-            '/brands/{brandsUid}',
-            $data,
-            ['brandsUid' => (string) $brandsUid],
-        );
-
-        return BaseResponse::fromArray(
-            $response,
-            static fn ($data) => Brand::fromArray($data),
-        );
-    }
-
-    /**
-     * Delete a brand.
-     *
-     * @fullPath api.items.brands.delete
-     * @return BaseResponse<bool>
+     * @return BaseResponse<array<string, mixed>>
      */
     public function delete(int $brandsUid): BaseResponse
     {
         $response = $this->client->delete(
             $this->baseUrl,
-            '/brands/{brandsUid}',
+            '/{brandsUid}',
             ['brandsUid' => (string) $brandsUid],
         );
 
-        return BaseResponse::fromArray($response, static fn ($data) => (bool) $data);
+        return BaseResponse::fromArray($response, static fn ($data) => $data);
     }
 
     /**
-     * Get attributes for a brand.
+     * GET /brands/{brandsUid}
      *
-     * @fullPath api.items.brands.getAttributes
-     * @return BaseResponse<array<array<string, mixed>>>
+     * @param array<string, mixed> $params
+     * @return BaseResponse<array<string, mixed>>
      */
-    public function getAttributes(int $brandsUid, ?EdgeCache $edgeCache = null): BaseResponse
+    public function get(int $brandsUid, array $params = []): BaseResponse
     {
         $response = $this->client->get(
             $this->baseUrl,
-            '/brands/{brandsUid}/attributes',
-            $edgeCache !== null ? ['edgeCache' => $edgeCache->value] : [],
+            '/{brandsUid}',
+            $params,
             ['brandsUid' => (string) $brandsUid],
         );
 
-        return BaseResponse::fromArray($response, static fn ($data) => $data ?? []);
+        return BaseResponse::fromArray($response, static fn ($data) => $data);
     }
 
     /**
-     * Get items for a brand.
+     * PUT /brands/{brandsUid}
      *
-     * @fullPath api.items.brands.getItems
-     * @param array<string, mixed>|null $params
-     * @return BaseResponse<array<array<string, mixed>>>
+     * @param array<string, mixed> $data
+     * @return BaseResponse<array<string, mixed>>
      */
-    public function getItems(int $brandsUid, ?array $params = null): BaseResponse
+    public function update(int $brandsUid, array $data = []): BaseResponse
     {
-        $queryParams = $params ?? [];
-
-        $response = $this->client->get(
+        $response = $this->client->put(
             $this->baseUrl,
-            '/brands/{brandsUid}/items',
-            $queryParams,
+            '/{brandsUid}',
+            $data,
             ['brandsUid' => (string) $brandsUid],
         );
 
-        return BaseResponse::fromArray($response, static fn ($data) => $data ?? []);
+        return BaseResponse::fromArray($response, static fn ($data) => $data);
+    }
+
+    /**
+     * GET /brands/{brandsUid}/attributes
+     *
+     * @param array<string, mixed> $params
+     * @return BaseResponse<array<string, mixed>>
+     */
+    public function listAttributes(int $brandsUid, array $params = []): BaseResponse
+    {
+        $response = $this->client->get(
+            $this->baseUrl,
+            '/{brandsUid}/attributes',
+            $params,
+            ['brandsUid' => (string) $brandsUid],
+        );
+
+        return BaseResponse::fromArray($response, static fn ($data) => $data);
+    }
+
+    /**
+     * GET /brands/{brandsUid}/items
+     *
+     * @param array<string, mixed> $params
+     * @return BaseResponse<array<string, mixed>>
+     */
+    public function listItems(int $brandsUid, array $params = []): BaseResponse
+    {
+        $response = $this->client->get(
+            $this->baseUrl,
+            '/{brandsUid}/items',
+            $params,
+            ['brandsUid' => (string) $brandsUid],
+        );
+
+        return BaseResponse::fromArray($response, static fn ($data) => $data);
     }
 }

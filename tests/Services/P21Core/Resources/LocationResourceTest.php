@@ -23,8 +23,14 @@ final class LocationResourceTest extends AugurApiTestCase
         $response = $this->api->p21Core->location->list();
 
         $this->assertCount(2, $response->data);
-        $this->assertEquals(100, $response->data[0]['locationId']);
-        $this->assertEquals('Main Warehouse', $response->data[0]['locationName']);
+
+        /** @var list<array<string, mixed>> $data */
+        $data = $response->data;
+        $this->assertEquals(100, $data[0]['locationId']);
+
+        /** @var list<array<string, mixed>> $data */
+        $data = $response->data;
+        $this->assertEquals('Main Warehouse', $data[0]['locationName']);
         $this->assertRequestMethod('GET');
         $this->assertRequestPath('/location');
         $this->assertHasSiteIdHeader();

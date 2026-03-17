@@ -21,8 +21,10 @@ final class GeoCodesPostalCodesResourceTest extends AugurApiTestCase
         $response = $this->api->agrSite->geoCodesPostalCodes->list();
 
         $this->assertCount(2, $response->data);
-        $this->assertEquals('12345', $response->data[0]['postalCode']);
-        $this->assertEquals('Test City', $response->data[0]['city']);
+        /** @var list<array<string, mixed>> $data */
+        $data = $response->data;
+        $this->assertEquals('12345', $data[0]['postalCode']);
+        $this->assertEquals('Test City', $data[0]['city']);
         $this->assertRequestPath('/geo-codes-postal-codes');
         $this->assertRequestMethod('GET');
         $this->assertHasSiteIdHeader();

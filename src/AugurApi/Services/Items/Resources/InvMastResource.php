@@ -6,16 +6,11 @@ namespace AugurApi\Services\Items\Resources;
 
 use AugurApi\Core\BaseResponse;
 use AugurApi\Core\Client;
-use AugurApi\Core\Schemas\EdgeCache;
-use AugurApi\Services\Items\Schemas\InvMast;
-use AugurApi\Services\Items\Schemas\InvMastListParams;
 
 /**
- * Inventory master resource.
+ * invMast resource — generated from spec.
  *
- * @fullPath api.items.invMast
- * @service items
- * @domain inventory-management
+ * DO NOT EDIT — regenerate with: python shared/scripts/generate-php.py items
  */
 final class InvMastResource
 {
@@ -26,82 +21,43 @@ final class InvMastResource
     }
 
     /**
-     * List inventory items.
+     * GET /inv-mast
      *
-     * @fullPath api.items.invMast.list
-     * @param InvMastListParams|array<string, mixed>|null $params
-     * @return BaseResponse<array<InvMast>>
-     */
-    public function list(InvMastListParams|array|null $params = null): BaseResponse
-    {
-        $queryParams = match (true) {
-            $params instanceof InvMastListParams => $params->toArray(),
-            is_array($params) => $params,
-            default => [],
-        };
-
-        $response = $this->client->get($this->baseUrl, '/inv-mast', $queryParams);
-
-        return BaseResponse::fromArray($response, static function ($data): array {
-            if (!is_array($data)) {
-                return [];
-            }
-            return array_map(static fn ($item) => InvMast::fromArray($item), $data);
-        });
-    }
-
-    /**
-     * Get an inventory item by UID.
-     *
-     * @fullPath api.items.invMast.get
-     * @return BaseResponse<InvMast>
-     */
-    public function get(int $invMastUid, ?EdgeCache $edgeCache = null): BaseResponse
-    {
-        $response = $this->client->get(
-            $this->baseUrl,
-            '/inv-mast/{invMastUid}',
-            $edgeCache !== null ? ['edgeCache' => $edgeCache->value] : [],
-            ['invMastUid' => (string) $invMastUid],
-        );
-
-        return BaseResponse::fromArray(
-            $response,
-            static fn ($data) => InvMast::fromArray($data),
-        );
-    }
-
-    /**
-     * Lookup inventory items.
-     *
-     * @fullPath api.items.invMast.lookup
      * @param array<string, mixed> $params
-     * @return BaseResponse<array<InvMast>>
-     */
-    public function lookup(array $params = []): BaseResponse
-    {
-        $response = $this->client->get($this->baseUrl, '/inv-mast/lookup', $params);
-
-        return BaseResponse::fromArray($response, static function ($data): array {
-            if (!is_array($data)) {
-                return [];
-            }
-            return array_map(static fn ($item) => InvMast::fromArray($item), $data);
-        });
-    }
-
-    /**
-     * Get inventory item document.
-     *
-     * @fullPath api.items.invMast.getDoc
      * @return BaseResponse<array<string, mixed>>
      */
-    public function getDoc(int $invMastUid, ?EdgeCache $edgeCache = null): BaseResponse
+    public function list(array $params = []): BaseResponse
+    {
+        $response = $this->client->get($this->baseUrl, '', $params);
+
+        return BaseResponse::fromArray($response, static fn ($data) => $data);
+    }
+
+    /**
+     * GET /inv-mast/lookup
+     *
+     * @param array<string, mixed> $params
+     * @return BaseResponse<array<string, mixed>>
+     */
+    public function getLookup(array $params = []): BaseResponse
+    {
+        $response = $this->client->get($this->baseUrl, '/lookup', $params);
+
+        return BaseResponse::fromArray($response, static fn ($data) => $data);
+    }
+
+    /**
+     * GET /inv-mast/{invMastUid}
+     *
+     * @param array<string, mixed> $params
+     * @return BaseResponse<array<string, mixed>>
+     */
+    public function get(int $invMastUid, array $params = []): BaseResponse
     {
         $response = $this->client->get(
             $this->baseUrl,
-            '/inv-mast/{invMastUid}/doc',
-            $edgeCache !== null ? ['edgeCache' => $edgeCache->value] : [],
+            '/{invMastUid}',
+            $params,
             ['invMastUid' => (string) $invMastUid],
         );
 
@@ -109,396 +65,351 @@ final class InvMastResource
     }
 
     /**
-     * Get inventory item stock.
+     * GET /inv-mast/{invMastUid}/alternate-code
      *
-     * @fullPath api.items.invMast.getStock
-     * @return BaseResponse<array<array<string, mixed>>>
+     * @param array<string, mixed> $params
+     * @return BaseResponse<array<string, mixed>>
      */
-    public function getStock(int $invMastUid, ?EdgeCache $edgeCache = null): BaseResponse
+    public function listAlternateCode(int $invMastUid, array $params = []): BaseResponse
     {
         $response = $this->client->get(
             $this->baseUrl,
-            '/inv-mast/{invMastUid}/stock',
-            $edgeCache !== null ? ['edgeCache' => $edgeCache->value] : [],
+            '/{invMastUid}/alternate-code',
+            $params,
             ['invMastUid' => (string) $invMastUid],
         );
 
-        return BaseResponse::fromArray($response, static fn ($data) => $data ?? []);
+        return BaseResponse::fromArray($response, static fn ($data) => $data);
     }
 
     /**
-     * Get alternate codes for an inventory item.
+     * GET /inv-mast/{invMastUid}/attributes
      *
-     * @fullPath api.items.invMast.getAlternateCode
-     * @param array<string, mixed>|null $params
-     * @return BaseResponse<array<array<string, mixed>>>
+     * @param array<string, mixed> $params
+     * @return BaseResponse<array<string, mixed>>
      */
-    public function getAlternateCode(int $invMastUid, ?array $params = null): BaseResponse
+    public function listAttributes(int $invMastUid, array $params = []): BaseResponse
     {
-        $queryParams = $params ?? [];
-
         $response = $this->client->get(
             $this->baseUrl,
-            '/inv-mast/{invMastUid}/alternate-code',
-            $queryParams,
+            '/{invMastUid}/attributes',
+            $params,
             ['invMastUid' => (string) $invMastUid],
         );
 
-        return BaseResponse::fromArray($response, static fn ($data) => $data ?? []);
+        return BaseResponse::fromArray($response, static fn ($data) => $data);
     }
 
     /**
-     * Get attributes for an inventory item.
+     * POST /inv-mast/{invMastUid}/attributes
      *
-     * @fullPath api.items.invMast.getAttributes
-     * @param array<string, mixed>|null $params
-     * @return BaseResponse<array<array<string, mixed>>>
-     */
-    public function getAttributes(int $invMastUid, ?array $params = null): BaseResponse
-    {
-        $queryParams = $params ?? [];
-
-        $response = $this->client->get(
-            $this->baseUrl,
-            '/inv-mast/{invMastUid}/attributes',
-            $queryParams,
-            ['invMastUid' => (string) $invMastUid],
-        );
-
-        return BaseResponse::fromArray($response, static fn ($data) => $data ?? []);
-    }
-
-    /**
-     * Create attributes for an inventory item.
-     *
-     * @fullPath api.items.invMast.createAttributes
      * @param array<string, mixed> $data
      * @return BaseResponse<array<string, mixed>>
      */
-    public function createAttributes(int $invMastUid, array $data): BaseResponse
+    public function createAttributes(int $invMastUid, array $data = []): BaseResponse
     {
         $response = $this->client->post(
             $this->baseUrl,
-            '/inv-mast/{invMastUid}/attributes',
+            '/{invMastUid}/attributes',
             $data,
             ['invMastUid' => (string) $invMastUid],
         );
 
-        return BaseResponse::fromArray($response, static fn ($data) => $data ?? []);
+        return BaseResponse::fromArray($response, static fn ($data) => $data);
     }
 
     /**
-     * Get attribute values for an inventory item attribute.
+     * GET /inv-mast/{invMastUid}/attributes/{attributeUid}/values
      *
-     * @fullPath api.items.invMast.getAttributeValues
-     * @param array<string, mixed>|null $params
-     * @return BaseResponse<array<array<string, mixed>>>
-     */
-    public function getAttributeValues(
-        int $invMastUid,
-        int $attributeUid,
-        ?array $params = null,
-    ): BaseResponse {
-        $queryParams = $params ?? [];
-
-        $response = $this->client->get(
-            $this->baseUrl,
-            '/inv-mast/{invMastUid}/attributes/{attributeUid}/values',
-            $queryParams,
-            [
-                'invMastUid' => (string) $invMastUid,
-                'attributeUid' => (string) $attributeUid,
-            ],
-        );
-
-        return BaseResponse::fromArray($response, static fn ($data) => $data ?? []);
-    }
-
-    /**
-     * Create attribute values for an inventory item attribute.
-     *
-     * @fullPath api.items.invMast.createAttributeValues
-     * @param array<string, mixed> $data
+     * @param array<string, mixed> $params
      * @return BaseResponse<array<string, mixed>>
      */
-    public function createAttributeValues(
-        int $invMastUid,
-        int $attributeUid,
-        array $data,
-    ): BaseResponse {
-        $response = $this->client->post(
-            $this->baseUrl,
-            '/inv-mast/{invMastUid}/attributes/{attributeUid}/values',
-            $data,
-            [
-                'invMastUid' => (string) $invMastUid,
-                'attributeUid' => (string) $attributeUid,
-            ],
-        );
-
-        return BaseResponse::fromArray($response, static fn ($data) => $data ?? []);
-    }
-
-    /**
-     * Update an attribute value for an inventory item attribute.
-     *
-     * @fullPath api.items.invMast.updateAttributeValue
-     * @param array<string, mixed> $data
-     * @return BaseResponse<array<string, mixed>>
-     */
-    public function updateAttributeValue(
-        int $invMastUid,
-        int $attributeUid,
-        int $attributeValueUid,
-        array $data,
-    ): BaseResponse {
-        $response = $this->client->put(
-            $this->baseUrl,
-            '/inv-mast/{invMastUid}/attributes/{attributeUid}/values/{attributeValueUid}',
-            $data,
-            [
-                'invMastUid' => (string) $invMastUid,
-                'attributeUid' => (string) $attributeUid,
-                'attributeValueUid' => (string) $attributeValueUid,
-            ],
-        );
-
-        return BaseResponse::fromArray($response, static fn ($data) => $data ?? []);
-    }
-
-    /**
-     * Delete an attribute value for an inventory item attribute.
-     *
-     * @fullPath api.items.invMast.deleteAttributeValue
-     * @return BaseResponse<bool>
-     */
-    public function deleteAttributeValue(
-        int $invMastUid,
-        int $attributeUid,
-        int $attributeValueUid,
-    ): BaseResponse {
-        $response = $this->client->delete(
-            $this->baseUrl,
-            '/inv-mast/{invMastUid}/attributes/{attributeUid}/values/{attributeValueUid}',
-            [
-                'invMastUid' => (string) $invMastUid,
-                'attributeUid' => (string) $attributeUid,
-                'attributeValueUid' => (string) $attributeValueUid,
-            ],
-        );
-
-        return BaseResponse::fromArray($response, static fn ($data) => (bool) $data);
-    }
-
-    /**
-     * List FAQs for an inventory item.
-     *
-     * @fullPath api.items.invMast.listFaq
-     * @param array<string, mixed>|null $params
-     * @return BaseResponse<array<array<string, mixed>>>
-     */
-    public function listFaq(int $invMastUid, ?array $params = null): BaseResponse
-    {
-        $queryParams = $params ?? [];
-
-        $response = $this->client->get(
-            $this->baseUrl,
-            '/inv-mast/{invMastUid}/faq',
-            $queryParams,
-            ['invMastUid' => (string) $invMastUid],
-        );
-
-        return BaseResponse::fromArray($response, static fn ($data) => $data ?? []);
-    }
-
-    /**
-     * Get a specific FAQ for an inventory item.
-     *
-     * @fullPath api.items.invMast.getFaq
-     * @return BaseResponse<array<string, mixed>>
-     */
-    public function getFaq(int $invMastUid, int $invMastFaqUid, ?EdgeCache $edgeCache = null): BaseResponse
+    public function listAttributesValues(int $attributeUid, int $invMastUid, array $params = []): BaseResponse
     {
         $response = $this->client->get(
             $this->baseUrl,
-            '/inv-mast/{invMastUid}/faq/{invMastFaqUid}',
-            $edgeCache !== null ? ['edgeCache' => $edgeCache->value] : [],
-            [
-                'invMastUid' => (string) $invMastUid,
-                'invMastFaqUid' => (string) $invMastFaqUid,
-            ],
+            '/{invMastUid}/attributes/{attributeUid}/values',
+            $params,
+            ['attributeUid' => (string) $attributeUid, 'invMastUid' => (string) $invMastUid],
         );
 
-        return BaseResponse::fromArray($response, static fn ($data) => $data ?? []);
+        return BaseResponse::fromArray($response, static fn ($data) => $data);
     }
 
     /**
-     * Create a FAQ for an inventory item.
+     * POST /inv-mast/{invMastUid}/attributes/{attributeUid}/values
      *
-     * @fullPath api.items.invMast.createFaq
      * @param array<string, mixed> $data
      * @return BaseResponse<array<string, mixed>>
      */
-    public function createFaq(int $invMastUid, array $data): BaseResponse
+    public function createAttributesValues(int $attributeUid, int $invMastUid, array $data = []): BaseResponse
     {
         $response = $this->client->post(
             $this->baseUrl,
-            '/inv-mast/{invMastUid}/faq',
+            '/{invMastUid}/attributes/{attributeUid}/values',
             $data,
-            ['invMastUid' => (string) $invMastUid],
+            ['attributeUid' => (string) $attributeUid, 'invMastUid' => (string) $invMastUid],
         );
 
-        return BaseResponse::fromArray($response, static fn ($data) => $data ?? []);
+        return BaseResponse::fromArray($response, static fn ($data) => $data);
     }
 
     /**
-     * Update a FAQ for an inventory item.
+     * DELETE /inv-mast/{invMastUid}/attributes/{attributeUid}/values/{attributeValueUid}
      *
-     * @fullPath api.items.invMast.updateFaq
-     * @param array<string, mixed> $data
      * @return BaseResponse<array<string, mixed>>
      */
-    public function updateFaq(int $invMastUid, int $invMastFaqUid, array $data): BaseResponse
-    {
-        $response = $this->client->put(
-            $this->baseUrl,
-            '/inv-mast/{invMastUid}/faq/{invMastFaqUid}',
-            $data,
-            [
-                'invMastUid' => (string) $invMastUid,
-                'invMastFaqUid' => (string) $invMastFaqUid,
-            ],
-        );
-
-        return BaseResponse::fromArray($response, static fn ($data) => $data ?? []);
-    }
-
-    /**
-     * Delete a FAQ for an inventory item.
-     *
-     * @fullPath api.items.invMast.deleteFaq
-     * @return BaseResponse<bool>
-     */
-    public function deleteFaq(int $invMastUid, int $invMastFaqUid): BaseResponse
+    public function deleteAttributesValues(int $attributeUid, int $attributeValueUid, int $invMastUid): BaseResponse
     {
         $response = $this->client->delete(
             $this->baseUrl,
-            '/inv-mast/{invMastUid}/faq/{invMastFaqUid}',
-            [
-                'invMastUid' => (string) $invMastUid,
-                'invMastFaqUid' => (string) $invMastFaqUid,
-            ],
+            '/{invMastUid}/attributes/{attributeUid}/values/{attributeValueUid}',
+            ['attributeUid' => (string) $attributeUid, 'attributeValueUid' => (string) $attributeValueUid, 'invMastUid' => (string) $invMastUid],
         );
 
-        return BaseResponse::fromArray($response, static fn ($data) => (bool) $data);
+        return BaseResponse::fromArray($response, static fn ($data) => $data);
     }
 
     /**
-     * Get accessories for an inventory item.
+     * PUT /inv-mast/{invMastUid}/attributes/{attributeUid}/values/{attributeValueUid}
      *
-     * @fullPath api.items.invMast.getAccessories
-     * @param array<string, mixed>|null $params
-     * @return BaseResponse<array<array<string, mixed>>>
-     */
-    public function getAccessories(int $invMastUid, ?array $params = null): BaseResponse
-    {
-        $queryParams = $params ?? [];
-
-        $response = $this->client->get(
-            $this->baseUrl,
-            '/inv-mast/{invMastUid}/inv-accessory',
-            $queryParams,
-            ['invMastUid' => (string) $invMastUid],
-        );
-
-        return BaseResponse::fromArray($response, static fn ($data) => $data ?? []);
-    }
-
-    /**
-     * Get substitutes for an inventory item.
-     *
-     * @fullPath api.items.invMast.getSubstitutes
-     * @param array<string, mixed>|null $params
-     * @return BaseResponse<array<array<string, mixed>>>
-     */
-    public function getSubstitutes(int $invMastUid, ?array $params = null): BaseResponse
-    {
-        $queryParams = $params ?? [];
-
-        $response = $this->client->get(
-            $this->baseUrl,
-            '/inv-mast/{invMastUid}/inv-sub',
-            $queryParams,
-            ['invMastUid' => (string) $invMastUid],
-        );
-
-        return BaseResponse::fromArray($response, static fn ($data) => $data ?? []);
-    }
-
-    /**
-     * Get bins for an inventory item at a location.
-     *
-     * @fullPath api.items.invMast.getLocationBins
-     * @param array<string, mixed>|null $params
-     * @return BaseResponse<array<array<string, mixed>>>
-     */
-    public function getLocationBins(
-        int $invMastUid,
-        int $locationId,
-        ?array $params = null,
-    ): BaseResponse {
-        $queryParams = $params ?? [];
-
-        $response = $this->client->get(
-            $this->baseUrl,
-            '/inv-mast/{invMastUid}/locations/{locationId}/bins',
-            $queryParams,
-            [
-                'invMastUid' => (string) $invMastUid,
-                'locationId' => (string) $locationId,
-            ],
-        );
-
-        return BaseResponse::fromArray($response, static fn ($data) => $data ?? []);
-    }
-
-    /**
-     * Get a specific bin for an inventory item at a location.
-     *
-     * @fullPath api.items.invMast.getLocationBin
+     * @param array<string, mixed> $data
      * @return BaseResponse<array<string, mixed>>
      */
-    public function getLocationBin(int $invMastUid, int $locationId, string $bin, ?EdgeCache $edgeCache = null): BaseResponse
+    public function updateAttributesValues(int $attributeUid, int $attributeValueUid, int $invMastUid, array $data = []): BaseResponse
     {
-        $response = $this->client->get(
+        $response = $this->client->put(
             $this->baseUrl,
-            '/inv-mast/{invMastUid}/locations/{locationId}/bins/{bin}',
-            $edgeCache !== null ? ['edgeCache' => $edgeCache->value] : [],
-            [
-                'invMastUid' => (string) $invMastUid,
-                'locationId' => (string) $locationId,
-                'bin' => $bin,
-            ],
+            '/{invMastUid}/attributes/{attributeUid}/values/{attributeValueUid}',
+            $data,
+            ['attributeUid' => (string) $attributeUid, 'attributeValueUid' => (string) $attributeValueUid, 'invMastUid' => (string) $invMastUid],
         );
 
-        return BaseResponse::fromArray($response, static fn ($data) => $data ?? []);
+        return BaseResponse::fromArray($response, static fn ($data) => $data);
     }
 
     /**
-     * Get similar items for an inventory item.
+     * GET /inv-mast/{invMastUid}/doc
      *
-     * @fullPath api.items.invMast.getSimilar
-     * @return BaseResponse<array<array<string, mixed>>>
+     * @param array<string, mixed> $params
+     * @return BaseResponse<array<string, mixed>>
      */
-    public function getSimilar(int $invMastUid, ?EdgeCache $edgeCache = null): BaseResponse
+    public function listDoc(int $invMastUid, array $params = []): BaseResponse
     {
         $response = $this->client->get(
             $this->baseUrl,
-            '/inv-mast/{invMastUid}/similar',
-            $edgeCache !== null ? ['edgeCache' => $edgeCache->value] : [],
+            '/{invMastUid}/doc',
+            $params,
             ['invMastUid' => (string) $invMastUid],
         );
 
-        return BaseResponse::fromArray($response, static fn ($data) => $data ?? []);
+        return BaseResponse::fromArray($response, static fn ($data) => $data);
+    }
+
+    /**
+     * Alias for listDoc — GET /inv-mast/{invMastUid}/doc
+     *
+     * @param array<string, mixed> $params
+     * @return BaseResponse<array<string, mixed>>
+     */
+    public function getDoc(int $invMastUid, array $params = []): BaseResponse
+    {
+        return $this->listDoc($invMastUid, $params);
+    }
+
+    /**
+     * GET /inv-mast/{invMastUid}/faq
+     *
+     * @param array<string, mixed> $params
+     * @return BaseResponse<array<string, mixed>>
+     */
+    public function listFaq(int $invMastUid, array $params = []): BaseResponse
+    {
+        $response = $this->client->get(
+            $this->baseUrl,
+            '/{invMastUid}/faq',
+            $params,
+            ['invMastUid' => (string) $invMastUid],
+        );
+
+        return BaseResponse::fromArray($response, static fn ($data) => $data);
+    }
+
+    /**
+     * POST /inv-mast/{invMastUid}/faq
+     *
+     * @param array<string, mixed> $data
+     * @return BaseResponse<array<string, mixed>>
+     */
+    public function createFaq(int $invMastUid, array $data = []): BaseResponse
+    {
+        $response = $this->client->post(
+            $this->baseUrl,
+            '/{invMastUid}/faq',
+            $data,
+            ['invMastUid' => (string) $invMastUid],
+        );
+
+        return BaseResponse::fromArray($response, static fn ($data) => $data);
+    }
+
+    /**
+     * DELETE /inv-mast/{invMastUid}/faq/{invMastFaqUid}
+     *
+     * @return BaseResponse<array<string, mixed>>
+     */
+    public function deleteFaq(int $invMastFaqUid, int $invMastUid): BaseResponse
+    {
+        $response = $this->client->delete(
+            $this->baseUrl,
+            '/{invMastUid}/faq/{invMastFaqUid}',
+            ['invMastFaqUid' => (string) $invMastFaqUid, 'invMastUid' => (string) $invMastUid],
+        );
+
+        return BaseResponse::fromArray($response, static fn ($data) => $data);
+    }
+
+    /**
+     * GET /inv-mast/{invMastUid}/faq/{invMastFaqUid}
+     *
+     * @param array<string, mixed> $params
+     * @return BaseResponse<array<string, mixed>>
+     */
+    public function getFaq(int $invMastFaqUid, int $invMastUid, array $params = []): BaseResponse
+    {
+        $response = $this->client->get(
+            $this->baseUrl,
+            '/{invMastUid}/faq/{invMastFaqUid}',
+            $params,
+            ['invMastFaqUid' => (string) $invMastFaqUid, 'invMastUid' => (string) $invMastUid],
+        );
+
+        return BaseResponse::fromArray($response, static fn ($data) => $data);
+    }
+
+    /**
+     * PUT /inv-mast/{invMastUid}/faq/{invMastFaqUid}
+     *
+     * @param array<string, mixed> $data
+     * @return BaseResponse<array<string, mixed>>
+     */
+    public function updateFaq(int $invMastFaqUid, int $invMastUid, array $data = []): BaseResponse
+    {
+        $response = $this->client->put(
+            $this->baseUrl,
+            '/{invMastUid}/faq/{invMastFaqUid}',
+            $data,
+            ['invMastFaqUid' => (string) $invMastFaqUid, 'invMastUid' => (string) $invMastUid],
+        );
+
+        return BaseResponse::fromArray($response, static fn ($data) => $data);
+    }
+
+    /**
+     * GET /inv-mast/{invMastUid}/inv-accessory
+     *
+     * @param array<string, mixed> $params
+     * @return BaseResponse<array<string, mixed>>
+     */
+    public function listInvAccessory(int $invMastUid, array $params = []): BaseResponse
+    {
+        $response = $this->client->get(
+            $this->baseUrl,
+            '/{invMastUid}/inv-accessory',
+            $params,
+            ['invMastUid' => (string) $invMastUid],
+        );
+
+        return BaseResponse::fromArray($response, static fn ($data) => $data);
+    }
+
+    /**
+     * GET /inv-mast/{invMastUid}/inv-sub
+     *
+     * @param array<string, mixed> $params
+     * @return BaseResponse<array<string, mixed>>
+     */
+    public function listInvSub(int $invMastUid, array $params = []): BaseResponse
+    {
+        $response = $this->client->get(
+            $this->baseUrl,
+            '/{invMastUid}/inv-sub',
+            $params,
+            ['invMastUid' => (string) $invMastUid],
+        );
+
+        return BaseResponse::fromArray($response, static fn ($data) => $data);
+    }
+
+    /**
+     * GET /inv-mast/{invMastUid}/locations/{locationId}/bins
+     *
+     * @param array<string, mixed> $params
+     * @return BaseResponse<array<string, mixed>>
+     */
+    public function listLocationsBins(int $invMastUid, int $locationId, array $params = []): BaseResponse
+    {
+        $response = $this->client->get(
+            $this->baseUrl,
+            '/{invMastUid}/locations/{locationId}/bins',
+            $params,
+            ['invMastUid' => (string) $invMastUid, 'locationId' => (string) $locationId],
+        );
+
+        return BaseResponse::fromArray($response, static fn ($data) => $data);
+    }
+
+    /**
+     * GET /inv-mast/{invMastUid}/locations/{locationId}/bins/{bin}
+     *
+     * @param array<string, mixed> $params
+     * @return BaseResponse<array<string, mixed>>
+     */
+    public function getLocationsBins(string $bin, int $invMastUid, int $locationId, array $params = []): BaseResponse
+    {
+        $response = $this->client->get(
+            $this->baseUrl,
+            '/{invMastUid}/locations/{locationId}/bins/{bin}',
+            $params,
+            ['bin' => (string) $bin, 'invMastUid' => (string) $invMastUid, 'locationId' => (string) $locationId],
+        );
+
+        return BaseResponse::fromArray($response, static fn ($data) => $data);
+    }
+
+    /**
+     * GET /inv-mast/{invMastUid}/similar
+     *
+     * @param array<string, mixed> $params
+     * @return BaseResponse<array<string, mixed>>
+     */
+    public function listSimilar(int $invMastUid, array $params = []): BaseResponse
+    {
+        $response = $this->client->get(
+            $this->baseUrl,
+            '/{invMastUid}/similar',
+            $params,
+            ['invMastUid' => (string) $invMastUid],
+        );
+
+        return BaseResponse::fromArray($response, static fn ($data) => $data);
+    }
+
+    /**
+     * GET /inv-mast/{invMastUid}/stock
+     *
+     * @param array<string, mixed> $params
+     * @return BaseResponse<array<string, mixed>>
+     */
+    public function getStock(int $invMastUid, array $params = []): BaseResponse
+    {
+        $response = $this->client->get(
+            $this->baseUrl,
+            '/{invMastUid}/stock',
+            $params,
+            ['invMastUid' => (string) $invMastUid],
+        );
+
+        return BaseResponse::fromArray($response, static fn ($data) => $data);
     }
 }

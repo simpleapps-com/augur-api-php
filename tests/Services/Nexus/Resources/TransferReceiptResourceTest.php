@@ -21,8 +21,14 @@ final class TransferReceiptResourceTest extends AugurApiTestCase
         $response = $this->api->nexus->transferReceipt->list();
 
         $this->assertCount(2, $response->data);
-        $this->assertEquals(1, $response->data[0]['transferReceiptUid']);
-        $this->assertEquals('received', $response->data[0]['status']);
+
+        /** @var list<array<string, mixed>> $data */
+        $data = $response->data;
+        $this->assertEquals(1, $data[0]['transferReceiptUid']);
+
+        /** @var list<array<string, mixed>> $data */
+        $data = $response->data;
+        $this->assertEquals('received', $data[0]['status']);
         $this->assertRequestPath('/transfer-receipt');
         $this->assertRequestMethod('GET');
         $this->assertHasSiteIdHeader();

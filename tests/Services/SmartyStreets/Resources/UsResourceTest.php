@@ -25,7 +25,7 @@ final class UsResourceTest extends AugurApiTestCase
             'longitude' => -77.0365,
         ]);
 
-        $response = $this->api->smartyStreets->us->lookup([
+        $response = $this->api->smartyStreets->us->getLookup([
             'street' => '1600 Pennsylvania Ave',
             'city' => 'Washington',
             'state' => 'DC',
@@ -52,7 +52,7 @@ final class UsResourceTest extends AugurApiTestCase
             'valid' => true,
         ]);
 
-        $response = $this->api->smartyStreets->us->lookup([
+        $response = $this->api->smartyStreets->us->getLookup([
             'street' => '350 5th Ave',
             'zipcode' => '10118',
         ]);
@@ -74,7 +74,7 @@ final class UsResourceTest extends AugurApiTestCase
             'errorMessage' => 'Address not found',
         ]);
 
-        $response = $this->api->smartyStreets->us->lookup([
+        $response = $this->api->smartyStreets->us->getLookup([
             'street' => '123 Fake Street',
             'city' => 'Nowhere',
             'state' => 'XX',
@@ -91,7 +91,7 @@ final class UsResourceTest extends AugurApiTestCase
             'street' => '123 Main St',
         ]);
 
-        $response = $this->api->smartyStreets->us->lookup([
+        $response = $this->api->smartyStreets->us->getLookup([
             'street' => '123 Main St',
             'zipcode' => '12345',
         ]);
@@ -111,7 +111,7 @@ final class UsResourceTest extends AugurApiTestCase
             'valid' => true,
         ]);
 
-        $response = $this->api->smartyStreets->us->lookup([
+        $response = $this->api->smartyStreets->us->getLookup([
             'street' => '123 Main St',
             'secondary' => 'Apt 4B',
             'city' => 'Anytown',

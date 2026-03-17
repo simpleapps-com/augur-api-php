@@ -8,11 +8,9 @@ use AugurApi\Core\BaseResponse;
 use AugurApi\Core\Client;
 
 /**
- * Transaction category resource.
+ * transCategory resource — generated from spec.
  *
- * @fullPath api.p21Apis.transCategory
- * @service p21-apis
- * @domain category-management
+ * DO NOT EDIT — regenerate with: python shared/scripts/generate-php.py p21-apis
  */
 final class TransCategoryResource
 {
@@ -23,69 +21,65 @@ final class TransCategoryResource
     }
 
     /**
-     * Create a new transaction category.
+     * POST /trans-category
      *
-     * @fullPath api.p21Apis.transCategory.create
      * @param array<string, mixed> $data
      * @return BaseResponse<array<string, mixed>>
      */
-    public function create(array $data): BaseResponse
+    public function create(array $data = []): BaseResponse
     {
-        $response = $this->client->post($this->baseUrl, '/trans-category', $data);
+        $response = $this->client->post($this->baseUrl, '', $data);
 
-        return BaseResponse::fromArray($response, static fn ($d) => $d);
+        return BaseResponse::fromArray($response, static fn ($data) => $data);
     }
 
     /**
-     * Get transaction category details by category UID.
+     * DELETE /trans-category/{categoryUid}
      *
-     * @fullPath api.p21Apis.transCategory.get
-     * @param array<string, mixed> $params
      * @return BaseResponse<array<string, mixed>>
      */
-    public function get(int $categoryUid, array $params = []): BaseResponse
+    public function delete(int $category_uid): BaseResponse
     {
-        $response = $this->client->get(
+        $response = $this->client->delete(
             $this->baseUrl,
-            '/trans-category/{categoryUid}',
-            $params,
-            ['categoryUid' => (string) $categoryUid],
+            '/{categoryUid}',
+            ['category_uid' => (string) $category_uid],
         );
 
         return BaseResponse::fromArray($response, static fn ($data) => $data);
     }
 
     /**
-     * Update transaction category by category UID.
+     * GET /trans-category/{categoryUid}
      *
-     * @fullPath api.p21Apis.transCategory.update
-     * @param array<string, mixed> $data
+     * @param array<string, mixed> $params
      * @return BaseResponse<array<string, mixed>>
      */
-    public function update(int $categoryUid, array $data): BaseResponse
+    public function get(int $category_uid, array $params = []): BaseResponse
     {
-        $response = $this->client->put(
+        $response = $this->client->get(
             $this->baseUrl,
-            '/trans-category/{categoryUid}',
-            $data,
-            ['categoryUid' => (string) $categoryUid],
+            '/{categoryUid}',
+            $params,
+            ['category_uid' => (string) $category_uid],
         );
 
-        return BaseResponse::fromArray($response, static fn ($d) => $d);
+        return BaseResponse::fromArray($response, static fn ($data) => $data);
     }
 
     /**
-     * Delete transaction category by category UID.
+     * PUT /trans-category/{categoryUid}
      *
-     * @fullPath api.p21Apis.transCategory.delete
+     * @param array<string, mixed> $data
      * @return BaseResponse<array<string, mixed>>
      */
-    public function delete(int $categoryUid): BaseResponse
+    public function update(int $category_uid, array $data = []): BaseResponse
     {
-        $response = $this->client->delete(
+        $response = $this->client->put(
             $this->baseUrl,
-            '/trans-category/{categoryUid}',
-            ['categoryUid' => (string) $categoryUid],
+            '/{categoryUid}',
+            $data,
+            ['category_uid' => (string) $category_uid],
         );
 
         return BaseResponse::fromArray($response, static fn ($data) => $data);

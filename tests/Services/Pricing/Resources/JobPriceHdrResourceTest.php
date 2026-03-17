@@ -18,8 +18,14 @@ final class JobPriceHdrResourceTest extends AugurApiTestCase
         $response = $this->api->pricing->jobPriceHdr->list();
 
         $this->assertCount(2, $response->data);
-        $this->assertEquals('Project A', $response->data[0]['jobName']);
-        $this->assertEquals('active', $response->data[0]['status']);
+
+        /** @var list<array<string, mixed>> $data */
+        $data = $response->data;
+        $this->assertEquals('Project A', $data[0]['jobName']);
+
+        /** @var list<array<string, mixed>> $data */
+        $data = $response->data;
+        $this->assertEquals('active', $data[0]['status']);
         $this->assertRequestPath('/job-price-hdr');
         $this->assertRequestMethod('GET');
         $this->assertHasAuthHeader();
@@ -105,11 +111,17 @@ final class JobPriceHdrResourceTest extends AugurApiTestCase
             ],
         ]);
 
-        $response = $this->api->pricing->jobPriceHdr->getLines(123);
+        $response = $this->api->pricing->jobPriceHdr->listLines(123);
 
         $this->assertCount(2, $response->data);
-        $this->assertEquals('ITEM001', $response->data[0]['itemId']);
-        $this->assertEquals(2500.00, $response->data[0]['lineTotal']);
+
+        /** @var list<array<string, mixed>> $data */
+        $data = $response->data;
+        $this->assertEquals('ITEM001', $data[0]['itemId']);
+
+        /** @var list<array<string, mixed>> $data */
+        $data = $response->data;
+        $this->assertEquals(2500.00, $data[0]['lineTotal']);
         $this->assertRequestPath('/job-price-hdr/123/lines');
         $this->assertRequestMethod('GET');
     }
@@ -120,7 +132,7 @@ final class JobPriceHdrResourceTest extends AugurApiTestCase
             ['jobPriceLineUid' => 1, 'itemId' => 'ITEM001'],
         ]);
 
-        $response = $this->api->pricing->jobPriceHdr->getLines(123, [
+        $response = $this->api->pricing->jobPriceHdr->listLines(123, [
             'limit' => 10,
             'orderBy' => 'itemId',
         ]);
@@ -132,7 +144,7 @@ final class JobPriceHdrResourceTest extends AugurApiTestCase
     {
         $this->mockListResponse([]);
 
-        $response = $this->api->pricing->jobPriceHdr->getLines(999);
+        $response = $this->api->pricing->jobPriceHdr->listLines(999);
 
         $this->assertIsArray($response->data);
         $this->assertEmpty($response->data);
@@ -152,7 +164,7 @@ final class JobPriceHdrResourceTest extends AugurApiTestCase
             'netPrice' => 22.50,
         ]);
 
-        $response = $this->api->pricing->jobPriceHdr->getLine(123, 1);
+        $response = $this->api->pricing->jobPriceHdr->getLines(123, 1);
 
         $this->assertEquals(1, $response->data['jobPriceLineUid']);
         $this->assertEquals('ITEM001', $response->data['itemId']);
@@ -170,7 +182,7 @@ final class JobPriceHdrResourceTest extends AugurApiTestCase
             'itemId' => 'ITEM005',
         ]);
 
-        $response = $this->api->pricing->jobPriceHdr->getLine(456, 5);
+        $response = $this->api->pricing->jobPriceHdr->getLines(456, 5);
 
         $this->assertEquals(456, $response->data['jobPriceHdrUid']);
         $this->assertEquals(5, $response->data['jobPriceLineUid']);

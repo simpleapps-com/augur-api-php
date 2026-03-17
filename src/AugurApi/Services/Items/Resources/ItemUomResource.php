@@ -6,14 +6,11 @@ namespace AugurApi\Services\Items\Resources;
 
 use AugurApi\Core\BaseResponse;
 use AugurApi\Core\Client;
-use AugurApi\Core\Schemas\EdgeCache;
 
 /**
- * Item UOM resource.
+ * itemUom resource — generated from spec.
  *
- * @fullPath api.items.itemUom
- * @service items
- * @domain inventory-management
+ * DO NOT EDIT — regenerate with: python shared/scripts/generate-php.py items
  */
 final class ItemUomResource
 {
@@ -24,31 +21,30 @@ final class ItemUomResource
     }
 
     /**
-     * List item units of measure.
+     * GET /item-uom
      *
-     * @fullPath api.items.itemUom.list
      * @param array<string, mixed> $params
-     * @return BaseResponse<array<array<string, mixed>>>
+     * @return BaseResponse<array<string, mixed>>
      */
     public function list(array $params = []): BaseResponse
     {
-        $response = $this->client->get($this->baseUrl, '/item-uom', $params);
+        $response = $this->client->get($this->baseUrl, '', $params);
 
-        return BaseResponse::fromArray($response, static fn ($data) => $data ?? []);
+        return BaseResponse::fromArray($response, static fn ($data) => $data);
     }
 
     /**
-     * Get item unit of measure details.
+     * GET /item-uom/{itemUomUid}
      *
-     * @fullPath api.items.itemUom.get
+     * @param array<string, mixed> $params
      * @return BaseResponse<array<string, mixed>>
      */
-    public function get(int $itemUomUid, ?EdgeCache $edgeCache = null): BaseResponse
+    public function get(int $itemUomUid, array $params = []): BaseResponse
     {
         $response = $this->client->get(
             $this->baseUrl,
-            '/item-uom/{itemUomUid}',
-            $edgeCache !== null ? ['edgeCache' => $edgeCache->value] : [],
+            '/{itemUomUid}',
+            $params,
             ['itemUomUid' => (string) $itemUomUid],
         );
 

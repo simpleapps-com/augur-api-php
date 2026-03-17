@@ -23,8 +23,10 @@ final class ItemUomResourceTest extends AugurApiTestCase
         $response = $this->api->items->itemUom->list();
 
         $this->assertCount(2, $response->data);
-        $this->assertEquals(1, $response->data[0]['itemUomUid']);
-        $this->assertEquals('EA', $response->data[0]['uomCode']);
+        /** @var list<array<string, mixed>> $data */
+        $data = $response->data;
+        $this->assertEquals(1, $data[0]['itemUomUid']);
+        $this->assertEquals('EA', $data[0]['uomCode']);
         $this->assertRequestMethod('GET');
         $this->assertRequestPath('/item-uom');
     }

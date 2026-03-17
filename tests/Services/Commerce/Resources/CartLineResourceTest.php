@@ -18,7 +18,10 @@ final class CartLineResourceTest extends AugurApiTestCase
         $response = $this->api->commerce->cartLine->get(123);
 
         $this->assertCount(2, $response->data);
-        $this->assertEquals('ITEM001', $response->data[0]['itemId']);
+
+        /** @var list<array<string, mixed>> $data */
+        $data = $response->data;
+        $this->assertEquals('ITEM001', $data[0]['itemId']);
         $this->assertRequestPath('/cart-line/123');
         $this->assertRequestMethod('GET');
         $this->assertHasAuthHeader();
@@ -35,18 +38,19 @@ final class CartLineResourceTest extends AugurApiTestCase
         $this->assertRequestPath('/cart-line/999');
     }
 
-    public function testDeleteAll(): void
+    public function testDelete(): void
     {
         $this->mockResponse(['deleted' => true]);
 
-        $response = $this->api->commerce->cartLine->deleteAll(123);
+        $response = $this->api->commerce->cartLine->delete(123);
 
-        $this->assertTrue($response->data);
+        $this->assertIsArray($response->data);
+        $this->assertTrue($response->data['deleted']);
         $this->assertRequestPath('/cart-line/123');
         $this->assertRequestMethod('DELETE');
     }
 
-    public function testAdd(): void
+    public function testCreateAdd(): void
     {
         $this->mockResponse([
             'cartHdrUid' => 123,
@@ -55,7 +59,7 @@ final class CartLineResourceTest extends AugurApiTestCase
             'quantity' => 3,
         ]);
 
-        $response = $this->api->commerce->cartLine->add(123, [
+        $response = $this->api->commerce->cartLine->createAdd(123, [
             'itemId' => 'ITEM001',
             'quantity' => 3,
         ]);
@@ -66,26 +70,7 @@ final class CartLineResourceTest extends AugurApiTestCase
         $this->assertRequestMethod('POST');
     }
 
-    public function testAddWithUnitOfMeasure(): void
-    {
-        $this->mockResponse([
-            'cartHdrUid' => 123,
-            'lineNo' => 2,
-            'itemId' => 'ITEM002',
-            'quantity' => 5,
-            'uom' => 'EA',
-        ]);
-
-        $response = $this->api->commerce->cartLine->add(123, [
-            'itemId' => 'ITEM002',
-            'quantity' => 5,
-            'uom' => 'EA',
-        ]);
-
-        $this->assertEquals('EA', $response->data['uom']);
-    }
-
-    public function testUpdate(): void
+    public function testCreateUpdate(): void
     {
         $this->mockResponse([
             'cartHdrUid' => 123,
@@ -94,7 +79,7 @@ final class CartLineResourceTest extends AugurApiTestCase
             'quantity' => 10,
         ]);
 
-        $response = $this->api->commerce->cartLine->update(123, [
+        $response = $this->api->commerce->cartLine->createUpdate(123, [
             'lineNo' => 1,
             'quantity' => 10,
         ]);
@@ -104,24 +89,26 @@ final class CartLineResourceTest extends AugurApiTestCase
         $this->assertRequestMethod('POST');
     }
 
-    public function testDeleteLine(): void
+    public function testDeleteLines(): void
     {
         $this->mockResponse(['deleted' => true]);
 
-        $response = $this->api->commerce->cartLine->deleteLine(123, 1);
+        $response = $this->api->commerce->cartLine->deleteLines(123, 1);
 
-        $this->assertTrue($response->data);
+        $this->assertIsArray($response->data);
+        $this->assertTrue($response->data['deleted']);
         $this->assertRequestPath('/cart-line/123/lines/1');
         $this->assertRequestMethod('DELETE');
     }
 
-    public function testDeleteLineWithDifferentLineNo(): void
+    public function testDeleteLinesWithDifferentLineNo(): void
     {
         $this->mockResponse(['deleted' => true]);
 
-        $response = $this->api->commerce->cartLine->deleteLine(456, 5);
+        $response = $this->api->commerce->cartLine->deleteLines(456, 5);
 
-        $this->assertTrue($response->data);
+        $this->assertIsArray($response->data);
+        $this->assertTrue($response->data['deleted']);
         $this->assertRequestPath('/cart-line/456/lines/5');
     }
 }

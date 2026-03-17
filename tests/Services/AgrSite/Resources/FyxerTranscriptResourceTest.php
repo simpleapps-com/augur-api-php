@@ -21,7 +21,9 @@ final class FyxerTranscriptResourceTest extends AugurApiTestCase
         $response = $this->api->agrSite->fyxerTranscript->list();
 
         $this->assertCount(2, $response->data);
-        $this->assertEquals('Transcript A', $response->data[0]['title']);
+        /** @var list<array<string, mixed>> $data */
+        $data = $response->data;
+        $this->assertEquals('Transcript A', $data[0]['title']);
         $this->assertRequestPath('/fyxer-transcript');
         $this->assertRequestMethod('GET');
         $this->assertHasSiteIdHeader();
@@ -96,7 +98,8 @@ final class FyxerTranscriptResourceTest extends AugurApiTestCase
 
         $response = $this->api->agrSite->fyxerTranscript->delete(1);
 
-        $this->assertTrue($response->data);
+        $this->assertIsArray($response->data);
+        $this->assertTrue($response->data['success']);
         $this->assertRequestPath('/fyxer-transcript/1');
         $this->assertRequestMethod('DELETE');
     }

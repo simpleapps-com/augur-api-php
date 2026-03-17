@@ -20,7 +20,7 @@ final class ItemsResourceTest extends AugurApiTestCase
             'suggestedDisplayDesc' => 'Premium quality industrial widget with enhanced durability',
         ]);
 
-        $response = $this->api->p21Pim->items->suggestDisplayDesc(12345);
+        $response = $this->api->p21Pim->items->listSuggestDisplayDesc(12345);
 
         $this->assertEquals(12345, $response->data['invMastUid']);
         $this->assertStringContainsString('Premium', $response->data['suggestedDisplayDesc']);
@@ -38,7 +38,7 @@ final class ItemsResourceTest extends AugurApiTestCase
             'confidence' => 0.95,
         ]);
 
-        $response = $this->api->p21Pim->items->suggestDisplayDesc(12345, [
+        $response = $this->api->p21Pim->items->listSuggestDisplayDesc(12345, [
             'style' => 'concise',
             'maxLength' => 100,
         ]);
@@ -54,7 +54,7 @@ final class ItemsResourceTest extends AugurApiTestCase
             'suggestedWebDesc' => 'This premium industrial widget is designed for maximum performance in demanding environments. Features include enhanced durability, precision engineering, and superior materials that ensure long-lasting reliability.',
         ]);
 
-        $response = $this->api->p21Pim->items->suggestWebDesc(12345);
+        $response = $this->api->p21Pim->items->listSuggestWebDesc(12345);
 
         $this->assertEquals(12345, $response->data['invMastUid']);
         $this->assertStringContainsString('premium industrial widget', $response->data['suggestedWebDesc']);
@@ -72,7 +72,7 @@ final class ItemsResourceTest extends AugurApiTestCase
             'wordCount' => 50,
         ]);
 
-        $response = $this->api->p21Pim->items->suggestWebDesc(67890, [
+        $response = $this->api->p21Pim->items->listSuggestWebDesc(67890, [
             'tone' => 'professional',
             'includeBulletPoints' => true,
         ]);

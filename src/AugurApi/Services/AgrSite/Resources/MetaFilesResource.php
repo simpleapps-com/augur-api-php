@@ -8,11 +8,9 @@ use AugurApi\Core\BaseResponse;
 use AugurApi\Core\Client;
 
 /**
- * MetaFiles resource.
+ * metaFiles resource — generated from spec.
  *
- * @fullPath api.agrSite.metaFiles
- * @service agr_site
- * @domain seo-management
+ * DO NOT EDIT — regenerate with: python shared/scripts/generate-php.py agr-site
  */
 final class MetaFilesResource
 {
@@ -23,14 +21,14 @@ final class MetaFilesResource
     }
 
     /**
-     * Get robots.txt configuration.
+     * GET /meta-files/robots
      *
-     * @fullPath api.agrSite.metaFiles.getRobots
-     * @return BaseResponse<string>
+     * @param array<string, mixed> $params
+     * @return BaseResponse<array<string, mixed>>
      */
-    public function getRobots(): BaseResponse
+    public function listRobots(array $params = []): BaseResponse
     {
-        $response = $this->client->get($this->baseUrl, '/meta-files/robots');
+        $response = $this->client->get($this->baseUrl, '/robots', $params);
 
         return BaseResponse::fromArray($response, static fn ($data) => $data);
     }

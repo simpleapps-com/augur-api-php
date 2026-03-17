@@ -16,7 +16,7 @@ final class UnifiedResourceTest extends AugurApiTestCase
             'expiresAt' => '2024-01-15T12:00:00Z',
         ]);
 
-        $response = $this->api->payments->unified->transactionSetup([
+        $response = $this->api->payments->unified->listTransactionSetup([
             'customerId' => 'CUST001',
             'amount' => 250.00,
             'returnUrl' => 'https://mysite.com/return',
@@ -36,7 +36,7 @@ final class UnifiedResourceTest extends AugurApiTestCase
             'billingIncluded' => true,
         ]);
 
-        $response = $this->api->payments->unified->transactionSetup([
+        $response = $this->api->payments->unified->listTransactionSetup([
             'customerId' => 'CUST001',
             'amount' => 500.00,
             'includeBilling' => true,
@@ -54,7 +54,7 @@ final class UnifiedResourceTest extends AugurApiTestCase
             'last4' => '4242',
         ]);
 
-        $response = $this->api->payments->unified->validate([
+        $response = $this->api->payments->unified->listValidate([
             'transactionSetupId' => 'TS123456',
         ]);
 
@@ -72,7 +72,7 @@ final class UnifiedResourceTest extends AugurApiTestCase
             'error' => 'Transaction setup expired',
         ]);
 
-        $response = $this->api->payments->unified->validate([
+        $response = $this->api->payments->unified->listValidate([
             'transactionSetupId' => 'TS999999',
         ]);
 
@@ -96,7 +96,7 @@ final class UnifiedResourceTest extends AugurApiTestCase
             ],
         ]);
 
-        $response = $this->api->payments->unified->accountQuery([
+        $response = $this->api->payments->unified->listAccountQuery([
             'transactionSetupId' => 'TS123456',
         ]);
 
@@ -120,7 +120,7 @@ final class UnifiedResourceTest extends AugurApiTestCase
             ],
         ]);
 
-        $response = $this->api->payments->unified->billingUpdate([
+        $response = $this->api->payments->unified->listBillingUpdate([
             'transactionSetupId' => 'TS123456',
             'street' => '456 New St',
             'city' => 'New City',
@@ -144,7 +144,7 @@ final class UnifiedResourceTest extends AugurApiTestCase
             'cardholderName' => 'John Doe',
         ]);
 
-        $response = $this->api->payments->unified->cardInfo([
+        $response = $this->api->payments->unified->listCardInfo([
             'transactionSetupId' => 'TS123456',
         ]);
 
@@ -165,7 +165,7 @@ final class UnifiedResourceTest extends AugurApiTestCase
             'totalAmount' => 256.25,
         ]);
 
-        $response = $this->api->payments->unified->surcharge([
+        $response = $this->api->payments->unified->listSurcharge([
             'paymentAccountId' => 'PAY789',
             'amount' => 250.00,
         ]);
@@ -186,7 +186,7 @@ final class UnifiedResourceTest extends AugurApiTestCase
             'totalAmount' => 100.00,
         ]);
 
-        $response = $this->api->payments->unified->surcharge([
+        $response = $this->api->payments->unified->listSurcharge([
             'paymentAccountId' => 'PAY123',
             'amount' => 100.00,
         ]);

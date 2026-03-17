@@ -21,7 +21,10 @@ final class ProjectsResourceTest extends AugurApiTestCase
         $response = $this->api->basecamp2->projects->list();
 
         $this->assertCount(2, $response->data);
-        $this->assertEquals('Project Alpha', $response->data[0]['name']);
+
+        /** @var list<array<string, mixed>> $data */
+        $data = $response->data;
+        $this->assertEquals('Project Alpha', $data[0]['name']);
         $this->assertRequestPath('/projects');
         $this->assertRequestMethod('GET');
         $this->assertHasSiteIdHeader();
@@ -63,10 +66,13 @@ final class ProjectsResourceTest extends AugurApiTestCase
             ['id' => 101, 'content' => 'Todo B', 'project_id' => 1],
         ]);
 
-        $response = $this->api->basecamp2->projects->getTodos(1);
+        $response = $this->api->basecamp2->projects->listTodos(1);
 
         $this->assertCount(2, $response->data);
-        $this->assertEquals('Todo A', $response->data[0]['content']);
+
+        /** @var list<array<string, mixed>> $data */
+        $data = $response->data;
+        $this->assertEquals('Todo A', $data[0]['content']);
         $this->assertRequestPath('/projects/1/todos');
         $this->assertRequestMethod('GET');
     }
@@ -77,7 +83,7 @@ final class ProjectsResourceTest extends AugurApiTestCase
             ['id' => 100, 'content' => 'Todo A'],
         ]);
 
-        $response = $this->api->basecamp2->projects->getTodos(1, ['limit' => 5, 'completed' => false]);
+        $response = $this->api->basecamp2->projects->listTodos(1, ['limit' => 5, 'completed' => false]);
 
         $this->assertCount(1, $response->data);
     }
@@ -91,7 +97,7 @@ final class ProjectsResourceTest extends AugurApiTestCase
             'completion_rate' => 70.0,
         ]);
 
-        $response = $this->api->basecamp2->projects->getMetrics(1);
+        $response = $this->api->basecamp2->projects->listMetrics(1);
 
         $this->assertEquals(1, $response->data['project_id']);
         $this->assertEquals(50, $response->data['total_todos']);
@@ -107,7 +113,7 @@ final class ProjectsResourceTest extends AugurApiTestCase
             'total_todos' => 20,
         ]);
 
-        $response = $this->api->basecamp2->projects->getMetrics(1, ['dateFrom' => '2024-01-01']);
+        $response = $this->api->basecamp2->projects->listMetrics(1, ['dateFrom' => '2024-01-01']);
 
         $this->assertEquals(20, $response->data['total_todos']);
     }
@@ -119,10 +125,13 @@ final class ProjectsResourceTest extends AugurApiTestCase
             ['id' => 11, 'name' => 'Todolist B', 'project_id' => 1],
         ]);
 
-        $response = $this->api->basecamp2->projects->getTodolists(1);
+        $response = $this->api->basecamp2->projects->listTodolists(1);
 
         $this->assertCount(2, $response->data);
-        $this->assertEquals('Todolist A', $response->data[0]['name']);
+
+        /** @var list<array<string, mixed>> $data */
+        $data = $response->data;
+        $this->assertEquals('Todolist A', $data[0]['name']);
         $this->assertRequestPath('/projects/1/todolists');
         $this->assertRequestMethod('GET');
     }
@@ -133,7 +142,7 @@ final class ProjectsResourceTest extends AugurApiTestCase
             ['id' => 10, 'name' => 'Todolist A'],
         ]);
 
-        $response = $this->api->basecamp2->projects->getTodolists(1, ['limit' => 5]);
+        $response = $this->api->basecamp2->projects->listTodolists(1, ['limit' => 5]);
 
         $this->assertCount(1, $response->data);
     }
@@ -145,10 +154,13 @@ final class ProjectsResourceTest extends AugurApiTestCase
             ['id' => 101, 'content' => 'Another Todo', 'todolist_id' => 10],
         ]);
 
-        $response = $this->api->basecamp2->projects->getTodolistTodos(1, 10);
+        $response = $this->api->basecamp2->projects->listTodolistsTodos(1, 10);
 
         $this->assertCount(2, $response->data);
-        $this->assertEquals('Todo from Todolist', $response->data[0]['content']);
+
+        /** @var list<array<string, mixed>> $data */
+        $data = $response->data;
+        $this->assertEquals('Todo from Todolist', $data[0]['content']);
         $this->assertRequestPath('/projects/1/todolists/10/todos');
         $this->assertRequestMethod('GET');
     }
@@ -159,7 +171,7 @@ final class ProjectsResourceTest extends AugurApiTestCase
             ['id' => 100, 'content' => 'Todo from Todolist'],
         ]);
 
-        $response = $this->api->basecamp2->projects->getTodolistTodos(1, 10, ['limit' => 5]);
+        $response = $this->api->basecamp2->projects->listTodolistsTodos(1, 10, ['limit' => 5]);
 
         $this->assertCount(1, $response->data);
     }

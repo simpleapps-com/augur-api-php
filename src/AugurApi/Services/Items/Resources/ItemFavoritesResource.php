@@ -6,14 +6,11 @@ namespace AugurApi\Services\Items\Resources;
 
 use AugurApi\Core\BaseResponse;
 use AugurApi\Core\Client;
-use AugurApi\Core\Schemas\EdgeCache;
 
 /**
- * Item Favorites resource.
+ * itemFavorites resource — generated from spec.
  *
- * @fullPath api.items.itemFavorites
- * @service items
- * @domain user-preferences
+ * DO NOT EDIT — regenerate with: python shared/scripts/generate-php.py items
  */
 final class ItemFavoritesResource
 {
@@ -24,92 +21,88 @@ final class ItemFavoritesResource
     }
 
     /**
-     * List user favorites.
+     * GET /item-favorites/{usersId}/items
      *
-     * @fullPath api.items.itemFavorites.list
      * @param array<string, mixed> $params
-     * @return BaseResponse<array<array<string, mixed>>>
+     * @return BaseResponse<array<string, mixed>>
      */
-    public function list(int $usersId, array $params = []): BaseResponse
+    public function listItems(int $usersId, array $params = []): BaseResponse
     {
         $response = $this->client->get(
             $this->baseUrl,
-            '/item-favorites/{usersId}/items',
+            '/{usersId}/items',
             $params,
             ['usersId' => (string) $usersId],
         );
 
-        return BaseResponse::fromArray($response, static fn ($data) => $data ?? []);
+        return BaseResponse::fromArray($response, static fn ($data) => $data);
     }
 
     /**
-     * Get a single user favorite.
+     * POST /item-favorites/{usersId}/items
      *
-     * @fullPath api.items.itemFavorites.get
-     * @return BaseResponse<array<string, mixed>>
-     */
-    public function get(int $usersId, int $invMastUid, ?EdgeCache $edgeCache = null): BaseResponse
-    {
-        $response = $this->client->get(
-            $this->baseUrl,
-            '/item-favorites/{usersId}/items/{invMastUid}',
-            $edgeCache !== null ? ['edgeCache' => $edgeCache->value] : [],
-            ['usersId' => (string) $usersId, 'invMastUid' => (string) $invMastUid],
-        );
-
-        return BaseResponse::fromArray($response, static fn ($d) => $d);
-    }
-
-    /**
-     * Create user favorite.
-     *
-     * @fullPath api.items.itemFavorites.create
      * @param array<string, mixed> $data
      * @return BaseResponse<array<string, mixed>>
      */
-    public function create(int $usersId, array $data): BaseResponse
+    public function createItems(int $usersId, array $data = []): BaseResponse
     {
         $response = $this->client->post(
             $this->baseUrl,
-            '/item-favorites/{usersId}/items',
+            '/{usersId}/items',
             $data,
             ['usersId' => (string) $usersId],
         );
 
-        return BaseResponse::fromArray($response, static fn ($d) => $d);
+        return BaseResponse::fromArray($response, static fn ($data) => $data);
     }
 
     /**
-     * Update user favorite.
+     * DELETE /item-favorites/{usersId}/items/{invMastUid}
      *
-     * @fullPath api.items.itemFavorites.update
-     * @param array<string, mixed> $data
      * @return BaseResponse<array<string, mixed>>
      */
-    public function update(int $usersId, int $invMastUid, array $data): BaseResponse
-    {
-        $response = $this->client->put(
-            $this->baseUrl,
-            '/item-favorites/{usersId}/items/{invMastUid}',
-            $data,
-            ['usersId' => (string) $usersId, 'invMastUid' => (string) $invMastUid],
-        );
-
-        return BaseResponse::fromArray($response, static fn ($d) => $d);
-    }
-
-    /**
-     * Delete user favorite.
-     *
-     * @fullPath api.items.itemFavorites.delete
-     * @return BaseResponse<array<string, mixed>>
-     */
-    public function delete(int $usersId, int $invMastUid): BaseResponse
+    public function deleteItems(int $invMastUid, int $usersId): BaseResponse
     {
         $response = $this->client->delete(
             $this->baseUrl,
-            '/item-favorites/{usersId}/items/{invMastUid}',
-            ['usersId' => (string) $usersId, 'invMastUid' => (string) $invMastUid],
+            '/{usersId}/items/{invMastUid}',
+            ['invMastUid' => (string) $invMastUid, 'usersId' => (string) $usersId],
+        );
+
+        return BaseResponse::fromArray($response, static fn ($data) => $data);
+    }
+
+    /**
+     * GET /item-favorites/{usersId}/items/{invMastUid}
+     *
+     * @param array<string, mixed> $params
+     * @return BaseResponse<array<string, mixed>>
+     */
+    public function getItems(int $invMastUid, int $usersId, array $params = []): BaseResponse
+    {
+        $response = $this->client->get(
+            $this->baseUrl,
+            '/{usersId}/items/{invMastUid}',
+            $params,
+            ['invMastUid' => (string) $invMastUid, 'usersId' => (string) $usersId],
+        );
+
+        return BaseResponse::fromArray($response, static fn ($data) => $data);
+    }
+
+    /**
+     * PUT /item-favorites/{usersId}/items/{invMastUid}
+     *
+     * @param array<string, mixed> $data
+     * @return BaseResponse<array<string, mixed>>
+     */
+    public function updateItems(int $invMastUid, int $usersId, array $data = []): BaseResponse
+    {
+        $response = $this->client->put(
+            $this->baseUrl,
+            '/{usersId}/items/{invMastUid}',
+            $data,
+            ['invMastUid' => (string) $invMastUid, 'usersId' => (string) $usersId],
         );
 
         return BaseResponse::fromArray($response, static fn ($data) => $data);

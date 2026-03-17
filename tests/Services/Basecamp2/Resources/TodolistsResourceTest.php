@@ -21,8 +21,14 @@ final class TodolistsResourceTest extends AugurApiTestCase
         $response = $this->api->basecamp2->todolists->list();
 
         $this->assertCount(2, $response->data);
-        $this->assertEquals('Todolist A', $response->data[0]['name']);
-        $this->assertEquals(5, $response->data[0]['completed_count']);
+
+        /** @var list<array<string, mixed>> $data */
+        $data = $response->data;
+        $this->assertEquals('Todolist A', $data[0]['name']);
+
+        /** @var list<array<string, mixed>> $data */
+        $data = $response->data;
+        $this->assertEquals(5, $data[0]['completed_count']);
         $this->assertRequestPath('/todolists');
         $this->assertRequestMethod('GET');
         $this->assertHasSiteIdHeader();

@@ -8,11 +8,9 @@ use AugurApi\Core\BaseResponse;
 use AugurApi\Core\Client;
 
 /**
- * P21 resource.
+ * p21 resource — generated from spec.
  *
- * @fullPath api.items.p21
- * @service items
- * @domain inventory-management
+ * DO NOT EDIT — regenerate with: python shared/scripts/generate-php.py items
  */
 final class P21Resource
 {
@@ -23,16 +21,15 @@ final class P21Resource
     }
 
     /**
-     * List raw P21 inventory master data.
+     * GET /p21/inv-mast
      *
-     * @fullPath api.items.p21.invMast.list
      * @param array<string, mixed> $params
-     * @return BaseResponse<array<array<string, mixed>>>
+     * @return BaseResponse<array<string, mixed>>
      */
     public function listInvMast(array $params = []): BaseResponse
     {
-        $response = $this->client->get($this->baseUrl, '/p21/inv-mast', $params);
+        $response = $this->client->get($this->baseUrl, '/inv-mast', $params);
 
-        return BaseResponse::fromArray($response, static fn ($data) => $data ?? []);
+        return BaseResponse::fromArray($response, static fn ($data) => $data);
     }
 }

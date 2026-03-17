@@ -6,14 +6,11 @@ namespace AugurApi\Services\Orders\Resources;
 
 use AugurApi\Core\BaseResponse;
 use AugurApi\Core\Client;
-use AugurApi\Core\Schemas\EdgeCache;
 
 /**
- * Pick tickets resource.
+ * pickTickets resource — generated from spec.
  *
- * @fullPath api.orders.pickTickets
- * @service orders
- * @domain order-management
+ * DO NOT EDIT — regenerate with: python shared/scripts/generate-php.py orders
  */
 final class PickTicketsResource
 {
@@ -24,69 +21,67 @@ final class PickTicketsResource
     }
 
     /**
-     * List pick tickets.
+     * GET /pick-tickets
      *
-     * @fullPath api.orders.pickTickets.list
      * @param array<string, mixed> $params
-     * @return BaseResponse<array<array<string, mixed>>>
+     * @return BaseResponse<array<string, mixed>>
      */
     public function list(array $params = []): BaseResponse
     {
-        $response = $this->client->get($this->baseUrl, '/pick-tickets', $params);
+        $response = $this->client->get($this->baseUrl, '', $params);
 
-        return BaseResponse::fromArray($response, static fn ($data) => $data ?? []);
+        return BaseResponse::fromArray($response, static fn ($data) => $data);
     }
 
     /**
-     * Get pick ticket details.
+     * GET /pick-tickets/{pickTicketNo}
      *
-     * @fullPath api.orders.pickTickets.get
+     * @param array<string, mixed> $params
      * @return BaseResponse<array<string, mixed>>
      */
-    public function get(string $pickTicketNo, ?EdgeCache $edgeCache = null): BaseResponse
+    public function get(float $pickTicketNo, array $params = []): BaseResponse
     {
         $response = $this->client->get(
             $this->baseUrl,
-            '/pick-tickets/{pickTicketNo}',
-            $edgeCache !== null ? ['edgeCache' => $edgeCache->value] : [],
-            ['pickTicketNo' => $pickTicketNo],
+            '/{pickTicketNo}',
+            $params,
+            ['pickTicketNo' => (string) $pickTicketNo],
         );
 
         return BaseResponse::fromArray($response, static fn ($data) => $data);
     }
 
     /**
-     * List pick ticket lines.
+     * GET /pick-tickets/{pickTicketNo}/lines
      *
-     * @fullPath api.orders.pickTickets.getLines
      * @param array<string, mixed> $params
-     * @return BaseResponse<array<array<string, mixed>>>
+     * @return BaseResponse<array<string, mixed>>
      */
-    public function getLines(string $pickTicketNo, array $params = []): BaseResponse
+    public function listLines(float $pickTicketNo, array $params = []): BaseResponse
     {
         $response = $this->client->get(
             $this->baseUrl,
-            '/pick-tickets/{pickTicketNo}/lines',
+            '/{pickTicketNo}/lines',
             $params,
-            ['pickTicketNo' => $pickTicketNo],
+            ['pickTicketNo' => (string) $pickTicketNo],
         );
 
-        return BaseResponse::fromArray($response, static fn ($data) => $data ?? []);
+        return BaseResponse::fromArray($response, static fn ($data) => $data);
     }
 
     /**
-     * Get pick ticket line detail.
+     * GET /pick-tickets/{pickTicketNo}/lines/{lineNumber}
      *
-     * @fullPath api.orders.pickTickets.getLine
+     * @param array<string, mixed> $params
      * @return BaseResponse<array<string, mixed>>
      */
-    public function getLine(string $pickTicketNo, int $lineNumber, ?EdgeCache $edgeCache = null): BaseResponse
+    public function getLines(float $lineNumber, float $pickTicketNo, array $params = []): BaseResponse
     {
         $response = $this->client->get(
             $this->baseUrl,
-            '/pick-tickets/{pickTicketNo}/lines/{lineNumber}',
-            $edgeCache !== null ? ['edgeCache' => $edgeCache->value] : [],
-            ['pickTicketNo' => $pickTicketNo, 'lineNumber' => (string) $lineNumber],
+            '/{pickTicketNo}/lines/{lineNumber}',
+            $params,
+            ['lineNumber' => (string) $lineNumber, 'pickTicketNo' => (string) $pickTicketNo],
         );
 
         return BaseResponse::fromArray($response, static fn ($data) => $data);

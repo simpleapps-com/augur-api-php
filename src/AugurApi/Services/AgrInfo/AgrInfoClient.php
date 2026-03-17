@@ -13,13 +13,12 @@ use AugurApi\Services\AgrInfo\Resources\JoomlaResource;
 use AugurApi\Services\AgrInfo\Resources\MicroservicesResource;
 use AugurApi\Services\AgrInfo\Resources\OllamaResource;
 use AugurApi\Services\AgrInfo\Resources\RubricsResource;
+use AugurApi\Services\AgrInfo\Resources\WorkflowsResource;
 
 /**
- * Agr Info service client.
+ * AgrInfo service client — generated from spec.
  *
- * @fullPath api.agrInfo
- * @service agr_info
- * @domain augur
+ * DO NOT EDIT — regenerate with: python shared/scripts/generate-php.py agr-info
  */
 final class AgrInfoClient extends BaseServiceClient
 {
@@ -29,16 +28,18 @@ final class AgrInfoClient extends BaseServiceClient
     public readonly MicroservicesResource $microservices;
     public readonly OllamaResource $ollama;
     public readonly RubricsResource $rubrics;
+    public readonly WorkflowsResource $workflows;
 
     public function __construct(Client $client, Config $config)
     {
         parent::__construct($client, $config);
-        $this->akasha = new AkashaResource($client, $this->baseUrl);
-        $this->context = new ContextResource($client, $this->baseUrl);
-        $this->joomla = new JoomlaResource($client, $this->baseUrl);
-        $this->microservices = new MicroservicesResource($client, $this->baseUrl);
-        $this->ollama = new OllamaResource($client, $this->baseUrl);
-        $this->rubrics = new RubricsResource($client, $this->baseUrl);
+        $this->akasha = new AkashaResource($client, $this->baseUrl . '/akasha');
+        $this->context = new ContextResource($client, $this->baseUrl . '/context');
+        $this->joomla = new JoomlaResource($client, $this->baseUrl . '/joomla');
+        $this->microservices = new MicroservicesResource($client, $this->baseUrl . '/microservices');
+        $this->ollama = new OllamaResource($client, $this->baseUrl . '/ollama');
+        $this->rubrics = new RubricsResource($client, $this->baseUrl . '/rubrics');
+        $this->workflows = new WorkflowsResource($client, $this->baseUrl . '/workflows');
     }
 
     protected function getServiceName(): string

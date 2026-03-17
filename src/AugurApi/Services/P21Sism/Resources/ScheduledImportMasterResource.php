@@ -8,11 +8,9 @@ use AugurApi\Core\BaseResponse;
 use AugurApi\Core\Client;
 
 /**
- * Scheduled import master resource.
+ * scheduledImportMaster resource — generated from spec.
  *
- * @fullPath api.p21Sism.scheduledImportMaster
- * @service p21-sism
- * @domain scheduled-import-management
+ * DO NOT EDIT — regenerate with: python shared/scripts/generate-php.py p21-sism
  */
 final class ScheduledImportMasterResource
 {
@@ -23,9 +21,8 @@ final class ScheduledImportMasterResource
     }
 
     /**
-     * Create SFTP metadata for a scheduled import master configuration.
+     * POST /scheduled-import-master/{scheduledImportMasterUid}/metadata/sftp
      *
-     * @fullPath api.p21Sism.scheduledImportMaster.metadata.sftp.create
      * @param array<string, mixed> $data
      * @return BaseResponse<array<string, mixed>>
      */
@@ -33,11 +30,11 @@ final class ScheduledImportMasterResource
     {
         $response = $this->client->post(
             $this->baseUrl,
-            '/scheduled-import-master/{scheduledImportMasterUid}/metadata/sftp',
+            '/{scheduledImportMasterUid}/metadata/sftp',
             $data,
-            ['scheduledImportMasterUid' => $scheduledImportMasterUid],
+            ['scheduledImportMasterUid' => (string) $scheduledImportMasterUid],
         );
 
-        return BaseResponse::fromArray($response, static fn ($d) => $d);
+        return BaseResponse::fromArray($response, static fn ($data) => $data);
     }
 }

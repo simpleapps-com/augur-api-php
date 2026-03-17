@@ -16,13 +16,9 @@ use AugurApi\Services\P21Apis\Resources\TransUserResource;
 use AugurApi\Services\P21Apis\Resources\TransWebDisplayTypeResource;
 
 /**
- * P21 APIs service client.
+ * P21Apis service client — generated from spec.
  *
- * Prophet 21 transactional API integration.
- *
- * @fullPath api.p21Apis
- * @service p21_apis
- * @domain p21
+ * DO NOT EDIT — regenerate with: python shared/scripts/generate-php.py p21-apis
  */
 final class P21ApisClient extends BaseServiceClient
 {
@@ -37,13 +33,13 @@ final class P21ApisClient extends BaseServiceClient
     public function __construct(Client $client, Config $config)
     {
         parent::__construct($client, $config);
-        $this->entityContacts = new EntityContactsResource($client, $this->baseUrl);
-        $this->entityCustomers = new EntityCustomersResource($client, $this->baseUrl);
-        $this->transCategory = new TransCategoryResource($client, $this->baseUrl);
-        $this->transCompany = new TransCompanyResource($client, $this->baseUrl);
-        $this->transPurchaseOrderReceipt = new TransPurchaseOrderReceiptResource($client, $this->baseUrl);
-        $this->transUser = new TransUserResource($client, $this->baseUrl);
-        $this->transWebDisplayType = new TransWebDisplayTypeResource($client, $this->baseUrl);
+        $this->entityContacts = new EntityContactsResource($client, $this->baseUrl . '/entity-contacts');
+        $this->entityCustomers = new EntityCustomersResource($client, $this->baseUrl . '/entity-customers');
+        $this->transCategory = new TransCategoryResource($client, $this->baseUrl . '/trans-category');
+        $this->transCompany = new TransCompanyResource($client, $this->baseUrl . '/trans-company');
+        $this->transPurchaseOrderReceipt = new TransPurchaseOrderReceiptResource($client, $this->baseUrl . '/trans-purchase-order-receipt');
+        $this->transUser = new TransUserResource($client, $this->baseUrl . '/trans-user');
+        $this->transWebDisplayType = new TransWebDisplayTypeResource($client, $this->baseUrl . '/trans-web-display-type');
     }
 
     protected function getServiceName(): string

@@ -8,11 +8,9 @@ use AugurApi\Core\BaseResponse;
 use AugurApi\Core\Client;
 
 /**
- * Ollama resource.
+ * ollama resource — generated from spec.
  *
- * @fullPath api.agrInfo.ollama
- * @service agr-info
- * @domain ai-model-management
+ * DO NOT EDIT — regenerate with: python shared/scripts/generate-php.py agr-info
  */
 final class OllamaResource
 {
@@ -23,15 +21,15 @@ final class OllamaResource
     }
 
     /**
-     * Get list of available Ollama AI model tags.
+     * GET /ollama/tags
      *
-     * @fullPath api.agrInfo.ollama.tags.list
-     * @return BaseResponse<array<array<string, mixed>>>
+     * @param array<string, mixed> $params
+     * @return BaseResponse<array<string, mixed>>
      */
-    public function listTags(): BaseResponse
+    public function listTags(array $params = []): BaseResponse
     {
-        $response = $this->client->get($this->baseUrl, '/ollama/tags', []);
+        $response = $this->client->get($this->baseUrl, '/tags', $params);
 
-        return BaseResponse::fromArray($response, static fn ($data) => $data ?? []);
+        return BaseResponse::fromArray($response, static fn ($data) => $data);
     }
 }

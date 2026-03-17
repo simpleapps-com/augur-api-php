@@ -21,8 +21,14 @@ final class TodosResourceTest extends AugurApiTestCase
         $response = $this->api->basecamp2->todos->list();
 
         $this->assertCount(2, $response->data);
-        $this->assertEquals('Todo A', $response->data[0]['content']);
-        $this->assertFalse($response->data[0]['completed']);
+
+        /** @var list<array<string, mixed>> $data */
+        $data = $response->data;
+        $this->assertEquals('Todo A', $data[0]['content']);
+
+        /** @var list<array<string, mixed>> $data */
+        $data = $response->data;
+        $this->assertFalse($data[0]['completed']);
         $this->assertRequestPath('/todos');
         $this->assertRequestMethod('GET');
         $this->assertHasSiteIdHeader();
@@ -65,10 +71,13 @@ final class TodosResourceTest extends AugurApiTestCase
             ['id' => 101, 'content' => 'Comment 2', 'creator_id' => 11],
         ]);
 
-        $response = $this->api->basecamp2->todos->getComments(1);
+        $response = $this->api->basecamp2->todos->listComments(1);
 
         $this->assertCount(2, $response->data);
-        $this->assertEquals('Comment 1', $response->data[0]['content']);
+
+        /** @var list<array<string, mixed>> $data */
+        $data = $response->data;
+        $this->assertEquals('Comment 1', $data[0]['content']);
         $this->assertRequestPath('/todos/1/comments');
         $this->assertRequestMethod('GET');
     }
@@ -79,7 +88,7 @@ final class TodosResourceTest extends AugurApiTestCase
             ['id' => 100, 'content' => 'Comment 1'],
         ]);
 
-        $response = $this->api->basecamp2->todos->getComments(1, ['limit' => 5]);
+        $response = $this->api->basecamp2->todos->listComments(1, ['limit' => 5]);
 
         $this->assertCount(1, $response->data);
     }
@@ -91,10 +100,13 @@ final class TodosResourceTest extends AugurApiTestCase
             ['id' => 201, 'action' => 'updated', 'created_at' => '2024-01-15T11:00:00Z'],
         ]);
 
-        $response = $this->api->basecamp2->todos->getEvents(1);
+        $response = $this->api->basecamp2->todos->listEvents(1);
 
         $this->assertCount(2, $response->data);
-        $this->assertEquals('created', $response->data[0]['action']);
+
+        /** @var list<array<string, mixed>> $data */
+        $data = $response->data;
+        $this->assertEquals('created', $data[0]['action']);
         $this->assertRequestPath('/todos/1/events');
         $this->assertRequestMethod('GET');
     }
@@ -105,7 +117,7 @@ final class TodosResourceTest extends AugurApiTestCase
             ['id' => 200, 'action' => 'created'],
         ]);
 
-        $response = $this->api->basecamp2->todos->getEvents(1, ['limit' => 5]);
+        $response = $this->api->basecamp2->todos->listEvents(1, ['limit' => 5]);
 
         $this->assertCount(1, $response->data);
     }
@@ -119,7 +131,7 @@ final class TodosResourceTest extends AugurApiTestCase
             'comments_count' => 3,
         ]);
 
-        $response = $this->api->basecamp2->todos->getMetrics(1);
+        $response = $this->api->basecamp2->todos->listMetrics(1);
 
         $this->assertEquals(1, $response->data['todo_id']);
         $this->assertEquals(120, $response->data['time_spent']);
@@ -134,10 +146,13 @@ final class TodosResourceTest extends AugurApiTestCase
             ['id' => 2, 'content' => 'Todo B', 'summary' => 'Brief summary B'],
         ]);
 
-        $response = $this->api->basecamp2->todos->listSummaries();
+        $response = $this->api->basecamp2->todosSummary->list();
 
         $this->assertCount(2, $response->data);
-        $this->assertEquals('Brief summary A', $response->data[0]['summary']);
+
+        /** @var list<array<string, mixed>> $data */
+        $data = $response->data;
+        $this->assertEquals('Brief summary A', $data[0]['summary']);
         $this->assertRequestPath('/todos-summary');
         $this->assertRequestMethod('GET');
     }
@@ -148,7 +163,7 @@ final class TodosResourceTest extends AugurApiTestCase
             ['id' => 1, 'content' => 'Todo A', 'summary' => 'Brief summary A'],
         ]);
 
-        $response = $this->api->basecamp2->todos->listSummaries(['limit' => 5]);
+        $response = $this->api->basecamp2->todosSummary->list(['limit' => 5]);
 
         $this->assertCount(1, $response->data);
     }
@@ -161,7 +176,7 @@ final class TodosResourceTest extends AugurApiTestCase
             'summary' => 'Detailed summary for Todo A',
         ]);
 
-        $response = $this->api->basecamp2->todos->getSummary(1);
+        $response = $this->api->basecamp2->todosSummary->get(1);
 
         $this->assertEquals(1, $response->data['id']);
         $this->assertEquals('Detailed summary for Todo A', $response->data['summary']);
@@ -179,7 +194,7 @@ final class TodosResourceTest extends AugurApiTestCase
             'created_at' => '2024-01-15T10:00:00Z',
         ]);
 
-        $response = $this->api->basecamp2->todos->getEvent(1, 1);
+        $response = $this->api->basecamp2->todos->getEvents(1, 1);
 
         $this->assertEquals(200, $response->data['id']);
         $this->assertEquals('created', $response->data['action']);
@@ -194,10 +209,13 @@ final class TodosResourceTest extends AugurApiTestCase
             ['id' => 301, 'todo_id' => 1, 'duration' => 45, 'started_at' => '2024-01-15T12:00:00Z'],
         ]);
 
-        $response = $this->api->basecamp2->todos->getSessions(1);
+        $response = $this->api->basecamp2->todos->listSessions(1);
 
         $this->assertCount(2, $response->data);
-        $this->assertEquals(60, $response->data[0]['duration']);
+
+        /** @var list<array<string, mixed>> $data */
+        $data = $response->data;
+        $this->assertEquals(60, $data[0]['duration']);
         $this->assertRequestPath('/todos/1/sessions');
         $this->assertRequestMethod('GET');
     }
@@ -208,7 +226,7 @@ final class TodosResourceTest extends AugurApiTestCase
             ['id' => 300, 'todo_id' => 1, 'duration' => 60],
         ]);
 
-        $response = $this->api->basecamp2->todos->getSessions(1, ['limit' => 5]);
+        $response = $this->api->basecamp2->todos->listSessions(1, ['limit' => 5]);
 
         $this->assertCount(1, $response->data);
     }
@@ -223,7 +241,7 @@ final class TodosResourceTest extends AugurApiTestCase
             'ended_at' => '2024-01-15T11:00:00Z',
         ]);
 
-        $response = $this->api->basecamp2->todos->getSession(1, 300);
+        $response = $this->api->basecamp2->todos->getSessions(1, 300);
 
         $this->assertEquals(300, $response->data['id']);
         $this->assertEquals(60, $response->data['duration']);
@@ -240,7 +258,7 @@ final class TodosResourceTest extends AugurApiTestCase
             'started_at' => '2024-01-15T14:00:00Z',
         ]);
 
-        $response = $this->api->basecamp2->todos->createSession(1, [
+        $response = $this->api->basecamp2->todos->createSessions(1, [
             'started_at' => '2024-01-15T14:00:00Z',
         ]);
 
@@ -256,7 +274,7 @@ final class TodosResourceTest extends AugurApiTestCase
             'todo_id' => 1,
         ]);
 
-        $response = $this->api->basecamp2->todos->createSession(1);
+        $response = $this->api->basecamp2->todos->createSessions(1);
 
         $this->assertEquals(303, $response->data['id']);
         $this->assertRequestMethod('POST');
@@ -271,7 +289,7 @@ final class TodosResourceTest extends AugurApiTestCase
             'ended_at' => '2024-01-15T11:30:00Z',
         ]);
 
-        $response = $this->api->basecamp2->todos->updateSession(1, 300, [
+        $response = $this->api->basecamp2->todos->updateSessions(1, 300, [
             'duration' => 90,
             'ended_at' => '2024-01-15T11:30:00Z',
         ]);
@@ -289,7 +307,7 @@ final class TodosResourceTest extends AugurApiTestCase
             'todo_id' => 1,
         ]);
 
-        $response = $this->api->basecamp2->todos->updateSession(1, 300);
+        $response = $this->api->basecamp2->todos->updateSessions(1, 300);
 
         $this->assertEquals(300, $response->data['id']);
         $this->assertRequestMethod('PUT');
@@ -299,7 +317,7 @@ final class TodosResourceTest extends AugurApiTestCase
     {
         $this->mockResponse(['deleted' => true]);
 
-        $response = $this->api->basecamp2->todos->deleteSession(1, 300);
+        $response = $this->api->basecamp2->todos->deleteSessions(1, 300);
 
         $this->assertTrue($response->data['deleted']);
         $this->assertRequestPath('/todos/1/sessions/300');

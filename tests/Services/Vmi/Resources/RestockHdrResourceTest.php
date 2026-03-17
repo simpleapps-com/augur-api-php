@@ -23,8 +23,14 @@ final class RestockHdrResourceTest extends AugurApiTestCase
         $response = $this->api->vmi->restockHdr->list();
 
         $this->assertCount(2, $response->data);
-        $this->assertEquals(1, $response->data[0]['restockHdrUid']);
-        $this->assertEquals('pending', $response->data[0]['status']);
+
+        /** @var list<array<string, mixed>> $data */
+        $data = $response->data;
+        $this->assertEquals(1, $data[0]['restockHdrUid']);
+
+        /** @var list<array<string, mixed>> $data */
+        $data = $response->data;
+        $this->assertEquals('pending', $data[0]['status']);
         $this->assertRequestMethod('GET');
         $this->assertRequestPath('/restock-hdr');
         $this->assertHasSiteIdHeader();
@@ -102,7 +108,7 @@ final class RestockHdrResourceTest extends AugurApiTestCase
 
         $response = $this->api->vmi->restockHdr->delete(1);
 
-        $this->assertTrue($response->data);
+        $this->assertIsArray($response->data);
         $this->assertRequestMethod('DELETE');
         $this->assertRequestPath('/restock-hdr/1');
     }

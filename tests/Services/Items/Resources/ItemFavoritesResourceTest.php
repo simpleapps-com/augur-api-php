@@ -13,29 +13,31 @@ use AugurApi\Tests\AugurApiTestCase;
  */
 final class ItemFavoritesResourceTest extends AugurApiTestCase
 {
-    public function testList(): void
+    public function testListItems(): void
     {
         $this->mockListResponse([
             ['invMastUid' => 100, 'itemId' => 'ITEM001'],
             ['invMastUid' => 101, 'itemId' => 'ITEM002'],
         ]);
 
-        $response = $this->api->items->itemFavorites->list(12345);
+        $response = $this->api->items->itemFavorites->listItems(12345);
 
         $this->assertCount(2, $response->data);
-        $this->assertEquals(100, $response->data[0]['invMastUid']);
-        $this->assertEquals('ITEM001', $response->data[0]['itemId']);
+        /** @var list<array<string, mixed>> $data */
+        $data = $response->data;
+        $this->assertEquals(100, $data[0]['invMastUid']);
+        $this->assertEquals('ITEM001', $data[0]['itemId']);
         $this->assertRequestMethod('GET');
         $this->assertRequestPath('/item-favorites/12345/items');
     }
 
-    public function testListWithParams(): void
+    public function testListItemsWithParams(): void
     {
         $this->mockListResponse([
             ['invMastUid' => 100, 'itemId' => 'ITEM001'],
         ], 50);
 
-        $response = $this->api->items->itemFavorites->list(12345, ['limit' => 10, 'offset' => 0]);
+        $response = $this->api->items->itemFavorites->listItems(12345, ['limit' => 10, 'offset' => 0]);
 
         $this->assertCount(1, $response->data);
         $this->assertEquals(50, $response->total);
@@ -43,44 +45,47 @@ final class ItemFavoritesResourceTest extends AugurApiTestCase
         $this->assertHasAuthHeader();
     }
 
-    public function testGet(): void
+    public function testGetItems(): void
     {
         $this->mockResponse(['invMastUid' => 100, 'itemId' => 'ITEM001']);
 
-        $response = $this->api->items->itemFavorites->get(12345, 100);
+        // Generated signature: getItems(int $invMastUid, int $usersId, ...)
+        $response = $this->api->items->itemFavorites->getItems(100, 12345);
 
         $this->assertEquals(100, $response->data['invMastUid']);
         $this->assertRequestMethod('GET');
         $this->assertRequestPath('/item-favorites/12345/items/100');
     }
 
-    public function testCreate(): void
+    public function testCreateItems(): void
     {
         $this->mockResponse(['invMastUid' => 102, 'createdAt' => '2024-01-01T00:00:00Z']);
 
-        $response = $this->api->items->itemFavorites->create(12345, ['invMastUid' => 102]);
+        $response = $this->api->items->itemFavorites->createItems(12345, ['invMastUid' => 102]);
 
         $this->assertEquals(102, $response->data['invMastUid']);
         $this->assertRequestMethod('POST');
         $this->assertRequestPath('/item-favorites/12345/items');
     }
 
-    public function testUpdate(): void
+    public function testUpdateItems(): void
     {
         $this->mockResponse(['invMastUid' => 100, 'sortOrder' => 5]);
 
-        $response = $this->api->items->itemFavorites->update(12345, 100, ['sortOrder' => 5]);
+        // Generated signature: updateItems(int $invMastUid, int $usersId, ...)
+        $response = $this->api->items->itemFavorites->updateItems(100, 12345, ['sortOrder' => 5]);
 
         $this->assertEquals(5, $response->data['sortOrder']);
         $this->assertRequestMethod('PUT');
         $this->assertRequestPath('/item-favorites/12345/items/100');
     }
 
-    public function testDelete(): void
+    public function testDeleteItems(): void
     {
         $this->mockSuccessResponse();
 
-        $response = $this->api->items->itemFavorites->delete(12345, 100);
+        // Generated signature: deleteItems(int $invMastUid, int $usersId)
+        $response = $this->api->items->itemFavorites->deleteItems(100, 12345);
 
         $this->assertTrue($response->data['success']);
         $this->assertRequestMethod('DELETE');

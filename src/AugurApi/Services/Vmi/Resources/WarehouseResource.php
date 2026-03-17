@@ -6,14 +6,11 @@ namespace AugurApi\Services\Vmi\Resources;
 
 use AugurApi\Core\BaseResponse;
 use AugurApi\Core\Client;
-use AugurApi\Core\Schemas\EdgeCache;
 
 /**
- * Warehouse resource.
+ * warehouse resource — generated from spec.
  *
- * @fullPath api.vmi.warehouse
- * @service vmi
- * @domain inventory
+ * DO NOT EDIT — regenerate with: python shared/scripts/generate-php.py vmi
  */
 final class WarehouseResource
 {
@@ -24,328 +21,312 @@ final class WarehouseResource
     }
 
     /**
-     * List warehouses.
+     * GET /warehouse
      *
-     * @fullPath api.vmi.warehouse.list
      * @param array<string, mixed> $params
-     * @return BaseResponse<array<array<string, mixed>>>
+     * @return BaseResponse<array<string, mixed>>
      */
     public function list(array $params = []): BaseResponse
     {
-        $response = $this->client->get($this->baseUrl, '/warehouse', $params);
-
-        return BaseResponse::fromArray($response, static fn ($data) => $data ?? []);
-    }
-
-    /**
-     * Get warehouse details.
-     *
-     * @fullPath api.vmi.warehouse.get
-     * @return BaseResponse<array<string, mixed>>
-     */
-    public function get(int $warehouseUid, ?EdgeCache $edgeCache = null): BaseResponse
-    {
-        $response = $this->client->get(
-            $this->baseUrl,
-            '/warehouse/{warehouseUid}',
-            $edgeCache !== null ? ['edgeCache' => $edgeCache->value] : [],
-            ['warehouseUid' => (string) $warehouseUid],
-        );
+        $response = $this->client->get($this->baseUrl, '', $params);
 
         return BaseResponse::fromArray($response, static fn ($data) => $data);
     }
 
     /**
-     * Create warehouse.
+     * POST /warehouse
      *
-     * @fullPath api.vmi.warehouse.create
      * @param array<string, mixed> $data
      * @return BaseResponse<array<string, mixed>>
      */
-    public function create(array $data): BaseResponse
+    public function create(array $data = []): BaseResponse
     {
-        $response = $this->client->post($this->baseUrl, '/warehouse', $data);
+        $response = $this->client->post($this->baseUrl, '', $data);
 
-        return BaseResponse::fromArray($response, static fn ($d) => $d);
+        return BaseResponse::fromArray($response, static fn ($data) => $data);
     }
 
     /**
-     * Update warehouse.
+     * DELETE /warehouse/{warehouseUid}
      *
-     * @fullPath api.vmi.warehouse.update
-     * @param array<string, mixed> $data
      * @return BaseResponse<array<string, mixed>>
-     */
-    public function update(int $warehouseUid, array $data): BaseResponse
-    {
-        $response = $this->client->put(
-            $this->baseUrl,
-            '/warehouse/{warehouseUid}',
-            $data,
-            ['warehouseUid' => (string) $warehouseUid],
-        );
-
-        return BaseResponse::fromArray($response, static fn ($d) => $d);
-    }
-
-    /**
-     * Delete warehouse.
-     *
-     * @fullPath api.vmi.warehouse.delete
-     * @return BaseResponse<bool>
      */
     public function delete(int $warehouseUid): BaseResponse
     {
         $response = $this->client->delete(
             $this->baseUrl,
-            '/warehouse/{warehouseUid}',
+            '/{warehouseUid}',
             ['warehouseUid' => (string) $warehouseUid],
-        );
-
-        return BaseResponse::fromArray($response, static fn ($data) => (bool) $data);
-    }
-
-    /**
-     * Get inventory availability.
-     *
-     * @fullPath api.vmi.warehouse.getAvailability
-     * @param array<string, mixed> $params
-     * @return BaseResponse<array<array<string, mixed>>>
-     */
-    public function getAvailability(int $warehouseUid, array $params = []): BaseResponse
-    {
-        $response = $this->client->get(
-            $this->baseUrl,
-            '/warehouse/{warehouseUid}/availability',
-            $params,
-            ['warehouseUid' => (string) $warehouseUid],
-        );
-
-        return BaseResponse::fromArray($response, static fn ($data) => $data ?? []);
-    }
-
-    /**
-     * Receive inventory.
-     *
-     * @fullPath api.vmi.warehouse.receive
-     * @param array<string, mixed> $data
-     * @return BaseResponse<array<string, mixed>>
-     */
-    public function receive(int $warehouseUid, array $data): BaseResponse
-    {
-        $response = $this->client->post(
-            $this->baseUrl,
-            '/warehouse/{warehouseUid}/receive',
-            $data,
-            ['warehouseUid' => (string) $warehouseUid],
-        );
-
-        return BaseResponse::fromArray($response, static fn ($d) => $d);
-    }
-
-    /**
-     * Adjust inventory.
-     *
-     * @fullPath api.vmi.warehouse.adjust
-     * @param array<string, mixed> $data
-     * @return BaseResponse<array<string, mixed>>
-     */
-    public function adjust(int $warehouseUid, array $data): BaseResponse
-    {
-        $response = $this->client->post(
-            $this->baseUrl,
-            '/warehouse/{warehouseUid}/adjust',
-            $data,
-            ['warehouseUid' => (string) $warehouseUid],
-        );
-
-        return BaseResponse::fromArray($response, static fn ($d) => $d);
-    }
-
-    /**
-     * Transfer inventory.
-     *
-     * @fullPath api.vmi.warehouse.transfer
-     * @param array<string, mixed> $data
-     * @return BaseResponse<array<string, mixed>>
-     */
-    public function transfer(int $warehouseUid, array $data): BaseResponse
-    {
-        $response = $this->client->post(
-            $this->baseUrl,
-            '/warehouse/{warehouseUid}/transfer',
-            $data,
-            ['warehouseUid' => (string) $warehouseUid],
-        );
-
-        return BaseResponse::fromArray($response, static fn ($d) => $d);
-    }
-
-    /**
-     * Use inventory.
-     *
-     * @fullPath api.vmi.warehouse.usage
-     * @param array<string, mixed> $data
-     * @return BaseResponse<array<string, mixed>>
-     */
-    public function usage(int $warehouseUid, array $data): BaseResponse
-    {
-        $response = $this->client->post(
-            $this->baseUrl,
-            '/warehouse/{warehouseUid}/usage',
-            $data,
-            ['warehouseUid' => (string) $warehouseUid],
-        );
-
-        return BaseResponse::fromArray($response, static fn ($d) => $d);
-    }
-
-    /**
-     * Enable warehouse.
-     *
-     * @fullPath api.vmi.warehouse.enable
-     * @param array<string, mixed> $data
-     * @return BaseResponse<array<string, mixed>>
-     */
-    public function enable(int $warehouseUid, array $data = []): BaseResponse
-    {
-        $response = $this->client->put(
-            $this->baseUrl,
-            '/warehouse/{warehouseUid}/enable',
-            $data,
-            ['warehouseUid' => (string) $warehouseUid],
-        );
-
-        return BaseResponse::fromArray($response, static fn ($d) => $d);
-    }
-
-    /**
-     * Get replenishment data.
-     *
-     * @fullPath api.vmi.warehouse.getReplenish
-     * @param array<string, mixed> $params
-     * @return BaseResponse<array<array<string, mixed>>>
-     */
-    public function getReplenish(int $warehouseUid, array $params = []): BaseResponse
-    {
-        $response = $this->client->get(
-            $this->baseUrl,
-            '/warehouse/{warehouseUid}/replenish',
-            $params,
-            ['warehouseUid' => (string) $warehouseUid],
-        );
-
-        return BaseResponse::fromArray($response, static fn ($data) => $data ?? []);
-    }
-
-    /**
-     * Create replenishment.
-     *
-     * @fullPath api.vmi.warehouse.createReplenish
-     * @param array<string, mixed> $data
-     * @return BaseResponse<array<string, mixed>>
-     */
-    public function createReplenish(int $warehouseUid, array $data): BaseResponse
-    {
-        $response = $this->client->post(
-            $this->baseUrl,
-            '/warehouse/{warehouseUid}/replenish',
-            $data,
-            ['warehouseUid' => (string) $warehouseUid],
-        );
-
-        return BaseResponse::fromArray($response, static fn ($d) => $d);
-    }
-
-    /**
-     * List warehouse users.
-     *
-     * @fullPath api.vmi.warehouse.listUsers
-     * @param array<string, mixed> $params
-     * @return BaseResponse<array<array<string, mixed>>>
-     */
-    public function listUsers(int $warehouseUid, array $params = []): BaseResponse
-    {
-        $response = $this->client->get(
-            $this->baseUrl,
-            '/warehouse/{warehouseUid}/users',
-            $params,
-            ['warehouseUid' => (string) $warehouseUid],
-        );
-
-        return BaseResponse::fromArray($response, static fn ($data) => $data ?? []);
-    }
-
-    /**
-     * Get warehouse user.
-     *
-     * @fullPath api.vmi.warehouse.getUser
-     * @return BaseResponse<array<string, mixed>>
-     */
-    public function getUser(int $warehouseUid, int $usersId, ?EdgeCache $edgeCache = null): BaseResponse
-    {
-        $response = $this->client->get(
-            $this->baseUrl,
-            '/warehouse/{warehouseUid}/users/{usersId}',
-            $edgeCache !== null ? ['edgeCache' => $edgeCache->value] : [],
-            ['warehouseUid' => (string) $warehouseUid, 'usersId' => (string) $usersId],
         );
 
         return BaseResponse::fromArray($response, static fn ($data) => $data);
     }
 
     /**
-     * Create warehouse user.
+     * GET /warehouse/{warehouseUid}
      *
-     * @fullPath api.vmi.warehouse.createUser
+     * @param array<string, mixed> $params
+     * @return BaseResponse<array<string, mixed>>
+     */
+    public function get(int $warehouseUid, array $params = []): BaseResponse
+    {
+        $response = $this->client->get(
+            $this->baseUrl,
+            '/{warehouseUid}',
+            $params,
+            ['warehouseUid' => (string) $warehouseUid],
+        );
+
+        return BaseResponse::fromArray($response, static fn ($data) => $data);
+    }
+
+    /**
+     * PUT /warehouse/{warehouseUid}
+     *
      * @param array<string, mixed> $data
      * @return BaseResponse<array<string, mixed>>
      */
-    public function createUser(int $warehouseUid, array $data): BaseResponse
+    public function update(int $warehouseUid, array $data = []): BaseResponse
     {
-        $response = $this->client->post(
+        $response = $this->client->put(
             $this->baseUrl,
-            '/warehouse/{warehouseUid}/users',
+            '/{warehouseUid}',
             $data,
             ['warehouseUid' => (string) $warehouseUid],
         );
 
-        return BaseResponse::fromArray($response, static fn ($d) => $d);
+        return BaseResponse::fromArray($response, static fn ($data) => $data);
     }
 
     /**
-     * Update warehouse user.
+     * POST /warehouse/{warehouseUid}/adjust
      *
-     * @fullPath api.vmi.warehouse.updateUser
      * @param array<string, mixed> $data
      * @return BaseResponse<array<string, mixed>>
      */
-    public function updateUser(int $warehouseUid, int $usersId, array $data): BaseResponse
+    public function createAdjust(int $warehouseUid, array $data = []): BaseResponse
     {
-        $response = $this->client->put(
+        $response = $this->client->post(
             $this->baseUrl,
-            '/warehouse/{warehouseUid}/users/{usersId}',
+            '/{warehouseUid}/adjust',
             $data,
-            ['warehouseUid' => (string) $warehouseUid, 'usersId' => (string) $usersId],
+            ['warehouseUid' => (string) $warehouseUid],
         );
 
-        return BaseResponse::fromArray($response, static fn ($d) => $d);
+        return BaseResponse::fromArray($response, static fn ($data) => $data);
     }
 
     /**
-     * Delete warehouse user.
+     * GET /warehouse/{warehouseUid}/availability
      *
-     * @fullPath api.vmi.warehouse.deleteUser
-     * @return BaseResponse<bool>
+     * @param array<string, mixed> $params
+     * @return BaseResponse<array<string, mixed>>
      */
-    public function deleteUser(int $warehouseUid, int $usersId): BaseResponse
+    public function listAvailability(int $warehouseUid, array $params = []): BaseResponse
+    {
+        $response = $this->client->get(
+            $this->baseUrl,
+            '/{warehouseUid}/availability',
+            $params,
+            ['warehouseUid' => (string) $warehouseUid],
+        );
+
+        return BaseResponse::fromArray($response, static fn ($data) => $data);
+    }
+
+    /**
+     * PUT /warehouse/{warehouseUid}/enable
+     *
+     * @param array<string, mixed> $data
+     * @return BaseResponse<array<string, mixed>>
+     */
+    public function updateEnable(int $warehouseUid, array $data = []): BaseResponse
+    {
+        $response = $this->client->put(
+            $this->baseUrl,
+            '/{warehouseUid}/enable',
+            $data,
+            ['warehouseUid' => (string) $warehouseUid],
+        );
+
+        return BaseResponse::fromArray($response, static fn ($data) => $data);
+    }
+
+    /**
+     * POST /warehouse/{warehouseUid}/receive
+     *
+     * @param array<string, mixed> $data
+     * @return BaseResponse<array<string, mixed>>
+     */
+    public function createReceive(int $warehouseUid, array $data = []): BaseResponse
+    {
+        $response = $this->client->post(
+            $this->baseUrl,
+            '/{warehouseUid}/receive',
+            $data,
+            ['warehouseUid' => (string) $warehouseUid],
+        );
+
+        return BaseResponse::fromArray($response, static fn ($data) => $data);
+    }
+
+    /**
+     * GET /warehouse/{warehouseUid}/replenish
+     *
+     * @param array<string, mixed> $params
+     * @return BaseResponse<array<string, mixed>>
+     */
+    public function listReplenish(int $warehouseUid, array $params = []): BaseResponse
+    {
+        $response = $this->client->get(
+            $this->baseUrl,
+            '/{warehouseUid}/replenish',
+            $params,
+            ['warehouseUid' => (string) $warehouseUid],
+        );
+
+        return BaseResponse::fromArray($response, static fn ($data) => $data);
+    }
+
+    /**
+     * POST /warehouse/{warehouseUid}/replenish
+     *
+     * @param array<string, mixed> $data
+     * @return BaseResponse<array<string, mixed>>
+     */
+    public function createReplenish(int $warehouseUid, array $data = []): BaseResponse
+    {
+        $response = $this->client->post(
+            $this->baseUrl,
+            '/{warehouseUid}/replenish',
+            $data,
+            ['warehouseUid' => (string) $warehouseUid],
+        );
+
+        return BaseResponse::fromArray($response, static fn ($data) => $data);
+    }
+
+    /**
+     * POST /warehouse/{warehouseUid}/transfer
+     *
+     * @param array<string, mixed> $data
+     * @return BaseResponse<array<string, mixed>>
+     */
+    public function createTransfer(int $warehouseUid, array $data = []): BaseResponse
+    {
+        $response = $this->client->post(
+            $this->baseUrl,
+            '/{warehouseUid}/transfer',
+            $data,
+            ['warehouseUid' => (string) $warehouseUid],
+        );
+
+        return BaseResponse::fromArray($response, static fn ($data) => $data);
+    }
+
+    /**
+     * POST /warehouse/{warehouseUid}/usage
+     *
+     * @param array<string, mixed> $data
+     * @return BaseResponse<array<string, mixed>>
+     */
+    public function createUsage(int $warehouseUid, array $data = []): BaseResponse
+    {
+        $response = $this->client->post(
+            $this->baseUrl,
+            '/{warehouseUid}/usage',
+            $data,
+            ['warehouseUid' => (string) $warehouseUid],
+        );
+
+        return BaseResponse::fromArray($response, static fn ($data) => $data);
+    }
+
+    /**
+     * GET /warehouse/{warehouseUid}/users
+     *
+     * @param array<string, mixed> $params
+     * @return BaseResponse<array<string, mixed>>
+     */
+    public function listUsers(int $warehouseUid, array $params = []): BaseResponse
+    {
+        $response = $this->client->get(
+            $this->baseUrl,
+            '/{warehouseUid}/users',
+            $params,
+            ['warehouseUid' => (string) $warehouseUid],
+        );
+
+        return BaseResponse::fromArray($response, static fn ($data) => $data);
+    }
+
+    /**
+     * POST /warehouse/{warehouseUid}/users
+     *
+     * @param array<string, mixed> $data
+     * @return BaseResponse<array<string, mixed>>
+     */
+    public function createUsers(int $warehouseUid, array $data = []): BaseResponse
+    {
+        $response = $this->client->post(
+            $this->baseUrl,
+            '/{warehouseUid}/users',
+            $data,
+            ['warehouseUid' => (string) $warehouseUid],
+        );
+
+        return BaseResponse::fromArray($response, static fn ($data) => $data);
+    }
+
+    /**
+     * DELETE /warehouse/{warehouseUid}/users/{usersId}
+     *
+     * @return BaseResponse<array<string, mixed>>
+     */
+    public function deleteUsers(int $usersId, int $warehouseUid): BaseResponse
     {
         $response = $this->client->delete(
             $this->baseUrl,
-            '/warehouse/{warehouseUid}/users/{usersId}',
-            ['warehouseUid' => (string) $warehouseUid, 'usersId' => (string) $usersId],
+            '/{warehouseUid}/users/{usersId}',
+            ['usersId' => (string) $usersId, 'warehouseUid' => (string) $warehouseUid],
         );
 
-        return BaseResponse::fromArray($response, static fn ($data) => (bool) $data);
+        return BaseResponse::fromArray($response, static fn ($data) => $data);
+    }
+
+    /**
+     * GET /warehouse/{warehouseUid}/users/{usersId}
+     *
+     * @param array<string, mixed> $params
+     * @return BaseResponse<array<string, mixed>>
+     */
+    public function getUsers(int $usersId, int $warehouseUid, array $params = []): BaseResponse
+    {
+        $response = $this->client->get(
+            $this->baseUrl,
+            '/{warehouseUid}/users/{usersId}',
+            $params,
+            ['usersId' => (string) $usersId, 'warehouseUid' => (string) $warehouseUid],
+        );
+
+        return BaseResponse::fromArray($response, static fn ($data) => $data);
+    }
+
+    /**
+     * PUT /warehouse/{warehouseUid}/users/{usersId}
+     *
+     * @param array<string, mixed> $data
+     * @return BaseResponse<array<string, mixed>>
+     */
+    public function updateUsers(int $usersId, int $warehouseUid, array $data = []): BaseResponse
+    {
+        $response = $this->client->put(
+            $this->baseUrl,
+            '/{warehouseUid}/users/{usersId}',
+            $data,
+            ['usersId' => (string) $usersId, 'warehouseUid' => (string) $warehouseUid],
+        );
+
+        return BaseResponse::fromArray($response, static fn ($data) => $data);
     }
 }

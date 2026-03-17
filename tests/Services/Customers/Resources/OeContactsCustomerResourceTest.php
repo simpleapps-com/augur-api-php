@@ -11,11 +11,11 @@ use AugurApi\Tests\AugurApiTestCase;
  */
 final class OeContactsCustomerResourceTest extends AugurApiTestCase
 {
-    public function testRefresh(): void
+    public function testGetRefresh(): void
     {
         $this->mockResponse(['refreshed' => true, 'timestamp' => '2024-01-15T12:00:00Z']);
 
-        $response = $this->api->customers->oeContactsCustomer->refresh();
+        $response = $this->api->customers->oeContactsCustomer->getRefresh();
 
         $this->assertTrue($response->data['refreshed']);
         $this->assertRequestPath('/oe-contacts-customer/refresh');

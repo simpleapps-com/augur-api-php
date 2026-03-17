@@ -12,13 +12,9 @@ use AugurApi\Services\P21Pim\Resources\ItemsResource;
 use AugurApi\Services\P21Pim\Resources\PodcastsResource;
 
 /**
- * P21 PIM service client.
+ * P21Pim service client — generated from spec.
  *
- * Prophet 21 Product Information Management (inv mast ext, files, text, items, podcasts).
- *
- * @fullPath api.p21Pim
- * @service p21_pim
- * @domain p21
+ * DO NOT EDIT — regenerate with: python shared/scripts/generate-php.py p21-pim
  */
 final class P21PimClient extends BaseServiceClient
 {
@@ -29,9 +25,9 @@ final class P21PimClient extends BaseServiceClient
     public function __construct(Client $client, Config $config)
     {
         parent::__construct($client, $config);
-        $this->invMastExt = new InvMastExtResource($client, $this->baseUrl);
-        $this->items = new ItemsResource($client, $this->baseUrl);
-        $this->podcasts = new PodcastsResource($client, $this->baseUrl);
+        $this->invMastExt = new InvMastExtResource($client, $this->baseUrl . '/inv-mast-ext');
+        $this->items = new ItemsResource($client, $this->baseUrl . '/items');
+        $this->podcasts = new PodcastsResource($client, $this->baseUrl . '/podcasts');
     }
 
     protected function getServiceName(): string

@@ -23,8 +23,10 @@ final class VariantsResourceTest extends AugurApiTestCase
         $response = $this->api->items->variants->list();
 
         $this->assertCount(2, $response->data);
-        $this->assertEquals(1, $response->data[0]['itemVariantHdrUid']);
-        $this->assertEquals('Variant A', $response->data[0]['name']);
+        /** @var list<array<string, mixed>> $data */
+        $data = $response->data;
+        $this->assertEquals(1, $data[0]['itemVariantHdrUid']);
+        $this->assertEquals('Variant A', $data[0]['name']);
         $this->assertRequestMethod('GET');
         $this->assertRequestPath('/variants');
     }
@@ -111,18 +113,20 @@ final class VariantsResourceTest extends AugurApiTestCase
         $this->assertRequestPath('/variants/1/doc');
     }
 
-    public function testGetSimilar(): void
+    public function testListSimilar(): void
     {
         $this->mockListResponse([
             ['invMastUid' => 400, 'itemId' => 'SIM001', 'similarity' => 0.95],
             ['invMastUid' => 401, 'itemId' => 'SIM002', 'similarity' => 0.85],
         ]);
 
-        $response = $this->api->items->variants->getSimilar(1);
+        $response = $this->api->items->variants->listSimilar(1);
 
         $this->assertCount(2, $response->data);
-        $this->assertEquals('SIM001', $response->data[0]['itemId']);
-        $this->assertEquals(0.95, $response->data[0]['similarity']);
+        /** @var list<array<string, mixed>> $data */
+        $data = $response->data;
+        $this->assertEquals('SIM001', $data[0]['itemId']);
+        $this->assertEquals(0.95, $data[0]['similarity']);
         $this->assertRequestMethod('GET');
         $this->assertRequestPath('/variants/1/similar');
     }
@@ -137,12 +141,14 @@ final class VariantsResourceTest extends AugurApiTestCase
         $response = $this->api->items->variants->listLines(1);
 
         $this->assertCount(2, $response->data);
-        $this->assertEquals(100, $response->data[0]['invMastUid']);
+        /** @var list<array<string, mixed>> $data */
+        $data = $response->data;
+        $this->assertEquals(100, $data[0]['invMastUid']);
         $this->assertRequestMethod('GET');
         $this->assertRequestPath('/variants/1/lines');
     }
 
-    public function testGetLine(): void
+    public function testGetLines(): void
     {
         $this->mockResponse([
             'itemVariantLineUid' => 1,
@@ -150,7 +156,7 @@ final class VariantsResourceTest extends AugurApiTestCase
             'sortOrder' => 1,
         ]);
 
-        $response = $this->api->items->variants->getLine(1, 1);
+        $response = $this->api->items->variants->getLines(1, 1);
 
         $this->assertEquals(1, $response->data['itemVariantLineUid']);
         $this->assertEquals(100, $response->data['invMastUid']);
@@ -158,33 +164,33 @@ final class VariantsResourceTest extends AugurApiTestCase
         $this->assertRequestPath('/variants/1/lines/1');
     }
 
-    public function testCreateLine(): void
+    public function testCreateLines(): void
     {
         $this->mockResponse(['itemVariantLineUid' => 3, 'invMastUid' => 102]);
 
-        $response = $this->api->items->variants->createLine(1, ['invMastUid' => 102]);
+        $response = $this->api->items->variants->createLines(1, ['invMastUid' => 102]);
 
         $this->assertEquals(3, $response->data['itemVariantLineUid']);
         $this->assertRequestMethod('POST');
         $this->assertRequestPath('/variants/1/lines');
     }
 
-    public function testUpdateLine(): void
+    public function testUpdateLines(): void
     {
         $this->mockResponse(['itemVariantLineUid' => 1, 'sortOrder' => 5]);
 
-        $response = $this->api->items->variants->updateLine(1, 1, ['sortOrder' => 5]);
+        $response = $this->api->items->variants->updateLines(1, 1, ['sortOrder' => 5]);
 
         $this->assertEquals(5, $response->data['sortOrder']);
         $this->assertRequestMethod('PUT');
         $this->assertRequestPath('/variants/1/lines/1');
     }
 
-    public function testDeleteLine(): void
+    public function testDeleteLines(): void
     {
         $this->mockSuccessResponse();
 
-        $response = $this->api->items->variants->deleteLine(1, 1);
+        $response = $this->api->items->variants->deleteLines(1, 1);
 
         $this->assertTrue($response->data['success']);
         $this->assertRequestMethod('DELETE');
@@ -201,7 +207,9 @@ final class VariantsResourceTest extends AugurApiTestCase
         $response = $this->api->items->variants->listAttributes(1);
 
         $this->assertCount(2, $response->data);
-        $this->assertEquals('Color', $response->data[0]['name']);
+        /** @var list<array<string, mixed>> $data */
+        $data = $response->data;
+        $this->assertEquals('Color', $data[0]['name']);
         $this->assertRequestMethod('GET');
         $this->assertRequestPath('/variants/1/attributes');
     }
@@ -217,7 +225,7 @@ final class VariantsResourceTest extends AugurApiTestCase
         $this->assertCount(1, $response->data);
     }
 
-    public function testGetAttribute(): void
+    public function testGetAttributes(): void
     {
         $this->mockResponse([
             'attributeUid' => 10,
@@ -225,7 +233,8 @@ final class VariantsResourceTest extends AugurApiTestCase
             'value' => 'Red',
         ]);
 
-        $response = $this->api->items->variants->getAttribute(1, 10);
+        // Generated signature: getAttributes(int $attributeUid, int $itemVariantHdrUid, ...)
+        $response = $this->api->items->variants->getAttributes(10, 1);
 
         $this->assertEquals(10, $response->data['attributeUid']);
         $this->assertEquals('Red', $response->data['value']);
@@ -233,33 +242,35 @@ final class VariantsResourceTest extends AugurApiTestCase
         $this->assertRequestPath('/variants/1/attributes/10');
     }
 
-    public function testCreateAttribute(): void
+    public function testCreateAttributes(): void
     {
         $this->mockResponse(['attributeUid' => 12, 'value' => 'Medium']);
 
-        $response = $this->api->items->variants->createAttribute(1, ['attributeUid' => 12, 'value' => 'Medium']);
+        $response = $this->api->items->variants->createAttributes(1, ['attributeUid' => 12, 'value' => 'Medium']);
 
         $this->assertEquals(12, $response->data['attributeUid']);
         $this->assertRequestMethod('POST');
         $this->assertRequestPath('/variants/1/attributes');
     }
 
-    public function testUpdateAttribute(): void
+    public function testUpdateAttributes(): void
     {
         $this->mockResponse(['attributeUid' => 10, 'value' => 'Blue']);
 
-        $response = $this->api->items->variants->updateAttribute(1, 10, ['value' => 'Blue']);
+        // Generated signature: updateAttributes(int $attributeUid, int $itemVariantHdrUid, ...)
+        $response = $this->api->items->variants->updateAttributes(10, 1, ['value' => 'Blue']);
 
         $this->assertEquals('Blue', $response->data['value']);
         $this->assertRequestMethod('PUT');
         $this->assertRequestPath('/variants/1/attributes/10');
     }
 
-    public function testDeleteAttribute(): void
+    public function testDeleteAttributes(): void
     {
         $this->mockSuccessResponse();
 
-        $response = $this->api->items->variants->deleteAttribute(1, 10);
+        // Generated signature: deleteAttributes(int $attributeUid, int $itemVariantHdrUid)
+        $response = $this->api->items->variants->deleteAttributes(10, 1);
 
         $this->assertTrue($response->data['success']);
         $this->assertRequestMethod('DELETE');

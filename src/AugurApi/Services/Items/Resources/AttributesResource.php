@@ -6,14 +6,11 @@ namespace AugurApi\Services\Items\Resources;
 
 use AugurApi\Core\BaseResponse;
 use AugurApi\Core\Client;
-use AugurApi\Core\Schemas\EdgeCache;
 
 /**
- * Attributes resource.
+ * attributes resource — generated from spec.
  *
- * @fullPath api.items.attributes
- * @service items
- * @domain inventory-management
+ * DO NOT EDIT — regenerate with: python shared/scripts/generate-php.py items
  */
 final class AttributesResource
 {
@@ -24,81 +21,41 @@ final class AttributesResource
     }
 
     /**
-     * List all attributes.
+     * GET /attributes
      *
-     * @fullPath api.items.attributes.list
      * @param array<string, mixed> $params
-     * @return BaseResponse<array<array<string, mixed>>>
+     * @return BaseResponse<array<string, mixed>>
      */
     public function list(array $params = []): BaseResponse
     {
-        $response = $this->client->get($this->baseUrl, '/attributes', $params);
-
-        return BaseResponse::fromArray($response, static fn ($data) => $data ?? []);
-    }
-
-    /**
-     * Get attribute by ID.
-     *
-     * @fullPath api.items.attributes.get
-     * @return BaseResponse<array<string, mixed>>
-     */
-    public function get(int $attributeUid, ?EdgeCache $edgeCache = null): BaseResponse
-    {
-        $response = $this->client->get(
-            $this->baseUrl,
-            '/attributes/{attributeUid}',
-            $edgeCache !== null ? ['edgeCache' => $edgeCache->value] : [],
-            ['attributeUid' => (string) $attributeUid],
-        );
+        $response = $this->client->get($this->baseUrl, '', $params);
 
         return BaseResponse::fromArray($response, static fn ($data) => $data);
     }
 
     /**
-     * Create new attribute.
+     * POST /attributes
      *
-     * @fullPath api.items.attributes.create
      * @param array<string, mixed> $data
      * @return BaseResponse<array<string, mixed>>
      */
-    public function create(array $data): BaseResponse
+    public function create(array $data = []): BaseResponse
     {
-        $response = $this->client->post($this->baseUrl, '/attributes', $data);
+        $response = $this->client->post($this->baseUrl, '', $data);
 
-        return BaseResponse::fromArray($response, static fn ($d) => $d);
+        return BaseResponse::fromArray($response, static fn ($data) => $data);
     }
 
     /**
-     * Update attribute.
+     * DELETE /attributes/{attributeUid}
      *
-     * @fullPath api.items.attributes.update
-     * @param array<string, mixed> $data
-     * @return BaseResponse<array<string, mixed>>
-     */
-    public function update(int $attributeUid, array $data): BaseResponse
-    {
-        $response = $this->client->put(
-            $this->baseUrl,
-            '/attributes/{attributeUid}',
-            $data,
-            ['attributeUid' => (string) $attributeUid],
-        );
-
-        return BaseResponse::fromArray($response, static fn ($d) => $d);
-    }
-
-    /**
-     * Delete attribute.
-     *
-     * @fullPath api.items.attributes.delete
      * @return BaseResponse<array<string, mixed>>
      */
     public function delete(int $attributeUid): BaseResponse
     {
         $response = $this->client->delete(
             $this->baseUrl,
-            '/attributes/{attributeUid}',
+            '/{attributeUid}',
             ['attributeUid' => (string) $attributeUid],
         );
 
@@ -106,36 +63,87 @@ final class AttributesResource
     }
 
     /**
-     * List attribute values.
+     * GET /attributes/{attributeUid}
      *
-     * @fullPath api.items.attributes.values.list
      * @param array<string, mixed> $params
-     * @return BaseResponse<array<array<string, mixed>>>
+     * @return BaseResponse<array<string, mixed>>
+     */
+    public function get(int $attributeUid, array $params = []): BaseResponse
+    {
+        $response = $this->client->get(
+            $this->baseUrl,
+            '/{attributeUid}',
+            $params,
+            ['attributeUid' => (string) $attributeUid],
+        );
+
+        return BaseResponse::fromArray($response, static fn ($data) => $data);
+    }
+
+    /**
+     * PUT /attributes/{attributeUid}
+     *
+     * @param array<string, mixed> $data
+     * @return BaseResponse<array<string, mixed>>
+     */
+    public function update(int $attributeUid, array $data = []): BaseResponse
+    {
+        $response = $this->client->put(
+            $this->baseUrl,
+            '/{attributeUid}',
+            $data,
+            ['attributeUid' => (string) $attributeUid],
+        );
+
+        return BaseResponse::fromArray($response, static fn ($data) => $data);
+    }
+
+    /**
+     * GET /attributes/{attributeUid}/values
+     *
+     * @param array<string, mixed> $params
+     * @return BaseResponse<array<string, mixed>>
      */
     public function listValues(int $attributeUid, array $params = []): BaseResponse
     {
         $response = $this->client->get(
             $this->baseUrl,
-            '/attributes/{attributeUid}/values',
+            '/{attributeUid}/values',
             $params,
             ['attributeUid' => (string) $attributeUid],
         );
 
-        return BaseResponse::fromArray($response, static fn ($data) => $data ?? []);
+        return BaseResponse::fromArray($response, static fn ($data) => $data);
     }
 
     /**
-     * Get attribute value.
+     * POST /attributes/{attributeUid}/values
      *
-     * @fullPath api.items.attributes.values.get
+     * @param array<string, mixed> $data
      * @return BaseResponse<array<string, mixed>>
      */
-    public function getValue(int $attributeUid, int $attributeValueUid, ?EdgeCache $edgeCache = null): BaseResponse
+    public function createValues(int $attributeUid, array $data = []): BaseResponse
     {
-        $response = $this->client->get(
+        $response = $this->client->post(
             $this->baseUrl,
-            '/attributes/{attributeUid}/values/{attributeValueUid}',
-            $edgeCache !== null ? ['edgeCache' => $edgeCache->value] : [],
+            '/{attributeUid}/values',
+            $data,
+            ['attributeUid' => (string) $attributeUid],
+        );
+
+        return BaseResponse::fromArray($response, static fn ($data) => $data);
+    }
+
+    /**
+     * DELETE /attributes/{attributeUid}/values/{attributeValueUid}
+     *
+     * @return BaseResponse<array<string, mixed>>
+     */
+    public function deleteValues(int $attributeUid, int $attributeValueUid): BaseResponse
+    {
+        $response = $this->client->delete(
+            $this->baseUrl,
+            '/{attributeUid}/values/{attributeValueUid}',
             ['attributeUid' => (string) $attributeUid, 'attributeValueUid' => (string) $attributeValueUid],
         );
 
@@ -143,54 +151,35 @@ final class AttributesResource
     }
 
     /**
-     * Create attribute value.
+     * GET /attributes/{attributeUid}/values/{attributeValueUid}
      *
-     * @fullPath api.items.attributes.values.create
-     * @param array<string, mixed> $data
+     * @param array<string, mixed> $params
      * @return BaseResponse<array<string, mixed>>
      */
-    public function createValue(int $attributeUid, array $data): BaseResponse
+    public function getValues(int $attributeUid, int $attributeValueUid, array $params = []): BaseResponse
     {
-        $response = $this->client->post(
+        $response = $this->client->get(
             $this->baseUrl,
-            '/attributes/{attributeUid}/values',
-            $data,
-            ['attributeUid' => (string) $attributeUid],
-        );
-
-        return BaseResponse::fromArray($response, static fn ($d) => $d);
-    }
-
-    /**
-     * Update attribute value.
-     *
-     * @fullPath api.items.attributes.values.update
-     * @param array<string, mixed> $data
-     * @return BaseResponse<array<string, mixed>>
-     */
-    public function updateValue(int $attributeUid, int $attributeValueUid, array $data): BaseResponse
-    {
-        $response = $this->client->put(
-            $this->baseUrl,
-            '/attributes/{attributeUid}/values/{attributeValueUid}',
-            $data,
+            '/{attributeUid}/values/{attributeValueUid}',
+            $params,
             ['attributeUid' => (string) $attributeUid, 'attributeValueUid' => (string) $attributeValueUid],
         );
 
-        return BaseResponse::fromArray($response, static fn ($d) => $d);
+        return BaseResponse::fromArray($response, static fn ($data) => $data);
     }
 
     /**
-     * Delete attribute value.
+     * PUT /attributes/{attributeUid}/values/{attributeValueUid}
      *
-     * @fullPath api.items.attributes.values.delete
+     * @param array<string, mixed> $data
      * @return BaseResponse<array<string, mixed>>
      */
-    public function deleteValue(int $attributeUid, int $attributeValueUid): BaseResponse
+    public function updateValues(int $attributeUid, int $attributeValueUid, array $data = []): BaseResponse
     {
-        $response = $this->client->delete(
+        $response = $this->client->put(
             $this->baseUrl,
-            '/attributes/{attributeUid}/values/{attributeValueUid}',
+            '/{attributeUid}/values/{attributeValueUid}',
+            $data,
             ['attributeUid' => (string) $attributeUid, 'attributeValueUid' => (string) $attributeValueUid],
         );
 

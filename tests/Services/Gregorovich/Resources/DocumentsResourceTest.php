@@ -18,8 +18,14 @@ final class DocumentsResourceTest extends AugurApiTestCase
         $response = $this->api->gregorovich->documents->list();
 
         $this->assertCount(2, $response->data);
-        $this->assertEquals('Product Manual', $response->data[0]['name']);
-        $this->assertEquals('pdf', $response->data[0]['type']);
+
+        /** @var list<array<string, mixed>> $data */
+        $data = $response->data;
+        $this->assertEquals('Product Manual', $data[0]['name']);
+
+        /** @var list<array<string, mixed>> $data */
+        $data = $response->data;
+        $this->assertEquals('pdf', $data[0]['type']);
         $this->assertRequestPath('/documents');
         $this->assertRequestMethod('GET');
         $this->assertHasAuthHeader();
@@ -37,7 +43,10 @@ final class DocumentsResourceTest extends AugurApiTestCase
         ]);
 
         $this->assertCount(1, $response->data);
-        $this->assertEquals('pdf', $response->data[0]['type']);
+
+        /** @var list<array<string, mixed>> $data */
+        $data = $response->data;
+        $this->assertEquals('pdf', $data[0]['type']);
     }
 
     public function testListEmpty(): void

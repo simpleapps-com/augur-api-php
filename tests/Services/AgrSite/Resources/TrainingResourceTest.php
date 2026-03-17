@@ -23,7 +23,9 @@ final class TrainingResourceTest extends AugurApiTestCase
         $response = $this->api->agrSite->training->list();
 
         $this->assertCount(2, $response->data);
-        $this->assertEquals('Training Set A', $response->data[0]['name']);
+        /** @var list<array<string, mixed>> $data */
+        $data = $response->data;
+        $this->assertEquals('Training Set A', $data[0]['name']);
         $this->assertRequestPath('/training');
         $this->assertRequestMethod('GET');
         $this->assertHasSiteIdHeader();
@@ -98,7 +100,8 @@ final class TrainingResourceTest extends AugurApiTestCase
 
         $response = $this->api->agrSite->training->delete(1);
 
-        $this->assertTrue($response->data);
+        $this->assertIsArray($response->data);
+        $this->assertTrue($response->data['success']);
         $this->assertRequestPath('/training/1');
         $this->assertRequestMethod('DELETE');
     }
@@ -115,7 +118,9 @@ final class TrainingResourceTest extends AugurApiTestCase
         $response = $this->api->agrSite->training->listConversations(1);
 
         $this->assertCount(2, $response->data);
-        $this->assertEquals('Conversation A', $response->data[0]['title']);
+        /** @var list<array<string, mixed>> $data */
+        $data = $response->data;
+        $this->assertEquals('Conversation A', $data[0]['title']);
         $this->assertRequestPath('/training/1/conversations');
         $this->assertRequestMethod('GET');
     }
@@ -131,14 +136,14 @@ final class TrainingResourceTest extends AugurApiTestCase
         $this->assertCount(1, $response->data);
     }
 
-    public function testCreateConversation(): void
+    public function testCreateConversations(): void
     {
         $this->mockResponse([
             'trainingConvUid' => 3,
             'title' => 'New Conversation',
         ]);
 
-        $response = $this->api->agrSite->training->createConversation(1, [
+        $response = $this->api->agrSite->training->createConversations(1, [
             'title' => 'New Conversation',
         ]);
 
@@ -148,7 +153,7 @@ final class TrainingResourceTest extends AugurApiTestCase
         $this->assertRequestMethod('POST');
     }
 
-    public function testGetConversation(): void
+    public function testGetConversations(): void
     {
         $this->mockResponse([
             'trainingConvUid' => 1,
@@ -156,7 +161,7 @@ final class TrainingResourceTest extends AugurApiTestCase
             'messages' => [],
         ]);
 
-        $response = $this->api->agrSite->training->getConversation(1, 1);
+        $response = $this->api->agrSite->training->getConversations(1, 1);
 
         $this->assertEquals(1, $response->data['trainingConvUid']);
         $this->assertEquals('Conversation A', $response->data['title']);
@@ -164,14 +169,14 @@ final class TrainingResourceTest extends AugurApiTestCase
         $this->assertRequestMethod('GET');
     }
 
-    public function testUpdateConversation(): void
+    public function testUpdateConversations(): void
     {
         $this->mockResponse([
             'trainingConvUid' => 1,
             'title' => 'Updated Conversation',
         ]);
 
-        $response = $this->api->agrSite->training->updateConversation(1, 1, [
+        $response = $this->api->agrSite->training->updateConversations(1, 1, [
             'title' => 'Updated Conversation',
         ]);
 
@@ -180,47 +185,50 @@ final class TrainingResourceTest extends AugurApiTestCase
         $this->assertRequestMethod('PUT');
     }
 
-    public function testDeleteConversation(): void
+    public function testDeleteConversations(): void
     {
         $this->mockSuccessResponse();
 
-        $response = $this->api->agrSite->training->deleteConversation(1, 1);
+        $response = $this->api->agrSite->training->deleteConversations(1, 1);
 
-        $this->assertTrue($response->data);
+        $this->assertIsArray($response->data);
+        $this->assertTrue($response->data['success']);
         $this->assertRequestPath('/training/1/conversations/1');
         $this->assertRequestMethod('DELETE');
     }
 
     // Messages
 
-    public function testListMessages(): void
+    public function testListConversationsMessages(): void
     {
         $this->mockListResponse([
             ['trainingMsgUid' => 1, 'role' => 'user', 'content' => 'Hello'],
             ['trainingMsgUid' => 2, 'role' => 'assistant', 'content' => 'Hi there!'],
         ]);
 
-        $response = $this->api->agrSite->training->listMessages(1, 1);
+        $response = $this->api->agrSite->training->listConversationsMessages(1, 1);
 
         $this->assertCount(2, $response->data);
-        $this->assertEquals('user', $response->data[0]['role']);
-        $this->assertEquals('Hello', $response->data[0]['content']);
+        /** @var list<array<string, mixed>> $data */
+        $data = $response->data;
+        $this->assertEquals('user', $data[0]['role']);
+        $this->assertEquals('Hello', $data[0]['content']);
         $this->assertRequestPath('/training/1/conversations/1/messages');
         $this->assertRequestMethod('GET');
     }
 
-    public function testListMessagesWithParams(): void
+    public function testListConversationsMessagesWithParams(): void
     {
         $this->mockListResponse([
             ['trainingMsgUid' => 1, 'role' => 'user', 'content' => 'Hello'],
         ]);
 
-        $response = $this->api->agrSite->training->listMessages(1, 1, ['limit' => 10]);
+        $response = $this->api->agrSite->training->listConversationsMessages(1, 1, ['limit' => 10]);
 
         $this->assertCount(1, $response->data);
     }
 
-    public function testGetMessage(): void
+    public function testGetConversationsMessages(): void
     {
         $this->mockResponse([
             'trainingMsgUid' => 1,
@@ -228,7 +236,7 @@ final class TrainingResourceTest extends AugurApiTestCase
             'content' => 'Hello',
         ]);
 
-        $response = $this->api->agrSite->training->getMessage(1, 1, 1);
+        $response = $this->api->agrSite->training->getConversationsMessages(1, 1, 1);
 
         $this->assertEquals(1, $response->data['trainingMsgUid']);
         $this->assertEquals('user', $response->data['role']);
@@ -236,7 +244,7 @@ final class TrainingResourceTest extends AugurApiTestCase
         $this->assertRequestMethod('GET');
     }
 
-    public function testCreateMessage(): void
+    public function testCreateConversationsMessages(): void
     {
         $this->mockResponse([
             'trainingMsgUid' => 3,
@@ -244,7 +252,7 @@ final class TrainingResourceTest extends AugurApiTestCase
             'content' => 'New message',
         ]);
 
-        $response = $this->api->agrSite->training->createMessage(1, 1, [
+        $response = $this->api->agrSite->training->createConversationsMessages(1, 1, [
             'role' => 'user',
             'content' => 'New message',
         ]);
@@ -255,7 +263,7 @@ final class TrainingResourceTest extends AugurApiTestCase
         $this->assertRequestMethod('POST');
     }
 
-    public function testUpdateMessage(): void
+    public function testUpdateConversationsMessages(): void
     {
         $this->mockResponse([
             'trainingMsgUid' => 1,
@@ -263,7 +271,7 @@ final class TrainingResourceTest extends AugurApiTestCase
             'content' => 'Updated message',
         ]);
 
-        $response = $this->api->agrSite->training->updateMessage(1, 1, 1, [
+        $response = $this->api->agrSite->training->updateConversationsMessages(1, 1, 1, [
             'content' => 'Updated message',
         ]);
 
@@ -272,13 +280,14 @@ final class TrainingResourceTest extends AugurApiTestCase
         $this->assertRequestMethod('PUT');
     }
 
-    public function testDeleteMessage(): void
+    public function testDeleteConversationsMessages(): void
     {
         $this->mockSuccessResponse();
 
-        $response = $this->api->agrSite->training->deleteMessage(1, 1, 1);
+        $response = $this->api->agrSite->training->deleteConversationsMessages(1, 1, 1);
 
-        $this->assertTrue($response->data);
+        $this->assertIsArray($response->data);
+        $this->assertTrue($response->data['success']);
         $this->assertRequestPath('/training/1/conversations/1/messages/1');
         $this->assertRequestMethod('DELETE');
     }

@@ -8,11 +8,9 @@ use AugurApi\Core\BaseResponse;
 use AugurApi\Core\Client;
 
 /**
- * Ollama resource.
+ * ollama resource — generated from spec.
  *
- * @fullPath api.gregorovich.ollama
- * @service gregorovich
- * @domain ai-generation
+ * DO NOT EDIT — regenerate with: python shared/scripts/generate-php.py gregorovich
  */
 final class OllamaResource
 {
@@ -23,16 +21,15 @@ final class OllamaResource
     }
 
     /**
-     * Generate content using local Ollama AI models.
+     * POST /ollama/generate
      *
-     * @fullPath api.gregorovich.ollama.generate.create
      * @param array<string, mixed> $data
      * @return BaseResponse<array<string, mixed>>
      */
-    public function generate(array $data): BaseResponse
+    public function createGenerate(array $data = []): BaseResponse
     {
-        $response = $this->client->post($this->baseUrl, '/ollama/generate', $data);
+        $response = $this->client->post($this->baseUrl, '/generate', $data);
 
-        return BaseResponse::fromArray($response, static fn ($d) => $d);
+        return BaseResponse::fromArray($response, static fn ($data) => $data);
     }
 }

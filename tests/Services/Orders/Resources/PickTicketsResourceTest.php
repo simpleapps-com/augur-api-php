@@ -11,15 +11,17 @@ final class PickTicketsResourceTest extends AugurApiTestCase
     public function testList(): void
     {
         $this->mockListResponse([
-            ['pickTicketNo' => 'PT001', 'orderNo' => 'ORD001', 'status' => 'pending'],
-            ['pickTicketNo' => 'PT002', 'orderNo' => 'ORD002', 'status' => 'picked'],
+            ['pickTicketNo' => 1001, 'orderNo' => 12345, 'status' => 'pending'],
+            ['pickTicketNo' => 1002, 'orderNo' => 12346, 'status' => 'picked'],
         ]);
 
         $response = $this->api->orders->pickTickets->list();
 
         $this->assertCount(2, $response->data);
-        $this->assertEquals('PT001', $response->data[0]['pickTicketNo']);
-        $this->assertEquals('pending', $response->data[0]['status']);
+        /** @var list<array<string, mixed>> $data */
+        $data = $response->data;
+        $this->assertEquals(1001, $data[0]['pickTicketNo']);
+        $this->assertEquals('pending', $data[0]['status']);
         $this->assertRequestPath('/pick-tickets');
         $this->assertRequestMethod('GET');
         $this->assertHasAuthHeader();
@@ -28,16 +30,18 @@ final class PickTicketsResourceTest extends AugurApiTestCase
     public function testListWithParams(): void
     {
         $this->mockListResponse([
-            ['pickTicketNo' => 'PT001', 'status' => 'pending'],
+            ['pickTicketNo' => 1001, 'status' => 'pending'],
         ]);
 
         $response = $this->api->orders->pickTickets->list([
-            'status' => 'pending',
+            'printedFlag' => 'N',
             'limit' => 10,
         ]);
 
         $this->assertCount(1, $response->data);
-        $this->assertEquals('pending', $response->data[0]['status']);
+        /** @var list<array<string, mixed>> $data */
+        $data = $response->data;
+        $this->assertEquals('pending', $data[0]['status']);
     }
 
     public function testListEmpty(): void
@@ -53,79 +57,81 @@ final class PickTicketsResourceTest extends AugurApiTestCase
     public function testGet(): void
     {
         $this->mockResponse([
-            'pickTicketNo' => 'PT001',
-            'orderNo' => 'ORD001',
+            'pickTicketNo' => 1001,
+            'orderNo' => 12345,
             'warehouseId' => 'WH01',
             'status' => 'pending',
             'createdDate' => '2024-01-15',
             'lineCount' => 5,
         ]);
 
-        $response = $this->api->orders->pickTickets->get('PT001');
+        $response = $this->api->orders->pickTickets->get(1001.0);
 
-        $this->assertEquals('PT001', $response->data['pickTicketNo']);
-        $this->assertEquals('ORD001', $response->data['orderNo']);
+        $this->assertEquals(1001, $response->data['pickTicketNo']);
+        $this->assertEquals(12345, $response->data['orderNo']);
         $this->assertEquals(5, $response->data['lineCount']);
-        $this->assertRequestPath('/pick-tickets/PT001');
+        $this->assertRequestPath('/pick-tickets/1001');
         $this->assertRequestMethod('GET');
     }
 
     public function testGetWithDifferentTicket(): void
     {
         $this->mockResponse([
-            'pickTicketNo' => 'PT999',
+            'pickTicketNo' => 9999,
             'status' => 'picked',
         ]);
 
-        $response = $this->api->orders->pickTickets->get('PT999');
+        $response = $this->api->orders->pickTickets->get(9999.0);
 
-        $this->assertEquals('PT999', $response->data['pickTicketNo']);
-        $this->assertRequestPath('/pick-tickets/PT999');
+        $this->assertEquals(9999, $response->data['pickTicketNo']);
+        $this->assertRequestPath('/pick-tickets/9999');
     }
 
-    public function testGetLines(): void
+    public function testListLines(): void
     {
         $this->mockListResponse([
             ['lineNumber' => 1, 'itemId' => 'ITEM001', 'quantity' => 5, 'binLocation' => 'A1-01'],
             ['lineNumber' => 2, 'itemId' => 'ITEM002', 'quantity' => 3, 'binLocation' => 'B2-05'],
         ]);
 
-        $response = $this->api->orders->pickTickets->getLines('PT001');
+        $response = $this->api->orders->pickTickets->listLines(1001.0);
 
         $this->assertCount(2, $response->data);
-        $this->assertEquals('ITEM001', $response->data[0]['itemId']);
-        $this->assertEquals('A1-01', $response->data[0]['binLocation']);
-        $this->assertRequestPath('/pick-tickets/PT001/lines');
+        /** @var list<array<string, mixed>> $data */
+        $data = $response->data;
+        $this->assertEquals('ITEM001', $data[0]['itemId']);
+        $this->assertEquals('A1-01', $data[0]['binLocation']);
+        $this->assertRequestPath('/pick-tickets/1001/lines');
         $this->assertRequestMethod('GET');
     }
 
-    public function testGetLinesWithParams(): void
+    public function testListLinesWithParams(): void
     {
         $this->mockListResponse([
-            ['lineNumber' => 1, 'itemId' => 'ITEM001', 'status' => 'picked'],
+            ['lineNumber' => 1, 'itemId' => 'ITEM001'],
         ]);
 
-        $response = $this->api->orders->pickTickets->getLines('PT001', [
-            'status' => 'picked',
+        $response = $this->api->orders->pickTickets->listLines(1001.0, [
+            'limit' => 10,
         ]);
 
         $this->assertCount(1, $response->data);
     }
 
-    public function testGetLinesEmpty(): void
+    public function testListLinesEmpty(): void
     {
         $this->mockListResponse([]);
 
-        $response = $this->api->orders->pickTickets->getLines('PT999');
+        $response = $this->api->orders->pickTickets->listLines(9999.0);
 
         $this->assertIsArray($response->data);
         $this->assertEmpty($response->data);
     }
 
-    public function testGetLine(): void
+    public function testGetLines(): void
     {
         $this->mockResponse([
-            'pickTicketNo' => 'PT001',
+            'pickTicketNo' => 1001,
             'lineNumber' => 1,
             'itemId' => 'ITEM001',
             'description' => 'Test Item',
@@ -135,27 +141,27 @@ final class PickTicketsResourceTest extends AugurApiTestCase
             'lotNumber' => 'LOT123',
         ]);
 
-        $response = $this->api->orders->pickTickets->getLine('PT001', 1);
+        $response = $this->api->orders->pickTickets->getLines(1.0, 1001.0);
 
         $this->assertEquals(1, $response->data['lineNumber']);
         $this->assertEquals('ITEM001', $response->data['itemId']);
         $this->assertEquals(5, $response->data['quantity']);
         $this->assertEquals(3, $response->data['quantityPicked']);
-        $this->assertRequestPath('/pick-tickets/PT001/lines/1');
+        $this->assertRequestPath('/pick-tickets/1001/lines/1');
         $this->assertRequestMethod('GET');
     }
 
-    public function testGetLineWithDifferentLine(): void
+    public function testGetLinesWithDifferentLine(): void
     {
         $this->mockResponse([
-            'pickTicketNo' => 'PT002',
+            'pickTicketNo' => 2002,
             'lineNumber' => 5,
             'itemId' => 'ITEM005',
         ]);
 
-        $response = $this->api->orders->pickTickets->getLine('PT002', 5);
+        $response = $this->api->orders->pickTickets->getLines(5.0, 2002.0);
 
         $this->assertEquals(5, $response->data['lineNumber']);
-        $this->assertRequestPath('/pick-tickets/PT002/lines/5');
+        $this->assertRequestPath('/pick-tickets/2002/lines/5');
     }
 }

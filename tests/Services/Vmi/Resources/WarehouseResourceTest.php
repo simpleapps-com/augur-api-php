@@ -23,8 +23,14 @@ final class WarehouseResourceTest extends AugurApiTestCase
         $response = $this->api->vmi->warehouse->list();
 
         $this->assertCount(2, $response->data);
-        $this->assertEquals(1, $response->data[0]['warehouseUid']);
-        $this->assertEquals('Warehouse A', $response->data[0]['name']);
+
+        /** @var list<array<string, mixed>> $data */
+        $data = $response->data;
+        $this->assertEquals(1, $data[0]['warehouseUid']);
+
+        /** @var list<array<string, mixed>> $data */
+        $data = $response->data;
+        $this->assertEquals('Warehouse A', $data[0]['name']);
         $this->assertRequestMethod('GET');
         $this->assertRequestPath('/warehouse');
         $this->assertHasSiteIdHeader();
@@ -101,7 +107,7 @@ final class WarehouseResourceTest extends AugurApiTestCase
 
         $response = $this->api->vmi->warehouse->delete(1);
 
-        $this->assertTrue($response->data);
+        $this->assertIsArray($response->data);
         $this->assertRequestMethod('DELETE');
         $this->assertRequestPath('/warehouse/1');
     }
@@ -113,11 +119,17 @@ final class WarehouseResourceTest extends AugurApiTestCase
             ['productId' => 'PROD002', 'available' => 50, 'reserved' => 5],
         ]);
 
-        $response = $this->api->vmi->warehouse->getAvailability(1);
+        $response = $this->api->vmi->warehouse->listAvailability(1);
 
         $this->assertCount(2, $response->data);
-        $this->assertEquals('PROD001', $response->data[0]['productId']);
-        $this->assertEquals(100, $response->data[0]['available']);
+
+        /** @var list<array<string, mixed>> $data */
+        $data = $response->data;
+        $this->assertEquals('PROD001', $data[0]['productId']);
+
+        /** @var list<array<string, mixed>> $data */
+        $data = $response->data;
+        $this->assertEquals(100, $data[0]['available']);
         $this->assertRequestMethod('GET');
         $this->assertRequestPath('/warehouse/1/availability');
     }
@@ -128,7 +140,7 @@ final class WarehouseResourceTest extends AugurApiTestCase
             ['productId' => 'PROD001', 'available' => 100],
         ]);
 
-        $response = $this->api->vmi->warehouse->getAvailability(1, ['productId' => 'PROD001']);
+        $response = $this->api->vmi->warehouse->listAvailability(1, ['productId' => 'PROD001']);
 
         $this->assertCount(1, $response->data);
         $this->assertHasSiteIdHeader();
@@ -143,7 +155,7 @@ final class WarehouseResourceTest extends AugurApiTestCase
             'itemsReceived' => 25,
         ]);
 
-        $response = $this->api->vmi->warehouse->receive(1, [
+        $response = $this->api->vmi->warehouse->createReceive(1, [
             'productId' => 'PROD001',
             'quantity' => 25,
         ]);
@@ -162,7 +174,7 @@ final class WarehouseResourceTest extends AugurApiTestCase
             'newQuantity' => 75,
         ]);
 
-        $response = $this->api->vmi->warehouse->adjust(1, [
+        $response = $this->api->vmi->warehouse->createAdjust(1, [
             'productId' => 'PROD001',
             'adjustmentQty' => -25,
             'reason' => 'Damage',
@@ -183,7 +195,7 @@ final class WarehouseResourceTest extends AugurApiTestCase
             'itemsTransferred' => 50,
         ]);
 
-        $response = $this->api->vmi->warehouse->transfer(1, [
+        $response = $this->api->vmi->warehouse->createTransfer(1, [
             'destinationWarehouseUid' => 2,
             'productId' => 'PROD001',
             'quantity' => 50,
@@ -203,7 +215,7 @@ final class WarehouseResourceTest extends AugurApiTestCase
             'itemsUsed' => 10,
         ]);
 
-        $response = $this->api->vmi->warehouse->usage(1, [
+        $response = $this->api->vmi->warehouse->createUsage(1, [
             'productId' => 'PROD001',
             'quantity' => 10,
             'reason' => 'Production',
@@ -222,7 +234,7 @@ final class WarehouseResourceTest extends AugurApiTestCase
             'active' => true,
         ]);
 
-        $response = $this->api->vmi->warehouse->enable(1);
+        $response = $this->api->vmi->warehouse->updateEnable(1);
 
         $this->assertTrue($response->data['active']);
         $this->assertRequestMethod('PUT');
@@ -236,7 +248,7 @@ final class WarehouseResourceTest extends AugurApiTestCase
             'active' => false,
         ]);
 
-        $response = $this->api->vmi->warehouse->enable(1, ['active' => false]);
+        $response = $this->api->vmi->warehouse->updateEnable(1, ['active' => false]);
 
         $this->assertFalse($response->data['active']);
     }
@@ -248,10 +260,13 @@ final class WarehouseResourceTest extends AugurApiTestCase
             ['productId' => 'PROD002', 'currentQty' => 3, 'reorderQty' => 30],
         ]);
 
-        $response = $this->api->vmi->warehouse->getReplenish(1);
+        $response = $this->api->vmi->warehouse->listReplenish(1);
 
         $this->assertCount(2, $response->data);
-        $this->assertEquals('PROD001', $response->data[0]['productId']);
+
+        /** @var list<array<string, mixed>> $data */
+        $data = $response->data;
+        $this->assertEquals('PROD001', $data[0]['productId']);
         $this->assertRequestMethod('GET');
         $this->assertRequestPath('/warehouse/1/replenish');
     }
@@ -262,7 +277,7 @@ final class WarehouseResourceTest extends AugurApiTestCase
             ['productId' => 'PROD001', 'currentQty' => 5, 'reorderQty' => 50],
         ]);
 
-        $response = $this->api->vmi->warehouse->getReplenish(1, ['belowMin' => true]);
+        $response = $this->api->vmi->warehouse->listReplenish(1, ['belowMin' => true]);
 
         $this->assertCount(1, $response->data);
         $this->assertHasSiteIdHeader();
@@ -299,8 +314,14 @@ final class WarehouseResourceTest extends AugurApiTestCase
         $response = $this->api->vmi->warehouse->listUsers(1);
 
         $this->assertCount(2, $response->data);
-        $this->assertEquals(1, $response->data[0]['usersId']);
-        $this->assertEquals('user1', $response->data[0]['username']);
+
+        /** @var list<array<string, mixed>> $data */
+        $data = $response->data;
+        $this->assertEquals(1, $data[0]['usersId']);
+
+        /** @var list<array<string, mixed>> $data */
+        $data = $response->data;
+        $this->assertEquals('user1', $data[0]['username']);
         $this->assertRequestMethod('GET');
         $this->assertRequestPath('/warehouse/1/users');
     }
@@ -325,7 +346,7 @@ final class WarehouseResourceTest extends AugurApiTestCase
             'email' => 'user1@example.com',
         ]);
 
-        $response = $this->api->vmi->warehouse->getUser(1, 1);
+        $response = $this->api->vmi->warehouse->getUsers(1, 1);
 
         $this->assertEquals(1, $response->data['usersId']);
         $this->assertEquals('user1', $response->data['username']);
@@ -341,7 +362,7 @@ final class WarehouseResourceTest extends AugurApiTestCase
             'role' => 'operator',
         ]);
 
-        $response = $this->api->vmi->warehouse->createUser(1, [
+        $response = $this->api->vmi->warehouse->createUsers(1, [
             'username' => 'newuser',
             'role' => 'operator',
         ]);
@@ -360,7 +381,7 @@ final class WarehouseResourceTest extends AugurApiTestCase
             'role' => 'manager',
         ]);
 
-        $response = $this->api->vmi->warehouse->updateUser(1, 1, [
+        $response = $this->api->vmi->warehouse->updateUsers(1, 1, [
             'role' => 'manager',
         ]);
 
@@ -373,9 +394,9 @@ final class WarehouseResourceTest extends AugurApiTestCase
     {
         $this->mockSuccessResponse();
 
-        $response = $this->api->vmi->warehouse->deleteUser(1, 1);
+        $response = $this->api->vmi->warehouse->deleteUsers(1, 1);
 
-        $this->assertTrue($response->data);
+        $this->assertIsArray($response->data);
         $this->assertRequestMethod('DELETE');
         $this->assertRequestPath('/warehouse/1/users/1');
     }

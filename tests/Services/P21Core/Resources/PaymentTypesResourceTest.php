@@ -24,9 +24,18 @@ final class PaymentTypesResourceTest extends AugurApiTestCase
         $response = $this->api->p21Core->paymentTypes->list();
 
         $this->assertCount(3, $response->data);
-        $this->assertEquals(1, $response->data[0]['paymentTypeId']);
-        $this->assertEquals('Cash', $response->data[0]['paymentTypeName']);
-        $this->assertEquals('Credit Card', $response->data[1]['paymentTypeName']);
+
+        /** @var list<array<string, mixed>> $data */
+        $data = $response->data;
+        $this->assertEquals(1, $data[0]['paymentTypeId']);
+
+        /** @var list<array<string, mixed>> $data */
+        $data = $response->data;
+        $this->assertEquals('Cash', $data[0]['paymentTypeName']);
+
+        /** @var list<array<string, mixed>> $data */
+        $data = $response->data;
+        $this->assertEquals('Credit Card', $data[1]['paymentTypeName']);
         $this->assertRequestMethod('GET');
         $this->assertRequestPath('/payment-types');
         $this->assertHasSiteIdHeader();

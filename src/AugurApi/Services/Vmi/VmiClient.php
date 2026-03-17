@@ -15,11 +15,9 @@ use AugurApi\Services\Vmi\Resources\SectionsResource;
 use AugurApi\Services\Vmi\Resources\WarehouseResource;
 
 /**
- * VMI (Vendor Managed Inventory) service client.
+ * Vmi service client — generated from spec.
  *
- * @fullPath api.vmi
- * @service vmi
- * @domain inventory
+ * DO NOT EDIT — regenerate with: python shared/scripts/generate-php.py vmi
  */
 final class VmiClient extends BaseServiceClient
 {
@@ -33,12 +31,12 @@ final class VmiClient extends BaseServiceClient
     public function __construct(Client $client, Config $config)
     {
         parent::__construct($client, $config);
-        $this->distributors = new DistributorsResource($client, $this->baseUrl);
-        $this->invProfileHdr = new InvProfileHdrResource($client, $this->baseUrl);
-        $this->products = new ProductsResource($client, $this->baseUrl);
-        $this->restockHdr = new RestockHdrResource($client, $this->baseUrl);
-        $this->sections = new SectionsResource($client, $this->baseUrl);
-        $this->warehouse = new WarehouseResource($client, $this->baseUrl);
+        $this->distributors = new DistributorsResource($client, $this->baseUrl . '/distributors');
+        $this->invProfileHdr = new InvProfileHdrResource($client, $this->baseUrl . '/inv-profile-hdr');
+        $this->products = new ProductsResource($client, $this->baseUrl . '/products');
+        $this->restockHdr = new RestockHdrResource($client, $this->baseUrl . '/restock-hdr');
+        $this->sections = new SectionsResource($client, $this->baseUrl . '/sections');
+        $this->warehouse = new WarehouseResource($client, $this->baseUrl . '/warehouse');
     }
 
     protected function getServiceName(): string

@@ -6,14 +6,11 @@ namespace AugurApi\Services\P21Core\Resources;
 
 use AugurApi\Core\BaseResponse;
 use AugurApi\Core\Client;
-use AugurApi\Core\Schemas\EdgeCache;
 
 /**
- * Cash drawer resource.
+ * cashDrawer resource — generated from spec.
  *
- * @fullPath api.p21Core.cashDrawer
- * @service p21-core
- * @domain financial-and-pos-management
+ * DO NOT EDIT — regenerate with: python shared/scripts/generate-php.py p21-core
  */
 final class CashDrawerResource
 {
@@ -24,31 +21,30 @@ final class CashDrawerResource
     }
 
     /**
-     * List cash drawers with filtering.
+     * GET /cash-drawer
      *
-     * @fullPath api.p21Core.cashDrawer.list
      * @param array<string, mixed> $params
-     * @return BaseResponse<array<array<string, mixed>>>
+     * @return BaseResponse<array<string, mixed>>
      */
     public function list(array $params = []): BaseResponse
     {
-        $response = $this->client->get($this->baseUrl, '/cash_drawer', $params);
+        $response = $this->client->get($this->baseUrl, '', $params);
 
-        return BaseResponse::fromArray($response, static fn ($data) => $data ?? []);
+        return BaseResponse::fromArray($response, static fn ($data) => $data);
     }
 
     /**
-     * Get cash drawer details by UID.
+     * GET /cash-drawer/{cashDrawerUid}
      *
-     * @fullPath api.p21Core.cashDrawer.get
+     * @param array<string, mixed> $params
      * @return BaseResponse<array<string, mixed>>
      */
-    public function get(int $cashDrawerUid, ?EdgeCache $edgeCache = null): BaseResponse
+    public function get(int $cashDrawerUid, array $params = []): BaseResponse
     {
         $response = $this->client->get(
             $this->baseUrl,
-            '/cash_drawer/{cashDrawerUid}',
-            $edgeCache !== null ? ['edgeCache' => $edgeCache->value] : [],
+            '/{cashDrawerUid}',
+            $params,
             ['cashDrawerUid' => (string) $cashDrawerUid],
         );
 

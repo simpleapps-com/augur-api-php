@@ -23,8 +23,10 @@ final class P21ResourceTest extends AugurApiTestCase
         $response = $this->api->items->p21->listInvMast();
 
         $this->assertCount(2, $response->data);
-        $this->assertEquals(100, $response->data[0]['inv_mast_uid']);
-        $this->assertEquals('ITEM001', $response->data[0]['item_id']);
+        /** @var list<array<string, mixed>> $data */
+        $data = $response->data;
+        $this->assertEquals(100, $data[0]['inv_mast_uid']);
+        $this->assertEquals('ITEM001', $data[0]['item_id']);
         $this->assertRequestMethod('GET');
         $this->assertRequestPath('/p21/inv-mast');
     }

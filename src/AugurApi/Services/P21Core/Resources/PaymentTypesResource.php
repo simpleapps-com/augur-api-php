@@ -8,11 +8,9 @@ use AugurApi\Core\BaseResponse;
 use AugurApi\Core\Client;
 
 /**
- * Payment types resource.
+ * paymentTypes resource — generated from spec.
  *
- * @fullPath api.p21Core.paymentTypes
- * @service p21-core
- * @domain payment-processing
+ * DO NOT EDIT — regenerate with: python shared/scripts/generate-php.py p21-core
  */
 final class PaymentTypesResource
 {
@@ -23,16 +21,15 @@ final class PaymentTypesResource
     }
 
     /**
-     * List payment types.
+     * GET /payment-types
      *
-     * @fullPath api.p21Core.paymentTypes.list
      * @param array<string, mixed> $params
-     * @return BaseResponse<array<array<string, mixed>>>
+     * @return BaseResponse<array<string, mixed>>
      */
     public function list(array $params = []): BaseResponse
     {
-        $response = $this->client->get($this->baseUrl, '/payment-types', $params);
+        $response = $this->client->get($this->baseUrl, '', $params);
 
-        return BaseResponse::fromArray($response, static fn ($data) => $data ?? []);
+        return BaseResponse::fromArray($response, static fn ($data) => $data);
     }
 }

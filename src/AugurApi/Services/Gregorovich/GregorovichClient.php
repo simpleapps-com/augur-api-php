@@ -12,11 +12,9 @@ use AugurApi\Services\Gregorovich\Resources\DocumentsResource;
 use AugurApi\Services\Gregorovich\Resources\OllamaResource;
 
 /**
- * Gregorovich AI service client.
+ * Gregorovich service client — generated from spec.
  *
- * @fullPath api.gregorovich
- * @service gregorovich
- * @domain ai
+ * DO NOT EDIT — regenerate with: python shared/scripts/generate-php.py gregorovich
  */
 final class GregorovichClient extends BaseServiceClient
 {
@@ -27,9 +25,9 @@ final class GregorovichClient extends BaseServiceClient
     public function __construct(Client $client, Config $config)
     {
         parent::__construct($client, $config);
-        $this->chatGpt = new ChatGptResource($client, $this->baseUrl);
-        $this->documents = new DocumentsResource($client, $this->baseUrl);
-        $this->ollama = new OllamaResource($client, $this->baseUrl);
+        $this->chatGpt = new ChatGptResource($client, $this->baseUrl . '/chat-gpt');
+        $this->documents = new DocumentsResource($client, $this->baseUrl . '/documents');
+        $this->ollama = new OllamaResource($client, $this->baseUrl . '/ollama');
     }
 
     protected function getServiceName(): string

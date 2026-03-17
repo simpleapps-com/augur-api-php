@@ -6,14 +6,11 @@ namespace AugurApi\Services\Items\Resources;
 
 use AugurApi\Core\BaseResponse;
 use AugurApi\Core\Client;
-use AugurApi\Core\Schemas\EdgeCache;
 
 /**
- * Locations resource.
+ * locations resource — generated from spec.
  *
- * @fullPath api.items.locations
- * @service items
- * @domain inventory-management
+ * DO NOT EDIT — regenerate with: python shared/scripts/generate-php.py items
  */
 final class LocationsResource
 {
@@ -24,37 +21,36 @@ final class LocationsResource
     }
 
     /**
-     * List location bins.
+     * GET /locations/{locationId}/bins
      *
-     * @fullPath api.items.locations.bins.list
      * @param array<string, mixed> $params
-     * @return BaseResponse<array<array<string, mixed>>>
+     * @return BaseResponse<array<string, mixed>>
      */
-    public function listBins(string $locationId, array $params = []): BaseResponse
+    public function listBins(int $locationId, array $params = []): BaseResponse
     {
         $response = $this->client->get(
             $this->baseUrl,
-            '/locations/{locationId}/bins',
+            '/{locationId}/bins',
             $params,
-            ['locationId' => $locationId],
+            ['locationId' => (string) $locationId],
         );
 
-        return BaseResponse::fromArray($response, static fn ($data) => $data ?? []);
+        return BaseResponse::fromArray($response, static fn ($data) => $data);
     }
 
     /**
-     * Get location bin.
+     * GET /locations/{locationId}/bins/{bin}
      *
-     * @fullPath api.items.locations.bins.get
+     * @param array<string, mixed> $params
      * @return BaseResponse<array<string, mixed>>
      */
-    public function getBin(string $locationId, string $bin, ?EdgeCache $edgeCache = null): BaseResponse
+    public function getBins(string $bin, int $locationId, array $params = []): BaseResponse
     {
         $response = $this->client->get(
             $this->baseUrl,
-            '/locations/{locationId}/bins/{bin}',
-            $edgeCache !== null ? ['edgeCache' => $edgeCache->value] : [],
-            ['locationId' => $locationId, 'bin' => $bin],
+            '/{locationId}/bins/{bin}',
+            $params,
+            ['bin' => (string) $bin, 'locationId' => (string) $locationId],
         );
 
         return BaseResponse::fromArray($response, static fn ($data) => $data);

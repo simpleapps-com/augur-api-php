@@ -23,7 +23,7 @@ final class TaxEngineResourceTest extends AugurApiTestCase
             ],
         ]);
 
-        $response = $this->api->pricing->taxEngine->calculate([
+        $response = $this->api->pricing->taxEngine->create([
             'subtotal' => 1000.00,
             'shipToZip' => '90210',
             'shipToState' => 'CA',
@@ -47,7 +47,7 @@ final class TaxEngineResourceTest extends AugurApiTestCase
             'exemptReason' => 'Resale Certificate',
         ]);
 
-        $response = $this->api->pricing->taxEngine->calculate([
+        $response = $this->api->pricing->taxEngine->create([
             'subtotal' => 1000.00,
             'customerId' => 'TAXEXEMPT001',
             'shipToZip' => '90210',
@@ -70,7 +70,7 @@ final class TaxEngineResourceTest extends AugurApiTestCase
             ],
         ]);
 
-        $response = $this->api->pricing->taxEngine->calculate([
+        $response = $this->api->pricing->taxEngine->create([
             'lines' => [
                 ['lineNo' => 1, 'itemId' => 'ITEM001', 'amount' => 300.00],
                 ['lineNo' => 2, 'itemId' => 'ITEM002', 'amount' => 200.00],
@@ -95,7 +95,7 @@ final class TaxEngineResourceTest extends AugurApiTestCase
             ],
         ]);
 
-        $response = $this->api->pricing->taxEngine->calculate([
+        $response = $this->api->pricing->taxEngine->create([
             'lines' => [
                 ['lineNo' => 1, 'itemId' => 'HARDWARE001', 'amount' => 300.00],
                 ['lineNo' => 2, 'itemId' => 'FOOD001', 'amount' => 200.00],
@@ -120,7 +120,7 @@ final class TaxEngineResourceTest extends AugurApiTestCase
             'total' => 124.20,
         ]);
 
-        $response = $this->api->pricing->taxEngine->calculate([
+        $response = $this->api->pricing->taxEngine->create([
             'subtotal' => 100.00,
             'shippingAmount' => 15.00,
             'shipToZip' => '12345',
@@ -142,7 +142,7 @@ final class TaxEngineResourceTest extends AugurApiTestCase
             'noSalesTax' => true,
         ]);
 
-        $response = $this->api->pricing->taxEngine->calculate([
+        $response = $this->api->pricing->taxEngine->create([
             'subtotal' => 500.00,
             'shipToZip' => '97201',
             'shipToState' => 'OR',

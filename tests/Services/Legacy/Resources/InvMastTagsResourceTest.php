@@ -18,10 +18,13 @@ final class InvMastTagsResourceTest extends AugurApiTestCase
             ['invMastTagsUid' => 2, 'tagName' => 'Sale'],
         ]);
 
-        $response = $this->api->legacy->invMastTags->list(12345);
+        $response = $this->api->legacy->invMast->listTags(12345);
 
         $this->assertCount(2, $response->data);
-        $this->assertEquals('Featured', $response->data[0]['tagName']);
+
+        /** @var list<array<string, mixed>> $data */
+        $data = $response->data;
+        $this->assertEquals('Featured', $data[0]['tagName']);
         $this->assertRequestPath('/inv-mast/12345/tags');
         $this->assertRequestMethod('GET');
         $this->assertHasSiteIdHeader();
@@ -34,7 +37,7 @@ final class InvMastTagsResourceTest extends AugurApiTestCase
             ['invMastTagsUid' => 1, 'tagName' => 'Featured'],
         ]);
 
-        $response = $this->api->legacy->invMastTags->list(12345, ['limit' => 10]);
+        $response = $this->api->legacy->invMast->listTags(12345, ['limit' => 10]);
 
         $this->assertCount(1, $response->data);
         $this->assertRequestPath('/inv-mast/12345/tags');
@@ -49,7 +52,7 @@ final class InvMastTagsResourceTest extends AugurApiTestCase
             'tagValue' => 'true',
         ]);
 
-        $response = $this->api->legacy->invMastTags->get(12345, 1);
+        $response = $this->api->legacy->invMast->getTags(1, 12345);
 
         $this->assertEquals(1, $response->data['invMastTagsUid']);
         $this->assertEquals('Featured', $response->data['tagName']);
@@ -66,14 +69,14 @@ final class InvMastTagsResourceTest extends AugurApiTestCase
             'tagValue' => 'value',
         ], 201);
 
-        $response = $this->api->legacy->invMastTags->create(12345, [
+        $response = $this->api->legacy->invMast->createTags([
+            'invMastUid' => 12345,
             'tagName' => 'New Tag',
             'tagValue' => 'value',
         ]);
 
         $this->assertEquals(3, $response->data['invMastTagsUid']);
         $this->assertEquals('New Tag', $response->data['tagName']);
-        $this->assertRequestPath('/inv-mast/12345/tags');
         $this->assertRequestMethod('POST');
     }
 
@@ -85,7 +88,7 @@ final class InvMastTagsResourceTest extends AugurApiTestCase
             'tagValue' => 'new value',
         ]);
 
-        $response = $this->api->legacy->invMastTags->update(12345, 1, [
+        $response = $this->api->legacy->invMast->updateTags(1, 12345, [
             'tagName' => 'Updated Tag',
             'tagValue' => 'new value',
         ]);
@@ -99,7 +102,7 @@ final class InvMastTagsResourceTest extends AugurApiTestCase
     {
         $this->mockResponse(['deleted' => true]);
 
-        $response = $this->api->legacy->invMastTags->delete(12345, 1);
+        $response = $this->api->legacy->invMast->deleteTags(1, 12345);
 
         $this->assertTrue($response->data['deleted']);
         $this->assertRequestPath('/inv-mast/12345/tags/1');

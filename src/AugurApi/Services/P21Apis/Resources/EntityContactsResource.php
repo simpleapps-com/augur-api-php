@@ -8,11 +8,9 @@ use AugurApi\Core\BaseResponse;
 use AugurApi\Core\Client;
 
 /**
- * Entity contacts resource.
+ * entityContacts resource — generated from spec.
  *
- * @fullPath api.p21Apis.entityContacts
- * @service p21-apis
- * @domain entity-data-management
+ * DO NOT EDIT — regenerate with: python shared/scripts/generate-php.py p21-apis
  */
 final class EntityContactsResource
 {
@@ -23,15 +21,14 @@ final class EntityContactsResource
     }
 
     /**
-     * Trigger entity contacts data refresh for synchronization.
+     * GET /entity-contacts/refresh
      *
-     * @fullPath api.p21Apis.entityContacts.refresh.get
      * @param array<string, mixed> $params
      * @return BaseResponse<array<string, mixed>>
      */
-    public function refresh(array $params = []): BaseResponse
+    public function getRefresh(array $params = []): BaseResponse
     {
-        $response = $this->client->get($this->baseUrl, '/entity-contacts/refresh', $params);
+        $response = $this->client->get($this->baseUrl, '/refresh', $params);
 
         return BaseResponse::fromArray($response, static fn ($data) => $data);
     }

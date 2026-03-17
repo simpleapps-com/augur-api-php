@@ -6,14 +6,11 @@ namespace AugurApi\Services\AgrInfo\Resources;
 
 use AugurApi\Core\BaseResponse;
 use AugurApi\Core\Client;
-use AugurApi\Core\Schemas\EdgeCache;
 
 /**
- * Microservices resource.
+ * microservices resource — generated from spec.
  *
- * @fullPath api.agrInfo.microservices
- * @service agr_info
- * @domain augur
+ * DO NOT EDIT — regenerate with: python shared/scripts/generate-php.py agr-info
  */
 final class MicroservicesResource
 {
@@ -24,31 +21,41 @@ final class MicroservicesResource
     }
 
     /**
-     * List microservices.
+     * GET /microservices
      *
-     * @fullPath api.agrInfo.microservices.list
      * @param array<string, mixed> $params
-     * @return BaseResponse<array<array<string, mixed>>>
+     * @return BaseResponse<array<string, mixed>>
      */
     public function list(array $params = []): BaseResponse
     {
-        $response = $this->client->get($this->baseUrl, '/microservices', $params);
+        $response = $this->client->get($this->baseUrl, '', $params);
 
-        return BaseResponse::fromArray($response, static fn ($data) => $data ?? []);
+        return BaseResponse::fromArray($response, static fn ($data) => $data);
     }
 
     /**
-     * Get microservice details.
+     * POST /microservices
      *
-     * @fullPath api.agrInfo.microservices.get
+     * @param array<string, mixed> $data
      * @return BaseResponse<array<string, mixed>>
      */
-    public function get(int $microservicesUid, ?EdgeCache $edgeCache = null): BaseResponse
+    public function create(array $data = []): BaseResponse
     {
-        $response = $this->client->get(
+        $response = $this->client->post($this->baseUrl, '', $data);
+
+        return BaseResponse::fromArray($response, static fn ($data) => $data);
+    }
+
+    /**
+     * DELETE /microservices/{microservicesUid}
+     *
+     * @return BaseResponse<array<string, mixed>>
+     */
+    public function delete(int $microservicesUid): BaseResponse
+    {
+        $response = $this->client->delete(
             $this->baseUrl,
-            '/microservices/{microservicesUid}',
-            $edgeCache !== null ? ['edgeCache' => $edgeCache->value] : [],
+            '/{microservicesUid}',
             ['microservicesUid' => (string) $microservicesUid],
         );
 
@@ -56,52 +63,38 @@ final class MicroservicesResource
     }
 
     /**
-     * Create microservice.
+     * GET /microservices/{microservicesUid}
      *
-     * @fullPath api.agrInfo.microservices.create
-     * @param array<string, mixed> $data
+     * @param array<string, mixed> $params
      * @return BaseResponse<array<string, mixed>>
      */
-    public function create(array $data): BaseResponse
+    public function get(int $microservicesUid, array $params = []): BaseResponse
     {
-        $response = $this->client->post($this->baseUrl, '/microservices', $data);
+        $response = $this->client->get(
+            $this->baseUrl,
+            '/{microservicesUid}',
+            $params,
+            ['microservicesUid' => (string) $microservicesUid],
+        );
 
-        return BaseResponse::fromArray($response, static fn ($d) => $d);
+        return BaseResponse::fromArray($response, static fn ($data) => $data);
     }
 
     /**
-     * Update microservice.
+     * PUT /microservices/{microservicesUid}
      *
-     * @fullPath api.agrInfo.microservices.update
      * @param array<string, mixed> $data
      * @return BaseResponse<array<string, mixed>>
      */
-    public function update(int $microservicesUid, array $data): BaseResponse
+    public function update(int $microservicesUid, array $data = []): BaseResponse
     {
         $response = $this->client->put(
             $this->baseUrl,
-            '/microservices/{microservicesUid}',
+            '/{microservicesUid}',
             $data,
             ['microservicesUid' => (string) $microservicesUid],
         );
 
-        return BaseResponse::fromArray($response, static fn ($d) => $d);
-    }
-
-    /**
-     * Delete microservice.
-     *
-     * @fullPath api.agrInfo.microservices.delete
-     * @return BaseResponse<bool>
-     */
-    public function delete(int $microservicesUid): BaseResponse
-    {
-        $response = $this->client->delete(
-            $this->baseUrl,
-            '/microservices/{microservicesUid}',
-            ['microservicesUid' => (string) $microservicesUid],
-        );
-
-        return BaseResponse::fromArray($response, static fn ($data) => (bool) $data);
+        return BaseResponse::fromArray($response, static fn ($data) => $data);
     }
 }

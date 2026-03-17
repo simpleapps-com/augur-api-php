@@ -21,7 +21,10 @@ final class PurchaseOrderReceiptResourceTest extends AugurApiTestCase
         $response = $this->api->nexus->purchaseOrderReceipt->list();
 
         $this->assertCount(2, $response->data);
-        $this->assertEquals('PO001', $response->data[0]['poNumber']);
+
+        /** @var list<array<string, mixed>> $data */
+        $data = $response->data;
+        $this->assertEquals('PO001', $data[0]['poNumber']);
         $this->assertRequestPath('/purchase-order-receipt');
         $this->assertRequestMethod('GET');
         $this->assertHasSiteIdHeader();

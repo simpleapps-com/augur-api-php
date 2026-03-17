@@ -23,8 +23,14 @@ final class SectionsResourceTest extends AugurApiTestCase
         $response = $this->api->vmi->sections->list();
 
         $this->assertCount(2, $response->data);
-        $this->assertEquals(1, $response->data[0]['sectionsUid']);
-        $this->assertEquals('Section A', $response->data[0]['name']);
+
+        /** @var list<array<string, mixed>> $data */
+        $data = $response->data;
+        $this->assertEquals(1, $data[0]['sectionsUid']);
+
+        /** @var list<array<string, mixed>> $data */
+        $data = $response->data;
+        $this->assertEquals('Section A', $data[0]['name']);
         $this->assertRequestMethod('GET');
         $this->assertRequestPath('/sections');
         $this->assertHasSiteIdHeader();
@@ -102,7 +108,7 @@ final class SectionsResourceTest extends AugurApiTestCase
 
         $response = $this->api->vmi->sections->delete(1);
 
-        $this->assertTrue($response->data);
+        $this->assertIsArray($response->data);
         $this->assertRequestMethod('DELETE');
         $this->assertRequestPath('/sections/1');
     }
@@ -114,7 +120,7 @@ final class SectionsResourceTest extends AugurApiTestCase
             'active' => true,
         ]);
 
-        $response = $this->api->vmi->sections->enable(1);
+        $response = $this->api->vmi->sections->updateEnable(1);
 
         $this->assertTrue($response->data['active']);
         $this->assertRequestMethod('PUT');
@@ -128,7 +134,7 @@ final class SectionsResourceTest extends AugurApiTestCase
             'active' => false,
         ]);
 
-        $response = $this->api->vmi->sections->enable(1, ['active' => false]);
+        $response = $this->api->vmi->sections->updateEnable(1, ['active' => false]);
 
         $this->assertFalse($response->data['active']);
         $this->assertHasSiteIdHeader();

@@ -6,14 +6,11 @@ namespace AugurApi\Services\Legacy\Resources;
 
 use AugurApi\Core\BaseResponse;
 use AugurApi\Core\Client;
-use AugurApi\Core\Schemas\EdgeCache;
 
 /**
- * Orders resource.
+ * orders resource — generated from spec.
  *
- * @fullPath api.legacy.orders
- * @service legacy
- * @domain augur
+ * DO NOT EDIT — regenerate with: python shared/scripts/generate-php.py legacy
  */
 final class OrdersResource
 {
@@ -24,17 +21,17 @@ final class OrdersResource
     }
 
     /**
-     * Reset orders for processing by id.
+     * GET /orders/{id}/reset
      *
-     * @fullPath api.legacy.orders.reset
+     * @param array<string, mixed> $params
      * @return BaseResponse<array<string, mixed>>
      */
-    public function reset(int $id, ?EdgeCache $edgeCache = null): BaseResponse
+    public function listReset(int $id, array $params = []): BaseResponse
     {
         $response = $this->client->get(
             $this->baseUrl,
-            '/orders/{id}/reset',
-            $edgeCache !== null ? ['edgeCache' => $edgeCache->value] : [],
+            '/{id}/reset',
+            $params,
             ['id' => (string) $id],
         );
 

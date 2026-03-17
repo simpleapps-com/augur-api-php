@@ -6,14 +6,11 @@ namespace AugurApi\Services\Vmi\Resources;
 
 use AugurApi\Core\BaseResponse;
 use AugurApi\Core\Client;
-use AugurApi\Core\Schemas\EdgeCache;
 
 /**
- * Products resource.
+ * products resource — generated from spec.
  *
- * @fullPath api.vmi.products
- * @service vmi
- * @domain inventory
+ * DO NOT EDIT — regenerate with: python shared/scripts/generate-php.py vmi
  */
 final class ProductsResource
 {
@@ -24,45 +21,41 @@ final class ProductsResource
     }
 
     /**
-     * List products.
+     * GET /products
      *
-     * @fullPath api.vmi.products.list
      * @param array<string, mixed> $params
-     * @return BaseResponse<array<array<string, mixed>>>
+     * @return BaseResponse<array<string, mixed>>
      */
     public function list(array $params = []): BaseResponse
     {
-        $response = $this->client->get($this->baseUrl, '/products', $params);
+        $response = $this->client->get($this->baseUrl, '', $params);
 
-        return BaseResponse::fromArray($response, static fn ($data) => $data ?? []);
+        return BaseResponse::fromArray($response, static fn ($data) => $data);
     }
 
     /**
-     * Find products and items.
+     * GET /products/find
      *
-     * @fullPath api.vmi.products.find
      * @param array<string, mixed> $params
-     * @return BaseResponse<array<array<string, mixed>>>
-     */
-    public function find(array $params = []): BaseResponse
-    {
-        $response = $this->client->get($this->baseUrl, '/products/find', $params);
-
-        return BaseResponse::fromArray($response, static fn ($data) => $data ?? []);
-    }
-
-    /**
-     * Get product details.
-     *
-     * @fullPath api.vmi.products.get
      * @return BaseResponse<array<string, mixed>>
      */
-    public function get(int $productsUid, ?EdgeCache $edgeCache = null): BaseResponse
+    public function listFind(array $params = []): BaseResponse
     {
-        $response = $this->client->get(
+        $response = $this->client->get($this->baseUrl, '/find', $params);
+
+        return BaseResponse::fromArray($response, static fn ($data) => $data);
+    }
+
+    /**
+     * DELETE /products/{productsUid}
+     *
+     * @return BaseResponse<array<string, mixed>>
+     */
+    public function delete(int $productsUid): BaseResponse
+    {
+        $response = $this->client->delete(
             $this->baseUrl,
-            '/products/{productsUid}',
-            $edgeCache !== null ? ['edgeCache' => $edgeCache->value] : [],
+            '/{productsUid}',
             ['productsUid' => (string) $productsUid],
         );
 
@@ -70,76 +63,56 @@ final class ProductsResource
     }
 
     /**
-     * Create product.
+     * GET /products/{productsUid}
      *
-     * @fullPath api.vmi.products.create
-     * @param array<string, mixed> $data
+     * @param array<string, mixed> $params
      * @return BaseResponse<array<string, mixed>>
      */
-    public function create(int $distributorsUid, array $data): BaseResponse
+    public function get(int $productsUid, array $params = []): BaseResponse
     {
-        $response = $this->client->post(
+        $response = $this->client->get(
             $this->baseUrl,
-            '/distributors/{distributorsUid}/products',
-            $data,
-            ['distributorsUid' => (string) $distributorsUid],
+            '/{productsUid}',
+            $params,
+            ['productsUid' => (string) $productsUid],
         );
 
-        return BaseResponse::fromArray($response, static fn ($d) => $d);
+        return BaseResponse::fromArray($response, static fn ($data) => $data);
     }
 
     /**
-     * Update product.
+     * PUT /products/{productsUid}
      *
-     * @fullPath api.vmi.products.update
      * @param array<string, mixed> $data
      * @return BaseResponse<array<string, mixed>>
      */
-    public function update(int $productsUid, array $data): BaseResponse
+    public function update(int $productsUid, array $data = []): BaseResponse
     {
         $response = $this->client->put(
             $this->baseUrl,
-            '/products/{productsUid}',
+            '/{productsUid}',
             $data,
             ['productsUid' => (string) $productsUid],
         );
 
-        return BaseResponse::fromArray($response, static fn ($d) => $d);
+        return BaseResponse::fromArray($response, static fn ($data) => $data);
     }
 
     /**
-     * Delete product.
+     * PUT /products/{productsUid}/enable
      *
-     * @fullPath api.vmi.products.delete
-     * @return BaseResponse<bool>
-     */
-    public function delete(int $productsUid): BaseResponse
-    {
-        $response = $this->client->delete(
-            $this->baseUrl,
-            '/products/{productsUid}',
-            ['productsUid' => (string) $productsUid],
-        );
-
-        return BaseResponse::fromArray($response, static fn ($data) => (bool) $data);
-    }
-
-    /**
-     * Enable product.
-     *
-     * @fullPath api.vmi.products.enable
      * @param array<string, mixed> $data
      * @return BaseResponse<array<string, mixed>>
      */
-    public function enable(int $productsUid, array $data = []): BaseResponse
+    public function updateEnable(int $productsUid, array $data = []): BaseResponse
     {
         $response = $this->client->put(
             $this->baseUrl,
-            '/products/{productsUid}/enable',
+            '/{productsUid}/enable',
             $data,
             ['productsUid' => (string) $productsUid],
         );
 
-        return BaseResponse::fromArray($response, static fn ($d) => $d);
+        return BaseResponse::fromArray($response, static fn ($data) => $data);
     }
 }

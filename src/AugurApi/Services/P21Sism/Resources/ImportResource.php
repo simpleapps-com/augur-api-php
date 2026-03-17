@@ -6,14 +6,11 @@ namespace AugurApi\Services\P21Sism\Resources;
 
 use AugurApi\Core\BaseResponse;
 use AugurApi\Core\Client;
-use AugurApi\Core\Schemas\EdgeCache;
 
 /**
- * Import resource.
+ * import resource — generated from spec.
  *
- * @fullPath api.p21Sism.import
- * @service p21-sism
- * @domain data-import-management
+ * DO NOT EDIT — regenerate with: python shared/scripts/generate-php.py p21-sism
  */
 final class ImportResource
 {
@@ -24,188 +21,181 @@ final class ImportResource
     }
 
     /**
-     * List imports with filtering capabilities.
+     * GET /import
      *
-     * @fullPath api.p21Sism.import.list
      * @param array<string, mixed> $params
-     * @return BaseResponse<array<array<string, mixed>>>
+     * @return BaseResponse<array<string, mixed>>
      */
     public function list(array $params = []): BaseResponse
     {
-        $response = $this->client->get($this->baseUrl, '/import', $params);
-
-        return BaseResponse::fromArray($response, static fn ($data) => $data ?? []);
-    }
-
-    /**
-     * Get import details by UID.
-     *
-     * @fullPath api.p21Sism.import.get
-     * @return BaseResponse<array<string, mixed>>
-     */
-    public function get(string $importUid, ?EdgeCache $edgeCache = null): BaseResponse
-    {
-        $response = $this->client->get(
-            $this->baseUrl,
-            '/import/{importUid}',
-            $edgeCache !== null ? ['edgeCache' => $edgeCache->value] : [],
-            ['importUid' => $importUid],
-        );
+        $response = $this->client->get($this->baseUrl, '', $params);
 
         return BaseResponse::fromArray($response, static fn ($data) => $data);
     }
 
     /**
-     * Update import details.
+     * GET /import/recent
      *
-     * @fullPath api.p21Sism.import.update
-     * @param array<string, mixed> $data
+     * @param array<string, mixed> $params
      * @return BaseResponse<array<string, mixed>>
      */
-    public function update(string $importUid, array $data): BaseResponse
+    public function listRecent(array $params = []): BaseResponse
     {
-        $response = $this->client->put(
-            $this->baseUrl,
-            '/import/{importUid}',
-            $data,
-            ['importUid' => $importUid],
-        );
+        $response = $this->client->get($this->baseUrl, '/recent', $params);
 
-        return BaseResponse::fromArray($response, static fn ($d) => $d);
+        return BaseResponse::fromArray($response, static fn ($data) => $data);
     }
 
     /**
-     * Clean pending import data.
+     * GET /import/stuck
      *
-     * @fullPath api.p21Sism.import.delete
+     * @param array<string, mixed> $params
+     * @return BaseResponse<array<string, mixed>>
+     */
+    public function listStuck(array $params = []): BaseResponse
+    {
+        $response = $this->client->get($this->baseUrl, '/stuck', $params);
+
+        return BaseResponse::fromArray($response, static fn ($data) => $data);
+    }
+
+    /**
+     * DELETE /import/{importUid}
+     *
      * @return BaseResponse<array<string, mixed>>
      */
     public function delete(string $importUid): BaseResponse
     {
         $response = $this->client->delete(
             $this->baseUrl,
-            '/import/{importUid}',
-            ['importUid' => $importUid],
+            '/{importUid}',
+            ['importUid' => (string) $importUid],
         );
 
         return BaseResponse::fromArray($response, static fn ($data) => $data);
     }
 
     /**
-     * Get recent imports for monitoring.
+     * GET /import/{importUid}
      *
-     * @fullPath api.p21Sism.import.recent.list
      * @param array<string, mixed> $params
-     * @return BaseResponse<array<array<string, mixed>>>
-     */
-    public function listRecent(array $params = []): BaseResponse
-    {
-        $response = $this->client->get($this->baseUrl, '/import/recent', $params);
-
-        return BaseResponse::fromArray($response, static fn ($data) => $data ?? []);
-    }
-
-    /**
-     * Get stuck imports for troubleshooting.
-     *
-     * @fullPath api.p21Sism.import.stuck.list
-     * @param array<string, mixed> $params
-     * @return BaseResponse<array<array<string, mixed>>>
-     */
-    public function listStuck(array $params = []): BaseResponse
-    {
-        $response = $this->client->get($this->baseUrl, '/import/stuck', $params);
-
-        return BaseResponse::fromArray($response, static fn ($data) => $data ?? []);
-    }
-
-    /**
-     * Get order entry header details.
-     *
-     * @fullPath api.p21Sism.import.impOeHdr.get
      * @return BaseResponse<array<string, mixed>>
      */
-    public function getImpOeHdr(string $importUid, ?EdgeCache $edgeCache = null): BaseResponse
+    public function get(string $importUid, array $params = []): BaseResponse
     {
         $response = $this->client->get(
             $this->baseUrl,
-            '/import/{importUid}/imp-oe-hdr',
-            $edgeCache !== null ? ['edgeCache' => $edgeCache->value] : [],
-            ['importUid' => $importUid],
+            '/{importUid}',
+            $params,
+            ['importUid' => (string) $importUid],
         );
 
         return BaseResponse::fromArray($response, static fn ($data) => $data);
     }
 
     /**
-     * Update order entry header data.
+     * PUT /import/{importUid}
      *
-     * @fullPath api.p21Sism.import.impOeHdr.update
      * @param array<string, mixed> $data
      * @return BaseResponse<array<string, mixed>>
      */
-    public function updateImpOeHdr(string $importUid, array $data): BaseResponse
+    public function update(string $importUid, array $data = []): BaseResponse
     {
         $response = $this->client->put(
             $this->baseUrl,
-            '/import/{importUid}/imp-oe-hdr',
+            '/{importUid}',
             $data,
-            ['importUid' => $importUid],
-        );
-
-        return BaseResponse::fromArray($response, static fn ($d) => $d);
-    }
-
-    /**
-     * Get order entry sales representative details.
-     *
-     * @fullPath api.p21Sism.import.impOeHdrSalesrep.get
-     * @return BaseResponse<array<string, mixed>>
-     */
-    public function getImpOeHdrSalesrep(string $importUid, ?EdgeCache $edgeCache = null): BaseResponse
-    {
-        $response = $this->client->get(
-            $this->baseUrl,
-            '/import/{importUid}/imp-oe-hdr-salesrep',
-            $edgeCache !== null ? ['edgeCache' => $edgeCache->value] : [],
-            ['importUid' => $importUid],
+            ['importUid' => (string) $importUid],
         );
 
         return BaseResponse::fromArray($response, static fn ($data) => $data);
     }
 
     /**
-     * Update order entry sales representative data.
+     * GET /import/{importUid}/imp-oe-hdr
      *
-     * @fullPath api.p21Sism.import.impOeHdrSalesrep.update
-     * @param array<string, mixed> $data
+     * @param array<string, mixed> $params
      * @return BaseResponse<array<string, mixed>>
      */
-    public function updateImpOeHdrSalesrep(string $importUid, array $data): BaseResponse
-    {
-        $response = $this->client->put(
-            $this->baseUrl,
-            '/import/{importUid}/imp-oe-hdr-salesrep',
-            $data,
-            ['importUid' => $importUid],
-        );
-
-        return BaseResponse::fromArray($response, static fn ($d) => $d);
-    }
-
-    /**
-     * Get order entry web header details.
-     *
-     * @fullPath api.p21Sism.import.impOeHdrWeb.get
-     * @return BaseResponse<array<string, mixed>>
-     */
-    public function getImpOeHdrWeb(string $importUid, ?EdgeCache $edgeCache = null): BaseResponse
+    public function listImpOeHdr(string $importUid, array $params = []): BaseResponse
     {
         $response = $this->client->get(
             $this->baseUrl,
-            '/import/{importUid}/imp-oe-hdr-web',
-            $edgeCache !== null ? ['edgeCache' => $edgeCache->value] : [],
-            ['importUid' => $importUid],
+            '/{importUid}/imp-oe-hdr',
+            $params,
+            ['importUid' => (string) $importUid],
+        );
+
+        return BaseResponse::fromArray($response, static fn ($data) => $data);
+    }
+
+    /**
+     * PUT /import/{importUid}/imp-oe-hdr
+     *
+     * @param array<string, mixed> $data
+     * @return BaseResponse<array<string, mixed>>
+     */
+    public function updateImpOeHdr(string $importUid, array $data = []): BaseResponse
+    {
+        $response = $this->client->put(
+            $this->baseUrl,
+            '/{importUid}/imp-oe-hdr',
+            $data,
+            ['importUid' => (string) $importUid],
+        );
+
+        return BaseResponse::fromArray($response, static fn ($data) => $data);
+    }
+
+    /**
+     * GET /import/{importUid}/imp-oe-hdr-salesrep
+     *
+     * @param array<string, mixed> $params
+     * @return BaseResponse<array<string, mixed>>
+     */
+    public function listImpOeHdrSalesrep(string $importUid, array $params = []): BaseResponse
+    {
+        $response = $this->client->get(
+            $this->baseUrl,
+            '/{importUid}/imp-oe-hdr-salesrep',
+            $params,
+            ['importUid' => (string) $importUid],
+        );
+
+        return BaseResponse::fromArray($response, static fn ($data) => $data);
+    }
+
+    /**
+     * PUT /import/{importUid}/imp-oe-hdr-salesrep
+     *
+     * @param array<string, mixed> $data
+     * @return BaseResponse<array<string, mixed>>
+     */
+    public function updateImpOeHdrSalesrep(string $importUid, array $data = []): BaseResponse
+    {
+        $response = $this->client->put(
+            $this->baseUrl,
+            '/{importUid}/imp-oe-hdr-salesrep',
+            $data,
+            ['importUid' => (string) $importUid],
+        );
+
+        return BaseResponse::fromArray($response, static fn ($data) => $data);
+    }
+
+    /**
+     * GET /import/{importUid}/imp-oe-hdr-web
+     *
+     * @param array<string, mixed> $params
+     * @return BaseResponse<array<string, mixed>>
+     */
+    public function listImpOeHdrWeb(string $importUid, array $params = []): BaseResponse
+    {
+        $response = $this->client->get(
+            $this->baseUrl,
+            '/{importUid}/imp-oe-hdr-web',
+            $params,
+            ['importUid' => (string) $importUid],
         );
 
         return BaseResponse::fromArray($response, static fn ($data) => $data);

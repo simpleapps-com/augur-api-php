@@ -23,8 +23,14 @@ final class DistributorsResourceTest extends AugurApiTestCase
         $response = $this->api->vmi->distributors->list();
 
         $this->assertCount(2, $response->data);
-        $this->assertEquals(1, $response->data[0]['distributorsUid']);
-        $this->assertEquals('Distributor A', $response->data[0]['name']);
+
+        /** @var list<array<string, mixed>> $data */
+        $data = $response->data;
+        $this->assertEquals(1, $data[0]['distributorsUid']);
+
+        /** @var list<array<string, mixed>> $data */
+        $data = $response->data;
+        $this->assertEquals('Distributor A', $data[0]['name']);
         $this->assertRequestMethod('GET');
         $this->assertRequestPath('/distributors');
         $this->assertHasSiteIdHeader();
@@ -104,7 +110,7 @@ final class DistributorsResourceTest extends AugurApiTestCase
 
         $response = $this->api->vmi->distributors->delete(1);
 
-        $this->assertTrue($response->data);
+        $this->assertIsArray($response->data);
         $this->assertRequestMethod('DELETE');
         $this->assertRequestPath('/distributors/1');
     }
@@ -116,7 +122,7 @@ final class DistributorsResourceTest extends AugurApiTestCase
             'active' => true,
         ]);
 
-        $response = $this->api->vmi->distributors->enable(1, ['active' => true]);
+        $response = $this->api->vmi->distributors->updateEnable(1, ['active' => true]);
 
         $this->assertTrue($response->data['active']);
         $this->assertRequestMethod('PUT');

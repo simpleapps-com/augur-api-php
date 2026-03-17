@@ -8,11 +8,9 @@ use AugurApi\Core\BaseResponse;
 use AugurApi\Core\Client;
 
 /**
- * Speedship resource.
+ * speedship resource — generated from spec.
  *
- * @fullPath api.logistics.speedship
- * @service logistics
- * @domain shipping
+ * DO NOT EDIT — regenerate with: python shared/scripts/generate-php.py logistics
  */
 final class SpeedshipResource
 {
@@ -23,15 +21,14 @@ final class SpeedshipResource
     }
 
     /**
-     * Get Speedship freight.
+     * GET /speedship/freight
      *
-     * @fullPath api.logistics.speedship.getFreight
      * @param array<string, mixed> $params
      * @return BaseResponse<array<string, mixed>>
      */
-    public function getFreight(array $params): BaseResponse
+    public function listFreight(array $params = []): BaseResponse
     {
-        $response = $this->client->get($this->baseUrl, '/speedship/freight', $params);
+        $response = $this->client->get($this->baseUrl, '/freight', $params);
 
         return BaseResponse::fromArray($response, static fn ($data) => $data);
     }

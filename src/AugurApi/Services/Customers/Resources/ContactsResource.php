@@ -6,14 +6,11 @@ namespace AugurApi\Services\Customers\Resources;
 
 use AugurApi\Core\BaseResponse;
 use AugurApi\Core\Client;
-use AugurApi\Core\Schemas\EdgeCache;
 
 /**
- * Contacts resource.
+ * contacts resource — generated from spec.
  *
- * @fullPath api.customers.contacts
- * @service customers
- * @domain customer-management
+ * DO NOT EDIT — regenerate with: python shared/scripts/generate-php.py customers
  */
 final class ContactsResource
 {
@@ -24,35 +21,30 @@ final class ContactsResource
     }
 
     /**
-     * List salesrep customers for a contact.
+     * GET /contacts/refresh
      *
-     * @fullPath api.customers.contacts.getCustomers
-     * @return BaseResponse<array<array<string, mixed>>>
+     * @param array<string, mixed> $params
+     * @return BaseResponse<array<string, mixed>>
      */
-    public function getCustomers(int $id, ?EdgeCache $edgeCache = null): BaseResponse
+    public function getRefresh(array $params = []): BaseResponse
     {
-        $response = $this->client->get(
-            $this->baseUrl,
-            '/contacts/{id}/customers',
-            $edgeCache !== null ? ['edgeCache' => $edgeCache->value] : [],
-            ['id' => (string) $id],
-        );
+        $response = $this->client->get($this->baseUrl, '/refresh', $params);
 
-        return BaseResponse::fromArray($response, static fn ($data) => $data ?? []);
+        return BaseResponse::fromArray($response, static fn ($data) => $data);
     }
 
     /**
-     * Get the contact document.
+     * GET /contacts/{id}/customers
      *
-     * @fullPath api.customers.contacts.getDoc
+     * @param array<string, mixed> $params
      * @return BaseResponse<array<string, mixed>>
      */
-    public function getDoc(int $id, ?EdgeCache $edgeCache = null): BaseResponse
+    public function listCustomers(int $id, array $params = []): BaseResponse
     {
         $response = $this->client->get(
             $this->baseUrl,
-            '/contacts/{id}/doc',
-            $edgeCache !== null ? ['edgeCache' => $edgeCache->value] : [],
+            '/{id}/customers',
+            $params,
             ['id' => (string) $id],
         );
 
@@ -60,17 +52,17 @@ final class ContactsResource
     }
 
     /**
-     * Get the web allowance for a contact.
+     * GET /contacts/{id}/doc
      *
-     * @fullPath api.customers.contacts.getWebAllowance
+     * @param array<string, mixed> $params
      * @return BaseResponse<array<string, mixed>>
      */
-    public function getWebAllowance(int $id, ?EdgeCache $edgeCache = null): BaseResponse
+    public function listDoc(int $id, array $params = []): BaseResponse
     {
         $response = $this->client->get(
             $this->baseUrl,
-            '/contacts/{id}/web-allowance',
-            $edgeCache !== null ? ['edgeCache' => $edgeCache->value] : [],
+            '/{id}/doc',
+            $params,
             ['id' => (string) $id],
         );
 
@@ -78,14 +70,30 @@ final class ContactsResource
     }
 
     /**
-     * Trigger a data refresh.
+     * Alias for listDoc — GET /contacts/{id}/doc
      *
-     * @fullPath api.customers.contacts.refresh
+     * @param array<string, mixed> $params
      * @return BaseResponse<array<string, mixed>>
      */
-    public function refresh(): BaseResponse
+    public function getDoc(int $id, array $params = []): BaseResponse
     {
-        $response = $this->client->get($this->baseUrl, '/contacts/refresh');
+        return $this->listDoc($id, $params);
+    }
+
+    /**
+     * GET /contacts/{id}/web-allowance
+     *
+     * @param array<string, mixed> $params
+     * @return BaseResponse<array<string, mixed>>
+     */
+    public function listWebAllowance(int $id, array $params = []): BaseResponse
+    {
+        $response = $this->client->get(
+            $this->baseUrl,
+            '/{id}/web-allowance',
+            $params,
+            ['id' => (string) $id],
+        );
 
         return BaseResponse::fromArray($response, static fn ($data) => $data);
     }

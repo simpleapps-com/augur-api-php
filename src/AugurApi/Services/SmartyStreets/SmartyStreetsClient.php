@@ -10,11 +10,9 @@ use AugurApi\Core\Config;
 use AugurApi\Services\SmartyStreets\Resources\UsResource;
 
 /**
- * SmartyStreets service client.
+ * SmartyStreets service client — generated from spec.
  *
- * @fullPath api.smartyStreets
- * @service smarty_streets
- * @domain address-validation
+ * DO NOT EDIT — regenerate with: python shared/scripts/generate-php.py smarty-streets
  */
 final class SmartyStreetsClient extends BaseServiceClient
 {
@@ -23,7 +21,7 @@ final class SmartyStreetsClient extends BaseServiceClient
     public function __construct(Client $client, Config $config)
     {
         parent::__construct($client, $config);
-        $this->us = new UsResource($client, $this->baseUrl);
+        $this->us = new UsResource($client, $this->baseUrl . '/us');
     }
 
     protected function getServiceName(): string

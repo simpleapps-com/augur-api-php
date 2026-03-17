@@ -23,8 +23,10 @@ final class AttributesResourceTest extends AugurApiTestCase
         $response = $this->api->items->attributes->list();
 
         $this->assertCount(2, $response->data);
-        $this->assertEquals(1, $response->data[0]['attributeUid']);
-        $this->assertEquals('Color', $response->data[0]['name']);
+        /** @var list<array<string, mixed>> $data */
+        $data = $response->data;
+        $this->assertEquals(1, $data[0]['attributeUid']);
+        $this->assertEquals('Color', $data[0]['name']);
         $this->assertRequestMethod('GET');
         $this->assertRequestPath('/attributes');
     }
@@ -98,7 +100,9 @@ final class AttributesResourceTest extends AugurApiTestCase
         $response = $this->api->items->attributes->listValues(1);
 
         $this->assertCount(2, $response->data);
-        $this->assertEquals('Red', $response->data[0]['value']);
+        /** @var list<array<string, mixed>> $data */
+        $data = $response->data;
+        $this->assertEquals('Red', $data[0]['value']);
         $this->assertRequestMethod('GET');
         $this->assertRequestPath('/attributes/1/values');
     }
@@ -118,7 +122,7 @@ final class AttributesResourceTest extends AugurApiTestCase
     {
         $this->mockResponse(['attributeValueUid' => 1, 'value' => 'Red', 'sortOrder' => 1]);
 
-        $response = $this->api->items->attributes->getValue(1, 1);
+        $response = $this->api->items->attributes->getValues(1, 1);
 
         $this->assertEquals(1, $response->data['attributeValueUid']);
         $this->assertEquals('Red', $response->data['value']);
@@ -130,7 +134,7 @@ final class AttributesResourceTest extends AugurApiTestCase
     {
         $this->mockResponse(['attributeValueUid' => 3, 'value' => 'Green']);
 
-        $response = $this->api->items->attributes->createValue(1, ['value' => 'Green']);
+        $response = $this->api->items->attributes->createValues(1, ['value' => 'Green']);
 
         $this->assertEquals(3, $response->data['attributeValueUid']);
         $this->assertEquals('Green', $response->data['value']);
@@ -142,7 +146,7 @@ final class AttributesResourceTest extends AugurApiTestCase
     {
         $this->mockResponse(['attributeValueUid' => 1, 'value' => 'Dark Red']);
 
-        $response = $this->api->items->attributes->updateValue(1, 1, ['value' => 'Dark Red']);
+        $response = $this->api->items->attributes->updateValues(1, 1, ['value' => 'Dark Red']);
 
         $this->assertEquals('Dark Red', $response->data['value']);
         $this->assertRequestMethod('PUT');
@@ -153,7 +157,7 @@ final class AttributesResourceTest extends AugurApiTestCase
     {
         $this->mockSuccessResponse();
 
-        $response = $this->api->items->attributes->deleteValue(1, 1);
+        $response = $this->api->items->attributes->deleteValues(1, 1);
 
         $this->assertTrue($response->data['success']);
         $this->assertRequestMethod('DELETE');

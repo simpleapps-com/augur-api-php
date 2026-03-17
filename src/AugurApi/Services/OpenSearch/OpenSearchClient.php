@@ -12,11 +12,9 @@ use AugurApi\Services\OpenSearch\Resources\ItemsResource;
 use AugurApi\Services\OpenSearch\Resources\SuggestionsResource;
 
 /**
- * OpenSearch service client.
+ * OpenSearch service client — generated from spec.
  *
- * @fullPath api.openSearch
- * @service open_search
- * @domain search
+ * DO NOT EDIT — regenerate with: python shared/scripts/generate-php.py open-search
  */
 final class OpenSearchClient extends BaseServiceClient
 {
@@ -27,9 +25,9 @@ final class OpenSearchClient extends BaseServiceClient
     public function __construct(Client $client, Config $config)
     {
         parent::__construct($client, $config);
-        $this->itemSearch = new ItemSearchResource($client, $this->baseUrl);
-        $this->items = new ItemsResource($client, $this->baseUrl);
-        $this->suggestions = new SuggestionsResource($client, $this->baseUrl);
+        $this->itemSearch = new ItemSearchResource($client, $this->baseUrl . '/item-search');
+        $this->items = new ItemsResource($client, $this->baseUrl . '/items');
+        $this->suggestions = new SuggestionsResource($client, $this->baseUrl . '/suggestions');
     }
 
     protected function getServiceName(): string

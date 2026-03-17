@@ -22,8 +22,14 @@ final class OllamaResourceTest extends AugurApiTestCase
         $response = $this->api->agrInfo->ollama->listTags();
 
         $this->assertCount(3, $response->data);
-        $this->assertEquals('llama2', $response->data[0]['name']);
-        $this->assertEquals('mistral', $response->data[1]['name']);
+
+        /** @var list<array<string, mixed>> $data */
+        $data = $response->data;
+        $this->assertEquals('llama2', $data[0]['name']);
+
+        /** @var list<array<string, mixed>> $data */
+        $data = $response->data;
+        $this->assertEquals('mistral', $data[1]['name']);
         $this->assertRequestPath('/ollama/tags');
         $this->assertRequestMethod('GET');
         $this->assertHasSiteIdHeader();

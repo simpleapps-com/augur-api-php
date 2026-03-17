@@ -8,61 +8,61 @@ use AugurApi\Tests\AugurApiTestCase;
 
 final class InvoiceHdrResourceTest extends AugurApiTestCase
 {
-    public function testReprint(): void
+    public function testListReprint(): void
     {
         $this->mockResponse([
-            'invoiceNo' => 'INV001',
+            'invoiceNo' => 123,
             'status' => 'queued',
             'printJobId' => 'PJ12345',
             'message' => 'Invoice queued for reprinting',
         ]);
 
-        $response = $this->api->orders->invoiceHdr->reprint('INV001');
+        $response = $this->api->orders->invoiceHdr->listReprint(123);
 
-        $this->assertEquals('INV001', $response->data['invoiceNo']);
+        $this->assertEquals(123, $response->data['invoiceNo']);
         $this->assertEquals('queued', $response->data['status']);
         $this->assertEquals('PJ12345', $response->data['printJobId']);
-        $this->assertRequestPath('/invoice-hdr/INV001/reprint');
+        $this->assertRequestPath('/invoice-hdr/123/reprint');
         $this->assertRequestMethod('GET');
         $this->assertHasAuthHeader();
     }
 
-    public function testReprintWithDifferentInvoice(): void
+    public function testListReprintWithDifferentInvoice(): void
     {
         $this->mockResponse([
-            'invoiceNo' => 'INV999',
+            'invoiceNo' => 999,
             'status' => 'queued',
         ]);
 
-        $response = $this->api->orders->invoiceHdr->reprint('INV999');
+        $response = $this->api->orders->invoiceHdr->listReprint(999);
 
-        $this->assertEquals('INV999', $response->data['invoiceNo']);
-        $this->assertRequestPath('/invoice-hdr/INV999/reprint');
+        $this->assertEquals(999, $response->data['invoiceNo']);
+        $this->assertRequestPath('/invoice-hdr/999/reprint');
     }
 
-    public function testReprintSuccess(): void
+    public function testListReprintSuccess(): void
     {
         $this->mockResponse([
-            'invoiceNo' => 'INV123',
+            'invoiceNo' => 456,
             'status' => 'completed',
             'printedAt' => '2024-01-15T10:30:00Z',
         ]);
 
-        $response = $this->api->orders->invoiceHdr->reprint('INV123');
+        $response = $this->api->orders->invoiceHdr->listReprint(456);
 
         $this->assertEquals('completed', $response->data['status']);
         $this->assertArrayHasKey('printedAt', $response->data);
     }
 
-    public function testReprintWithEmail(): void
+    public function testListReprintWithEmail(): void
     {
         $this->mockResponse([
-            'invoiceNo' => 'INV456',
+            'invoiceNo' => 789,
             'status' => 'emailed',
             'emailSentTo' => 'customer@example.com',
         ]);
 
-        $response = $this->api->orders->invoiceHdr->reprint('INV456');
+        $response = $this->api->orders->invoiceHdr->listReprint(789);
 
         $this->assertEquals('emailed', $response->data['status']);
     }

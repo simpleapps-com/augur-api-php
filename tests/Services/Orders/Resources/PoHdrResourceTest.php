@@ -11,15 +11,17 @@ final class PoHdrResourceTest extends AugurApiTestCase
     public function testList(): void
     {
         $this->mockListResponse([
-            ['poNo' => 'PO001', 'vendorId' => 'VEND001', 'status' => 'open', 'total' => 5000.00],
-            ['poNo' => 'PO002', 'vendorId' => 'VEND002', 'status' => 'received', 'total' => 7500.00],
+            ['poNo' => 5001, 'vendorId' => 'VEND001', 'status' => 'open', 'total' => 5000.00],
+            ['poNo' => 5002, 'vendorId' => 'VEND002', 'status' => 'received', 'total' => 7500.00],
         ]);
 
         $response = $this->api->orders->poHdr->list();
 
         $this->assertCount(2, $response->data);
-        $this->assertEquals('PO001', $response->data[0]['poNo']);
-        $this->assertEquals('open', $response->data[0]['status']);
+        /** @var list<array<string, mixed>> $data */
+        $data = $response->data;
+        $this->assertEquals(5001, $data[0]['poNo']);
+        $this->assertEquals('open', $data[0]['status']);
         $this->assertRequestPath('/po-hdr');
         $this->assertRequestMethod('GET');
         $this->assertHasAuthHeader();
@@ -28,11 +30,11 @@ final class PoHdrResourceTest extends AugurApiTestCase
     public function testListWithParams(): void
     {
         $this->mockListResponse([
-            ['poNo' => 'PO001', 'status' => 'open'],
+            ['poNo' => 5001, 'status' => 'open'],
         ], 25);
 
         $response = $this->api->orders->poHdr->list([
-            'status' => 'open',
+            'complete' => 'N',
             'limit' => 10,
             'offset' => 0,
         ]);
@@ -54,7 +56,7 @@ final class PoHdrResourceTest extends AugurApiTestCase
     public function testGet(): void
     {
         $this->mockResponse([
-            'poNo' => 'PO001',
+            'poNo' => 5001,
             'vendorId' => 'VEND001',
             'vendorName' => 'Test Vendor',
             'orderDate' => '2024-01-15',
@@ -63,32 +65,32 @@ final class PoHdrResourceTest extends AugurApiTestCase
             'total' => 5000.00,
         ]);
 
-        $response = $this->api->orders->poHdr->get('PO001');
+        $response = $this->api->orders->poHdr->get(5001);
 
-        $this->assertEquals('PO001', $response->data['poNo']);
+        $this->assertEquals(5001, $response->data['poNo']);
         $this->assertEquals('Test Vendor', $response->data['vendorName']);
         $this->assertEquals(5000.00, $response->data['total']);
-        $this->assertRequestPath('/po-hdr/PO001');
+        $this->assertRequestPath('/po-hdr/5001');
         $this->assertRequestMethod('GET');
     }
 
     public function testGetWithDifferentPo(): void
     {
         $this->mockResponse([
-            'poNo' => 'PO999',
+            'poNo' => 9999,
             'status' => 'closed',
         ]);
 
-        $response = $this->api->orders->poHdr->get('PO999');
+        $response = $this->api->orders->poHdr->get(9999);
 
-        $this->assertEquals('PO999', $response->data['poNo']);
-        $this->assertRequestPath('/po-hdr/PO999');
+        $this->assertEquals(9999, $response->data['poNo']);
+        $this->assertRequestPath('/po-hdr/9999');
     }
 
     public function testGetDoc(): void
     {
         $this->mockResponse([
-            'poNo' => 'PO001',
+            'poNo' => 5001,
             'vendorId' => 'VEND001',
             'vendorName' => 'Test Vendor',
             'lines' => [
@@ -100,55 +102,57 @@ final class PoHdrResourceTest extends AugurApiTestCase
             'total' => 5400.00,
         ]);
 
-        $response = $this->api->orders->poHdr->getDoc('PO001');
+        $response = $this->api->orders->poHdr->getDoc(5001);
 
-        $this->assertEquals('PO001', $response->data['poNo']);
+        $this->assertEquals(5001, $response->data['poNo']);
         $this->assertCount(2, $response->data['lines']);
         $this->assertEquals(100, $response->data['lines'][0]['quantity']);
-        $this->assertRequestPath('/po-hdr/PO001/doc');
+        $this->assertRequestPath('/po-hdr/5001/doc');
         $this->assertRequestMethod('GET');
     }
 
     public function testGetDocWithDifferentPo(): void
     {
         $this->mockResponse([
-            'poNo' => 'PO888',
+            'poNo' => 8888,
             'lines' => [],
         ]);
 
-        $response = $this->api->orders->poHdr->getDoc('PO888');
+        $response = $this->api->orders->poHdr->getDoc(8888);
 
-        $this->assertEquals('PO888', $response->data['poNo']);
-        $this->assertRequestPath('/po-hdr/PO888/doc');
+        $this->assertEquals(8888, $response->data['poNo']);
+        $this->assertRequestPath('/po-hdr/8888/doc');
     }
 
-    public function testScan(): void
+    public function testCreateScan(): void
     {
         $this->mockListResponse([
-            ['poNo' => 'PO001', 'vendorId' => 'VEND001', 'matchScore' => 95],
-            ['poNo' => 'PO005', 'vendorId' => 'VEND001', 'matchScore' => 80],
+            ['poNo' => 5001, 'vendorId' => 'VEND001', 'matchScore' => 95],
+            ['poNo' => 5005, 'vendorId' => 'VEND001', 'matchScore' => 80],
         ]);
 
-        $response = $this->api->orders->poHdr->scan([
+        $response = $this->api->orders->poHdr->createScan([
             'vendorId' => 'VEND001',
             'itemId' => 'ITEM001',
             'quantity' => 100,
         ]);
 
         $this->assertCount(2, $response->data);
-        $this->assertEquals('PO001', $response->data[0]['poNo']);
-        $this->assertEquals(95, $response->data[0]['matchScore']);
+        /** @var list<array<string, mixed>> $data */
+        $data = $response->data;
+        $this->assertEquals(5001, $data[0]['poNo']);
+        $this->assertEquals(95, $data[0]['matchScore']);
         $this->assertRequestPath('/po-hdr/scan');
         $this->assertRequestMethod('POST');
     }
 
-    public function testScanWithDateRange(): void
+    public function testCreateScanWithDateRange(): void
     {
         $this->mockListResponse([
-            ['poNo' => 'PO003', 'orderDate' => '2024-01-10'],
+            ['poNo' => 5003, 'orderDate' => '2024-01-10'],
         ]);
 
-        $response = $this->api->orders->poHdr->scan([
+        $response = $this->api->orders->poHdr->createScan([
             'startDate' => '2024-01-01',
             'endDate' => '2024-01-15',
             'itemId' => 'ITEM001',
@@ -157,11 +161,11 @@ final class PoHdrResourceTest extends AugurApiTestCase
         $this->assertCount(1, $response->data);
     }
 
-    public function testScanEmpty(): void
+    public function testCreateScanEmpty(): void
     {
         $this->mockListResponse([]);
 
-        $response = $this->api->orders->poHdr->scan([
+        $response = $this->api->orders->poHdr->createScan([
             'vendorId' => 'NONEXISTENT',
         ]);
 

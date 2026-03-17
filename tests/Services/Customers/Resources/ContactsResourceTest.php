@@ -11,24 +11,37 @@ use AugurApi\Tests\AugurApiTestCase;
  */
 final class ContactsResourceTest extends AugurApiTestCase
 {
-    public function testGetCustomers(): void
+    public function testGetRefresh(): void
+    {
+        $this->mockResponse(['refreshed' => true, 'timestamp' => '2024-01-15T12:00:00Z']);
+
+        $response = $this->api->customers->contacts->getRefresh();
+
+        $this->assertTrue($response->data['refreshed']);
+        $this->assertRequestPath('/contacts/refresh');
+        $this->assertRequestMethod('GET');
+        $this->assertHasSiteIdHeader();
+        $this->assertHasAuthHeader();
+    }
+
+    public function testListCustomers(): void
     {
         $this->mockListResponse([
             ['customerId' => 'CUST001', 'customerName' => 'Customer A'],
             ['customerId' => 'CUST002', 'customerName' => 'Customer B'],
         ]);
 
-        $response = $this->api->customers->contacts->getCustomers(123);
+        $response = $this->api->customers->contacts->listCustomers(123);
 
         $this->assertCount(2, $response->data);
-        $this->assertEquals('CUST001', $response->data[0]['customerId']);
+        /** @var list<array<string, mixed>> $data */
+        $data = $response->data;
+        $this->assertEquals('CUST001', $data[0]['customerId']);
         $this->assertRequestPath('/contacts/123/customers');
         $this->assertRequestMethod('GET');
-        $this->assertHasSiteIdHeader();
-        $this->assertHasAuthHeader();
     }
 
-    public function testGetDoc(): void
+    public function testListDoc(): void
     {
         $this->mockResponse([
             'contactId' => 123,
@@ -37,7 +50,7 @@ final class ContactsResourceTest extends AugurApiTestCase
             'email' => 'john@example.com',
         ]);
 
-        $response = $this->api->customers->contacts->getDoc(123);
+        $response = $this->api->customers->contacts->listDoc(123);
 
         $this->assertEquals(123, $response->data['contactId']);
         $this->assertEquals('John', $response->data['firstName']);
@@ -45,7 +58,20 @@ final class ContactsResourceTest extends AugurApiTestCase
         $this->assertRequestMethod('GET');
     }
 
-    public function testGetWebAllowance(): void
+    public function testGetDocAlias(): void
+    {
+        $this->mockResponse([
+            'contactId' => 123,
+            'firstName' => 'John',
+        ]);
+
+        $response = $this->api->customers->contacts->getDoc(123);
+
+        $this->assertEquals(123, $response->data['contactId']);
+        $this->assertRequestPath('/contacts/123/doc');
+    }
+
+    public function testListWebAllowance(): void
     {
         $this->mockResponse([
             'contactId' => 123,
@@ -53,22 +79,11 @@ final class ContactsResourceTest extends AugurApiTestCase
             'used' => 250.00,
         ]);
 
-        $response = $this->api->customers->contacts->getWebAllowance(123);
+        $response = $this->api->customers->contacts->listWebAllowance(123);
 
         $this->assertEquals(123, $response->data['contactId']);
         $this->assertEquals(1000.00, $response->data['allowance']);
         $this->assertRequestPath('/contacts/123/web-allowance');
-        $this->assertRequestMethod('GET');
-    }
-
-    public function testRefresh(): void
-    {
-        $this->mockResponse(['refreshed' => true, 'timestamp' => '2024-01-15T12:00:00Z']);
-
-        $response = $this->api->customers->contacts->refresh();
-
-        $this->assertTrue($response->data['refreshed']);
-        $this->assertRequestPath('/contacts/refresh');
         $this->assertRequestMethod('GET');
     }
 }

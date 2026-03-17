@@ -8,11 +8,9 @@ use AugurApi\Core\BaseResponse;
 use AugurApi\Core\Client;
 
 /**
- * Tags resource.
+ * tags resource — generated from spec.
  *
- * @fullPath api.joomla.tags
- * @service joomla
- * @domain cms
+ * DO NOT EDIT — regenerate with: python shared/scripts/generate-php.py joomla
  */
 final class TagsResource
 {
@@ -23,16 +21,15 @@ final class TagsResource
     }
 
     /**
-     * Get tag list.
+     * GET /tags
      *
-     * @fullPath api.joomla.tags.list
      * @param array<string, mixed> $params
-     * @return BaseResponse<array<array<string, mixed>>>
+     * @return BaseResponse<array<string, mixed>>
      */
     public function list(array $params = []): BaseResponse
     {
-        $response = $this->client->get($this->baseUrl, '/tags', $params);
+        $response = $this->client->get($this->baseUrl, '', $params);
 
-        return BaseResponse::fromArray($response, static fn ($data) => $data ?? []);
+        return BaseResponse::fromArray($response, static fn ($data) => $data);
     }
 }

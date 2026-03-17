@@ -21,7 +21,10 @@ final class RubricsResourceTest extends AugurApiTestCase
         $response = $this->api->agrInfo->rubrics->list();
 
         $this->assertCount(2, $response->data);
-        $this->assertEquals('Rubric A', $response->data[0]['name']);
+
+        /** @var list<array<string, mixed>> $data */
+        $data = $response->data;
+        $this->assertEquals('Rubric A', $data[0]['name']);
         $this->assertRequestPath('/rubrics');
         $this->assertRequestMethod('GET');
         $this->assertHasSiteIdHeader();
@@ -97,7 +100,7 @@ final class RubricsResourceTest extends AugurApiTestCase
 
         $response = $this->api->agrInfo->rubrics->delete(1);
 
-        $this->assertTrue($response->data);
+        $this->assertIsArray($response->data);
         $this->assertRequestPath('/rubrics/1');
         $this->assertRequestMethod('DELETE');
     }

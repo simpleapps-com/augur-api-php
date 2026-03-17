@@ -6,14 +6,11 @@ namespace AugurApi\Services\Basecamp2\Resources;
 
 use AugurApi\Core\BaseResponse;
 use AugurApi\Core\Client;
-use AugurApi\Core\Schemas\EdgeCache;
 
 /**
- * Todolists resource.
+ * todolists resource — generated from spec.
  *
- * @fullPath api.basecamp2.todolists
- * @service basecamp2
- * @domain project-management
+ * DO NOT EDIT — regenerate with: python shared/scripts/generate-php.py basecamp2
  */
 final class TodolistsResource
 {
@@ -24,31 +21,30 @@ final class TodolistsResource
     }
 
     /**
-     * List all todolists with filtering and pagination.
+     * GET /todolists
      *
-     * @fullPath api.basecamp2.todolists.list
-     * @param array<string, mixed> $params Optional filtering and pagination parameters
-     * @return BaseResponse<array<array<string, mixed>>>
+     * @param array<string, mixed> $params
+     * @return BaseResponse<array<string, mixed>>
      */
     public function list(array $params = []): BaseResponse
     {
-        $response = $this->client->get($this->baseUrl, '/todolists', $params);
+        $response = $this->client->get($this->baseUrl, '', $params);
 
-        return BaseResponse::fromArray($response, static fn ($data) => $data ?? []);
+        return BaseResponse::fromArray($response, static fn ($data) => $data);
     }
 
     /**
-     * Get a specific todolist by ID.
+     * GET /todolists/{id}
      *
-     * @fullPath api.basecamp2.todolists.get
+     * @param array<string, mixed> $params
      * @return BaseResponse<array<string, mixed>>
      */
-    public function get(int $id, ?EdgeCache $edgeCache = null): BaseResponse
+    public function get(int $id, array $params = []): BaseResponse
     {
         $response = $this->client->get(
             $this->baseUrl,
-            '/todolists/{id}',
-            $edgeCache !== null ? ['edgeCache' => $edgeCache->value] : [],
+            '/{id}',
+            $params,
             ['id' => (string) $id],
         );
 

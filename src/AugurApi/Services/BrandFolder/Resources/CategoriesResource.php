@@ -8,11 +8,9 @@ use AugurApi\Core\BaseResponse;
 use AugurApi\Core\Client;
 
 /**
- * Categories resource.
+ * categories resource — generated from spec.
  *
- * @fullPath api.brandFolder.categories
- * @service brand_folder
- * @domain brand-management
+ * DO NOT EDIT — regenerate with: python shared/scripts/generate-php.py brand-folder
  */
 final class CategoriesResource
 {
@@ -23,16 +21,15 @@ final class CategoriesResource
     }
 
     /**
-     * Set category focus configuration.
+     * POST /categories/focus
      *
-     * @fullPath api.brandFolder.categories.focus.create
      * @param array<string, mixed> $data
      * @return BaseResponse<array<string, mixed>>
      */
-    public function createFocus(array $data): BaseResponse
+    public function createFocus(array $data = []): BaseResponse
     {
-        $response = $this->client->post($this->baseUrl, '/categories/focus', $data);
+        $response = $this->client->post($this->baseUrl, '/focus', $data);
 
-        return BaseResponse::fromArray($response, static fn ($d) => $d);
+        return BaseResponse::fromArray($response, static fn ($data) => $data);
     }
 }

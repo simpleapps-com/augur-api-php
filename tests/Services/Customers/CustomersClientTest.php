@@ -8,11 +8,7 @@ use AugurApi\Services\Customers\CustomersClient;
 use AugurApi\Services\Customers\Resources\ContactsResource;
 use AugurApi\Services\Customers\Resources\ContactsUdResource;
 use AugurApi\Services\Customers\Resources\CustomerResource;
-use AugurApi\Services\Customers\Resources\InvoicesResource;
 use AugurApi\Services\Customers\Resources\OeContactsCustomerResource;
-use AugurApi\Services\Customers\Resources\OrdersResource;
-use AugurApi\Services\Customers\Resources\PurchasedItemsResource;
-use AugurApi\Services\Customers\Resources\QuotesResource;
 use AugurApi\Services\Customers\Resources\ShipToResource;
 use AugurApi\Tests\AugurApiTestCase;
 
@@ -41,29 +37,9 @@ final class CustomersClientTest extends AugurApiTestCase
         $this->assertInstanceOf(CustomerResource::class, $this->api->customers->customer);
     }
 
-    public function testInvoicesResourceAccess(): void
-    {
-        $this->assertInstanceOf(InvoicesResource::class, $this->api->customers->invoices);
-    }
-
     public function testOeContactsCustomerResourceAccess(): void
     {
         $this->assertInstanceOf(OeContactsCustomerResource::class, $this->api->customers->oeContactsCustomer);
-    }
-
-    public function testOrdersResourceAccess(): void
-    {
-        $this->assertInstanceOf(OrdersResource::class, $this->api->customers->orders);
-    }
-
-    public function testPurchasedItemsResourceAccess(): void
-    {
-        $this->assertInstanceOf(PurchasedItemsResource::class, $this->api->customers->purchasedItems);
-    }
-
-    public function testQuotesResourceAccess(): void
-    {
-        $this->assertInstanceOf(QuotesResource::class, $this->api->customers->quotes);
     }
 
     public function testShipToResourceAccess(): void

@@ -167,7 +167,24 @@ final class Client
     private function resolvePath(string $path, array $pathParams): string
     {
         foreach ($pathParams as $key => $value) {
-            $path = str_replace('{' . $key . '}', urlencode($value), $path);
+            $encoded = urlencode($value);
+            // Try exact match first (fast path)
+            $placeholder = '{' . $key . '}';
+            if (str_contains($path, $placeholder)) {
+                $path = str_replace($placeholder, $encoded, $path);
+            } else {
+                // Fallback: normalise both sides to handle camelCase vs kebab/snake
+                // e.g. pathParams key "salesRepId" matching placeholder "{salesrep-id}"
+                $normKey = strtolower(str_replace(['-', '_'], '', $key));
+                $path = (string) preg_replace_callback(
+                    '/\{([^}]+)\}/',
+                    static function (array $m) use ($normKey, $encoded): string {
+                        $normPlaceholder = strtolower(str_replace(['-', '_'], '', $m[1]));
+                        return $normPlaceholder === $normKey ? $encoded : $m[0];
+                    },
+                    $path,
+                );
+            }
         }
         return $path;
     }

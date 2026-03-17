@@ -8,11 +8,9 @@ use AugurApi\Core\BaseResponse;
 use AugurApi\Core\Client;
 
 /**
- * P21 code resource.
+ * codeP21 resource — generated from spec.
  *
- * @fullPath api.p21Core.codeP21
- * @service p21-core
- * @domain system-configuration
+ * DO NOT EDIT — regenerate with: python shared/scripts/generate-php.py p21-core
  */
 final class CodeP21Resource
 {
@@ -23,16 +21,15 @@ final class CodeP21Resource
     }
 
     /**
-     * List P21 system codes.
+     * GET /code-p21
      *
-     * @fullPath api.p21Core.codeP21.list
      * @param array<string, mixed> $params
-     * @return BaseResponse<array<array<string, mixed>>>
+     * @return BaseResponse<array<string, mixed>>
      */
     public function list(array $params = []): BaseResponse
     {
-        $response = $this->client->get($this->baseUrl, '/code-p21', $params);
+        $response = $this->client->get($this->baseUrl, '', $params);
 
-        return BaseResponse::fromArray($response, static fn ($data) => $data ?? []);
+        return BaseResponse::fromArray($response, static fn ($data) => $data);
     }
 }

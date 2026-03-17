@@ -8,11 +8,9 @@ use AugurApi\Core\BaseResponse;
 use AugurApi\Core\Client;
 
 /**
- * Documents resource.
+ * documents resource — generated from spec.
  *
- * @fullPath api.gregorovich.documents
- * @service gregorovich
- * @domain document-management
+ * DO NOT EDIT — regenerate with: python shared/scripts/generate-php.py gregorovich
  */
 final class DocumentsResource
 {
@@ -23,16 +21,15 @@ final class DocumentsResource
     }
 
     /**
-     * List documents in the AI knowledge base.
+     * GET /documents
      *
-     * @fullPath api.gregorovich.documents.list
      * @param array<string, mixed> $params
-     * @return BaseResponse<array<array<string, mixed>>>
+     * @return BaseResponse<array<string, mixed>>
      */
     public function list(array $params = []): BaseResponse
     {
-        $response = $this->client->get($this->baseUrl, '/documents', $params);
+        $response = $this->client->get($this->baseUrl, '', $params);
 
-        return BaseResponse::fromArray($response, static fn ($data) => $data ?? []);
+        return BaseResponse::fromArray($response, static fn ($data) => $data);
     }
 }

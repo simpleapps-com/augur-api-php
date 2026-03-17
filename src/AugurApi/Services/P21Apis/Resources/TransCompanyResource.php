@@ -8,11 +8,9 @@ use AugurApi\Core\BaseResponse;
 use AugurApi\Core\Client;
 
 /**
- * Transaction company resource.
+ * transCompany resource — generated from spec.
  *
- * @fullPath api.p21Apis.transCompany
- * @service p21-apis
- * @domain company-management
+ * DO NOT EDIT — regenerate with: python shared/scripts/generate-php.py p21-apis
  */
 final class TransCompanyResource
 {
@@ -23,69 +21,65 @@ final class TransCompanyResource
     }
 
     /**
-     * Create a new transaction company.
+     * POST /trans-company
      *
-     * @fullPath api.p21Apis.transCompany.create
      * @param array<string, mixed> $data
      * @return BaseResponse<array<string, mixed>>
      */
-    public function create(array $data): BaseResponse
+    public function create(array $data = []): BaseResponse
     {
-        $response = $this->client->post($this->baseUrl, '/trans-company', $data);
+        $response = $this->client->post($this->baseUrl, '', $data);
 
-        return BaseResponse::fromArray($response, static fn ($d) => $d);
+        return BaseResponse::fromArray($response, static fn ($data) => $data);
     }
 
     /**
-     * Get transaction company details by company UID.
+     * DELETE /trans-company/{companyUid}
      *
-     * @fullPath api.p21Apis.transCompany.get
-     * @param array<string, mixed> $params
      * @return BaseResponse<array<string, mixed>>
      */
-    public function get(int $companyUid, array $params = []): BaseResponse
+    public function delete(int $company_uid): BaseResponse
     {
-        $response = $this->client->get(
+        $response = $this->client->delete(
             $this->baseUrl,
-            '/trans-company/{companyUid}',
-            $params,
-            ['companyUid' => (string) $companyUid],
+            '/{companyUid}',
+            ['company_uid' => (string) $company_uid],
         );
 
         return BaseResponse::fromArray($response, static fn ($data) => $data);
     }
 
     /**
-     * Update transaction company by company UID.
+     * GET /trans-company/{companyUid}
      *
-     * @fullPath api.p21Apis.transCompany.update
-     * @param array<string, mixed> $data
+     * @param array<string, mixed> $params
      * @return BaseResponse<array<string, mixed>>
      */
-    public function update(int $companyUid, array $data): BaseResponse
+    public function get(int $company_uid, array $params = []): BaseResponse
     {
-        $response = $this->client->put(
+        $response = $this->client->get(
             $this->baseUrl,
-            '/trans-company/{companyUid}',
-            $data,
-            ['companyUid' => (string) $companyUid],
+            '/{companyUid}',
+            $params,
+            ['company_uid' => (string) $company_uid],
         );
 
-        return BaseResponse::fromArray($response, static fn ($d) => $d);
+        return BaseResponse::fromArray($response, static fn ($data) => $data);
     }
 
     /**
-     * Delete transaction company by company UID.
+     * PUT /trans-company/{companyUid}
      *
-     * @fullPath api.p21Apis.transCompany.delete
+     * @param array<string, mixed> $data
      * @return BaseResponse<array<string, mixed>>
      */
-    public function delete(int $companyUid): BaseResponse
+    public function update(int $company_uid, array $data = []): BaseResponse
     {
-        $response = $this->client->delete(
+        $response = $this->client->put(
             $this->baseUrl,
-            '/trans-company/{companyUid}',
-            ['companyUid' => (string) $companyUid],
+            '/{companyUid}',
+            $data,
+            ['company_uid' => (string) $company_uid],
         );
 
         return BaseResponse::fromArray($response, static fn ($data) => $data);

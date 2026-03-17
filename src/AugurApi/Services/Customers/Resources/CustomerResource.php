@@ -6,16 +6,11 @@ namespace AugurApi\Services\Customers\Resources;
 
 use AugurApi\Core\BaseResponse;
 use AugurApi\Core\Client;
-use AugurApi\Core\Schemas\EdgeCache;
-use AugurApi\Services\Customers\Schemas\Customer;
-use AugurApi\Services\Customers\Schemas\CustomerListParams;
 
 /**
- * Customer resource.
+ * customer resource — generated from spec.
  *
- * @fullPath api.customers.customer
- * @service customers
- * @domain customer-management
+ * DO NOT EDIT — regenerate with: python shared/scripts/generate-php.py customers
  */
 final class CustomerResource
 {
@@ -26,156 +21,273 @@ final class CustomerResource
     }
 
     /**
-     * List customer documents.
+     * GET /customer
      *
-     * @fullPath api.customers.customer.list
-     * @param CustomerListParams|array<string, mixed>|null $params
-     * @return BaseResponse<array<Customer>>
-     */
-    public function list(CustomerListParams|array|null $params = null): BaseResponse
-    {
-        $queryParams = match (true) {
-            $params instanceof CustomerListParams => $params->toArray(),
-            is_array($params) => $params,
-            default => [],
-        };
-
-        $response = $this->client->get($this->baseUrl, '/customer', $queryParams);
-
-        return BaseResponse::fromArray($response, static function ($data): array {
-            if (!is_array($data)) {
-                return [];
-            }
-            return array_map(static fn ($item) => Customer::fromArray($item), $data);
-        });
-    }
-
-    /**
-     * Lookup customer summary.
-     *
-     * @fullPath api.customers.customer.lookup
      * @param array<string, mixed> $params
-     * @return BaseResponse<array<Customer>>
-     */
-    public function lookup(array $params = []): BaseResponse
-    {
-        $response = $this->client->get($this->baseUrl, '/customer/lookup', $params);
-
-        return BaseResponse::fromArray($response, static function ($data): array {
-            if (!is_array($data)) {
-                return [];
-            }
-            return array_map(static fn ($item) => Customer::fromArray($item), $data);
-        });
-    }
-
-    /**
-     * Get customer document.
-     *
-     * @fullPath api.customers.customer.getDoc
      * @return BaseResponse<array<string, mixed>>
      */
-    public function getDoc(string $customerId, ?EdgeCache $edgeCache = null): BaseResponse
+    public function list(array $params = []): BaseResponse
+    {
+        $response = $this->client->get($this->baseUrl, '', $params);
+
+        return BaseResponse::fromArray($response, static fn ($data) => $data);
+    }
+
+    /**
+     * GET /customer/lookup
+     *
+     * @param array<string, mixed> $params
+     * @return BaseResponse<array<string, mixed>>
+     */
+    public function getLookup(array $params = []): BaseResponse
+    {
+        $response = $this->client->get($this->baseUrl, '/lookup', $params);
+
+        return BaseResponse::fromArray($response, static fn ($data) => $data);
+    }
+
+    /**
+     * GET /customer/{customerId}/address
+     *
+     * @param array<string, mixed> $params
+     * @return BaseResponse<array<string, mixed>>
+     */
+    public function listAddress(int $customerId, array $params = []): BaseResponse
     {
         $response = $this->client->get(
             $this->baseUrl,
-            '/customer/{customerId}/doc',
-            $edgeCache !== null ? ['edgeCache' => $edgeCache->value] : [],
-            ['customerId' => $customerId],
+            '/{customerId}/address',
+            $params,
+            ['customerId' => (string) $customerId],
         );
 
         return BaseResponse::fromArray($response, static fn ($data) => $data);
     }
 
     /**
-     * Get customer addresses.
+     * GET /customer/{customerId}/contacts
      *
-     * @fullPath api.customers.customer.getAddresses
-     * @return BaseResponse<array<array<string, mixed>>>
+     * @param array<string, mixed> $params
+     * @return BaseResponse<array<string, mixed>>
      */
-    public function getAddresses(string $customerId, ?EdgeCache $edgeCache = null): BaseResponse
+    public function listContacts(int $customerId, array $params = []): BaseResponse
     {
         $response = $this->client->get(
             $this->baseUrl,
-            '/customer/{customerId}/address',
-            $edgeCache !== null ? ['edgeCache' => $edgeCache->value] : [],
-            ['customerId' => $customerId],
+            '/{customerId}/contacts',
+            $params,
+            ['customerId' => (string) $customerId],
         );
 
-        return BaseResponse::fromArray($response, static fn ($data) => $data ?? []);
+        return BaseResponse::fromArray($response, static fn ($data) => $data);
     }
 
     /**
-     * Get customer contacts.
+     * POST /customer/{customerId}/contacts
      *
-     * @fullPath api.customers.customer.getContacts
-     * @return BaseResponse<array<array<string, mixed>>>
-     */
-    public function getContacts(string $customerId, ?EdgeCache $edgeCache = null): BaseResponse
-    {
-        $response = $this->client->get(
-            $this->baseUrl,
-            '/customer/{customerId}/contacts',
-            $edgeCache !== null ? ['edgeCache' => $edgeCache->value] : [],
-            ['customerId' => $customerId],
-        );
-
-        return BaseResponse::fromArray($response, static fn ($data) => $data ?? []);
-    }
-
-    /**
-     * Create a contact for a customer.
-     *
-     * @fullPath api.customers.customer.createContact
      * @param array<string, mixed> $data
      * @return BaseResponse<array<string, mixed>>
      */
-    public function createContact(string $customerId, array $data): BaseResponse
+    public function createContacts(int $customerId, array $data = []): BaseResponse
     {
         $response = $this->client->post(
             $this->baseUrl,
-            '/customer/{customerId}/contacts',
+            '/{customerId}/contacts',
             $data,
-            ['customerId' => $customerId],
+            ['customerId' => (string) $customerId],
         );
 
-        return BaseResponse::fromArray($response, static fn ($d) => $d);
+        return BaseResponse::fromArray($response, static fn ($data) => $data);
     }
 
     /**
-     * Get customer ship-to addresses.
+     * GET /customer/{customerId}/doc
      *
-     * @fullPath api.customers.customer.getShipTo
-     * @return BaseResponse<array<array<string, mixed>>>
+     * @param array<string, mixed> $params
+     * @return BaseResponse<array<string, mixed>>
      */
-    public function getShipTo(string $customerId, ?EdgeCache $edgeCache = null): BaseResponse
+    public function listDoc(int $customerId, array $params = []): BaseResponse
     {
         $response = $this->client->get(
             $this->baseUrl,
-            '/customer/{customerId}/ship-to',
-            $edgeCache !== null ? ['edgeCache' => $edgeCache->value] : [],
-            ['customerId' => $customerId],
+            '/{customerId}/doc',
+            $params,
+            ['customerId' => (string) $customerId],
         );
 
-        return BaseResponse::fromArray($response, static fn ($data) => $data ?? []);
+        return BaseResponse::fromArray($response, static fn ($data) => $data);
     }
 
     /**
-     * Create a ship-to address for a customer.
+     * Alias for listDoc — GET /customer/{customerId}/doc
      *
-     * @fullPath api.customers.customer.createShipTo
+     * @param array<string, mixed> $params
+     * @return BaseResponse<array<string, mixed>>
+     */
+    public function getDoc(int $customerId, array $params = []): BaseResponse
+    {
+        return $this->listDoc($customerId, $params);
+    }
+
+    /**
+     * GET /customer/{customerId}/invoices
+     *
+     * @param array<string, mixed> $params
+     * @return BaseResponse<array<string, mixed>>
+     */
+    public function listInvoices(int $customerId, array $params = []): BaseResponse
+    {
+        $response = $this->client->get(
+            $this->baseUrl,
+            '/{customerId}/invoices',
+            $params,
+            ['customerId' => (string) $customerId],
+        );
+
+        return BaseResponse::fromArray($response, static fn ($data) => $data);
+    }
+
+    /**
+     * GET /customer/{customerId}/invoices/{invoiceNo}
+     *
+     * @param array<string, mixed> $params
+     * @return BaseResponse<array<string, mixed>>
+     */
+    public function getInvoices(int $customerId, int $invoiceNo, array $params = []): BaseResponse
+    {
+        $response = $this->client->get(
+            $this->baseUrl,
+            '/{customerId}/invoices/{invoiceNo}',
+            $params,
+            ['customerId' => (string) $customerId, 'invoiceNo' => (string) $invoiceNo],
+        );
+
+        return BaseResponse::fromArray($response, static fn ($data) => $data);
+    }
+
+    /**
+     * GET /customer/{customerId}/orders
+     *
+     * @param array<string, mixed> $params
+     * @return BaseResponse<array<string, mixed>>
+     */
+    public function listOrders(int $addressId, int $customerId, array $params = []): BaseResponse
+    {
+        $response = $this->client->get(
+            $this->baseUrl,
+            '/{customerId}/orders',
+            $params,
+            ['addressId' => (string) $addressId, 'customerId' => (string) $customerId],
+        );
+
+        return BaseResponse::fromArray($response, static fn ($data) => $data);
+    }
+
+    /**
+     * GET /customer/{customerId}/orders/{orderNo}
+     *
+     * @param array<string, mixed> $params
+     * @return BaseResponse<array<string, mixed>>
+     */
+    public function getOrders(int $customerId, int $orderNo, array $params = []): BaseResponse
+    {
+        $response = $this->client->get(
+            $this->baseUrl,
+            '/{customerId}/orders/{orderNo}',
+            $params,
+            ['customerId' => (string) $customerId, 'orderNo' => (string) $orderNo],
+        );
+
+        return BaseResponse::fromArray($response, static fn ($data) => $data);
+    }
+
+    /**
+     * GET /customer/{customerId}/purchased-items
+     *
+     * @param array<string, mixed> $params
+     * @return BaseResponse<array<string, mixed>>
+     */
+    public function listPurchasedItems(int $customerId, array $params = []): BaseResponse
+    {
+        $response = $this->client->get(
+            $this->baseUrl,
+            '/{customerId}/purchased-items',
+            $params,
+            ['customerId' => (string) $customerId],
+        );
+
+        return BaseResponse::fromArray($response, static fn ($data) => $data);
+    }
+
+    /**
+     * GET /customer/{customerId}/quotes
+     *
+     * @param array<string, mixed> $params
+     * @return BaseResponse<array<string, mixed>>
+     */
+    public function listQuotes(int $customerId, array $params = []): BaseResponse
+    {
+        $response = $this->client->get(
+            $this->baseUrl,
+            '/{customerId}/quotes',
+            $params,
+            ['customerId' => (string) $customerId],
+        );
+
+        return BaseResponse::fromArray($response, static fn ($data) => $data);
+    }
+
+    /**
+     * GET /customer/{customerId}/quotes/{quoteNo}
+     *
+     * @param array<string, mixed> $params
+     * @return BaseResponse<array<string, mixed>>
+     */
+    public function getQuotes(int $customerId, int $quoteNo, array $params = []): BaseResponse
+    {
+        $response = $this->client->get(
+            $this->baseUrl,
+            '/{customerId}/quotes/{quoteNo}',
+            $params,
+            ['customerId' => (string) $customerId, 'quoteNo' => (string) $quoteNo],
+        );
+
+        return BaseResponse::fromArray($response, static fn ($data) => $data);
+    }
+
+    /**
+     * GET /customer/{customerId}/ship-to
+     *
+     * @param array<string, mixed> $params
+     * @return BaseResponse<array<string, mixed>>
+     */
+    public function listShipTo(int $customerId, array $params = []): BaseResponse
+    {
+        $response = $this->client->get(
+            $this->baseUrl,
+            '/{customerId}/ship-to',
+            $params,
+            ['customerId' => (string) $customerId],
+        );
+
+        return BaseResponse::fromArray($response, static fn ($data) => $data);
+    }
+
+    /**
+     * POST /customer/{customerId}/ship-to
+     *
      * @param array<string, mixed> $data
      * @return BaseResponse<array<string, mixed>>
      */
-    public function createShipTo(string $customerId, array $data): BaseResponse
+    public function createShipTo(int $customerId, array $data = []): BaseResponse
     {
         $response = $this->client->post(
             $this->baseUrl,
-            '/customer/{customerId}/ship-to',
+            '/{customerId}/ship-to',
             $data,
-            ['customerId' => $customerId],
+            ['customerId' => (string) $customerId],
         );
 
-        return BaseResponse::fromArray($response, static fn ($d) => $d);
+        return BaseResponse::fromArray($response, static fn ($data) => $data);
     }
 }

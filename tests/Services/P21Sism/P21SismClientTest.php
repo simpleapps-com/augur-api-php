@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace AugurApi\Tests\Services\P21Sism;
 
 use AugurApi\Services\P21Sism\P21SismClient;
-use AugurApi\Services\P21Sism\Resources\ImpOeLineResource;
 use AugurApi\Services\P21Sism\Resources\ImportResource;
 use AugurApi\Services\P21Sism\Resources\ScheduledImportMasterResource;
 use AugurApi\Tests\AugurApiTestCase;
@@ -55,11 +54,6 @@ final class P21SismClientTest extends AugurApiTestCase
         $this->assertRequestPath('/whoami');
         $this->assertRequestMethod('GET');
         $this->assertHasSiteIdHeader();
-    }
-
-    public function testImpOeLineResourceAccess(): void
-    {
-        $this->assertInstanceOf(ImpOeLineResource::class, $this->api->p21Sism->impOeLine);
     }
 
     public function testImportResourceAccess(): void

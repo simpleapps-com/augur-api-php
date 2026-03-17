@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace AugurApi\Tests\Services\Joomla;
 
 use AugurApi\Services\Joomla\JoomlaClient;
+use AugurApi\Services\Joomla\Resources\CategoriesResource;
 use AugurApi\Services\Joomla\Resources\ContentResource;
 use AugurApi\Services\Joomla\Resources\MenuResource;
 use AugurApi\Services\Joomla\Resources\TagsResource;
@@ -20,6 +21,11 @@ final class JoomlaClientTest extends AugurApiTestCase
     public function testJoomlaClientAccess(): void
     {
         $this->assertInstanceOf(JoomlaClient::class, $this->api->joomla);
+    }
+
+    public function testCategoriesResourceAccess(): void
+    {
+        $this->assertInstanceOf(CategoriesResource::class, $this->api->joomla->categories);
     }
 
     public function testContentResourceAccess(): void

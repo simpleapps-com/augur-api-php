@@ -103,7 +103,7 @@ final class TransWebDisplayTypeResourceTest extends AugurApiTestCase
             'showPrices' => true,
         ]);
 
-        $response = $this->api->p21Apis->transWebDisplayType->getDefaults();
+        $response = $this->api->p21Apis->transWebDisplayType->listDefaults();
 
         $this->assertEquals('Grid', $response->data['defaultDisplayType']);
         $this->assertEquals(20, $response->data['itemsPerPage']);
@@ -119,7 +119,7 @@ final class TransWebDisplayTypeResourceTest extends AugurApiTestCase
             'itemsPerPage' => 10,
         ]);
 
-        $response = $this->api->p21Apis->transWebDisplayType->getDefaults(['context' => 'mobile']);
+        $response = $this->api->p21Apis->transWebDisplayType->listDefaults(['context' => 'mobile']);
 
         $this->assertEquals('List', $response->data['defaultDisplayType']);
         $this->assertHasSiteIdHeader();
@@ -135,7 +135,7 @@ final class TransWebDisplayTypeResourceTest extends AugurApiTestCase
             ],
         ]);
 
-        $response = $this->api->p21Apis->transWebDisplayType->getDefinition();
+        $response = $this->api->p21Apis->transWebDisplayType->listDefinition();
 
         $this->assertCount(2, $response->data['fields']);
         $this->assertEquals('displayTypeName', $response->data['fields'][0]['name']);
@@ -152,7 +152,7 @@ final class TransWebDisplayTypeResourceTest extends AugurApiTestCase
             'version' => '1.0',
         ]);
 
-        $response = $this->api->p21Apis->transWebDisplayType->getDefinition(['version' => '1.0']);
+        $response = $this->api->p21Apis->transWebDisplayType->listDefinition(['version' => '1.0']);
 
         $this->assertEquals('1.0', $response->data['version']);
         $this->assertHasSiteIdHeader();

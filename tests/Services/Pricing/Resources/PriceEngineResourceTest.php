@@ -20,7 +20,7 @@ final class PriceEngineResourceTest extends AugurApiTestCase
             'priceSource' => 'Customer Contract',
         ]);
 
-        $response = $this->api->pricing->priceEngine->getPrice([
+        $response = $this->api->pricing->priceEngine->list([
             'itemId' => 'ITEM001',
             'customerId' => 'CUST001',
             'quantity' => 10,
@@ -44,7 +44,7 @@ final class PriceEngineResourceTest extends AugurApiTestCase
             'uomConversion' => 12,
         ]);
 
-        $response = $this->api->pricing->priceEngine->getPrice([
+        $response = $this->api->pricing->priceEngine->list([
             'itemId' => 'ITEM001',
             'customerId' => 'CUST001',
             'quantity' => 1,
@@ -68,7 +68,7 @@ final class PriceEngineResourceTest extends AugurApiTestCase
             'nextBreakPrice' => 35.00,
         ]);
 
-        $response = $this->api->pricing->priceEngine->getPrice([
+        $response = $this->api->pricing->priceEngine->list([
             'itemId' => 'ITEM002',
             'customerId' => 'CUST002',
             'quantity' => 100,
@@ -89,7 +89,7 @@ final class PriceEngineResourceTest extends AugurApiTestCase
             'availableQty' => 50,
         ]);
 
-        $response = $this->api->pricing->priceEngine->getPrice([
+        $response = $this->api->pricing->priceEngine->list([
             'itemId' => 'ITEM003',
             'customerId' => 'CUST001',
             'quantity' => 5,
@@ -109,7 +109,7 @@ final class PriceEngineResourceTest extends AugurApiTestCase
             'futurePrice' => true,
         ]);
 
-        $response = $this->api->pricing->priceEngine->getPrice([
+        $response = $this->api->pricing->priceEngine->list([
             'itemId' => 'ITEM001',
             'customerId' => 'CUST001',
             'quantity' => 1,
@@ -130,7 +130,7 @@ final class PriceEngineResourceTest extends AugurApiTestCase
             'priceSource' => 'List Price',
         ]);
 
-        $response = $this->api->pricing->priceEngine->getPrice([
+        $response = $this->api->pricing->priceEngine->list([
             'itemId' => 'ITEM004',
             'customerId' => 'NEWCUST',
             'quantity' => 1,

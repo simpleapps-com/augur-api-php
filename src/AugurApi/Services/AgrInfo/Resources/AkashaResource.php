@@ -8,11 +8,9 @@ use AugurApi\Core\BaseResponse;
 use AugurApi\Core\Client;
 
 /**
- * Akasha resource.
+ * akasha resource — generated from spec.
  *
- * @fullPath api.agrInfo.akasha
- * @service agr-info
- * @domain ai-content-generation
+ * DO NOT EDIT — regenerate with: python shared/scripts/generate-php.py agr-info
  */
 final class AkashaResource
 {
@@ -23,16 +21,15 @@ final class AkashaResource
     }
 
     /**
-     * Generate AI response using Akasha model.
+     * POST /akasha/generate
      *
-     * @fullPath api.agrInfo.akasha.generate.create
      * @param array<string, mixed> $data
-     * @return BaseResponse<string>
+     * @return BaseResponse<array<string, mixed>>
      */
-    public function generate(array $data = []): BaseResponse
+    public function createGenerate(array $data = []): BaseResponse
     {
-        $response = $this->client->post($this->baseUrl, '/akasha/generate', $data);
+        $response = $this->client->post($this->baseUrl, '/generate', $data);
 
-        return BaseResponse::fromArray($response, static fn ($d) => $d);
+        return BaseResponse::fromArray($response, static fn ($data) => $data);
     }
 }

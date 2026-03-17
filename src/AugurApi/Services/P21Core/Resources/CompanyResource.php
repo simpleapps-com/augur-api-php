@@ -8,11 +8,9 @@ use AugurApi\Core\BaseResponse;
 use AugurApi\Core\Client;
 
 /**
- * Company resource.
+ * company resource — generated from spec.
  *
- * @fullPath api.p21Core.company
- * @service p21-core
- * @domain company-and-corporate-management
+ * DO NOT EDIT — regenerate with: python shared/scripts/generate-php.py p21-core
  */
 final class CompanyResource
 {
@@ -23,23 +21,21 @@ final class CompanyResource
     }
 
     /**
-     * List companies with filtering.
+     * GET /company
      *
-     * @fullPath api.p21Core.company.list
      * @param array<string, mixed> $params
-     * @return BaseResponse<array<array<string, mixed>>>
+     * @return BaseResponse<array<string, mixed>>
      */
     public function list(array $params = []): BaseResponse
     {
-        $response = $this->client->get($this->baseUrl, '/company', $params);
+        $response = $this->client->get($this->baseUrl, '', $params);
 
-        return BaseResponse::fromArray($response, static fn ($data) => $data ?? []);
+        return BaseResponse::fromArray($response, static fn ($data) => $data);
     }
 
     /**
-     * Get company details by UID.
+     * GET /company/{companyUid}
      *
-     * @fullPath api.p21Core.company.get
      * @param array<string, mixed> $params
      * @return BaseResponse<array<string, mixed>>
      */
@@ -47,7 +43,7 @@ final class CompanyResource
     {
         $response = $this->client->get(
             $this->baseUrl,
-            '/company/{companyUid}',
+            '/{companyUid}',
             $params,
             ['companyUid' => (string) $companyUid],
         );

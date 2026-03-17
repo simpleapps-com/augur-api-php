@@ -23,10 +23,16 @@ final class CashDrawerResourceTest extends AugurApiTestCase
         $response = $this->api->p21Core->cashDrawer->list();
 
         $this->assertCount(2, $response->data);
-        $this->assertEquals(1, $response->data[0]['cashDrawerUid']);
-        $this->assertEquals('Drawer 1', $response->data[0]['drawerName']);
+
+        /** @var list<array<string, mixed>> $data */
+        $data = $response->data;
+        $this->assertEquals(1, $data[0]['cashDrawerUid']);
+
+        /** @var list<array<string, mixed>> $data */
+        $data = $response->data;
+        $this->assertEquals('Drawer 1', $data[0]['drawerName']);
         $this->assertRequestMethod('GET');
-        $this->assertRequestPath('/cash_drawer');
+        $this->assertRequestPath('/cash-drawer');
         $this->assertHasSiteIdHeader();
         $this->assertHasAuthHeader();
     }
@@ -60,6 +66,6 @@ final class CashDrawerResourceTest extends AugurApiTestCase
         $this->assertEquals(500.00, $response->data['currentBalance']);
         $this->assertEquals('open', $response->data['status']);
         $this->assertRequestMethod('GET');
-        $this->assertRequestPath('/cash_drawer/1');
+        $this->assertRequestPath('/cash-drawer/1');
     }
 }

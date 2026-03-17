@@ -23,8 +23,10 @@ final class AttributeGroupsResourceTest extends AugurApiTestCase
         $response = $this->api->items->attributeGroups->list();
 
         $this->assertCount(2, $response->data);
-        $this->assertEquals(1, $response->data[0]['attributeGroupUid']);
-        $this->assertEquals('Physical Specs', $response->data[0]['name']);
+        /** @var list<array<string, mixed>> $data */
+        $data = $response->data;
+        $this->assertEquals(1, $data[0]['attributeGroupUid']);
+        $this->assertEquals('Physical Specs', $data[0]['name']);
         $this->assertRequestMethod('GET');
         $this->assertRequestPath('/attribute-groups');
     }
@@ -102,7 +104,9 @@ final class AttributeGroupsResourceTest extends AugurApiTestCase
         $response = $this->api->items->attributeGroups->listAttributes(1);
 
         $this->assertCount(2, $response->data);
-        $this->assertEquals(100, $response->data[0]['attributeUid']);
+        /** @var list<array<string, mixed>> $data */
+        $data = $response->data;
+        $this->assertEquals(100, $data[0]['attributeUid']);
         $this->assertRequestMethod('GET');
         $this->assertRequestPath('/attribute-groups/1/attributes');
     }
@@ -126,7 +130,7 @@ final class AttributeGroupsResourceTest extends AugurApiTestCase
             'sortOrder' => 1,
         ]);
 
-        $response = $this->api->items->attributeGroups->getAttribute(1, 1);
+        $response = $this->api->items->attributeGroups->getAttributes(1, 1);
 
         $this->assertEquals(1, $response->data['attributeXAttributeGroupUid']);
         $this->assertEquals(100, $response->data['attributeUid']);
@@ -138,7 +142,7 @@ final class AttributeGroupsResourceTest extends AugurApiTestCase
     {
         $this->mockResponse(['attributeXAttributeGroupUid' => 3, 'attributeUid' => 102]);
 
-        $response = $this->api->items->attributeGroups->createAttribute(1, ['attributeUid' => 102]);
+        $response = $this->api->items->attributeGroups->createAttributes(1, ['attributeUid' => 102]);
 
         $this->assertEquals(3, $response->data['attributeXAttributeGroupUid']);
         $this->assertEquals(102, $response->data['attributeUid']);
@@ -150,7 +154,7 @@ final class AttributeGroupsResourceTest extends AugurApiTestCase
     {
         $this->mockResponse(['attributeXAttributeGroupUid' => 1, 'sortOrder' => 5]);
 
-        $response = $this->api->items->attributeGroups->updateAttribute(1, 1, ['sortOrder' => 5]);
+        $response = $this->api->items->attributeGroups->updateAttributes(1, 1, ['sortOrder' => 5]);
 
         $this->assertEquals(5, $response->data['sortOrder']);
         $this->assertRequestMethod('PUT');
@@ -161,7 +165,7 @@ final class AttributeGroupsResourceTest extends AugurApiTestCase
     {
         $this->mockSuccessResponse();
 
-        $response = $this->api->items->attributeGroups->deleteAttribute(1, 1);
+        $response = $this->api->items->attributeGroups->deleteAttributes(1, 1);
 
         $this->assertTrue($response->data['success']);
         $this->assertRequestMethod('DELETE');

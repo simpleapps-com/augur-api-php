@@ -8,11 +8,9 @@ use AugurApi\Core\BaseResponse;
 use AugurApi\Core\Client;
 
 /**
- * Transaction user resource.
+ * transUser resource — generated from spec.
  *
- * @fullPath api.p21Apis.transUser
- * @service p21-apis
- * @domain user-management
+ * DO NOT EDIT — regenerate with: python shared/scripts/generate-php.py p21-apis
  */
 final class TransUserResource
 {
@@ -23,69 +21,65 @@ final class TransUserResource
     }
 
     /**
-     * Create a new transaction user.
+     * POST /trans-user
      *
-     * @fullPath api.p21Apis.transUser.create
      * @param array<string, mixed> $data
      * @return BaseResponse<array<string, mixed>>
      */
-    public function create(array $data): BaseResponse
+    public function create(array $data = []): BaseResponse
     {
-        $response = $this->client->post($this->baseUrl, '/trans-user', $data);
+        $response = $this->client->post($this->baseUrl, '', $data);
 
-        return BaseResponse::fromArray($response, static fn ($d) => $d);
+        return BaseResponse::fromArray($response, static fn ($data) => $data);
     }
 
     /**
-     * Get transaction user details by user UID.
+     * DELETE /trans-user/{usersUid}
      *
-     * @fullPath api.p21Apis.transUser.get
-     * @param array<string, mixed> $params
      * @return BaseResponse<array<string, mixed>>
      */
-    public function get(int $usersUid, array $params = []): BaseResponse
+    public function delete(int $users_uid): BaseResponse
     {
-        $response = $this->client->get(
+        $response = $this->client->delete(
             $this->baseUrl,
-            '/trans-user/{usersUid}',
-            $params,
-            ['usersUid' => (string) $usersUid],
+            '/{usersUid}',
+            ['users_uid' => (string) $users_uid],
         );
 
         return BaseResponse::fromArray($response, static fn ($data) => $data);
     }
 
     /**
-     * Update transaction user by user UID.
+     * GET /trans-user/{usersUid}
      *
-     * @fullPath api.p21Apis.transUser.update
-     * @param array<string, mixed> $data
+     * @param array<string, mixed> $params
      * @return BaseResponse<array<string, mixed>>
      */
-    public function update(int $usersUid, array $data): BaseResponse
+    public function get(int $users_uid, array $params = []): BaseResponse
     {
-        $response = $this->client->put(
+        $response = $this->client->get(
             $this->baseUrl,
-            '/trans-user/{usersUid}',
-            $data,
-            ['usersUid' => (string) $usersUid],
+            '/{usersUid}',
+            $params,
+            ['users_uid' => (string) $users_uid],
         );
 
-        return BaseResponse::fromArray($response, static fn ($d) => $d);
+        return BaseResponse::fromArray($response, static fn ($data) => $data);
     }
 
     /**
-     * Delete transaction user by user UID.
+     * PUT /trans-user/{usersUid}
      *
-     * @fullPath api.p21Apis.transUser.delete
+     * @param array<string, mixed> $data
      * @return BaseResponse<array<string, mixed>>
      */
-    public function delete(int $usersUid): BaseResponse
+    public function update(int $users_uid, array $data = []): BaseResponse
     {
-        $response = $this->client->delete(
+        $response = $this->client->put(
             $this->baseUrl,
-            '/trans-user/{usersUid}',
-            ['usersUid' => (string) $usersUid],
+            '/{usersUid}',
+            $data,
+            ['users_uid' => (string) $users_uid],
         );
 
         return BaseResponse::fromArray($response, static fn ($data) => $data);

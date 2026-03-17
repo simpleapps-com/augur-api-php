@@ -21,8 +21,14 @@ final class TodosSummaryResourceTest extends AugurApiTestCase
         $response = $this->api->basecamp2->todosSummary->list();
 
         $this->assertCount(2, $response->data);
-        $this->assertEquals('Summary for Todo A', $response->data[0]['summary']);
-        $this->assertEquals('pending', $response->data[0]['status']);
+
+        /** @var list<array<string, mixed>> $data */
+        $data = $response->data;
+        $this->assertEquals('Summary for Todo A', $data[0]['summary']);
+
+        /** @var list<array<string, mixed>> $data */
+        $data = $response->data;
+        $this->assertEquals('pending', $data[0]['status']);
         $this->assertRequestPath('/todos-summary');
         $this->assertRequestMethod('GET');
         $this->assertHasSiteIdHeader();

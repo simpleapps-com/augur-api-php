@@ -8,11 +8,9 @@ use AugurApi\Core\BaseResponse;
 use AugurApi\Core\Client;
 
 /**
- * Item search resource.
+ * itemSearch resource — generated from spec.
  *
- * @fullPath api.openSearch.itemSearch
- * @service open_search
- * @domain search
+ * DO NOT EDIT — regenerate with: python shared/scripts/generate-php.py open-search
  */
 final class ItemSearchResource
 {
@@ -23,29 +21,27 @@ final class ItemSearchResource
     }
 
     /**
-     * Perform item search.
+     * GET /item-search
      *
-     * @fullPath api.openSearch.itemSearch.search
      * @param array<string, mixed> $params
      * @return BaseResponse<array<string, mixed>>
      */
-    public function search(array $params = []): BaseResponse
+    public function list(array $params = []): BaseResponse
     {
-        $response = $this->client->get($this->baseUrl, '/item-search', $params);
+        $response = $this->client->get($this->baseUrl, '', $params);
 
         return BaseResponse::fromArray($response, static fn ($data) => $data);
     }
 
     /**
-     * Get attributes from item search.
+     * GET /item-search/attributes
      *
-     * @fullPath api.openSearch.itemSearch.getAttributes
      * @param array<string, mixed> $params
      * @return BaseResponse<array<string, mixed>>
      */
-    public function getAttributes(array $params = []): BaseResponse
+    public function listAttributes(array $params = []): BaseResponse
     {
-        $response = $this->client->get($this->baseUrl, '/item-search/attributes', $params);
+        $response = $this->client->get($this->baseUrl, '/attributes', $params);
 
         return BaseResponse::fromArray($response, static fn ($data) => $data);
     }

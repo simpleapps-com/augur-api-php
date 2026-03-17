@@ -21,7 +21,10 @@ final class CommentsResourceTest extends AugurApiTestCase
         $response = $this->api->basecamp2->comments->list();
 
         $this->assertCount(2, $response->data);
-        $this->assertEquals('Comment A', $response->data[0]['content']);
+
+        /** @var list<array<string, mixed>> $data */
+        $data = $response->data;
+        $this->assertEquals('Comment A', $data[0]['content']);
         $this->assertRequestPath('/comments');
         $this->assertRequestMethod('GET');
         $this->assertHasSiteIdHeader();

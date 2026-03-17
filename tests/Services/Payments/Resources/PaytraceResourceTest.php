@@ -17,7 +17,7 @@ final class PaytraceResourceTest extends AugurApiTestCase
             'amount' => 150.00,
         ]);
 
-        $response = $this->api->payments->paytrace->authorization([
+        $response = $this->api->payments->paytrace->createAuthorization([
             'customerId' => 'CUST001',
             'amount' => 150.00,
         ]);
@@ -37,7 +37,7 @@ final class PaytraceResourceTest extends AugurApiTestCase
             'cardType' => 'Visa',
         ]);
 
-        $response = $this->api->payments->paytrace->authorization([
+        $response = $this->api->payments->paytrace->createAuthorization([
             'cardNumber' => '4242424242424242',
             'expMonth' => '12',
             'expYear' => '2025',
@@ -55,7 +55,7 @@ final class PaytraceResourceTest extends AugurApiTestCase
             'responseCode' => 'Captured',
         ]);
 
-        $response = $this->api->payments->paytrace->capture([
+        $response = $this->api->payments->paytrace->createCapture([
             'transactionId' => 'PT123456',
             'amount' => 150.00,
         ]);
@@ -74,7 +74,7 @@ final class PaytraceResourceTest extends AugurApiTestCase
             'capturedAmount' => 150.00,
         ]);
 
-        $response = $this->api->payments->paytrace->capture([
+        $response = $this->api->payments->paytrace->createCapture([
             'transactionId' => 'PT123456',
             'amount' => 150.00,
         ]);
@@ -92,7 +92,7 @@ final class PaytraceResourceTest extends AugurApiTestCase
             'captured' => true,
         ]);
 
-        $response = $this->api->payments->paytrace->sale([
+        $response = $this->api->payments->paytrace->createSale([
             'customerId' => 'CUST001',
             'amount' => 99.99,
         ]);
@@ -112,7 +112,7 @@ final class PaytraceResourceTest extends AugurApiTestCase
             'originalTransactionId' => 'PT345678',
         ]);
 
-        $response = $this->api->payments->paytrace->refund([
+        $response = $this->api->payments->paytrace->createRefund([
             'transactionId' => 'PT345678',
             'amount' => 50.00,
         ]);
@@ -131,7 +131,7 @@ final class PaytraceResourceTest extends AugurApiTestCase
             'fullRefund' => true,
         ]);
 
-        $response = $this->api->payments->paytrace->refund([
+        $response = $this->api->payments->paytrace->createRefund([
             'transactionId' => 'PT345678',
         ]);
 
@@ -146,7 +146,7 @@ final class PaytraceResourceTest extends AugurApiTestCase
             'voidedAmount' => 150.00,
         ]);
 
-        $response = $this->api->payments->paytrace->void([
+        $response = $this->api->payments->paytrace->createVoid([
             'transactionId' => 'PT123456',
         ]);
 
@@ -164,7 +164,7 @@ final class PaytraceResourceTest extends AugurApiTestCase
             'reason' => 'Customer cancelled',
         ]);
 
-        $response = $this->api->payments->paytrace->void([
+        $response = $this->api->payments->paytrace->createVoid([
             'transactionId' => 'PT789012',
             'reason' => 'Customer cancelled',
         ]);

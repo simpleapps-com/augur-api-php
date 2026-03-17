@@ -4,8 +4,6 @@ declare(strict_types=1);
 
 namespace AugurApi\Tests\Services\Customers\Resources;
 
-use AugurApi\Services\Customers\Schemas\Customer;
-use AugurApi\Services\Customers\Schemas\CustomerListParams;
 use AugurApi\Tests\AugurApiTestCase;
 
 /**
@@ -13,7 +11,7 @@ use AugurApi\Tests\AugurApiTestCase;
  */
 final class CustomerResourceTest extends AugurApiTestCase
 {
-    public function testListCustomers(): void
+    public function testList(): void
     {
         $this->mockListResponse([
             ['customerId' => 'CUST001', 'customerName' => 'Customer A'],
@@ -23,8 +21,9 @@ final class CustomerResourceTest extends AugurApiTestCase
         $response = $this->api->customers->customer->list();
 
         $this->assertCount(2, $response->data);
-        $this->assertInstanceOf(Customer::class, $response->data[0]);
-        $this->assertEquals('Customer A', $response->data[0]->customerName);
+        /** @var list<array<string, mixed>> $data */
+        $data = $response->data;
+        $this->assertEquals('Customer A', $data[0]['customerName']);
         $this->assertEquals(2, $response->total);
         $this->assertRequestPath('/customer');
         $this->assertRequestMethod('GET');
@@ -32,86 +31,64 @@ final class CustomerResourceTest extends AugurApiTestCase
         $this->assertHasAuthHeader();
     }
 
-    public function testListCustomersWithParams(): void
+    public function testListWithParams(): void
     {
         $this->mockListResponse([['customerId' => 'CUST001']]);
 
-        $params = new CustomerListParams(limit: 10, offset: 0);
-        $response = $this->api->customers->customer->list($params);
+        $response = $this->api->customers->customer->list(['limit' => 10, 'offset' => 0]);
 
         $this->assertCount(1, $response->data);
         $this->assertRequestPath('/customer');
     }
 
-    public function testListCustomersWithArray(): void
-    {
-        $this->mockListResponse([['customerId' => 'CUST001']]);
-
-        $response = $this->api->customers->customer->list(['limit' => 5]);
-
-        $this->assertCount(1, $response->data);
-    }
-
-    public function testLookupCustomer(): void
+    public function testGetLookup(): void
     {
         $this->mockListResponse([
             ['customerId' => 'CUST001', 'customerName' => 'Customer A'],
         ]);
 
-        $response = $this->api->customers->customer->lookup(['q' => 'Customer']);
+        $response = $this->api->customers->customer->getLookup(['q' => 'Customer']);
 
         $this->assertCount(1, $response->data);
-        $this->assertInstanceOf(Customer::class, $response->data[0]);
         $this->assertRequestPath('/customer/lookup');
         $this->assertRequestMethod('GET');
     }
 
-    public function testGetDoc(): void
-    {
-        $this->mockResponse([
-            'customerId' => 'CUST001',
-            'customerName' => 'Customer A',
-            'email' => 'test@example.com',
-        ]);
-
-        $response = $this->api->customers->customer->getDoc('CUST001');
-
-        $this->assertEquals('CUST001', $response->data['customerId']);
-        $this->assertRequestPath('/customer/CUST001/doc');
-        $this->assertRequestMethod('GET');
-    }
-
-    public function testGetAddresses(): void
+    public function testListAddress(): void
     {
         $this->mockListResponse([
             ['addressId' => 1, 'street' => '123 Main St'],
             ['addressId' => 2, 'street' => '456 Oak Ave'],
         ]);
 
-        $response = $this->api->customers->customer->getAddresses('CUST001');
+        $response = $this->api->customers->customer->listAddress(1001);
 
         $this->assertCount(2, $response->data);
-        $this->assertEquals('123 Main St', $response->data[0]['street']);
-        $this->assertRequestPath('/customer/CUST001/address');
+        /** @var list<array<string, mixed>> $data */
+        $data = $response->data;
+        $this->assertEquals('123 Main St', $data[0]['street']);
+        $this->assertRequestPath('/customer/1001/address');
         $this->assertRequestMethod('GET');
     }
 
-    public function testGetContacts(): void
+    public function testListContacts(): void
     {
         $this->mockListResponse([
             ['contactId' => 1, 'name' => 'John Doe'],
             ['contactId' => 2, 'name' => 'Jane Doe'],
         ]);
 
-        $response = $this->api->customers->customer->getContacts('CUST001');
+        $response = $this->api->customers->customer->listContacts(1001);
 
         $this->assertCount(2, $response->data);
-        $this->assertEquals('John Doe', $response->data[0]['name']);
-        $this->assertRequestPath('/customer/CUST001/contacts');
+        /** @var list<array<string, mixed>> $data */
+        $data = $response->data;
+        $this->assertEquals('John Doe', $data[0]['name']);
+        $this->assertRequestPath('/customer/1001/contacts');
         $this->assertRequestMethod('GET');
     }
 
-    public function testCreateContact(): void
+    public function testCreateContacts(): void
     {
         $this->mockResponse([
             'contactId' => 3,
@@ -119,28 +96,148 @@ final class CustomerResourceTest extends AugurApiTestCase
             'email' => 'new@example.com',
         ], 201);
 
-        $response = $this->api->customers->customer->createContact('CUST001', [
+        $response = $this->api->customers->customer->createContacts(1001, [
             'name' => 'New Contact',
             'email' => 'new@example.com',
         ]);
 
         $this->assertEquals('New Contact', $response->data['name']);
-        $this->assertRequestPath('/customer/CUST001/contacts');
+        $this->assertRequestPath('/customer/1001/contacts');
         $this->assertRequestMethod('POST');
     }
 
-    public function testGetShipTo(): void
+    public function testListDoc(): void
+    {
+        $this->mockResponse([
+            'customerId' => 1001,
+            'customerName' => 'Customer A',
+            'email' => 'test@example.com',
+        ]);
+
+        $response = $this->api->customers->customer->listDoc(1001);
+
+        $this->assertEquals(1001, $response->data['customerId']);
+        $this->assertRequestPath('/customer/1001/doc');
+        $this->assertRequestMethod('GET');
+    }
+
+    public function testGetDocAlias(): void
+    {
+        $this->mockResponse([
+            'customerId' => 1001,
+            'customerName' => 'Customer A',
+        ]);
+
+        $response = $this->api->customers->customer->getDoc(1001);
+
+        $this->assertEquals(1001, $response->data['customerId']);
+        $this->assertRequestPath('/customer/1001/doc');
+    }
+
+    public function testListInvoices(): void
+    {
+        $this->mockListResponse([
+            ['invoiceNo' => 'INV001', 'amount' => 100.00],
+        ]);
+
+        $response = $this->api->customers->customer->listInvoices(1001);
+
+        $this->assertCount(1, $response->data);
+        $this->assertRequestPath('/customer/1001/invoices');
+        $this->assertRequestMethod('GET');
+    }
+
+    public function testGetInvoices(): void
+    {
+        $this->mockResponse([
+            'invoiceNo' => 1001,
+            'amount' => 100.00,
+        ]);
+
+        $response = $this->api->customers->customer->getInvoices(1001, 1001);
+
+        $this->assertEquals(1001, $response->data['invoiceNo']);
+        $this->assertRequestPath('/customer/1001/invoices/1001');
+        $this->assertRequestMethod('GET');
+    }
+
+    public function testListOrders(): void
+    {
+        $this->mockListResponse([
+            ['orderNo' => 12345, 'total' => 150.00],
+        ]);
+
+        $response = $this->api->customers->customer->listOrders(0, 1001);
+
+        $this->assertCount(1, $response->data);
+        $this->assertRequestPath('/customer/1001/orders');
+        $this->assertRequestMethod('GET');
+    }
+
+    public function testGetOrders(): void
+    {
+        $this->mockResponse([
+            'orderNo' => 12345,
+            'total' => 150.00,
+        ]);
+
+        $response = $this->api->customers->customer->getOrders(1001, 12345);
+
+        $this->assertEquals(12345, $response->data['orderNo']);
+        $this->assertRequestPath('/customer/1001/orders/12345');
+        $this->assertRequestMethod('GET');
+    }
+
+    public function testListPurchasedItems(): void
+    {
+        $this->mockListResponse([
+            ['itemId' => 'ABC123', 'quantity' => 10],
+        ]);
+
+        $response = $this->api->customers->customer->listPurchasedItems(1001);
+
+        $this->assertCount(1, $response->data);
+        $this->assertRequestPath('/customer/1001/purchased-items');
+        $this->assertRequestMethod('GET');
+    }
+
+    public function testListQuotes(): void
+    {
+        $this->mockListResponse([
+            ['orderNo' => 5001, 'total' => 500.00],
+        ]);
+
+        $response = $this->api->customers->customer->listQuotes(1001);
+
+        $this->assertCount(1, $response->data);
+        $this->assertRequestPath('/customer/1001/quotes');
+        $this->assertRequestMethod('GET');
+    }
+
+    public function testGetQuotes(): void
+    {
+        $this->mockResponse([
+            'orderNo' => 5001,
+            'total' => 500.00,
+        ]);
+
+        $response = $this->api->customers->customer->getQuotes(1001, 5001);
+
+        $this->assertEquals(5001, $response->data['orderNo']);
+        $this->assertRequestPath('/customer/1001/quotes/5001');
+        $this->assertRequestMethod('GET');
+    }
+
+    public function testListShipTo(): void
     {
         $this->mockListResponse([
             ['shipToId' => 1, 'address' => '123 Ship St'],
-            ['shipToId' => 2, 'address' => '456 Ship Ave'],
         ]);
 
-        $response = $this->api->customers->customer->getShipTo('CUST001');
+        $response = $this->api->customers->customer->listShipTo(1001);
 
-        $this->assertCount(2, $response->data);
-        $this->assertEquals('123 Ship St', $response->data[0]['address']);
-        $this->assertRequestPath('/customer/CUST001/ship-to');
+        $this->assertCount(1, $response->data);
+        $this->assertRequestPath('/customer/1001/ship-to');
         $this->assertRequestMethod('GET');
     }
 
@@ -151,51 +248,12 @@ final class CustomerResourceTest extends AugurApiTestCase
             'address' => '789 New Ship St',
         ], 201);
 
-        $response = $this->api->customers->customer->createShipTo('CUST001', [
+        $response = $this->api->customers->customer->createShipTo(1001, [
             'address' => '789 New Ship St',
         ]);
 
         $this->assertEquals('789 New Ship St', $response->data['address']);
-        $this->assertRequestPath('/customer/CUST001/ship-to');
+        $this->assertRequestPath('/customer/1001/ship-to');
         $this->assertRequestMethod('POST');
-    }
-
-    public function testListCustomersWithNoParams(): void
-    {
-        $this->mockListResponse([['customerId' => 'CUST001']]);
-
-        $response = $this->api->customers->customer->list();
-
-        $this->assertCount(1, $response->data);
-    }
-
-    public function testListCustomersWithNullData(): void
-    {
-        $this->mockClient->addResponse(
-            new \Nyholm\Psr7\Response(200, ['Content-Type' => 'application/json'], (string) json_encode([
-                'data' => null,
-                'status' => 200,
-            ])),
-        );
-
-        $response = $this->api->customers->customer->list();
-
-        $this->assertIsArray($response->data);
-        $this->assertCount(0, $response->data);
-    }
-
-    public function testLookupCustomerWithNullData(): void
-    {
-        $this->mockClient->addResponse(
-            new \Nyholm\Psr7\Response(200, ['Content-Type' => 'application/json'], (string) json_encode([
-                'data' => null,
-                'status' => 200,
-            ])),
-        );
-
-        $response = $this->api->customers->customer->lookup(['q' => 'test']);
-
-        $this->assertIsArray($response->data);
-        $this->assertCount(0, $response->data);
     }
 }

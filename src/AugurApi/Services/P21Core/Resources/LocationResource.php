@@ -6,14 +6,11 @@ namespace AugurApi\Services\P21Core\Resources;
 
 use AugurApi\Core\BaseResponse;
 use AugurApi\Core\Client;
-use AugurApi\Core\Schemas\EdgeCache;
 
 /**
- * Location resource.
+ * location resource — generated from spec.
  *
- * @fullPath api.p21Core.location
- * @service p21-core
- * @domain location-and-warehouse-management
+ * DO NOT EDIT — regenerate with: python shared/scripts/generate-php.py p21-core
  */
 final class LocationResource
 {
@@ -24,31 +21,30 @@ final class LocationResource
     }
 
     /**
-     * List locations with filtering.
+     * GET /location
      *
-     * @fullPath api.p21Core.location.list
      * @param array<string, mixed> $params
-     * @return BaseResponse<array<array<string, mixed>>>
+     * @return BaseResponse<array<string, mixed>>
      */
     public function list(array $params = []): BaseResponse
     {
-        $response = $this->client->get($this->baseUrl, '/location', $params);
+        $response = $this->client->get($this->baseUrl, '', $params);
 
-        return BaseResponse::fromArray($response, static fn ($data) => $data ?? []);
+        return BaseResponse::fromArray($response, static fn ($data) => $data);
     }
 
     /**
-     * Get location details by ID.
+     * GET /location/{locationId}
      *
-     * @fullPath api.p21Core.location.get
+     * @param array<string, mixed> $params
      * @return BaseResponse<array<string, mixed>>
      */
-    public function get(int $locationId, ?EdgeCache $edgeCache = null): BaseResponse
+    public function get(float $locationId, array $params = []): BaseResponse
     {
         $response = $this->client->get(
             $this->baseUrl,
-            '/location/{locationId}',
-            $edgeCache !== null ? ['edgeCache' => $edgeCache->value] : [],
+            '/{locationId}',
+            $params,
             ['locationId' => (string) $locationId],
         );
 

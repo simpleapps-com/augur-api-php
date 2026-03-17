@@ -19,7 +19,7 @@ final class OrdersResourceTest extends AugurApiTestCase
             'message' => 'Order reset for reprocessing',
         ]);
 
-        $response = $this->api->legacy->orders->reset(12345);
+        $response = $this->api->legacy->orders->listReset(12345);
 
         $this->assertTrue($response->data['reset']);
         $this->assertEquals('Order reset for reprocessing', $response->data['message']);

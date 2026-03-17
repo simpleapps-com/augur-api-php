@@ -18,8 +18,14 @@ final class SuggestionsResourceTest extends AugurApiTestCase
         $response = $this->api->openSearch->suggestions->list();
 
         $this->assertCount(2, $response->data);
-        $this->assertEquals('hammer', $response->data[0]['term']);
-        $this->assertEquals(150, $response->data[0]['count']);
+
+        /** @var list<array<string, mixed>> $data */
+        $data = $response->data;
+        $this->assertEquals('hammer', $data[0]['term']);
+
+        /** @var list<array<string, mixed>> $data */
+        $data = $response->data;
+        $this->assertEquals(150, $data[0]['count']);
         $this->assertRequestPath('/suggestions');
         $this->assertRequestMethod('GET');
         $this->assertHasAuthHeader();
@@ -69,7 +75,7 @@ final class SuggestionsResourceTest extends AugurApiTestCase
             'query' => 'ham',
         ]);
 
-        $response = $this->api->openSearch->suggestions->suggest(['q' => 'ham']);
+        $response = $this->api->openSearch->suggestions->listSuggest(['q' => 'ham']);
 
         $this->assertCount(3, $response->data['suggestions']);
         $this->assertEquals('hammer', $response->data['suggestions'][0]);
@@ -85,7 +91,7 @@ final class SuggestionsResourceTest extends AugurApiTestCase
             'limit' => 2,
         ]);
 
-        $response = $this->api->openSearch->suggestions->suggest([
+        $response = $this->api->openSearch->suggestions->listSuggest([
             'q' => 'dri',
             'limit' => 2,
         ]);
@@ -100,7 +106,7 @@ final class SuggestionsResourceTest extends AugurApiTestCase
             'query' => 'xyz123',
         ]);
 
-        $response = $this->api->openSearch->suggestions->suggest(['q' => 'xyz123']);
+        $response = $this->api->openSearch->suggestions->listSuggest(['q' => 'xyz123']);
 
         $this->assertEmpty($response->data['suggestions']);
     }
@@ -113,7 +119,7 @@ final class SuggestionsResourceTest extends AugurApiTestCase
             'category' => 'Outdoor',
         ]);
 
-        $response = $this->api->openSearch->suggestions->suggest([
+        $response = $this->api->openSearch->suggestions->listSuggest([
             'q' => 'lawn',
             'category' => 'Outdoor',
         ]);

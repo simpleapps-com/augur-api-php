@@ -8,11 +8,9 @@ use AugurApi\Core\BaseResponse;
 use AugurApi\Core\Client;
 
 /**
- * Items resource for AI-powered product descriptions.
+ * items resource — generated from spec.
  *
- * @fullPath api.p21Pim.items
- * @service p21-pim
- * @domain ai-content-generation
+ * DO NOT EDIT — regenerate with: python shared/scripts/generate-php.py p21-pim
  */
 final class ItemsResource
 {
@@ -23,38 +21,36 @@ final class ItemsResource
     }
 
     /**
-     * Generate marketing-focused display descriptions (255 character limit).
+     * GET /items/{invMastUid}/suggest-display-desc
      *
-     * @fullPath api.p21Pim.items.suggestDisplayDesc.get
      * @param array<string, mixed> $params
      * @return BaseResponse<array<string, mixed>>
      */
-    public function suggestDisplayDesc(int $invMastUid, array $params = []): BaseResponse
+    public function listSuggestDisplayDesc(int $inv_mast_uid, array $params = []): BaseResponse
     {
         $response = $this->client->get(
             $this->baseUrl,
-            '/items/{invMastUid}/suggest-display-desc',
+            '/{invMastUid}/suggest-display-desc',
             $params,
-            ['invMastUid' => (string) $invMastUid],
+            ['inv_mast_uid' => (string) $inv_mast_uid],
         );
 
         return BaseResponse::fromArray($response, static fn ($data) => $data);
     }
 
     /**
-     * Generate detailed web descriptions (4000 character limit).
+     * GET /items/{invMastUid}/suggest-web-desc
      *
-     * @fullPath api.p21Pim.items.suggestWebDesc.get
      * @param array<string, mixed> $params
      * @return BaseResponse<array<string, mixed>>
      */
-    public function suggestWebDesc(int $invMastUid, array $params = []): BaseResponse
+    public function listSuggestWebDesc(int $inv_mast_uid, array $params = []): BaseResponse
     {
         $response = $this->client->get(
             $this->baseUrl,
-            '/items/{invMastUid}/suggest-web-desc',
+            '/{invMastUid}/suggest-web-desc',
             $params,
-            ['invMastUid' => (string) $invMastUid],
+            ['inv_mast_uid' => (string) $inv_mast_uid],
         );
 
         return BaseResponse::fromArray($response, static fn ($data) => $data);

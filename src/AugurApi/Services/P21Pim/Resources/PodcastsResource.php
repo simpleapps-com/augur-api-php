@@ -6,14 +6,11 @@ namespace AugurApi\Services\P21Pim\Resources;
 
 use AugurApi\Core\BaseResponse;
 use AugurApi\Core\Client;
-use AugurApi\Core\Schemas\EdgeCache;
 
 /**
- * Podcasts resource.
+ * podcasts resource — generated from spec.
  *
- * @fullPath api.p21Pim.podcasts
- * @service p21-pim
- * @domain content-management
+ * DO NOT EDIT — regenerate with: python shared/scripts/generate-php.py p21-pim
  */
 final class PodcastsResource
 {
@@ -24,82 +21,78 @@ final class PodcastsResource
     }
 
     /**
-     * List podcasts with filtering and search capabilities.
+     * GET /podcasts
      *
-     * @fullPath api.p21Pim.podcasts.list
      * @param array<string, mixed> $params
-     * @return BaseResponse<array<array<string, mixed>>>
+     * @return BaseResponse<array<string, mixed>>
      */
     public function list(array $params = []): BaseResponse
     {
-        $response = $this->client->get($this->baseUrl, '/podcasts', $params);
+        $response = $this->client->get($this->baseUrl, '', $params);
 
-        return BaseResponse::fromArray($response, static fn ($data) => $data ?? []);
+        return BaseResponse::fromArray($response, static fn ($data) => $data);
     }
 
     /**
-     * Get a specific podcast by UID.
+     * POST /podcasts
      *
-     * @fullPath api.p21Pim.podcasts.get
+     * @param array<string, mixed> $data
      * @return BaseResponse<array<string, mixed>>
      */
-    public function get(int $podcastsUid, ?EdgeCache $edgeCache = null): BaseResponse
+    public function create(array $data = []): BaseResponse
     {
-        $response = $this->client->get(
+        $response = $this->client->post($this->baseUrl, '', $data);
+
+        return BaseResponse::fromArray($response, static fn ($data) => $data);
+    }
+
+    /**
+     * DELETE /podcasts/{podcastsUid}
+     *
+     * @return BaseResponse<array<string, mixed>>
+     */
+    public function delete(int $podcasts_uid): BaseResponse
+    {
+        $response = $this->client->delete(
             $this->baseUrl,
-            '/podcasts/{podcastsUid}',
-            $edgeCache !== null ? ['edgeCache' => $edgeCache->value] : [],
-            ['podcastsUid' => (string) $podcastsUid],
+            '/{podcastsUid}',
+            ['podcasts_uid' => (string) $podcasts_uid],
         );
 
         return BaseResponse::fromArray($response, static fn ($data) => $data);
     }
 
     /**
-     * Create a new podcast record.
+     * GET /podcasts/{podcastsUid}
      *
-     * @fullPath api.p21Pim.podcasts.create
-     * @param array<string, mixed> $data
+     * @param array<string, mixed> $params
      * @return BaseResponse<array<string, mixed>>
      */
-    public function create(array $data): BaseResponse
+    public function get(int $podcasts_uid, array $params = []): BaseResponse
     {
-        $response = $this->client->post($this->baseUrl, '/podcasts', $data);
+        $response = $this->client->get(
+            $this->baseUrl,
+            '/{podcastsUid}',
+            $params,
+            ['podcasts_uid' => (string) $podcasts_uid],
+        );
 
-        return BaseResponse::fromArray($response, static fn ($d) => $d);
+        return BaseResponse::fromArray($response, static fn ($data) => $data);
     }
 
     /**
-     * Update an existing podcast record.
+     * PUT /podcasts/{podcastsUid}
      *
-     * @fullPath api.p21Pim.podcasts.update
      * @param array<string, mixed> $data
      * @return BaseResponse<array<string, mixed>>
      */
-    public function update(int $podcastsUid, array $data): BaseResponse
+    public function update(int $podcasts_uid, array $data = []): BaseResponse
     {
         $response = $this->client->put(
             $this->baseUrl,
-            '/podcasts/{podcastsUid}',
+            '/{podcastsUid}',
             $data,
-            ['podcastsUid' => (string) $podcastsUid],
-        );
-
-        return BaseResponse::fromArray($response, static fn ($d) => $d);
-    }
-
-    /**
-     * Soft delete a podcast record.
-     *
-     * @fullPath api.p21Pim.podcasts.delete
-     * @return BaseResponse<array<string, mixed>>
-     */
-    public function delete(int $podcastsUid): BaseResponse
-    {
-        $response = $this->client->delete(
-            $this->baseUrl,
-            '/podcasts/{podcastsUid}',
-            ['podcastsUid' => (string) $podcastsUid],
+            ['podcasts_uid' => (string) $podcasts_uid],
         );
 
         return BaseResponse::fromArray($response, static fn ($data) => $data);
