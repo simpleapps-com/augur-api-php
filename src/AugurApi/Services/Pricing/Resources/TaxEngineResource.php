@@ -23,6 +23,9 @@ final class TaxEngineResource
     /**
      * POST /tax-engine
      *
+     * Response data type: object
+     * Known fields: taxEstimate, customerId, postalCode, taxRate, items
+     *
      * @param array<string, mixed> $data
      * @return BaseResponse<array<string, mixed>>
      */

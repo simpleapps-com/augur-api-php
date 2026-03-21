@@ -23,6 +23,9 @@ final class PriceEngineResource
     /**
      * GET /price-engine
      *
+     * Response data type: object
+     * Known fields: unitPrice, pricedFrom, priceType, jobPrice, listPrice, customer, item, options, ... (14 total)
+     *
      * @param array<string, mixed> $params
      * @return BaseResponse<array<string, mixed>>
      */
