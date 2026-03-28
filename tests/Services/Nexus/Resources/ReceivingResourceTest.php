@@ -104,7 +104,7 @@ final class ReceivingResourceTest extends AugurApiTestCase
 
         $response = $this->api->nexus->receiving->delete(1);
 
-        $this->assertTrue($response->data);
+        $this->assertNotEmpty($response->data);
         $this->assertRequestPath('/receiving/1');
         $this->assertRequestMethod('DELETE');
     }

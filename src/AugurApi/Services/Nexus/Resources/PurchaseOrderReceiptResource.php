@@ -6,14 +6,11 @@ namespace AugurApi\Services\Nexus\Resources;
 
 use AugurApi\Core\BaseResponse;
 use AugurApi\Core\Client;
-use AugurApi\Core\Schemas\EdgeCache;
 
 /**
- * Purchase order receipt resource.
+ * purchaseOrderReceipt resource — generated from spec.
  *
- * @fullPath api.nexus.purchaseOrderReceipt
- * @service nexus
- * @domain warehouse
+ * DO NOT EDIT — regenerate with: python shared/scripts/generate-php.py nexus
  */
 final class PurchaseOrderReceiptResource
 {
@@ -24,31 +21,50 @@ final class PurchaseOrderReceiptResource
     }
 
     /**
-     * List purchase order receipts.
+     * GET /purchase-order-receipt
      *
-     * @fullPath api.nexus.purchaseOrderReceipt.list
+     * Response data type: array
+     * Known fields: purchaseOrderReceiptUid, importState, dateCreated, dateLastModified, updateCd, statusCd, processCd, referenceNo, ... (11 total)
+     *
      * @param array<string, mixed> $params
-     * @return BaseResponse<array<array<string, mixed>>>
+     * @return BaseResponse<array<string, mixed>>
      */
     public function list(array $params = []): BaseResponse
     {
-        $response = $this->client->get($this->baseUrl, '/purchase-order-receipt', $params);
+        $response = $this->client->get($this->baseUrl, '', $params);
 
-        return BaseResponse::fromArray($response, static fn ($data) => $data ?? []);
+        return BaseResponse::fromArray($response, static fn ($data) => $data);
     }
 
     /**
-     * Get purchase order receipt details.
+     * POST /purchase-order-receipt
      *
-     * @fullPath api.nexus.purchaseOrderReceipt.get
+     * Response data type: object
+     * Known fields: purchaseOrderReceiptUid, importState, dateCreated, dateLastModified, updateCd, statusCd, processCd, referenceNo, ... (11 total)
+     *
+     * @param array<string, mixed> $data
      * @return BaseResponse<array<string, mixed>>
      */
-    public function get(int $purchaseOrderReceiptUid, ?EdgeCache $edgeCache = null): BaseResponse
+    public function create(array $data = []): BaseResponse
     {
-        $response = $this->client->get(
+        $response = $this->client->post($this->baseUrl, '', $data);
+
+        return BaseResponse::fromArray($response, static fn ($data) => $data);
+    }
+
+    /**
+     * DELETE /purchase-order-receipt/{purchaseOrderReceiptUid}
+     *
+     * Response data type: object
+     * Known fields: purchaseOrderReceiptUid, importState, dateCreated, dateLastModified, updateCd, statusCd, processCd, referenceNo, ... (11 total)
+     *
+     * @return BaseResponse<array<string, mixed>>
+     */
+    public function delete(int $purchaseOrderReceiptUid): BaseResponse
+    {
+        $response = $this->client->delete(
             $this->baseUrl,
-            '/purchase-order-receipt/{purchaseOrderReceiptUid}',
-            $edgeCache !== null ? ['edgeCache' => $edgeCache->value] : [],
+            '/{purchaseOrderReceiptUid}',
             ['purchaseOrderReceiptUid' => (string) $purchaseOrderReceiptUid],
         );
 
@@ -56,52 +72,44 @@ final class PurchaseOrderReceiptResource
     }
 
     /**
-     * Create purchase order receipt.
+     * GET /purchase-order-receipt/{purchaseOrderReceiptUid}
      *
-     * @fullPath api.nexus.purchaseOrderReceipt.create
-     * @param array<string, mixed> $data
+     * Response data type: object
+     * Known fields: purchaseOrderReceiptUid, importState, dateCreated, dateLastModified, updateCd, statusCd, processCd, referenceNo, ... (11 total)
+     *
+     * @param array<string, mixed> $params
      * @return BaseResponse<array<string, mixed>>
      */
-    public function create(array $data): BaseResponse
+    public function get(int $purchaseOrderReceiptUid, array $params = []): BaseResponse
     {
-        $response = $this->client->post($this->baseUrl, '/purchase-order-receipt', $data);
+        $response = $this->client->get(
+            $this->baseUrl,
+            '/{purchaseOrderReceiptUid}',
+            $params,
+            ['purchaseOrderReceiptUid' => (string) $purchaseOrderReceiptUid],
+        );
 
-        return BaseResponse::fromArray($response, static fn ($d) => $d);
+        return BaseResponse::fromArray($response, static fn ($data) => $data);
     }
 
     /**
-     * Update purchase order receipt.
+     * PUT /purchase-order-receipt/{purchaseOrderReceiptUid}
      *
-     * @fullPath api.nexus.purchaseOrderReceipt.update
+     * Response data type: object
+     * Known fields: purchaseOrderReceiptUid, importState, dateCreated, dateLastModified, updateCd, statusCd, processCd, referenceNo, ... (11 total)
+     *
      * @param array<string, mixed> $data
      * @return BaseResponse<array<string, mixed>>
      */
-    public function update(int $purchaseOrderReceiptUid, array $data): BaseResponse
+    public function update(int $purchaseOrderReceiptUid, array $data = []): BaseResponse
     {
         $response = $this->client->put(
             $this->baseUrl,
-            '/purchase-order-receipt/{purchaseOrderReceiptUid}',
+            '/{purchaseOrderReceiptUid}',
             $data,
             ['purchaseOrderReceiptUid' => (string) $purchaseOrderReceiptUid],
         );
 
-        return BaseResponse::fromArray($response, static fn ($d) => $d);
-    }
-
-    /**
-     * Delete purchase order receipt.
-     *
-     * @fullPath api.nexus.purchaseOrderReceipt.delete
-     * @return BaseResponse<bool>
-     */
-    public function delete(int $purchaseOrderReceiptUid): BaseResponse
-    {
-        $response = $this->client->delete(
-            $this->baseUrl,
-            '/purchase-order-receipt/{purchaseOrderReceiptUid}',
-            ['purchaseOrderReceiptUid' => (string) $purchaseOrderReceiptUid],
-        );
-
-        return BaseResponse::fromArray($response, static fn ($data) => (bool) $data);
+        return BaseResponse::fromArray($response, static fn ($data) => $data);
     }
 }

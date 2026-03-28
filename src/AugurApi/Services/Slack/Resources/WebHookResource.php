@@ -8,11 +8,9 @@ use AugurApi\Core\BaseResponse;
 use AugurApi\Core\Client;
 
 /**
- * WebHook resource.
+ * webHook resource — generated from spec.
  *
- * @fullPath api.slack.webHook
- * @service slack
- * @domain communication-and-notifications
+ * DO NOT EDIT — regenerate with: python shared/scripts/generate-php.py slack
  */
 final class WebHookResource
 {
@@ -23,29 +21,27 @@ final class WebHookResource
     }
 
     /**
-     * Send Slack webhook message.
+     * POST /web-hook
      *
-     * @fullPath api.slack.webHook.create
      * @param array<string, mixed> $data
      * @return BaseResponse<array<string, mixed>>
      */
-    public function create(array $data): BaseResponse
+    public function create(array $data = []): BaseResponse
     {
-        $response = $this->client->post($this->baseUrl, '/web-hook', $data);
+        $response = $this->client->post($this->baseUrl, '', $data);
 
-        return BaseResponse::fromArray($response, static fn ($d) => $d);
+        return BaseResponse::fromArray($response, static fn ($data) => $data);
     }
 
     /**
-     * Refresh webhook configurations.
+     * GET /web-hook/refresh
      *
-     * @fullPath api.slack.webHook.refresh.get
      * @param array<string, mixed> $params
      * @return BaseResponse<array<string, mixed>>
      */
-    public function refresh(array $params = []): BaseResponse
+    public function getRefresh(array $params = []): BaseResponse
     {
-        $response = $this->client->get($this->baseUrl, '/web-hook/refresh', $params);
+        $response = $this->client->get($this->baseUrl, '/refresh', $params);
 
         return BaseResponse::fromArray($response, static fn ($data) => $data);
     }

@@ -6,14 +6,11 @@ namespace AugurApi\Services\Nexus\Resources;
 
 use AugurApi\Core\BaseResponse;
 use AugurApi\Core\Client;
-use AugurApi\Core\Schemas\EdgeCache;
 
 /**
- * Receiving resource.
+ * receiving resource — generated from spec.
  *
- * @fullPath api.nexus.receiving
- * @service nexus
- * @domain warehouse
+ * DO NOT EDIT — regenerate with: python shared/scripts/generate-php.py nexus
  */
 final class ReceivingResource
 {
@@ -24,31 +21,50 @@ final class ReceivingResource
     }
 
     /**
-     * List receiving records.
+     * GET /receiving
      *
-     * @fullPath api.nexus.receiving.list
+     * Response data type: array
+     * Known fields: receivingUid, importState, dateCreated, dateLastModified, updateCd, statusCd, processCd, referenceNo, ... (13 total)
+     *
      * @param array<string, mixed> $params
-     * @return BaseResponse<array<array<string, mixed>>>
+     * @return BaseResponse<array<string, mixed>>
      */
     public function list(array $params = []): BaseResponse
     {
-        $response = $this->client->get($this->baseUrl, '/receiving', $params);
+        $response = $this->client->get($this->baseUrl, '', $params);
 
-        return BaseResponse::fromArray($response, static fn ($data) => $data ?? []);
+        return BaseResponse::fromArray($response, static fn ($data) => $data);
     }
 
     /**
-     * Get receiving details.
+     * POST /receiving
      *
-     * @fullPath api.nexus.receiving.get
+     * Response data type: object
+     * Known fields: receivingUid, importState, dateCreated, dateLastModified, updateCd, statusCd, processCd, referenceNo, ... (13 total)
+     *
+     * @param array<string, mixed> $data
      * @return BaseResponse<array<string, mixed>>
      */
-    public function get(int $receivingUid, ?EdgeCache $edgeCache = null): BaseResponse
+    public function create(array $data = []): BaseResponse
     {
-        $response = $this->client->get(
+        $response = $this->client->post($this->baseUrl, '', $data);
+
+        return BaseResponse::fromArray($response, static fn ($data) => $data);
+    }
+
+    /**
+     * DELETE /receiving/{receivingUid}
+     *
+     * Response data type: object
+     * Known fields: receivingUid, importState, dateCreated, dateLastModified, updateCd, statusCd, processCd, referenceNo, ... (13 total)
+     *
+     * @return BaseResponse<array<string, mixed>>
+     */
+    public function delete(int $receivingUid): BaseResponse
+    {
+        $response = $this->client->delete(
             $this->baseUrl,
-            '/receiving/{receivingUid}',
-            $edgeCache !== null ? ['edgeCache' => $edgeCache->value] : [],
+            '/{receivingUid}',
             ['receivingUid' => (string) $receivingUid],
         );
 
@@ -56,52 +72,44 @@ final class ReceivingResource
     }
 
     /**
-     * Create receiving.
+     * GET /receiving/{receivingUid}
      *
-     * @fullPath api.nexus.receiving.create
-     * @param array<string, mixed> $data
+     * Response data type: object
+     * Known fields: receivingUid, importState, dateCreated, dateLastModified, updateCd, statusCd, processCd, referenceNo, ... (13 total)
+     *
+     * @param array<string, mixed> $params
      * @return BaseResponse<array<string, mixed>>
      */
-    public function create(array $data): BaseResponse
+    public function get(int $receivingUid, array $params = []): BaseResponse
     {
-        $response = $this->client->post($this->baseUrl, '/receiving', $data);
+        $response = $this->client->get(
+            $this->baseUrl,
+            '/{receivingUid}',
+            $params,
+            ['receivingUid' => (string) $receivingUid],
+        );
 
-        return BaseResponse::fromArray($response, static fn ($d) => $d);
+        return BaseResponse::fromArray($response, static fn ($data) => $data);
     }
 
     /**
-     * Update receiving.
+     * PUT /receiving/{receivingUid}
      *
-     * @fullPath api.nexus.receiving.update
+     * Response data type: object
+     * Known fields: receivingUid, importState, dateCreated, dateLastModified, updateCd, statusCd, processCd, referenceNo, ... (13 total)
+     *
      * @param array<string, mixed> $data
      * @return BaseResponse<array<string, mixed>>
      */
-    public function update(int $receivingUid, array $data): BaseResponse
+    public function update(int $receivingUid, array $data = []): BaseResponse
     {
         $response = $this->client->put(
             $this->baseUrl,
-            '/receiving/{receivingUid}',
+            '/{receivingUid}',
             $data,
             ['receivingUid' => (string) $receivingUid],
         );
 
-        return BaseResponse::fromArray($response, static fn ($d) => $d);
-    }
-
-    /**
-     * Delete receiving.
-     *
-     * @fullPath api.nexus.receiving.delete
-     * @return BaseResponse<bool>
-     */
-    public function delete(int $receivingUid): BaseResponse
-    {
-        $response = $this->client->delete(
-            $this->baseUrl,
-            '/receiving/{receivingUid}',
-            ['receivingUid' => (string) $receivingUid],
-        );
-
-        return BaseResponse::fromArray($response, static fn ($data) => (bool) $data);
+        return BaseResponse::fromArray($response, static fn ($data) => $data);
     }
 }

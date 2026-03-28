@@ -9,11 +9,9 @@ use AugurApi\Core\Client;
 use AugurApi\Core\Config;
 
 /**
- * Agr Work service client.
+ * AgrWork service client — generated from spec.
  *
- * @fullPath api.agrWork
- * @service agr_work
- * @domain augur
+ * DO NOT EDIT — regenerate with: python shared/scripts/generate-php.py agr-work
  */
 final class AgrWorkClient extends BaseServiceClient
 {

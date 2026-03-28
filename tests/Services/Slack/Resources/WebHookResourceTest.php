@@ -72,7 +72,7 @@ final class WebHookResourceTest extends AugurApiTestCase
         $this->assertIsArray($response->data);
     }
 
-    public function testRefresh(): void
+    public function testGetRefresh(): void
     {
         $this->mockResponse([
             'success' => true,
@@ -80,7 +80,7 @@ final class WebHookResourceTest extends AugurApiTestCase
             'channels' => ['#general', '#alerts', '#orders'],
         ]);
 
-        $response = $this->api->slack->webHook->refresh();
+        $response = $this->api->slack->webHook->getRefresh();
 
         $this->assertTrue($response->data['success']);
         $this->assertEquals(3, $response->data['webhooksRefreshed']);
@@ -91,7 +91,7 @@ final class WebHookResourceTest extends AugurApiTestCase
         $this->assertHasAuthHeader();
     }
 
-    public function testRefreshWithParams(): void
+    public function testGetRefreshWithParams(): void
     {
         $this->mockResponse([
             'success' => true,
@@ -99,7 +99,7 @@ final class WebHookResourceTest extends AugurApiTestCase
             'channels' => ['#general'],
         ]);
 
-        $response = $this->api->slack->webHook->refresh([
+        $response = $this->api->slack->webHook->getRefresh([
             'channel' => '#general',
         ]);
 
@@ -107,14 +107,14 @@ final class WebHookResourceTest extends AugurApiTestCase
         $this->assertEquals(1, $response->data['webhooksRefreshed']);
     }
 
-    public function testRefreshReturnsBaseResponse(): void
+    public function testGetRefreshReturnsBaseResponse(): void
     {
         $this->mockResponse([
             'success' => true,
             'webhooksRefreshed' => 0,
         ]);
 
-        $response = $this->api->slack->webHook->refresh();
+        $response = $this->api->slack->webHook->getRefresh();
 
         $this->assertEquals(200, $response->status);
         $this->assertIsArray($response->data);

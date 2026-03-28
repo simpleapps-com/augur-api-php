@@ -104,7 +104,7 @@ final class TransferReceiptResourceTest extends AugurApiTestCase
 
         $response = $this->api->nexus->transferReceipt->delete(1);
 
-        $this->assertTrue($response->data);
+        $this->assertNotEmpty($response->data);
         $this->assertRequestPath('/transfer-receipt/1');
         $this->assertRequestMethod('DELETE');
     }

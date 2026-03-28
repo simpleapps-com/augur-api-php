@@ -11,7 +11,7 @@ use AugurApi\Tests\AugurApiTestCase;
  */
 final class RatesShopResourceTest extends AugurApiTestCase
 {
-    public function testGet(): void
+    public function testList(): void
     {
         $this->mockListResponse([
             [
@@ -30,7 +30,7 @@ final class RatesShopResourceTest extends AugurApiTestCase
             ],
         ]);
 
-        $response = $this->api->ups->ratesShop->get([
+        $response = $this->api->ups->ratesShop->list([
             'originPostalCode' => '90210',
             'originCountry' => 'US',
             'destinationPostalCode' => '10001',
@@ -58,7 +58,7 @@ final class RatesShopResourceTest extends AugurApiTestCase
         $this->assertHasAuthHeader();
     }
 
-    public function testGetWithDimensions(): void
+    public function testListWithDimensions(): void
     {
         $this->mockListResponse([
             [
@@ -70,7 +70,7 @@ final class RatesShopResourceTest extends AugurApiTestCase
             ],
         ]);
 
-        $response = $this->api->ups->ratesShop->get([
+        $response = $this->api->ups->ratesShop->list([
             'originPostalCode' => '90210',
             'originCountry' => 'US',
             'destinationPostalCode' => '10001',
@@ -88,7 +88,7 @@ final class RatesShopResourceTest extends AugurApiTestCase
         $this->assertEquals(12.0, $data[0]['billingWeight']);
     }
 
-    public function testGetInternational(): void
+    public function testListInternational(): void
     {
         $this->mockListResponse([
             [
@@ -100,7 +100,7 @@ final class RatesShopResourceTest extends AugurApiTestCase
             ],
         ]);
 
-        $response = $this->api->ups->ratesShop->get([
+        $response = $this->api->ups->ratesShop->list([
             'originPostalCode' => '90210',
             'originCountry' => 'US',
             'destinationPostalCode' => 'SW1A 1AA',
@@ -115,11 +115,11 @@ final class RatesShopResourceTest extends AugurApiTestCase
         $this->assertEquals('UPS Worldwide Express', $data[0]['serviceName']);
     }
 
-    public function testGetReturnsBaseResponse(): void
+    public function testListReturnsBaseResponse(): void
     {
         $this->mockListResponse([]);
 
-        $response = $this->api->ups->ratesShop->get([
+        $response = $this->api->ups->ratesShop->list([
             'originPostalCode' => '00000',
             'destinationPostalCode' => '99999',
             'weight' => 1.0,
@@ -130,7 +130,7 @@ final class RatesShopResourceTest extends AugurApiTestCase
         $this->assertEmpty($response->data);
     }
 
-    public function testGetWithResidentialFlag(): void
+    public function testListWithResidentialFlag(): void
     {
         $this->mockListResponse([
             [
@@ -141,7 +141,7 @@ final class RatesShopResourceTest extends AugurApiTestCase
             ],
         ]);
 
-        $response = $this->api->ups->ratesShop->get([
+        $response = $this->api->ups->ratesShop->list([
             'originPostalCode' => '90210',
             'destinationPostalCode' => '10001',
             'weight' => 5.0,

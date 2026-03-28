@@ -6,14 +6,11 @@ namespace AugurApi\Services\Nexus\Resources;
 
 use AugurApi\Core\BaseResponse;
 use AugurApi\Core\Client;
-use AugurApi\Core\Schemas\EdgeCache;
 
 /**
- * Transfer resource.
+ * transfer resource — generated from spec.
  *
- * @fullPath api.nexus.transfer
- * @service nexus
- * @domain warehouse
+ * DO NOT EDIT — regenerate with: python shared/scripts/generate-php.py nexus
  */
 final class TransferResource
 {
@@ -24,31 +21,50 @@ final class TransferResource
     }
 
     /**
-     * List transfers.
+     * GET /transfer
      *
-     * @fullPath api.nexus.transfer.list
+     * Response data type: array
+     * Known fields: transferUid, importState, dateCreated, dateLastModified, updateCd, statusCd, processCd, referenceNo, ... (11 total)
+     *
      * @param array<string, mixed> $params
-     * @return BaseResponse<array<array<string, mixed>>>
+     * @return BaseResponse<array<string, mixed>>
      */
     public function list(array $params = []): BaseResponse
     {
-        $response = $this->client->get($this->baseUrl, '/transfer', $params);
+        $response = $this->client->get($this->baseUrl, '', $params);
 
-        return BaseResponse::fromArray($response, static fn ($data) => $data ?? []);
+        return BaseResponse::fromArray($response, static fn ($data) => $data);
     }
 
     /**
-     * Get transfer details.
+     * POST /transfer
      *
-     * @fullPath api.nexus.transfer.get
+     * Response data type: object
+     * Known fields: transferUid, importState, dateCreated, dateLastModified, updateCd, statusCd, processCd, referenceNo, ... (11 total)
+     *
+     * @param array<string, mixed> $data
      * @return BaseResponse<array<string, mixed>>
      */
-    public function get(int $transferUid, ?EdgeCache $edgeCache = null): BaseResponse
+    public function create(array $data = []): BaseResponse
     {
-        $response = $this->client->get(
+        $response = $this->client->post($this->baseUrl, '', $data);
+
+        return BaseResponse::fromArray($response, static fn ($data) => $data);
+    }
+
+    /**
+     * DELETE /transfer/{transferUid}
+     *
+     * Response data type: object
+     * Known fields: transferUid, importState, dateCreated, dateLastModified, updateCd, statusCd, processCd, referenceNo, ... (11 total)
+     *
+     * @return BaseResponse<array<string, mixed>>
+     */
+    public function delete(int $transferUid): BaseResponse
+    {
+        $response = $this->client->delete(
             $this->baseUrl,
-            '/transfer/{transferUid}',
-            $edgeCache !== null ? ['edgeCache' => $edgeCache->value] : [],
+            '/{transferUid}',
             ['transferUid' => (string) $transferUid],
         );
 
@@ -56,52 +72,44 @@ final class TransferResource
     }
 
     /**
-     * Create transfer.
+     * GET /transfer/{transferUid}
      *
-     * @fullPath api.nexus.transfer.create
-     * @param array<string, mixed> $data
+     * Response data type: object
+     * Known fields: transferUid, importState, dateCreated, dateLastModified, updateCd, statusCd, processCd, referenceNo, ... (11 total)
+     *
+     * @param array<string, mixed> $params
      * @return BaseResponse<array<string, mixed>>
      */
-    public function create(array $data): BaseResponse
+    public function get(int $transferUid, array $params = []): BaseResponse
     {
-        $response = $this->client->post($this->baseUrl, '/transfer', $data);
+        $response = $this->client->get(
+            $this->baseUrl,
+            '/{transferUid}',
+            $params,
+            ['transferUid' => (string) $transferUid],
+        );
 
-        return BaseResponse::fromArray($response, static fn ($d) => $d);
+        return BaseResponse::fromArray($response, static fn ($data) => $data);
     }
 
     /**
-     * Update transfer.
+     * PUT /transfer/{transferUid}
      *
-     * @fullPath api.nexus.transfer.update
+     * Response data type: object
+     * Known fields: transferUid, importState, dateCreated, dateLastModified, updateCd, statusCd, processCd, referenceNo, ... (11 total)
+     *
      * @param array<string, mixed> $data
      * @return BaseResponse<array<string, mixed>>
      */
-    public function update(int $transferUid, array $data): BaseResponse
+    public function update(int $transferUid, array $data = []): BaseResponse
     {
         $response = $this->client->put(
             $this->baseUrl,
-            '/transfer/{transferUid}',
+            '/{transferUid}',
             $data,
             ['transferUid' => (string) $transferUid],
         );
 
-        return BaseResponse::fromArray($response, static fn ($d) => $d);
-    }
-
-    /**
-     * Delete transfer.
-     *
-     * @fullPath api.nexus.transfer.delete
-     * @return BaseResponse<bool>
-     */
-    public function delete(int $transferUid): BaseResponse
-    {
-        $response = $this->client->delete(
-            $this->baseUrl,
-            '/transfer/{transferUid}',
-            ['transferUid' => (string) $transferUid],
-        );
-
-        return BaseResponse::fromArray($response, static fn ($data) => (bool) $data);
+        return BaseResponse::fromArray($response, static fn ($data) => $data);
     }
 }

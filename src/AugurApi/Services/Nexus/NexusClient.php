@@ -15,11 +15,9 @@ use AugurApi\Services\Nexus\Resources\TransferResource;
 use AugurApi\Services\Nexus\Resources\TransferShippingResource;
 
 /**
- * Nexus service client.
+ * Nexus service client — generated from spec.
  *
- * @fullPath api.nexus
- * @service nexus
- * @domain warehouse
+ * DO NOT EDIT — regenerate with: python shared/scripts/generate-php.py nexus
  */
 final class NexusClient extends BaseServiceClient
 {
@@ -33,12 +31,12 @@ final class NexusClient extends BaseServiceClient
     public function __construct(Client $client, Config $config)
     {
         parent::__construct($client, $config);
-        $this->binTransfer = new BinTransferResource($client, $this->baseUrl);
-        $this->purchaseOrderReceipt = new PurchaseOrderReceiptResource($client, $this->baseUrl);
-        $this->receiving = new ReceivingResource($client, $this->baseUrl);
-        $this->transfer = new TransferResource($client, $this->baseUrl);
-        $this->transferReceipt = new TransferReceiptResource($client, $this->baseUrl);
-        $this->transferShipping = new TransferShippingResource($client, $this->baseUrl);
+        $this->binTransfer = new BinTransferResource($client, $this->baseUrl . '/bin-transfer');
+        $this->purchaseOrderReceipt = new PurchaseOrderReceiptResource($client, $this->baseUrl . '/purchase-order-receipt');
+        $this->receiving = new ReceivingResource($client, $this->baseUrl . '/receiving');
+        $this->transfer = new TransferResource($client, $this->baseUrl . '/transfer');
+        $this->transferReceipt = new TransferReceiptResource($client, $this->baseUrl . '/transfer-receipt');
+        $this->transferShipping = new TransferShippingResource($client, $this->baseUrl . '/transfer-shipping');
     }
 
     protected function getServiceName(): string

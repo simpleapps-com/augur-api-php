@@ -34,6 +34,22 @@ final class ImportResource
     }
 
     /**
+     * GET /import/daily-summary
+     *
+     * Response data type: object
+     * Known fields: date, total, initial, processing, processingCoupon, processCoupon, validate, validating, ... (22 total)
+     *
+     * @param array<string, mixed> $params
+     * @return BaseResponse<array<string, mixed>>
+     */
+    public function listDailySummary(array $params = []): BaseResponse
+    {
+        $response = $this->client->get($this->baseUrl, '/daily-summary', $params);
+
+        return BaseResponse::fromArray($response, static fn ($data) => $data);
+    }
+
+    /**
      * GET /import/recent
      *
      * @param array<string, mixed> $params

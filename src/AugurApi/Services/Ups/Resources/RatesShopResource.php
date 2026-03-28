@@ -8,11 +8,9 @@ use AugurApi\Core\BaseResponse;
 use AugurApi\Core\Client;
 
 /**
- * RatesShop resource.
+ * ratesShop resource — generated from spec.
  *
- * @fullPath api.ups.ratesShop
- * @service ups
- * @domain shipping-and-logistics
+ * DO NOT EDIT — regenerate with: python shared/scripts/generate-php.py ups
  */
 final class RatesShopResource
 {
@@ -23,16 +21,15 @@ final class RatesShopResource
     }
 
     /**
-     * Shop UPS shipping rates for packages.
+     * GET /rates-shop
      *
-     * @fullPath api.ups.ratesShop.get
      * @param array<string, mixed> $params
-     * @return BaseResponse<array<array<string, mixed>>>
+     * @return BaseResponse<array<string, mixed>>
      */
-    public function get(array $params): BaseResponse
+    public function list(array $params = []): BaseResponse
     {
-        $response = $this->client->get($this->baseUrl, '/rates-shop', $params);
+        $response = $this->client->get($this->baseUrl, '', $params);
 
-        return BaseResponse::fromArray($response, static fn ($data) => $data ?? []);
+        return BaseResponse::fromArray($response, static fn ($data) => $data);
     }
 }

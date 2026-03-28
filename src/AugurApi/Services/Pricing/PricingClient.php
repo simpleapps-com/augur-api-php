@@ -10,6 +10,7 @@ use AugurApi\Core\Config;
 use AugurApi\Services\Pricing\Resources\JobPriceHdrResource;
 use AugurApi\Services\Pricing\Resources\PriceEngineResource;
 use AugurApi\Services\Pricing\Resources\TaxEngineResource;
+use AugurApi\Services\Pricing\Resources\WebPricingResource;
 
 /**
  * Pricing service client — generated from spec.
@@ -21,6 +22,7 @@ final class PricingClient extends BaseServiceClient
     public readonly JobPriceHdrResource $jobPriceHdr;
     public readonly PriceEngineResource $priceEngine;
     public readonly TaxEngineResource $taxEngine;
+    public readonly WebPricingResource $webPricing;
 
     public function __construct(Client $client, Config $config)
     {
@@ -28,6 +30,7 @@ final class PricingClient extends BaseServiceClient
         $this->jobPriceHdr = new JobPriceHdrResource($client, $this->baseUrl . '/job-price-hdr');
         $this->priceEngine = new PriceEngineResource($client, $this->baseUrl . '/price-engine');
         $this->taxEngine = new TaxEngineResource($client, $this->baseUrl . '/tax-engine');
+        $this->webPricing = new WebPricingResource($client, $this->baseUrl . '/web-pricing');
     }
 
     protected function getServiceName(): string

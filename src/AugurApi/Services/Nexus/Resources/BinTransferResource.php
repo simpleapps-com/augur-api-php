@@ -6,14 +6,11 @@ namespace AugurApi\Services\Nexus\Resources;
 
 use AugurApi\Core\BaseResponse;
 use AugurApi\Core\Client;
-use AugurApi\Core\Schemas\EdgeCache;
 
 /**
- * Bin transfer resource.
+ * binTransfer resource — generated from spec.
  *
- * @fullPath api.nexus.binTransfer
- * @service nexus
- * @domain warehouse
+ * DO NOT EDIT — regenerate with: python shared/scripts/generate-php.py nexus
  */
 final class BinTransferResource
 {
@@ -24,102 +21,116 @@ final class BinTransferResource
     }
 
     /**
-     * List bin transfers.
+     * GET /bin-transfer
      *
-     * @fullPath api.nexus.binTransfer.list
+     * Response data type: array
+     * Known fields: binTransferHdrUid, importState, dateCreated, dateLastModified, updateCd, statusCd, processCd, jsonData, ... (13 total)
+     *
      * @param array<string, mixed> $params
-     * @return BaseResponse<array<array<string, mixed>>>
+     * @return BaseResponse<array<string, mixed>>
      */
     public function list(array $params = []): BaseResponse
     {
-        $response = $this->client->get($this->baseUrl, '/bin-transfer', $params);
-
-        return BaseResponse::fromArray($response, static fn ($data) => $data ?? []);
-    }
-
-    /**
-     * Get bin transfer details.
-     *
-     * @fullPath api.nexus.binTransfer.get
-     * @return BaseResponse<array<string, mixed>>
-     */
-    public function get(int $binTransferHdrUid, ?EdgeCache $edgeCache = null): BaseResponse
-    {
-        $response = $this->client->get(
-            $this->baseUrl,
-            '/bin-transfer/{binTransferHdrUid}',
-            $edgeCache !== null ? ['edgeCache' => $edgeCache->value] : [],
-            ['binTransferHdrUid' => (string) $binTransferHdrUid],
-        );
+        $response = $this->client->get($this->baseUrl, '', $params);
 
         return BaseResponse::fromArray($response, static fn ($data) => $data);
     }
 
     /**
-     * Get bin transfer status with lines.
+     * POST /bin-transfer
      *
-     * @fullPath api.nexus.binTransfer.getStatus
+     * Response data type: object
+     * Known fields: binTransferHdrUid, importState, dateCreated, dateLastModified, updateCd, statusCd, processCd, jsonData, ... (13 total)
+     *
+     * @param array<string, mixed> $data
      * @return BaseResponse<array<string, mixed>>
      */
-    public function getStatus(int $binTransferHdrUid, ?EdgeCache $edgeCache = null): BaseResponse
+    public function create(array $data = []): BaseResponse
     {
-        $response = $this->client->get(
-            $this->baseUrl,
-            '/bin-transfer/{binTransferHdrUid}/status',
-            $edgeCache !== null ? ['edgeCache' => $edgeCache->value] : [],
-            ['binTransferHdrUid' => (string) $binTransferHdrUid],
-        );
+        $response = $this->client->post($this->baseUrl, '', $data);
 
         return BaseResponse::fromArray($response, static fn ($data) => $data);
     }
 
     /**
-     * Create bin transfer.
+     * DELETE /bin-transfer/{binTransferHdrUid}
      *
-     * @fullPath api.nexus.binTransfer.create
-     * @param array<string, mixed> $data
+     * Response data type: object
+     * Known fields: binTransferHdrUid, importState, dateCreated, dateLastModified, updateCd, statusCd, processCd, jsonData, ... (13 total)
+     *
      * @return BaseResponse<array<string, mixed>>
-     */
-    public function create(array $data): BaseResponse
-    {
-        $response = $this->client->post($this->baseUrl, '/bin-transfer', $data);
-
-        return BaseResponse::fromArray($response, static fn ($d) => $d);
-    }
-
-    /**
-     * Update bin transfer.
-     *
-     * @fullPath api.nexus.binTransfer.update
-     * @param array<string, mixed> $data
-     * @return BaseResponse<array<string, mixed>>
-     */
-    public function update(int $binTransferHdrUid, array $data): BaseResponse
-    {
-        $response = $this->client->put(
-            $this->baseUrl,
-            '/bin-transfer/{binTransferHdrUid}',
-            $data,
-            ['binTransferHdrUid' => (string) $binTransferHdrUid],
-        );
-
-        return BaseResponse::fromArray($response, static fn ($d) => $d);
-    }
-
-    /**
-     * Delete bin transfer.
-     *
-     * @fullPath api.nexus.binTransfer.delete
-     * @return BaseResponse<bool>
      */
     public function delete(int $binTransferHdrUid): BaseResponse
     {
         $response = $this->client->delete(
             $this->baseUrl,
-            '/bin-transfer/{binTransferHdrUid}',
+            '/{binTransferHdrUid}',
             ['binTransferHdrUid' => (string) $binTransferHdrUid],
         );
 
-        return BaseResponse::fromArray($response, static fn ($data) => (bool) $data);
+        return BaseResponse::fromArray($response, static fn ($data) => $data);
+    }
+
+    /**
+     * GET /bin-transfer/{binTransferHdrUid}
+     *
+     * Response data type: object
+     * Known fields: binTransferHdrUid, importState, dateCreated, dateLastModified, updateCd, statusCd, processCd, jsonData, ... (13 total)
+     *
+     * @param array<string, mixed> $params
+     * @return BaseResponse<array<string, mixed>>
+     */
+    public function get(int $binTransferHdrUid, array $params = []): BaseResponse
+    {
+        $response = $this->client->get(
+            $this->baseUrl,
+            '/{binTransferHdrUid}',
+            $params,
+            ['binTransferHdrUid' => (string) $binTransferHdrUid],
+        );
+
+        return BaseResponse::fromArray($response, static fn ($data) => $data);
+    }
+
+    /**
+     * PUT /bin-transfer/{binTransferHdrUid}
+     *
+     * Response data type: object
+     * Known fields: binTransferHdrUid, importState, dateCreated, dateLastModified, updateCd, statusCd, processCd, jsonData, ... (13 total)
+     *
+     * @param array<string, mixed> $data
+     * @return BaseResponse<array<string, mixed>>
+     */
+    public function update(int $binTransferHdrUid, array $data = []): BaseResponse
+    {
+        $response = $this->client->put(
+            $this->baseUrl,
+            '/{binTransferHdrUid}',
+            $data,
+            ['binTransferHdrUid' => (string) $binTransferHdrUid],
+        );
+
+        return BaseResponse::fromArray($response, static fn ($data) => $data);
+    }
+
+    /**
+     * GET /bin-transfer/{binTransferHdrUid}/status
+     *
+     * Response data type: object
+     * Known fields: binTransferHdrUid, importState, dateCreated, dateLastModified, updateCd, statusCd, processCd, jsonData, ... (14 total)
+     *
+     * @param array<string, mixed> $params
+     * @return BaseResponse<array<string, mixed>>
+     */
+    public function listStatus(int $binTransferHdrUid, array $params = []): BaseResponse
+    {
+        $response = $this->client->get(
+            $this->baseUrl,
+            '/{binTransferHdrUid}/status',
+            $params,
+            ['binTransferHdrUid' => (string) $binTransferHdrUid],
+        );
+
+        return BaseResponse::fromArray($response, static fn ($data) => $data);
     }
 }

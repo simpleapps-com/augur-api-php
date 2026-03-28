@@ -10,11 +10,9 @@ use AugurApi\Core\Config;
 use AugurApi\Services\Ups\Resources\RatesShopResource;
 
 /**
- * UPS service client.
+ * Ups service client — generated from spec.
  *
- * @fullPath api.ups
- * @service ups
- * @domain shipping
+ * DO NOT EDIT — regenerate with: python shared/scripts/generate-php.py ups
  */
 final class UpsClient extends BaseServiceClient
 {
@@ -23,7 +21,7 @@ final class UpsClient extends BaseServiceClient
     public function __construct(Client $client, Config $config)
     {
         parent::__construct($client, $config);
-        $this->ratesShop = new RatesShopResource($client, $this->baseUrl);
+        $this->ratesShop = new RatesShopResource($client, $this->baseUrl . '/rates-shop');
     }
 
     protected function getServiceName(): string

@@ -10,11 +10,9 @@ use AugurApi\Core\Config;
 use AugurApi\Services\Slack\Resources\WebHookResource;
 
 /**
- * Slack service client.
+ * Slack service client — generated from spec.
  *
- * @fullPath api.slack
- * @service slack
- * @domain notifications
+ * DO NOT EDIT — regenerate with: python shared/scripts/generate-php.py slack
  */
 final class SlackClient extends BaseServiceClient
 {
@@ -23,7 +21,7 @@ final class SlackClient extends BaseServiceClient
     public function __construct(Client $client, Config $config)
     {
         parent::__construct($client, $config);
-        $this->webHook = new WebHookResource($client, $this->baseUrl);
+        $this->webHook = new WebHookResource($client, $this->baseUrl . '/web-hook');
     }
 
     protected function getServiceName(): string

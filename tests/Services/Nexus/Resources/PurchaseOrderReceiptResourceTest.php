@@ -101,7 +101,7 @@ final class PurchaseOrderReceiptResourceTest extends AugurApiTestCase
 
         $response = $this->api->nexus->purchaseOrderReceipt->delete(1);
 
-        $this->assertTrue($response->data);
+        $this->assertNotEmpty($response->data);
         $this->assertRequestPath('/purchase-order-receipt/1');
         $this->assertRequestMethod('DELETE');
     }

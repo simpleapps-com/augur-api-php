@@ -66,7 +66,7 @@ final class BinTransferResourceTest extends AugurApiTestCase
         $this->assertRequestMethod('GET');
     }
 
-    public function testGetStatus(): void
+    public function testListStatus(): void
     {
         $this->mockResponse([
             'binTransferHdrUid' => 1,
@@ -77,7 +77,7 @@ final class BinTransferResourceTest extends AugurApiTestCase
             ],
         ]);
 
-        $response = $this->api->nexus->binTransfer->getStatus(1);
+        $response = $this->api->nexus->binTransfer->listStatus(1);
 
         $this->assertEquals('in_progress', $response->data['status']);
         $this->assertCount(2, $response->data['lines']);
@@ -130,7 +130,7 @@ final class BinTransferResourceTest extends AugurApiTestCase
 
         $response = $this->api->nexus->binTransfer->delete(1);
 
-        $this->assertTrue($response->data);
+        $this->assertNotEmpty($response->data);
         $this->assertRequestPath('/bin-transfer/1');
         $this->assertRequestMethod('DELETE');
     }

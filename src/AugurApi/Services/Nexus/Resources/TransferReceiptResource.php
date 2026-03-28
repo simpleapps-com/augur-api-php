@@ -6,14 +6,11 @@ namespace AugurApi\Services\Nexus\Resources;
 
 use AugurApi\Core\BaseResponse;
 use AugurApi\Core\Client;
-use AugurApi\Core\Schemas\EdgeCache;
 
 /**
- * Transfer receipt resource.
+ * transferReceipt resource — generated from spec.
  *
- * @fullPath api.nexus.transferReceipt
- * @service nexus
- * @domain warehouse
+ * DO NOT EDIT — regenerate with: python shared/scripts/generate-php.py nexus
  */
 final class TransferReceiptResource
 {
@@ -24,31 +21,50 @@ final class TransferReceiptResource
     }
 
     /**
-     * List transfer receipts.
+     * GET /transfer-receipt
      *
-     * @fullPath api.nexus.transferReceipt.list
+     * Response data type: array
+     * Known fields: transferReceiptUid, importState, dateCreated, dateLastModified, updateCd, statusCd, processCd, referenceNo, ... (11 total)
+     *
      * @param array<string, mixed> $params
-     * @return BaseResponse<array<array<string, mixed>>>
+     * @return BaseResponse<array<string, mixed>>
      */
     public function list(array $params = []): BaseResponse
     {
-        $response = $this->client->get($this->baseUrl, '/transfer-receipt', $params);
+        $response = $this->client->get($this->baseUrl, '', $params);
 
-        return BaseResponse::fromArray($response, static fn ($data) => $data ?? []);
+        return BaseResponse::fromArray($response, static fn ($data) => $data);
     }
 
     /**
-     * Get transfer receipt details.
+     * POST /transfer-receipt
      *
-     * @fullPath api.nexus.transferReceipt.get
+     * Response data type: object
+     * Known fields: transferReceiptUid, importState, dateCreated, dateLastModified, updateCd, statusCd, processCd, referenceNo, ... (11 total)
+     *
+     * @param array<string, mixed> $data
      * @return BaseResponse<array<string, mixed>>
      */
-    public function get(int $transferReceiptUid, ?EdgeCache $edgeCache = null): BaseResponse
+    public function create(array $data = []): BaseResponse
     {
-        $response = $this->client->get(
+        $response = $this->client->post($this->baseUrl, '', $data);
+
+        return BaseResponse::fromArray($response, static fn ($data) => $data);
+    }
+
+    /**
+     * DELETE /transfer-receipt/{transferReceiptUid}
+     *
+     * Response data type: object
+     * Known fields: transferReceiptUid, importState, dateCreated, dateLastModified, updateCd, statusCd, processCd, referenceNo, ... (11 total)
+     *
+     * @return BaseResponse<array<string, mixed>>
+     */
+    public function delete(int $transferReceiptUid): BaseResponse
+    {
+        $response = $this->client->delete(
             $this->baseUrl,
-            '/transfer-receipt/{transferReceiptUid}',
-            $edgeCache !== null ? ['edgeCache' => $edgeCache->value] : [],
+            '/{transferReceiptUid}',
             ['transferReceiptUid' => (string) $transferReceiptUid],
         );
 
@@ -56,52 +72,44 @@ final class TransferReceiptResource
     }
 
     /**
-     * Create transfer receipt.
+     * GET /transfer-receipt/{transferReceiptUid}
      *
-     * @fullPath api.nexus.transferReceipt.create
-     * @param array<string, mixed> $data
+     * Response data type: object
+     * Known fields: transferReceiptUid, importState, dateCreated, dateLastModified, updateCd, statusCd, processCd, referenceNo, ... (11 total)
+     *
+     * @param array<string, mixed> $params
      * @return BaseResponse<array<string, mixed>>
      */
-    public function create(array $data): BaseResponse
+    public function get(int $transferReceiptUid, array $params = []): BaseResponse
     {
-        $response = $this->client->post($this->baseUrl, '/transfer-receipt', $data);
+        $response = $this->client->get(
+            $this->baseUrl,
+            '/{transferReceiptUid}',
+            $params,
+            ['transferReceiptUid' => (string) $transferReceiptUid],
+        );
 
-        return BaseResponse::fromArray($response, static fn ($d) => $d);
+        return BaseResponse::fromArray($response, static fn ($data) => $data);
     }
 
     /**
-     * Update transfer receipt.
+     * PUT /transfer-receipt/{transferReceiptUid}
      *
-     * @fullPath api.nexus.transferReceipt.update
+     * Response data type: object
+     * Known fields: transferReceiptUid, importState, dateCreated, dateLastModified, updateCd, statusCd, processCd, referenceNo, ... (11 total)
+     *
      * @param array<string, mixed> $data
      * @return BaseResponse<array<string, mixed>>
      */
-    public function update(int $transferReceiptUid, array $data): BaseResponse
+    public function update(int $transferReceiptUid, array $data = []): BaseResponse
     {
         $response = $this->client->put(
             $this->baseUrl,
-            '/transfer-receipt/{transferReceiptUid}',
+            '/{transferReceiptUid}',
             $data,
             ['transferReceiptUid' => (string) $transferReceiptUid],
         );
 
-        return BaseResponse::fromArray($response, static fn ($d) => $d);
-    }
-
-    /**
-     * Delete transfer receipt.
-     *
-     * @fullPath api.nexus.transferReceipt.delete
-     * @return BaseResponse<bool>
-     */
-    public function delete(int $transferReceiptUid): BaseResponse
-    {
-        $response = $this->client->delete(
-            $this->baseUrl,
-            '/transfer-receipt/{transferReceiptUid}',
-            ['transferReceiptUid' => (string) $transferReceiptUid],
-        );
-
-        return BaseResponse::fromArray($response, static fn ($data) => (bool) $data);
+        return BaseResponse::fromArray($response, static fn ($data) => $data);
     }
 }

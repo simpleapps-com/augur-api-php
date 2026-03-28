@@ -107,7 +107,7 @@ final class TransferResourceTest extends AugurApiTestCase
 
         $response = $this->api->nexus->transfer->delete(1);
 
-        $this->assertTrue($response->data);
+        $this->assertNotEmpty($response->data);
         $this->assertRequestPath('/transfer/1');
         $this->assertRequestMethod('DELETE');
     }

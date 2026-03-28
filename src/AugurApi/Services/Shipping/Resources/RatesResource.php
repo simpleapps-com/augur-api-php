@@ -8,11 +8,9 @@ use AugurApi\Core\BaseResponse;
 use AugurApi\Core\Client;
 
 /**
- * Rates resource.
+ * rates resource — generated from spec.
  *
- * @fullPath api.shipping.rates
- * @service shipping
- * @domain shipping-and-logistics
+ * DO NOT EDIT — regenerate with: python shared/scripts/generate-php.py shipping
  */
 final class RatesResource
 {
@@ -23,16 +21,15 @@ final class RatesResource
     }
 
     /**
-     * Get comprehensive shipping rates from multiple carriers.
+     * POST /rates
      *
-     * @fullPath api.shipping.rates.create
      * @param array<string, mixed> $data
      * @return BaseResponse<array<string, mixed>>
      */
-    public function create(array $data): BaseResponse
+    public function create(array $data = []): BaseResponse
     {
-        $response = $this->client->post($this->baseUrl, '/rates', $data);
+        $response = $this->client->post($this->baseUrl, '', $data);
 
-        return BaseResponse::fromArray($response, static fn ($d) => $d);
+        return BaseResponse::fromArray($response, static fn ($data) => $data);
     }
 }

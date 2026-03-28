@@ -10,11 +10,9 @@ use AugurApi\Core\Config;
 use AugurApi\Services\Shipping\Resources\RatesResource;
 
 /**
- * Shipping service client.
+ * Shipping service client — generated from spec.
  *
- * @fullPath api.shipping
- * @service shipping
- * @domain shipping
+ * DO NOT EDIT — regenerate with: python shared/scripts/generate-php.py shipping
  */
 final class ShippingClient extends BaseServiceClient
 {
@@ -23,7 +21,7 @@ final class ShippingClient extends BaseServiceClient
     public function __construct(Client $client, Config $config)
     {
         parent::__construct($client, $config);
-        $this->rates = new RatesResource($client, $this->baseUrl);
+        $this->rates = new RatesResource($client, $this->baseUrl . '/rates');
     }
 
     protected function getServiceName(): string
