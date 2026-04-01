@@ -13,6 +13,7 @@ use AugurApi\Services\AgrSite\Resources\GeoCodesPostalCodesResource;
 use AugurApi\Services\AgrSite\Resources\MetaFilesResource;
 use AugurApi\Services\AgrSite\Resources\NotificationsResource;
 use AugurApi\Services\AgrSite\Resources\OpenSearchResource;
+use AugurApi\Services\AgrSite\Resources\PostalCodesXShiptosResource;
 use AugurApi\Services\AgrSite\Resources\SettingsResource;
 use AugurApi\Services\AgrSite\Resources\TrainingResource;
 
@@ -29,6 +30,7 @@ final class AgrSiteClient extends BaseServiceClient
     public readonly MetaFilesResource $metaFiles;
     public readonly NotificationsResource $notifications;
     public readonly OpenSearchResource $openSearch;
+    public readonly PostalCodesXShiptosResource $postalCodesXShiptos;
     public readonly SettingsResource $settings;
     public readonly TrainingResource $training;
 
@@ -41,6 +43,7 @@ final class AgrSiteClient extends BaseServiceClient
         $this->metaFiles = new MetaFilesResource($client, $this->baseUrl . '/meta-files');
         $this->notifications = new NotificationsResource($client, $this->baseUrl . '/notifications');
         $this->openSearch = new OpenSearchResource($client, $this->baseUrl . '/open-search');
+        $this->postalCodesXShiptos = new PostalCodesXShiptosResource($client, $this->baseUrl . '/postal-codes-xshiptos');
         $this->settings = new SettingsResource($client, $this->baseUrl . '/settings');
         $this->training = new TrainingResource($client, $this->baseUrl . '/training');
     }
