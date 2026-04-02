@@ -31,7 +31,7 @@ final class PostalCodesXShiptosResource
      */
     public function list(array $params = []): BaseResponse
     {
-        $response = $this->client->get($this->baseUrl, '/postal-codes-x-shiptos', $params);
+        $response = $this->client->get($this->baseUrl, '', $params);
 
         return BaseResponse::fromArray($response, static fn ($data) => $data);
     }
@@ -47,7 +47,7 @@ final class PostalCodesXShiptosResource
      */
     public function create(array $data = []): BaseResponse
     {
-        $response = $this->client->post($this->baseUrl, '/postal-codes-x-shiptos', $data);
+        $response = $this->client->post($this->baseUrl, '', $data);
 
         return BaseResponse::fromArray($response, static fn ($data) => $data);
     }
@@ -64,7 +64,7 @@ final class PostalCodesXShiptosResource
     {
         $response = $this->client->delete(
             $this->baseUrl,
-            '/postal-codes-x-shiptos/{postalCodesXShiptosUid}',
+            '/{postalCodesXShiptosUid}',
             ['postalCodesXShiptosUid' => (string) $postalCodesXShiptosUid],
         );
 
@@ -84,7 +84,7 @@ final class PostalCodesXShiptosResource
     {
         $response = $this->client->get(
             $this->baseUrl,
-            '/postal-codes-x-shiptos/{postalCodesXShiptosUid}',
+            '/{postalCodesXShiptosUid}',
             $params,
             ['postalCodesXShiptosUid' => (string) $postalCodesXShiptosUid],
         );
@@ -105,7 +105,7 @@ final class PostalCodesXShiptosResource
     {
         $response = $this->client->put(
             $this->baseUrl,
-            '/postal-codes-x-shiptos/{postalCodesXShiptosUid}',
+            '/{postalCodesXShiptosUid}',
             $data,
             ['postalCodesXShiptosUid' => (string) $postalCodesXShiptosUid],
         );

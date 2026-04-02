@@ -43,7 +43,7 @@ final class AgrSiteClient extends BaseServiceClient
         $this->metaFiles = new MetaFilesResource($client, $this->baseUrl . '/meta-files');
         $this->notifications = new NotificationsResource($client, $this->baseUrl . '/notifications');
         $this->openSearch = new OpenSearchResource($client, $this->baseUrl . '/open-search');
-        $this->postalCodesXShiptos = new PostalCodesXShiptosResource($client, $this->baseUrl . '/postal-codes-xshiptos');
+        $this->postalCodesXShiptos = new PostalCodesXShiptosResource($client, $this->baseUrl . '/postal-codes-x-shiptos');
         $this->settings = new SettingsResource($client, $this->baseUrl . '/settings');
         $this->training = new TrainingResource($client, $this->baseUrl . '/training');
     }
