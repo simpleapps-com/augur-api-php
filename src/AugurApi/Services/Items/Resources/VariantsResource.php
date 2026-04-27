@@ -139,12 +139,12 @@ final class VariantsResource
      *
      * @return BaseResponse<array<string, mixed>>
      */
-    public function deleteAttributes(int $attributeUid, int $itemVariantHdrUid): BaseResponse
+    public function deleteAttributes(int $itemVariantHdrUid, int $attributeUid): BaseResponse
     {
         $response = $this->client->delete(
             $this->baseUrl,
             '/{itemVariantHdrUid}/attributes/{attributeUid}',
-            ['attributeUid' => (string) $attributeUid, 'itemVariantHdrUid' => (string) $itemVariantHdrUid],
+            ['itemVariantHdrUid' => (string) $itemVariantHdrUid, 'attributeUid' => (string) $attributeUid],
         );
 
         return BaseResponse::fromArray($response, static fn ($data) => $data);
@@ -156,13 +156,13 @@ final class VariantsResource
      * @param array<string, mixed> $params
      * @return BaseResponse<array<string, mixed>>
      */
-    public function getAttributes(int $attributeUid, int $itemVariantHdrUid, array $params = []): BaseResponse
+    public function getAttributes(int $itemVariantHdrUid, int $attributeUid, array $params = []): BaseResponse
     {
         $response = $this->client->get(
             $this->baseUrl,
             '/{itemVariantHdrUid}/attributes/{attributeUid}',
             $params,
-            ['attributeUid' => (string) $attributeUid, 'itemVariantHdrUid' => (string) $itemVariantHdrUid],
+            ['itemVariantHdrUid' => (string) $itemVariantHdrUid, 'attributeUid' => (string) $attributeUid],
         );
 
         return BaseResponse::fromArray($response, static fn ($data) => $data);
@@ -174,13 +174,13 @@ final class VariantsResource
      * @param array<string, mixed> $data
      * @return BaseResponse<array<string, mixed>>
      */
-    public function updateAttributes(int $attributeUid, int $itemVariantHdrUid, array $data = []): BaseResponse
+    public function updateAttributes(int $itemVariantHdrUid, int $attributeUid, array $data = []): BaseResponse
     {
         $response = $this->client->put(
             $this->baseUrl,
             '/{itemVariantHdrUid}/attributes/{attributeUid}',
             $data,
-            ['attributeUid' => (string) $attributeUid, 'itemVariantHdrUid' => (string) $itemVariantHdrUid],
+            ['itemVariantHdrUid' => (string) $itemVariantHdrUid, 'attributeUid' => (string) $attributeUid],
         );
 
         return BaseResponse::fromArray($response, static fn ($data) => $data);

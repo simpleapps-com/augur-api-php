@@ -61,12 +61,12 @@ final class ItemWishlistResource
      *
      * @return BaseResponse<array<string, mixed>>
      */
-    public function deleteHdr(int $itemWishlistHdrUid, int $usersId): BaseResponse
+    public function deleteHdr(int $usersId, int $itemWishlistHdrUid): BaseResponse
     {
         $response = $this->client->delete(
             $this->baseUrl,
             '/{usersId}/hdr/{itemWishlistHdrUid}',
-            ['itemWishlistHdrUid' => (string) $itemWishlistHdrUid, 'usersId' => (string) $usersId],
+            ['usersId' => (string) $usersId, 'itemWishlistHdrUid' => (string) $itemWishlistHdrUid],
         );
 
         return BaseResponse::fromArray($response, static fn ($data) => $data);
@@ -78,13 +78,13 @@ final class ItemWishlistResource
      * @param array<string, mixed> $params
      * @return BaseResponse<array<string, mixed>>
      */
-    public function getHdr(int $itemWishlistHdrUid, int $usersId, array $params = []): BaseResponse
+    public function getHdr(int $usersId, int $itemWishlistHdrUid, array $params = []): BaseResponse
     {
         $response = $this->client->get(
             $this->baseUrl,
             '/{usersId}/hdr/{itemWishlistHdrUid}',
             $params,
-            ['itemWishlistHdrUid' => (string) $itemWishlistHdrUid, 'usersId' => (string) $usersId],
+            ['usersId' => (string) $usersId, 'itemWishlistHdrUid' => (string) $itemWishlistHdrUid],
         );
 
         return BaseResponse::fromArray($response, static fn ($data) => $data);
@@ -96,13 +96,13 @@ final class ItemWishlistResource
      * @param array<string, mixed> $data
      * @return BaseResponse<array<string, mixed>>
      */
-    public function createHdr(int $itemWishlistHdrUid, int $usersId, array $data = []): BaseResponse
+    public function createHdr(int $usersId, int $itemWishlistHdrUid, array $data = []): BaseResponse
     {
         $response = $this->client->post(
             $this->baseUrl,
             '/{usersId}/hdr/{itemWishlistHdrUid}',
             $data,
-            ['itemWishlistHdrUid' => (string) $itemWishlistHdrUid, 'usersId' => (string) $usersId],
+            ['usersId' => (string) $usersId, 'itemWishlistHdrUid' => (string) $itemWishlistHdrUid],
         );
 
         return BaseResponse::fromArray($response, static fn ($data) => $data);
@@ -114,13 +114,13 @@ final class ItemWishlistResource
      * @param array<string, mixed> $data
      * @return BaseResponse<array<string, mixed>>
      */
-    public function updateHdr(int $itemWishlistHdrUid, int $usersId, array $data = []): BaseResponse
+    public function updateHdr(int $usersId, int $itemWishlistHdrUid, array $data = []): BaseResponse
     {
         $response = $this->client->put(
             $this->baseUrl,
             '/{usersId}/hdr/{itemWishlistHdrUid}',
             $data,
-            ['itemWishlistHdrUid' => (string) $itemWishlistHdrUid, 'usersId' => (string) $usersId],
+            ['usersId' => (string) $usersId, 'itemWishlistHdrUid' => (string) $itemWishlistHdrUid],
         );
 
         return BaseResponse::fromArray($response, static fn ($data) => $data);
@@ -131,12 +131,12 @@ final class ItemWishlistResource
      *
      * @return BaseResponse<array<string, mixed>>
      */
-    public function deleteHdrLine(int $itemWishlistHdrUid, int $itemWishlistLineUid, int $usersId): BaseResponse
+    public function deleteHdrLine(int $usersId, int $itemWishlistHdrUid, int $itemWishlistLineUid): BaseResponse
     {
         $response = $this->client->delete(
             $this->baseUrl,
             '/{usersId}/hdr/{itemWishlistHdrUid}/line/{itemWishlistLineUid}',
-            ['itemWishlistHdrUid' => (string) $itemWishlistHdrUid, 'itemWishlistLineUid' => (string) $itemWishlistLineUid, 'usersId' => (string) $usersId],
+            ['usersId' => (string) $usersId, 'itemWishlistHdrUid' => (string) $itemWishlistHdrUid, 'itemWishlistLineUid' => (string) $itemWishlistLineUid],
         );
 
         return BaseResponse::fromArray($response, static fn ($data) => $data);

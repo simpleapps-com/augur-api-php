@@ -190,7 +190,8 @@ final class UsersResourceTest extends AugurApiTestCase
             'parent_id' => 1,
         ]);
 
-        $response = $this->api->joomla->users->getGroups(3, 1);
+        // Generated signature: getGroups(int $id, int $groupId, ...)
+        $response = $this->api->joomla->users->getGroups(1, 3);
 
         $this->assertEquals(3, $response->data['id']);
         $this->assertEquals('Administrator', $response->data['title']);

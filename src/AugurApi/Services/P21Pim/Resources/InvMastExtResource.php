@@ -51,12 +51,12 @@ final class InvMastExtResource
      *
      * @return BaseResponse<array<string, mixed>>
      */
-    public function delete(int $inv_mast_ext_uid): BaseResponse
+    public function delete(int $invMastExtUid): BaseResponse
     {
         $response = $this->client->delete(
             $this->baseUrl,
             '/{invMastExtUid}',
-            ['inv_mast_ext_uid' => (string) $inv_mast_ext_uid],
+            ['invMastExtUid' => (string) $invMastExtUid],
         );
 
         return BaseResponse::fromArray($response, static fn ($data) => $data);
@@ -68,13 +68,13 @@ final class InvMastExtResource
      * @param array<string, mixed> $params
      * @return BaseResponse<array<string, mixed>>
      */
-    public function get(int $inv_mast_ext_uid, array $params = []): BaseResponse
+    public function get(int $invMastExtUid, array $params = []): BaseResponse
     {
         $response = $this->client->get(
             $this->baseUrl,
             '/{invMastExtUid}',
             $params,
-            ['inv_mast_ext_uid' => (string) $inv_mast_ext_uid],
+            ['invMastExtUid' => (string) $invMastExtUid],
         );
 
         return BaseResponse::fromArray($response, static fn ($data) => $data);
@@ -86,13 +86,13 @@ final class InvMastExtResource
      * @param array<string, mixed> $data
      * @return BaseResponse<array<string, mixed>>
      */
-    public function update(int $inv_mast_ext_uid, array $data = []): BaseResponse
+    public function update(int $invMastExtUid, array $data = []): BaseResponse
     {
         $response = $this->client->put(
             $this->baseUrl,
             '/{invMastExtUid}',
             $data,
-            ['inv_mast_ext_uid' => (string) $inv_mast_ext_uid],
+            ['invMastExtUid' => (string) $invMastExtUid],
         );
 
         return BaseResponse::fromArray($response, static fn ($data) => $data);

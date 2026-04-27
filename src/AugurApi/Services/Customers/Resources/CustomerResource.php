@@ -171,13 +171,13 @@ final class CustomerResource
      * @param array<string, mixed> $params
      * @return BaseResponse<array<string, mixed>>
      */
-    public function listOrders(int $addressId, int $customerId, array $params = []): BaseResponse
+    public function listOrders(int $customerId, array $params = []): BaseResponse
     {
         $response = $this->client->get(
             $this->baseUrl,
             '/{customerId}/orders',
             $params,
-            ['addressId' => (string) $addressId, 'customerId' => (string) $customerId],
+            ['customerId' => (string) $customerId],
         );
 
         return BaseResponse::fromArray($response, static fn ($data) => $data);

@@ -25,12 +25,12 @@ final class CartLineResource
      *
      * @return BaseResponse<array<string, mixed>>
      */
-    public function delete(int $cart_hdr_uid): BaseResponse
+    public function delete(int $cartHdrUid): BaseResponse
     {
         $response = $this->client->delete(
             $this->baseUrl,
             '/{cartHdrUid}',
-            ['cart_hdr_uid' => (string) $cart_hdr_uid],
+            ['cartHdrUid' => (string) $cartHdrUid],
         );
 
         return BaseResponse::fromArray($response, static fn ($data) => $data);
@@ -42,13 +42,13 @@ final class CartLineResource
      * @param array<string, mixed> $params
      * @return BaseResponse<array<string, mixed>>
      */
-    public function get(int $cart_hdr_uid, array $params = []): BaseResponse
+    public function get(int $cartHdrUid, array $params = []): BaseResponse
     {
         $response = $this->client->get(
             $this->baseUrl,
             '/{cartHdrUid}',
             $params,
-            ['cart_hdr_uid' => (string) $cart_hdr_uid],
+            ['cartHdrUid' => (string) $cartHdrUid],
         );
 
         return BaseResponse::fromArray($response, static fn ($data) => $data);
@@ -60,13 +60,13 @@ final class CartLineResource
      * @param array<string, mixed> $data
      * @return BaseResponse<array<string, mixed>>
      */
-    public function createAdd(int $cart_hdr_uid, array $data = []): BaseResponse
+    public function createAdd(int $cartHdrUid, array $data = []): BaseResponse
     {
         $response = $this->client->post(
             $this->baseUrl,
             '/{cartHdrUid}/add',
             $data,
-            ['cart_hdr_uid' => (string) $cart_hdr_uid],
+            ['cartHdrUid' => (string) $cartHdrUid],
         );
 
         return BaseResponse::fromArray($response, static fn ($data) => $data);
@@ -77,12 +77,12 @@ final class CartLineResource
      *
      * @return BaseResponse<array<string, mixed>>
      */
-    public function deleteLines(int $cart_hdr_uid, int $line_no): BaseResponse
+    public function deleteLines(int $cartHdrUid, int $lineNo): BaseResponse
     {
         $response = $this->client->delete(
             $this->baseUrl,
             '/{cartHdrUid}/lines/{lineNo}',
-            ['cart_hdr_uid' => (string) $cart_hdr_uid, 'line_no' => (string) $line_no],
+            ['cartHdrUid' => (string) $cartHdrUid, 'lineNo' => (string) $lineNo],
         );
 
         return BaseResponse::fromArray($response, static fn ($data) => $data);
@@ -94,13 +94,13 @@ final class CartLineResource
      * @param array<string, mixed> $data
      * @return BaseResponse<array<string, mixed>>
      */
-    public function createUpdate(int $cart_hdr_uid, array $data = []): BaseResponse
+    public function createUpdate(int $cartHdrUid, array $data = []): BaseResponse
     {
         $response = $this->client->post(
             $this->baseUrl,
             '/{cartHdrUid}/update',
             $data,
-            ['cart_hdr_uid' => (string) $cart_hdr_uid],
+            ['cartHdrUid' => (string) $cartHdrUid],
         );
 
         return BaseResponse::fromArray($response, static fn ($data) => $data);

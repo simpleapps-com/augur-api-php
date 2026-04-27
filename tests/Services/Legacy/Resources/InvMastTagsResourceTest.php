@@ -52,7 +52,8 @@ final class InvMastTagsResourceTest extends AugurApiTestCase
             'tagValue' => 'true',
         ]);
 
-        $response = $this->api->legacy->invMast->getTags(1, 12345);
+        // Generated signature: getTags(int $invMastUid, int $invMastTagsUid, ...)
+        $response = $this->api->legacy->invMast->getTags(12345, 1);
 
         $this->assertEquals(1, $response->data['invMastTagsUid']);
         $this->assertEquals('Featured', $response->data['tagName']);
@@ -69,8 +70,8 @@ final class InvMastTagsResourceTest extends AugurApiTestCase
             'tagValue' => 'value',
         ], 201);
 
-        $response = $this->api->legacy->invMast->createTags([
-            'invMastUid' => 12345,
+        // Generated signature: createTags(string $invMastUid, array $data = [])
+        $response = $this->api->legacy->invMast->createTags('12345', [
             'tagName' => 'New Tag',
             'tagValue' => 'value',
         ]);
@@ -88,7 +89,8 @@ final class InvMastTagsResourceTest extends AugurApiTestCase
             'tagValue' => 'new value',
         ]);
 
-        $response = $this->api->legacy->invMast->updateTags(1, 12345, [
+        // Generated signature: updateTags(int $invMastUid, int $invMastTagsUid, ...)
+        $response = $this->api->legacy->invMast->updateTags(12345, 1, [
             'tagName' => 'Updated Tag',
             'tagValue' => 'new value',
         ]);
@@ -102,7 +104,8 @@ final class InvMastTagsResourceTest extends AugurApiTestCase
     {
         $this->mockResponse(['deleted' => true]);
 
-        $response = $this->api->legacy->invMast->deleteTags(1, 12345);
+        // Generated signature: deleteTags(int $invMastUid, int $invMastTagsUid)
+        $response = $this->api->legacy->invMast->deleteTags(12345, 1);
 
         $this->assertTrue($response->data['deleted']);
         $this->assertRequestPath('/inv-mast/12345/tags/1');

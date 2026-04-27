@@ -185,13 +185,13 @@ final class UsersResource
      * @param array<string, mixed> $params
      * @return BaseResponse<array<string, mixed>>
      */
-    public function getGroups(int $groupId, int $id, array $params = []): BaseResponse
+    public function getGroups(int $id, int $groupId, array $params = []): BaseResponse
     {
         $response = $this->client->get(
             $this->baseUrl,
             '/{id}/groups/{groupId}',
             $params,
-            ['groupId' => (string) $groupId, 'id' => (string) $id],
+            ['id' => (string) $id, 'groupId' => (string) $groupId],
         );
 
         return BaseResponse::fromArray($response, static fn ($data) => $data);

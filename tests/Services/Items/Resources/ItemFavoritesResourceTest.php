@@ -49,8 +49,8 @@ final class ItemFavoritesResourceTest extends AugurApiTestCase
     {
         $this->mockResponse(['invMastUid' => 100, 'itemId' => 'ITEM001']);
 
-        // Generated signature: getItems(int $invMastUid, int $usersId, ...)
-        $response = $this->api->items->itemFavorites->getItems(100, 12345);
+        // Generated signature: getItems(int $usersId, int $invMastUid, ...)
+        $response = $this->api->items->itemFavorites->getItems(12345, 100);
 
         $this->assertEquals(100, $response->data['invMastUid']);
         $this->assertRequestMethod('GET');
@@ -72,8 +72,8 @@ final class ItemFavoritesResourceTest extends AugurApiTestCase
     {
         $this->mockResponse(['invMastUid' => 100, 'sortOrder' => 5]);
 
-        // Generated signature: updateItems(int $invMastUid, int $usersId, ...)
-        $response = $this->api->items->itemFavorites->updateItems(100, 12345, ['sortOrder' => 5]);
+        // Generated signature: updateItems(int $usersId, int $invMastUid, ...)
+        $response = $this->api->items->itemFavorites->updateItems(12345, 100, ['sortOrder' => 5]);
 
         $this->assertEquals(5, $response->data['sortOrder']);
         $this->assertRequestMethod('PUT');
@@ -84,8 +84,8 @@ final class ItemFavoritesResourceTest extends AugurApiTestCase
     {
         $this->mockSuccessResponse();
 
-        // Generated signature: deleteItems(int $invMastUid, int $usersId)
-        $response = $this->api->items->itemFavorites->deleteItems(100, 12345);
+        // Generated signature: deleteItems(int $usersId, int $invMastUid)
+        $response = $this->api->items->itemFavorites->deleteItems(12345, 100);
 
         $this->assertTrue($response->data['success']);
         $this->assertRequestMethod('DELETE');

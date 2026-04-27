@@ -127,13 +127,13 @@ final class InvMastResource
      * @param array<string, mixed> $params
      * @return BaseResponse<array<string, mixed>>
      */
-    public function listAttributesValues(int $attributeUid, int $invMastUid, array $params = []): BaseResponse
+    public function listAttributesValues(int $invMastUid, int $attributeUid, array $params = []): BaseResponse
     {
         $response = $this->client->get(
             $this->baseUrl,
             '/{invMastUid}/attributes/{attributeUid}/values',
             $params,
-            ['attributeUid' => (string) $attributeUid, 'invMastUid' => (string) $invMastUid],
+            ['invMastUid' => (string) $invMastUid, 'attributeUid' => (string) $attributeUid],
         );
 
         return BaseResponse::fromArray($response, static fn ($data) => $data);
@@ -148,13 +148,13 @@ final class InvMastResource
      * @param array<string, mixed> $data
      * @return BaseResponse<array<string, mixed>>
      */
-    public function createAttributesValues(int $attributeUid, int $invMastUid, array $data = []): BaseResponse
+    public function createAttributesValues(int $invMastUid, int $attributeUid, array $data = []): BaseResponse
     {
         $response = $this->client->post(
             $this->baseUrl,
             '/{invMastUid}/attributes/{attributeUid}/values',
             $data,
-            ['attributeUid' => (string) $attributeUid, 'invMastUid' => (string) $invMastUid],
+            ['invMastUid' => (string) $invMastUid, 'attributeUid' => (string) $attributeUid],
         );
 
         return BaseResponse::fromArray($response, static fn ($data) => $data);
@@ -165,12 +165,12 @@ final class InvMastResource
      *
      * @return BaseResponse<array<string, mixed>>
      */
-    public function deleteAttributesValues(int $attributeUid, int $attributeValueUid, int $invMastUid): BaseResponse
+    public function deleteAttributesValues(int $invMastUid, int $attributeUid, int $attributeValueUid): BaseResponse
     {
         $response = $this->client->delete(
             $this->baseUrl,
             '/{invMastUid}/attributes/{attributeUid}/values/{attributeValueUid}',
-            ['attributeUid' => (string) $attributeUid, 'attributeValueUid' => (string) $attributeValueUid, 'invMastUid' => (string) $invMastUid],
+            ['invMastUid' => (string) $invMastUid, 'attributeUid' => (string) $attributeUid, 'attributeValueUid' => (string) $attributeValueUid],
         );
 
         return BaseResponse::fromArray($response, static fn ($data) => $data);
@@ -185,13 +185,13 @@ final class InvMastResource
      * @param array<string, mixed> $data
      * @return BaseResponse<array<string, mixed>>
      */
-    public function updateAttributesValues(int $attributeUid, int $attributeValueUid, int $invMastUid, array $data = []): BaseResponse
+    public function updateAttributesValues(int $invMastUid, int $attributeUid, int $attributeValueUid, array $data = []): BaseResponse
     {
         $response = $this->client->put(
             $this->baseUrl,
             '/{invMastUid}/attributes/{attributeUid}/values/{attributeValueUid}',
             $data,
-            ['attributeUid' => (string) $attributeUid, 'attributeValueUid' => (string) $attributeValueUid, 'invMastUid' => (string) $invMastUid],
+            ['invMastUid' => (string) $invMastUid, 'attributeUid' => (string) $attributeUid, 'attributeValueUid' => (string) $attributeValueUid],
         );
 
         return BaseResponse::fromArray($response, static fn ($data) => $data);
@@ -276,12 +276,12 @@ final class InvMastResource
      *
      * @return BaseResponse<array<string, mixed>>
      */
-    public function deleteFaq(int $invMastFaqUid, int $invMastUid): BaseResponse
+    public function deleteFaq(int $invMastUid, int $invMastFaqUid): BaseResponse
     {
         $response = $this->client->delete(
             $this->baseUrl,
             '/{invMastUid}/faq/{invMastFaqUid}',
-            ['invMastFaqUid' => (string) $invMastFaqUid, 'invMastUid' => (string) $invMastUid],
+            ['invMastUid' => (string) $invMastUid, 'invMastFaqUid' => (string) $invMastFaqUid],
         );
 
         return BaseResponse::fromArray($response, static fn ($data) => $data);
@@ -296,13 +296,13 @@ final class InvMastResource
      * @param array<string, mixed> $params
      * @return BaseResponse<array<string, mixed>>
      */
-    public function getFaq(int $invMastFaqUid, int $invMastUid, array $params = []): BaseResponse
+    public function getFaq(int $invMastUid, int $invMastFaqUid, array $params = []): BaseResponse
     {
         $response = $this->client->get(
             $this->baseUrl,
             '/{invMastUid}/faq/{invMastFaqUid}',
             $params,
-            ['invMastFaqUid' => (string) $invMastFaqUid, 'invMastUid' => (string) $invMastUid],
+            ['invMastUid' => (string) $invMastUid, 'invMastFaqUid' => (string) $invMastFaqUid],
         );
 
         return BaseResponse::fromArray($response, static fn ($data) => $data);
@@ -317,13 +317,13 @@ final class InvMastResource
      * @param array<string, mixed> $data
      * @return BaseResponse<array<string, mixed>>
      */
-    public function updateFaq(int $invMastFaqUid, int $invMastUid, array $data = []): BaseResponse
+    public function updateFaq(int $invMastUid, int $invMastFaqUid, array $data = []): BaseResponse
     {
         $response = $this->client->put(
             $this->baseUrl,
             '/{invMastUid}/faq/{invMastFaqUid}',
             $data,
-            ['invMastFaqUid' => (string) $invMastFaqUid, 'invMastUid' => (string) $invMastUid],
+            ['invMastUid' => (string) $invMastUid, 'invMastFaqUid' => (string) $invMastFaqUid],
         );
 
         return BaseResponse::fromArray($response, static fn ($data) => $data);
@@ -389,13 +389,13 @@ final class InvMastResource
      * @param array<string, mixed> $params
      * @return BaseResponse<array<string, mixed>>
      */
-    public function getLocationsBins(string $bin, int $invMastUid, int $locationId, array $params = []): BaseResponse
+    public function getLocationsBins(int $invMastUid, int $locationId, string $bin, array $params = []): BaseResponse
     {
         $response = $this->client->get(
             $this->baseUrl,
             '/{invMastUid}/locations/{locationId}/bins/{bin}',
             $params,
-            ['bin' => (string) $bin, 'invMastUid' => (string) $invMastUid, 'locationId' => (string) $locationId],
+            ['invMastUid' => (string) $invMastUid, 'locationId' => (string) $locationId, 'bin' => (string) $bin],
         );
 
         return BaseResponse::fromArray($response, static fn ($data) => $data);

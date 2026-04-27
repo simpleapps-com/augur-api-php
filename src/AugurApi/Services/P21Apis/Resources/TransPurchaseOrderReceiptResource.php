@@ -26,13 +26,13 @@ final class TransPurchaseOrderReceiptResource
      * @param array<string, mixed> $params
      * @return BaseResponse<array<string, mixed>>
      */
-    public function get(string $po_no, array $params = []): BaseResponse
+    public function get(string $poNo, array $params = []): BaseResponse
     {
         $response = $this->client->get(
             $this->baseUrl,
             '/{poNo}',
             $params,
-            ['po_no' => (string) $po_no],
+            ['poNo' => (string) $poNo],
         );
 
         return BaseResponse::fromArray($response, static fn ($data) => $data);
@@ -44,13 +44,13 @@ final class TransPurchaseOrderReceiptResource
      * @param array<string, mixed> $data
      * @return BaseResponse<array<string, mixed>>
      */
-    public function update(string $po_no, array $data = []): BaseResponse
+    public function update(string $poNo, array $data = []): BaseResponse
     {
         $response = $this->client->put(
             $this->baseUrl,
             '/{poNo}',
             $data,
-            ['po_no' => (string) $po_no],
+            ['poNo' => (string) $poNo],
         );
 
         return BaseResponse::fromArray($response, static fn ($data) => $data);

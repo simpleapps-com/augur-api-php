@@ -163,12 +163,12 @@ final class TrainingResource
      *
      * @return BaseResponse<array<string, mixed>>
      */
-    public function deleteConversations(int $trainingConvUid, int $trainingSetUid): BaseResponse
+    public function deleteConversations(int $trainingSetUid, int $trainingConvUid): BaseResponse
     {
         $response = $this->client->delete(
             $this->baseUrl,
             '/{trainingSetUid}/conversations/{trainingConvUid}',
-            ['trainingConvUid' => (string) $trainingConvUid, 'trainingSetUid' => (string) $trainingSetUid],
+            ['trainingSetUid' => (string) $trainingSetUid, 'trainingConvUid' => (string) $trainingConvUid],
         );
 
         return BaseResponse::fromArray($response, static fn ($data) => $data);
@@ -183,13 +183,13 @@ final class TrainingResource
      * @param array<string, mixed> $params
      * @return BaseResponse<array<string, mixed>>
      */
-    public function getConversations(int $trainingConvUid, int $trainingSetUid, array $params = []): BaseResponse
+    public function getConversations(int $trainingSetUid, int $trainingConvUid, array $params = []): BaseResponse
     {
         $response = $this->client->get(
             $this->baseUrl,
             '/{trainingSetUid}/conversations/{trainingConvUid}',
             $params,
-            ['trainingConvUid' => (string) $trainingConvUid, 'trainingSetUid' => (string) $trainingSetUid],
+            ['trainingSetUid' => (string) $trainingSetUid, 'trainingConvUid' => (string) $trainingConvUid],
         );
 
         return BaseResponse::fromArray($response, static fn ($data) => $data);
@@ -204,13 +204,13 @@ final class TrainingResource
      * @param array<string, mixed> $data
      * @return BaseResponse<array<string, mixed>>
      */
-    public function updateConversations(int $trainingConvUid, int $trainingSetUid, array $data = []): BaseResponse
+    public function updateConversations(int $trainingSetUid, int $trainingConvUid, array $data = []): BaseResponse
     {
         $response = $this->client->put(
             $this->baseUrl,
             '/{trainingSetUid}/conversations/{trainingConvUid}',
             $data,
-            ['trainingConvUid' => (string) $trainingConvUid, 'trainingSetUid' => (string) $trainingSetUid],
+            ['trainingSetUid' => (string) $trainingSetUid, 'trainingConvUid' => (string) $trainingConvUid],
         );
 
         return BaseResponse::fromArray($response, static fn ($data) => $data);
@@ -225,13 +225,13 @@ final class TrainingResource
      * @param array<string, mixed> $params
      * @return BaseResponse<array<string, mixed>>
      */
-    public function listConversationsMessages(int $trainingConvUid, int $trainingSetUid, array $params = []): BaseResponse
+    public function listConversationsMessages(int $trainingSetUid, int $trainingConvUid, array $params = []): BaseResponse
     {
         $response = $this->client->get(
             $this->baseUrl,
             '/{trainingSetUid}/conversations/{trainingConvUid}/messages',
             $params,
-            ['trainingConvUid' => (string) $trainingConvUid, 'trainingSetUid' => (string) $trainingSetUid],
+            ['trainingSetUid' => (string) $trainingSetUid, 'trainingConvUid' => (string) $trainingConvUid],
         );
 
         return BaseResponse::fromArray($response, static fn ($data) => $data);
@@ -246,13 +246,13 @@ final class TrainingResource
      * @param array<string, mixed> $data
      * @return BaseResponse<array<string, mixed>>
      */
-    public function createConversationsMessages(int $trainingConvUid, int $trainingSetUid, array $data = []): BaseResponse
+    public function createConversationsMessages(int $trainingSetUid, int $trainingConvUid, array $data = []): BaseResponse
     {
         $response = $this->client->post(
             $this->baseUrl,
             '/{trainingSetUid}/conversations/{trainingConvUid}/messages',
             $data,
-            ['trainingConvUid' => (string) $trainingConvUid, 'trainingSetUid' => (string) $trainingSetUid],
+            ['trainingSetUid' => (string) $trainingSetUid, 'trainingConvUid' => (string) $trainingConvUid],
         );
 
         return BaseResponse::fromArray($response, static fn ($data) => $data);
@@ -266,12 +266,12 @@ final class TrainingResource
      *
      * @return BaseResponse<array<string, mixed>>
      */
-    public function deleteConversationsMessages(int $trainingConvUid, int $trainingMsgUid, int $trainingSetUid): BaseResponse
+    public function deleteConversationsMessages(int $trainingSetUid, int $trainingConvUid, int $trainingMsgUid): BaseResponse
     {
         $response = $this->client->delete(
             $this->baseUrl,
             '/{trainingSetUid}/conversations/{trainingConvUid}/messages/{trainingMsgUid}',
-            ['trainingConvUid' => (string) $trainingConvUid, 'trainingMsgUid' => (string) $trainingMsgUid, 'trainingSetUid' => (string) $trainingSetUid],
+            ['trainingSetUid' => (string) $trainingSetUid, 'trainingConvUid' => (string) $trainingConvUid, 'trainingMsgUid' => (string) $trainingMsgUid],
         );
 
         return BaseResponse::fromArray($response, static fn ($data) => $data);
@@ -286,13 +286,13 @@ final class TrainingResource
      * @param array<string, mixed> $params
      * @return BaseResponse<array<string, mixed>>
      */
-    public function getConversationsMessages(int $trainingConvUid, int $trainingMsgUid, int $trainingSetUid, array $params = []): BaseResponse
+    public function getConversationsMessages(int $trainingSetUid, int $trainingConvUid, int $trainingMsgUid, array $params = []): BaseResponse
     {
         $response = $this->client->get(
             $this->baseUrl,
             '/{trainingSetUid}/conversations/{trainingConvUid}/messages/{trainingMsgUid}',
             $params,
-            ['trainingConvUid' => (string) $trainingConvUid, 'trainingMsgUid' => (string) $trainingMsgUid, 'trainingSetUid' => (string) $trainingSetUid],
+            ['trainingSetUid' => (string) $trainingSetUid, 'trainingConvUid' => (string) $trainingConvUid, 'trainingMsgUid' => (string) $trainingMsgUid],
         );
 
         return BaseResponse::fromArray($response, static fn ($data) => $data);
@@ -307,13 +307,13 @@ final class TrainingResource
      * @param array<string, mixed> $data
      * @return BaseResponse<array<string, mixed>>
      */
-    public function updateConversationsMessages(int $trainingConvUid, int $trainingMsgUid, int $trainingSetUid, array $data = []): BaseResponse
+    public function updateConversationsMessages(int $trainingSetUid, int $trainingConvUid, int $trainingMsgUid, array $data = []): BaseResponse
     {
         $response = $this->client->put(
             $this->baseUrl,
             '/{trainingSetUid}/conversations/{trainingConvUid}/messages/{trainingMsgUid}',
             $data,
-            ['trainingConvUid' => (string) $trainingConvUid, 'trainingMsgUid' => (string) $trainingMsgUid, 'trainingSetUid' => (string) $trainingSetUid],
+            ['trainingSetUid' => (string) $trainingSetUid, 'trainingConvUid' => (string) $trainingConvUid, 'trainingMsgUid' => (string) $trainingMsgUid],
         );
 
         return BaseResponse::fromArray($response, static fn ($data) => $data);

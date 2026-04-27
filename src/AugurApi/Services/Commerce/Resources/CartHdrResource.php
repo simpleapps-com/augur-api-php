@@ -52,13 +52,13 @@ final class CartHdrResource
      * @param array<string, mixed> $params
      * @return BaseResponse<array<string, mixed>>
      */
-    public function listAlsoBought(int $cart_hdr_uid, array $params = []): BaseResponse
+    public function listAlsoBought(int $cartHdrUid, array $params = []): BaseResponse
     {
         $response = $this->client->get(
             $this->baseUrl,
             '/{cartHdrUid}/also-bought',
             $params,
-            ['cart_hdr_uid' => (string) $cart_hdr_uid],
+            ['cartHdrUid' => (string) $cartHdrUid],
         );
 
         return BaseResponse::fromArray($response, static fn ($data) => $data);

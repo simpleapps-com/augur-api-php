@@ -87,13 +87,13 @@ final class PickTicketsResource
      * @param array<string, mixed> $params
      * @return BaseResponse<array<string, mixed>>
      */
-    public function getLines(float $lineNumber, float $pickTicketNo, array $params = []): BaseResponse
+    public function getLines(float $pickTicketNo, float $lineNumber, array $params = []): BaseResponse
     {
         $response = $this->client->get(
             $this->baseUrl,
             '/{pickTicketNo}/lines/{lineNumber}',
             $params,
-            ['lineNumber' => (string) $lineNumber, 'pickTicketNo' => (string) $pickTicketNo],
+            ['pickTicketNo' => (string) $pickTicketNo, 'lineNumber' => (string) $lineNumber],
         );
 
         return BaseResponse::fromArray($response, static fn ($data) => $data);

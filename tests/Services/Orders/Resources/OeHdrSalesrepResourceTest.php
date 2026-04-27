@@ -25,7 +25,7 @@ final class OeHdrSalesrepResourceTest extends AugurApiTestCase
             ],
         ]);
 
-        $response = $this->api->orders->oeHdrSalesrep->listOeHdr(100);
+        $response = $this->api->orders->oeHdrSalesrep->listOeHdr('100');
 
         $this->assertCount(2, $response->data);
         /** @var list<array<string, mixed>> $data */
@@ -42,7 +42,7 @@ final class OeHdrSalesrepResourceTest extends AugurApiTestCase
             ['orderNo' => 1001, 'status' => 'open'],
         ]);
 
-        $response = $this->api->orders->oeHdrSalesrep->listOeHdr(100, [
+        $response = $this->api->orders->oeHdrSalesrep->listOeHdr('100', [
             'status' => 'open',
             'limit' => 10,
         ]);
@@ -59,7 +59,7 @@ final class OeHdrSalesrepResourceTest extends AugurApiTestCase
             ['orderNo' => 1003, 'orderDate' => '2024-01-10'],
         ]);
 
-        $response = $this->api->orders->oeHdrSalesrep->listOeHdr(100, [
+        $response = $this->api->orders->oeHdrSalesrep->listOeHdr('100', [
             'startDate' => '2024-01-01',
             'endDate' => '2024-01-15',
         ]);
@@ -71,7 +71,7 @@ final class OeHdrSalesrepResourceTest extends AugurApiTestCase
     {
         $this->mockListResponse([]);
 
-        $response = $this->api->orders->oeHdrSalesrep->listOeHdr(999);
+        $response = $this->api->orders->oeHdrSalesrep->listOeHdr('999');
 
         $this->assertIsArray($response->data);
         $this->assertEmpty($response->data);
@@ -92,7 +92,8 @@ final class OeHdrSalesrepResourceTest extends AugurApiTestCase
             ],
         ]);
 
-        $response = $this->api->orders->oeHdrSalesrep->listOeHdrDoc(12345, 100);
+        // Generated signature: listOeHdrDoc(string $salesrepId, int $orderNo, ...)
+        $response = $this->api->orders->oeHdrSalesrep->listOeHdrDoc('100', 12345);
 
         $this->assertEquals(12345, $response->data['orderNo']);
         $this->assertEquals(100, $response->data['salesrepId']);
@@ -109,7 +110,8 @@ final class OeHdrSalesrepResourceTest extends AugurApiTestCase
             'salesrepId' => 200,
         ]);
 
-        $response = $this->api->orders->oeHdrSalesrep->getOeHdrDoc(99999, 200);
+        // Generated signature: getOeHdrDoc(string $salesrepId, int $orderNo, ...)
+        $response = $this->api->orders->oeHdrSalesrep->getOeHdrDoc('200', 99999);
 
         $this->assertEquals(99999, $response->data['orderNo']);
         $this->assertEquals(200, $response->data['salesrepId']);

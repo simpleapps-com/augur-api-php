@@ -68,9 +68,14 @@ final class InvMastResource
      * @param array<string, mixed> $data
      * @return BaseResponse<array<string, mixed>>
      */
-    public function createTags(array $data = []): BaseResponse
+    public function createTags(string $invMastUid, array $data = []): BaseResponse
     {
-        $response = $this->client->post($this->baseUrl, '/{invMastUid}/tags', $data);
+        $response = $this->client->post(
+            $this->baseUrl,
+            '/{invMastUid}/tags',
+            $data,
+            ['invMastUid' => (string) $invMastUid],
+        );
 
         return BaseResponse::fromArray($response, static fn ($data) => $data);
     }
@@ -80,12 +85,12 @@ final class InvMastResource
      *
      * @return BaseResponse<array<string, mixed>>
      */
-    public function deleteTags(int $invMastTagsUid, int $invMastUid): BaseResponse
+    public function deleteTags(int $invMastUid, int $invMastTagsUid): BaseResponse
     {
         $response = $this->client->delete(
             $this->baseUrl,
             '/{invMastUid}/tags/{invMastTagsUid}',
-            ['invMastTagsUid' => (string) $invMastTagsUid, 'invMastUid' => (string) $invMastUid],
+            ['invMastUid' => (string) $invMastUid, 'invMastTagsUid' => (string) $invMastTagsUid],
         );
 
         return BaseResponse::fromArray($response, static fn ($data) => $data);
@@ -100,13 +105,13 @@ final class InvMastResource
      * @param array<string, mixed> $params
      * @return BaseResponse<array<string, mixed>>
      */
-    public function getTags(int $invMastTagsUid, int $invMastUid, array $params = []): BaseResponse
+    public function getTags(int $invMastUid, int $invMastTagsUid, array $params = []): BaseResponse
     {
         $response = $this->client->get(
             $this->baseUrl,
             '/{invMastUid}/tags/{invMastTagsUid}',
             $params,
-            ['invMastTagsUid' => (string) $invMastTagsUid, 'invMastUid' => (string) $invMastUid],
+            ['invMastUid' => (string) $invMastUid, 'invMastTagsUid' => (string) $invMastTagsUid],
         );
 
         return BaseResponse::fromArray($response, static fn ($data) => $data);
@@ -121,13 +126,13 @@ final class InvMastResource
      * @param array<string, mixed> $data
      * @return BaseResponse<array<string, mixed>>
      */
-    public function updateTags(int $invMastTagsUid, int $invMastUid, array $data = []): BaseResponse
+    public function updateTags(int $invMastUid, int $invMastTagsUid, array $data = []): BaseResponse
     {
         $response = $this->client->put(
             $this->baseUrl,
             '/{invMastUid}/tags/{invMastTagsUid}',
             $data,
-            ['invMastTagsUid' => (string) $invMastTagsUid, 'invMastUid' => (string) $invMastUid],
+            ['invMastUid' => (string) $invMastUid, 'invMastTagsUid' => (string) $invMastTagsUid],
         );
 
         return BaseResponse::fromArray($response, static fn ($data) => $data);

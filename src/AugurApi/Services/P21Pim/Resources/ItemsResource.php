@@ -26,13 +26,13 @@ final class ItemsResource
      * @param array<string, mixed> $params
      * @return BaseResponse<array<string, mixed>>
      */
-    public function listSuggestDisplayDesc(int $inv_mast_uid, array $params = []): BaseResponse
+    public function listSuggestDisplayDesc(int $invMastUid, array $params = []): BaseResponse
     {
         $response = $this->client->get(
             $this->baseUrl,
             '/{invMastUid}/suggest-display-desc',
             $params,
-            ['inv_mast_uid' => (string) $inv_mast_uid],
+            ['invMastUid' => (string) $invMastUid],
         );
 
         return BaseResponse::fromArray($response, static fn ($data) => $data);
@@ -44,13 +44,13 @@ final class ItemsResource
      * @param array<string, mixed> $params
      * @return BaseResponse<array<string, mixed>>
      */
-    public function listSuggestWebDesc(int $inv_mast_uid, array $params = []): BaseResponse
+    public function listSuggestWebDesc(int $invMastUid, array $params = []): BaseResponse
     {
         $response = $this->client->get(
             $this->baseUrl,
             '/{invMastUid}/suggest-web-desc',
             $params,
-            ['inv_mast_uid' => (string) $inv_mast_uid],
+            ['invMastUid' => (string) $invMastUid],
         );
 
         return BaseResponse::fromArray($response, static fn ($data) => $data);

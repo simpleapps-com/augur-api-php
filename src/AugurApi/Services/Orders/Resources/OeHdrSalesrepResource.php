@@ -21,49 +21,49 @@ final class OeHdrSalesrepResource
     }
 
     /**
-     * GET /oe-hdr-salesrep/{salesrep-id}/oe-hdr
+     * GET /oe-hdr-salesrep/{salesrepId}/oe-hdr
      *
      * @param array<string, mixed> $params
      * @return BaseResponse<array<string, mixed>>
      */
-    public function listOeHdr(int $salesRepId, array $params = []): BaseResponse
+    public function listOeHdr(string $salesrepId, array $params = []): BaseResponse
     {
         $response = $this->client->get(
             $this->baseUrl,
-            '/{salesrep-id}/oe-hdr',
+            '/{salesrepId}/oe-hdr',
             $params,
-            ['salesRepId' => (string) $salesRepId],
+            ['salesrepId' => (string) $salesrepId],
         );
 
         return BaseResponse::fromArray($response, static fn ($data) => $data);
     }
 
     /**
-     * GET /oe-hdr-salesrep/{salesrep_id}/oe-hdr/{orderNo}/doc
+     * GET /oe-hdr-salesrep/{salesrepId}/oe-hdr/{orderNo}/doc
      *
      * @param array<string, mixed> $params
      * @return BaseResponse<array<string, mixed>>
      */
-    public function listOeHdrDoc(int $orderNo, int $salesRepId, array $params = []): BaseResponse
+    public function listOeHdrDoc(string $salesrepId, int $orderNo, array $params = []): BaseResponse
     {
         $response = $this->client->get(
             $this->baseUrl,
-            '/{salesrep_id}/oe-hdr/{orderNo}/doc',
+            '/{salesrepId}/oe-hdr/{orderNo}/doc',
             $params,
-            ['orderNo' => (string) $orderNo, 'salesRepId' => (string) $salesRepId],
+            ['salesrepId' => (string) $salesrepId, 'orderNo' => (string) $orderNo],
         );
 
         return BaseResponse::fromArray($response, static fn ($data) => $data);
     }
 
     /**
-     * Alias for listOeHdrDoc — GET /oe-hdr-salesrep/{salesrep_id}/oe-hdr/{orderNo}/doc
+     * Alias for listOeHdrDoc — GET /oe-hdr-salesrep/{salesrepId}/oe-hdr/{orderNo}/doc
      *
      * @param array<string, mixed> $params
      * @return BaseResponse<array<string, mixed>>
      */
-    public function getOeHdrDoc(int $orderNo, int $salesRepId, array $params = []): BaseResponse
+    public function getOeHdrDoc(string $salesrepId, int $orderNo, array $params = []): BaseResponse
     {
-        return $this->listOeHdrDoc($orderNo, $salesRepId, $params);
+        return $this->listOeHdrDoc($salesrepId, $orderNo, $params);
     }
 }

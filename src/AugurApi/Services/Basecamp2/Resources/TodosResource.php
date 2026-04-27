@@ -108,13 +108,13 @@ final class TodosResource
      * @param array<string, mixed> $params
      * @return BaseResponse<array<string, mixed>>
      */
-    public function getEvents(int $event_num, int $id, array $params = []): BaseResponse
+    public function getEvents(int $id, int $eventNum, array $params = []): BaseResponse
     {
         $response = $this->client->get(
             $this->baseUrl,
             '/{id}/events/{eventNum}',
             $params,
-            ['event_num' => (string) $event_num, 'id' => (string) $id],
+            ['id' => (string) $id, 'eventNum' => (string) $eventNum],
         );
 
         return BaseResponse::fromArray($response, static fn ($data) => $data);

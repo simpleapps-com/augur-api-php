@@ -298,12 +298,12 @@ final class WarehouseResource
      *
      * @return BaseResponse<array<string, mixed>>
      */
-    public function deleteUsers(int $usersId, int $warehouseUid): BaseResponse
+    public function deleteUsers(int $warehouseUid, int $usersId): BaseResponse
     {
         $response = $this->client->delete(
             $this->baseUrl,
             '/{warehouseUid}/users/{usersId}',
-            ['usersId' => (string) $usersId, 'warehouseUid' => (string) $warehouseUid],
+            ['warehouseUid' => (string) $warehouseUid, 'usersId' => (string) $usersId],
         );
 
         return BaseResponse::fromArray($response, static fn ($data) => $data);
@@ -315,13 +315,13 @@ final class WarehouseResource
      * @param array<string, mixed> $params
      * @return BaseResponse<array<string, mixed>>
      */
-    public function getUsers(int $usersId, int $warehouseUid, array $params = []): BaseResponse
+    public function getUsers(int $warehouseUid, int $usersId, array $params = []): BaseResponse
     {
         $response = $this->client->get(
             $this->baseUrl,
             '/{warehouseUid}/users/{usersId}',
             $params,
-            ['usersId' => (string) $usersId, 'warehouseUid' => (string) $warehouseUid],
+            ['warehouseUid' => (string) $warehouseUid, 'usersId' => (string) $usersId],
         );
 
         return BaseResponse::fromArray($response, static fn ($data) => $data);
@@ -333,13 +333,13 @@ final class WarehouseResource
      * @param array<string, mixed> $data
      * @return BaseResponse<array<string, mixed>>
      */
-    public function updateUsers(int $usersId, int $warehouseUid, array $data = []): BaseResponse
+    public function updateUsers(int $warehouseUid, int $usersId, array $data = []): BaseResponse
     {
         $response = $this->client->put(
             $this->baseUrl,
             '/{warehouseUid}/users/{usersId}',
             $data,
-            ['usersId' => (string) $usersId, 'warehouseUid' => (string) $warehouseUid],
+            ['warehouseUid' => (string) $warehouseUid, 'usersId' => (string) $usersId],
         );
 
         return BaseResponse::fromArray($response, static fn ($data) => $data);

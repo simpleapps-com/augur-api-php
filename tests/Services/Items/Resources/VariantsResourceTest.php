@@ -233,8 +233,8 @@ final class VariantsResourceTest extends AugurApiTestCase
             'value' => 'Red',
         ]);
 
-        // Generated signature: getAttributes(int $attributeUid, int $itemVariantHdrUid, ...)
-        $response = $this->api->items->variants->getAttributes(10, 1);
+        // Generated signature: getAttributes(int $itemVariantHdrUid, int $attributeUid, ...)
+        $response = $this->api->items->variants->getAttributes(1, 10);
 
         $this->assertEquals(10, $response->data['attributeUid']);
         $this->assertEquals('Red', $response->data['value']);
@@ -257,8 +257,8 @@ final class VariantsResourceTest extends AugurApiTestCase
     {
         $this->mockResponse(['attributeUid' => 10, 'value' => 'Blue']);
 
-        // Generated signature: updateAttributes(int $attributeUid, int $itemVariantHdrUid, ...)
-        $response = $this->api->items->variants->updateAttributes(10, 1, ['value' => 'Blue']);
+        // Generated signature: updateAttributes(int $itemVariantHdrUid, int $attributeUid, ...)
+        $response = $this->api->items->variants->updateAttributes(1, 10, ['value' => 'Blue']);
 
         $this->assertEquals('Blue', $response->data['value']);
         $this->assertRequestMethod('PUT');
@@ -269,8 +269,8 @@ final class VariantsResourceTest extends AugurApiTestCase
     {
         $this->mockSuccessResponse();
 
-        // Generated signature: deleteAttributes(int $attributeUid, int $itemVariantHdrUid)
-        $response = $this->api->items->variants->deleteAttributes(10, 1);
+        // Generated signature: deleteAttributes(int $itemVariantHdrUid, int $attributeUid)
+        $response = $this->api->items->variants->deleteAttributes(1, 10);
 
         $this->assertTrue($response->data['success']);
         $this->assertRequestMethod('DELETE');

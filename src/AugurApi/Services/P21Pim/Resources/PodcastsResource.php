@@ -54,12 +54,12 @@ final class PodcastsResource
      *
      * @return BaseResponse<array<string, mixed>>
      */
-    public function delete(int $podcasts_uid): BaseResponse
+    public function delete(int $podcastsUid): BaseResponse
     {
         $response = $this->client->delete(
             $this->baseUrl,
             '/{podcastsUid}',
-            ['podcasts_uid' => (string) $podcasts_uid],
+            ['podcastsUid' => (string) $podcastsUid],
         );
 
         return BaseResponse::fromArray($response, static fn ($data) => $data);
@@ -74,13 +74,13 @@ final class PodcastsResource
      * @param array<string, mixed> $params
      * @return BaseResponse<array<string, mixed>>
      */
-    public function get(int $podcasts_uid, array $params = []): BaseResponse
+    public function get(int $podcastsUid, array $params = []): BaseResponse
     {
         $response = $this->client->get(
             $this->baseUrl,
             '/{podcastsUid}',
             $params,
-            ['podcasts_uid' => (string) $podcasts_uid],
+            ['podcastsUid' => (string) $podcastsUid],
         );
 
         return BaseResponse::fromArray($response, static fn ($data) => $data);
@@ -92,13 +92,13 @@ final class PodcastsResource
      * @param array<string, mixed> $data
      * @return BaseResponse<array<string, mixed>>
      */
-    public function update(int $podcasts_uid, array $data = []): BaseResponse
+    public function update(int $podcastsUid, array $data = []): BaseResponse
     {
         $response = $this->client->put(
             $this->baseUrl,
             '/{podcastsUid}',
             $data,
-            ['podcasts_uid' => (string) $podcasts_uid],
+            ['podcastsUid' => (string) $podcastsUid],
         );
 
         return BaseResponse::fromArray($response, static fn ($data) => $data);

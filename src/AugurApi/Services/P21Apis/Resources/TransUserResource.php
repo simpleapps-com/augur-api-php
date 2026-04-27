@@ -38,12 +38,12 @@ final class TransUserResource
      *
      * @return BaseResponse<array<string, mixed>>
      */
-    public function delete(int $users_uid): BaseResponse
+    public function delete(int $usersUid): BaseResponse
     {
         $response = $this->client->delete(
             $this->baseUrl,
             '/{usersUid}',
-            ['users_uid' => (string) $users_uid],
+            ['usersUid' => (string) $usersUid],
         );
 
         return BaseResponse::fromArray($response, static fn ($data) => $data);
@@ -55,13 +55,13 @@ final class TransUserResource
      * @param array<string, mixed> $params
      * @return BaseResponse<array<string, mixed>>
      */
-    public function get(int $users_uid, array $params = []): BaseResponse
+    public function get(int $usersUid, array $params = []): BaseResponse
     {
         $response = $this->client->get(
             $this->baseUrl,
             '/{usersUid}',
             $params,
-            ['users_uid' => (string) $users_uid],
+            ['usersUid' => (string) $usersUid],
         );
 
         return BaseResponse::fromArray($response, static fn ($data) => $data);
@@ -73,13 +73,13 @@ final class TransUserResource
      * @param array<string, mixed> $data
      * @return BaseResponse<array<string, mixed>>
      */
-    public function update(int $users_uid, array $data = []): BaseResponse
+    public function update(int $usersUid, array $data = []): BaseResponse
     {
         $response = $this->client->put(
             $this->baseUrl,
             '/{usersUid}',
             $data,
-            ['users_uid' => (string) $users_uid],
+            ['usersUid' => (string) $usersUid],
         );
 
         return BaseResponse::fromArray($response, static fn ($data) => $data);

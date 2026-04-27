@@ -38,12 +38,12 @@ final class TransCategoryResource
      *
      * @return BaseResponse<array<string, mixed>>
      */
-    public function delete(int $category_uid): BaseResponse
+    public function delete(int $categoryUid): BaseResponse
     {
         $response = $this->client->delete(
             $this->baseUrl,
             '/{categoryUid}',
-            ['category_uid' => (string) $category_uid],
+            ['categoryUid' => (string) $categoryUid],
         );
 
         return BaseResponse::fromArray($response, static fn ($data) => $data);
@@ -55,13 +55,13 @@ final class TransCategoryResource
      * @param array<string, mixed> $params
      * @return BaseResponse<array<string, mixed>>
      */
-    public function get(int $category_uid, array $params = []): BaseResponse
+    public function get(int $categoryUid, array $params = []): BaseResponse
     {
         $response = $this->client->get(
             $this->baseUrl,
             '/{categoryUid}',
             $params,
-            ['category_uid' => (string) $category_uid],
+            ['categoryUid' => (string) $categoryUid],
         );
 
         return BaseResponse::fromArray($response, static fn ($data) => $data);
@@ -73,13 +73,13 @@ final class TransCategoryResource
      * @param array<string, mixed> $data
      * @return BaseResponse<array<string, mixed>>
      */
-    public function update(int $category_uid, array $data = []): BaseResponse
+    public function update(int $categoryUid, array $data = []): BaseResponse
     {
         $response = $this->client->put(
             $this->baseUrl,
             '/{categoryUid}',
             $data,
-            ['category_uid' => (string) $category_uid],
+            ['categoryUid' => (string) $categoryUid],
         );
 
         return BaseResponse::fromArray($response, static fn ($data) => $data);

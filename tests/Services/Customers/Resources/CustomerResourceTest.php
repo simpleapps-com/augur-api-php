@@ -167,7 +167,7 @@ final class CustomerResourceTest extends AugurApiTestCase
             ['orderNo' => 12345, 'total' => 150.00],
         ]);
 
-        $response = $this->api->customers->customer->listOrders(0, 1001);
+        $response = $this->api->customers->customer->listOrders(1001);
 
         $this->assertCount(1, $response->data);
         $this->assertRequestPath('/customer/1001/orders');

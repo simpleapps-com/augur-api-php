@@ -64,12 +64,12 @@ final class TransWebDisplayTypeResource
      *
      * @return BaseResponse<array<string, mixed>>
      */
-    public function delete(int $web_display_type_uid): BaseResponse
+    public function delete(int $webDisplayTypeUid): BaseResponse
     {
         $response = $this->client->delete(
             $this->baseUrl,
             '/{webDisplayTypeUid}',
-            ['web_display_type_uid' => (string) $web_display_type_uid],
+            ['webDisplayTypeUid' => (string) $webDisplayTypeUid],
         );
 
         return BaseResponse::fromArray($response, static fn ($data) => $data);
@@ -81,13 +81,13 @@ final class TransWebDisplayTypeResource
      * @param array<string, mixed> $params
      * @return BaseResponse<array<string, mixed>>
      */
-    public function get(int $web_display_type_uid, array $params = []): BaseResponse
+    public function get(int $webDisplayTypeUid, array $params = []): BaseResponse
     {
         $response = $this->client->get(
             $this->baseUrl,
             '/{webDisplayTypeUid}',
             $params,
-            ['web_display_type_uid' => (string) $web_display_type_uid],
+            ['webDisplayTypeUid' => (string) $webDisplayTypeUid],
         );
 
         return BaseResponse::fromArray($response, static fn ($data) => $data);
@@ -99,13 +99,13 @@ final class TransWebDisplayTypeResource
      * @param array<string, mixed> $data
      * @return BaseResponse<array<string, mixed>>
      */
-    public function update(int $web_display_type_uid, array $data = []): BaseResponse
+    public function update(int $webDisplayTypeUid, array $data = []): BaseResponse
     {
         $response = $this->client->put(
             $this->baseUrl,
             '/{webDisplayTypeUid}',
             $data,
-            ['web_display_type_uid' => (string) $web_display_type_uid],
+            ['webDisplayTypeUid' => (string) $webDisplayTypeUid],
         );
 
         return BaseResponse::fromArray($response, static fn ($data) => $data);

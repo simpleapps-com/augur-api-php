@@ -61,12 +61,12 @@ final class ItemFavoritesResource
      *
      * @return BaseResponse<array<string, mixed>>
      */
-    public function deleteItems(int $invMastUid, int $usersId): BaseResponse
+    public function deleteItems(int $usersId, int $invMastUid): BaseResponse
     {
         $response = $this->client->delete(
             $this->baseUrl,
             '/{usersId}/items/{invMastUid}',
-            ['invMastUid' => (string) $invMastUid, 'usersId' => (string) $usersId],
+            ['usersId' => (string) $usersId, 'invMastUid' => (string) $invMastUid],
         );
 
         return BaseResponse::fromArray($response, static fn ($data) => $data);
@@ -78,13 +78,13 @@ final class ItemFavoritesResource
      * @param array<string, mixed> $params
      * @return BaseResponse<array<string, mixed>>
      */
-    public function getItems(int $invMastUid, int $usersId, array $params = []): BaseResponse
+    public function getItems(int $usersId, int $invMastUid, array $params = []): BaseResponse
     {
         $response = $this->client->get(
             $this->baseUrl,
             '/{usersId}/items/{invMastUid}',
             $params,
-            ['invMastUid' => (string) $invMastUid, 'usersId' => (string) $usersId],
+            ['usersId' => (string) $usersId, 'invMastUid' => (string) $invMastUid],
         );
 
         return BaseResponse::fromArray($response, static fn ($data) => $data);
@@ -96,13 +96,13 @@ final class ItemFavoritesResource
      * @param array<string, mixed> $data
      * @return BaseResponse<array<string, mixed>>
      */
-    public function updateItems(int $invMastUid, int $usersId, array $data = []): BaseResponse
+    public function updateItems(int $usersId, int $invMastUid, array $data = []): BaseResponse
     {
         $response = $this->client->put(
             $this->baseUrl,
             '/{usersId}/items/{invMastUid}',
             $data,
-            ['invMastUid' => (string) $invMastUid, 'usersId' => (string) $usersId],
+            ['usersId' => (string) $usersId, 'invMastUid' => (string) $invMastUid],
         );
 
         return BaseResponse::fromArray($response, static fn ($data) => $data);

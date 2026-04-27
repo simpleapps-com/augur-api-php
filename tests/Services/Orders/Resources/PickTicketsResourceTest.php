@@ -141,7 +141,8 @@ final class PickTicketsResourceTest extends AugurApiTestCase
             'lotNumber' => 'LOT123',
         ]);
 
-        $response = $this->api->orders->pickTickets->getLines(1.0, 1001.0);
+        // Generated signature: getLines(float $pickTicketNo, float $lineNumber, ...)
+        $response = $this->api->orders->pickTickets->getLines(1001.0, 1.0);
 
         $this->assertEquals(1, $response->data['lineNumber']);
         $this->assertEquals('ITEM001', $response->data['itemId']);
@@ -159,7 +160,7 @@ final class PickTicketsResourceTest extends AugurApiTestCase
             'itemId' => 'ITEM005',
         ]);
 
-        $response = $this->api->orders->pickTickets->getLines(5.0, 2002.0);
+        $response = $this->api->orders->pickTickets->getLines(2002.0, 5.0);
 
         $this->assertEquals(5, $response->data['lineNumber']);
         $this->assertRequestPath('/pick-tickets/2002/lines/5');

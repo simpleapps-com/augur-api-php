@@ -54,8 +54,8 @@ final class LocationsResourceTest extends AugurApiTestCase
             'currentQty' => 50,
         ]);
 
-        // Generated signature: getBins(string $bin, int $locationId, ...)
-        $response = $this->api->items->locations->getBins('A-01-01', 1);
+        // Generated signature: getBins(int $locationId, string $bin, ...)
+        $response = $this->api->items->locations->getBins(1, 'A-01-01');
 
         $this->assertEquals('A-01-01', $response->data['bin']);
         $this->assertEquals(1, $response->data['locationId']);

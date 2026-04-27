@@ -39,13 +39,13 @@ final class CheckoutResource
      * @param array<string, mixed> $params
      * @return BaseResponse<array<string, mixed>>
      */
-    public function get(int $checkout_uid, array $params = []): BaseResponse
+    public function get(int $checkoutUid, array $params = []): BaseResponse
     {
         $response = $this->client->get(
             $this->baseUrl,
             '/{checkoutUid}',
             $params,
-            ['checkout_uid' => (string) $checkout_uid],
+            ['checkoutUid' => (string) $checkoutUid],
         );
 
         return BaseResponse::fromArray($response, static fn ($data) => $data);
@@ -57,13 +57,13 @@ final class CheckoutResource
      * @param array<string, mixed> $data
      * @return BaseResponse<array<string, mixed>>
      */
-    public function updateActivate(int $checkout_uid, array $data = []): BaseResponse
+    public function updateActivate(int $checkoutUid, array $data = []): BaseResponse
     {
         $response = $this->client->put(
             $this->baseUrl,
             '/{checkoutUid}/activate',
             $data,
-            ['checkout_uid' => (string) $checkout_uid],
+            ['checkoutUid' => (string) $checkoutUid],
         );
 
         return BaseResponse::fromArray($response, static fn ($data) => $data);
@@ -75,13 +75,13 @@ final class CheckoutResource
      * @param array<string, mixed> $params
      * @return BaseResponse<array<string, mixed>>
      */
-    public function listDoc(int $checkout_uid, array $params = []): BaseResponse
+    public function listDoc(int $checkoutUid, array $params = []): BaseResponse
     {
         $response = $this->client->get(
             $this->baseUrl,
             '/{checkoutUid}/doc',
             $params,
-            ['checkout_uid' => (string) $checkout_uid],
+            ['checkoutUid' => (string) $checkoutUid],
         );
 
         return BaseResponse::fromArray($response, static fn ($data) => $data);
@@ -93,9 +93,9 @@ final class CheckoutResource
      * @param array<string, mixed> $params
      * @return BaseResponse<array<string, mixed>>
      */
-    public function getDoc(int $checkout_uid, array $params = []): BaseResponse
+    public function getDoc(int $checkoutUid, array $params = []): BaseResponse
     {
-        return $this->listDoc($checkout_uid, $params);
+        return $this->listDoc($checkoutUid, $params);
     }
 
     /**
@@ -104,13 +104,13 @@ final class CheckoutResource
      * @param array<string, mixed> $data
      * @return BaseResponse<array<string, mixed>>
      */
-    public function createProphet21Hdr(int $checkout_uid, array $data = []): BaseResponse
+    public function createProphet21Hdr(int $checkoutUid, array $data = []): BaseResponse
     {
         $response = $this->client->post(
             $this->baseUrl,
             '/{checkoutUid}/prophet21-hdr',
             $data,
-            ['checkout_uid' => (string) $checkout_uid],
+            ['checkoutUid' => (string) $checkoutUid],
         );
 
         return BaseResponse::fromArray($response, static fn ($data) => $data);
@@ -122,13 +122,13 @@ final class CheckoutResource
      * @param array<string, mixed> $data
      * @return BaseResponse<array<string, mixed>>
      */
-    public function createProphet21HdrProphet21Line(int $checkout_uid, int $prophet21_hdr_uid, array $data = []): BaseResponse
+    public function createProphet21HdrProphet21Line(int $checkoutUid, int $prophet21HdrUid, array $data = []): BaseResponse
     {
         $response = $this->client->post(
             $this->baseUrl,
             '/{checkoutUid}/prophet21-hdr/{prophet21HdrUid}/prophet21-line',
             $data,
-            ['checkout_uid' => (string) $checkout_uid, 'prophet21_hdr_uid' => (string) $prophet21_hdr_uid],
+            ['checkoutUid' => (string) $checkoutUid, 'prophet21HdrUid' => (string) $prophet21HdrUid],
         );
 
         return BaseResponse::fromArray($response, static fn ($data) => $data);
@@ -140,13 +140,13 @@ final class CheckoutResource
      * @param array<string, mixed> $data
      * @return BaseResponse<array<string, mixed>>
      */
-    public function updateValidate(int $checkout_uid, array $data = []): BaseResponse
+    public function updateValidate(int $checkoutUid, array $data = []): BaseResponse
     {
         $response = $this->client->put(
             $this->baseUrl,
             '/{checkoutUid}/validate',
             $data,
-            ['checkout_uid' => (string) $checkout_uid],
+            ['checkoutUid' => (string) $checkoutUid],
         );
 
         return BaseResponse::fromArray($response, static fn ($data) => $data);

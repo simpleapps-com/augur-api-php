@@ -18,7 +18,7 @@ final class OrdersResourceTest extends AugurApiTestCase
             ['orderNo' => 12346, 'total' => 300.00, 'status' => 'processing'],
         ]);
 
-        $response = $this->api->customers->customer->listOrders(0, 1001);
+        $response = $this->api->customers->customer->listOrders(1001);
 
         $this->assertCount(2, $response->data);
         /** @var list<array<string, mixed>> $data */
@@ -37,7 +37,7 @@ final class OrdersResourceTest extends AugurApiTestCase
             ['orderNo' => 12345, 'total' => 150.00],
         ]);
 
-        $response = $this->api->customers->customer->listOrders(0, 1001, ['limit' => 10, 'orderBy' => 'orderDate']);
+        $response = $this->api->customers->customer->listOrders(1001, ['limit' => 10, 'orderBy' => 'orderDate']);
 
         $this->assertCount(1, $response->data);
         $this->assertRequestPath('/customer/1001/orders');

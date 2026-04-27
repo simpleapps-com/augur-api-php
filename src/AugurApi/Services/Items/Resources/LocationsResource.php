@@ -44,13 +44,13 @@ final class LocationsResource
      * @param array<string, mixed> $params
      * @return BaseResponse<array<string, mixed>>
      */
-    public function getBins(string $bin, int $locationId, array $params = []): BaseResponse
+    public function getBins(int $locationId, string $bin, array $params = []): BaseResponse
     {
         $response = $this->client->get(
             $this->baseUrl,
             '/{locationId}/bins/{bin}',
             $params,
-            ['bin' => (string) $bin, 'locationId' => (string) $locationId],
+            ['locationId' => (string) $locationId, 'bin' => (string) $bin],
         );
 
         return BaseResponse::fromArray($response, static fn ($data) => $data);

@@ -87,13 +87,13 @@ final class WebPricingResource
      * @param array<string, mixed> $params
      * @return BaseResponse<array<string, mixed>>
      */
-    public function getCustomers(int $customerId, int $webPricingUid, array $params = []): BaseResponse
+    public function getCustomers(int $webPricingUid, int $customerId, array $params = []): BaseResponse
     {
         $response = $this->client->get(
             $this->baseUrl,
             '/{webPricingUid}/customers/{customerId}',
             $params,
-            ['customerId' => (string) $customerId, 'webPricingUid' => (string) $webPricingUid],
+            ['webPricingUid' => (string) $webPricingUid, 'customerId' => (string) $customerId],
         );
 
         return BaseResponse::fromArray($response, static fn ($data) => $data);

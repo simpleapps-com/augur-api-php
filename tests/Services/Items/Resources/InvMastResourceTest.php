@@ -200,8 +200,8 @@ final class InvMastResourceTest extends AugurApiTestCase
             ['attributeValueUid' => 2, 'value' => 'Blue'],
         ]);
 
-        // Generated signature: listAttributesValues(int $attributeUid, int $invMastUid, ...)
-        $response = $this->api->items->invMast->listAttributesValues(1, 100);
+        // Generated signature: listAttributesValues(int $invMastUid, int $attributeUid, ...)
+        $response = $this->api->items->invMast->listAttributesValues(100, 1);
 
         $this->assertCount(2, $response->data);
         /** @var list<array<string, mixed>> $data */
@@ -217,7 +217,7 @@ final class InvMastResourceTest extends AugurApiTestCase
             ['attributeValueUid' => 1, 'value' => 'Red'],
         ]);
 
-        $response = $this->api->items->invMast->listAttributesValues(1, 100, ['limit' => 5]);
+        $response = $this->api->items->invMast->listAttributesValues(100, 1, ['limit' => 5]);
 
         $this->assertCount(1, $response->data);
     }
@@ -226,8 +226,8 @@ final class InvMastResourceTest extends AugurApiTestCase
     {
         $this->mockResponse(['attributeValueUid' => 3, 'value' => 'Green']);
 
-        // Generated signature: createAttributesValues(int $attributeUid, int $invMastUid, ...)
-        $response = $this->api->items->invMast->createAttributesValues(1, 100, ['value' => 'Green']);
+        // Generated signature: createAttributesValues(int $invMastUid, int $attributeUid, ...)
+        $response = $this->api->items->invMast->createAttributesValues(100, 1, ['value' => 'Green']);
 
         $this->assertEquals(3, $response->data['attributeValueUid']);
         $this->assertRequestMethod('POST');
@@ -238,8 +238,8 @@ final class InvMastResourceTest extends AugurApiTestCase
     {
         $this->mockResponse(['attributeValueUid' => 1, 'value' => 'Dark Red']);
 
-        // Generated signature: updateAttributesValues(int $attributeUid, int $attributeValueUid, int $invMastUid, ...)
-        $response = $this->api->items->invMast->updateAttributesValues(1, 1, 100, ['value' => 'Dark Red']);
+        // Generated signature: updateAttributesValues(int $invMastUid, int $attributeUid, int $attributeValueUid, ...)
+        $response = $this->api->items->invMast->updateAttributesValues(100, 1, 1, ['value' => 'Dark Red']);
 
         $this->assertEquals('Dark Red', $response->data['value']);
         $this->assertRequestMethod('PUT');
@@ -250,8 +250,8 @@ final class InvMastResourceTest extends AugurApiTestCase
     {
         $this->mockSuccessResponse();
 
-        // Generated signature: deleteAttributesValues(int $attributeUid, int $attributeValueUid, int $invMastUid)
-        $response = $this->api->items->invMast->deleteAttributesValues(1, 1, 100);
+        // Generated signature: deleteAttributesValues(int $invMastUid, int $attributeUid, int $attributeValueUid)
+        $response = $this->api->items->invMast->deleteAttributesValues(100, 1, 1);
 
         $this->assertTrue($response->data['success']);
         $this->assertRequestMethod('DELETE');
@@ -295,8 +295,8 @@ final class InvMastResourceTest extends AugurApiTestCase
             'answer' => 'A test item.',
         ]);
 
-        // Generated signature: getFaq(int $invMastFaqUid, int $invMastUid, ...)
-        $response = $this->api->items->invMast->getFaq(1, 100);
+        // Generated signature: getFaq(int $invMastUid, int $invMastFaqUid, ...)
+        $response = $this->api->items->invMast->getFaq(100, 1);
 
         $this->assertEquals(1, $response->data['invMastFaqUid']);
         $this->assertEquals('What is this?', $response->data['question']);
@@ -330,8 +330,8 @@ final class InvMastResourceTest extends AugurApiTestCase
             'answer' => 'Updated answer.',
         ]);
 
-        // Generated signature: updateFaq(int $invMastFaqUid, int $invMastUid, ...)
-        $response = $this->api->items->invMast->updateFaq(1, 100, [
+        // Generated signature: updateFaq(int $invMastUid, int $invMastFaqUid, ...)
+        $response = $this->api->items->invMast->updateFaq(100, 1, [
             'question' => 'Updated question?',
             'answer' => 'Updated answer.',
         ]);
@@ -345,8 +345,8 @@ final class InvMastResourceTest extends AugurApiTestCase
     {
         $this->mockSuccessResponse();
 
-        // Generated signature: deleteFaq(int $invMastFaqUid, int $invMastUid)
-        $response = $this->api->items->invMast->deleteFaq(1, 100);
+        // Generated signature: deleteFaq(int $invMastUid, int $invMastFaqUid)
+        $response = $this->api->items->invMast->deleteFaq(100, 1);
 
         $this->assertTrue($response->data['success']);
         $this->assertRequestMethod('DELETE');
@@ -451,8 +451,8 @@ final class InvMastResourceTest extends AugurApiTestCase
             'maxQty' => 20,
         ]);
 
-        // Generated signature: getLocationsBins(string $bin, int $invMastUid, int $locationId, ...)
-        $response = $this->api->items->invMast->getLocationsBins('A-01-01', 100, 1);
+        // Generated signature: getLocationsBins(int $invMastUid, int $locationId, string $bin, ...)
+        $response = $this->api->items->invMast->getLocationsBins(100, 1, 'A-01-01');
 
         $this->assertEquals('A-01-01', $response->data['bin']);
         $this->assertEquals(10, $response->data['qtyOnHand']);

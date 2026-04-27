@@ -64,62 +64,64 @@ final class ItemWishlistResourceTest extends AugurApiTestCase
             ['itemWishlistLineUid' => 2, 'invMastUid' => 101],
         ]);
 
-        // Generated signature: getHdr(int $itemWishlistHdrUid, int $usersId, ...)
-        $response = $this->api->items->itemWishlist->getHdr(1, 12345);
+        // Generated signature: getHdr(int $usersId, int $itemWishlistHdrUid, ...)
+        // Distinct values catch URL-order regressions (would have been swapped pre-fix).
+        $response = $this->api->items->itemWishlist->getHdr(12345, 7);
 
         $this->assertCount(2, $response->data);
         /** @var list<array<string, mixed>> $data */
         $data = $response->data;
         $this->assertEquals(1, $data[0]['itemWishlistLineUid']);
         $this->assertRequestMethod('GET');
-        $this->assertRequestPath('/item-wishlist/12345/hdr/1');
+        $this->assertRequestPath('/item-wishlist/12345/hdr/7');
     }
 
     public function testCreateHdr(): void
     {
         $this->mockResponse(['itemWishlistLineUid' => 3, 'invMastUid' => 102]);
 
-        // Generated signature: createHdr(int $itemWishlistHdrUid, int $usersId, ...)
-        $response = $this->api->items->itemWishlist->createHdr(1, 12345, ['invMastUid' => 102, 'qty' => 5]);
+        // Generated signature: createHdr(int $usersId, int $itemWishlistHdrUid, ...)
+        $response = $this->api->items->itemWishlist->createHdr(12345, 7, ['invMastUid' => 102, 'qty' => 5]);
 
         $this->assertEquals(3, $response->data['itemWishlistLineUid']);
         $this->assertRequestMethod('POST');
-        $this->assertRequestPath('/item-wishlist/12345/hdr/1');
+        $this->assertRequestPath('/item-wishlist/12345/hdr/7');
     }
 
     public function testUpdateHdr(): void
     {
-        $this->mockResponse(['itemWishlistHdrUid' => 1, 'name' => 'Updated Wishlist']);
+        $this->mockResponse(['itemWishlistHdrUid' => 7, 'name' => 'Updated Wishlist']);
 
-        // Generated signature: updateHdr(int $itemWishlistHdrUid, int $usersId, ...)
-        $response = $this->api->items->itemWishlist->updateHdr(1, 12345, ['name' => 'Updated Wishlist']);
+        // Generated signature: updateHdr(int $usersId, int $itemWishlistHdrUid, ...)
+        $response = $this->api->items->itemWishlist->updateHdr(12345, 7, ['name' => 'Updated Wishlist']);
 
         $this->assertEquals('Updated Wishlist', $response->data['name']);
         $this->assertRequestMethod('PUT');
-        $this->assertRequestPath('/item-wishlist/12345/hdr/1');
+        $this->assertRequestPath('/item-wishlist/12345/hdr/7');
     }
 
     public function testDeleteHdr(): void
     {
         $this->mockSuccessResponse();
 
-        // Generated signature: deleteHdr(int $itemWishlistHdrUid, int $usersId)
-        $response = $this->api->items->itemWishlist->deleteHdr(1, 12345);
+        // Generated signature: deleteHdr(int $usersId, int $itemWishlistHdrUid)
+        $response = $this->api->items->itemWishlist->deleteHdr(12345, 7);
 
         $this->assertTrue($response->data['success']);
         $this->assertRequestMethod('DELETE');
-        $this->assertRequestPath('/item-wishlist/12345/hdr/1');
+        $this->assertRequestPath('/item-wishlist/12345/hdr/7');
     }
 
     public function testDeleteHdrLine(): void
     {
         $this->mockSuccessResponse();
 
-        // Generated signature: deleteHdrLine(int $itemWishlistHdrUid, int $itemWishlistLineUid, int $usersId)
-        $response = $this->api->items->itemWishlist->deleteHdrLine(1, 10, 12345);
+        // Generated signature: deleteHdrLine(int $usersId, int $itemWishlistHdrUid, int $itemWishlistLineUid)
+        // Three distinct values prove the 3-segment path also lands in URL order.
+        $response = $this->api->items->itemWishlist->deleteHdrLine(12345, 7, 3);
 
         $this->assertTrue($response->data['success']);
         $this->assertRequestMethod('DELETE');
-        $this->assertRequestPath('/item-wishlist/12345/hdr/1/line/10');
+        $this->assertRequestPath('/item-wishlist/12345/hdr/7/line/3');
     }
 }
