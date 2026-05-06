@@ -4,13 +4,14 @@ declare(strict_types=1);
 
 namespace AugurApi\Tests\Services\P21Pim\Resources;
 
+use AugurApi\Services\P21Pim\Resources\PodcastsResource;
 use AugurApi\Tests\AugurApiTestCase;
+use PHPUnit\Framework\Attributes\CoversClass;
 
 /**
  * Tests for PodcastsResource.
- *
- * @covers \AugurApi\Services\P21Pim\Resources\PodcastsResource
  */
+#[CoversClass(PodcastsResource::class)]
 final class PodcastsResourceTest extends AugurApiTestCase
 {
     public function testList(): void

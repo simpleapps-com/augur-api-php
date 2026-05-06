@@ -4,13 +4,14 @@ declare(strict_types=1);
 
 namespace AugurApi\Tests\Services\P21Sism\Resources;
 
+use AugurApi\Services\P21Sism\Resources\ScheduledImportMasterResource;
 use AugurApi\Tests\AugurApiTestCase;
+use PHPUnit\Framework\Attributes\CoversClass;
 
 /**
  * Tests for ScheduledImportMasterResource.
- *
- * @covers \AugurApi\Services\P21Sism\Resources\ScheduledImportMasterResource
  */
+#[CoversClass(ScheduledImportMasterResource::class)]
 final class ScheduledImportMasterResourceTest extends AugurApiTestCase
 {
     public function testCreateMetadataSftp(): void

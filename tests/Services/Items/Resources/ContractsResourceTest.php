@@ -4,13 +4,14 @@ declare(strict_types=1);
 
 namespace AugurApi\Tests\Services\Items\Resources;
 
+use AugurApi\Services\Items\Resources\ContractsResource;
 use AugurApi\Tests\AugurApiTestCase;
+use PHPUnit\Framework\Attributes\CoversClass;
 
 /**
  * Tests for ContractsResource.
- *
- * @covers \AugurApi\Services\Items\Resources\ContractsResource
  */
+#[CoversClass(ContractsResource::class)]
 final class ContractsResourceTest extends AugurApiTestCase
 {
     public function testListAttributes(): void

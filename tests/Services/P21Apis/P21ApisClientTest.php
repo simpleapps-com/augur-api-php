@@ -13,12 +13,12 @@ use AugurApi\Services\P21Apis\Resources\TransPurchaseOrderReceiptResource;
 use AugurApi\Services\P21Apis\Resources\TransUserResource;
 use AugurApi\Services\P21Apis\Resources\TransWebDisplayTypeResource;
 use AugurApi\Tests\AugurApiTestCase;
+use PHPUnit\Framework\Attributes\CoversClass;
 
 /**
  * Tests for P21ApisClient.
- *
- * @covers \AugurApi\Services\P21Apis\P21ApisClient
  */
+#[CoversClass(P21ApisClient::class)]
 final class P21ApisClientTest extends AugurApiTestCase
 {
     public function testP21ApisClientAccess(): void

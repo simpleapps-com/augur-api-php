@@ -4,13 +4,14 @@ declare(strict_types=1);
 
 namespace AugurApi\Tests\Services\Items\Resources;
 
+use AugurApi\Services\Items\Resources\InvLocResource;
 use AugurApi\Tests\AugurApiTestCase;
+use PHPUnit\Framework\Attributes\CoversClass;
 
 /**
  * Tests for InvLocResource.
- *
- * @covers \AugurApi\Services\Items\Resources\InvLocResource
  */
+#[CoversClass(InvLocResource::class)]
 final class InvLocResourceTest extends AugurApiTestCase
 {
     public function testList(): void

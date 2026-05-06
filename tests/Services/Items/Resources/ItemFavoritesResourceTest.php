@@ -4,13 +4,14 @@ declare(strict_types=1);
 
 namespace AugurApi\Tests\Services\Items\Resources;
 
+use AugurApi\Services\Items\Resources\ItemFavoritesResource;
 use AugurApi\Tests\AugurApiTestCase;
+use PHPUnit\Framework\Attributes\CoversClass;
 
 /**
  * Tests for ItemFavoritesResource.
- *
- * @covers \AugurApi\Services\Items\Resources\ItemFavoritesResource
  */
+#[CoversClass(ItemFavoritesResource::class)]
 final class ItemFavoritesResourceTest extends AugurApiTestCase
 {
     public function testListItems(): void

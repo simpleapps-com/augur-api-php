@@ -4,13 +4,14 @@ declare(strict_types=1);
 
 namespace AugurApi\Tests\Services\P21Core\Resources;
 
+use AugurApi\Services\P21Core\Resources\CashDrawerResource;
 use AugurApi\Tests\AugurApiTestCase;
+use PHPUnit\Framework\Attributes\CoversClass;
 
 /**
  * Tests for CashDrawerResource.
- *
- * @covers \AugurApi\Services\P21Core\Resources\CashDrawerResource
  */
+#[CoversClass(CashDrawerResource::class)]
 final class CashDrawerResourceTest extends AugurApiTestCase
 {
     public function testList(): void

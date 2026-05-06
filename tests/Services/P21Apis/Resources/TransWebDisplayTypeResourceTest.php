@@ -4,13 +4,14 @@ declare(strict_types=1);
 
 namespace AugurApi\Tests\Services\P21Apis\Resources;
 
+use AugurApi\Services\P21Apis\Resources\TransWebDisplayTypeResource;
 use AugurApi\Tests\AugurApiTestCase;
+use PHPUnit\Framework\Attributes\CoversClass;
 
 /**
  * Tests for TransWebDisplayTypeResource.
- *
- * @covers \AugurApi\Services\P21Apis\Resources\TransWebDisplayTypeResource
  */
+#[CoversClass(TransWebDisplayTypeResource::class)]
 final class TransWebDisplayTypeResourceTest extends AugurApiTestCase
 {
     public function testCreate(): void

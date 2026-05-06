@@ -4,13 +4,14 @@ declare(strict_types=1);
 
 namespace AugurApi\Tests\Services\P21Sism\Resources;
 
+use AugurApi\Services\P21Sism\Resources\ImportResource;
 use AugurApi\Tests\AugurApiTestCase;
+use PHPUnit\Framework\Attributes\CoversClass;
 
 /**
  * Tests for ImportResource.
- *
- * @covers \AugurApi\Services\P21Sism\Resources\ImportResource
  */
+#[CoversClass(ImportResource::class)]
 final class ImportResourceTest extends AugurApiTestCase
 {
     public function testList(): void

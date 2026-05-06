@@ -12,12 +12,12 @@ use AugurApi\Services\Vmi\Resources\SectionsResource;
 use AugurApi\Services\Vmi\Resources\WarehouseResource;
 use AugurApi\Services\Vmi\VmiClient;
 use AugurApi\Tests\AugurApiTestCase;
+use PHPUnit\Framework\Attributes\CoversClass;
 
 /**
  * Tests for VmiClient.
- *
- * @covers \AugurApi\Services\Vmi\VmiClient
  */
+#[CoversClass(VmiClient::class)]
 final class VmiClientTest extends AugurApiTestCase
 {
     public function testVmiClientAccess(): void

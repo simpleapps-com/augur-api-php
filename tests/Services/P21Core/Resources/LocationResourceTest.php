@@ -4,13 +4,14 @@ declare(strict_types=1);
 
 namespace AugurApi\Tests\Services\P21Core\Resources;
 
+use AugurApi\Services\P21Core\Resources\LocationResource;
 use AugurApi\Tests\AugurApiTestCase;
+use PHPUnit\Framework\Attributes\CoversClass;
 
 /**
  * Tests for LocationResource.
- *
- * @covers \AugurApi\Services\P21Core\Resources\LocationResource
  */
+#[CoversClass(LocationResource::class)]
 final class LocationResourceTest extends AugurApiTestCase
 {
     public function testList(): void

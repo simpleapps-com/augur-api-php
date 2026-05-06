@@ -4,13 +4,14 @@ declare(strict_types=1);
 
 namespace AugurApi\Tests\Services\Items\Resources;
 
+use AugurApi\Services\Items\Resources\InternalResource;
 use AugurApi\Tests\AugurApiTestCase;
+use PHPUnit\Framework\Attributes\CoversClass;
 
 /**
  * Tests for InternalResource.
- *
- * @covers \AugurApi\Services\Items\Resources\InternalResource
  */
+#[CoversClass(InternalResource::class)]
 final class InternalResourceTest extends AugurApiTestCase
 {
     public function testCreatePdf(): void

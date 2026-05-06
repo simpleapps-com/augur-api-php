@@ -4,13 +4,14 @@ declare(strict_types=1);
 
 namespace AugurApi\Tests\Services\P21Core\Resources;
 
+use AugurApi\Services\P21Core\Resources\CompanyResource;
 use AugurApi\Tests\AugurApiTestCase;
+use PHPUnit\Framework\Attributes\CoversClass;
 
 /**
  * Tests for CompanyResource.
- *
- * @covers \AugurApi\Services\P21Core\Resources\CompanyResource
  */
+#[CoversClass(CompanyResource::class)]
 final class CompanyResourceTest extends AugurApiTestCase
 {
     public function testList(): void

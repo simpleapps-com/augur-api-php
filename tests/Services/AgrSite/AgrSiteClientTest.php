@@ -10,6 +10,7 @@ use AugurApi\Services\AgrSite\Resources\GeoCodesPostalCodesResource;
 use AugurApi\Services\AgrSite\Resources\MetaFilesResource;
 use AugurApi\Services\AgrSite\Resources\NotificationsResource;
 use AugurApi\Services\AgrSite\Resources\OpenSearchResource;
+use AugurApi\Services\AgrSite\Resources\PostalCodesXShiptosResource;
 use AugurApi\Services\AgrSite\Resources\SettingsResource;
 use AugurApi\Services\AgrSite\Resources\TrainingResource;
 use AugurApi\Tests\AugurApiTestCase;
@@ -80,6 +81,14 @@ final class AgrSiteClientTest extends AugurApiTestCase
     public function testOpenSearchResourceAccess(): void
     {
         $this->assertInstanceOf(OpenSearchResource::class, $this->api->agrSite->openSearch);
+    }
+
+    public function testPostalCodesXShiptosResourceAccess(): void
+    {
+        $this->assertInstanceOf(
+            PostalCodesXShiptosResource::class,
+            $this->api->agrSite->postalCodesXShiptos,
+        );
     }
 
     public function testSettingsResourceAccess(): void

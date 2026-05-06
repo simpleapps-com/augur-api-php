@@ -290,4 +290,22 @@ final class CustomerResource
 
         return BaseResponse::fromArray($response, static fn ($data) => $data);
     }
+
+    /**
+     * GET /customer/{customerId}/tags
+     *
+     * @param array<string, mixed> $params
+     * @return BaseResponse<array<string, mixed>>
+     */
+    public function listTags(int $customerId, array $params = []): BaseResponse
+    {
+        $response = $this->client->get(
+            $this->baseUrl,
+            '/{customerId}/tags',
+            $params,
+            ['customerId' => (string) $customerId],
+        );
+
+        return BaseResponse::fromArray($response, static fn ($data) => $data);
+    }
 }

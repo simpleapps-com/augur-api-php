@@ -4,13 +4,14 @@ declare(strict_types=1);
 
 namespace AugurApi\Tests\Services\Vmi\Resources;
 
+use AugurApi\Services\Vmi\Resources\DistributorsResource;
 use AugurApi\Tests\AugurApiTestCase;
+use PHPUnit\Framework\Attributes\CoversClass;
 
 /**
  * Tests for DistributorsResource.
- *
- * @covers \AugurApi\Services\Vmi\Resources\DistributorsResource
  */
+#[CoversClass(DistributorsResource::class)]
 final class DistributorsResourceTest extends AugurApiTestCase
 {
     public function testList(): void

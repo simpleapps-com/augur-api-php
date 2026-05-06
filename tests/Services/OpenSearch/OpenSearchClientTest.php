@@ -7,6 +7,7 @@ namespace AugurApi\Tests\Services\OpenSearch;
 use AugurApi\Services\OpenSearch\OpenSearchClient;
 use AugurApi\Services\OpenSearch\Resources\ItemSearchResource;
 use AugurApi\Services\OpenSearch\Resources\ItemsResource;
+use AugurApi\Services\OpenSearch\Resources\QueryStringRedirectResource;
 use AugurApi\Services\OpenSearch\Resources\SuggestionsResource;
 use AugurApi\Tests\AugurApiTestCase;
 
@@ -55,6 +56,14 @@ final class OpenSearchClientTest extends AugurApiTestCase
     public function testItemsResourceAccess(): void
     {
         $this->assertInstanceOf(ItemsResource::class, $this->api->openSearch->items);
+    }
+
+    public function testQueryStringRedirectResourceAccess(): void
+    {
+        $this->assertInstanceOf(
+            QueryStringRedirectResource::class,
+            $this->api->openSearch->queryStringRedirect,
+        );
     }
 
     public function testSuggestionsResourceAccess(): void

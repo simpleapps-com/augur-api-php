@@ -4,13 +4,14 @@ declare(strict_types=1);
 
 namespace AugurApi\Tests\Services\Items\Resources;
 
+use AugurApi\Services\Items\Resources\VariantsResource;
 use AugurApi\Tests\AugurApiTestCase;
+use PHPUnit\Framework\Attributes\CoversClass;
 
 /**
  * Tests for VariantsResource.
- *
- * @covers \AugurApi\Services\Items\Resources\VariantsResource
  */
+#[CoversClass(VariantsResource::class)]
 final class VariantsResourceTest extends AugurApiTestCase
 {
     public function testList(): void

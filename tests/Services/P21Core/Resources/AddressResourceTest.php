@@ -4,13 +4,14 @@ declare(strict_types=1);
 
 namespace AugurApi\Tests\Services\P21Core\Resources;
 
+use AugurApi\Services\P21Core\Resources\AddressResource;
 use AugurApi\Tests\AugurApiTestCase;
+use PHPUnit\Framework\Attributes\CoversClass;
 
 /**
  * Tests for AddressResource.
- *
- * @covers \AugurApi\Services\P21Core\Resources\AddressResource
  */
+#[CoversClass(AddressResource::class)]
 final class AddressResourceTest extends AugurApiTestCase
 {
     public function testList(): void

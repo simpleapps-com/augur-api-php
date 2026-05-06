@@ -4,13 +4,14 @@ declare(strict_types=1);
 
 namespace AugurApi\Tests\Services\P21Apis\Resources;
 
+use AugurApi\Services\P21Apis\Resources\TransPurchaseOrderReceiptResource;
 use AugurApi\Tests\AugurApiTestCase;
+use PHPUnit\Framework\Attributes\CoversClass;
 
 /**
  * Tests for TransPurchaseOrderReceiptResource.
- *
- * @covers \AugurApi\Services\P21Apis\Resources\TransPurchaseOrderReceiptResource
  */
+#[CoversClass(TransPurchaseOrderReceiptResource::class)]
 final class TransPurchaseOrderReceiptResourceTest extends AugurApiTestCase
 {
     public function testGet(): void

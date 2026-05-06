@@ -4,13 +4,14 @@ declare(strict_types=1);
 
 namespace AugurApi\Tests\Services\Items\Resources;
 
+use AugurApi\Services\Items\Resources\ItemWishlistResource;
 use AugurApi\Tests\AugurApiTestCase;
+use PHPUnit\Framework\Attributes\CoversClass;
 
 /**
  * Tests for ItemWishlistResource.
- *
- * @covers \AugurApi\Services\Items\Resources\ItemWishlistResource
  */
+#[CoversClass(ItemWishlistResource::class)]
 final class ItemWishlistResourceTest extends AugurApiTestCase
 {
     public function testGet(): void

@@ -256,4 +256,17 @@ final class CustomerResourceTest extends AugurApiTestCase
         $this->assertRequestPath('/customer/1001/ship-to');
         $this->assertRequestMethod('POST');
     }
+
+    public function testListTags(): void
+    {
+        $this->mockListResponse([
+            ['customerTagsUid' => 1, 'tag' => 'VIP'],
+        ]);
+
+        $response = $this->api->customers->customer->listTags(1001);
+
+        $this->assertCount(1, $response->data);
+        $this->assertRequestPath('/customer/1001/tags');
+        $this->assertRequestMethod('GET');
+    }
 }

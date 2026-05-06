@@ -8,12 +8,12 @@ use AugurApi\Services\P21Sism\P21SismClient;
 use AugurApi\Services\P21Sism\Resources\ImportResource;
 use AugurApi\Services\P21Sism\Resources\ScheduledImportMasterResource;
 use AugurApi\Tests\AugurApiTestCase;
+use PHPUnit\Framework\Attributes\CoversClass;
 
 /**
  * Tests for P21SismClient.
- *
- * @covers \AugurApi\Services\P21Sism\P21SismClient
  */
+#[CoversClass(P21SismClient::class)]
 final class P21SismClientTest extends AugurApiTestCase
 {
     public function testP21SismClientAccess(): void

@@ -7,6 +7,7 @@ namespace AugurApi\Services\Legacy;
 use AugurApi\Core\BaseServiceClient;
 use AugurApi\Core\Client;
 use AugurApi\Core\Config;
+use AugurApi\Services\Legacy\Resources\CustomersResource;
 use AugurApi\Services\Legacy\Resources\InvMastResource;
 use AugurApi\Services\Legacy\Resources\ItemCategoryResource;
 use AugurApi\Services\Legacy\Resources\LegacyResource;
@@ -19,6 +20,7 @@ use AugurApi\Services\Legacy\Resources\OrdersResource;
  */
 final class LegacyClient extends BaseServiceClient
 {
+    public readonly CustomersResource $customers;
     public readonly InvMastResource $invMast;
     public readonly ItemCategoryResource $itemCategory;
     public readonly LegacyResource $legacy;
@@ -27,6 +29,7 @@ final class LegacyClient extends BaseServiceClient
     public function __construct(Client $client, Config $config)
     {
         parent::__construct($client, $config);
+        $this->customers = new CustomersResource($client, $this->baseUrl . '/customers');
         $this->invMast = new InvMastResource($client, $this->baseUrl . '/inv-mast');
         $this->itemCategory = new ItemCategoryResource($client, $this->baseUrl . '/item-category');
         $this->legacy = new LegacyResource($client, $this->baseUrl . '/legacy');

@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace AugurApi\Tests\Services\Legacy;
 
 use AugurApi\Services\Legacy\LegacyClient;
+use AugurApi\Services\Legacy\Resources\CustomersResource;
 use AugurApi\Services\Legacy\Resources\InvMastResource;
 use AugurApi\Services\Legacy\Resources\ItemCategoryResource;
 use AugurApi\Services\Legacy\Resources\LegacyResource;
@@ -16,6 +17,11 @@ final class LegacyClientTest extends AugurApiTestCase
     public function testLegacyClientAccess(): void
     {
         $this->assertInstanceOf(LegacyClient::class, $this->api->legacy);
+    }
+
+    public function testCustomersResourceAccess(): void
+    {
+        $this->assertInstanceOf(CustomersResource::class, $this->api->legacy->customers);
     }
 
     public function testInvMastResourceAccess(): void

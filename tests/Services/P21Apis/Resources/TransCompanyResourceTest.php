@@ -4,13 +4,14 @@ declare(strict_types=1);
 
 namespace AugurApi\Tests\Services\P21Apis\Resources;
 
+use AugurApi\Services\P21Apis\Resources\TransCompanyResource;
 use AugurApi\Tests\AugurApiTestCase;
+use PHPUnit\Framework\Attributes\CoversClass;
 
 /**
  * Tests for TransCompanyResource.
- *
- * @covers \AugurApi\Services\P21Apis\Resources\TransCompanyResource
  */
+#[CoversClass(TransCompanyResource::class)]
 final class TransCompanyResourceTest extends AugurApiTestCase
 {
     public function testCreate(): void

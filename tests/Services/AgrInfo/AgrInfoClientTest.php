@@ -10,6 +10,8 @@ use AugurApi\Services\AgrInfo\Resources\JoomlaResource;
 use AugurApi\Services\AgrInfo\Resources\MicroservicesResource;
 use AugurApi\Services\AgrInfo\Resources\OllamaResource;
 use AugurApi\Services\AgrInfo\Resources\RubricsResource;
+use AugurApi\Services\AgrInfo\Resources\SitesResource;
+use AugurApi\Services\AgrInfo\Resources\WorkflowsResource;
 use AugurApi\Tests\AugurApiTestCase;
 
 /**
@@ -78,5 +80,15 @@ final class AgrInfoClientTest extends AugurApiTestCase
     public function testRubricsResourceAccess(): void
     {
         $this->assertInstanceOf(RubricsResource::class, $this->api->agrInfo->rubrics);
+    }
+
+    public function testSitesResourceAccess(): void
+    {
+        $this->assertInstanceOf(SitesResource::class, $this->api->agrInfo->sites);
+    }
+
+    public function testWorkflowsResourceAccess(): void
+    {
+        $this->assertInstanceOf(WorkflowsResource::class, $this->api->agrInfo->workflows);
     }
 }

@@ -9,12 +9,12 @@ use AugurApi\Services\P21Pim\Resources\InvMastExtResource;
 use AugurApi\Services\P21Pim\Resources\ItemsResource;
 use AugurApi\Services\P21Pim\Resources\PodcastsResource;
 use AugurApi\Tests\AugurApiTestCase;
+use PHPUnit\Framework\Attributes\CoversClass;
 
 /**
  * Tests for P21PimClient.
- *
- * @covers \AugurApi\Services\P21Pim\P21PimClient
  */
+#[CoversClass(P21PimClient::class)]
 final class P21PimClientTest extends AugurApiTestCase
 {
     public function testP21PimClientAccess(): void

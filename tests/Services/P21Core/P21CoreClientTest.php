@@ -12,12 +12,12 @@ use AugurApi\Services\P21Core\Resources\CompanyResource;
 use AugurApi\Services\P21Core\Resources\LocationResource;
 use AugurApi\Services\P21Core\Resources\PaymentTypesResource;
 use AugurApi\Tests\AugurApiTestCase;
+use PHPUnit\Framework\Attributes\CoversClass;
 
 /**
  * Tests for P21CoreClient.
- *
- * @covers \AugurApi\Services\P21Core\P21CoreClient
  */
+#[CoversClass(P21CoreClient::class)]
 final class P21CoreClientTest extends AugurApiTestCase
 {
     public function testP21CoreClientAccess(): void

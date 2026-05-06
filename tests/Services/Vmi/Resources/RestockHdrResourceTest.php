@@ -4,13 +4,14 @@ declare(strict_types=1);
 
 namespace AugurApi\Tests\Services\Vmi\Resources;
 
+use AugurApi\Services\Vmi\Resources\RestockHdrResource;
 use AugurApi\Tests\AugurApiTestCase;
+use PHPUnit\Framework\Attributes\CoversClass;
 
 /**
  * Tests for RestockHdrResource.
- *
- * @covers \AugurApi\Services\Vmi\Resources\RestockHdrResource
  */
+#[CoversClass(RestockHdrResource::class)]
 final class RestockHdrResourceTest extends AugurApiTestCase
 {
     public function testList(): void

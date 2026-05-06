@@ -4,13 +4,14 @@ declare(strict_types=1);
 
 namespace AugurApi\Tests\Services\P21Apis\Resources;
 
+use AugurApi\Services\P21Apis\Resources\EntityContactsResource;
 use AugurApi\Tests\AugurApiTestCase;
+use PHPUnit\Framework\Attributes\CoversClass;
 
 /**
  * Tests for EntityContactsResource.
- *
- * @covers \AugurApi\Services\P21Apis\Resources\EntityContactsResource
  */
+#[CoversClass(EntityContactsResource::class)]
 final class EntityContactsResourceTest extends AugurApiTestCase
 {
     public function testRefresh(): void

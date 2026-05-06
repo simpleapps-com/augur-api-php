@@ -4,13 +4,14 @@ declare(strict_types=1);
 
 namespace AugurApi\Tests\Services\P21Core\Resources;
 
+use AugurApi\Services\P21Core\Resources\PaymentTypesResource;
 use AugurApi\Tests\AugurApiTestCase;
+use PHPUnit\Framework\Attributes\CoversClass;
 
 /**
  * Tests for PaymentTypesResource.
- *
- * @covers \AugurApi\Services\P21Core\Resources\PaymentTypesResource
  */
+#[CoversClass(PaymentTypesResource::class)]
 final class PaymentTypesResourceTest extends AugurApiTestCase
 {
     public function testList(): void

@@ -4,13 +4,14 @@ declare(strict_types=1);
 
 namespace AugurApi\Tests\Services\Items\Resources;
 
+use AugurApi\Services\Items\Resources\InvMastLinksResource;
 use AugurApi\Tests\AugurApiTestCase;
+use PHPUnit\Framework\Attributes\CoversClass;
 
 /**
  * Tests for InvMastLinksResource.
- *
- * @covers \AugurApi\Services\Items\Resources\InvMastLinksResource
  */
+#[CoversClass(InvMastLinksResource::class)]
 final class InvMastLinksResourceTest extends AugurApiTestCase
 {
     public function testGet(): void

@@ -13,6 +13,7 @@ use AugurApi\Services\AgrInfo\Resources\JoomlaResource;
 use AugurApi\Services\AgrInfo\Resources\MicroservicesResource;
 use AugurApi\Services\AgrInfo\Resources\OllamaResource;
 use AugurApi\Services\AgrInfo\Resources\RubricsResource;
+use AugurApi\Services\AgrInfo\Resources\SitesResource;
 use AugurApi\Services\AgrInfo\Resources\WorkflowsResource;
 
 /**
@@ -28,6 +29,7 @@ final class AgrInfoClient extends BaseServiceClient
     public readonly MicroservicesResource $microservices;
     public readonly OllamaResource $ollama;
     public readonly RubricsResource $rubrics;
+    public readonly SitesResource $sites;
     public readonly WorkflowsResource $workflows;
 
     public function __construct(Client $client, Config $config)
@@ -39,6 +41,7 @@ final class AgrInfoClient extends BaseServiceClient
         $this->microservices = new MicroservicesResource($client, $this->baseUrl . '/microservices');
         $this->ollama = new OllamaResource($client, $this->baseUrl . '/ollama');
         $this->rubrics = new RubricsResource($client, $this->baseUrl . '/rubrics');
+        $this->sites = new SitesResource($client, $this->baseUrl . '/sites');
         $this->workflows = new WorkflowsResource($client, $this->baseUrl . '/workflows');
     }
 

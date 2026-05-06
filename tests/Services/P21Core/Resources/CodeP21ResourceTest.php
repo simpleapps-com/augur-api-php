@@ -4,13 +4,14 @@ declare(strict_types=1);
 
 namespace AugurApi\Tests\Services\P21Core\Resources;
 
+use AugurApi\Services\P21Core\Resources\CodeP21Resource;
 use AugurApi\Tests\AugurApiTestCase;
+use PHPUnit\Framework\Attributes\CoversClass;
 
 /**
  * Tests for CodeP21Resource.
- *
- * @covers \AugurApi\Services\P21Core\Resources\CodeP21Resource
  */
+#[CoversClass(CodeP21Resource::class)]
 final class CodeP21ResourceTest extends AugurApiTestCase
 {
     public function testList(): void
