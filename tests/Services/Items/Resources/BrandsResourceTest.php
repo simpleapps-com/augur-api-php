@@ -160,4 +160,59 @@ final class BrandsResourceTest extends AugurApiTestCase
         $this->assertRequestMethod('GET');
         $this->assertRequestPath('/brands/1/items');
     }
+
+    public function testGetItems(): void
+    {
+        $this->mockResponse([
+            'brandsXItemsUid' => 2,
+            'brandsUid' => 1,
+            'invMastUid' => 100,
+        ]);
+
+        $response = $this->api->items->brands->getItems(1, 2);
+
+        $this->assertEquals(2, $response->data['brandsXItemsUid']);
+        $this->assertRequestMethod('GET');
+        $this->assertRequestPath('/brands/1/items/2');
+    }
+
+    public function testCreateItems(): void
+    {
+        $this->mockResponse([
+            'brandsXItemsUid' => 3,
+            'brandsUid' => 1,
+            'invMastUid' => 99,
+        ], 201);
+
+        $response = $this->api->items->brands->createItems(1, ['invMastUid' => 99]);
+
+        $this->assertEquals(3, $response->data['brandsXItemsUid']);
+        $this->assertRequestMethod('POST');
+        $this->assertRequestPath('/brands/1/items');
+    }
+
+    public function testUpdateItems(): void
+    {
+        $this->mockResponse([
+            'brandsXItemsUid' => 2,
+            'brandsUid' => 1,
+            'invMastUid' => 99,
+        ]);
+
+        $response = $this->api->items->brands->updateItems(1, 2, ['invMastUid' => 99]);
+
+        $this->assertEquals(99, $response->data['invMastUid']);
+        $this->assertRequestMethod('PUT');
+        $this->assertRequestPath('/brands/1/items/2');
+    }
+
+    public function testDeleteItems(): void
+    {
+        $this->mockResponse([], 204);
+
+        $this->api->items->brands->deleteItems(1, 2);
+
+        $this->assertRequestMethod('DELETE');
+        $this->assertRequestPath('/brands/1/items/2');
+    }
 }

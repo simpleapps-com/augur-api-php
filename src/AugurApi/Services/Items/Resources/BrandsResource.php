@@ -148,4 +148,86 @@ final class BrandsResource
 
         return BaseResponse::fromArray($response, static fn ($data) => $data);
     }
+
+    /**
+     * POST /brands/{brandsUid}/items
+     *
+     * Response data type: object
+     * Known fields: brandsXItemsUid, brandsUid, invMastUid, dateCreated, dateLastModified, updateCd, statusCd, processCd
+     *
+     * @param array<string, mixed> $data
+     * @return BaseResponse<array<string, mixed>>
+     */
+    public function createItems(int $brandsUid, array $data = []): BaseResponse
+    {
+        $response = $this->client->post(
+            $this->baseUrl,
+            '/{brandsUid}/items',
+            $data,
+            ['brandsUid' => (string) $brandsUid],
+        );
+
+        return BaseResponse::fromArray($response, static fn ($data) => $data);
+    }
+
+    /**
+     * DELETE /brands/{brandsUid}/items/{brandsXItemsUid}
+     *
+     * Response data type: object
+     * Known fields: brandsXItemsUid, brandsUid, invMastUid, dateCreated, dateLastModified, updateCd, statusCd, processCd
+     *
+     * @return BaseResponse<array<string, mixed>>
+     */
+    public function deleteItems(int $brandsUid, int $brandsXItemsUid): BaseResponse
+    {
+        $response = $this->client->delete(
+            $this->baseUrl,
+            '/{brandsUid}/items/{brandsXItemsUid}',
+            ['brandsUid' => (string) $brandsUid, 'brandsXItemsUid' => (string) $brandsXItemsUid],
+        );
+
+        return BaseResponse::fromArray($response, static fn ($data) => $data);
+    }
+
+    /**
+     * GET /brands/{brandsUid}/items/{brandsXItemsUid}
+     *
+     * Response data type: object
+     * Known fields: brandsXItemsUid, brandsUid, invMastUid, dateCreated, dateLastModified, updateCd, statusCd, processCd
+     *
+     * @param array<string, mixed> $params
+     * @return BaseResponse<array<string, mixed>>
+     */
+    public function getItems(int $brandsUid, int $brandsXItemsUid, array $params = []): BaseResponse
+    {
+        $response = $this->client->get(
+            $this->baseUrl,
+            '/{brandsUid}/items/{brandsXItemsUid}',
+            $params,
+            ['brandsUid' => (string) $brandsUid, 'brandsXItemsUid' => (string) $brandsXItemsUid],
+        );
+
+        return BaseResponse::fromArray($response, static fn ($data) => $data);
+    }
+
+    /**
+     * PUT /brands/{brandsUid}/items/{brandsXItemsUid}
+     *
+     * Response data type: object
+     * Known fields: brandsXItemsUid, brandsUid, invMastUid, dateCreated, dateLastModified, updateCd, statusCd, processCd
+     *
+     * @param array<string, mixed> $data
+     * @return BaseResponse<array<string, mixed>>
+     */
+    public function updateItems(int $brandsUid, int $brandsXItemsUid, array $data = []): BaseResponse
+    {
+        $response = $this->client->put(
+            $this->baseUrl,
+            '/{brandsUid}/items/{brandsXItemsUid}',
+            $data,
+            ['brandsUid' => (string) $brandsUid, 'brandsXItemsUid' => (string) $brandsXItemsUid],
+        );
+
+        return BaseResponse::fromArray($response, static fn ($data) => $data);
+    }
 }
