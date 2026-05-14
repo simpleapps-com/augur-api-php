@@ -269,4 +269,152 @@ final class CustomerResourceTest extends AugurApiTestCase
         $this->assertRequestPath('/customer/1001/tags');
         $this->assertRequestMethod('GET');
     }
+
+    public function testListAddresses(): void
+    {
+        $this->mockListResponse([
+            ['customerAddressUid' => 1, 'address1' => '123 Main St'],
+            ['customerAddressUid' => 2, 'address1' => '456 Oak Ave'],
+        ]);
+
+        $response = $this->api->customers->customer->listAddresses(1001);
+
+        $this->assertCount(2, $response->data);
+        /** @var list<array<string, mixed>> $data */
+        $data = $response->data;
+        $this->assertEquals('123 Main St', $data[0]['address1']);
+        $this->assertRequestPath('/customer/1001/addresses');
+        $this->assertRequestMethod('GET');
+    }
+
+    public function testGetAddresses(): void
+    {
+        $this->mockResponse([
+            'customerAddressUid' => 5,
+            'address1' => '123 Main St',
+        ]);
+
+        $response = $this->api->customers->customer->getAddresses(1001, 5);
+
+        $this->assertEquals(5, $response->data['customerAddressUid']);
+        $this->assertRequestPath('/customer/1001/addresses/5');
+        $this->assertRequestMethod('GET');
+    }
+
+    public function testCreateAddresses(): void
+    {
+        $this->mockResponse([
+            'customerAddressUid' => 10,
+            'address1' => '789 New Address',
+        ], 201);
+
+        $response = $this->api->customers->customer->createAddresses(1001, [
+            'address1' => '789 New Address',
+            'city' => 'Springfield',
+        ]);
+
+        $this->assertEquals('789 New Address', $response->data['address1']);
+        $this->assertRequestPath('/customer/1001/addresses');
+        $this->assertRequestMethod('POST');
+    }
+
+    public function testUpdateAddresses(): void
+    {
+        $this->mockResponse([
+            'customerAddressUid' => 5,
+            'address1' => 'Updated Address',
+        ]);
+
+        $response = $this->api->customers->customer->updateAddresses(1001, 5, [
+            'address1' => 'Updated Address',
+        ]);
+
+        $this->assertEquals('Updated Address', $response->data['address1']);
+        $this->assertRequestPath('/customer/1001/addresses/5');
+        $this->assertRequestMethod('PUT');
+    }
+
+    public function testDeleteAddresses(): void
+    {
+        $this->mockResponse([], 204);
+
+        $this->api->customers->customer->deleteAddresses(1001, 5);
+
+        $this->assertRequestPath('/customer/1001/addresses/5');
+        $this->assertRequestMethod('DELETE');
+    }
+
+    public function testGetTags(): void
+    {
+        $this->mockResponse([
+            'customerTagsUid' => 7,
+            'tag' => 'VIP',
+        ]);
+
+        $response = $this->api->customers->customer->getTags(1001, 7);
+
+        $this->assertEquals('VIP', $response->data['tag']);
+        $this->assertRequestPath('/customer/1001/tags/7');
+        $this->assertRequestMethod('GET');
+    }
+
+    public function testCreateTags(): void
+    {
+        $this->mockResponse([
+            'customerTagsUid' => 11,
+            'tag' => 'Priority',
+        ], 201);
+
+        $response = $this->api->customers->customer->createTags(1001, [
+            'tag' => 'Priority',
+        ]);
+
+        $this->assertEquals('Priority', $response->data['tag']);
+        $this->assertRequestPath('/customer/1001/tags');
+        $this->assertRequestMethod('POST');
+    }
+
+    public function testUpdateTags(): void
+    {
+        $this->mockResponse([
+            'customerTagsUid' => 7,
+            'tag' => 'Updated',
+        ]);
+
+        $response = $this->api->customers->customer->updateTags(1001, 7, [
+            'tag' => 'Updated',
+        ]);
+
+        $this->assertEquals('Updated', $response->data['tag']);
+        $this->assertRequestPath('/customer/1001/tags/7');
+        $this->assertRequestMethod('PUT');
+    }
+
+    public function testDeleteTags(): void
+    {
+        $this->mockResponse([], 204);
+
+        $this->api->customers->customer->deleteTags(1001, 7);
+
+        $this->assertRequestPath('/customer/1001/tags/7');
+        $this->assertRequestMethod('DELETE');
+    }
+
+    public function testListInvoicesWithCreatedParams(): void
+    {
+        $this->mockListResponse([
+            ['invoiceNo' => 'INV001', 'amount' => 100.00],
+        ]);
+
+        $response = $this->api->customers->customer->listInvoices(1001, [
+            'createdFrom' => '2026-01-01',
+            'createdOn' => '2026-03-15',
+            'createdTo' => '2026-05-01',
+            'q' => 'ACME',
+        ]);
+
+        $this->assertCount(1, $response->data);
+        $this->assertRequestPath('/customer/1001/invoices');
+        $this->assertRequestMethod('GET');
+    }
 }

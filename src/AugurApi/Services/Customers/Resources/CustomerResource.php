@@ -65,6 +65,109 @@ final class CustomerResource
     }
 
     /**
+     * GET /customer/{customerId}/addresses
+     *
+     * Response data type: array
+     * Known fields: customerAddressUid, customerId, address1, address2, address3, city, state, postalCode, ... (14 total)
+     *
+     * @param array<string, mixed> $params
+     * @return BaseResponse<array<string, mixed>>
+     */
+    public function listAddresses(int $customerId, array $params = []): BaseResponse
+    {
+        $response = $this->client->get(
+            $this->baseUrl,
+            '/{customerId}/addresses',
+            $params,
+            ['customerId' => (string) $customerId],
+        );
+
+        return BaseResponse::fromArray($response, static fn ($data) => $data);
+    }
+
+    /**
+     * POST /customer/{customerId}/addresses
+     *
+     * Response data type: object
+     * Known fields: customerAddressUid, customerId, address1, address2, address3, city, state, postalCode, ... (14 total)
+     *
+     * @param array<string, mixed> $data
+     * @return BaseResponse<array<string, mixed>>
+     */
+    public function createAddresses(int $customerId, array $data = []): BaseResponse
+    {
+        $response = $this->client->post(
+            $this->baseUrl,
+            '/{customerId}/addresses',
+            $data,
+            ['customerId' => (string) $customerId],
+        );
+
+        return BaseResponse::fromArray($response, static fn ($data) => $data);
+    }
+
+    /**
+     * DELETE /customer/{customerId}/addresses/{customerAddressUid}
+     *
+     * Response data type: object
+     * Known fields: customerAddressUid, customerId, address1, address2, address3, city, state, postalCode, ... (14 total)
+     *
+     * @return BaseResponse<array<string, mixed>>
+     */
+    public function deleteAddresses(int $customerId, int $customerAddressUid): BaseResponse
+    {
+        $response = $this->client->delete(
+            $this->baseUrl,
+            '/{customerId}/addresses/{customerAddressUid}',
+            ['customerId' => (string) $customerId, 'customerAddressUid' => (string) $customerAddressUid],
+        );
+
+        return BaseResponse::fromArray($response, static fn ($data) => $data);
+    }
+
+    /**
+     * GET /customer/{customerId}/addresses/{customerAddressUid}
+     *
+     * Response data type: object
+     * Known fields: customerAddressUid, customerId, address1, address2, address3, city, state, postalCode, ... (14 total)
+     *
+     * @param array<string, mixed> $params
+     * @return BaseResponse<array<string, mixed>>
+     */
+    public function getAddresses(int $customerId, int $customerAddressUid, array $params = []): BaseResponse
+    {
+        $response = $this->client->get(
+            $this->baseUrl,
+            '/{customerId}/addresses/{customerAddressUid}',
+            $params,
+            ['customerId' => (string) $customerId, 'customerAddressUid' => (string) $customerAddressUid],
+        );
+
+        return BaseResponse::fromArray($response, static fn ($data) => $data);
+    }
+
+    /**
+     * PUT /customer/{customerId}/addresses/{customerAddressUid}
+     *
+     * Response data type: object
+     * Known fields: customerAddressUid, customerId, address1, address2, address3, city, state, postalCode, ... (14 total)
+     *
+     * @param array<string, mixed> $data
+     * @return BaseResponse<array<string, mixed>>
+     */
+    public function updateAddresses(int $customerId, int $customerAddressUid, array $data = []): BaseResponse
+    {
+        $response = $this->client->put(
+            $this->baseUrl,
+            '/{customerId}/addresses/{customerAddressUid}',
+            $data,
+            ['customerId' => (string) $customerId, 'customerAddressUid' => (string) $customerAddressUid],
+        );
+
+        return BaseResponse::fromArray($response, static fn ($data) => $data);
+    }
+
+    /**
      * GET /customer/{customerId}/contacts
      *
      * @param array<string, mixed> $params
@@ -294,6 +397,9 @@ final class CustomerResource
     /**
      * GET /customer/{customerId}/tags
      *
+     * Response data type: array
+     * Known fields: customerTagsUid, customerId, tag, updateCd, statusCd, processCd, dateCreated, dateLastModified
+     *
      * @param array<string, mixed> $params
      * @return BaseResponse<array<string, mixed>>
      */
@@ -304,6 +410,88 @@ final class CustomerResource
             '/{customerId}/tags',
             $params,
             ['customerId' => (string) $customerId],
+        );
+
+        return BaseResponse::fromArray($response, static fn ($data) => $data);
+    }
+
+    /**
+     * POST /customer/{customerId}/tags
+     *
+     * Response data type: object
+     * Known fields: customerTagsUid, customerId, tag, updateCd, statusCd, processCd, dateCreated, dateLastModified
+     *
+     * @param array<string, mixed> $data
+     * @return BaseResponse<array<string, mixed>>
+     */
+    public function createTags(int $customerId, array $data = []): BaseResponse
+    {
+        $response = $this->client->post(
+            $this->baseUrl,
+            '/{customerId}/tags',
+            $data,
+            ['customerId' => (string) $customerId],
+        );
+
+        return BaseResponse::fromArray($response, static fn ($data) => $data);
+    }
+
+    /**
+     * DELETE /customer/{customerId}/tags/{customerTagsUid}
+     *
+     * Response data type: object
+     * Known fields: customerTagsUid, customerId, tag, updateCd, statusCd, processCd, dateCreated, dateLastModified
+     *
+     * @return BaseResponse<array<string, mixed>>
+     */
+    public function deleteTags(int $customerId, int $customerTagsUid): BaseResponse
+    {
+        $response = $this->client->delete(
+            $this->baseUrl,
+            '/{customerId}/tags/{customerTagsUid}',
+            ['customerId' => (string) $customerId, 'customerTagsUid' => (string) $customerTagsUid],
+        );
+
+        return BaseResponse::fromArray($response, static fn ($data) => $data);
+    }
+
+    /**
+     * GET /customer/{customerId}/tags/{customerTagsUid}
+     *
+     * Response data type: object
+     * Known fields: customerTagsUid, customerId, tag, updateCd, statusCd, processCd, dateCreated, dateLastModified
+     *
+     * @param array<string, mixed> $params
+     * @return BaseResponse<array<string, mixed>>
+     */
+    public function getTags(int $customerId, int $customerTagsUid, array $params = []): BaseResponse
+    {
+        $response = $this->client->get(
+            $this->baseUrl,
+            '/{customerId}/tags/{customerTagsUid}',
+            $params,
+            ['customerId' => (string) $customerId, 'customerTagsUid' => (string) $customerTagsUid],
+        );
+
+        return BaseResponse::fromArray($response, static fn ($data) => $data);
+    }
+
+    /**
+     * PUT /customer/{customerId}/tags/{customerTagsUid}
+     *
+     * Response data type: object
+     * Known fields: customerTagsUid, customerId, tag, updateCd, statusCd, processCd, dateCreated, dateLastModified
+     *
+     * @param array<string, mixed> $data
+     * @return BaseResponse<array<string, mixed>>
+     */
+    public function updateTags(int $customerId, int $customerTagsUid, array $data = []): BaseResponse
+    {
+        $response = $this->client->put(
+            $this->baseUrl,
+            '/{customerId}/tags/{customerTagsUid}',
+            $data,
+            ['customerId' => (string) $customerId, 'customerTagsUid' => (string) $customerTagsUid],
         );
 
         return BaseResponse::fromArray($response, static fn ($data) => $data);
