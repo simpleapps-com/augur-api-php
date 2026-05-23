@@ -108,9 +108,9 @@ final class ClientTest extends TestCase
 
         $this->client->get(
             'https://api.example.com',
-            '/items/{itemId}/variants/{variantId}',
+            '/items/{slug}/variants/{variantId}',
             [],
-            ['itemId' => 'ABC', 'variantId' => '123'],
+            ['slug' => 'ABC', 'variantId' => '123'],
         );
 
         $request = $this->mockClient->getLastRequest();
@@ -123,9 +123,9 @@ final class ClientTest extends TestCase
 
         $this->client->get(
             'https://api.example.com',
-            '/items/{itemId}',
+            '/items/{slug}',
             [],
-            ['itemId' => 'item/with/slashes'],
+            ['slug' => 'item/with/slashes'],
         );
 
         $request = $this->mockClient->getLastRequest();

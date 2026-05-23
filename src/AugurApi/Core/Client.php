@@ -166,11 +166,13 @@ final class Client
      */
     private function resolvePath(string $path, array $pathParams): string
     {
+        $template = $path;
         foreach ($pathParams as $key => $value) {
             $encoded = urlencode($value);
             // Try exact match first (fast path)
             $placeholder = '{' . $key . '}';
             if (str_contains($path, $placeholder)) {
+                PathValidator::validate($template, $key, $value);
                 $path = str_replace($placeholder, $encoded, $path);
             } else {
                 // Fallback: normalise both sides to handle camelCase vs kebab/snake
@@ -178,9 +180,13 @@ final class Client
                 $normKey = strtolower(str_replace(['-', '_'], '', $key));
                 $path = (string) preg_replace_callback(
                     '/\{([^}]+)\}/',
-                    static function (array $m) use ($normKey, $encoded): string {
+                    static function (array $m) use ($normKey, $encoded, $template, $value): string {
                         $normPlaceholder = strtolower(str_replace(['-', '_'], '', $m[1]));
-                        return $normPlaceholder === $normKey ? $encoded : $m[0];
+                        if ($normPlaceholder === $normKey) {
+                            PathValidator::validate($template, $m[1], $value);
+                            return $encoded;
+                        }
+                        return $m[0];
                     },
                     $path,
                 );

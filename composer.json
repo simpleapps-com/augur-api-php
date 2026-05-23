@@ -1,6 +1,6 @@
 {
   "name": "simpleapps-com/augur-api",
-  "version": "2026.5.5",
+  "version": "2026.5.6",
   "description": "PHP client for Augur API microservices",
   "type": "library",
   "license": "MIT",
