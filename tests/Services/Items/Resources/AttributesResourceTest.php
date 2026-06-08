@@ -91,6 +91,34 @@ final class AttributesResourceTest extends AugurApiTestCase
         $this->assertRequestPath('/attributes/1');
     }
 
+    public function testListItems(): void
+    {
+        $this->mockListResponse([
+            ['invMastUid' => 1, 'itemDesc' => 'Widget'],
+            ['invMastUid' => 2, 'itemDesc' => 'Gadget'],
+        ]);
+
+        $response = $this->api->items->attributes->listItems(1);
+
+        $this->assertCount(2, $response->data);
+        /** @var list<array<string, mixed>> $data */
+        $data = $response->data;
+        $this->assertEquals('Widget', $data[0]['itemDesc']);
+        $this->assertRequestMethod('GET');
+        $this->assertRequestPath('/attributes/1/items');
+    }
+
+    public function testListItemsWithParams(): void
+    {
+        $this->mockListResponse([
+            ['invMastUid' => 1, 'itemDesc' => 'Widget'],
+        ]);
+
+        $response = $this->api->items->attributes->listItems(1, ['limit' => 5]);
+
+        $this->assertCount(1, $response->data);
+    }
+
     public function testListValues(): void
     {
         $this->mockListResponse([

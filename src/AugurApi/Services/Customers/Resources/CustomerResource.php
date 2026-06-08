@@ -68,7 +68,7 @@ final class CustomerResource
      * GET /customer/{customerId}/addresses
      *
      * Response data type: array
-     * Known fields: customerAddressUid, customerId, address1, address2, address3, city, state, postalCode, ... (14 total)
+     * Known fields: customerAddressUid, customerId, address1, address2, address3, city, state, postalCode, ... (18 total)
      *
      * @param array<string, mixed> $params
      * @return BaseResponse<array<string, mixed>>
@@ -89,7 +89,7 @@ final class CustomerResource
      * POST /customer/{customerId}/addresses
      *
      * Response data type: object
-     * Known fields: customerAddressUid, customerId, address1, address2, address3, city, state, postalCode, ... (14 total)
+     * Known fields: customerAddressUid, customerId, address1, address2, address3, city, state, postalCode, ... (18 total)
      *
      * @param array<string, mixed> $data
      * @return BaseResponse<array<string, mixed>>
@@ -110,7 +110,7 @@ final class CustomerResource
      * DELETE /customer/{customerId}/addresses/{customerAddressUid}
      *
      * Response data type: object
-     * Known fields: customerAddressUid, customerId, address1, address2, address3, city, state, postalCode, ... (14 total)
+     * Known fields: customerAddressUid, customerId, address1, address2, address3, city, state, postalCode, ... (18 total)
      *
      * @return BaseResponse<array<string, mixed>>
      */
@@ -129,7 +129,7 @@ final class CustomerResource
      * GET /customer/{customerId}/addresses/{customerAddressUid}
      *
      * Response data type: object
-     * Known fields: customerAddressUid, customerId, address1, address2, address3, city, state, postalCode, ... (14 total)
+     * Known fields: customerAddressUid, customerId, address1, address2, address3, city, state, postalCode, ... (18 total)
      *
      * @param array<string, mixed> $params
      * @return BaseResponse<array<string, mixed>>
@@ -150,7 +150,7 @@ final class CustomerResource
      * PUT /customer/{customerId}/addresses/{customerAddressUid}
      *
      * Response data type: object
-     * Known fields: customerAddressUid, customerId, address1, address2, address3, city, state, postalCode, ... (14 total)
+     * Known fields: customerAddressUid, customerId, address1, address2, address3, city, state, postalCode, ... (18 total)
      *
      * @param array<string, mixed> $data
      * @return BaseResponse<array<string, mixed>>
@@ -353,6 +353,42 @@ final class CustomerResource
             '/{customerId}/quotes/{quoteNo}',
             $params,
             ['customerId' => (string) $customerId, 'quoteNo' => (string) $quoteNo],
+        );
+
+        return BaseResponse::fromArray($response, static fn ($data) => $data);
+    }
+
+    /**
+     * GET /customer/{customerId}/rmas
+     *
+     * @param array<string, mixed> $params
+     * @return BaseResponse<array<string, mixed>>
+     */
+    public function listRmas(int $customerId, array $params = []): BaseResponse
+    {
+        $response = $this->client->get(
+            $this->baseUrl,
+            '/{customerId}/rmas',
+            $params,
+            ['customerId' => (string) $customerId],
+        );
+
+        return BaseResponse::fromArray($response, static fn ($data) => $data);
+    }
+
+    /**
+     * GET /customer/{customerId}/rmas/{rmaNo}
+     *
+     * @param array<string, mixed> $params
+     * @return BaseResponse<array<string, mixed>>
+     */
+    public function getRmas(int $customerId, int $rmaNo, array $params = []): BaseResponse
+    {
+        $response = $this->client->get(
+            $this->baseUrl,
+            '/{customerId}/rmas/{rmaNo}',
+            $params,
+            ['customerId' => (string) $customerId, 'rmaNo' => (string) $rmaNo],
         );
 
         return BaseResponse::fromArray($response, static fn ($data) => $data);

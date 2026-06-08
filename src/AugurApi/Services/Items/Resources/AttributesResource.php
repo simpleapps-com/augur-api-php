@@ -111,6 +111,27 @@ final class AttributesResource
     }
 
     /**
+     * GET /attributes/{attributeUid}/items
+     *
+     * Response data type: array
+     * Known fields: itemAttributeValueUid, invMastUid, attributeUid, attributeValue, dateCreated, createdBy, dateLastModified, lastMaintainedBy, ... (13 total)
+     *
+     * @param array<string, mixed> $params
+     * @return BaseResponse<array<string, mixed>>
+     */
+    public function listItems(int $attributeUid, array $params = []): BaseResponse
+    {
+        $response = $this->client->get(
+            $this->baseUrl,
+            '/{attributeUid}/items',
+            $params,
+            ['attributeUid' => (string) $attributeUid],
+        );
+
+        return BaseResponse::fromArray($response, static fn ($data) => $data);
+    }
+
+    /**
      * GET /attributes/{attributeUid}/values
      *
      * Response data type: array

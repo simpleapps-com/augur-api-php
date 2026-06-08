@@ -188,6 +188,33 @@ final class CustomerResourceTest extends AugurApiTestCase
         $this->assertRequestMethod('GET');
     }
 
+    public function testListRmas(): void
+    {
+        $this->mockListResponse([
+            ['rmaNo' => 5001, 'status' => 'open'],
+        ]);
+
+        $response = $this->api->customers->customer->listRmas(1001);
+
+        $this->assertCount(1, $response->data);
+        $this->assertRequestPath('/customer/1001/rmas');
+        $this->assertRequestMethod('GET');
+    }
+
+    public function testGetRmas(): void
+    {
+        $this->mockResponse([
+            'rmaNo' => 5001,
+            'status' => 'open',
+        ]);
+
+        $response = $this->api->customers->customer->getRmas(1001, 5001);
+
+        $this->assertEquals(5001, $response->data['rmaNo']);
+        $this->assertRequestPath('/customer/1001/rmas/5001');
+        $this->assertRequestMethod('GET');
+    }
+
     public function testListPurchasedItems(): void
     {
         $this->mockListResponse([
