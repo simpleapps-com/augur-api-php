@@ -7,6 +7,7 @@ namespace AugurApi;
 use AugurApi\Core\Client;
 use AugurApi\Core\Config;
 use AugurApi\Services\AgrInfo\AgrInfoClient;
+use AugurApi\Services\AgrInt\AgrIntClient;
 use AugurApi\Services\AgrSite\AgrSiteClient;
 use AugurApi\Services\AgrWork\AgrWorkClient;
 use AugurApi\Services\Avalara\AvalaraClient;
@@ -43,6 +44,7 @@ use Psr\Http\Message\StreamFactoryInterface;
  * Main entry point for all Augur API services.
  *
  * @property-read AgrInfoClient $agrInfo
+ * @property-read AgrIntClient $agrInt
  * @property-read AgrSiteClient $agrSite
  * @property-read AgrWorkClient $agrWork
  * @property-read AvalaraClient $avalara
@@ -120,6 +122,7 @@ final class AugurApiClient
     {
         return match ($name) {
             'agrInfo' => new AgrInfoClient($this->client, $this->config),
+            'agrInt' => new AgrIntClient($this->client, $this->config),
             'agrSite' => new AgrSiteClient($this->client, $this->config),
             'agrWork' => new AgrWorkClient($this->client, $this->config),
             'avalara' => new AvalaraClient($this->client, $this->config),

@@ -7,6 +7,7 @@ namespace AugurApi\Tests;
 use AugurApi\AugurApiClient;
 use AugurApi\Core\Config;
 use AugurApi\Services\AgrInfo\AgrInfoClient;
+use AugurApi\Services\AgrInt\AgrIntClient;
 use AugurApi\Services\AgrSite\AgrSiteClient;
 use AugurApi\Services\AgrWork\AgrWorkClient;
 use AugurApi\Services\Avalara\AvalaraClient;
@@ -297,10 +298,11 @@ final class AugurApiClientTest extends AugurApiTestCase
         $this->assertInstanceOf(VmiClient::class, $service);
     }
 
-    public function testAll27ServicesAccessible(): void
+    public function testAll28ServicesAccessible(): void
     {
         $services = [
             'agrInfo' => AgrInfoClient::class,
+            'agrInt' => AgrIntClient::class,
             'agrSite' => AgrSiteClient::class,
             'agrWork' => AgrWorkClient::class,
             'avalara' => AvalaraClient::class,
@@ -329,7 +331,7 @@ final class AugurApiClientTest extends AugurApiTestCase
             'vmi' => VmiClient::class,
         ];
 
-        $this->assertCount(27, $services);
+        $this->assertCount(28, $services);
 
         foreach ($services as $name => $expectedClass) {
             $service = $this->api->$name;
