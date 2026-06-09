@@ -46,6 +46,28 @@ final class UsersResourceTest extends AugurApiTestCase
         $this->assertRequestMethod('POST');
     }
 
+    public function testCreateRotate(): void
+    {
+        $this->mockResponse(['token' => 'new-token']);
+
+        $response = $this->api->agrInt->users->createRotate(['token' => 'old-token']);
+
+        $this->assertSame('new-token', $response->data['token']);
+        $this->assertRequestPath('/users/rotate');
+        $this->assertRequestMethod('POST');
+    }
+
+    public function testCreateValidate(): void
+    {
+        $this->mockResponse(['valid' => true]);
+
+        $response = $this->api->agrInt->users->createValidate(['token' => 'some-token']);
+
+        $this->assertTrue($response->data['valid']);
+        $this->assertRequestPath('/users/validate');
+        $this->assertRequestMethod('POST');
+    }
+
     public function testGet(): void
     {
         $this->mockResponse(['usersUid' => 5, 'username' => 'jdoe']);

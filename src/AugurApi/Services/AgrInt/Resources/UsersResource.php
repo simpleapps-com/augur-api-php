@@ -53,10 +53,42 @@ final class UsersResource
     }
 
     /**
+     * POST /users/rotate
+     *
+     * Response data type: object
+     * Known fields: usersUid, username, token
+     *
+     * @param array<string, mixed> $data
+     * @return BaseResponse<array<string, mixed>>
+     */
+    public function createRotate(array $data = []): BaseResponse
+    {
+        $response = $this->client->post($this->baseUrl, '/rotate', $data);
+
+        return BaseResponse::fromArray($response, static fn ($data) => $data);
+    }
+
+    /**
+     * POST /users/validate
+     *
+     * Response data type: object
+     * Known fields: valid, scope, userId, username, email, name
+     *
+     * @param array<string, mixed> $data
+     * @return BaseResponse<array<string, mixed>>
+     */
+    public function createValidate(array $data = []): BaseResponse
+    {
+        $response = $this->client->post($this->baseUrl, '/validate', $data);
+
+        return BaseResponse::fromArray($response, static fn ($data) => $data);
+    }
+
+    /**
      * POST /users/verify
      *
      * Response data type: object
-     * Known fields: usersUid, username
+     * Known fields: usersUid, username, token
      *
      * @param array<string, mixed> $data
      * @return BaseResponse<array<string, mixed>>
