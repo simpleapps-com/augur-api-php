@@ -8,11 +8,11 @@ use AugurApi\Core\BaseResponse;
 use AugurApi\Core\Client;
 
 /**
- * roles resource — generated from spec.
+ * bundles resource — generated from spec.
  *
  * DO NOT EDIT — regenerate with: python shared/scripts/generate-php.py agr-int
  */
-final class RolesResource
+final class BundlesResource
 {
     public function __construct(
         private readonly Client $client,
@@ -21,10 +21,10 @@ final class RolesResource
     }
 
     /**
-     * GET /roles
+     * GET /bundles
      *
      * Response data type: array
-     * Known fields: rolesUid, roleId, roleName, description, systemFlag, dateCreated, dateLastModified, updateCd, ... (10 total)
+     * Known fields: bundlesUid, bundleId, bundleName, description, systemFlag, dateCreated, dateLastModified, updateCd, ... (10 total)
      *
      * @param array<string, mixed> $params
      * @return BaseResponse<array<string, mixed>>
@@ -37,10 +37,10 @@ final class RolesResource
     }
 
     /**
-     * POST /roles
+     * POST /bundles
      *
      * Response data type: object
-     * Known fields: rolesUid, roleId, roleName, description, systemFlag, dateCreated, dateLastModified, updateCd, ... (10 total)
+     * Known fields: bundlesUid, bundleId, bundleName, description, systemFlag, dateCreated, dateLastModified, updateCd, ... (10 total)
      *
      * @param array<string, mixed> $data
      * @return BaseResponse<array<string, mixed>>
@@ -53,164 +53,164 @@ final class RolesResource
     }
 
     /**
-     * DELETE /roles/{rolesUid}
+     * DELETE /bundles/{bundlesUid}
      *
      * Response data type: object
-     * Known fields: rolesUid, roleId, roleName, description, systemFlag, dateCreated, dateLastModified, updateCd, ... (10 total)
+     * Known fields: bundlesUid, bundleId, bundleName, description, systemFlag, dateCreated, dateLastModified, updateCd, ... (10 total)
      *
      * @return BaseResponse<array<string, mixed>>
      */
-    public function delete(int $rolesUid): BaseResponse
+    public function delete(int $bundlesUid): BaseResponse
     {
         $response = $this->client->delete(
             $this->baseUrl,
-            '/{rolesUid}',
-            ['rolesUid' => (string) $rolesUid],
+            '/{bundlesUid}',
+            ['bundlesUid' => (string) $bundlesUid],
         );
 
         return BaseResponse::fromArray($response, static fn ($data) => $data);
     }
 
     /**
-     * GET /roles/{rolesUid}
+     * GET /bundles/{bundlesUid}
      *
      * Response data type: object
-     * Known fields: rolesUid, roleId, roleName, description, systemFlag, dateCreated, dateLastModified, updateCd, ... (10 total)
+     * Known fields: bundlesUid, bundleId, bundleName, description, systemFlag, dateCreated, dateLastModified, updateCd, ... (10 total)
      *
      * @param array<string, mixed> $params
      * @return BaseResponse<array<string, mixed>>
      */
-    public function get(int $rolesUid, array $params = []): BaseResponse
+    public function get(int $bundlesUid, array $params = []): BaseResponse
     {
         $response = $this->client->get(
             $this->baseUrl,
-            '/{rolesUid}',
+            '/{bundlesUid}',
             $params,
-            ['rolesUid' => (string) $rolesUid],
+            ['bundlesUid' => (string) $bundlesUid],
         );
 
         return BaseResponse::fromArray($response, static fn ($data) => $data);
     }
 
     /**
-     * PUT /roles/{rolesUid}
+     * PUT /bundles/{bundlesUid}
      *
      * Response data type: object
-     * Known fields: rolesUid, roleId, roleName, description, systemFlag, dateCreated, dateLastModified, updateCd, ... (10 total)
+     * Known fields: bundlesUid, bundleId, bundleName, description, systemFlag, dateCreated, dateLastModified, updateCd, ... (10 total)
      *
      * @param array<string, mixed> $data
      * @return BaseResponse<array<string, mixed>>
      */
-    public function update(int $rolesUid, array $data = []): BaseResponse
+    public function update(int $bundlesUid, array $data = []): BaseResponse
     {
         $response = $this->client->put(
             $this->baseUrl,
-            '/{rolesUid}',
+            '/{bundlesUid}',
             $data,
-            ['rolesUid' => (string) $rolesUid],
+            ['bundlesUid' => (string) $bundlesUid],
         );
 
         return BaseResponse::fromArray($response, static fn ($data) => $data);
     }
 
     /**
-     * GET /roles/{rolesUid}/bundles
+     * GET /bundles/{bundlesUid}/resources
      *
      * Response data type: array
-     * Known fields: rolesXBundlesUid, rolesUid, bundlesUid, dateCreated, dateLastModified, updateCd, statusCd, processCd
+     * Known fields: bundlesXResourcesUid, bundlesUid, resourcesUid, readCd, writeCd, executeCd, dateCreated, dateLastModified, ... (11 total)
      *
      * @param array<string, mixed> $params
      * @return BaseResponse<array<string, mixed>>
      */
-    public function listBundles(int $rolesUid, array $params = []): BaseResponse
+    public function listResources(int $bundlesUid, array $params = []): BaseResponse
     {
         $response = $this->client->get(
             $this->baseUrl,
-            '/{rolesUid}/bundles',
+            '/{bundlesUid}/resources',
             $params,
-            ['rolesUid' => (string) $rolesUid],
+            ['bundlesUid' => (string) $bundlesUid],
         );
 
         return BaseResponse::fromArray($response, static fn ($data) => $data);
     }
 
     /**
-     * POST /roles/{rolesUid}/bundles
+     * POST /bundles/{bundlesUid}/resources
      *
      * Response data type: object
-     * Known fields: rolesXBundlesUid, rolesUid, bundlesUid, dateCreated, dateLastModified, updateCd, statusCd, processCd
+     * Known fields: bundlesXResourcesUid, bundlesUid, resourcesUid, readCd, writeCd, executeCd, dateCreated, dateLastModified, ... (11 total)
      *
      * @param array<string, mixed> $data
      * @return BaseResponse<array<string, mixed>>
      */
-    public function createBundles(int $rolesUid, array $data = []): BaseResponse
+    public function createResources(int $bundlesUid, array $data = []): BaseResponse
     {
         $response = $this->client->post(
             $this->baseUrl,
-            '/{rolesUid}/bundles',
+            '/{bundlesUid}/resources',
             $data,
-            ['rolesUid' => (string) $rolesUid],
+            ['bundlesUid' => (string) $bundlesUid],
         );
 
         return BaseResponse::fromArray($response, static fn ($data) => $data);
     }
 
     /**
-     * DELETE /roles/{rolesUid}/bundles/{rolesXBundlesUid}
+     * DELETE /bundles/{bundlesUid}/resources/{bundlesXResourcesUid}
      *
      * Response data type: object
-     * Known fields: rolesXBundlesUid, rolesUid, bundlesUid, dateCreated, dateLastModified, updateCd, statusCd, processCd
+     * Known fields: bundlesXResourcesUid, bundlesUid, resourcesUid, readCd, writeCd, executeCd, dateCreated, dateLastModified, ... (11 total)
      *
      * @return BaseResponse<array<string, mixed>>
      */
-    public function deleteBundles(int $rolesUid, int $rolesXBundlesUid): BaseResponse
+    public function deleteResources(int $bundlesUid, int $bundlesXResourcesUid): BaseResponse
     {
         $response = $this->client->delete(
             $this->baseUrl,
-            '/{rolesUid}/bundles/{rolesXBundlesUid}',
-            ['rolesUid' => (string) $rolesUid, 'rolesXBundlesUid' => (string) $rolesXBundlesUid],
+            '/{bundlesUid}/resources/{bundlesXResourcesUid}',
+            ['bundlesUid' => (string) $bundlesUid, 'bundlesXResourcesUid' => (string) $bundlesXResourcesUid],
         );
 
         return BaseResponse::fromArray($response, static fn ($data) => $data);
     }
 
     /**
-     * GET /roles/{rolesUid}/bundles/{rolesXBundlesUid}
+     * GET /bundles/{bundlesUid}/resources/{bundlesXResourcesUid}
      *
      * Response data type: object
-     * Known fields: rolesXBundlesUid, rolesUid, bundlesUid, dateCreated, dateLastModified, updateCd, statusCd, processCd
+     * Known fields: bundlesXResourcesUid, bundlesUid, resourcesUid, readCd, writeCd, executeCd, dateCreated, dateLastModified, ... (11 total)
      *
      * @param array<string, mixed> $params
      * @return BaseResponse<array<string, mixed>>
      */
-    public function getBundles(int $rolesUid, int $rolesXBundlesUid, array $params = []): BaseResponse
+    public function getResources(int $bundlesUid, int $bundlesXResourcesUid, array $params = []): BaseResponse
     {
         $response = $this->client->get(
             $this->baseUrl,
-            '/{rolesUid}/bundles/{rolesXBundlesUid}',
+            '/{bundlesUid}/resources/{bundlesXResourcesUid}',
             $params,
-            ['rolesUid' => (string) $rolesUid, 'rolesXBundlesUid' => (string) $rolesXBundlesUid],
+            ['bundlesUid' => (string) $bundlesUid, 'bundlesXResourcesUid' => (string) $bundlesXResourcesUid],
         );
 
         return BaseResponse::fromArray($response, static fn ($data) => $data);
     }
 
     /**
-     * PUT /roles/{rolesUid}/bundles/{rolesXBundlesUid}
+     * PUT /bundles/{bundlesUid}/resources/{bundlesXResourcesUid}
      *
      * Response data type: object
-     * Known fields: rolesXBundlesUid, rolesUid, bundlesUid, dateCreated, dateLastModified, updateCd, statusCd, processCd
+     * Known fields: bundlesXResourcesUid, bundlesUid, resourcesUid, readCd, writeCd, executeCd, dateCreated, dateLastModified, ... (11 total)
      *
      * @param array<string, mixed> $data
      * @return BaseResponse<array<string, mixed>>
      */
-    public function updateBundles(int $rolesUid, int $rolesXBundlesUid, array $data = []): BaseResponse
+    public function updateResources(int $bundlesUid, int $bundlesXResourcesUid, array $data = []): BaseResponse
     {
         $response = $this->client->put(
             $this->baseUrl,
-            '/{rolesUid}/bundles/{rolesXBundlesUid}',
+            '/{bundlesUid}/resources/{bundlesXResourcesUid}',
             $data,
-            ['rolesUid' => (string) $rolesUid, 'rolesXBundlesUid' => (string) $rolesXBundlesUid],
+            ['bundlesUid' => (string) $bundlesUid, 'bundlesXResourcesUid' => (string) $bundlesXResourcesUid],
         );
 
         return BaseResponse::fromArray($response, static fn ($data) => $data);
