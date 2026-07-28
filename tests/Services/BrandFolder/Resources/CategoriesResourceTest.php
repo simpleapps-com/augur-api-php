@@ -67,4 +67,46 @@ final class CategoriesResourceTest extends AugurApiTestCase
         $this->assertEquals(200, $response->status);
         $this->assertIsArray($response->data);
     }
+
+    public function testList(): void
+    {
+        $this->mockListResponse([
+            ['itemCategoryUid' => 1, 'name' => 'Fasteners'],
+            ['itemCategoryUid' => 2, 'name' => 'Tools'],
+        ]);
+
+        $response = $this->api->brandFolder->categories->list();
+
+        $this->assertCount(2, $response->data);
+        $this->assertRequestPath('/categories');
+        $this->assertRequestMethod('GET');
+        $this->assertHasSiteIdHeader();
+        $this->assertHasAuthHeader();
+    }
+
+    public function testListWithParams(): void
+    {
+        $this->mockListResponse([
+            ['itemCategoryUid' => 1, 'name' => 'Fasteners'],
+        ]);
+
+        $response = $this->api->brandFolder->categories->list(['limit' => 1]);
+
+        $this->assertCount(1, $response->data);
+        $this->assertStringContainsString('limit=1', $this->getLastRequest()->getUri()->getQuery());
+    }
+
+    public function testGet(): void
+    {
+        $this->mockResponse([
+            'itemCategoryUid' => 42,
+            'name' => 'Fasteners',
+        ]);
+
+        $response = $this->api->brandFolder->categories->get(42);
+
+        $this->assertEquals('Fasteners', $response->data['name']);
+        $this->assertRequestPath('/categories/42');
+        $this->assertRequestMethod('GET');
+    }
 }

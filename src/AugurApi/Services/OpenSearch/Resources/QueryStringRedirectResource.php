@@ -24,7 +24,7 @@ final class QueryStringRedirectResource
      * GET /query-string-redirect
      *
      * Response data type: array
-     * Known fields: queryStringRedirectUid, queryStringUid, queryStringRedirectLink, dateCreated, dateLastModified, updateCd, statusCd, processCd
+     * Known fields: queryStringRedirectUid, queryStringUid, queryStringRedirectLink, dateCreated, dateLastModified, updateCd, statusCd, processCd, ... (9 total)
      *
      * @param array<string, mixed> $params
      * @return BaseResponse<array<string, mixed>>
@@ -40,7 +40,7 @@ final class QueryStringRedirectResource
      * POST /query-string-redirect
      *
      * Response data type: object
-     * Known fields: queryStringRedirectUid, queryStringUid, queryStringRedirectLink, dateCreated, dateLastModified, updateCd, statusCd, processCd
+     * Known fields: queryStringRedirectUid, queryStringUid, queryStringRedirectLink, dateCreated, dateLastModified, updateCd, statusCd, processCd, ... (9 total)
      *
      * @param array<string, mixed> $data
      * @return BaseResponse<array<string, mixed>>
@@ -56,7 +56,7 @@ final class QueryStringRedirectResource
      * DELETE /query-string-redirect/{queryStringRedirectUid}
      *
      * Response data type: object
-     * Known fields: queryStringRedirectUid, queryStringUid, queryStringRedirectLink, dateCreated, dateLastModified, updateCd, statusCd, processCd
+     * Known fields: queryStringRedirectUid, queryStringUid, queryStringRedirectLink, dateCreated, dateLastModified, updateCd, statusCd, processCd, ... (9 total)
      *
      * @return BaseResponse<array<string, mixed>>
      */
@@ -75,7 +75,7 @@ final class QueryStringRedirectResource
      * GET /query-string-redirect/{queryStringRedirectUid}
      *
      * Response data type: object
-     * Known fields: queryStringRedirectUid, queryStringUid, queryStringRedirectLink, dateCreated, dateLastModified, updateCd, statusCd, processCd
+     * Known fields: queryStringRedirectUid, queryStringUid, queryStringRedirectLink, dateCreated, dateLastModified, updateCd, statusCd, processCd, ... (9 total)
      *
      * @param array<string, mixed> $params
      * @return BaseResponse<array<string, mixed>>
@@ -96,7 +96,7 @@ final class QueryStringRedirectResource
      * PUT /query-string-redirect/{queryStringRedirectUid}
      *
      * Response data type: object
-     * Known fields: queryStringRedirectUid, queryStringUid, queryStringRedirectLink, dateCreated, dateLastModified, updateCd, statusCd, processCd
+     * Known fields: queryStringRedirectUid, queryStringUid, queryStringRedirectLink, dateCreated, dateLastModified, updateCd, statusCd, processCd, ... (9 total)
      *
      * @param array<string, mixed> $data
      * @return BaseResponse<array<string, mixed>>

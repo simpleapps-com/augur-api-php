@@ -35,4 +35,25 @@ final class CodeP21Resource
 
         return BaseResponse::fromArray($response, static fn ($data) => $data);
     }
+
+    /**
+     * GET /code-p21/{codeUid}
+     *
+     * Response data type: object
+     * Known fields: codeUid, codeNo, languageId, codeDescription, rowStatusFlag, dateCreated, dateLastModified, lastMaintainedBy, ... (10 total)
+     *
+     * @param array<string, mixed> $params
+     * @return BaseResponse<array<string, mixed>>
+     */
+    public function get(int $codeUid, array $params = []): BaseResponse
+    {
+        $response = $this->client->get(
+            $this->baseUrl,
+            '/{codeUid}',
+            $params,
+            ['codeUid' => (string) $codeUid],
+        );
+
+        return BaseResponse::fromArray($response, static fn ($data) => $data);
+    }
 }

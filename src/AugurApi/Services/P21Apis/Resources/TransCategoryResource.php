@@ -36,14 +36,16 @@ final class TransCategoryResource
     /**
      * DELETE /trans-category/{categoryUid}
      *
+     * @param array<string, mixed> $params
      * @return BaseResponse<array<string, mixed>>
      */
-    public function delete(int $categoryUid): BaseResponse
+    public function delete(int $categoryUid, array $params = []): BaseResponse
     {
         $response = $this->client->delete(
             $this->baseUrl,
             '/{categoryUid}',
             ['categoryUid' => (string) $categoryUid],
+            $params,
         );
 
         return BaseResponse::fromArray($response, static fn ($data) => $data);
@@ -71,15 +73,17 @@ final class TransCategoryResource
      * PUT /trans-category/{categoryUid}
      *
      * @param array<string, mixed> $data
+     * @param array<string, mixed> $params
      * @return BaseResponse<array<string, mixed>>
      */
-    public function update(int $categoryUid, array $data = []): BaseResponse
+    public function update(int $categoryUid, array $data = [], array $params = []): BaseResponse
     {
         $response = $this->client->put(
             $this->baseUrl,
             '/{categoryUid}',
             $data,
             ['categoryUid' => (string) $categoryUid],
+            $params,
         );
 
         return BaseResponse::fromArray($response, static fn ($data) => $data);

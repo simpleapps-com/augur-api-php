@@ -14,9 +14,14 @@ use AugurApi\Core\Exceptions\InvalidArgumentException;
  * API placeholder naming convention (Id/Uid/No/Num/Number suffix, or exact
  * `id`/`lineNumber`). String-typed placeholders are checked for emptiness only.
  *
- * Verified against shared/openapi/*.json on 2026-05-22. Of 74 distinct
- * placeholders, only four have an integer-looking suffix but are typed as
- * string in OpenAPI (see STRING_OVERRIDES).
+ * Re-derived from shared/specs/*.json on 2026-07-28. Of 93 distinct
+ * placeholders, six have an integer-looking suffix but are typed as string in
+ * every spec that declares them (see STRING_OVERRIDES).
+ *
+ * Known ambiguity: `customerId` and `invMastUid` are typed `integer` in most
+ * services but `string` in `legacy` (POST /customers/{customerId}/tags, POST
+ * /inv-mast/{invMastUid}/tags). They stay classified numeric — the integer
+ * typing is the majority and the stricter check.
  */
 final class PathValidator
 {
@@ -33,6 +38,8 @@ final class PathValidator
         'pono',
         'importuid',
         'scheduledimportmasteruid',
+        'grantid',
+        'salesrepid',
     ];
 
     /**

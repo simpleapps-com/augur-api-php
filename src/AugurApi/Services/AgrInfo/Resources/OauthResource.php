@@ -8,11 +8,11 @@ use AugurApi\Core\BaseResponse;
 use AugurApi\Core\Client;
 
 /**
- * sites resource — generated from spec.
+ * oauth resource — generated from spec.
  *
  * DO NOT EDIT — regenerate with: python shared/scripts/generate-php.py agr-info
  */
-final class SitesResource
+final class OauthResource
 {
     public function __construct(
         private readonly Client $client,
@@ -21,30 +21,33 @@ final class SitesResource
     }
 
     /**
-     * POST /sites/validate
+     * DELETE /oauth/grants/{grantId}
      *
-     * @param array<string, mixed> $data
      * @return BaseResponse<array<string, mixed>>
      */
-    public function createValidate(array $data = []): BaseResponse
+    public function deleteGrants(string $grantId): BaseResponse
     {
-        $response = $this->client->post($this->baseUrl, '/validate', $data);
+        $response = $this->client->delete(
+            $this->baseUrl,
+            '/grants/{grantId}',
+            ['grantId' => (string) $grantId],
+        );
 
         return BaseResponse::fromArray($response, static fn ($data) => $data);
     }
 
     /**
-     * POST /sites/verify-user
+     * POST /oauth/refresh
      *
      * Response data type: object
-     * Known fields: grantId, usersId, username, email, name, isAdmin, homeSiteId, sites, ... (12 total)
+     * Known fields: grantId, usersId, accessToken, refreshToken, accessTokenExpiresAt, refreshTokenExpiresAt
      *
      * @param array<string, mixed> $data
      * @return BaseResponse<array<string, mixed>>
      */
-    public function createVerifyUser(array $data = []): BaseResponse
+    public function createRefresh(array $data = []): BaseResponse
     {
-        $response = $this->client->post($this->baseUrl, '/verify-user', $data);
+        $response = $this->client->post($this->baseUrl, '/refresh', $data);
 
         return BaseResponse::fromArray($response, static fn ($data) => $data);
     }

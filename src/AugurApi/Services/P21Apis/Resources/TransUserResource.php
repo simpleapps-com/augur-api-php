@@ -36,14 +36,16 @@ final class TransUserResource
     /**
      * DELETE /trans-user/{usersUid}
      *
+     * @param array<string, mixed> $params
      * @return BaseResponse<array<string, mixed>>
      */
-    public function delete(int $usersUid): BaseResponse
+    public function delete(int $usersUid, array $params = []): BaseResponse
     {
         $response = $this->client->delete(
             $this->baseUrl,
             '/{usersUid}',
             ['usersUid' => (string) $usersUid],
+            $params,
         );
 
         return BaseResponse::fromArray($response, static fn ($data) => $data);
@@ -71,15 +73,17 @@ final class TransUserResource
      * PUT /trans-user/{usersUid}
      *
      * @param array<string, mixed> $data
+     * @param array<string, mixed> $params
      * @return BaseResponse<array<string, mixed>>
      */
-    public function update(int $usersUid, array $data = []): BaseResponse
+    public function update(int $usersUid, array $data = [], array $params = []): BaseResponse
     {
         $response = $this->client->put(
             $this->baseUrl,
             '/{usersUid}',
             $data,
             ['usersUid' => (string) $usersUid],
+            $params,
         );
 
         return BaseResponse::fromArray($response, static fn ($data) => $data);

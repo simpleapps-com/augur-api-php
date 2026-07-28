@@ -37,11 +37,18 @@ final class UsersResource
      * POST /users
      *
      * @param array<string, mixed> $data
+     * @param array<string, mixed> $params
      * @return BaseResponse<array<string, mixed>>
      */
-    public function create(array $data = []): BaseResponse
+    public function create(array $data = [], array $params = []): BaseResponse
     {
-        $response = $this->client->post($this->baseUrl, '', $data);
+        $response = $this->client->post(
+            $this->baseUrl,
+            '',
+            $data,
+            [],
+            $params,
+        );
 
         return BaseResponse::fromArray($response, static fn ($data) => $data);
     }

@@ -171,4 +171,25 @@ final class PaytraceResourceTest extends AugurApiTestCase
 
         $this->assertEquals('Customer cancelled', $response->data['reason']);
     }
+
+    /**
+     * These POSTs declare query params in the spec. Body and query travel in
+     * separate slots — previously only the body was reachable.
+     */
+    public function testCreateSaleSendsQueryParams(): void
+    {
+        $this->mockResponse(['approvalCode' => 'SAL789']);
+
+        $this->api->payments->paytrace->createSale(
+            ['note' => 'order 42'],
+            ['amount' => 100, 'testMode' => 'true'],
+        );
+
+        $this->assertRequestMethod('POST');
+        $this->assertRequestPath('/paytrace/sale');
+        $query = $this->getLastRequest()->getUri()->getQuery();
+        $this->assertStringContainsString('amount=100', $query);
+        $this->assertStringContainsString('testMode=true', $query);
+        $this->assertStringContainsString('order 42', (string) $this->getLastRequest()->getBody());
+    }
 }

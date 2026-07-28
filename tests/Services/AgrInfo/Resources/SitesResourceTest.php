@@ -21,4 +21,17 @@ final class SitesResourceTest extends AugurApiTestCase
         $this->assertRequestPath('/sites/validate');
         $this->assertRequestMethod('POST');
     }
+
+    public function testCreateVerifyUser(): void
+    {
+        $this->mockResponse(['verified' => true, 'userId' => 7]);
+
+        $response = $this->api->agrInfo->sites->createVerifyUser([
+            'email' => 'user@example.com',
+        ]);
+
+        $this->assertTrue($response->data['verified']);
+        $this->assertRequestPath('/sites/verify-user');
+        $this->assertRequestMethod('POST');
+    }
 }

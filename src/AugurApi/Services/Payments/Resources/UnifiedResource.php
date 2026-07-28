@@ -73,6 +73,19 @@ final class UnifiedResource
     }
 
     /**
+     * GET /unified/transaction-response
+     *
+     * @param array<string, mixed> $params
+     * @return BaseResponse<array<string, mixed>>
+     */
+    public function listTransactionResponse(array $params = []): BaseResponse
+    {
+        $response = $this->client->get($this->baseUrl, '/transaction-response', $params);
+
+        return BaseResponse::fromArray($response, static fn ($data) => $data);
+    }
+
+    /**
      * GET /unified/transaction-setup
      *
      * @param array<string, mixed> $params

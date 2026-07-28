@@ -95,4 +95,34 @@ final class TransCategoryResourceTest extends AugurApiTestCase
         $this->assertRequestMethod('DELETE');
         $this->assertRequestPath('/trans-category/1');
     }
+
+    /**
+     * The spec declares categoryId as a query param on PUT, so it must reach
+     * the wire alongside the body rather than being folded into it.
+     */
+    public function testUpdateSendsQueryParams(): void
+    {
+        $this->mockResponse(['categoryUid' => 1]);
+
+        $this->api->p21Apis->transCategory->update(1, ['categoryName' => 'x'], ['categoryId' => 'abc']);
+
+        $this->assertRequestMethod('PUT');
+        $this->assertRequestPath('/trans-category/1');
+        $this->assertStringContainsString('categoryId=abc', $this->getLastRequest()->getUri()->getQuery());
+        $this->assertStringContainsString('categoryName', (string) $this->getLastRequest()->getBody());
+    }
+
+    /**
+     * DELETE declares categoryId too, and previously discarded it entirely.
+     */
+    public function testDeleteSendsQueryParams(): void
+    {
+        $this->mockResponse(['success' => true]);
+
+        $this->api->p21Apis->transCategory->delete(1, ['categoryId' => 'abc']);
+
+        $this->assertRequestMethod('DELETE');
+        $this->assertRequestPath('/trans-category/1');
+        $this->assertStringContainsString('categoryId=abc', $this->getLastRequest()->getUri()->getQuery());
+    }
 }

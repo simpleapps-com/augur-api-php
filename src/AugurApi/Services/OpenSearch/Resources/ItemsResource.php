@@ -41,12 +41,7 @@ final class ItemsResource
      */
     public function updateRefresh(array $data = []): BaseResponse
     {
-        $response = $this->client->put(
-            $this->baseUrl,
-            '/refresh',
-            $data,
-            [],
-        );
+        $response = $this->client->put($this->baseUrl, '/refresh', $data);
 
         return BaseResponse::fromArray($response, static fn ($data) => $data);
     }

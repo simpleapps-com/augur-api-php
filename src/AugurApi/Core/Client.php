@@ -53,8 +53,13 @@ final class Client
     }
 
     /**
+     * $params is appended last, after $pathParams, so existing positional calls
+     * keep working. The API declares query params on POST/PUT/DELETE as well as
+     * GET, and passing [] unconditionally made them unreachable.
+     *
      * @param array<int|string, mixed> $data Request body (object or list of objects)
      * @param array<string, string> $pathParams Path parameter substitutions
+     * @param array<string, mixed> $params Query parameters
      * @return array<string, mixed>
      */
     public function post(
@@ -62,13 +67,15 @@ final class Client
         string $path,
         array $data = [],
         array $pathParams = [],
+        array $params = [],
     ): array {
-        return $this->request('POST', $baseUrl, $path, [], $data, $pathParams);
+        return $this->request('POST', $baseUrl, $path, $params, $data, $pathParams);
     }
 
     /**
      * @param array<string, mixed> $data Request body
      * @param array<string, string> $pathParams Path parameter substitutions
+     * @param array<string, mixed> $params Query parameters
      * @return array<string, mixed>
      */
     public function put(
@@ -76,20 +83,23 @@ final class Client
         string $path,
         array $data = [],
         array $pathParams = [],
+        array $params = [],
     ): array {
-        return $this->request('PUT', $baseUrl, $path, [], $data, $pathParams);
+        return $this->request('PUT', $baseUrl, $path, $params, $data, $pathParams);
     }
 
     /**
      * @param array<string, string> $pathParams Path parameter substitutions
+     * @param array<string, mixed> $params Query parameters
      * @return array<string, mixed>
      */
     public function delete(
         string $baseUrl,
         string $path,
         array $pathParams = [],
+        array $params = [],
     ): array {
-        return $this->request('DELETE', $baseUrl, $path, [], null, $pathParams);
+        return $this->request('DELETE', $baseUrl, $path, $params, null, $pathParams);
     }
 
     /**

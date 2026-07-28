@@ -2,17 +2,17 @@
 
 declare(strict_types=1);
 
-namespace AugurApi\Services\Items\Resources;
+namespace AugurApi\Services\OpenSearch\Resources;
 
 use AugurApi\Core\BaseResponse;
 use AugurApi\Core\Client;
 
 /**
- * invLoc resource — generated from spec.
+ * itemSearchFacets resource — generated from spec.
  *
- * DO NOT EDIT — regenerate with: python shared/scripts/generate-php.py items
+ * DO NOT EDIT — regenerate with: python shared/scripts/generate-php.py open-search
  */
-final class InvLocResource
+final class ItemSearchFacetsResource
 {
     public function __construct(
         private readonly Client $client,
@@ -21,10 +21,7 @@ final class InvLocResource
     }
 
     /**
-     * GET /inv-loc
-     *
-     * Response data type: array
-     * Known fields: companyId, locationId, invMastUid, qtyOnHand, qtyInProcess, dateCreated, dateLastModified, nextDueInPoDate, ... (54 total)
+     * GET /item-search-facets
      *
      * @param array<string, mixed> $params
      * @return BaseResponse<array<string, mixed>>

@@ -36,14 +36,16 @@ final class TransCompanyResource
     /**
      * DELETE /trans-company/{companyUid}
      *
+     * @param array<string, mixed> $params
      * @return BaseResponse<array<string, mixed>>
      */
-    public function delete(int $companyUid): BaseResponse
+    public function delete(int $companyUid, array $params = []): BaseResponse
     {
         $response = $this->client->delete(
             $this->baseUrl,
             '/{companyUid}',
             ['companyUid' => (string) $companyUid],
+            $params,
         );
 
         return BaseResponse::fromArray($response, static fn ($data) => $data);
@@ -71,15 +73,17 @@ final class TransCompanyResource
      * PUT /trans-company/{companyUid}
      *
      * @param array<string, mixed> $data
+     * @param array<string, mixed> $params
      * @return BaseResponse<array<string, mixed>>
      */
-    public function update(int $companyUid, array $data = []): BaseResponse
+    public function update(int $companyUid, array $data = [], array $params = []): BaseResponse
     {
         $response = $this->client->put(
             $this->baseUrl,
             '/{companyUid}',
             $data,
             ['companyUid' => (string) $companyUid],
+            $params,
         );
 
         return BaseResponse::fromArray($response, static fn ($data) => $data);

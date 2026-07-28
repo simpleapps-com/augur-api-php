@@ -193,4 +193,22 @@ final class UnifiedResourceTest extends AugurApiTestCase
 
         $this->assertEquals(0, $response->data['surchargeAmount']);
     }
+
+    public function testListTransactionResponse(): void
+    {
+        $this->mockResponse([
+            'transactionId' => 'TXN123',
+            'approved' => true,
+        ]);
+
+        $response = $this->api->payments->unified->listTransactionResponse([
+            'transactionId' => 'TXN123',
+        ]);
+
+        $this->assertTrue($response->data['approved']);
+        $this->assertRequestPath('/unified/transaction-response');
+        $this->assertRequestMethod('GET');
+        $this->assertHasSiteIdHeader();
+        $this->assertHasAuthHeader();
+    }
 }

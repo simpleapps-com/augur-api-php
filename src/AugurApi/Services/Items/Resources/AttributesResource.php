@@ -114,7 +114,7 @@ final class AttributesResource
      * GET /attributes/{attributeUid}/items
      *
      * Response data type: array
-     * Known fields: itemAttributeValueUid, invMastUid, attributeUid, attributeValue, dateCreated, createdBy, dateLastModified, lastMaintainedBy, ... (13 total)
+     * Known fields: itemAttributeValueUid, invMastUid, attributeUid, attributeValue, dateCreated, createdBy, dateLastModified, lastMaintainedBy, ... (16 total)
      *
      * @param array<string, mixed> $params
      * @return BaseResponse<array<string, mixed>>

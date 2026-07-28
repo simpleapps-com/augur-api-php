@@ -279,15 +279,17 @@ final class WarehouseResource
      * POST /warehouse/{warehouseUid}/users
      *
      * @param array<string, mixed> $data
+     * @param array<string, mixed> $params
      * @return BaseResponse<array<string, mixed>>
      */
-    public function createUsers(int $warehouseUid, array $data = []): BaseResponse
+    public function createUsers(int $warehouseUid, array $data = [], array $params = []): BaseResponse
     {
         $response = $this->client->post(
             $this->baseUrl,
             '/{warehouseUid}/users',
             $data,
             ['warehouseUid' => (string) $warehouseUid],
+            $params,
         );
 
         return BaseResponse::fromArray($response, static fn ($data) => $data);

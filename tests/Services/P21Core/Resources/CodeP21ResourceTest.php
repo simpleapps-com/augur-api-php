@@ -71,4 +71,21 @@ final class CodeP21ResourceTest extends AugurApiTestCase
         $data = $response->data;
         $this->assertEquals('High', $data[0]['description']);
     }
+
+    public function testGet(): void
+    {
+        $this->mockResponse([
+            'codeUid' => 9,
+            'codeId' => 'PRIORITY',
+            'description' => 'High',
+        ]);
+
+        $response = $this->api->p21Core->codeP21->get(9);
+
+        $this->assertEquals('High', $response->data['description']);
+        $this->assertRequestPath('/code-p21/9');
+        $this->assertRequestMethod('GET');
+        $this->assertHasSiteIdHeader();
+        $this->assertHasAuthHeader();
+    }
 }
