@@ -129,4 +129,24 @@ final class DistributorsResourceTest extends AugurApiTestCase
         $this->assertRequestMethod('PUT');
         $this->assertRequestPath('/distributors/1/enable');
     }
+
+    public function testCreateProducts(): void
+    {
+        $this->mockResponse([
+            'productsUid' => 7,
+            'distributorsUid' => 1,
+            'productsId' => 'PROD-1',
+            'productsDesc' => 'Widget',
+        ]);
+
+        $response = $this->api->vmi->distributors->createProducts(1, [
+            'productsId' => 'PROD-1',
+            'productsDesc' => 'Widget',
+        ]);
+
+        $this->assertEquals(7, $response->data['productsUid']);
+        $this->assertEquals('PROD-1', $response->data['productsId']);
+        $this->assertRequestMethod('POST');
+        $this->assertRequestPath('/distributors/1/products');
+    }
 }

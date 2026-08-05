@@ -7,6 +7,7 @@ namespace AugurApi\Tests\Services\Payments;
 use AugurApi\Services\Payments\PaymentsClient;
 use AugurApi\Services\Payments\Resources\ElementResource;
 use AugurApi\Services\Payments\Resources\MonerisResource;
+use AugurApi\Services\Payments\Resources\PaypalResource;
 use AugurApi\Services\Payments\Resources\PaytraceResource;
 use AugurApi\Services\Payments\Resources\UnifiedResource;
 use AugurApi\Tests\AugurApiTestCase;
@@ -56,6 +57,11 @@ final class PaymentsClientTest extends AugurApiTestCase
     public function testMonerisResourceAccess(): void
     {
         $this->assertInstanceOf(MonerisResource::class, $this->api->payments->moneris);
+    }
+
+    public function testPaypalResourceAccess(): void
+    {
+        $this->assertInstanceOf(PaypalResource::class, $this->api->payments->paypal);
     }
 
     public function testPaytraceResourceAccess(): void

@@ -107,4 +107,17 @@ final class ItemCategoryResourceTest extends AugurApiTestCase
         $this->assertRequestMethod('GET');
         $this->assertRequestPath('/item-category/1/doc');
     }
+
+    public function testGetDocAlias(): void
+    {
+        $this->mockListResponse([
+            ['docUid' => 1, 'docType' => 'pdf', 'name' => 'Spec Sheet'],
+        ]);
+
+        $response = $this->api->items->itemCategory->getDoc(1);
+
+        $this->assertCount(1, $response->data);
+        $this->assertRequestMethod('GET');
+        $this->assertRequestPath('/item-category/1/doc');
+    }
 }

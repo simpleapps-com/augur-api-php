@@ -8,6 +8,7 @@ use AugurApi\Core\Client;
 use AugurApi\Core\Config;
 use AugurApi\Core\Exceptions\AugurApiException;
 use AugurApi\Core\Exceptions\AuthenticationException;
+use AugurApi\Core\Exceptions\InvalidArgumentException;
 use AugurApi\Core\Exceptions\RateLimitException;
 use AugurApi\Core\Exceptions\ValidationException;
 use Http\Mock\Client as MockClient;
@@ -488,5 +489,101 @@ final class ClientTest extends TestCase
 
         $request = $this->mockClient->getLastRequest();
         $this->assertEquals('', $request->getHeaderLine('Authorization'));
+    }
+
+    public function testPathParamExactMatch(): void
+    {
+        $this->addResponse(['data' => 'ok']);
+
+        $this->client->get('https://api.example.com', '/items/{itemId}', [], ['itemId' => '42']);
+
+        $request = $this->mockClient->getLastRequest();
+        $this->assertEquals('https://api.example.com/items/42', (string) $request->getUri());
+    }
+
+    public function testPathParamUrlEncodesValue(): void
+    {
+        $this->addResponse(['data' => 'ok']);
+
+        // itemCode is string-typed (no Id/Uid/No suffix), so slashes and spaces
+        // must be percent-encoded rather than rejected.
+        $this->client->get(
+            'https://api.example.com',
+            '/items/{itemCode}',
+            [],
+            ['itemCode' => 'A B/C'],
+        );
+
+        $request = $this->mockClient->getLastRequest();
+        $this->assertEquals('https://api.example.com/items/A+B%2FC', (string) $request->getUri());
+    }
+
+    public function testPathParamMatchesKebabPlaceholderFromCamelCaseKey(): void
+    {
+        $this->addResponse(['data' => 'ok']);
+
+        // Key "salesRepId" must resolve placeholder "{salesrep-id}" via the
+        // normalisation fallback (hyphens/underscores stripped, case-folded).
+        $this->client->get(
+            'https://api.example.com',
+            '/oe-hdr-salesrep/{salesrep-id}/oe-hdr',
+            [],
+            ['salesRepId' => '77'],
+        );
+
+        $request = $this->mockClient->getLastRequest();
+        $this->assertEquals(
+            'https://api.example.com/oe-hdr-salesrep/77/oe-hdr',
+            (string) $request->getUri(),
+        );
+    }
+
+    public function testPathParamMatchesSnakePlaceholderFromCamelCaseKey(): void
+    {
+        $this->addResponse(['data' => 'ok']);
+
+        $this->client->get(
+            'https://api.example.com',
+            '/reports/{report_id}/lines',
+            [],
+            ['reportId' => '9'],
+        );
+
+        $request = $this->mockClient->getLastRequest();
+        $this->assertEquals('https://api.example.com/reports/9/lines', (string) $request->getUri());
+    }
+
+    public function testPathParamFallbackLeavesUnrelatedPlaceholdersIntact(): void
+    {
+        $this->addResponse(['data' => 'ok']);
+
+        // Only {salesrep-id} matches; {orderNo} is substituted by its own exact-match key.
+        $this->client->get(
+            'https://api.example.com',
+            '/oe-hdr-salesrep/{salesrep-id}/oe-hdr/{orderNo}',
+            [],
+            ['salesRepId' => '77', 'orderNo' => '1001'],
+        );
+
+        $request = $this->mockClient->getLastRequest();
+        $this->assertEquals(
+            'https://api.example.com/oe-hdr-salesrep/77/oe-hdr/1001',
+            (string) $request->getUri(),
+        );
+    }
+
+    public function testPathParamFallbackValidatesViaTheMatchedPlaceholder(): void
+    {
+        // The fallback branch resolves {report_id} from key "reportId", then runs
+        // PathValidator against the *placeholder* name — report_id is numeric, so a
+        // non-integer value must be rejected rather than interpolated.
+        $this->expectException(InvalidArgumentException::class);
+
+        $this->client->get(
+            'https://api.example.com',
+            '/reports/{report_id}/lines',
+            [],
+            ['reportId' => 'abc'],
+        );
     }
 }

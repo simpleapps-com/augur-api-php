@@ -93,6 +93,24 @@ final class ImportResourceTest extends AugurApiTestCase
         $this->assertRequestPath('/import/IMP001');
     }
 
+    public function testListDailySummary(): void
+    {
+        $this->mockResponse([
+            'date' => '2024-01-15',
+            'total' => 42,
+            'initial' => 5,
+            'processing' => 3,
+            'validate' => 34,
+        ]);
+
+        $response = $this->api->p21Sism->import->listDailySummary(['date' => '2024-01-15']);
+
+        $this->assertEquals('2024-01-15', $response->data['date']);
+        $this->assertEquals(42, $response->data['total']);
+        $this->assertRequestMethod('GET');
+        $this->assertRequestPath('/import/daily-summary');
+    }
+
     public function testListRecent(): void
     {
         $this->mockListResponse([

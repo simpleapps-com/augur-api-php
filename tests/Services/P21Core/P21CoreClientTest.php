@@ -9,6 +9,7 @@ use AugurApi\Services\P21Core\Resources\AddressResource;
 use AugurApi\Services\P21Core\Resources\CashDrawerResource;
 use AugurApi\Services\P21Core\Resources\CodeP21Resource;
 use AugurApi\Services\P21Core\Resources\CompanyResource;
+use AugurApi\Services\P21Core\Resources\FreightCodeResource;
 use AugurApi\Services\P21Core\Resources\LocationResource;
 use AugurApi\Services\P21Core\Resources\PaymentTypesResource;
 use AugurApi\Tests\AugurApiTestCase;
@@ -78,6 +79,11 @@ final class P21CoreClientTest extends AugurApiTestCase
     public function testCompanyResourceAccess(): void
     {
         $this->assertInstanceOf(CompanyResource::class, $this->api->p21Core->company);
+    }
+
+    public function testFreightCodeResourceAccess(): void
+    {
+        $this->assertInstanceOf(FreightCodeResource::class, $this->api->p21Core->freightCode);
     }
 
     public function testLocationResourceAccess(): void

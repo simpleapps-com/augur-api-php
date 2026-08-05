@@ -284,6 +284,19 @@ final class CustomerResourceTest extends AugurApiTestCase
         $this->assertRequestMethod('POST');
     }
 
+    public function testListShipToFreightCodes(): void
+    {
+        $this->mockListResponse([
+            ['freightCodeUid' => 1, 'freightCd' => 'UPS', 'freightDesc' => 'UPS Ground'],
+        ]);
+
+        $response = $this->api->customers->customer->listShipToFreightCodes(1001, 2002);
+
+        $this->assertCount(1, $response->data);
+        $this->assertRequestPath('/customer/1001/ship-to/2002/freight-codes');
+        $this->assertRequestMethod('GET');
+    }
+
     public function testListTags(): void
     {
         $this->mockListResponse([

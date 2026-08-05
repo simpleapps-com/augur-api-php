@@ -25,11 +25,12 @@
     "nyholm/psr7": "^1.5"
   },
   "require-dev": {
-    "guzzlehttp/guzzle": "^7.0",
-    "phpunit/phpunit": "^10.0 || ^11.0",
     "friendsofphp/php-cs-fixer": "^3.0",
+    "guzzlehttp/guzzle": "^7.0",
+    "php-http/mock-client": "^1.5",
     "phpstan/phpstan": "^1.0",
-    "php-http/mock-client": "^1.5"
+    "phpunit/phpunit": "^10.0 || ^11.0",
+    "shipmonk/dead-code-detector": "^0.5.1"
   },
   "suggest": {
     "guzzlehttp/guzzle": "Default HTTP client implementation"
@@ -46,14 +47,18 @@
   },
   "scripts": {
     "test": "phpunit",
-    "test:coverage": "phpunit --coverage-text --coverage-html coverage",
+    "test:coverage": "phpunit --coverage-text --coverage-html coverage --coverage-clover coverage/clover.xml",
+    "coverage:check": [
+      "@test:coverage",
+      "php bin/coverage-check.php coverage/clover.xml 100"
+    ],
     "cs-check": "php-cs-fixer fix --dry-run --diff",
     "cs-fix": "php-cs-fixer fix",
-    "analyse": "phpstan analyse src tests --level=8 --memory-limit=512M",
+    "analyse": "phpstan analyse --memory-limit=512M",
     "check": [
       "@cs-check",
       "@analyse",
-      "@test"
+      "@coverage:check"
     ]
   },
   "config": {

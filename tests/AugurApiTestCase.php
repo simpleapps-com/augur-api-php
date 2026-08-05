@@ -70,29 +70,6 @@ abstract class AugurApiTestCase extends TestCase
     }
 
     /**
-     * Add an error response to the mock client.
-     *
-     * @param string $message Error message
-     * @param int $status HTTP status code
-     * @param array<string, mixed> $errors Validation errors
-     */
-    protected function mockErrorResponse(string $message, int $status = 400, array $errors = []): void
-    {
-        $body = [
-            'message' => $message,
-            'status' => $status,
-        ];
-
-        if (!empty($errors)) {
-            $body['errors'] = $errors;
-        }
-
-        $this->mockClient->addResponse(
-            new Response($status, ['Content-Type' => 'application/json'], (string) json_encode($body)),
-        );
-    }
-
-    /**
      * Add a simple success response (for delete, enable, etc.).
      */
     protected function mockSuccessResponse(): void

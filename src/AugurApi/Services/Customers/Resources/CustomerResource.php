@@ -431,6 +431,24 @@ final class CustomerResource
     }
 
     /**
+     * GET /customer/{customerId}/ship-to/{shipToId}/freight-codes
+     *
+     * @param array<string, mixed> $params
+     * @return BaseResponse<array<string, mixed>>
+     */
+    public function listShipToFreightCodes(int $customerId, int $shipToId, array $params = []): BaseResponse
+    {
+        $response = $this->client->get(
+            $this->baseUrl,
+            '/{customerId}/ship-to/{shipToId}/freight-codes',
+            $params,
+            ['customerId' => (string) $customerId, 'shipToId' => (string) $shipToId],
+        );
+
+        return BaseResponse::fromArray($response, static fn ($data) => $data);
+    }
+
+    /**
      * GET /customer/{customerId}/tags
      *
      * Response data type: array

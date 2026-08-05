@@ -66,4 +66,60 @@ final class RolesResourceTest extends AugurApiTestCase
         $this->assertRequestPath('/roles/1');
         $this->assertRequestMethod('DELETE');
     }
+
+    public function testListBundles(): void
+    {
+        $this->mockListResponse([
+            ['rolesXBundlesUid' => 5, 'rolesUid' => 1, 'bundlesUid' => 9],
+        ]);
+
+        $response = $this->api->agrInt->roles->listBundles(1);
+
+        $this->assertCount(1, $response->data);
+        $this->assertRequestPath('/roles/1/bundles');
+        $this->assertRequestMethod('GET');
+    }
+
+    public function testCreateBundles(): void
+    {
+        $this->mockResponse(['rolesXBundlesUid' => 5, 'rolesUid' => 1, 'bundlesUid' => 9]);
+
+        $response = $this->api->agrInt->roles->createBundles(1, ['bundlesUid' => 9]);
+
+        $this->assertEquals(9, $response->data['bundlesUid']);
+        $this->assertRequestPath('/roles/1/bundles');
+        $this->assertRequestMethod('POST');
+    }
+
+    public function testGetBundles(): void
+    {
+        $this->mockResponse(['rolesXBundlesUid' => 5, 'rolesUid' => 1, 'bundlesUid' => 9]);
+
+        $response = $this->api->agrInt->roles->getBundles(1, 5);
+
+        $this->assertEquals(5, $response->data['rolesXBundlesUid']);
+        $this->assertRequestPath('/roles/1/bundles/5');
+        $this->assertRequestMethod('GET');
+    }
+
+    public function testUpdateBundles(): void
+    {
+        $this->mockResponse(['rolesXBundlesUid' => 5, 'readCd' => 1]);
+
+        $response = $this->api->agrInt->roles->updateBundles(1, 5, ['readCd' => 1]);
+
+        $this->assertEquals(1, $response->data['readCd']);
+        $this->assertRequestPath('/roles/1/bundles/5');
+        $this->assertRequestMethod('PUT');
+    }
+
+    public function testDeleteBundles(): void
+    {
+        $this->mockResponse(['success' => true]);
+
+        $this->api->agrInt->roles->deleteBundles(1, 5);
+
+        $this->assertRequestPath('/roles/1/bundles/5');
+        $this->assertRequestMethod('DELETE');
+    }
 }

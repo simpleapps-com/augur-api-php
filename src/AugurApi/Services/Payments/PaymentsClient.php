@@ -9,6 +9,7 @@ use AugurApi\Core\Client;
 use AugurApi\Core\Config;
 use AugurApi\Services\Payments\Resources\ElementResource;
 use AugurApi\Services\Payments\Resources\MonerisResource;
+use AugurApi\Services\Payments\Resources\PaypalResource;
 use AugurApi\Services\Payments\Resources\PaytraceResource;
 use AugurApi\Services\Payments\Resources\UnifiedResource;
 
@@ -21,6 +22,7 @@ final class PaymentsClient extends BaseServiceClient
 {
     public readonly ElementResource $element;
     public readonly MonerisResource $moneris;
+    public readonly PaypalResource $paypal;
     public readonly PaytraceResource $paytrace;
     public readonly UnifiedResource $unified;
 
@@ -29,6 +31,7 @@ final class PaymentsClient extends BaseServiceClient
         parent::__construct($client, $config);
         $this->element = new ElementResource($client, $this->baseUrl . '/element');
         $this->moneris = new MonerisResource($client, $this->baseUrl . '/moneris');
+        $this->paypal = new PaypalResource($client, $this->baseUrl . '/paypal');
         $this->paytrace = new PaytraceResource($client, $this->baseUrl . '/paytrace');
         $this->unified = new UnifiedResource($client, $this->baseUrl . '/unified');
     }
