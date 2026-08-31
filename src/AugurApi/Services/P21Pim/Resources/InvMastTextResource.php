@@ -8,11 +8,11 @@ use AugurApi\Core\BaseResponse;
 use AugurApi\Core\Client;
 
 /**
- * invMastExt resource — generated from spec.
+ * invMastText resource — generated from spec.
  *
  * DO NOT EDIT — regenerate with: python shared/scripts/generate-php.py p21-pim
  */
-final class InvMastExtResource
+final class InvMastTextResource
 {
     public function __construct(
         private readonly Client $client,
@@ -21,10 +21,10 @@ final class InvMastExtResource
     }
 
     /**
-     * GET /inv-mast-ext
+     * GET /inv-mast-text
      *
      * Response data type: array
-     * Known fields: invMastExtUid, invMastUid, dateCreated, dateLastModified, updateCd, statusCd, processCd, upcOrEan, ... (18 total)
+     * Known fields: invMastTextUid, invMastUid, sequenceNo, textValue, displayOnWebFlag, webDisplayTypeUid, textTypeCd, dateCreated, ... (12 total)
      *
      * @param array<string, mixed> $params
      * @return BaseResponse<array<string, mixed>>
@@ -37,10 +37,10 @@ final class InvMastExtResource
     }
 
     /**
-     * POST /inv-mast-ext
+     * POST /inv-mast-text
      *
      * Response data type: object
-     * Known fields: invMastExtUid, invMastUid, dateCreated, dateLastModified, updateCd, statusCd, processCd, upcOrEan, ... (18 total)
+     * Known fields: invMastTextUid, invMastUid, sequenceNo, textValue, displayOnWebFlag, webDisplayTypeUid, textTypeCd, dateCreated, ... (12 total)
      *
      * @param array<string, mixed> $data
      * @return BaseResponse<array<string, mixed>>
@@ -53,58 +53,58 @@ final class InvMastExtResource
     }
 
     /**
-     * DELETE /inv-mast-ext/{invMastExtUid}
+     * DELETE /inv-mast-text/{invMastTextUid}
      *
      * @return BaseResponse<array<string, mixed>>
      */
-    public function delete(int $invMastExtUid): BaseResponse
+    public function delete(int $invMastTextUid): BaseResponse
     {
         $response = $this->client->delete(
             $this->baseUrl,
-            '/{invMastExtUid}',
-            ['invMastExtUid' => (string) $invMastExtUid],
+            '/{invMastTextUid}',
+            ['invMastTextUid' => (string) $invMastTextUid],
         );
 
         return BaseResponse::fromArray($response, static fn ($data) => $data);
     }
 
     /**
-     * GET /inv-mast-ext/{invMastExtUid}
+     * GET /inv-mast-text/{invMastTextUid}
      *
      * Response data type: object
-     * Known fields: invMastExtUid, invMastUid, dateCreated, dateLastModified, updateCd, statusCd, processCd, upcOrEan, ... (18 total)
+     * Known fields: invMastTextUid, invMastUid, sequenceNo, textValue, displayOnWebFlag, webDisplayTypeUid, textTypeCd, dateCreated, ... (12 total)
      *
      * @param array<string, mixed> $params
      * @return BaseResponse<array<string, mixed>>
      */
-    public function get(int $invMastExtUid, array $params = []): BaseResponse
+    public function get(int $invMastTextUid, array $params = []): BaseResponse
     {
         $response = $this->client->get(
             $this->baseUrl,
-            '/{invMastExtUid}',
+            '/{invMastTextUid}',
             $params,
-            ['invMastExtUid' => (string) $invMastExtUid],
+            ['invMastTextUid' => (string) $invMastTextUid],
         );
 
         return BaseResponse::fromArray($response, static fn ($data) => $data);
     }
 
     /**
-     * PUT /inv-mast-ext/{invMastExtUid}
+     * PUT /inv-mast-text/{invMastTextUid}
      *
      * Response data type: object
-     * Known fields: invMastExtUid, invMastUid, dateCreated, dateLastModified, updateCd, statusCd, processCd, upcOrEan, ... (18 total)
+     * Known fields: invMastTextUid, invMastUid, sequenceNo, textValue, displayOnWebFlag, webDisplayTypeUid, textTypeCd, dateCreated, ... (12 total)
      *
      * @param array<string, mixed> $data
      * @return BaseResponse<array<string, mixed>>
      */
-    public function update(int $invMastExtUid, array $data = []): BaseResponse
+    public function update(int $invMastTextUid, array $data = []): BaseResponse
     {
         $response = $this->client->put(
             $this->baseUrl,
-            '/{invMastExtUid}',
+            '/{invMastTextUid}',
             $data,
-            ['invMastExtUid' => (string) $invMastExtUid],
+            ['invMastTextUid' => (string) $invMastTextUid],
         );
 
         return BaseResponse::fromArray($response, static fn ($data) => $data);

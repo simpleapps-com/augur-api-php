@@ -8,11 +8,11 @@ use AugurApi\Core\BaseResponse;
 use AugurApi\Core\Client;
 
 /**
- * invMastExt resource — generated from spec.
+ * invMastFiles resource — generated from spec.
  *
  * DO NOT EDIT — regenerate with: python shared/scripts/generate-php.py p21-pim
  */
-final class InvMastExtResource
+final class InvMastFilesResource
 {
     public function __construct(
         private readonly Client $client,
@@ -21,10 +21,10 @@ final class InvMastExtResource
     }
 
     /**
-     * GET /inv-mast-ext
+     * GET /inv-mast-files
      *
      * Response data type: array
-     * Known fields: invMastExtUid, invMastUid, dateCreated, dateLastModified, updateCd, statusCd, processCd, upcOrEan, ... (18 total)
+     * Known fields: invMastFilesUid, invMastUid, fileName, filePath, linkArea, rowStatusFlag, sequenceNo, dateCreated, ... (13 total)
      *
      * @param array<string, mixed> $params
      * @return BaseResponse<array<string, mixed>>
@@ -37,10 +37,10 @@ final class InvMastExtResource
     }
 
     /**
-     * POST /inv-mast-ext
+     * POST /inv-mast-files
      *
      * Response data type: object
-     * Known fields: invMastExtUid, invMastUid, dateCreated, dateLastModified, updateCd, statusCd, processCd, upcOrEan, ... (18 total)
+     * Known fields: invMastFilesUid, invMastUid, fileName, filePath, linkArea, rowStatusFlag, sequenceNo, dateCreated, ... (13 total)
      *
      * @param array<string, mixed> $data
      * @return BaseResponse<array<string, mixed>>
@@ -53,58 +53,58 @@ final class InvMastExtResource
     }
 
     /**
-     * DELETE /inv-mast-ext/{invMastExtUid}
+     * DELETE /inv-mast-files/{invMastFilesUid}
      *
      * @return BaseResponse<array<string, mixed>>
      */
-    public function delete(int $invMastExtUid): BaseResponse
+    public function delete(int $invMastFilesUid): BaseResponse
     {
         $response = $this->client->delete(
             $this->baseUrl,
-            '/{invMastExtUid}',
-            ['invMastExtUid' => (string) $invMastExtUid],
+            '/{invMastFilesUid}',
+            ['invMastFilesUid' => (string) $invMastFilesUid],
         );
 
         return BaseResponse::fromArray($response, static fn ($data) => $data);
     }
 
     /**
-     * GET /inv-mast-ext/{invMastExtUid}
+     * GET /inv-mast-files/{invMastFilesUid}
      *
      * Response data type: object
-     * Known fields: invMastExtUid, invMastUid, dateCreated, dateLastModified, updateCd, statusCd, processCd, upcOrEan, ... (18 total)
+     * Known fields: invMastFilesUid, invMastUid, fileName, filePath, linkArea, rowStatusFlag, sequenceNo, dateCreated, ... (13 total)
      *
      * @param array<string, mixed> $params
      * @return BaseResponse<array<string, mixed>>
      */
-    public function get(int $invMastExtUid, array $params = []): BaseResponse
+    public function get(int $invMastFilesUid, array $params = []): BaseResponse
     {
         $response = $this->client->get(
             $this->baseUrl,
-            '/{invMastExtUid}',
+            '/{invMastFilesUid}',
             $params,
-            ['invMastExtUid' => (string) $invMastExtUid],
+            ['invMastFilesUid' => (string) $invMastFilesUid],
         );
 
         return BaseResponse::fromArray($response, static fn ($data) => $data);
     }
 
     /**
-     * PUT /inv-mast-ext/{invMastExtUid}
+     * PUT /inv-mast-files/{invMastFilesUid}
      *
      * Response data type: object
-     * Known fields: invMastExtUid, invMastUid, dateCreated, dateLastModified, updateCd, statusCd, processCd, upcOrEan, ... (18 total)
+     * Known fields: invMastFilesUid, invMastUid, fileName, filePath, linkArea, rowStatusFlag, sequenceNo, dateCreated, ... (13 total)
      *
      * @param array<string, mixed> $data
      * @return BaseResponse<array<string, mixed>>
      */
-    public function update(int $invMastExtUid, array $data = []): BaseResponse
+    public function update(int $invMastFilesUid, array $data = []): BaseResponse
     {
         $response = $this->client->put(
             $this->baseUrl,
-            '/{invMastExtUid}',
+            '/{invMastFilesUid}',
             $data,
-            ['invMastExtUid' => (string) $invMastExtUid],
+            ['invMastFilesUid' => (string) $invMastFilesUid],
         );
 
         return BaseResponse::fromArray($response, static fn ($data) => $data);

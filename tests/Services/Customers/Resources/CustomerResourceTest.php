@@ -88,6 +88,45 @@ final class CustomerResourceTest extends AugurApiTestCase
         $this->assertRequestMethod('GET');
     }
 
+    public function testListAging(): void
+    {
+        $this->mockResponse([
+            'customerId' => 1001,
+            'asOf' => '2026-08-31',
+            'totalBalance' => 1250.75,
+        ]);
+
+        $response = $this->api->customers->customer->listAging(1001, ['asOf' => '2026-08-31']);
+
+        $this->assertEquals(200, $response->status);
+        $this->assertEquals(1250.75, $response->data['totalBalance']);
+        $this->assertRequestPath('/customer/1001/aging');
+        $this->assertRequestMethod('GET');
+        $this->assertHasAuthHeader();
+    }
+
+    public function testListSalesUsage(): void
+    {
+        $this->mockResponse([
+            'customerId' => 1001,
+            'invoicedFrom' => '2026-01-01',
+            'invoicedTo' => '2026-08-31',
+            'totalBy' => 'month',
+            'invoiceCount' => 12,
+        ]);
+
+        $response = $this->api->customers->customer->listSalesUsage(1001, [
+            'invoicedFrom' => '2026-01-01',
+            'invoicedTo' => '2026-08-31',
+            'totalBy' => 'month',
+        ]);
+
+        $this->assertEquals(200, $response->status);
+        $this->assertEquals(12, $response->data['invoiceCount']);
+        $this->assertRequestPath('/customer/1001/sales-usage');
+        $this->assertRequestMethod('GET');
+    }
+
     public function testCreateContacts(): void
     {
         $this->mockResponse([

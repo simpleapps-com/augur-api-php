@@ -168,6 +168,27 @@ final class CustomerResource
     }
 
     /**
+     * GET /customer/{customerId}/aging
+     *
+     * Response data type: object
+     * Known fields: customerId, asOf, bucketKeys, invoiceCount, totalBalance, totals, data
+     *
+     * @param array<string, mixed> $params
+     * @return BaseResponse<array<string, mixed>>
+     */
+    public function listAging(int $customerId, array $params = []): BaseResponse
+    {
+        $response = $this->client->get(
+            $this->baseUrl,
+            '/{customerId}/aging',
+            $params,
+            ['customerId' => (string) $customerId],
+        );
+
+        return BaseResponse::fromArray($response, static fn ($data) => $data);
+    }
+
+    /**
      * GET /customer/{customerId}/contacts
      *
      * @param array<string, mixed> $params
@@ -389,6 +410,27 @@ final class CustomerResource
             '/{customerId}/rmas/{rmaNo}',
             $params,
             ['customerId' => (string) $customerId, 'rmaNo' => (string) $rmaNo],
+        );
+
+        return BaseResponse::fromArray($response, static fn ($data) => $data);
+    }
+
+    /**
+     * GET /customer/{customerId}/sales-usage
+     *
+     * Response data type: object
+     * Known fields: customerId, invoicedFrom, invoicedTo, totalBy, bucketKeys, invoiceCount, linesFolded, itemCount, ... (9 total)
+     *
+     * @param array<string, mixed> $params
+     * @return BaseResponse<array<string, mixed>>
+     */
+    public function listSalesUsage(int $customerId, array $params = []): BaseResponse
+    {
+        $response = $this->client->get(
+            $this->baseUrl,
+            '/{customerId}/sales-usage',
+            $params,
+            ['customerId' => (string) $customerId],
         );
 
         return BaseResponse::fromArray($response, static fn ($data) => $data);

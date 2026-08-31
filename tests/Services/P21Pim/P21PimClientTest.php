@@ -6,6 +6,8 @@ namespace AugurApi\Tests\Services\P21Pim;
 
 use AugurApi\Services\P21Pim\P21PimClient;
 use AugurApi\Services\P21Pim\Resources\InvMastExtResource;
+use AugurApi\Services\P21Pim\Resources\InvMastFilesResource;
+use AugurApi\Services\P21Pim\Resources\InvMastTextResource;
 use AugurApi\Services\P21Pim\Resources\ItemsResource;
 use AugurApi\Services\P21Pim\Resources\PodcastsResource;
 use AugurApi\Tests\AugurApiTestCase;
@@ -60,6 +62,16 @@ final class P21PimClientTest extends AugurApiTestCase
     public function testInvMastExtResourceAccess(): void
     {
         $this->assertInstanceOf(InvMastExtResource::class, $this->api->p21Pim->invMastExt);
+    }
+
+    public function testInvMastFilesResourceAccess(): void
+    {
+        $this->assertInstanceOf(InvMastFilesResource::class, $this->api->p21Pim->invMastFiles);
+    }
+
+    public function testInvMastTextResourceAccess(): void
+    {
+        $this->assertInstanceOf(InvMastTextResource::class, $this->api->p21Pim->invMastText);
     }
 
     public function testItemsResourceAccess(): void

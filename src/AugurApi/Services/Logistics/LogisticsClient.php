@@ -9,6 +9,7 @@ use AugurApi\Core\Client;
 use AugurApi\Core\Config;
 use AugurApi\Services\Logistics\Resources\FedexResource;
 use AugurApi\Services\Logistics\Resources\RtsResource;
+use AugurApi\Services\Logistics\Resources\ShippingMethodsResource;
 use AugurApi\Services\Logistics\Resources\ShipviaResource;
 use AugurApi\Services\Logistics\Resources\SpeedshipResource;
 use AugurApi\Services\Logistics\Resources\UpsResource;
@@ -22,6 +23,7 @@ final class LogisticsClient extends BaseServiceClient
 {
     public readonly FedexResource $fedex;
     public readonly RtsResource $rts;
+    public readonly ShippingMethodsResource $shippingMethods;
     public readonly ShipviaResource $shipvia;
     public readonly SpeedshipResource $speedship;
     public readonly UpsResource $ups;
@@ -31,6 +33,7 @@ final class LogisticsClient extends BaseServiceClient
         parent::__construct($client, $config);
         $this->fedex = new FedexResource($client, $this->baseUrl . '/fedex');
         $this->rts = new RtsResource($client, $this->baseUrl . '/rts');
+        $this->shippingMethods = new ShippingMethodsResource($client, $this->baseUrl . '/shipping-methods');
         $this->shipvia = new ShipviaResource($client, $this->baseUrl . '/shipvia');
         $this->speedship = new SpeedshipResource($client, $this->baseUrl . '/speedship');
         $this->ups = new UpsResource($client, $this->baseUrl . '/ups');

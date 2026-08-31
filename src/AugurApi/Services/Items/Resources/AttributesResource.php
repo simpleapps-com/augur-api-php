@@ -24,7 +24,7 @@ final class AttributesResource
      * GET /attributes
      *
      * Response data type: array
-     * Known fields: attributeUid, attributeDesc, extendedDesc, attributeId, dataType, maxLength, noOfDecimal, rowStatusFlag, ... (18 total)
+     * Known fields: attributeUid, attributeDesc, extendedDesc, attributeId, dataType, maxLength, noOfDecimal, rowStatusFlag, ... (21 total)
      *
      * @param array<string, mixed> $params
      * @return BaseResponse<array<string, mixed>>
@@ -72,7 +72,7 @@ final class AttributesResource
      * GET /attributes/{attributeUid}
      *
      * Response data type: object
-     * Known fields: attributeUid, attributeDesc, extendedDesc, attributeId, dataType, maxLength, noOfDecimal, rowStatusFlag, ... (18 total)
+     * Known fields: attributeUid, attributeDesc, extendedDesc, attributeId, dataType, maxLength, noOfDecimal, rowStatusFlag, ... (21 total)
      *
      * @param array<string, mixed> $params
      * @return BaseResponse<array<string, mixed>>
@@ -114,7 +114,7 @@ final class AttributesResource
      * GET /attributes/{attributeUid}/items
      *
      * Response data type: array
-     * Known fields: itemAttributeValueUid, invMastUid, attributeUid, attributeValue, dateCreated, createdBy, dateLastModified, lastMaintainedBy, ... (16 total)
+     * Known fields: itemAttributeValueUid, invMastUid, attributeUid, attributeValue, dateCreated, createdBy, dateLastModified, lastMaintainedBy, ... (17 total)
      *
      * @param array<string, mixed> $params
      * @return BaseResponse<array<string, mixed>>

@@ -8,6 +8,8 @@ use AugurApi\Core\BaseServiceClient;
 use AugurApi\Core\Client;
 use AugurApi\Core\Config;
 use AugurApi\Services\P21Pim\Resources\InvMastExtResource;
+use AugurApi\Services\P21Pim\Resources\InvMastFilesResource;
+use AugurApi\Services\P21Pim\Resources\InvMastTextResource;
 use AugurApi\Services\P21Pim\Resources\ItemsResource;
 use AugurApi\Services\P21Pim\Resources\PodcastsResource;
 
@@ -19,6 +21,8 @@ use AugurApi\Services\P21Pim\Resources\PodcastsResource;
 final class P21PimClient extends BaseServiceClient
 {
     public readonly InvMastExtResource $invMastExt;
+    public readonly InvMastFilesResource $invMastFiles;
+    public readonly InvMastTextResource $invMastText;
     public readonly ItemsResource $items;
     public readonly PodcastsResource $podcasts;
 
@@ -26,6 +30,8 @@ final class P21PimClient extends BaseServiceClient
     {
         parent::__construct($client, $config);
         $this->invMastExt = new InvMastExtResource($client, $this->baseUrl . '/inv-mast-ext');
+        $this->invMastFiles = new InvMastFilesResource($client, $this->baseUrl . '/inv-mast-files');
+        $this->invMastText = new InvMastTextResource($client, $this->baseUrl . '/inv-mast-text');
         $this->items = new ItemsResource($client, $this->baseUrl . '/items');
         $this->podcasts = new PodcastsResource($client, $this->baseUrl . '/podcasts');
     }
