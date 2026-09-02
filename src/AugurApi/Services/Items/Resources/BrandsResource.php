@@ -132,6 +132,24 @@ final class BrandsResource
     }
 
     /**
+     * GET /brands/{brandsUid}/facets
+     *
+     * @param array<string, mixed> $params
+     * @return BaseResponse<array<string, mixed>>
+     */
+    public function listFacets(int $brandsUid, array $params = []): BaseResponse
+    {
+        $response = $this->client->get(
+            $this->baseUrl,
+            '/{brandsUid}/facets',
+            $params,
+            ['brandsUid' => (string) $brandsUid],
+        );
+
+        return BaseResponse::fromArray($response, static fn ($data) => $data);
+    }
+
+    /**
      * GET /brands/{brandsUid}/items
      *
      * @param array<string, mixed> $params

@@ -32,6 +32,39 @@ final class ContractsResourceTest extends AugurApiTestCase
         $this->assertRequestPath('/contracts/12345/attributes');
     }
 
+    public function testListFacets(): void
+    {
+        $this->mockResponse([
+            'facets' => [
+                ['name' => 'Discount Level', 'values' => [['value' => 'A', 'count' => 4]]],
+            ],
+            'items' => [
+                ['invMastUid' => 100, 'itemId' => 'ITEM001'],
+            ],
+        ]);
+
+        $response = $this->api->items->contracts->listFacets(12345);
+
+        $this->assertIsArray($response->data);
+        $this->assertArrayHasKey('facets', $response->data);
+        $this->assertRequestMethod('GET');
+        $this->assertRequestPath('/contracts/12345/facets');
+    }
+
+    public function testListFacetsWithParams(): void
+    {
+        $this->mockResponse([
+            'facets' => [],
+            'items' => [],
+        ]);
+
+        $response = $this->api->items->contracts->listFacets(12345, ['q' => 'pipe', 'size' => 5]);
+
+        $this->assertIsArray($response->data);
+        $this->assertRequestMethod('GET');
+        $this->assertRequestPath('/contracts/12345/facets');
+    }
+
     public function testListItems(): void
     {
         $this->mockListResponse([

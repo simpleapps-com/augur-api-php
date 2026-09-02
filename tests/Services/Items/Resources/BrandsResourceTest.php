@@ -133,6 +133,39 @@ final class BrandsResourceTest extends AugurApiTestCase
         $this->assertRequestPath('/brands/1/attributes');
     }
 
+    public function testListFacets(): void
+    {
+        $this->mockResponse([
+            'facets' => [
+                ['name' => 'Color', 'values' => [['value' => 'Red', 'count' => 3]]],
+            ],
+            'items' => [
+                ['invMastUid' => 100, 'itemId' => 'ITEM-001'],
+            ],
+        ]);
+
+        $response = $this->api->items->brands->listFacets(1);
+
+        $this->assertIsArray($response->data);
+        $this->assertArrayHasKey('facets', $response->data);
+        $this->assertRequestMethod('GET');
+        $this->assertRequestPath('/brands/1/facets');
+    }
+
+    public function testListFacetsWithParams(): void
+    {
+        $this->mockResponse([
+            'facets' => [],
+            'items' => [],
+        ]);
+
+        $response = $this->api->items->brands->listFacets(1, ['q' => 'widget', 'size' => 10]);
+
+        $this->assertIsArray($response->data);
+        $this->assertRequestMethod('GET');
+        $this->assertRequestPath('/brands/1/facets');
+    }
+
     public function testListItems(): void
     {
         $this->mockListResponse([

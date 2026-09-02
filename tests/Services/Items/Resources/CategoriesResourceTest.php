@@ -79,6 +79,39 @@ final class CategoriesResourceTest extends AugurApiTestCase
         $this->assertRequestPath('/categories/1/attributes');
     }
 
+    public function testListFacets(): void
+    {
+        $this->mockResponse([
+            'facets' => [
+                ['name' => 'Voltage', 'values' => [['value' => '120V', 'count' => 7]]],
+            ],
+            'items' => [
+                ['invMastUid' => 100, 'itemId' => 'ITEM001'],
+            ],
+        ]);
+
+        $response = $this->api->items->categories->listFacets(1);
+
+        $this->assertIsArray($response->data);
+        $this->assertArrayHasKey('facets', $response->data);
+        $this->assertRequestMethod('GET');
+        $this->assertRequestPath('/categories/1/facets');
+    }
+
+    public function testListFacetsWithParams(): void
+    {
+        $this->mockResponse([
+            'facets' => [],
+            'items' => [],
+        ]);
+
+        $response = $this->api->items->categories->listFacets(1, ['q' => 'switch', 'size' => 25]);
+
+        $this->assertIsArray($response->data);
+        $this->assertRequestMethod('GET');
+        $this->assertRequestPath('/categories/1/facets');
+    }
+
     public function testListImages(): void
     {
         $this->mockListResponse([

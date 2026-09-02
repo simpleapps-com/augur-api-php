@@ -70,6 +70,24 @@ final class CategoriesResource
     }
 
     /**
+     * GET /categories/{itemCategoryUid}/facets
+     *
+     * @param array<string, mixed> $params
+     * @return BaseResponse<array<string, mixed>>
+     */
+    public function listFacets(int $itemCategoryUid, array $params = []): BaseResponse
+    {
+        $response = $this->client->get(
+            $this->baseUrl,
+            '/{itemCategoryUid}/facets',
+            $params,
+            ['itemCategoryUid' => (string) $itemCategoryUid],
+        );
+
+        return BaseResponse::fromArray($response, static fn ($data) => $data);
+    }
+
+    /**
      * GET /categories/{itemCategoryUid}/images
      *
      * @param array<string, mixed> $params

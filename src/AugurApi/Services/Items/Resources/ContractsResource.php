@@ -39,6 +39,24 @@ final class ContractsResource
     }
 
     /**
+     * GET /contracts/{jobNo}/facets
+     *
+     * @param array<string, mixed> $params
+     * @return BaseResponse<array<string, mixed>>
+     */
+    public function listFacets(int $jobNo, array $params = []): BaseResponse
+    {
+        $response = $this->client->get(
+            $this->baseUrl,
+            '/{jobNo}/facets',
+            $params,
+            ['jobNo' => (string) $jobNo],
+        );
+
+        return BaseResponse::fromArray($response, static fn ($data) => $data);
+    }
+
+    /**
      * GET /contracts/{jobNo}/items
      *
      * @param array<string, mixed> $params
