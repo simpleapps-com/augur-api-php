@@ -53,11 +53,11 @@ final class RtsResourceTest extends AugurApiTestCase
         $this->assertRequestMethod('GET');
     }
 
-    public function testListTrack(): void
+    public function testGetTrack(): void
     {
         $this->mockResponse(['id' => 123, 'status' => 'in_transit']);
 
-        $response = $this->api->logistics->rts->listTrack(123);
+        $response = $this->api->logistics->rts->getTrack(123);
 
         $this->assertEquals(200, $response->status);
         $this->assertRequestPath('/rts/track/123');

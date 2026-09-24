@@ -20,7 +20,6 @@ use AugurApi\Services\Items\ItemsClient;
 use AugurApi\Services\Joomla\JoomlaClient;
 use AugurApi\Services\Legacy\LegacyClient;
 use AugurApi\Services\Logistics\LogisticsClient;
-use AugurApi\Services\Nexus\NexusClient;
 use AugurApi\Services\OpenSearch\OpenSearchClient;
 use AugurApi\Services\Orders\OrdersClient;
 use AugurApi\Services\P21Apis\P21ApisClient;
@@ -200,13 +199,6 @@ final class AugurApiClientTest extends AugurApiTestCase
         $this->assertInstanceOf(LogisticsClient::class, $service);
     }
 
-    public function testNexusServiceAccessible(): void
-    {
-        $service = $this->api->nexus;
-
-        $this->assertInstanceOf(NexusClient::class, $service);
-    }
-
     public function testOpenSearchServiceAccessible(): void
     {
         $service = $this->api->openSearch;
@@ -298,7 +290,7 @@ final class AugurApiClientTest extends AugurApiTestCase
         $this->assertInstanceOf(VmiClient::class, $service);
     }
 
-    public function testAll28ServicesAccessible(): void
+    public function testAll27ServicesAccessible(): void
     {
         $services = [
             'agrInfo' => AgrInfoClient::class,
@@ -315,7 +307,6 @@ final class AugurApiClientTest extends AugurApiTestCase
             'joomla' => JoomlaClient::class,
             'legacy' => LegacyClient::class,
             'logistics' => LogisticsClient::class,
-            'nexus' => NexusClient::class,
             'openSearch' => OpenSearchClient::class,
             'orders' => OrdersClient::class,
             'p21Apis' => P21ApisClient::class,
@@ -331,7 +322,7 @@ final class AugurApiClientTest extends AugurApiTestCase
             'vmi' => VmiClient::class,
         ];
 
-        $this->assertCount(28, $services);
+        $this->assertCount(27, $services);
 
         foreach ($services as $name => $expectedClass) {
             $service = $this->api->$name;

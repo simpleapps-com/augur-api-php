@@ -24,7 +24,7 @@ final class BundlesResource
      * GET /bundles
      *
      * Response data type: array
-     * Known fields: bundlesUid, bundleId, bundleName, description, systemFlag, dateCreated, dateLastModified, updateCd, ... (10 total)
+     * Known fields: bundlesUid, bundleId, bundleName, description, systemFlag, dateCreated, dateLastModified, updateCd, ... (11 total)
      *
      * @param array<string, mixed> $params
      * @return BaseResponse<array<string, mixed>>
@@ -40,7 +40,7 @@ final class BundlesResource
      * POST /bundles
      *
      * Response data type: object
-     * Known fields: bundlesUid, bundleId, bundleName, description, systemFlag, dateCreated, dateLastModified, updateCd, ... (10 total)
+     * Known fields: bundlesUid, bundleId, bundleName, description, systemFlag, dateCreated, dateLastModified, updateCd, ... (11 total)
      *
      * @param array<string, mixed> $data
      * @return BaseResponse<array<string, mixed>>
@@ -56,7 +56,7 @@ final class BundlesResource
      * DELETE /bundles/{bundlesUid}
      *
      * Response data type: object
-     * Known fields: bundlesUid, bundleId, bundleName, description, systemFlag, dateCreated, dateLastModified, updateCd, ... (10 total)
+     * Known fields: bundlesUid, bundleId, bundleName, description, systemFlag, dateCreated, dateLastModified, updateCd, ... (11 total)
      *
      * @return BaseResponse<array<string, mixed>>
      */
@@ -75,7 +75,7 @@ final class BundlesResource
      * GET /bundles/{bundlesUid}
      *
      * Response data type: object
-     * Known fields: bundlesUid, bundleId, bundleName, description, systemFlag, dateCreated, dateLastModified, updateCd, ... (10 total)
+     * Known fields: bundlesUid, bundleId, bundleName, description, systemFlag, dateCreated, dateLastModified, updateCd, ... (11 total)
      *
      * @param array<string, mixed> $params
      * @return BaseResponse<array<string, mixed>>
@@ -96,7 +96,7 @@ final class BundlesResource
      * PUT /bundles/{bundlesUid}
      *
      * Response data type: object
-     * Known fields: bundlesUid, bundleId, bundleName, description, systemFlag, dateCreated, dateLastModified, updateCd, ... (10 total)
+     * Known fields: bundlesUid, bundleId, bundleName, description, systemFlag, dateCreated, dateLastModified, updateCd, ... (11 total)
      *
      * @param array<string, mixed> $data
      * @return BaseResponse<array<string, mixed>>

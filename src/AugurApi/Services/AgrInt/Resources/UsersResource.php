@@ -72,7 +72,7 @@ final class UsersResource
      * POST /users/validate
      *
      * Response data type: object
-     * Known fields: valid, scope, userId, username, email, name
+     * Known fields: valid, scope, userId, username, email, name, roles, bundles, ... (9 total)
      *
      * @param array<string, mixed> $data
      * @return BaseResponse<array<string, mixed>>

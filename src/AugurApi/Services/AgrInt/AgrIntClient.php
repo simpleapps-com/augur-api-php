@@ -8,6 +8,7 @@ use AugurApi\Core\BaseServiceClient;
 use AugurApi\Core\Client;
 use AugurApi\Core\Config;
 use AugurApi\Services\AgrInt\Resources\BundlesResource;
+use AugurApi\Services\AgrInt\Resources\ClientsResource;
 use AugurApi\Services\AgrInt\Resources\ResourcesResource;
 use AugurApi\Services\AgrInt\Resources\RolesResource;
 use AugurApi\Services\AgrInt\Resources\UsersResource;
@@ -20,6 +21,7 @@ use AugurApi\Services\AgrInt\Resources\UsersResource;
 final class AgrIntClient extends BaseServiceClient
 {
     public readonly BundlesResource $bundles;
+    public readonly ClientsResource $clients;
     public readonly ResourcesResource $resources;
     public readonly RolesResource $roles;
     public readonly UsersResource $users;
@@ -28,6 +30,7 @@ final class AgrIntClient extends BaseServiceClient
     {
         parent::__construct($client, $config);
         $this->bundles = new BundlesResource($client, $this->baseUrl . '/bundles');
+        $this->clients = new ClientsResource($client, $this->baseUrl . '/clients');
         $this->resources = new ResourcesResource($client, $this->baseUrl . '/resources');
         $this->roles = new RolesResource($client, $this->baseUrl . '/roles');
         $this->users = new UsersResource($client, $this->baseUrl . '/users');

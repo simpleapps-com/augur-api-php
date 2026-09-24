@@ -20,7 +20,6 @@ use AugurApi\Services\Items\ItemsClient;
 use AugurApi\Services\Joomla\JoomlaClient;
 use AugurApi\Services\Legacy\LegacyClient;
 use AugurApi\Services\Logistics\LogisticsClient;
-use AugurApi\Services\Nexus\NexusClient;
 use AugurApi\Services\OpenSearch\OpenSearchClient;
 use AugurApi\Services\Orders\OrdersClient;
 use AugurApi\Services\P21Apis\P21ApisClient;
@@ -57,7 +56,6 @@ use Psr\Http\Message\StreamFactoryInterface;
  * @property-read JoomlaClient $joomla
  * @property-read LegacyClient $legacy
  * @property-read LogisticsClient $logistics
- * @property-read NexusClient $nexus
  * @property-read OpenSearchClient $openSearch
  * @property-read OrdersClient $orders
  * @property-read P21ApisClient $p21Apis
@@ -135,7 +133,6 @@ final class AugurApiClient
             'joomla' => new JoomlaClient($this->client, $this->config),
             'legacy' => new LegacyClient($this->client, $this->config),
             'logistics' => new LogisticsClient($this->client, $this->config),
-            'nexus' => new NexusClient($this->client, $this->config),
             'openSearch' => new OpenSearchClient($this->client, $this->config),
             'orders' => new OrdersClient($this->client, $this->config),
             'p21Apis' => new P21ApisClient($this->client, $this->config),

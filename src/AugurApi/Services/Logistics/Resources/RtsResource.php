@@ -88,7 +88,7 @@ final class RtsResource
      * @param array<string, mixed> $params
      * @return BaseResponse<array<string, mixed>>
      */
-    public function listTrack(int $trackId, array $params = []): BaseResponse
+    public function getTrack(int $trackId, array $params = []): BaseResponse
     {
         $response = $this->client->get(
             $this->baseUrl,

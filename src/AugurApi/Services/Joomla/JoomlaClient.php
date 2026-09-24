@@ -7,6 +7,7 @@ namespace AugurApi\Services\Joomla;
 use AugurApi\Core\BaseServiceClient;
 use AugurApi\Core\Client;
 use AugurApi\Core\Config;
+use AugurApi\Services\Joomla\Resources\ActionLogsResource;
 use AugurApi\Services\Joomla\Resources\CategoriesResource;
 use AugurApi\Services\Joomla\Resources\ContentResource;
 use AugurApi\Services\Joomla\Resources\MenuResource;
@@ -21,6 +22,7 @@ use AugurApi\Services\Joomla\Resources\UsersResource;
  */
 final class JoomlaClient extends BaseServiceClient
 {
+    public readonly ActionLogsResource $actionLogs;
     public readonly CategoriesResource $categories;
     public readonly ContentResource $content;
     public readonly MenuResource $menu;
@@ -31,6 +33,7 @@ final class JoomlaClient extends BaseServiceClient
     public function __construct(Client $client, Config $config)
     {
         parent::__construct($client, $config);
+        $this->actionLogs = new ActionLogsResource($client, $this->baseUrl . '/action-logs');
         $this->categories = new CategoriesResource($client, $this->baseUrl . '/categories');
         $this->content = new ContentResource($client, $this->baseUrl . '/content');
         $this->menu = new MenuResource($client, $this->baseUrl . '/menu');

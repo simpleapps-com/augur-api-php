@@ -47,7 +47,6 @@ final readonly class Config
             'brandFolder' => 'https://brand-folder.augur-api.com',
             'openSearch' => 'https://open-search.augur-api.com',
             'vmi' => 'https://vmi.augur-api.com',
-            'nexus' => 'https://nexus.augur-api.com',
             'logistics' => 'https://logistics.augur-api.com',
             'shipping' => 'https://shipping.augur-api.com',
             'ups' => 'https://ups.augur-api.com',

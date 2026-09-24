@@ -11,7 +11,6 @@ use AugurApi\Services\AgrInfo\Resources\AkashaResource;
 use AugurApi\Services\AgrInfo\Resources\ContextResource;
 use AugurApi\Services\AgrInfo\Resources\JoomlaResource;
 use AugurApi\Services\AgrInfo\Resources\MicroservicesResource;
-use AugurApi\Services\AgrInfo\Resources\OauthResource;
 use AugurApi\Services\AgrInfo\Resources\OllamaResource;
 use AugurApi\Services\AgrInfo\Resources\RubricsResource;
 use AugurApi\Services\AgrInfo\Resources\SitesResource;
@@ -28,7 +27,6 @@ final class AgrInfoClient extends BaseServiceClient
     public readonly ContextResource $context;
     public readonly JoomlaResource $joomla;
     public readonly MicroservicesResource $microservices;
-    public readonly OauthResource $oauth;
     public readonly OllamaResource $ollama;
     public readonly RubricsResource $rubrics;
     public readonly SitesResource $sites;
@@ -41,7 +39,6 @@ final class AgrInfoClient extends BaseServiceClient
         $this->context = new ContextResource($client, $this->baseUrl . '/context');
         $this->joomla = new JoomlaResource($client, $this->baseUrl . '/joomla');
         $this->microservices = new MicroservicesResource($client, $this->baseUrl . '/microservices');
-        $this->oauth = new OauthResource($client, $this->baseUrl . '/oauth');
         $this->ollama = new OllamaResource($client, $this->baseUrl . '/ollama');
         $this->rubrics = new RubricsResource($client, $this->baseUrl . '/rubrics');
         $this->sites = new SitesResource($client, $this->baseUrl . '/sites');

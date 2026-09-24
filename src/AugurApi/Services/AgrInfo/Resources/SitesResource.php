@@ -32,20 +32,4 @@ final class SitesResource
 
         return BaseResponse::fromArray($response, static fn ($data) => $data);
     }
-
-    /**
-     * POST /sites/verify-user
-     *
-     * Response data type: object
-     * Known fields: grantId, usersId, username, email, name, isAdmin, homeSiteId, sites, ... (12 total)
-     *
-     * @param array<string, mixed> $data
-     * @return BaseResponse<array<string, mixed>>
-     */
-    public function createVerifyUser(array $data = []): BaseResponse
-    {
-        $response = $this->client->post($this->baseUrl, '/verify-user', $data);
-
-        return BaseResponse::fromArray($response, static fn ($data) => $data);
-    }
 }
