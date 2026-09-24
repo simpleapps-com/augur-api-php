@@ -72,7 +72,7 @@ use Psr\Http\Message\StreamFactoryInterface;
  */
 final class AugurApiClient
 {
-    public const string VERSION = '2026.9.3';
+    public const string VERSION = '2026.9.4';
 
     private readonly Config $config;
     private readonly Client $client;
