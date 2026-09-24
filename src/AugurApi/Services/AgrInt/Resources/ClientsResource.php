@@ -91,7 +91,7 @@ final class ClientsResource
      * GET /clients/{clientsUid}
      *
      * Response data type: object
-     * Known fields: clientsUid, clientId, clientSecret, usersUid, keyVersion, clientName, description, issuedById, ... (17 total)
+     * Known fields: clientsUid, clientId, clientSecret, usersUid, keyVersion, clientName, description, issuedById, ... (18 total)
      *
      * @param array<string, mixed> $params
      * @return BaseResponse<array<string, mixed>>
