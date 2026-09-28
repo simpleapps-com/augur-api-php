@@ -199,6 +199,17 @@ final class UsersResourceTest extends AugurApiTestCase
         $this->assertRequestMethod('GET');
     }
 
+    public function testDeleteGroups(): void
+    {
+        $this->mockSuccessResponse();
+
+        $response = $this->api->joomla->users->deleteGroups(1, 3);
+
+        $this->assertTrue($response->data['success']);
+        $this->assertRequestPath('/users/1/groups/3');
+        $this->assertRequestMethod('DELETE');
+    }
+
     public function testListTrinity(): void
     {
         $this->mockResponse([

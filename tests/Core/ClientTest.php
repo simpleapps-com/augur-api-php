@@ -179,7 +179,7 @@ final class ClientTest extends TestCase
         $this->assertEquals('', $request->getHeaderLine('Authorization'));
     }
 
-    public function testPublicEndpointWhoamiNoAuthHeader(): void
+    public function testWhoamiSendsAuthHeader(): void
     {
         $this->addResponse(['data' => ['siteId' => 'TEST123']]);
 
@@ -187,7 +187,7 @@ final class ClientTest extends TestCase
 
         $request = $this->mockClient->getLastRequest();
         $this->assertEquals('TEST123', $request->getHeaderLine('x-site-id'));
-        $this->assertEquals('', $request->getHeaderLine('Authorization'));
+        $this->assertStringStartsWith('Bearer ', $request->getHeaderLine('Authorization'));
     }
 
     public function testProtectedEndpointIncludesAuthHeader(): void

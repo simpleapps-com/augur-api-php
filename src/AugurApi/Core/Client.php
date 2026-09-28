@@ -21,7 +21,7 @@ use Psr\Http\Message\StreamFactoryInterface;
  */
 final class Client
 {
-    private const array PUBLIC_ENDPOINTS = ['/health-check', '/ping', '/whoami'];
+    private const array PUBLIC_ENDPOINTS = ['/health-check', '/ping'];
 
     private ClientInterface $httpClient;
     private RequestFactoryInterface $requestFactory;

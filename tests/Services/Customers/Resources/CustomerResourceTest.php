@@ -307,6 +307,19 @@ final class CustomerResourceTest extends AugurApiTestCase
         $this->assertRequestMethod('GET');
     }
 
+    public function testGetShipToLookup(): void
+    {
+        $this->mockListResponse([
+            ['shipToId' => 1, 'shipToName' => 'Main Warehouse'],
+        ]);
+
+        $response = $this->api->customers->customer->getShipToLookup(1001, ['q' => 'Main']);
+
+        $this->assertCount(1, $response->data);
+        $this->assertRequestPath('/customer/1001/ship-to/lookup');
+        $this->assertRequestMethod('GET');
+    }
+
     public function testCreateShipTo(): void
     {
         $this->mockResponse([

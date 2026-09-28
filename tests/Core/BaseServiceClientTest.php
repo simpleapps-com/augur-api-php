@@ -65,20 +65,21 @@ final class BaseServiceClientTest extends AugurApiTestCase
 
         $this->assertInstanceOf(BaseResponse::class, $result);
         $this->assertEquals('TEST123', $result->data['siteId']);
-        $this->assertEquals('Test Site', $result->data['siteName']);
+        $this->assertEquals('system', $result->data['tokenType']);
+        $this->assertEquals(0, $result->data['userId']);
         $this->assertRequestPath('/whoami');
         $this->assertRequestMethod('GET');
         $this->assertHasSiteIdHeader();
     }
 
-    public function testWhoamiNoAuthHeader(): void
+    public function testWhoamiSendsAuthHeader(): void
     {
         $this->mockWhoamiResponse();
 
         $this->api->items->whoami();
 
         $request = $this->getLastRequest();
-        $this->assertEquals('', $request->getHeaderLine('Authorization'));
+        $this->assertStringStartsWith('Bearer ', $request->getHeaderLine('Authorization'));
     }
 
     public function testServiceBaseUrlConfigured(): void

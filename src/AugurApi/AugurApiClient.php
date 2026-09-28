@@ -29,7 +29,6 @@ use AugurApi\Services\P21Sism\P21SismClient;
 use AugurApi\Services\Payments\PaymentsClient;
 use AugurApi\Services\Pricing\PricingClient;
 use AugurApi\Services\Shipping\ShippingClient;
-use AugurApi\Services\Slack\SlackClient;
 use AugurApi\Services\SmartyStreets\SmartyStreetsClient;
 use AugurApi\Services\Ups\UpsClient;
 use AugurApi\Services\Vmi\VmiClient;
@@ -65,7 +64,6 @@ use Psr\Http\Message\StreamFactoryInterface;
  * @property-read PaymentsClient $payments
  * @property-read PricingClient $pricing
  * @property-read ShippingClient $shipping
- * @property-read SlackClient $slack
  * @property-read SmartyStreetsClient $smartyStreets
  * @property-read UpsClient $ups
  * @property-read VmiClient $vmi
@@ -142,7 +140,6 @@ final class AugurApiClient
             'payments' => new PaymentsClient($this->client, $this->config),
             'pricing' => new PricingClient($this->client, $this->config),
             'shipping' => new ShippingClient($this->client, $this->config),
-            'slack' => new SlackClient($this->client, $this->config),
             'smartyStreets' => new SmartyStreetsClient($this->client, $this->config),
             'ups' => new UpsClient($this->client, $this->config),
             'vmi' => new VmiClient($this->client, $this->config),

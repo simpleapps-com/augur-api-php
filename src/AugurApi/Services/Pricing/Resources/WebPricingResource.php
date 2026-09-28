@@ -37,6 +37,41 @@ final class WebPricingResource
     }
 
     /**
+     * POST /web-pricing
+     *
+     * Response data type: object
+     * Known fields: webPricingUid, name, description, dateCreated, dateLastModified, statusCd, updateCd, processCd, ... (15 total)
+     *
+     * @param array<string, mixed> $data
+     * @return BaseResponse<array<string, mixed>>
+     */
+    public function create(array $data = []): BaseResponse
+    {
+        $response = $this->client->post($this->baseUrl, '', $data);
+
+        return BaseResponse::fromArray($response, static fn ($data) => $data);
+    }
+
+    /**
+     * DELETE /web-pricing/{webPricingUid}
+     *
+     * Response data type: object
+     * Known fields: webPricingUid, name, description, dateCreated, dateLastModified, statusCd, updateCd, processCd, ... (15 total)
+     *
+     * @return BaseResponse<array<string, mixed>>
+     */
+    public function delete(int $webPricingUid): BaseResponse
+    {
+        $response = $this->client->delete(
+            $this->baseUrl,
+            '/{webPricingUid}',
+            ['webPricingUid' => (string) $webPricingUid],
+        );
+
+        return BaseResponse::fromArray($response, static fn ($data) => $data);
+    }
+
+    /**
      * GET /web-pricing/{webPricingUid}
      *
      * Response data type: object
@@ -51,6 +86,27 @@ final class WebPricingResource
             $this->baseUrl,
             '/{webPricingUid}',
             $params,
+            ['webPricingUid' => (string) $webPricingUid],
+        );
+
+        return BaseResponse::fromArray($response, static fn ($data) => $data);
+    }
+
+    /**
+     * PUT /web-pricing/{webPricingUid}
+     *
+     * Response data type: object
+     * Known fields: webPricingUid, name, description, dateCreated, dateLastModified, statusCd, updateCd, processCd, ... (15 total)
+     *
+     * @param array<string, mixed> $data
+     * @return BaseResponse<array<string, mixed>>
+     */
+    public function update(int $webPricingUid, array $data = []): BaseResponse
+    {
+        $response = $this->client->put(
+            $this->baseUrl,
+            '/{webPricingUid}',
+            $data,
             ['webPricingUid' => (string) $webPricingUid],
         );
 
@@ -79,6 +135,46 @@ final class WebPricingResource
     }
 
     /**
+     * POST /web-pricing/{webPricingUid}/customers
+     *
+     * Response data type: object
+     * Known fields: webPricingXCustomerUid, webPricingUid, customerId, dateCreated, dateLastModified, statusCd, updateCd, processCd
+     *
+     * @param array<string, mixed> $data
+     * @return BaseResponse<array<string, mixed>>
+     */
+    public function createCustomers(int $webPricingUid, array $data = []): BaseResponse
+    {
+        $response = $this->client->post(
+            $this->baseUrl,
+            '/{webPricingUid}/customers',
+            $data,
+            ['webPricingUid' => (string) $webPricingUid],
+        );
+
+        return BaseResponse::fromArray($response, static fn ($data) => $data);
+    }
+
+    /**
+     * DELETE /web-pricing/{webPricingUid}/customers/{customerId}
+     *
+     * Response data type: object
+     * Known fields: webPricingXCustomerUid, webPricingUid, customerId, dateCreated, dateLastModified, statusCd, updateCd, processCd
+     *
+     * @return BaseResponse<array<string, mixed>>
+     */
+    public function deleteCustomers(int $webPricingUid, int $customerId): BaseResponse
+    {
+        $response = $this->client->delete(
+            $this->baseUrl,
+            '/{webPricingUid}/customers/{customerId}',
+            ['webPricingUid' => (string) $webPricingUid, 'customerId' => (string) $customerId],
+        );
+
+        return BaseResponse::fromArray($response, static fn ($data) => $data);
+    }
+
+    /**
      * GET /web-pricing/{webPricingUid}/customers/{customerId}
      *
      * Response data type: object
@@ -93,6 +189,27 @@ final class WebPricingResource
             $this->baseUrl,
             '/{webPricingUid}/customers/{customerId}',
             $params,
+            ['webPricingUid' => (string) $webPricingUid, 'customerId' => (string) $customerId],
+        );
+
+        return BaseResponse::fromArray($response, static fn ($data) => $data);
+    }
+
+    /**
+     * PUT /web-pricing/{webPricingUid}/customers/{customerId}
+     *
+     * Response data type: object
+     * Known fields: webPricingXCustomerUid, webPricingUid, customerId, dateCreated, dateLastModified, statusCd, updateCd, processCd
+     *
+     * @param array<string, mixed> $data
+     * @return BaseResponse<array<string, mixed>>
+     */
+    public function updateCustomers(int $webPricingUid, int $customerId, array $data = []): BaseResponse
+    {
+        $response = $this->client->put(
+            $this->baseUrl,
+            '/{webPricingUid}/customers/{customerId}',
+            $data,
             ['webPricingUid' => (string) $webPricingUid, 'customerId' => (string) $customerId],
         );
 

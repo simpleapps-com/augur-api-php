@@ -34,6 +34,22 @@ final class InvMastResource
     }
 
     /**
+     * POST /inv-mast/attributes/bulk
+     *
+     * Response data type: object
+     * Known fields: items, notFound
+     *
+     * @param array<string, mixed> $data
+     * @return BaseResponse<array<string, mixed>>
+     */
+    public function createAttributesBulk(array $data = []): BaseResponse
+    {
+        $response = $this->client->post($this->baseUrl, '/attributes/bulk', $data);
+
+        return BaseResponse::fromArray($response, static fn ($data) => $data);
+    }
+
+    /**
      * GET /inv-mast/lookup
      *
      * @param array<string, mixed> $params

@@ -187,6 +187,22 @@ final class UsersResource
     }
 
     /**
+     * DELETE /users/{id}/groups/{groupId}
+     *
+     * @return BaseResponse<array<string, mixed>>
+     */
+    public function deleteGroups(int $id, int $groupId): BaseResponse
+    {
+        $response = $this->client->delete(
+            $this->baseUrl,
+            '/{id}/groups/{groupId}',
+            ['id' => (string) $id, 'groupId' => (string) $groupId],
+        );
+
+        return BaseResponse::fromArray($response, static fn ($data) => $data);
+    }
+
+    /**
      * GET /users/{id}/groups/{groupId}
      *
      * @param array<string, mixed> $params

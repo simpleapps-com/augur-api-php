@@ -48,7 +48,7 @@ final class AgrSiteClientTest extends AugurApiTestCase
         $response = $this->api->agrSite->whoami();
 
         $this->assertEquals('TEST123', $response->data['siteId']);
-        $this->assertEquals('Test Site', $response->data['siteName']);
+        $this->assertEquals('system', $response->data['tokenType']);
         $this->assertRequestPath('/whoami');
         $this->assertRequestMethod('GET');
     }

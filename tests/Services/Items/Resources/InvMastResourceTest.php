@@ -32,6 +32,17 @@ final class InvMastResourceTest extends AugurApiTestCase
         $this->assertRequestPath('/inv-mast');
     }
 
+    public function testCreateAttributesBulk(): void
+    {
+        $this->mockResponse(['items' => [['invMastUid' => 100]], 'notFound' => [999]]);
+
+        $response = $this->api->items->invMast->createAttributesBulk(['invMastUids' => [100, 999]]);
+
+        $this->assertEquals([999], $response->data['notFound']);
+        $this->assertRequestPath('/inv-mast/attributes/bulk');
+        $this->assertRequestMethod('POST');
+    }
+
     public function testListWithParams(): void
     {
         $this->mockListResponse([

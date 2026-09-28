@@ -11,6 +11,7 @@ use AugurApi\Services\Joomla\Resources\ActionLogsResource;
 use AugurApi\Services\Joomla\Resources\CategoriesResource;
 use AugurApi\Services\Joomla\Resources\ContentResource;
 use AugurApi\Services\Joomla\Resources\MenuResource;
+use AugurApi\Services\Joomla\Resources\ModulesResource;
 use AugurApi\Services\Joomla\Resources\TagsResource;
 use AugurApi\Services\Joomla\Resources\UsergroupsResource;
 use AugurApi\Services\Joomla\Resources\UsersResource;
@@ -26,6 +27,7 @@ final class JoomlaClient extends BaseServiceClient
     public readonly CategoriesResource $categories;
     public readonly ContentResource $content;
     public readonly MenuResource $menu;
+    public readonly ModulesResource $modules;
     public readonly TagsResource $tags;
     public readonly UsergroupsResource $usergroups;
     public readonly UsersResource $users;
@@ -37,6 +39,7 @@ final class JoomlaClient extends BaseServiceClient
         $this->categories = new CategoriesResource($client, $this->baseUrl . '/categories');
         $this->content = new ContentResource($client, $this->baseUrl . '/content');
         $this->menu = new MenuResource($client, $this->baseUrl . '/menu');
+        $this->modules = new ModulesResource($client, $this->baseUrl . '/modules');
         $this->tags = new TagsResource($client, $this->baseUrl . '/tags');
         $this->usergroups = new UsergroupsResource($client, $this->baseUrl . '/usergroups');
         $this->users = new UsersResource($client, $this->baseUrl . '/users');

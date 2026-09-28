@@ -55,7 +55,7 @@ final class P21CoreClientTest extends AugurApiTestCase
         $response = $this->api->p21Core->whoami();
 
         $this->assertEquals('TEST123', $response->data['siteId']);
-        $this->assertEquals('Test Site', $response->data['siteName']);
+        $this->assertEquals('system', $response->data['tokenType']);
         $this->assertRequestPath('/whoami');
         $this->assertRequestMethod('GET');
         $this->assertHasSiteIdHeader();

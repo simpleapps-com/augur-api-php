@@ -439,6 +439,9 @@ final class CustomerResource
     /**
      * GET /customer/{customerId}/ship-to
      *
+     * Response data type: array
+     * Known fields: shipToId, customerId, companyId, defaultBranch, defaultCarrierId, preferredLocationId, deliveryInstructions, shippingRouteUid, ... (11 total)
+     *
      * @param array<string, mixed> $params
      * @return BaseResponse<array<string, mixed>>
      */
@@ -466,6 +469,24 @@ final class CustomerResource
             $this->baseUrl,
             '/{customerId}/ship-to',
             $data,
+            ['customerId' => (string) $customerId],
+        );
+
+        return BaseResponse::fromArray($response, static fn ($data) => $data);
+    }
+
+    /**
+     * GET /customer/{customerId}/ship-to/lookup
+     *
+     * @param array<string, mixed> $params
+     * @return BaseResponse<array<string, mixed>>
+     */
+    public function getShipToLookup(int $customerId, array $params = []): BaseResponse
+    {
+        $response = $this->client->get(
+            $this->baseUrl,
+            '/{customerId}/ship-to/lookup',
+            $params,
             ['customerId' => (string) $customerId],
         );
 

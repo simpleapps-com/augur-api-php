@@ -107,8 +107,13 @@ abstract class AugurApiTestCase extends TestCase
     protected function mockWhoamiResponse(): void
     {
         $this->mockResponse([
+            'email' => '',
+            'name' => '',
+            'scope' => 'site',
             'siteId' => 'TEST123',
-            'siteName' => 'Test Site',
+            'tokenType' => 'system',
+            'userId' => 0,
+            'username' => '',
         ]);
     }
 

@@ -9,6 +9,7 @@ use AugurApi\Services\Joomla\Resources\ActionLogsResource;
 use AugurApi\Services\Joomla\Resources\CategoriesResource;
 use AugurApi\Services\Joomla\Resources\ContentResource;
 use AugurApi\Services\Joomla\Resources\MenuResource;
+use AugurApi\Services\Joomla\Resources\ModulesResource;
 use AugurApi\Services\Joomla\Resources\TagsResource;
 use AugurApi\Services\Joomla\Resources\UsergroupsResource;
 use AugurApi\Services\Joomla\Resources\UsersResource;
@@ -42,6 +43,11 @@ final class JoomlaClientTest extends AugurApiTestCase
     public function testMenuResourceAccess(): void
     {
         $this->assertInstanceOf(MenuResource::class, $this->api->joomla->menu);
+    }
+
+    public function testModulesResourceAccess(): void
+    {
+        $this->assertInstanceOf(ModulesResource::class, $this->api->joomla->modules);
     }
 
     public function testTagsResourceAccess(): void
@@ -88,7 +94,7 @@ final class JoomlaClientTest extends AugurApiTestCase
         $response = $this->api->joomla->whoami();
 
         $this->assertEquals('TEST123', $response->data['siteId']);
-        $this->assertEquals('Test Site', $response->data['siteName']);
+        $this->assertEquals('system', $response->data['tokenType']);
         $this->assertRequestPath('/whoami');
         $this->assertRequestMethod('GET');
         $this->assertHasSiteIdHeader();

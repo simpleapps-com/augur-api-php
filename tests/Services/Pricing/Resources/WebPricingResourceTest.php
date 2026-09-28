@@ -91,4 +91,70 @@ final class WebPricingResourceTest extends AugurApiTestCase
         $this->assertRequestPath('/web-pricing/1/customers/1001');
         $this->assertRequestMethod('GET');
     }
+
+    public function testCreate(): void
+    {
+        $this->mockResponse(['webPricingUid' => 3, 'name' => 'Spring Sale']);
+
+        $response = $this->api->pricing->webPricing->create(['name' => 'Spring Sale']);
+
+        $this->assertEquals(3, $response->data['webPricingUid']);
+        $this->assertRequestPath('/web-pricing');
+        $this->assertRequestMethod('POST');
+    }
+
+    public function testUpdate(): void
+    {
+        $this->mockResponse(['webPricingUid' => 1, 'name' => 'Renamed']);
+
+        $response = $this->api->pricing->webPricing->update(1, ['name' => 'Renamed']);
+
+        $this->assertEquals('Renamed', $response->data['name']);
+        $this->assertRequestPath('/web-pricing/1');
+        $this->assertRequestMethod('PUT');
+    }
+
+    public function testDelete(): void
+    {
+        $this->mockResponse(['webPricingUid' => 1, 'statusCd' => 700]);
+
+        $response = $this->api->pricing->webPricing->delete(1);
+
+        $this->assertEquals(700, $response->data['statusCd']);
+        $this->assertRequestPath('/web-pricing/1');
+        $this->assertRequestMethod('DELETE');
+    }
+
+    public function testCreateCustomers(): void
+    {
+        $this->mockResponse(['webPricingXCustomerUid' => 9, 'webPricingUid' => 1, 'customerId' => 1001]);
+
+        $response = $this->api->pricing->webPricing->createCustomers(1, ['customerId' => 1001]);
+
+        $this->assertEquals(1001, $response->data['customerId']);
+        $this->assertRequestPath('/web-pricing/1/customers');
+        $this->assertRequestMethod('POST');
+    }
+
+    public function testUpdateCustomers(): void
+    {
+        $this->mockResponse(['webPricingUid' => 1, 'customerId' => 1001, 'statusCd' => 704]);
+
+        $response = $this->api->pricing->webPricing->updateCustomers(1, 1001, ['statusCd' => 704]);
+
+        $this->assertEquals(704, $response->data['statusCd']);
+        $this->assertRequestPath('/web-pricing/1/customers/1001');
+        $this->assertRequestMethod('PUT');
+    }
+
+    public function testDeleteCustomers(): void
+    {
+        $this->mockResponse(['webPricingUid' => 1, 'customerId' => 1001, 'statusCd' => 700]);
+
+        $response = $this->api->pricing->webPricing->deleteCustomers(1, 1001);
+
+        $this->assertEquals(700, $response->data['statusCd']);
+        $this->assertRequestPath('/web-pricing/1/customers/1001');
+        $this->assertRequestMethod('DELETE');
+    }
 }

@@ -51,7 +51,6 @@ final readonly class Config
             'shipping' => 'https://shipping.augur-api.com',
             'ups' => 'https://ups.augur-api.com',
             'avalara' => 'https://avalara.augur-api.com',
-            'slack' => 'https://slack.augur-api.com',
             'smartyStreets' => 'https://smarty-streets.augur-api.com',
             'gregorovich' => 'https://gregorovich.augur-api.com',
             'legacy' => 'https://legacy.augur-api.com',

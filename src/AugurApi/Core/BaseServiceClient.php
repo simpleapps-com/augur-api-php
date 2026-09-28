@@ -43,9 +43,17 @@ abstract class BaseServiceClient
     }
 
     /**
-     * Whoami endpoint.
+     * Whoami endpoint: decoded JWT claims. Sends x-site-id and the Bearer token.
      *
-     * @return BaseResponse<array<string, mixed>>
+     * @return BaseResponse<array{
+     *     email: string,
+     *     name: string,
+     *     scope: mixed,
+     *     siteId: string,
+     *     tokenType: string,
+     *     userId: int,
+     *     username: string
+     * }>
      */
     public function whoami(): BaseResponse
     {

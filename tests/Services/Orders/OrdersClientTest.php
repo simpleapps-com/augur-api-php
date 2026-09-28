@@ -45,7 +45,7 @@ final class OrdersClientTest extends AugurApiTestCase
         $response = $this->api->orders->whoami();
 
         $this->assertEquals('TEST123', $response->data['siteId']);
-        $this->assertEquals('Test Site', $response->data['siteName']);
+        $this->assertEquals('system', $response->data['tokenType']);
         $this->assertRequestPath('/whoami');
     }
 

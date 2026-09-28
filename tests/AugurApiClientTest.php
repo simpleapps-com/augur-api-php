@@ -29,7 +29,6 @@ use AugurApi\Services\P21Sism\P21SismClient;
 use AugurApi\Services\Payments\PaymentsClient;
 use AugurApi\Services\Pricing\PricingClient;
 use AugurApi\Services\Shipping\ShippingClient;
-use AugurApi\Services\Slack\SlackClient;
 use AugurApi\Services\SmartyStreets\SmartyStreetsClient;
 use AugurApi\Services\Ups\UpsClient;
 use AugurApi\Services\Vmi\VmiClient;
@@ -262,13 +261,6 @@ final class AugurApiClientTest extends AugurApiTestCase
         $this->assertInstanceOf(ShippingClient::class, $service);
     }
 
-    public function testSlackServiceAccessible(): void
-    {
-        $service = $this->api->slack;
-
-        $this->assertInstanceOf(SlackClient::class, $service);
-    }
-
     public function testSmartyStreetsServiceAccessible(): void
     {
         $service = $this->api->smartyStreets;
@@ -290,7 +282,7 @@ final class AugurApiClientTest extends AugurApiTestCase
         $this->assertInstanceOf(VmiClient::class, $service);
     }
 
-    public function testAll27ServicesAccessible(): void
+    public function testAll26ServicesAccessible(): void
     {
         $services = [
             'agrInfo' => AgrInfoClient::class,
@@ -316,13 +308,12 @@ final class AugurApiClientTest extends AugurApiTestCase
             'payments' => PaymentsClient::class,
             'pricing' => PricingClient::class,
             'shipping' => ShippingClient::class,
-            'slack' => SlackClient::class,
             'smartyStreets' => SmartyStreetsClient::class,
             'ups' => UpsClient::class,
             'vmi' => VmiClient::class,
         ];
 
-        $this->assertCount(27, $services);
+        $this->assertCount(26, $services);
 
         foreach ($services as $name => $expectedClass) {
             $service = $this->api->$name;
