@@ -1,0 +1,18 @@
+{
+  "registryVersion": 1,
+  "fields": [
+    "id",
+    "service",
+    "method",
+    "path",
+    "pathParams",
+    "queryParams",
+    "aliases",
+    "hasBody",
+    "auth",
+    "edgeCache"
+  ],
+  "optionalFields": [
+    "readOnly"
+  ]
+}

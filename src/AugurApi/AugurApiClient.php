@@ -6,6 +6,8 @@ namespace AugurApi;
 
 use AugurApi\Core\Client;
 use AugurApi\Core\Config;
+use AugurApi\Core\EndpointEntry;
+use AugurApi\Core\Registry;
 use AugurApi\Services\AgrInfo\AgrInfoClient;
 use AugurApi\Services\AgrInt\AgrIntClient;
 use AugurApi\Services\AgrSite\AgrSiteClient;
@@ -71,6 +73,9 @@ use Psr\Http\Message\StreamFactoryInterface;
 final class AugurApiClient
 {
     public const string VERSION = '2026.9.5';
+
+    /** Endpoint registry contract version (see wiki Endpoint-Registry). */
+    public const int REGISTRY_VERSION = 1;
 
     private readonly Config $config;
     private readonly Client $client;
@@ -150,5 +155,15 @@ final class AugurApiClient
     public function getConfig(): Config
     {
         return $this->config;
+    }
+
+    /**
+     * Every canonical endpoint the SDK exposes (aliases live in each entry's `aliases`).
+     *
+     * @return list<EndpointEntry>
+     */
+    public static function endpoints(): array
+    {
+        return Registry::entries();
     }
 }

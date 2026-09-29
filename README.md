@@ -10,7 +10,7 @@ composer require simpleapps-com/augur-api
 
 ## Requirements
 
-- PHP 8.1 or higher
+- PHP 8.3 or higher
 - PSR-18 HTTP Client (Guzzle recommended)
 
 ## Quick Start
