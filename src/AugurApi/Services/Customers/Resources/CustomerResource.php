@@ -24,33 +24,39 @@ final class CustomerResource
      * GET /customer
      *
      * @param array<string, mixed> $params
-     * @return BaseResponse<array<string, mixed>>
+     * @return BaseResponse<mixed>
      */
     public function list(array $params = []): BaseResponse
     {
         $response = $this->client->get($this->baseUrl, '', $params);
 
-        return BaseResponse::fromArray($response, static fn ($data) => $data);
+        /** @var BaseResponse<mixed> $result */
+        $result = BaseResponse::fromArray($response, static fn (mixed $data): mixed => $data);
+
+        return $result;
     }
 
     /**
      * GET /customer/lookup
      *
      * @param array<string, mixed> $params
-     * @return BaseResponse<array<string, mixed>>
+     * @return BaseResponse<mixed>
      */
     public function getLookup(array $params = []): BaseResponse
     {
         $response = $this->client->get($this->baseUrl, '/lookup', $params);
 
-        return BaseResponse::fromArray($response, static fn ($data) => $data);
+        /** @var BaseResponse<mixed> $result */
+        $result = BaseResponse::fromArray($response, static fn (mixed $data): mixed => $data);
+
+        return $result;
     }
 
     /**
      * GET /customer/{customerId}/address
      *
      * @param array<string, mixed> $params
-     * @return BaseResponse<array<string, mixed>>
+     * @return BaseResponse<mixed>
      */
     public function listAddress(int $customerId, array $params = []): BaseResponse
     {
@@ -61,17 +67,37 @@ final class CustomerResource
             ['customerId' => (string) $customerId],
         );
 
-        return BaseResponse::fromArray($response, static fn ($data) => $data);
+        /** @var BaseResponse<mixed> $result */
+        $result = BaseResponse::fromArray($response, static fn (mixed $data): mixed => $data);
+
+        return $result;
     }
 
     /**
      * GET /customer/{customerId}/addresses
      *
      * Response data type: array
-     * Known fields: customerAddressUid, customerId, address1, address2, address3, city, state, postalCode, ... (18 total)
+     *   customerAddressUid: int
+     *   customerId: float
+     *   address1: string|null
+     *   address2: string|null
+     *   address3: string|null
+     *   city: string|null
+     *   state: string|null
+     *   postalCode: string|null
+     *   country: string|null
+     *   updateCd: int
+     *   statusCd: int
+     *   processCd: int
+     *   dateCreated: string
+     *   dateLastModified: string
+     *   emailAddress: string|null
+     *   name: string|null
+     *   phoneNumberMain: string|null
+     *   phoneNumberMobile: string|null
      *
      * @param array<string, mixed> $params
-     * @return BaseResponse<array<string, mixed>>
+     * @return BaseResponse<list<array<string, mixed>>>
      */
     public function listAddresses(int $customerId, array $params = []): BaseResponse
     {
@@ -82,14 +108,34 @@ final class CustomerResource
             ['customerId' => (string) $customerId],
         );
 
-        return BaseResponse::fromArray($response, static fn ($data) => $data);
+        /** @var BaseResponse<list<array<string, mixed>>> $result */
+        $result = BaseResponse::fromArray($response, static fn (mixed $data): mixed => $data);
+
+        return $result;
     }
 
     /**
      * POST /customer/{customerId}/addresses
      *
      * Response data type: object
-     * Known fields: customerAddressUid, customerId, address1, address2, address3, city, state, postalCode, ... (18 total)
+     *   customerAddressUid: int
+     *   customerId: float
+     *   address1: string|null
+     *   address2: string|null
+     *   address3: string|null
+     *   city: string|null
+     *   state: string|null
+     *   postalCode: string|null
+     *   country: string|null
+     *   updateCd: int
+     *   statusCd: int
+     *   processCd: int
+     *   dateCreated: string
+     *   dateLastModified: string
+     *   emailAddress: string|null
+     *   name: string|null
+     *   phoneNumberMain: string|null
+     *   phoneNumberMobile: string|null
      *
      * @param array<string, mixed> $data
      * @return BaseResponse<array<string, mixed>>
@@ -103,14 +149,34 @@ final class CustomerResource
             ['customerId' => (string) $customerId],
         );
 
-        return BaseResponse::fromArray($response, static fn ($data) => $data);
+        /** @var BaseResponse<array<string, mixed>> $result */
+        $result = BaseResponse::fromArray($response, static fn (mixed $data): mixed => $data);
+
+        return $result;
     }
 
     /**
      * DELETE /customer/{customerId}/addresses/{customerAddressUid}
      *
      * Response data type: object
-     * Known fields: customerAddressUid, customerId, address1, address2, address3, city, state, postalCode, ... (18 total)
+     *   customerAddressUid: int
+     *   customerId: float
+     *   address1: string|null
+     *   address2: string|null
+     *   address3: string|null
+     *   city: string|null
+     *   state: string|null
+     *   postalCode: string|null
+     *   country: string|null
+     *   updateCd: int
+     *   statusCd: int
+     *   processCd: int
+     *   dateCreated: string
+     *   dateLastModified: string
+     *   emailAddress: string|null
+     *   name: string|null
+     *   phoneNumberMain: string|null
+     *   phoneNumberMobile: string|null
      *
      * @return BaseResponse<array<string, mixed>>
      */
@@ -122,14 +188,34 @@ final class CustomerResource
             ['customerId' => (string) $customerId, 'customerAddressUid' => (string) $customerAddressUid],
         );
 
-        return BaseResponse::fromArray($response, static fn ($data) => $data);
+        /** @var BaseResponse<array<string, mixed>> $result */
+        $result = BaseResponse::fromArray($response, static fn (mixed $data): mixed => $data);
+
+        return $result;
     }
 
     /**
      * GET /customer/{customerId}/addresses/{customerAddressUid}
      *
      * Response data type: object
-     * Known fields: customerAddressUid, customerId, address1, address2, address3, city, state, postalCode, ... (18 total)
+     *   customerAddressUid: int
+     *   customerId: float
+     *   address1: string|null
+     *   address2: string|null
+     *   address3: string|null
+     *   city: string|null
+     *   state: string|null
+     *   postalCode: string|null
+     *   country: string|null
+     *   updateCd: int
+     *   statusCd: int
+     *   processCd: int
+     *   dateCreated: string
+     *   dateLastModified: string
+     *   emailAddress: string|null
+     *   name: string|null
+     *   phoneNumberMain: string|null
+     *   phoneNumberMobile: string|null
      *
      * @param array<string, mixed> $params
      * @return BaseResponse<array<string, mixed>>
@@ -143,14 +229,34 @@ final class CustomerResource
             ['customerId' => (string) $customerId, 'customerAddressUid' => (string) $customerAddressUid],
         );
 
-        return BaseResponse::fromArray($response, static fn ($data) => $data);
+        /** @var BaseResponse<array<string, mixed>> $result */
+        $result = BaseResponse::fromArray($response, static fn (mixed $data): mixed => $data);
+
+        return $result;
     }
 
     /**
      * PUT /customer/{customerId}/addresses/{customerAddressUid}
      *
      * Response data type: object
-     * Known fields: customerAddressUid, customerId, address1, address2, address3, city, state, postalCode, ... (18 total)
+     *   customerAddressUid: int
+     *   customerId: float
+     *   address1: string|null
+     *   address2: string|null
+     *   address3: string|null
+     *   city: string|null
+     *   state: string|null
+     *   postalCode: string|null
+     *   country: string|null
+     *   updateCd: int
+     *   statusCd: int
+     *   processCd: int
+     *   dateCreated: string
+     *   dateLastModified: string
+     *   emailAddress: string|null
+     *   name: string|null
+     *   phoneNumberMain: string|null
+     *   phoneNumberMobile: string|null
      *
      * @param array<string, mixed> $data
      * @return BaseResponse<array<string, mixed>>
@@ -164,14 +270,23 @@ final class CustomerResource
             ['customerId' => (string) $customerId, 'customerAddressUid' => (string) $customerAddressUid],
         );
 
-        return BaseResponse::fromArray($response, static fn ($data) => $data);
+        /** @var BaseResponse<array<string, mixed>> $result */
+        $result = BaseResponse::fromArray($response, static fn (mixed $data): mixed => $data);
+
+        return $result;
     }
 
     /**
      * GET /customer/{customerId}/aging
      *
      * Response data type: object
-     * Known fields: customerId, asOf, bucketKeys, invoiceCount, totalBalance, totals, data
+     *   customerId: string
+     *   asOf: string
+     *   bucketKeys: list<string>
+     *   invoiceCount: int
+     *   totalBalance: float
+     *   totals: list<array{key: string, balance: float, invoices: int}>
+     *   data: list<array{invoiceNo: string, orderNo: string|null, poNo: string|null, ship2Name: string|null, invoiceDate: string, totalAmount: float, amountPaid: float, balance: float, ageDays: int, bucket: string}>
      *
      * @param array<string, mixed> $params
      * @return BaseResponse<array<string, mixed>>
@@ -185,14 +300,17 @@ final class CustomerResource
             ['customerId' => (string) $customerId],
         );
 
-        return BaseResponse::fromArray($response, static fn ($data) => $data);
+        /** @var BaseResponse<array<string, mixed>> $result */
+        $result = BaseResponse::fromArray($response, static fn (mixed $data): mixed => $data);
+
+        return $result;
     }
 
     /**
      * GET /customer/{customerId}/contacts
      *
      * @param array<string, mixed> $params
-     * @return BaseResponse<array<string, mixed>>
+     * @return BaseResponse<mixed>
      */
     public function listContacts(int $customerId, array $params = []): BaseResponse
     {
@@ -203,14 +321,17 @@ final class CustomerResource
             ['customerId' => (string) $customerId],
         );
 
-        return BaseResponse::fromArray($response, static fn ($data) => $data);
+        /** @var BaseResponse<mixed> $result */
+        $result = BaseResponse::fromArray($response, static fn (mixed $data): mixed => $data);
+
+        return $result;
     }
 
     /**
      * POST /customer/{customerId}/contacts
      *
      * @param array<string, mixed> $data
-     * @return BaseResponse<array<string, mixed>>
+     * @return BaseResponse<mixed>
      */
     public function createContacts(int $customerId, array $data = []): BaseResponse
     {
@@ -221,14 +342,17 @@ final class CustomerResource
             ['customerId' => (string) $customerId],
         );
 
-        return BaseResponse::fromArray($response, static fn ($data) => $data);
+        /** @var BaseResponse<mixed> $result */
+        $result = BaseResponse::fromArray($response, static fn (mixed $data): mixed => $data);
+
+        return $result;
     }
 
     /**
      * GET /customer/{customerId}/doc
      *
      * @param array<string, mixed> $params
-     * @return BaseResponse<array<string, mixed>>
+     * @return BaseResponse<mixed>
      */
     public function listDoc(int $customerId, array $params = []): BaseResponse
     {
@@ -239,14 +363,17 @@ final class CustomerResource
             ['customerId' => (string) $customerId],
         );
 
-        return BaseResponse::fromArray($response, static fn ($data) => $data);
+        /** @var BaseResponse<mixed> $result */
+        $result = BaseResponse::fromArray($response, static fn (mixed $data): mixed => $data);
+
+        return $result;
     }
 
     /**
      * Alias for listDoc — GET /customer/{customerId}/doc
      *
      * @param array<string, mixed> $params
-     * @return BaseResponse<array<string, mixed>>
+     * @return BaseResponse<mixed>
      */
     public function getDoc(int $customerId, array $params = []): BaseResponse
     {
@@ -257,7 +384,7 @@ final class CustomerResource
      * GET /customer/{customerId}/invoices
      *
      * @param array<string, mixed> $params
-     * @return BaseResponse<array<string, mixed>>
+     * @return BaseResponse<mixed>
      */
     public function listInvoices(int $customerId, array $params = []): BaseResponse
     {
@@ -268,14 +395,17 @@ final class CustomerResource
             ['customerId' => (string) $customerId],
         );
 
-        return BaseResponse::fromArray($response, static fn ($data) => $data);
+        /** @var BaseResponse<mixed> $result */
+        $result = BaseResponse::fromArray($response, static fn (mixed $data): mixed => $data);
+
+        return $result;
     }
 
     /**
      * GET /customer/{customerId}/invoices/{invoiceNo}
      *
      * @param array<string, mixed> $params
-     * @return BaseResponse<array<string, mixed>>
+     * @return BaseResponse<mixed>
      */
     public function getInvoices(int $customerId, int $invoiceNo, array $params = []): BaseResponse
     {
@@ -286,14 +416,17 @@ final class CustomerResource
             ['customerId' => (string) $customerId, 'invoiceNo' => (string) $invoiceNo],
         );
 
-        return BaseResponse::fromArray($response, static fn ($data) => $data);
+        /** @var BaseResponse<mixed> $result */
+        $result = BaseResponse::fromArray($response, static fn (mixed $data): mixed => $data);
+
+        return $result;
     }
 
     /**
      * GET /customer/{customerId}/orders
      *
      * @param array<string, mixed> $params
-     * @return BaseResponse<array<string, mixed>>
+     * @return BaseResponse<mixed>
      */
     public function listOrders(int $customerId, array $params = []): BaseResponse
     {
@@ -304,11 +437,52 @@ final class CustomerResource
             ['customerId' => (string) $customerId],
         );
 
-        return BaseResponse::fromArray($response, static fn ($data) => $data);
+        /** @var BaseResponse<mixed> $result */
+        $result = BaseResponse::fromArray($response, static fn (mixed $data): mixed => $data);
+
+        return $result;
     }
 
     /**
      * GET /customer/{customerId}/orders/{orderNo}
+     *
+     * Response data type: object
+     *   orderNo: string
+     *   customerId: float
+     *   customerName: string|null
+     *   jobName: string|null
+     *   orderDate: string|null
+     *   requestedDate: string|null
+     *   cancelFlag: string|null
+     *   completed: string|null
+     *   deleteFlag: string
+     *   poNo: string|null
+     *   ship2Name: string|null
+     *   ship2Add1: string|null
+     *   ship2Add2: string|null
+     *   ship2Add3: string|null
+     *   ship2City: string|null
+     *   ship2State: string|null
+     *   ship2Zip: string|null
+     *   ship2Country: string|null
+     *   ship2EmailAddress: string|null
+     *   shipToPhone: string|null
+     *   deliveryInstructions: string|null
+     *   class1Id: string|null
+     *   class2Id: string|null
+     *   class3Id: string|null
+     *   class4Id: string|null
+     *   class5Id: string|null
+     *   contactId: string|null
+     *   webReferenceNo: string|null
+     *   orderStatus: string
+     *   taker: string|null
+     *   contactFirstName: string|null
+     *   contactLastName: string|null
+     *   carrierId: float|null
+     *   carrierName: string
+     *   lines: list<array{invMastUid: int, cancelFlag: string|null, complete: string|null, deleteFlag: string, disposition: string|null, itemDesc: string|null, displayDesc: string|null, itemId: string, shortCode: string|null, lineNo: float, orderNo: string, originalQtyOrdered: float|null, qtyAllocated: float|null, qtyCanceled: float|null, qtyInvoiced: float|null, qtyOnPickTickets: float|null, qtyOrdered: float|null, unitOfMeasure: string|null, unitQuantity: float, unitSize: float, unitPrice: float|null, extendedPrice: float|null, oeLineUid: int, parentOeLineUid: int, trinityItemId: string|null, trinityItemDesc: string|null, agentItemId: string|null, agentItemDesc: string|null}>
+     *   pickTickets: list<array{pickTicketNo: float, trackingNo: string|null, orderNo: string, invoiceNo: float|null, shipDate: string|null, printedFlag: string|null, printDate: string|null, instructions: string|null, carrierId: float|null, carrierName: string, lines: list<array{lineNumber: float, shipQuantity: float|null, qtyRequested: float|null, invMastUid: int, itemId: string, itemDesc: string|null, displayDesc: string|null, trinityItemId: string|null, trinityItemDesc: string|null, agentItemId: string|null, agentItemDesc: string|null}>}>
      *
      * @param array<string, mixed> $params
      * @return BaseResponse<array<string, mixed>>
@@ -322,14 +496,17 @@ final class CustomerResource
             ['customerId' => (string) $customerId, 'orderNo' => (string) $orderNo],
         );
 
-        return BaseResponse::fromArray($response, static fn ($data) => $data);
+        /** @var BaseResponse<array<string, mixed>> $result */
+        $result = BaseResponse::fromArray($response, static fn (mixed $data): mixed => $data);
+
+        return $result;
     }
 
     /**
      * GET /customer/{customerId}/purchased-items
      *
      * @param array<string, mixed> $params
-     * @return BaseResponse<array<string, mixed>>
+     * @return BaseResponse<mixed>
      */
     public function listPurchasedItems(int $customerId, array $params = []): BaseResponse
     {
@@ -340,14 +517,55 @@ final class CustomerResource
             ['customerId' => (string) $customerId],
         );
 
-        return BaseResponse::fromArray($response, static fn ($data) => $data);
+        /** @var BaseResponse<mixed> $result */
+        $result = BaseResponse::fromArray($response, static fn (mixed $data): mixed => $data);
+
+        return $result;
     }
 
     /**
      * GET /customer/{customerId}/quotes
      *
+     * Response data type: array
+     *   orderNo: string
+     *   customerId: float
+     *   customerName: string|null
+     *   jobName: string|null
+     *   orderDate: string|null
+     *   requestedDate: string|null
+     *   cancelFlag: string|null
+     *   completed: string|null
+     *   deleteFlag: string
+     *   poNo: string|null
+     *   ship2Name: string|null
+     *   ship2Add1: string|null
+     *   ship2Add2: string|null
+     *   ship2Add3: string|null
+     *   ship2City: string|null
+     *   ship2State: string|null
+     *   ship2Zip: string|null
+     *   ship2Country: string|null
+     *   ship2EmailAddress: string|null
+     *   shipToPhone: string|null
+     *   deliveryInstructions: string|null
+     *   class1Id: string|null
+     *   class2Id: string|null
+     *   class3Id: string|null
+     *   class4Id: string|null
+     *   class5Id: string|null
+     *   contactId: string|null
+     *   webReferenceNo: string|null
+     *   orderStatus: string
+     *   taker: string|null
+     *   contactFirstName: string|null
+     *   contactLastName: string|null
+     *   carrierId: float|null
+     *   carrierName: string
+     *   lines: list<array{invMastUid: int, cancelFlag: string|null, complete: string|null, deleteFlag: string, disposition: string|null, itemDesc: string|null, displayDesc: string|null, itemId: string, shortCode: string|null, lineNo: float, orderNo: string, originalQtyOrdered: float|null, qtyAllocated: float|null, qtyCanceled: float|null, qtyInvoiced: float|null, qtyOnPickTickets: float|null, qtyOrdered: float|null, unitOfMeasure: string|null, unitQuantity: float, unitSize: float, unitPrice: float|null, extendedPrice: float|null, oeLineUid: int, parentOeLineUid: int, trinityItemId: string|null, trinityItemDesc: string|null, agentItemId: string|null, agentItemDesc: string|null}>
+     *   pickTickets: list<array{pickTicketNo: float, trackingNo: string|null, orderNo: string, invoiceNo: float|null, shipDate: string|null, printedFlag: string|null, printDate: string|null, instructions: string|null, carrierId: float|null, carrierName: string, lines: list<array{lineNumber: float, shipQuantity: float|null, qtyRequested: float|null, invMastUid: int, itemId: string, itemDesc: string|null, displayDesc: string|null, trinityItemId: string|null, trinityItemDesc: string|null, agentItemId: string|null, agentItemDesc: string|null}>}>
+     *
      * @param array<string, mixed> $params
-     * @return BaseResponse<array<string, mixed>>
+     * @return BaseResponse<list<array<string, mixed>>>
      */
     public function listQuotes(int $customerId, array $params = []): BaseResponse
     {
@@ -358,11 +576,52 @@ final class CustomerResource
             ['customerId' => (string) $customerId],
         );
 
-        return BaseResponse::fromArray($response, static fn ($data) => $data);
+        /** @var BaseResponse<list<array<string, mixed>>> $result */
+        $result = BaseResponse::fromArray($response, static fn (mixed $data): mixed => $data);
+
+        return $result;
     }
 
     /**
      * GET /customer/{customerId}/quotes/{quoteNo}
+     *
+     * Response data type: object
+     *   orderNo: string
+     *   customerId: float
+     *   customerName: string|null
+     *   jobName: string|null
+     *   orderDate: string|null
+     *   requestedDate: string|null
+     *   cancelFlag: string|null
+     *   completed: string|null
+     *   deleteFlag: string
+     *   poNo: string|null
+     *   ship2Name: string|null
+     *   ship2Add1: string|null
+     *   ship2Add2: string|null
+     *   ship2Add3: string|null
+     *   ship2City: string|null
+     *   ship2State: string|null
+     *   ship2Zip: string|null
+     *   ship2Country: string|null
+     *   ship2EmailAddress: string|null
+     *   shipToPhone: string|null
+     *   deliveryInstructions: string|null
+     *   class1Id: string|null
+     *   class2Id: string|null
+     *   class3Id: string|null
+     *   class4Id: string|null
+     *   class5Id: string|null
+     *   contactId: string|null
+     *   webReferenceNo: string|null
+     *   orderStatus: string
+     *   taker: string|null
+     *   contactFirstName: string|null
+     *   contactLastName: string|null
+     *   carrierId: float|null
+     *   carrierName: string
+     *   lines: list<array{invMastUid: int, cancelFlag: string|null, complete: string|null, deleteFlag: string, disposition: string|null, itemDesc: string|null, displayDesc: string|null, itemId: string, shortCode: string|null, lineNo: float, orderNo: string, originalQtyOrdered: float|null, qtyAllocated: float|null, qtyCanceled: float|null, qtyInvoiced: float|null, qtyOnPickTickets: float|null, qtyOrdered: float|null, unitOfMeasure: string|null, unitQuantity: float, unitSize: float, unitPrice: float|null, extendedPrice: float|null, oeLineUid: int, parentOeLineUid: int, trinityItemId: string|null, trinityItemDesc: string|null, agentItemId: string|null, agentItemDesc: string|null}>
+     *   pickTickets: list<array{pickTicketNo: float, trackingNo: string|null, orderNo: string, invoiceNo: float|null, shipDate: string|null, printedFlag: string|null, printDate: string|null, instructions: string|null, carrierId: float|null, carrierName: string, lines: list<array{lineNumber: float, shipQuantity: float|null, qtyRequested: float|null, invMastUid: int, itemId: string, itemDesc: string|null, displayDesc: string|null, trinityItemId: string|null, trinityItemDesc: string|null, agentItemId: string|null, agentItemDesc: string|null}>}>
      *
      * @param array<string, mixed> $params
      * @return BaseResponse<array<string, mixed>>
@@ -376,14 +635,55 @@ final class CustomerResource
             ['customerId' => (string) $customerId, 'quoteNo' => (string) $quoteNo],
         );
 
-        return BaseResponse::fromArray($response, static fn ($data) => $data);
+        /** @var BaseResponse<array<string, mixed>> $result */
+        $result = BaseResponse::fromArray($response, static fn (mixed $data): mixed => $data);
+
+        return $result;
     }
 
     /**
      * GET /customer/{customerId}/rmas
      *
+     * Response data type: array
+     *   orderNo: string
+     *   customerId: float
+     *   customerName: string|null
+     *   jobName: string|null
+     *   orderDate: string|null
+     *   requestedDate: string|null
+     *   cancelFlag: string|null
+     *   completed: string|null
+     *   deleteFlag: string
+     *   poNo: string|null
+     *   ship2Name: string|null
+     *   ship2Add1: string|null
+     *   ship2Add2: string|null
+     *   ship2Add3: string|null
+     *   ship2City: string|null
+     *   ship2State: string|null
+     *   ship2Zip: string|null
+     *   ship2Country: string|null
+     *   ship2EmailAddress: string|null
+     *   shipToPhone: string|null
+     *   deliveryInstructions: string|null
+     *   class1Id: string|null
+     *   class2Id: string|null
+     *   class3Id: string|null
+     *   class4Id: string|null
+     *   class5Id: string|null
+     *   contactId: string|null
+     *   webReferenceNo: string|null
+     *   orderStatus: string
+     *   taker: string|null
+     *   contactFirstName: string|null
+     *   contactLastName: string|null
+     *   carrierId: float|null
+     *   carrierName: string
+     *   lines: list<array{invMastUid: int, cancelFlag: string|null, complete: string|null, deleteFlag: string, disposition: string|null, itemDesc: string|null, displayDesc: string|null, itemId: string, shortCode: string|null, lineNo: float, orderNo: string, originalQtyOrdered: float|null, qtyAllocated: float|null, qtyCanceled: float|null, qtyInvoiced: float|null, qtyOnPickTickets: float|null, qtyOrdered: float|null, unitOfMeasure: string|null, unitQuantity: float, unitSize: float, unitPrice: float|null, extendedPrice: float|null, oeLineUid: int, parentOeLineUid: int, trinityItemId: string|null, trinityItemDesc: string|null, agentItemId: string|null, agentItemDesc: string|null}>
+     *   pickTickets: list<array{pickTicketNo: float, trackingNo: string|null, orderNo: string, invoiceNo: float|null, shipDate: string|null, printedFlag: string|null, printDate: string|null, instructions: string|null, carrierId: float|null, carrierName: string, lines: list<array{lineNumber: float, shipQuantity: float|null, qtyRequested: float|null, invMastUid: int, itemId: string, itemDesc: string|null, displayDesc: string|null, trinityItemId: string|null, trinityItemDesc: string|null, agentItemId: string|null, agentItemDesc: string|null}>}>
+     *
      * @param array<string, mixed> $params
-     * @return BaseResponse<array<string, mixed>>
+     * @return BaseResponse<list<array<string, mixed>>>
      */
     public function listRmas(int $customerId, array $params = []): BaseResponse
     {
@@ -394,11 +694,52 @@ final class CustomerResource
             ['customerId' => (string) $customerId],
         );
 
-        return BaseResponse::fromArray($response, static fn ($data) => $data);
+        /** @var BaseResponse<list<array<string, mixed>>> $result */
+        $result = BaseResponse::fromArray($response, static fn (mixed $data): mixed => $data);
+
+        return $result;
     }
 
     /**
      * GET /customer/{customerId}/rmas/{rmaNo}
+     *
+     * Response data type: object
+     *   orderNo: string
+     *   customerId: float
+     *   customerName: string|null
+     *   jobName: string|null
+     *   orderDate: string|null
+     *   requestedDate: string|null
+     *   cancelFlag: string|null
+     *   completed: string|null
+     *   deleteFlag: string
+     *   poNo: string|null
+     *   ship2Name: string|null
+     *   ship2Add1: string|null
+     *   ship2Add2: string|null
+     *   ship2Add3: string|null
+     *   ship2City: string|null
+     *   ship2State: string|null
+     *   ship2Zip: string|null
+     *   ship2Country: string|null
+     *   ship2EmailAddress: string|null
+     *   shipToPhone: string|null
+     *   deliveryInstructions: string|null
+     *   class1Id: string|null
+     *   class2Id: string|null
+     *   class3Id: string|null
+     *   class4Id: string|null
+     *   class5Id: string|null
+     *   contactId: string|null
+     *   webReferenceNo: string|null
+     *   orderStatus: string
+     *   taker: string|null
+     *   contactFirstName: string|null
+     *   contactLastName: string|null
+     *   carrierId: float|null
+     *   carrierName: string
+     *   lines: list<array{invMastUid: int, cancelFlag: string|null, complete: string|null, deleteFlag: string, disposition: string|null, itemDesc: string|null, displayDesc: string|null, itemId: string, shortCode: string|null, lineNo: float, orderNo: string, originalQtyOrdered: float|null, qtyAllocated: float|null, qtyCanceled: float|null, qtyInvoiced: float|null, qtyOnPickTickets: float|null, qtyOrdered: float|null, unitOfMeasure: string|null, unitQuantity: float, unitSize: float, unitPrice: float|null, extendedPrice: float|null, oeLineUid: int, parentOeLineUid: int, trinityItemId: string|null, trinityItemDesc: string|null, agentItemId: string|null, agentItemDesc: string|null}>
+     *   pickTickets: list<array{pickTicketNo: float, trackingNo: string|null, orderNo: string, invoiceNo: float|null, shipDate: string|null, printedFlag: string|null, printDate: string|null, instructions: string|null, carrierId: float|null, carrierName: string, lines: list<array{lineNumber: float, shipQuantity: float|null, qtyRequested: float|null, invMastUid: int, itemId: string, itemDesc: string|null, displayDesc: string|null, trinityItemId: string|null, trinityItemDesc: string|null, agentItemId: string|null, agentItemDesc: string|null}>}>
      *
      * @param array<string, mixed> $params
      * @return BaseResponse<array<string, mixed>>
@@ -412,14 +753,25 @@ final class CustomerResource
             ['customerId' => (string) $customerId, 'rmaNo' => (string) $rmaNo],
         );
 
-        return BaseResponse::fromArray($response, static fn ($data) => $data);
+        /** @var BaseResponse<array<string, mixed>> $result */
+        $result = BaseResponse::fromArray($response, static fn (mixed $data): mixed => $data);
+
+        return $result;
     }
 
     /**
      * GET /customer/{customerId}/sales-usage
      *
      * Response data type: object
-     * Known fields: customerId, invoicedFrom, invoicedTo, totalBy, bucketKeys, invoiceCount, linesFolded, itemCount, ... (9 total)
+     *   customerId: string
+     *   invoicedFrom: string
+     *   invoicedTo: string
+     *   totalBy: string
+     *   bucketKeys: list<string>
+     *   invoiceCount: int
+     *   linesFolded: int
+     *   itemCount: int
+     *   data: list<array{itemId: string, itemDesc: string, unitOfMeasure: string|null, salesUnitSize: float|null, pricingUnitSize: float|null, buckets: list<array{key: string, quantity: float, total: float, lines: int}>}>
      *
      * @param array<string, mixed> $params
      * @return BaseResponse<array<string, mixed>>
@@ -433,17 +785,30 @@ final class CustomerResource
             ['customerId' => (string) $customerId],
         );
 
-        return BaseResponse::fromArray($response, static fn ($data) => $data);
+        /** @var BaseResponse<array<string, mixed>> $result */
+        $result = BaseResponse::fromArray($response, static fn (mixed $data): mixed => $data);
+
+        return $result;
     }
 
     /**
      * GET /customer/{customerId}/ship-to
      *
      * Response data type: array
-     * Known fields: shipToId, customerId, companyId, defaultBranch, defaultCarrierId, preferredLocationId, deliveryInstructions, shippingRouteUid, ... (11 total)
+     *   shipToId: float
+     *   customerId: float
+     *   companyId: string
+     *   defaultBranch: string
+     *   defaultCarrierId: float|null
+     *   preferredLocationId: float|null
+     *   deliveryInstructions: string|null
+     *   shippingRouteUid: int|null
+     *   routeCode: string|null
+     *   routeDescription: string|null
+     *   address: array{id: float, name: string, mailAddress1: string|null, mailAddress2: string|null, mailAddress3: string|null, mailCity: string|null, mailState: string|null, mailPostalCode: string|null, mailCountry: string|null, physAddress1: string|null, physAddress2: string|null, physAddress3: string|null, physCity: string|null, physState: string|null, physPostalCode: string|null, physCountry: string|null, class5Id: string|null, centralPhoneNumber: string|null, upsCode: string|null}
      *
      * @param array<string, mixed> $params
-     * @return BaseResponse<array<string, mixed>>
+     * @return BaseResponse<list<array<string, mixed>>>
      */
     public function listShipTo(int $customerId, array $params = []): BaseResponse
     {
@@ -454,14 +819,17 @@ final class CustomerResource
             ['customerId' => (string) $customerId],
         );
 
-        return BaseResponse::fromArray($response, static fn ($data) => $data);
+        /** @var BaseResponse<list<array<string, mixed>>> $result */
+        $result = BaseResponse::fromArray($response, static fn (mixed $data): mixed => $data);
+
+        return $result;
     }
 
     /**
      * POST /customer/{customerId}/ship-to
      *
      * @param array<string, mixed> $data
-     * @return BaseResponse<array<string, mixed>>
+     * @return BaseResponse<mixed>
      */
     public function createShipTo(int $customerId, array $data = []): BaseResponse
     {
@@ -472,14 +840,17 @@ final class CustomerResource
             ['customerId' => (string) $customerId],
         );
 
-        return BaseResponse::fromArray($response, static fn ($data) => $data);
+        /** @var BaseResponse<mixed> $result */
+        $result = BaseResponse::fromArray($response, static fn (mixed $data): mixed => $data);
+
+        return $result;
     }
 
     /**
      * GET /customer/{customerId}/ship-to/lookup
      *
      * @param array<string, mixed> $params
-     * @return BaseResponse<array<string, mixed>>
+     * @return BaseResponse<mixed>
      */
     public function getShipToLookup(int $customerId, array $params = []): BaseResponse
     {
@@ -490,14 +861,17 @@ final class CustomerResource
             ['customerId' => (string) $customerId],
         );
 
-        return BaseResponse::fromArray($response, static fn ($data) => $data);
+        /** @var BaseResponse<mixed> $result */
+        $result = BaseResponse::fromArray($response, static fn (mixed $data): mixed => $data);
+
+        return $result;
     }
 
     /**
      * GET /customer/{customerId}/ship-to/{shipToId}/freight-codes
      *
      * @param array<string, mixed> $params
-     * @return BaseResponse<array<string, mixed>>
+     * @return BaseResponse<mixed>
      */
     public function listShipToFreightCodes(int $customerId, int $shipToId, array $params = []): BaseResponse
     {
@@ -508,17 +882,27 @@ final class CustomerResource
             ['customerId' => (string) $customerId, 'shipToId' => (string) $shipToId],
         );
 
-        return BaseResponse::fromArray($response, static fn ($data) => $data);
+        /** @var BaseResponse<mixed> $result */
+        $result = BaseResponse::fromArray($response, static fn (mixed $data): mixed => $data);
+
+        return $result;
     }
 
     /**
      * GET /customer/{customerId}/tags
      *
      * Response data type: array
-     * Known fields: customerTagsUid, customerId, tag, updateCd, statusCd, processCd, dateCreated, dateLastModified
+     *   customerTagsUid: int
+     *   customerId: float
+     *   tag: string|null
+     *   updateCd: int
+     *   statusCd: int
+     *   processCd: int
+     *   dateCreated: string
+     *   dateLastModified: string
      *
      * @param array<string, mixed> $params
-     * @return BaseResponse<array<string, mixed>>
+     * @return BaseResponse<list<array<string, mixed>>>
      */
     public function listTags(int $customerId, array $params = []): BaseResponse
     {
@@ -529,14 +913,24 @@ final class CustomerResource
             ['customerId' => (string) $customerId],
         );
 
-        return BaseResponse::fromArray($response, static fn ($data) => $data);
+        /** @var BaseResponse<list<array<string, mixed>>> $result */
+        $result = BaseResponse::fromArray($response, static fn (mixed $data): mixed => $data);
+
+        return $result;
     }
 
     /**
      * POST /customer/{customerId}/tags
      *
      * Response data type: object
-     * Known fields: customerTagsUid, customerId, tag, updateCd, statusCd, processCd, dateCreated, dateLastModified
+     *   customerTagsUid: int
+     *   customerId: float
+     *   tag: string|null
+     *   updateCd: int
+     *   statusCd: int
+     *   processCd: int
+     *   dateCreated: string
+     *   dateLastModified: string
      *
      * @param array<string, mixed> $data
      * @return BaseResponse<array<string, mixed>>
@@ -550,14 +944,24 @@ final class CustomerResource
             ['customerId' => (string) $customerId],
         );
 
-        return BaseResponse::fromArray($response, static fn ($data) => $data);
+        /** @var BaseResponse<array<string, mixed>> $result */
+        $result = BaseResponse::fromArray($response, static fn (mixed $data): mixed => $data);
+
+        return $result;
     }
 
     /**
      * DELETE /customer/{customerId}/tags/{customerTagsUid}
      *
      * Response data type: object
-     * Known fields: customerTagsUid, customerId, tag, updateCd, statusCd, processCd, dateCreated, dateLastModified
+     *   customerTagsUid: int
+     *   customerId: float
+     *   tag: string|null
+     *   updateCd: int
+     *   statusCd: int
+     *   processCd: int
+     *   dateCreated: string
+     *   dateLastModified: string
      *
      * @return BaseResponse<array<string, mixed>>
      */
@@ -569,14 +973,24 @@ final class CustomerResource
             ['customerId' => (string) $customerId, 'customerTagsUid' => (string) $customerTagsUid],
         );
 
-        return BaseResponse::fromArray($response, static fn ($data) => $data);
+        /** @var BaseResponse<array<string, mixed>> $result */
+        $result = BaseResponse::fromArray($response, static fn (mixed $data): mixed => $data);
+
+        return $result;
     }
 
     /**
      * GET /customer/{customerId}/tags/{customerTagsUid}
      *
      * Response data type: object
-     * Known fields: customerTagsUid, customerId, tag, updateCd, statusCd, processCd, dateCreated, dateLastModified
+     *   customerTagsUid: int
+     *   customerId: float
+     *   tag: string|null
+     *   updateCd: int
+     *   statusCd: int
+     *   processCd: int
+     *   dateCreated: string
+     *   dateLastModified: string
      *
      * @param array<string, mixed> $params
      * @return BaseResponse<array<string, mixed>>
@@ -590,14 +1004,24 @@ final class CustomerResource
             ['customerId' => (string) $customerId, 'customerTagsUid' => (string) $customerTagsUid],
         );
 
-        return BaseResponse::fromArray($response, static fn ($data) => $data);
+        /** @var BaseResponse<array<string, mixed>> $result */
+        $result = BaseResponse::fromArray($response, static fn (mixed $data): mixed => $data);
+
+        return $result;
     }
 
     /**
      * PUT /customer/{customerId}/tags/{customerTagsUid}
      *
      * Response data type: object
-     * Known fields: customerTagsUid, customerId, tag, updateCd, statusCd, processCd, dateCreated, dateLastModified
+     *   customerTagsUid: int
+     *   customerId: float
+     *   tag: string|null
+     *   updateCd: int
+     *   statusCd: int
+     *   processCd: int
+     *   dateCreated: string
+     *   dateLastModified: string
      *
      * @param array<string, mixed> $data
      * @return BaseResponse<array<string, mixed>>
@@ -611,6 +1035,9 @@ final class CustomerResource
             ['customerId' => (string) $customerId, 'customerTagsUid' => (string) $customerTagsUid],
         );
 
-        return BaseResponse::fromArray($response, static fn ($data) => $data);
+        /** @var BaseResponse<array<string, mixed>> $result */
+        $result = BaseResponse::fromArray($response, static fn (mixed $data): mixed => $data);
+
+        return $result;
     }
 }

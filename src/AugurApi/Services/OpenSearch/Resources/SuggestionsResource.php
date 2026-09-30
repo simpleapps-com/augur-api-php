@@ -24,36 +24,60 @@ final class SuggestionsResource
      * GET /suggestions
      *
      * Response data type: array
-     * Known fields: suggestionsUid, queryStringUid, suggestionsString, suggestionsMetaphone, avgTotalResults, dateCreated, dateLastModified, updateCd, ... (10 total)
+     *   suggestionsUid: int
+     *   queryStringUid: int
+     *   suggestionsString: string
+     *   suggestionsMetaphone: string|null
+     *   avgTotalResults: int
+     *   dateCreated: string
+     *   dateLastModified: string
+     *   updateCd: int
+     *   statusCd: int
+     *   processCd: int
      *
      * @param array<string, mixed> $params
-     * @return BaseResponse<array<string, mixed>>
+     * @return BaseResponse<list<array<string, mixed>>>
      */
     public function list(array $params = []): BaseResponse
     {
         $response = $this->client->get($this->baseUrl, '', $params);
 
-        return BaseResponse::fromArray($response, static fn ($data) => $data);
+        /** @var BaseResponse<list<array<string, mixed>>> $result */
+        $result = BaseResponse::fromArray($response, static fn (mixed $data): mixed => $data);
+
+        return $result;
     }
 
     /**
      * GET /suggestions/suggest
      *
      * @param array<string, mixed> $params
-     * @return BaseResponse<array<string, mixed>>
+     * @return BaseResponse<mixed>
      */
     public function listSuggest(array $params = []): BaseResponse
     {
         $response = $this->client->get($this->baseUrl, '/suggest', $params);
 
-        return BaseResponse::fromArray($response, static fn ($data) => $data);
+        /** @var BaseResponse<mixed> $result */
+        $result = BaseResponse::fromArray($response, static fn (mixed $data): mixed => $data);
+
+        return $result;
     }
 
     /**
      * GET /suggestions/{suggestionsUid}
      *
      * Response data type: object
-     * Known fields: suggestionsUid, queryStringUid, suggestionsString, suggestionsMetaphone, avgTotalResults, dateCreated, dateLastModified, updateCd, ... (10 total)
+     *   suggestionsUid: int
+     *   queryStringUid: int
+     *   suggestionsString: string
+     *   suggestionsMetaphone: string|null
+     *   avgTotalResults: int
+     *   dateCreated: string
+     *   dateLastModified: string
+     *   updateCd: int
+     *   statusCd: int
+     *   processCd: int
      *
      * @param array<string, mixed> $params
      * @return BaseResponse<array<string, mixed>>
@@ -67,6 +91,9 @@ final class SuggestionsResource
             ['suggestionsUid' => (string) $suggestionsUid],
         );
 
-        return BaseResponse::fromArray($response, static fn ($data) => $data);
+        /** @var BaseResponse<array<string, mixed>> $result */
+        $result = BaseResponse::fromArray($response, static fn (mixed $data): mixed => $data);
+
+        return $result;
     }
 }

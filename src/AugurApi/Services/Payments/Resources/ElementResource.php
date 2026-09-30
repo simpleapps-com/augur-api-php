@@ -24,12 +24,15 @@ final class ElementResource
      * POST /element/payment
      *
      * @param array<string, mixed> $data
-     * @return BaseResponse<array<string, mixed>>
+     * @return BaseResponse<mixed>
      */
     public function createPayment(array $data = []): BaseResponse
     {
         $response = $this->client->post($this->baseUrl, '/payment', $data);
 
-        return BaseResponse::fromArray($response, static fn ($data) => $data);
+        /** @var BaseResponse<mixed> $result */
+        $result = BaseResponse::fromArray($response, static fn (mixed $data): mixed => $data);
+
+        return $result;
     }
 }

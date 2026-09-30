@@ -24,15 +24,22 @@ final class TaxEngineResource
      * POST /tax-engine
      *
      * Response data type: object
-     * Known fields: taxEstimate, customerId, postalCode, taxRate, items
+     *   taxEstimate: float
+     *   customerId: int
+     *   postalCode: string|int|float
+     *   taxRate: float
+     *   items: list<array{itemId: string, invMastUid: int, quantity: float, unitOfMeasure: string|null, unitPrice: float|bool, taxEstimate: float}>
      *
-     * @param array<string, mixed> $data
+     * @param array{customerId: int, postalCode: string, items: list<array{itemId: string, quantity?: float, unitOfMeasure?: string|null, unitPrice?: float|null}>} $data
      * @return BaseResponse<array<string, mixed>>
      */
-    public function create(array $data = []): BaseResponse
+    public function create(array $data): BaseResponse
     {
         $response = $this->client->post($this->baseUrl, '', $data);
 
-        return BaseResponse::fromArray($response, static fn ($data) => $data);
+        /** @var BaseResponse<array<string, mixed>> $result */
+        $result = BaseResponse::fromArray($response, static fn (mixed $data): mixed => $data);
+
+        return $result;
     }
 }

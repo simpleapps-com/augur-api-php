@@ -24,55 +24,112 @@ final class ClientsResource
      * GET /clients
      *
      * Response data type: array
-     * Known fields: clientsUid, clientId, clientSecret, usersUid, keyVersion, clientName, description, issuedById, ... (17 total)
+     *   clientsUid: int
+     *   clientId: string
+     *   usersUid: int
+     *   keyVersion: int
+     *   clientName: string
+     *   description: string|null
+     *   issuedById: int|null
+     *   issuedByUsername: string|null
+     *   retiredById: int|null
+     *   retiredByUsername: string|null
+     *   dateLastUsed: string|null
+     *   dateCreated: string
+     *   dateLastModified: string
+     *   updateCd: int
+     *   statusCd: int
+     *   processCd: int
      *
      * @param array<string, mixed> $params
-     * @return BaseResponse<array<string, mixed>>
+     * @return BaseResponse<list<array<string, mixed>>>
      */
     public function list(array $params = []): BaseResponse
     {
         $response = $this->client->get($this->baseUrl, '', $params);
 
-        return BaseResponse::fromArray($response, static fn ($data) => $data);
+        /** @var BaseResponse<list<array<string, mixed>>> $result */
+        $result = BaseResponse::fromArray($response, static fn (mixed $data): mixed => $data);
+
+        return $result;
     }
 
     /**
      * POST /clients
      *
      * Response data type: object
-     * Known fields: clientsUid, clientId, usersUid, keyVersion, clientName, description, issuedById, issuedByUsername, ... (10 total)
+     *   clientsUid?: int
+     *   clientId?: string
+     *   usersUid?: int
+     *   keyVersion?: int
+     *   clientName?: string
+     *   description?: string|null
+     *   issuedById?: int|null
+     *   issuedByUsername?: string|null
+     *   statusCd?: int
+     *   credential?: string
      *
-     * @param array<string, mixed> $data
+     * @param array{usersUid: int, clientName: string, description?: string|null} $data
      * @return BaseResponse<array<string, mixed>>
      */
-    public function create(array $data = []): BaseResponse
+    public function create(array $data): BaseResponse
     {
         $response = $this->client->post($this->baseUrl, '', $data);
 
-        return BaseResponse::fromArray($response, static fn ($data) => $data);
+        /** @var BaseResponse<array<string, mixed>> $result */
+        $result = BaseResponse::fromArray($response, static fn (mixed $data): mixed => $data);
+
+        return $result;
     }
 
     /**
      * POST /clients/validate
      *
      * Response data type: object
-     * Known fields: valid, siteId, tokenUse, clientUid, clientId, usersUid, username, roles, ... (10 total)
+     *   valid?: bool
+     *   siteId?: string
+     *   tokenUse?: string
+     *   clientUid?: int
+     *   clientId?: string
+     *   usersUid?: int
+     *   username?: string
+     *   roles?: list<string>
+     *   bundles?: list<string>
+     *   resources?: list<string>
      *
-     * @param array<string, mixed> $data
+     * @param array{credential?: string, clientId?: string, secret?: string} $data
      * @return BaseResponse<array<string, mixed>>
      */
     public function createValidate(array $data = []): BaseResponse
     {
         $response = $this->client->post($this->baseUrl, '/validate', $data);
 
-        return BaseResponse::fromArray($response, static fn ($data) => $data);
+        /** @var BaseResponse<array<string, mixed>> $result */
+        $result = BaseResponse::fromArray($response, static fn (mixed $data): mixed => $data);
+
+        return $result;
     }
 
     /**
      * DELETE /clients/{clientsUid}
      *
      * Response data type: object
-     * Known fields: clientsUid, clientId, clientSecret, usersUid, keyVersion, clientName, description, issuedById, ... (17 total)
+     *   clientsUid: int
+     *   clientId: string
+     *   usersUid: int
+     *   keyVersion: int
+     *   clientName: string
+     *   description: string|null
+     *   issuedById: int|null
+     *   issuedByUsername: string|null
+     *   retiredById: int|null
+     *   retiredByUsername: string|null
+     *   dateLastUsed: string|null
+     *   dateCreated: string
+     *   dateLastModified: string
+     *   updateCd: int
+     *   statusCd: int
+     *   processCd: int
      *
      * @return BaseResponse<array<string, mixed>>
      */
@@ -84,14 +141,34 @@ final class ClientsResource
             ['clientsUid' => (string) $clientsUid],
         );
 
-        return BaseResponse::fromArray($response, static fn ($data) => $data);
+        /** @var BaseResponse<array<string, mixed>> $result */
+        $result = BaseResponse::fromArray($response, static fn (mixed $data): mixed => $data);
+
+        return $result;
     }
 
     /**
      * GET /clients/{clientsUid}
      *
      * Response data type: object
-     * Known fields: clientsUid, clientId, clientSecret, usersUid, keyVersion, clientName, description, issuedById, ... (18 total)
+     *   clientsUid?: int
+     *   clientId?: string
+     *   clientSecret?: string
+     *   usersUid?: int
+     *   keyVersion?: int
+     *   clientName?: string
+     *   description?: string|null
+     *   issuedById?: int|null
+     *   issuedByUsername?: string|null
+     *   retiredById?: int|null
+     *   retiredByUsername?: string|null
+     *   dateLastUsed?: string|null
+     *   dateCreated?: string
+     *   dateLastModified?: string
+     *   updateCd?: int
+     *   statusCd?: int
+     *   processCd?: int
+     *   credential?: string
      *
      * @param array<string, mixed> $params
      * @return BaseResponse<array<string, mixed>>
@@ -105,16 +182,34 @@ final class ClientsResource
             ['clientsUid' => (string) $clientsUid],
         );
 
-        return BaseResponse::fromArray($response, static fn ($data) => $data);
+        /** @var BaseResponse<array<string, mixed>> $result */
+        $result = BaseResponse::fromArray($response, static fn (mixed $data): mixed => $data);
+
+        return $result;
     }
 
     /**
      * PUT /clients/{clientsUid}
      *
      * Response data type: object
-     * Known fields: clientsUid, clientId, clientSecret, usersUid, keyVersion, clientName, description, issuedById, ... (17 total)
+     *   clientsUid: int
+     *   clientId: string
+     *   usersUid: int
+     *   keyVersion: int
+     *   clientName: string
+     *   description: string|null
+     *   issuedById: int|null
+     *   issuedByUsername: string|null
+     *   retiredById: int|null
+     *   retiredByUsername: string|null
+     *   dateLastUsed: string|null
+     *   dateCreated: string
+     *   dateLastModified: string
+     *   updateCd: int
+     *   statusCd: int
+     *   processCd: int
      *
-     * @param array<string, mixed> $data
+     * @param array{clientName?: string|null, description?: string|null, statusCd?: int|null, processCd?: int|null, updateCd?: int|null} $data
      * @return BaseResponse<array<string, mixed>>
      */
     public function update(int $clientsUid, array $data = []): BaseResponse
@@ -126,6 +221,9 @@ final class ClientsResource
             ['clientsUid' => (string) $clientsUid],
         );
 
-        return BaseResponse::fromArray($response, static fn ($data) => $data);
+        /** @var BaseResponse<array<string, mixed>> $result */
+        $result = BaseResponse::fromArray($response, static fn (mixed $data): mixed => $data);
+
+        return $result;
     }
 }

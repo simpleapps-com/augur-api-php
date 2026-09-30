@@ -24,7 +24,7 @@ final class ItemFavoritesResource
      * GET /item-favorites/{usersId}/items
      *
      * @param array<string, mixed> $params
-     * @return BaseResponse<array<string, mixed>>
+     * @return BaseResponse<mixed>
      */
     public function listItems(int $usersId, array $params = []): BaseResponse
     {
@@ -35,14 +35,17 @@ final class ItemFavoritesResource
             ['usersId' => (string) $usersId],
         );
 
-        return BaseResponse::fromArray($response, static fn ($data) => $data);
+        /** @var BaseResponse<mixed> $result */
+        $result = BaseResponse::fromArray($response, static fn (mixed $data): mixed => $data);
+
+        return $result;
     }
 
     /**
      * POST /item-favorites/{usersId}/items
      *
-     * @param array<string, mixed> $data
-     * @return BaseResponse<array<string, mixed>>
+     * @param list<int> $data
+     * @return BaseResponse<mixed>
      */
     public function createItems(int $usersId, array $data = []): BaseResponse
     {
@@ -53,13 +56,16 @@ final class ItemFavoritesResource
             ['usersId' => (string) $usersId],
         );
 
-        return BaseResponse::fromArray($response, static fn ($data) => $data);
+        /** @var BaseResponse<mixed> $result */
+        $result = BaseResponse::fromArray($response, static fn (mixed $data): mixed => $data);
+
+        return $result;
     }
 
     /**
      * DELETE /item-favorites/{usersId}/items/{invMastUid}
      *
-     * @return BaseResponse<array<string, mixed>>
+     * @return BaseResponse<mixed>
      */
     public function deleteItems(int $usersId, int $invMastUid): BaseResponse
     {
@@ -69,14 +75,17 @@ final class ItemFavoritesResource
             ['usersId' => (string) $usersId, 'invMastUid' => (string) $invMastUid],
         );
 
-        return BaseResponse::fromArray($response, static fn ($data) => $data);
+        /** @var BaseResponse<mixed> $result */
+        $result = BaseResponse::fromArray($response, static fn (mixed $data): mixed => $data);
+
+        return $result;
     }
 
     /**
      * GET /item-favorites/{usersId}/items/{invMastUid}
      *
      * @param array<string, mixed> $params
-     * @return BaseResponse<array<string, mixed>>
+     * @return BaseResponse<mixed>
      */
     public function getItems(int $usersId, int $invMastUid, array $params = []): BaseResponse
     {
@@ -87,14 +96,17 @@ final class ItemFavoritesResource
             ['usersId' => (string) $usersId, 'invMastUid' => (string) $invMastUid],
         );
 
-        return BaseResponse::fromArray($response, static fn ($data) => $data);
+        /** @var BaseResponse<mixed> $result */
+        $result = BaseResponse::fromArray($response, static fn (mixed $data): mixed => $data);
+
+        return $result;
     }
 
     /**
      * PUT /item-favorites/{usersId}/items/{invMastUid}
      *
      * @param array<string, mixed> $data
-     * @return BaseResponse<array<string, mixed>>
+     * @return BaseResponse<mixed>
      */
     public function updateItems(int $usersId, int $invMastUid, array $data = []): BaseResponse
     {
@@ -105,6 +117,9 @@ final class ItemFavoritesResource
             ['usersId' => (string) $usersId, 'invMastUid' => (string) $invMastUid],
         );
 
-        return BaseResponse::fromArray($response, static fn ($data) => $data);
+        /** @var BaseResponse<mixed> $result */
+        $result = BaseResponse::fromArray($response, static fn (mixed $data): mixed => $data);
+
+        return $result;
     }
 }

@@ -175,7 +175,9 @@ final class AugurApiExceptionTest extends TestCase
         $exception = new ValidationException('Validation failed', 400, $errors);
 
         $this->assertEquals($errors, $exception->errors);
-        $this->assertEquals('Street is required', $exception->errors['address']['street']);
+        $address = $exception->errors['address'];
+        $this->assertIsArray($address);
+        $this->assertEquals('Street is required', $address['street']);
     }
 
     public function testAuthenticationExceptionIsFinal(): void

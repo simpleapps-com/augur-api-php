@@ -24,7 +24,16 @@ final class NotificationsResource
      * POST /notifications
      *
      * Response data type: object
-     * Known fields: notificationsUid, serviceName, dataTypeName, type, dataTypeUid, dateCreated, dateLastModified, updateCd, ... (10 total)
+     *   notificationsUid: int
+     *   serviceName: string|null
+     *   dataTypeName: string|null
+     *   type: string|null
+     *   dataTypeUid: int
+     *   dateCreated: string
+     *   dateLastModified: string
+     *   updateCd: int
+     *   statusCd: int
+     *   processCd: int
      *
      * @param array<string, mixed> $data
      * @return BaseResponse<array<string, mixed>>
@@ -33,6 +42,9 @@ final class NotificationsResource
     {
         $response = $this->client->post($this->baseUrl, '', $data);
 
-        return BaseResponse::fromArray($response, static fn ($data) => $data);
+        /** @var BaseResponse<array<string, mixed>> $result */
+        $result = BaseResponse::fromArray($response, static fn (mixed $data): mixed => $data);
+
+        return $result;
     }
 }

@@ -17,7 +17,7 @@ final class CartLineResourceTest extends AugurApiTestCase
 
         $response = $this->api->commerce->cartLine->get(123);
 
-        $this->assertCount(2, $response->data);
+        $this->assertCount(2, self::arrayAt($response->data));
 
         /** @var list<array<string, mixed>> $data */
         $data = $response->data;
@@ -64,8 +64,8 @@ final class CartLineResourceTest extends AugurApiTestCase
             'quantity' => 3,
         ]);
 
-        $this->assertEquals('ITEM001', $response->data['itemId']);
-        $this->assertEquals(3, $response->data['quantity']);
+        $this->assertEquals('ITEM001', self::at($response->data, 'itemId'));
+        $this->assertEquals(3, self::at($response->data, 'quantity'));
         $this->assertRequestPath('/cart-line/123/add');
         $this->assertRequestMethod('POST');
     }
@@ -84,7 +84,7 @@ final class CartLineResourceTest extends AugurApiTestCase
             'quantity' => 10,
         ]);
 
-        $this->assertEquals(10, $response->data['quantity']);
+        $this->assertEquals(10, self::at($response->data, 'quantity'));
         $this->assertRequestPath('/cart-line/123/update');
         $this->assertRequestMethod('POST');
     }

@@ -90,32 +90,28 @@ final class ProjectsResourceTest extends AugurApiTestCase
 
     public function testGetMetrics(): void
     {
-        $this->mockResponse([
-            'project_id' => 1,
-            'total_todos' => 50,
-            'completed_todos' => 35,
-            'completion_rate' => 70.0,
+        $this->mockListResponse([
+            ['id' => 100, 'projectsId' => 1, 'commentCount' => 50, 'avgDaysBetweenActivity' => 70.0],
         ]);
 
         $response = $this->api->basecamp2->projects->listMetrics(1);
 
-        $this->assertEquals(1, $response->data['project_id']);
-        $this->assertEquals(50, $response->data['total_todos']);
-        $this->assertEquals(70.0, $response->data['completion_rate']);
+        $this->assertEquals(1, $response->data[0]['projectsId']);
+        $this->assertEquals(50, $response->data[0]['commentCount']);
+        $this->assertEquals(70.0, $response->data[0]['avgDaysBetweenActivity']);
         $this->assertRequestPath('/projects/1/metrics');
         $this->assertRequestMethod('GET');
     }
 
     public function testGetMetricsWithParams(): void
     {
-        $this->mockResponse([
-            'project_id' => 1,
-            'total_todos' => 20,
+        $this->mockListResponse([
+            ['id' => 101, 'projectsId' => 1, 'commentCount' => 20],
         ]);
 
         $response = $this->api->basecamp2->projects->listMetrics(1, ['dateFrom' => '2024-01-01']);
 
-        $this->assertEquals(20, $response->data['total_todos']);
+        $this->assertEquals(20, $response->data[0]['commentCount']);
     }
 
     public function testGetTodolists(): void

@@ -24,23 +24,54 @@ final class PeopleResource
      * GET /people
      *
      * Response data type: array
-     * Known fields: id, identityId, name, emailAddress, adminFlag, trashedFlag, updatedAt, createdAt, ... (15 total)
+     *   id: int
+     *   identityId: int|null
+     *   name: string|null
+     *   emailAddress: string|null
+     *   adminFlag: string|null
+     *   trashedFlag: string|null
+     *   updatedAt: string
+     *   createdAt: string
+     *   url: string|null
+     *   appUrl: string|null
+     *   avatarUrl: string|null
+     *   fullsizeAvatarUrl: string|null
+     *   updateCd: int
+     *   statusCd: int
+     *   processCd: int
      *
      * @param array<string, mixed> $params
-     * @return BaseResponse<array<string, mixed>>
+     * @return BaseResponse<list<array<string, mixed>>>
      */
     public function list(array $params = []): BaseResponse
     {
         $response = $this->client->get($this->baseUrl, '', $params);
 
-        return BaseResponse::fromArray($response, static fn ($data) => $data);
+        /** @var BaseResponse<list<array<string, mixed>>> $result */
+        $result = BaseResponse::fromArray($response, static fn (mixed $data): mixed => $data);
+
+        return $result;
     }
 
     /**
      * GET /people/{id}
      *
      * Response data type: object
-     * Known fields: id, identityId, name, emailAddress, adminFlag, trashedFlag, updatedAt, createdAt, ... (15 total)
+     *   id: int
+     *   identityId: int|null
+     *   name: string|null
+     *   emailAddress: string|null
+     *   adminFlag: string|null
+     *   trashedFlag: string|null
+     *   updatedAt: string
+     *   createdAt: string
+     *   url: string|null
+     *   appUrl: string|null
+     *   avatarUrl: string|null
+     *   fullsizeAvatarUrl: string|null
+     *   updateCd: int
+     *   statusCd: int
+     *   processCd: int
      *
      * @param array<string, mixed> $params
      * @return BaseResponse<array<string, mixed>>
@@ -54,17 +85,48 @@ final class PeopleResource
             ['id' => (string) $id],
         );
 
-        return BaseResponse::fromArray($response, static fn ($data) => $data);
+        /** @var BaseResponse<array<string, mixed>> $result */
+        $result = BaseResponse::fromArray($response, static fn (mixed $data): mixed => $data);
+
+        return $result;
     }
 
     /**
      * GET /people/{id}/metrics
      *
      * Response data type: array
-     * Known fields: id, projectsId, todolistId, assigneeId, creatorId, todosContent, todosStatusCd, isStale, ... (29 total)
+     *   id: int
+     *   projectsId: int|null
+     *   todolistId: int|null
+     *   assigneeId: int|null
+     *   creatorId: int
+     *   todosContent: string|null
+     *   todosStatusCd: int
+     *   isStale: int
+     *   hasComments: int
+     *   needsResponse: int
+     *   createdAt: string
+     *   completedAt: string|null
+     *   lastActivityAt: string
+     *   firstCommentAt: string|null
+     *   lastCommentAt: string|null
+     *   daysOpen: int|null
+     *   daysSinceLastEvent: int|null
+     *   daysToFirstComment: int|null
+     *   cycleTimeDays: int|null
+     *   commentCount: int
+     *   activeDaysCount: int
+     *   activitySpanDays: int|null
+     *   avgDaysBetweenActivity: float|null
+     *   lastCommenterId: int|null
+     *   dateCreated: string
+     *   dateLastModified: string
+     *   updateCd: int
+     *   statusCd: int
+     *   processCd: int
      *
      * @param array<string, mixed> $params
-     * @return BaseResponse<array<string, mixed>>
+     * @return BaseResponse<list<array<string, mixed>>>
      */
     public function listMetrics(int $id, array $params = []): BaseResponse
     {
@@ -75,17 +137,34 @@ final class PeopleResource
             ['id' => (string) $id],
         );
 
-        return BaseResponse::fromArray($response, static fn ($data) => $data);
+        /** @var BaseResponse<list<array<string, mixed>>> $result */
+        $result = BaseResponse::fromArray($response, static fn (mixed $data): mixed => $data);
+
+        return $result;
     }
 
     /**
      * GET /people/{id}/todos
      *
      * Response data type: array
-     * Known fields: id, identityId, name, emailAddress, adminFlag, trashedFlag, updatedAt, createdAt, ... (15 total)
+     *   id: int
+     *   identityId: int|null
+     *   name: string|null
+     *   emailAddress: string|null
+     *   adminFlag: string|null
+     *   trashedFlag: string|null
+     *   updatedAt: string
+     *   createdAt: string
+     *   url: string|null
+     *   appUrl: string|null
+     *   avatarUrl: string|null
+     *   fullsizeAvatarUrl: string|null
+     *   updateCd: int
+     *   statusCd: int
+     *   processCd: int
      *
      * @param array<string, mixed> $params
-     * @return BaseResponse<array<string, mixed>>
+     * @return BaseResponse<list<array<string, mixed>>>
      */
     public function listTodos(int $id, array $params = []): BaseResponse
     {
@@ -96,17 +175,34 @@ final class PeopleResource
             ['id' => (string) $id],
         );
 
-        return BaseResponse::fromArray($response, static fn ($data) => $data);
+        /** @var BaseResponse<list<array<string, mixed>>> $result */
+        $result = BaseResponse::fromArray($response, static fn (mixed $data): mixed => $data);
+
+        return $result;
     }
 
     /**
      * GET /people/{personId}/projects/{projectId}/todos
      *
      * Response data type: array
-     * Known fields: id, identityId, name, emailAddress, adminFlag, trashedFlag, updatedAt, createdAt, ... (15 total)
+     *   id: int
+     *   identityId: int|null
+     *   name: string|null
+     *   emailAddress: string|null
+     *   adminFlag: string|null
+     *   trashedFlag: string|null
+     *   updatedAt: string
+     *   createdAt: string
+     *   url: string|null
+     *   appUrl: string|null
+     *   avatarUrl: string|null
+     *   fullsizeAvatarUrl: string|null
+     *   updateCd: int
+     *   statusCd: int
+     *   processCd: int
      *
      * @param array<string, mixed> $params
-     * @return BaseResponse<array<string, mixed>>
+     * @return BaseResponse<list<array<string, mixed>>>
      */
     public function listProjectsTodos(int $personId, int $projectId, array $params = []): BaseResponse
     {
@@ -117,6 +213,9 @@ final class PeopleResource
             ['personId' => (string) $personId, 'projectId' => (string) $projectId],
         );
 
-        return BaseResponse::fromArray($response, static fn ($data) => $data);
+        /** @var BaseResponse<list<array<string, mixed>>> $result */
+        $result = BaseResponse::fromArray($response, static fn (mixed $data): mixed => $data);
+
+        return $result;
     }
 }

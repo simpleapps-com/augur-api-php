@@ -123,7 +123,7 @@ final class SectionsResourceTest extends AugurApiTestCase
 
         $response = $this->api->vmi->sections->updateEnable(1);
 
-        $this->assertTrue($response->data['active']);
+        $this->assertTrue(self::at($response->data, 'active'));
         $this->assertRequestMethod('PUT');
         $this->assertRequestPath('/sections/1/enable');
     }
@@ -137,7 +137,7 @@ final class SectionsResourceTest extends AugurApiTestCase
 
         $response = $this->api->vmi->sections->updateEnable(1, ['active' => false]);
 
-        $this->assertFalse($response->data['active']);
+        $this->assertFalse(self::at($response->data, 'active'));
         $this->assertHasSiteIdHeader();
         $this->assertHasAuthHeader();
     }

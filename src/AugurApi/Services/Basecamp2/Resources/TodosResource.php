@@ -24,23 +24,82 @@ final class TodosResource
      * GET /todos
      *
      * Response data type: array
-     * Known fields: id, todolistId, content, dueAt, dueOn, updatedAt, createdAt, completedAt, ... (29 total)
+     *   id: int
+     *   todolistId: int|null
+     *   content: string|null
+     *   dueAt: string|null
+     *   dueOn: string|null
+     *   updatedAt: string
+     *   createdAt: string
+     *   completedAt: string|null
+     *   commentsCount: int|null
+     *   privateFlag: string|null
+     *   trashedFlag: string|null
+     *   creatorId: int|null
+     *   assigneeId: int|null
+     *   completedFlag: string|null
+     *   url: string|null
+     *   appUrl: string|null
+     *   updateCd: int
+     *   position: int
+     *   projectsId: int
+     *   detailJson: string|null
+     *   pullDetailCd: int
+     *   processCd: int
+     *   agrInfoCd: int
+     *   statusCd: int
+     *   lastCommentAt: string
+     *   vector: string|null
+     *   vectorCd: int
+     *   vectorFlag: string
+     *   dateLastVector: string
      *
      * @param array<string, mixed> $params
-     * @return BaseResponse<array<string, mixed>>
+     * @return BaseResponse<list<array<string, mixed>>>
      */
     public function list(array $params = []): BaseResponse
     {
         $response = $this->client->get($this->baseUrl, '', $params);
 
-        return BaseResponse::fromArray($response, static fn ($data) => $data);
+        /** @var BaseResponse<list<array<string, mixed>>> $result */
+        $result = BaseResponse::fromArray($response, static fn (mixed $data): mixed => $data);
+
+        return $result;
     }
 
     /**
      * GET /todos/{id}
      *
      * Response data type: object
-     * Known fields: id, todolistId, content, dueAt, dueOn, updatedAt, createdAt, completedAt, ... (29 total)
+     *   id: int
+     *   todolistId: int|null
+     *   content: string|null
+     *   dueAt: string|null
+     *   dueOn: string|null
+     *   updatedAt: string
+     *   createdAt: string
+     *   completedAt: string|null
+     *   commentsCount: int|null
+     *   privateFlag: string|null
+     *   trashedFlag: string|null
+     *   creatorId: int|null
+     *   assigneeId: int|null
+     *   completedFlag: string|null
+     *   url: string|null
+     *   appUrl: string|null
+     *   updateCd: int
+     *   position: int
+     *   projectsId: int
+     *   detailJson: string|null
+     *   pullDetailCd: int
+     *   processCd: int
+     *   agrInfoCd: int
+     *   statusCd: int
+     *   lastCommentAt: string
+     *   vector: string|null
+     *   vectorCd: int
+     *   vectorFlag: string
+     *   dateLastVector: string
      *
      * @param array<string, mixed> $params
      * @return BaseResponse<array<string, mixed>>
@@ -54,17 +113,48 @@ final class TodosResource
             ['id' => (string) $id],
         );
 
-        return BaseResponse::fromArray($response, static fn ($data) => $data);
+        /** @var BaseResponse<array<string, mixed>> $result */
+        $result = BaseResponse::fromArray($response, static fn (mixed $data): mixed => $data);
+
+        return $result;
     }
 
     /**
      * GET /todos/{id}/comments
      *
      * Response data type: array
-     * Known fields: id, todolistId, content, dueAt, dueOn, updatedAt, createdAt, completedAt, ... (29 total)
+     *   id: int
+     *   todolistId: int|null
+     *   content: string|null
+     *   dueAt: string|null
+     *   dueOn: string|null
+     *   updatedAt: string
+     *   createdAt: string
+     *   completedAt: string|null
+     *   commentsCount: int|null
+     *   privateFlag: string|null
+     *   trashedFlag: string|null
+     *   creatorId: int|null
+     *   assigneeId: int|null
+     *   completedFlag: string|null
+     *   url: string|null
+     *   appUrl: string|null
+     *   updateCd: int
+     *   position: int
+     *   projectsId: int
+     *   detailJson: string|null
+     *   pullDetailCd: int
+     *   processCd: int
+     *   agrInfoCd: int
+     *   statusCd: int
+     *   lastCommentAt: string
+     *   vector: string|null
+     *   vectorCd: int
+     *   vectorFlag: string
+     *   dateLastVector: string
      *
      * @param array<string, mixed> $params
-     * @return BaseResponse<array<string, mixed>>
+     * @return BaseResponse<list<array<string, mixed>>>
      */
     public function listComments(int $id, array $params = []): BaseResponse
     {
@@ -75,17 +165,31 @@ final class TodosResource
             ['id' => (string) $id],
         );
 
-        return BaseResponse::fromArray($response, static fn ($data) => $data);
+        /** @var BaseResponse<list<array<string, mixed>>> $result */
+        $result = BaseResponse::fromArray($response, static fn (mixed $data): mixed => $data);
+
+        return $result;
     }
 
     /**
      * GET /todos/{id}/events
      *
      * Response data type: array
-     * Known fields: id, eventNum, eventTypeCd, peopleId, eventAt, commentId, dateCreated, dateLastModified, ... (12 total)
+     *   id: int
+     *   eventNum: int
+     *   eventTypeCd: int
+     *   peopleId: int
+     *   eventAt: string
+     *   commentId: int|null
+     *   dateCreated: string
+     *   dateLastModified: string
+     *   updateCd: int
+     *   statusCd: int
+     *   processCd: int
+     *   todosSessionsUid: int|null
      *
      * @param array<string, mixed> $params
-     * @return BaseResponse<array<string, mixed>>
+     * @return BaseResponse<list<array<string, mixed>>>
      */
     public function listEvents(int $id, array $params = []): BaseResponse
     {
@@ -96,14 +200,28 @@ final class TodosResource
             ['id' => (string) $id],
         );
 
-        return BaseResponse::fromArray($response, static fn ($data) => $data);
+        /** @var BaseResponse<list<array<string, mixed>>> $result */
+        $result = BaseResponse::fromArray($response, static fn (mixed $data): mixed => $data);
+
+        return $result;
     }
 
     /**
      * GET /todos/{id}/events/{eventNum}
      *
      * Response data type: object
-     * Known fields: id, eventNum, eventTypeCd, peopleId, eventAt, commentId, dateCreated, dateLastModified, ... (12 total)
+     *   id: int
+     *   eventNum: int
+     *   eventTypeCd: int
+     *   peopleId: int
+     *   eventAt: string
+     *   commentId: int|null
+     *   dateCreated: string
+     *   dateLastModified: string
+     *   updateCd: int
+     *   statusCd: int
+     *   processCd: int
+     *   todosSessionsUid: int|null
      *
      * @param array<string, mixed> $params
      * @return BaseResponse<array<string, mixed>>
@@ -117,14 +235,45 @@ final class TodosResource
             ['id' => (string) $id, 'eventNum' => (string) $eventNum],
         );
 
-        return BaseResponse::fromArray($response, static fn ($data) => $data);
+        /** @var BaseResponse<array<string, mixed>> $result */
+        $result = BaseResponse::fromArray($response, static fn (mixed $data): mixed => $data);
+
+        return $result;
     }
 
     /**
      * GET /todos/{id}/metrics
      *
      * Response data type: object
-     * Known fields: id, projectsId, todolistId, assigneeId, creatorId, todosContent, todosStatusCd, isStale, ... (29 total)
+     *   id: int
+     *   projectsId: int|null
+     *   todolistId: int|null
+     *   assigneeId: int|null
+     *   creatorId: int
+     *   todosContent: string|null
+     *   todosStatusCd: int
+     *   isStale: int
+     *   hasComments: int
+     *   needsResponse: int
+     *   createdAt: string
+     *   completedAt: string|null
+     *   lastActivityAt: string
+     *   firstCommentAt: string|null
+     *   lastCommentAt: string|null
+     *   daysOpen: int|null
+     *   daysSinceLastEvent: int|null
+     *   daysToFirstComment: int|null
+     *   cycleTimeDays: int|null
+     *   commentCount: int
+     *   activeDaysCount: int
+     *   activitySpanDays: int|null
+     *   avgDaysBetweenActivity: float|null
+     *   lastCommenterId: int|null
+     *   dateCreated: string
+     *   dateLastModified: string
+     *   updateCd: int
+     *   statusCd: int
+     *   processCd: int
      *
      * @param array<string, mixed> $params
      * @return BaseResponse<array<string, mixed>>
@@ -138,17 +287,33 @@ final class TodosResource
             ['id' => (string) $id],
         );
 
-        return BaseResponse::fromArray($response, static fn ($data) => $data);
+        /** @var BaseResponse<array<string, mixed>> $result */
+        $result = BaseResponse::fromArray($response, static fn (mixed $data): mixed => $data);
+
+        return $result;
     }
 
     /**
      * GET /todos/{id}/sessions
      *
      * Response data type: array
-     * Known fields: todosSessionsUid, todosId, sessionNum, sessionStatusCd, subject, problem, investigation, plan, ... (14 total)
+     *   todosSessionsUid: int
+     *   todosId: int
+     *   sessionNum: int
+     *   sessionStatusCd: int
+     *   subject: string|null
+     *   problem: string|null
+     *   investigation: string|null
+     *   plan: string|null
+     *   outcome: string|null
+     *   dateCreated: string
+     *   dateLastModified: string
+     *   updateCd: int
+     *   statusCd: int
+     *   processCd: int
      *
      * @param array<string, mixed> $params
-     * @return BaseResponse<array<string, mixed>>
+     * @return BaseResponse<list<array<string, mixed>>>
      */
     public function listSessions(int $id, array $params = []): BaseResponse
     {
@@ -159,14 +324,30 @@ final class TodosResource
             ['id' => (string) $id],
         );
 
-        return BaseResponse::fromArray($response, static fn ($data) => $data);
+        /** @var BaseResponse<list<array<string, mixed>>> $result */
+        $result = BaseResponse::fromArray($response, static fn (mixed $data): mixed => $data);
+
+        return $result;
     }
 
     /**
      * POST /todos/{id}/sessions
      *
      * Response data type: object
-     * Known fields: todosSessionsUid, todosId, sessionNum, sessionStatusCd, subject, problem, investigation, plan, ... (14 total)
+     *   todosSessionsUid: int
+     *   todosId: int
+     *   sessionNum: int
+     *   sessionStatusCd: int
+     *   subject: string|null
+     *   problem: string|null
+     *   investigation: string|null
+     *   plan: string|null
+     *   outcome: string|null
+     *   dateCreated: string
+     *   dateLastModified: string
+     *   updateCd: int
+     *   statusCd: int
+     *   processCd: int
      *
      * @param array<string, mixed> $data
      * @return BaseResponse<array<string, mixed>>
@@ -180,14 +361,30 @@ final class TodosResource
             ['id' => (string) $id],
         );
 
-        return BaseResponse::fromArray($response, static fn ($data) => $data);
+        /** @var BaseResponse<array<string, mixed>> $result */
+        $result = BaseResponse::fromArray($response, static fn (mixed $data): mixed => $data);
+
+        return $result;
     }
 
     /**
      * DELETE /todos/{id}/sessions/{sessionId}
      *
      * Response data type: object
-     * Known fields: todosSessionsUid, todosId, sessionNum, sessionStatusCd, subject, problem, investigation, plan, ... (14 total)
+     *   todosSessionsUid: int
+     *   todosId: int
+     *   sessionNum: int
+     *   sessionStatusCd: int
+     *   subject: string|null
+     *   problem: string|null
+     *   investigation: string|null
+     *   plan: string|null
+     *   outcome: string|null
+     *   dateCreated: string
+     *   dateLastModified: string
+     *   updateCd: int
+     *   statusCd: int
+     *   processCd: int
      *
      * @return BaseResponse<array<string, mixed>>
      */
@@ -199,14 +396,30 @@ final class TodosResource
             ['id' => (string) $id, 'sessionId' => (string) $sessionId],
         );
 
-        return BaseResponse::fromArray($response, static fn ($data) => $data);
+        /** @var BaseResponse<array<string, mixed>> $result */
+        $result = BaseResponse::fromArray($response, static fn (mixed $data): mixed => $data);
+
+        return $result;
     }
 
     /**
      * GET /todos/{id}/sessions/{sessionId}
      *
      * Response data type: object
-     * Known fields: todosSessionsUid, todosId, sessionNum, sessionStatusCd, subject, problem, investigation, plan, ... (14 total)
+     *   todosSessionsUid: int
+     *   todosId: int
+     *   sessionNum: int
+     *   sessionStatusCd: int
+     *   subject: string|null
+     *   problem: string|null
+     *   investigation: string|null
+     *   plan: string|null
+     *   outcome: string|null
+     *   dateCreated: string
+     *   dateLastModified: string
+     *   updateCd: int
+     *   statusCd: int
+     *   processCd: int
      *
      * @param array<string, mixed> $params
      * @return BaseResponse<array<string, mixed>>
@@ -220,14 +433,30 @@ final class TodosResource
             ['id' => (string) $id, 'sessionId' => (string) $sessionId],
         );
 
-        return BaseResponse::fromArray($response, static fn ($data) => $data);
+        /** @var BaseResponse<array<string, mixed>> $result */
+        $result = BaseResponse::fromArray($response, static fn (mixed $data): mixed => $data);
+
+        return $result;
     }
 
     /**
      * PUT /todos/{id}/sessions/{sessionId}
      *
      * Response data type: object
-     * Known fields: todosSessionsUid, todosId, sessionNum, sessionStatusCd, subject, problem, investigation, plan, ... (14 total)
+     *   todosSessionsUid: int
+     *   todosId: int
+     *   sessionNum: int
+     *   sessionStatusCd: int
+     *   subject: string|null
+     *   problem: string|null
+     *   investigation: string|null
+     *   plan: string|null
+     *   outcome: string|null
+     *   dateCreated: string
+     *   dateLastModified: string
+     *   updateCd: int
+     *   statusCd: int
+     *   processCd: int
      *
      * @param array<string, mixed> $data
      * @return BaseResponse<array<string, mixed>>
@@ -241,6 +470,9 @@ final class TodosResource
             ['id' => (string) $id, 'sessionId' => (string) $sessionId],
         );
 
-        return BaseResponse::fromArray($response, static fn ($data) => $data);
+        /** @var BaseResponse<array<string, mixed>> $result */
+        $result = BaseResponse::fromArray($response, static fn (mixed $data): mixed => $data);
+
+        return $result;
     }
 }

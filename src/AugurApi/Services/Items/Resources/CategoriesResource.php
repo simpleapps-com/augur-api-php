@@ -24,20 +24,23 @@ final class CategoriesResource
      * GET /categories/lookup
      *
      * @param array<string, mixed> $params
-     * @return BaseResponse<array<string, mixed>>
+     * @return BaseResponse<mixed>
      */
     public function getLookup(array $params = []): BaseResponse
     {
         $response = $this->client->get($this->baseUrl, '/lookup', $params);
 
-        return BaseResponse::fromArray($response, static fn ($data) => $data);
+        /** @var BaseResponse<mixed> $result */
+        $result = BaseResponse::fromArray($response, static fn (mixed $data): mixed => $data);
+
+        return $result;
     }
 
     /**
      * GET /categories/{itemCategoryUid}
      *
      * @param array<string, mixed> $params
-     * @return BaseResponse<array<string, mixed>>
+     * @return BaseResponse<mixed>
      */
     public function get(int $itemCategoryUid, array $params = []): BaseResponse
     {
@@ -48,14 +51,17 @@ final class CategoriesResource
             ['itemCategoryUid' => (string) $itemCategoryUid],
         );
 
-        return BaseResponse::fromArray($response, static fn ($data) => $data);
+        /** @var BaseResponse<mixed> $result */
+        $result = BaseResponse::fromArray($response, static fn (mixed $data): mixed => $data);
+
+        return $result;
     }
 
     /**
      * GET /categories/{itemCategoryUid}/attributes
      *
      * @param array<string, mixed> $params
-     * @return BaseResponse<array<string, mixed>>
+     * @return BaseResponse<mixed>
      */
     public function listAttributes(int $itemCategoryUid, array $params = []): BaseResponse
     {
@@ -66,14 +72,17 @@ final class CategoriesResource
             ['itemCategoryUid' => (string) $itemCategoryUid],
         );
 
-        return BaseResponse::fromArray($response, static fn ($data) => $data);
+        /** @var BaseResponse<mixed> $result */
+        $result = BaseResponse::fromArray($response, static fn (mixed $data): mixed => $data);
+
+        return $result;
     }
 
     /**
      * GET /categories/{itemCategoryUid}/facets
      *
      * @param array<string, mixed> $params
-     * @return BaseResponse<array<string, mixed>>
+     * @return BaseResponse<mixed>
      */
     public function listFacets(int $itemCategoryUid, array $params = []): BaseResponse
     {
@@ -84,14 +93,17 @@ final class CategoriesResource
             ['itemCategoryUid' => (string) $itemCategoryUid],
         );
 
-        return BaseResponse::fromArray($response, static fn ($data) => $data);
+        /** @var BaseResponse<mixed> $result */
+        $result = BaseResponse::fromArray($response, static fn (mixed $data): mixed => $data);
+
+        return $result;
     }
 
     /**
      * GET /categories/{itemCategoryUid}/images
      *
      * @param array<string, mixed> $params
-     * @return BaseResponse<array<string, mixed>>
+     * @return BaseResponse<mixed>
      */
     public function listImages(int $itemCategoryUid, array $params = []): BaseResponse
     {
@@ -102,14 +114,17 @@ final class CategoriesResource
             ['itemCategoryUid' => (string) $itemCategoryUid],
         );
 
-        return BaseResponse::fromArray($response, static fn ($data) => $data);
+        /** @var BaseResponse<mixed> $result */
+        $result = BaseResponse::fromArray($response, static fn (mixed $data): mixed => $data);
+
+        return $result;
     }
 
     /**
      * GET /categories/{itemCategoryUid}/items
      *
      * @param array<string, mixed> $params
-     * @return BaseResponse<array<string, mixed>>
+     * @return BaseResponse<mixed>
      */
     public function listItems(int $itemCategoryUid, array $params = []): BaseResponse
     {
@@ -120,6 +135,9 @@ final class CategoriesResource
             ['itemCategoryUid' => (string) $itemCategoryUid],
         );
 
-        return BaseResponse::fromArray($response, static fn ($data) => $data);
+        /** @var BaseResponse<mixed> $result */
+        $result = BaseResponse::fromArray($response, static fn (mixed $data): mixed => $data);
+
+        return $result;
     }
 }

@@ -17,7 +17,7 @@ final class SitesResourceTest extends AugurApiTestCase
 
         $response = $this->api->agrInfo->sites->createValidate(['siteId' => 'abc']);
 
-        $this->assertTrue($response->data['valid']);
+        $this->assertTrue(self::at($response->data, 'valid'));
         $this->assertRequestPath('/sites/validate');
         $this->assertRequestMethod('POST');
     }

@@ -25,9 +25,9 @@ final class TransPurchaseOrderReceiptResourceTest extends AugurApiTestCase
 
         $response = $this->api->p21Apis->transPurchaseOrderReceipt->get('PO-12345');
 
-        $this->assertEquals('PO-12345', $response->data['poNo']);
-        $this->assertEquals('VENDOR001', $response->data['vendorId']);
-        $this->assertEquals('received', $response->data['status']);
+        $this->assertEquals('PO-12345', self::at($response->data, 'poNo'));
+        $this->assertEquals('VENDOR001', self::at($response->data, 'vendorId'));
+        $this->assertEquals('received', self::at($response->data, 'status'));
         $this->assertRequestMethod('GET');
         $this->assertRequestPath('/trans-purchase-order-receipt/PO-12345');
         $this->assertHasSiteIdHeader();
@@ -47,7 +47,7 @@ final class TransPurchaseOrderReceiptResourceTest extends AugurApiTestCase
             'status' => 'completed',
         ]);
 
-        $this->assertEquals('completed', $response->data['status']);
+        $this->assertEquals('completed', self::at($response->data, 'status'));
         $this->assertRequestMethod('PUT');
         $this->assertRequestPath('/trans-purchase-order-receipt/PO-12345');
     }
@@ -65,8 +65,8 @@ final class TransPurchaseOrderReceiptResourceTest extends AugurApiTestCase
             'receivedBy' => 'USER001',
         ]);
 
-        $this->assertEquals('2024-01-15', $response->data['receivedDate']);
-        $this->assertEquals('USER001', $response->data['receivedBy']);
+        $this->assertEquals('2024-01-15', self::at($response->data, 'receivedDate'));
+        $this->assertEquals('USER001', self::at($response->data, 'receivedBy'));
         $this->assertHasSiteIdHeader();
         $this->assertHasAuthHeader();
     }

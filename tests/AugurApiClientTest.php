@@ -332,7 +332,7 @@ final class AugurApiClientTest extends AugurApiTestCase
         $items = $this->api->items;
         $this->assertNotNull($items);
         $servicesAfter = $property->getValue($this->api);
-        $this->assertArrayHasKey('items', $servicesAfter);
+        $this->assertArrayHasKey('items', self::arrayAt($servicesAfter));
     }
 
     public function testServiceCaching(): void
@@ -348,8 +348,8 @@ final class AugurApiClientTest extends AugurApiTestCase
         $this->expectException(\InvalidArgumentException::class);
         $this->expectExceptionMessage('Unknown service: unknownService');
 
-        /** @phpstan-ignore-next-line Testing unknown property access */
-        $_ = $this->api->unknownService;
+        // Same path as `$api->unknownService`, without an undeclared property
+        $this->api->__get('unknownService');
     }
 
     public function testClassIsFinal(): void

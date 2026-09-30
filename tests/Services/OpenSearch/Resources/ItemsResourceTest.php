@@ -17,7 +17,7 @@ final class ItemsResourceTest extends AugurApiTestCase
 
         $response = $this->api->openSearch->items->list();
 
-        $this->assertCount(2, $response->data);
+        $this->assertCount(2, self::arrayAt($response->data));
 
         /** @var list<array<string, mixed>> $data */
         $data = $response->data;
@@ -38,7 +38,7 @@ final class ItemsResourceTest extends AugurApiTestCase
             'offset' => 0,
         ]);
 
-        $this->assertCount(1, $response->data);
+        $this->assertCount(1, self::arrayAt($response->data));
         $this->assertEquals(100, $response->total);
     }
 
@@ -57,9 +57,9 @@ final class ItemsResourceTest extends AugurApiTestCase
 
         $response = $this->api->openSearch->items->get(123);
 
-        $this->assertEquals(123, $response->data['invMastUid']);
-        $this->assertEquals('ITEM001', $response->data['itemId']);
-        $this->assertEquals('Blue', $response->data['attributes']['color']);
+        $this->assertEquals(123, self::at($response->data, 'invMastUid'));
+        $this->assertEquals('ITEM001', self::at($response->data, 'itemId'));
+        $this->assertEquals('Blue', self::at($response->data, 'attributes', 'color'));
         $this->assertRequestPath('/items/123');
         $this->assertRequestMethod('GET');
     }
@@ -77,8 +77,8 @@ final class ItemsResourceTest extends AugurApiTestCase
             'description' => 'Updated Product Description',
         ]);
 
-        $this->assertEquals('Updated Product Description', $response->data['description']);
-        $this->assertTrue($response->data['updated']);
+        $this->assertEquals('Updated Product Description', self::at($response->data, 'description'));
+        $this->assertTrue(self::at($response->data, 'updated'));
         $this->assertRequestPath('/items/123');
         $this->assertRequestMethod('PUT');
     }
@@ -95,7 +95,7 @@ final class ItemsResourceTest extends AugurApiTestCase
             'attributes' => ['color' => 'Red'],
         ]);
 
-        $this->assertEquals('Red', $response->data['attributes']['color']);
+        $this->assertEquals('Red', self::at($response->data, 'attributes', 'color'));
     }
 
     public function testRefreshItem(): void
@@ -108,7 +108,7 @@ final class ItemsResourceTest extends AugurApiTestCase
 
         $response = $this->api->openSearch->items->getRefresh(123);
 
-        $this->assertTrue($response->data['refreshed']);
+        $this->assertTrue(self::at($response->data, 'refreshed'));
         $this->assertRequestPath('/items/123/refresh');
         $this->assertRequestMethod('GET');
     }
@@ -123,8 +123,8 @@ final class ItemsResourceTest extends AugurApiTestCase
 
         $response = $this->api->openSearch->items->updateRefresh();
 
-        $this->assertEquals('started', $response->data['status']);
-        $this->assertEquals(1500, $response->data['itemsQueued']);
+        $this->assertEquals('started', self::at($response->data, 'status'));
+        $this->assertEquals(1500, self::at($response->data, 'itemsQueued'));
         $this->assertRequestPath('/items/refresh');
         $this->assertRequestMethod('PUT');
     }

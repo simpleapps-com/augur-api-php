@@ -25,8 +25,8 @@ final class ShipviaResourceTest extends AugurApiTestCase
             'locationId' => 1,
         ]);
 
-        $this->assertCount(2, $response->data['rates']);
-        $this->assertEquals('UPS', $response->data['rates'][0]['carrier']);
+        $this->assertCount(2, self::arrayAt($response->data, 'rates'));
+        $this->assertEquals('UPS', self::at($response->data, 'rates', 0, 'carrier'));
         $this->assertRequestPath('/shipvia/rates');
         $this->assertRequestMethod('GET');
         $this->assertHasAuthHeader();
@@ -51,8 +51,8 @@ final class ShipviaResourceTest extends AugurApiTestCase
             'packagingType' => 'PALLET',
         ]);
 
-        $this->assertCount(1, $response->data['rates']);
-        $this->assertEquals('ABF Freight', $response->data['rates'][0]['carrier']);
+        $this->assertCount(1, self::arrayAt($response->data, 'rates'));
+        $this->assertEquals('ABF Freight', self::at($response->data, 'rates', 0, 'carrier'));
         $this->assertRequestPath('/shipvia/rates/ltl');
         $this->assertRequestMethod('GET');
     }

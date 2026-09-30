@@ -23,7 +23,7 @@ final class AttributeGroupsResourceTest extends AugurApiTestCase
 
         $response = $this->api->items->attributeGroups->list();
 
-        $this->assertCount(2, $response->data);
+        $this->assertCount(2, self::arrayAt($response->data));
         /** @var list<array<string, mixed>> $data */
         $data = $response->data;
         $this->assertEquals(1, $data[0]['attributeGroupUid']);
@@ -40,7 +40,7 @@ final class AttributeGroupsResourceTest extends AugurApiTestCase
 
         $response = $this->api->items->attributeGroups->list(['limit' => 10, 'offset' => 0]);
 
-        $this->assertCount(1, $response->data);
+        $this->assertCount(1, self::arrayAt($response->data));
         $this->assertHasSiteIdHeader();
         $this->assertHasAuthHeader();
     }
@@ -55,20 +55,20 @@ final class AttributeGroupsResourceTest extends AugurApiTestCase
 
         $response = $this->api->items->attributeGroups->get(1);
 
-        $this->assertEquals(1, $response->data['attributeGroupUid']);
-        $this->assertEquals('Physical Specs', $response->data['name']);
+        $this->assertEquals(1, self::at($response->data, 'attributeGroupUid'));
+        $this->assertEquals('Physical Specs', self::at($response->data, 'name'));
         $this->assertRequestMethod('GET');
         $this->assertRequestPath('/attribute-groups/1');
     }
 
     public function testCreate(): void
     {
-        $this->mockResponse(['attributeGroupUid' => 3, 'name' => 'New Group']);
+        $this->mockResponse(['attributeGroupUid' => 3, 'attributeGroupDesc' => 'New Group']);
 
-        $response = $this->api->items->attributeGroups->create(['name' => 'New Group']);
+        $response = $this->api->items->attributeGroups->create(['attributeGroupDesc' => 'New Group']);
 
         $this->assertEquals(3, $response->data['attributeGroupUid']);
-        $this->assertEquals('New Group', $response->data['name']);
+        $this->assertEquals('New Group', $response->data['attributeGroupDesc']);
         $this->assertRequestMethod('POST');
         $this->assertRequestPath('/attribute-groups');
     }
@@ -90,7 +90,7 @@ final class AttributeGroupsResourceTest extends AugurApiTestCase
 
         $response = $this->api->items->attributeGroups->delete(1);
 
-        $this->assertTrue($response->data['success']);
+        $this->assertTrue(self::at($response->data, 'success'));
         $this->assertRequestMethod('DELETE');
         $this->assertRequestPath('/attribute-groups/1');
     }
@@ -104,7 +104,7 @@ final class AttributeGroupsResourceTest extends AugurApiTestCase
 
         $response = $this->api->items->attributeGroups->listAttributes(1);
 
-        $this->assertCount(2, $response->data);
+        $this->assertCount(2, self::arrayAt($response->data));
         /** @var list<array<string, mixed>> $data */
         $data = $response->data;
         $this->assertEquals(100, $data[0]['attributeUid']);
@@ -120,7 +120,7 @@ final class AttributeGroupsResourceTest extends AugurApiTestCase
 
         $response = $this->api->items->attributeGroups->listAttributes(1, ['limit' => 5]);
 
-        $this->assertCount(1, $response->data);
+        $this->assertCount(1, self::arrayAt($response->data));
     }
 
     public function testGetAttribute(): void
@@ -133,8 +133,8 @@ final class AttributeGroupsResourceTest extends AugurApiTestCase
 
         $response = $this->api->items->attributeGroups->getAttributes(1, 1);
 
-        $this->assertEquals(1, $response->data['attributeXAttributeGroupUid']);
-        $this->assertEquals(100, $response->data['attributeUid']);
+        $this->assertEquals(1, self::at($response->data, 'attributeXAttributeGroupUid'));
+        $this->assertEquals(100, self::at($response->data, 'attributeUid'));
         $this->assertRequestMethod('GET');
         $this->assertRequestPath('/attribute-groups/1/attributes/1');
     }
@@ -145,8 +145,8 @@ final class AttributeGroupsResourceTest extends AugurApiTestCase
 
         $response = $this->api->items->attributeGroups->createAttributes(1, ['attributeUid' => 102]);
 
-        $this->assertEquals(3, $response->data['attributeXAttributeGroupUid']);
-        $this->assertEquals(102, $response->data['attributeUid']);
+        $this->assertEquals(3, self::at($response->data, 'attributeXAttributeGroupUid'));
+        $this->assertEquals(102, self::at($response->data, 'attributeUid'));
         $this->assertRequestMethod('POST');
         $this->assertRequestPath('/attribute-groups/1/attributes');
     }
@@ -168,7 +168,7 @@ final class AttributeGroupsResourceTest extends AugurApiTestCase
 
         $response = $this->api->items->attributeGroups->deleteAttributes(1, 1);
 
-        $this->assertTrue($response->data['success']);
+        $this->assertTrue(self::at($response->data, 'success'));
         $this->assertRequestMethod('DELETE');
         $this->assertRequestPath('/attribute-groups/1/attributes/1');
     }

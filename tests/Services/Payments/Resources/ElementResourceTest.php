@@ -26,9 +26,9 @@ final class ElementResourceTest extends AugurApiTestCase
             'cvv' => '123',
         ]);
 
-        $this->assertEquals('PAY123456', $response->data['paymentAccountId']);
-        $this->assertEquals('4242', $response->data['last4']);
-        $this->assertEquals('Visa', $response->data['cardType']);
+        $this->assertEquals('PAY123456', self::at($response->data, 'paymentAccountId'));
+        $this->assertEquals('4242', self::at($response->data, 'last4'));
+        $this->assertEquals('Visa', self::at($response->data, 'cardType'));
         $this->assertRequestPath('/element/payment');
         $this->assertRequestMethod('POST');
         $this->assertHasAuthHeader();
@@ -55,7 +55,7 @@ final class ElementResourceTest extends AugurApiTestCase
             ],
         ]);
 
-        $this->assertEquals('Y', $response->data['avsResponse']);
+        $this->assertEquals('Y', self::at($response->data, 'avsResponse'));
     }
 
     public function testCreatePaymentWithCustomerId(): void
@@ -75,8 +75,8 @@ final class ElementResourceTest extends AugurApiTestCase
             'storeCard' => true,
         ]);
 
-        $this->assertEquals('CUST001', $response->data['customerId']);
-        $this->assertTrue($response->data['stored']);
+        $this->assertEquals('CUST001', self::at($response->data, 'customerId'));
+        $this->assertTrue(self::at($response->data, 'stored'));
     }
 
     public function testCreatePaymentMastercard(): void
@@ -94,6 +94,6 @@ final class ElementResourceTest extends AugurApiTestCase
             'cvv' => '321',
         ]);
 
-        $this->assertEquals('Mastercard', $response->data['cardType']);
+        $this->assertEquals('Mastercard', self::at($response->data, 'cardType'));
     }
 }

@@ -25,7 +25,7 @@ final class PaytraceResource
      *
      * @param array<string, mixed> $data
      * @param array<string, mixed> $params
-     * @return BaseResponse<array<string, mixed>>
+     * @return BaseResponse<mixed>
      */
     public function createAuthorization(array $data = [], array $params = []): BaseResponse
     {
@@ -37,7 +37,10 @@ final class PaytraceResource
             $params,
         );
 
-        return BaseResponse::fromArray($response, static fn ($data) => $data);
+        /** @var BaseResponse<mixed> $result */
+        $result = BaseResponse::fromArray($response, static fn (mixed $data): mixed => $data);
+
+        return $result;
     }
 
     /**
@@ -45,7 +48,7 @@ final class PaytraceResource
      *
      * @param array<string, mixed> $data
      * @param array<string, mixed> $params
-     * @return BaseResponse<array<string, mixed>>
+     * @return BaseResponse<mixed>
      */
     public function createCapture(array $data = [], array $params = []): BaseResponse
     {
@@ -57,7 +60,10 @@ final class PaytraceResource
             $params,
         );
 
-        return BaseResponse::fromArray($response, static fn ($data) => $data);
+        /** @var BaseResponse<mixed> $result */
+        $result = BaseResponse::fromArray($response, static fn (mixed $data): mixed => $data);
+
+        return $result;
     }
 
     /**
@@ -65,7 +71,7 @@ final class PaytraceResource
      *
      * @param array<string, mixed> $data
      * @param array<string, mixed> $params
-     * @return BaseResponse<array<string, mixed>>
+     * @return BaseResponse<mixed>
      */
     public function createRefund(array $data = [], array $params = []): BaseResponse
     {
@@ -77,7 +83,10 @@ final class PaytraceResource
             $params,
         );
 
-        return BaseResponse::fromArray($response, static fn ($data) => $data);
+        /** @var BaseResponse<mixed> $result */
+        $result = BaseResponse::fromArray($response, static fn (mixed $data): mixed => $data);
+
+        return $result;
     }
 
     /**
@@ -85,7 +94,7 @@ final class PaytraceResource
      *
      * @param array<string, mixed> $data
      * @param array<string, mixed> $params
-     * @return BaseResponse<array<string, mixed>>
+     * @return BaseResponse<mixed>
      */
     public function createSale(array $data = [], array $params = []): BaseResponse
     {
@@ -97,7 +106,10 @@ final class PaytraceResource
             $params,
         );
 
-        return BaseResponse::fromArray($response, static fn ($data) => $data);
+        /** @var BaseResponse<mixed> $result */
+        $result = BaseResponse::fromArray($response, static fn (mixed $data): mixed => $data);
+
+        return $result;
     }
 
     /**
@@ -105,7 +117,7 @@ final class PaytraceResource
      *
      * @param array<string, mixed> $data
      * @param array<string, mixed> $params
-     * @return BaseResponse<array<string, mixed>>
+     * @return BaseResponse<mixed>
      */
     public function createVoid(array $data = [], array $params = []): BaseResponse
     {
@@ -117,6 +129,9 @@ final class PaytraceResource
             $params,
         );
 
-        return BaseResponse::fromArray($response, static fn ($data) => $data);
+        /** @var BaseResponse<mixed> $result */
+        $result = BaseResponse::fromArray($response, static fn (mixed $data): mixed => $data);
+
+        return $result;
     }
 }

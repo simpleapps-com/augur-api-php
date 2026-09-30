@@ -27,8 +27,8 @@ final class TransWebDisplayTypeResourceTest extends AugurApiTestCase
             'description' => 'Display items in grid format',
         ]);
 
-        $this->assertEquals(1, $response->data['webDisplayTypeUid']);
-        $this->assertEquals('Grid View', $response->data['displayTypeName']);
+        $this->assertEquals(1, self::at($response->data, 'webDisplayTypeUid'));
+        $this->assertEquals('Grid View', self::at($response->data, 'displayTypeName'));
         $this->assertRequestMethod('POST');
         $this->assertRequestPath('/trans-web-display-type');
         $this->assertHasSiteIdHeader();
@@ -45,8 +45,8 @@ final class TransWebDisplayTypeResourceTest extends AugurApiTestCase
 
         $response = $this->api->p21Apis->transWebDisplayType->get(1);
 
-        $this->assertEquals(1, $response->data['webDisplayTypeUid']);
-        $this->assertEquals('Grid View', $response->data['displayTypeName']);
+        $this->assertEquals(1, self::at($response->data, 'webDisplayTypeUid'));
+        $this->assertEquals('Grid View', self::at($response->data, 'displayTypeName'));
         $this->assertRequestMethod('GET');
         $this->assertRequestPath('/trans-web-display-type/1');
     }
@@ -60,7 +60,7 @@ final class TransWebDisplayTypeResourceTest extends AugurApiTestCase
 
         $response = $this->api->p21Apis->transWebDisplayType->get(1, ['includeDetails' => true]);
 
-        $this->assertEquals(1, $response->data['webDisplayTypeUid']);
+        $this->assertEquals(1, self::at($response->data, 'webDisplayTypeUid'));
         $this->assertHasSiteIdHeader();
         $this->assertHasAuthHeader();
     }
@@ -78,7 +78,7 @@ final class TransWebDisplayTypeResourceTest extends AugurApiTestCase
             'description' => 'Display items in list format',
         ]);
 
-        $this->assertEquals('List View', $response->data['displayTypeName']);
+        $this->assertEquals('List View', self::at($response->data, 'displayTypeName'));
         $this->assertRequestMethod('PUT');
         $this->assertRequestPath('/trans-web-display-type/1');
     }
@@ -91,7 +91,7 @@ final class TransWebDisplayTypeResourceTest extends AugurApiTestCase
 
         $response = $this->api->p21Apis->transWebDisplayType->delete(1);
 
-        $this->assertTrue($response->data['success']);
+        $this->assertTrue(self::at($response->data, 'success'));
         $this->assertRequestMethod('DELETE');
         $this->assertRequestPath('/trans-web-display-type/1');
     }
@@ -106,9 +106,9 @@ final class TransWebDisplayTypeResourceTest extends AugurApiTestCase
 
         $response = $this->api->p21Apis->transWebDisplayType->listDefaults();
 
-        $this->assertEquals('Grid', $response->data['defaultDisplayType']);
-        $this->assertEquals(20, $response->data['itemsPerPage']);
-        $this->assertTrue($response->data['showPrices']);
+        $this->assertEquals('Grid', self::at($response->data, 'defaultDisplayType'));
+        $this->assertEquals(20, self::at($response->data, 'itemsPerPage'));
+        $this->assertTrue(self::at($response->data, 'showPrices'));
         $this->assertRequestMethod('GET');
         $this->assertRequestPath('/trans-web-display-type/defaults');
     }
@@ -122,7 +122,7 @@ final class TransWebDisplayTypeResourceTest extends AugurApiTestCase
 
         $response = $this->api->p21Apis->transWebDisplayType->listDefaults(['context' => 'mobile']);
 
-        $this->assertEquals('List', $response->data['defaultDisplayType']);
+        $this->assertEquals('List', self::at($response->data, 'defaultDisplayType'));
         $this->assertHasSiteIdHeader();
         $this->assertHasAuthHeader();
     }
@@ -138,8 +138,8 @@ final class TransWebDisplayTypeResourceTest extends AugurApiTestCase
 
         $response = $this->api->p21Apis->transWebDisplayType->listDefinition();
 
-        $this->assertCount(2, $response->data['fields']);
-        $this->assertEquals('displayTypeName', $response->data['fields'][0]['name']);
+        $this->assertCount(2, self::arrayAt($response->data, 'fields'));
+        $this->assertEquals('displayTypeName', self::at($response->data, 'fields', 0, 'name'));
         $this->assertRequestMethod('GET');
         $this->assertRequestPath('/trans-web-display-type/definition');
     }
@@ -155,7 +155,7 @@ final class TransWebDisplayTypeResourceTest extends AugurApiTestCase
 
         $response = $this->api->p21Apis->transWebDisplayType->listDefinition(['version' => '1.0']);
 
-        $this->assertEquals('1.0', $response->data['version']);
+        $this->assertEquals('1.0', self::at($response->data, 'version'));
         $this->assertHasSiteIdHeader();
         $this->assertHasAuthHeader();
     }

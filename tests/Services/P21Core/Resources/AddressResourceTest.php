@@ -23,7 +23,7 @@ final class AddressResourceTest extends AugurApiTestCase
 
         $response = $this->api->p21Core->address->list();
 
-        $this->assertCount(2, $response->data);
+        $this->assertCount(2, self::arrayAt($response->data));
 
         /** @var list<array<string, mixed>> $data */
         $data = $response->data;
@@ -46,7 +46,7 @@ final class AddressResourceTest extends AugurApiTestCase
 
         $response = $this->api->p21Core->address->list(['limit' => 10, 'offset' => 0]);
 
-        $this->assertCount(1, $response->data);
+        $this->assertCount(1, self::arrayAt($response->data));
         $this->assertEquals(100, $response->total);
     }
 
@@ -62,9 +62,9 @@ final class AddressResourceTest extends AugurApiTestCase
 
         $response = $this->api->p21Core->address->get(1);
 
-        $this->assertEquals(1, $response->data['addressId']);
-        $this->assertEquals('123 Main St', $response->data['street']);
-        $this->assertEquals('NY', $response->data['state']);
+        $this->assertEquals(1, self::at($response->data, 'addressId'));
+        $this->assertEquals('123 Main St', self::at($response->data, 'street'));
+        $this->assertEquals('NY', self::at($response->data, 'state'));
         $this->assertRequestMethod('GET');
         $this->assertRequestPath('/address/1');
     }
@@ -78,7 +78,7 @@ final class AddressResourceTest extends AugurApiTestCase
 
         $response = $this->api->p21Core->address->listCorpAddress(1);
 
-        $this->assertCount(2, $response->data);
+        $this->assertCount(2, self::arrayAt($response->data));
 
         /** @var list<array<string, mixed>> $data */
         $data = $response->data;
@@ -95,7 +95,7 @@ final class AddressResourceTest extends AugurApiTestCase
 
         $response = $this->api->p21Core->address->listCorpAddress(1, ['active' => true]);
 
-        $this->assertCount(1, $response->data);
+        $this->assertCount(1, self::arrayAt($response->data));
         $this->assertHasSiteIdHeader();
         $this->assertHasAuthHeader();
     }
@@ -110,8 +110,8 @@ final class AddressResourceTest extends AugurApiTestCase
 
         $response = $this->api->p21Core->address->listDefault(1);
 
-        $this->assertEquals(1, $response->data['addressId']);
-        $this->assertTrue($response->data['isDefault']);
+        $this->assertEquals(1, self::at($response->data, 'addressId'));
+        $this->assertTrue(self::at($response->data, 'isDefault'));
         $this->assertRequestMethod('GET');
         $this->assertRequestPath('/address/1/default');
     }
@@ -125,7 +125,7 @@ final class AddressResourceTest extends AugurApiTestCase
 
         $response = $this->api->p21Core->address->getEnable(1);
 
-        $this->assertTrue($response->data['enabled']);
+        $this->assertTrue(self::at($response->data, 'enabled'));
         $this->assertRequestMethod('GET');
         $this->assertRequestPath('/address/1/enable');
     }
@@ -139,7 +139,7 @@ final class AddressResourceTest extends AugurApiTestCase
 
         $response = $this->api->p21Core->address->getEnable(1, ['enabled' => false]);
 
-        $this->assertFalse($response->data['enabled']);
+        $this->assertFalse(self::at($response->data, 'enabled'));
         $this->assertHasSiteIdHeader();
         $this->assertHasAuthHeader();
     }
@@ -153,7 +153,7 @@ final class AddressResourceTest extends AugurApiTestCase
 
         $response = $this->api->p21Core->address->getRefresh();
 
-        $this->assertTrue($response->data['success']);
+        $this->assertTrue(self::at($response->data, 'success'));
         $this->assertRequestMethod('GET');
         $this->assertRequestPath('/address/refresh');
     }

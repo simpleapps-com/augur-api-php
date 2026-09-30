@@ -21,8 +21,8 @@ final class ItemSearchResourceTest extends AugurApiTestCase
 
         $response = $this->api->openSearch->itemSearch->list(['q' => 'test']);
 
-        $this->assertCount(2, $response->data['hits']);
-        $this->assertEquals('ITEM001', $response->data['hits'][0]['itemId']);
+        $this->assertCount(2, self::arrayAt($response->data, 'hits'));
+        $this->assertEquals('ITEM001', self::at($response->data, 'hits', 0, 'itemId'));
         $this->assertRequestPath('/item-search');
         $this->assertRequestMethod('GET');
         $this->assertHasAuthHeader();
@@ -43,7 +43,7 @@ final class ItemSearchResourceTest extends AugurApiTestCase
             'category' => 'Electronics',
         ]);
 
-        $this->assertEquals('BrandA', $response->data['hits'][0]['brand']);
+        $this->assertEquals('BrandA', self::at($response->data, 'hits', 0, 'brand'));
     }
 
     public function testSearchWithPagination(): void
@@ -63,8 +63,8 @@ final class ItemSearchResourceTest extends AugurApiTestCase
             'perPage' => 10,
         ]);
 
-        $this->assertEquals(50, $response->data['total']);
-        $this->assertEquals(2, $response->data['page']);
+        $this->assertEquals(50, self::at($response->data, 'total'));
+        $this->assertEquals(2, self::at($response->data, 'page'));
     }
 
     public function testSearchEmpty(): void
@@ -76,8 +76,8 @@ final class ItemSearchResourceTest extends AugurApiTestCase
 
         $response = $this->api->openSearch->itemSearch->list([]);
 
-        $this->assertEmpty($response->data['hits']);
-        $this->assertEquals(0, $response->data['total']);
+        $this->assertEmpty(self::at($response->data, 'hits'));
+        $this->assertEquals(0, self::at($response->data, 'total'));
     }
 
     public function testGetAttributes(): void
@@ -92,9 +92,9 @@ final class ItemSearchResourceTest extends AugurApiTestCase
 
         $response = $this->api->openSearch->itemSearch->listAttributes(['q' => 'shirt']);
 
-        $this->assertCount(2, $response->data['attributes']);
-        $this->assertEquals('Color', $response->data['attributes'][0]['name']);
-        $this->assertContains('Red', $response->data['attributes'][0]['values']);
+        $this->assertCount(2, self::arrayAt($response->data, 'attributes'));
+        $this->assertEquals('Color', self::at($response->data, 'attributes', 0, 'name'));
+        $this->assertContains('Red', self::arrayAt($response->data, 'attributes', 0, 'values'));
         $this->assertRequestPath('/item-search/attributes');
         $this->assertRequestMethod('GET');
     }
@@ -112,7 +112,7 @@ final class ItemSearchResourceTest extends AugurApiTestCase
             'category' => 'Apparel',
         ]);
 
-        $this->assertCount(1, $response->data['attributes']);
+        $this->assertCount(1, self::arrayAt($response->data, 'attributes'));
     }
 
     public function testGetAttributesEmpty(): void
@@ -123,6 +123,6 @@ final class ItemSearchResourceTest extends AugurApiTestCase
 
         $response = $this->api->openSearch->itemSearch->listAttributes([]);
 
-        $this->assertEmpty($response->data['attributes']);
+        $this->assertEmpty(self::at($response->data, 'attributes'));
     }
 }

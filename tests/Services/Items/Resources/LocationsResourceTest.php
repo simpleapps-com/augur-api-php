@@ -23,7 +23,7 @@ final class LocationsResourceTest extends AugurApiTestCase
 
         $response = $this->api->items->locations->listBins(1);
 
-        $this->assertCount(2, $response->data);
+        $this->assertCount(2, self::arrayAt($response->data));
         /** @var list<array<string, mixed>> $data */
         $data = $response->data;
         $this->assertEquals('A-01-01', $data[0]['bin']);
@@ -39,7 +39,7 @@ final class LocationsResourceTest extends AugurApiTestCase
 
         $response = $this->api->items->locations->listBins(1, ['limit' => 25, 'offset' => 0]);
 
-        $this->assertCount(1, $response->data);
+        $this->assertCount(1, self::arrayAt($response->data));
         $this->assertEquals(100, $response->total);
         $this->assertHasSiteIdHeader();
         $this->assertHasAuthHeader();
@@ -58,9 +58,9 @@ final class LocationsResourceTest extends AugurApiTestCase
         // Generated signature: getBins(int $locationId, string $bin, ...)
         $response = $this->api->items->locations->getBins(1, 'A-01-01');
 
-        $this->assertEquals('A-01-01', $response->data['bin']);
-        $this->assertEquals(1, $response->data['locationId']);
-        $this->assertEquals(100, $response->data['capacity']);
+        $this->assertEquals('A-01-01', self::at($response->data, 'bin'));
+        $this->assertEquals(1, self::at($response->data, 'locationId'));
+        $this->assertEquals(100, self::at($response->data, 'capacity'));
         $this->assertRequestMethod('GET');
         $this->assertRequestPath('/locations/1/bins/A-01-01');
     }

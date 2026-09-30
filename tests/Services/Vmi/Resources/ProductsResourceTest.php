@@ -100,19 +100,21 @@ final class ProductsResourceTest extends AugurApiTestCase
 
     public function testCreate(): void
     {
-        $this->mockResponse([
-            'productsUid' => 3,
-            'productId' => 'PROD003',
-            'name' => 'New Product',
+        $this->mockListResponse([
+            [
+                'productsUid' => 3,
+                'productsId' => 'PROD003',
+                'productsDesc' => 'New Product',
+            ],
         ]);
 
         $response = $this->api->vmi->distributors->createProducts(1, [
-            'productId' => 'PROD003',
-            'name' => 'New Product',
+            'productsId' => 'PROD003',
+            'productsDesc' => 'New Product',
         ]);
 
-        $this->assertEquals(3, $response->data['productsUid']);
-        $this->assertEquals('New Product', $response->data['name']);
+        $this->assertEquals(3, $response->data[0]['productsUid']);
+        $this->assertEquals('New Product', $response->data[0]['productsDesc']);
         $this->assertRequestMethod('POST');
         $this->assertRequestPath('/distributors/1/products');
     }
@@ -147,28 +149,26 @@ final class ProductsResourceTest extends AugurApiTestCase
 
     public function testEnable(): void
     {
-        $this->mockResponse([
-            'productsUid' => 1,
-            'active' => true,
+        $this->mockListResponse([
+            ['productsUid' => 1, 'statusCd' => 704],
         ]);
 
         $response = $this->api->vmi->products->updateEnable(1);
 
-        $this->assertTrue($response->data['active']);
+        $this->assertEquals(704, $response->data[0]['statusCd']);
         $this->assertRequestMethod('PUT');
         $this->assertRequestPath('/products/1/enable');
     }
 
     public function testEnableWithData(): void
     {
-        $this->mockResponse([
-            'productsUid' => 1,
-            'active' => false,
+        $this->mockListResponse([
+            ['productsUid' => 1, 'statusCd' => 705],
         ]);
 
-        $response = $this->api->vmi->products->updateEnable(1, ['active' => false]);
+        $response = $this->api->vmi->products->updateEnable(1, ['statusCd' => 705]);
 
-        $this->assertFalse($response->data['active']);
+        $this->assertEquals(705, $response->data[0]['statusCd']);
         $this->assertHasSiteIdHeader();
         $this->assertHasAuthHeader();
     }

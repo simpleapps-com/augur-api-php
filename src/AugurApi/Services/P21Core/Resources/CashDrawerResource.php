@@ -24,23 +24,68 @@ final class CashDrawerResource
      * GET /cash-drawer
      *
      * Response data type: array
-     * Known fields: cashDrawerId, companyId, cashDrawerDescription, currentSequenceNo, openingBalance, withdrawals, deposits, currentBalance, ... (22 total)
+     *   cashDrawerId: string
+     *   companyId: string
+     *   cashDrawerDescription: string
+     *   currentSequenceNo: float
+     *   openingBalance: float|null
+     *   withdrawals: float|null
+     *   deposits: float|null
+     *   currentBalance: float
+     *   drawerOpen: string
+     *   bankNo: float|null
+     *   cashOnHandAccountNumber: string
+     *   deleteFlag: string
+     *   dateCreated: string
+     *   dateLastModified: string
+     *   lastMaintainedBy: string
+     *   cashCardLoad: float|null
+     *   cashDrawerUid: int
+     *   locIdForBranchConflict: float|null
+     *   defaultCloseBranchId: string|null
+     *   updateCd: int
+     *   statusCd: int
+     *   processCd: int
      *
      * @param array<string, mixed> $params
-     * @return BaseResponse<array<string, mixed>>
+     * @return BaseResponse<list<array<string, mixed>>>
      */
     public function list(array $params = []): BaseResponse
     {
         $response = $this->client->get($this->baseUrl, '', $params);
 
-        return BaseResponse::fromArray($response, static fn ($data) => $data);
+        /** @var BaseResponse<list<array<string, mixed>>> $result */
+        $result = BaseResponse::fromArray($response, static fn (mixed $data): mixed => $data);
+
+        return $result;
     }
 
     /**
      * GET /cash-drawer/{cashDrawerUid}
      *
      * Response data type: object
-     * Known fields: cashDrawerId, companyId, cashDrawerDescription, currentSequenceNo, openingBalance, withdrawals, deposits, currentBalance, ... (22 total)
+     *   cashDrawerId: string
+     *   companyId: string
+     *   cashDrawerDescription: string
+     *   currentSequenceNo: float
+     *   openingBalance: float|null
+     *   withdrawals: float|null
+     *   deposits: float|null
+     *   currentBalance: float
+     *   drawerOpen: string
+     *   bankNo: float|null
+     *   cashOnHandAccountNumber: string
+     *   deleteFlag: string
+     *   dateCreated: string
+     *   dateLastModified: string
+     *   lastMaintainedBy: string
+     *   cashCardLoad: float|null
+     *   cashDrawerUid: int
+     *   locIdForBranchConflict: float|null
+     *   defaultCloseBranchId: string|null
+     *   updateCd: int
+     *   statusCd: int
+     *   processCd: int
      *
      * @param array<string, mixed> $params
      * @return BaseResponse<array<string, mixed>>
@@ -54,6 +99,9 @@ final class CashDrawerResource
             ['cashDrawerUid' => (string) $cashDrawerUid],
         );
 
-        return BaseResponse::fromArray($response, static fn ($data) => $data);
+        /** @var BaseResponse<array<string, mixed>> $result */
+        $result = BaseResponse::fromArray($response, static fn (mixed $data): mixed => $data);
+
+        return $result;
     }
 }

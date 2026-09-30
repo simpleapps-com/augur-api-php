@@ -24,35 +24,49 @@ final class RubricsResource
      * GET /rubrics
      *
      * Response data type: array
-     * Known fields: rubricsUid, title, id, content, updateCd, statusCd, processCd, dateCreated, ... (9 total)
+     *   rubricsUid: int
+     *   title: string|null
+     *   id: string|null
+     *   content: string|null
+     *   updateCd: int
+     *   statusCd: int
+     *   processCd: int
+     *   dateCreated: string
+     *   dateLastModified: string
      *
      * @param array<string, mixed> $params
-     * @return BaseResponse<array<string, mixed>>
+     * @return BaseResponse<list<array<string, mixed>>>
      */
     public function list(array $params = []): BaseResponse
     {
         $response = $this->client->get($this->baseUrl, '', $params);
 
-        return BaseResponse::fromArray($response, static fn ($data) => $data);
+        /** @var BaseResponse<list<array<string, mixed>>> $result */
+        $result = BaseResponse::fromArray($response, static fn (mixed $data): mixed => $data);
+
+        return $result;
     }
 
     /**
      * POST /rubrics
      *
      * @param array<string, mixed> $data
-     * @return BaseResponse<array<string, mixed>>
+     * @return BaseResponse<mixed>
      */
     public function create(array $data = []): BaseResponse
     {
         $response = $this->client->post($this->baseUrl, '', $data);
 
-        return BaseResponse::fromArray($response, static fn ($data) => $data);
+        /** @var BaseResponse<mixed> $result */
+        $result = BaseResponse::fromArray($response, static fn (mixed $data): mixed => $data);
+
+        return $result;
     }
 
     /**
      * DELETE /rubrics/{rubricsUid}
      *
-     * @return BaseResponse<array<string, mixed>>
+     * @return BaseResponse<mixed>
      */
     public function delete(int $rubricsUid): BaseResponse
     {
@@ -62,14 +76,25 @@ final class RubricsResource
             ['rubricsUid' => (string) $rubricsUid],
         );
 
-        return BaseResponse::fromArray($response, static fn ($data) => $data);
+        /** @var BaseResponse<mixed> $result */
+        $result = BaseResponse::fromArray($response, static fn (mixed $data): mixed => $data);
+
+        return $result;
     }
 
     /**
      * GET /rubrics/{rubricsUid}
      *
      * Response data type: object
-     * Known fields: rubricsUid, title, id, content, updateCd, statusCd, processCd, dateCreated, ... (9 total)
+     *   rubricsUid: int
+     *   title: string|null
+     *   id: string|null
+     *   content: string|null
+     *   updateCd: int
+     *   statusCd: int
+     *   processCd: int
+     *   dateCreated: string
+     *   dateLastModified: string
      *
      * @param array<string, mixed> $params
      * @return BaseResponse<array<string, mixed>>
@@ -83,14 +108,25 @@ final class RubricsResource
             ['rubricsUid' => (string) $rubricsUid],
         );
 
-        return BaseResponse::fromArray($response, static fn ($data) => $data);
+        /** @var BaseResponse<array<string, mixed>> $result */
+        $result = BaseResponse::fromArray($response, static fn (mixed $data): mixed => $data);
+
+        return $result;
     }
 
     /**
      * PUT /rubrics/{rubricsUid}
      *
      * Response data type: object
-     * Known fields: rubricsUid, title, id, content, updateCd, statusCd, processCd, dateCreated, ... (9 total)
+     *   rubricsUid: int
+     *   title: string|null
+     *   id: string|null
+     *   content: string|null
+     *   updateCd: int
+     *   statusCd: int
+     *   processCd: int
+     *   dateCreated: string
+     *   dateLastModified: string
      *
      * @param array<string, mixed> $data
      * @return BaseResponse<array<string, mixed>>
@@ -104,6 +140,9 @@ final class RubricsResource
             ['rubricsUid' => (string) $rubricsUid],
         );
 
-        return BaseResponse::fromArray($response, static fn ($data) => $data);
+        /** @var BaseResponse<array<string, mixed>> $result */
+        $result = BaseResponse::fromArray($response, static fn (mixed $data): mixed => $data);
+
+        return $result;
     }
 }

@@ -20,7 +20,7 @@ final class UsersResourceTest extends AugurApiTestCase
 
         $response = $this->api->joomla->users->list();
 
-        $this->assertCount(2, $response->data);
+        $this->assertCount(2, self::arrayAt($response->data));
         /** @var list<array<string, mixed>> $data */
         $data = $response->data;
         $this->assertEquals('admin', $data[0]['username']);
@@ -38,7 +38,7 @@ final class UsersResourceTest extends AugurApiTestCase
 
         $response = $this->api->joomla->users->list(['limit' => 10]);
 
-        $this->assertCount(1, $response->data);
+        $this->assertCount(1, self::arrayAt($response->data));
         $this->assertRequestPath('/users');
     }
 
@@ -58,7 +58,7 @@ final class UsersResourceTest extends AugurApiTestCase
             'password' => 'your-password',
         ]);
 
-        $this->assertEquals(3, $response->data['id']);
+        $this->assertEquals(3, self::at($response->data, 'id'));
         $this->assertRequestPath('/users');
         $this->assertRequestMethod('POST');
     }
@@ -91,8 +91,8 @@ final class UsersResourceTest extends AugurApiTestCase
 
         $response = $this->api->joomla->users->get(1);
 
-        $this->assertEquals(1, $response->data['id']);
-        $this->assertEquals('admin', $response->data['username']);
+        $this->assertEquals(1, self::at($response->data, 'id'));
+        $this->assertEquals('admin', self::at($response->data, 'username'));
         $this->assertRequestPath('/users/1');
         $this->assertRequestMethod('GET');
     }
@@ -103,7 +103,7 @@ final class UsersResourceTest extends AugurApiTestCase
 
         $response = $this->api->joomla->users->update(1, ['name' => 'Updated Admin']);
 
-        $this->assertTrue($response->data['success']);
+        $this->assertTrue(self::at($response->data, 'success'));
         $this->assertRequestPath('/users/1');
         $this->assertRequestMethod('PUT');
     }
@@ -114,7 +114,7 @@ final class UsersResourceTest extends AugurApiTestCase
 
         $response = $this->api->joomla->users->delete(1);
 
-        $this->assertTrue($response->data['success']);
+        $this->assertTrue(self::at($response->data, 'success'));
         $this->assertRequestPath('/users/1');
         $this->assertRequestMethod('DELETE');
     }
@@ -130,7 +130,7 @@ final class UsersResourceTest extends AugurApiTestCase
 
         $response = $this->api->joomla->users->listDoc(1);
 
-        $this->assertEquals(1, $response->data['id']);
+        $this->assertEquals(1, self::at($response->data, 'id'));
         $this->assertRequestPath('/users/1/doc');
         $this->assertRequestMethod('GET');
     }
@@ -146,7 +146,7 @@ final class UsersResourceTest extends AugurApiTestCase
 
         $response = $this->api->joomla->users->getDoc(1);
 
-        $this->assertEquals(1, $response->data['id']);
+        $this->assertEquals(1, self::at($response->data, 'id'));
         $this->assertRequestPath('/users/1/doc');
         $this->assertRequestMethod('GET');
     }
@@ -160,7 +160,7 @@ final class UsersResourceTest extends AugurApiTestCase
 
         $response = $this->api->joomla->users->listGroups(1);
 
-        $this->assertCount(2, $response->data);
+        $this->assertCount(2, self::arrayAt($response->data));
         /** @var list<array<string, mixed>> $data */
         $data = $response->data;
         $this->assertEquals('Registered', $data[0]['title']);
@@ -172,12 +172,12 @@ final class UsersResourceTest extends AugurApiTestCase
     {
         $this->mockResponse([
             'userId' => 1,
-            'groups' => [2, 3],
+            'groupId' => 2,
         ]);
 
-        $response = $this->api->joomla->users->createGroups(1, ['groups' => [2, 3]]);
+        $response = $this->api->joomla->users->createGroups(1, ['groupId' => 2]);
 
-        $this->assertEquals([2, 3], $response->data['groups']);
+        $this->assertEquals(2, self::at($response->data, 'groupId'));
         $this->assertRequestPath('/users/1/groups');
         $this->assertRequestMethod('POST');
     }
@@ -193,8 +193,8 @@ final class UsersResourceTest extends AugurApiTestCase
         // Generated signature: getGroups(int $id, int $groupId, ...)
         $response = $this->api->joomla->users->getGroups(1, 3);
 
-        $this->assertEquals(3, $response->data['id']);
-        $this->assertEquals('Administrator', $response->data['title']);
+        $this->assertEquals(3, self::at($response->data, 'id'));
+        $this->assertEquals('Administrator', self::at($response->data, 'title'));
         $this->assertRequestPath('/users/1/groups/3');
         $this->assertRequestMethod('GET');
     }
@@ -205,7 +205,7 @@ final class UsersResourceTest extends AugurApiTestCase
 
         $response = $this->api->joomla->users->deleteGroups(1, 3);
 
-        $this->assertTrue($response->data['success']);
+        $this->assertTrue(self::at($response->data, 'success'));
         $this->assertRequestPath('/users/1/groups/3');
         $this->assertRequestMethod('DELETE');
     }
@@ -221,7 +221,7 @@ final class UsersResourceTest extends AugurApiTestCase
 
         $response = $this->api->joomla->users->listTrinity(1);
 
-        $this->assertEquals('trinity-123', $response->data['trinityId']);
+        $this->assertEquals('trinity-123', self::at($response->data, 'trinityId'));
         $this->assertRequestPath('/users/1/trinity');
         $this->assertRequestMethod('GET');
     }

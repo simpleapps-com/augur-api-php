@@ -50,9 +50,9 @@ final class BundlesResourceTest extends AugurApiTestCase
     {
         $this->mockResponse(['bundlesUid' => 3, 'bundleId' => 'new', 'bundleName' => 'New Bundle']);
 
-        $response = $this->api->agrInt->bundles->create(['bundleId' => 'new']);
+        $response = $this->api->agrInt->bundles->create(['bundleName' => 'New Bundle']);
 
-        $this->assertEquals('new', $response->data['bundleId']);
+        $this->assertEquals('New Bundle', $response->data['bundleName']);
         $this->assertRequestPath('/bundles');
         $this->assertRequestMethod('POST');
     }

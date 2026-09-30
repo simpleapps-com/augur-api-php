@@ -24,7 +24,7 @@ final class LocationsResource
      * GET /locations/{locationId}/bins
      *
      * @param array<string, mixed> $params
-     * @return BaseResponse<array<string, mixed>>
+     * @return BaseResponse<mixed>
      */
     public function listBins(int $locationId, array $params = []): BaseResponse
     {
@@ -35,14 +35,17 @@ final class LocationsResource
             ['locationId' => (string) $locationId],
         );
 
-        return BaseResponse::fromArray($response, static fn ($data) => $data);
+        /** @var BaseResponse<mixed> $result */
+        $result = BaseResponse::fromArray($response, static fn (mixed $data): mixed => $data);
+
+        return $result;
     }
 
     /**
      * GET /locations/{locationId}/bins/{bin}
      *
      * @param array<string, mixed> $params
-     * @return BaseResponse<array<string, mixed>>
+     * @return BaseResponse<mixed>
      */
     public function getBins(int $locationId, string $bin, array $params = []): BaseResponse
     {
@@ -53,6 +56,9 @@ final class LocationsResource
             ['locationId' => (string) $locationId, 'bin' => (string) $bin],
         );
 
-        return BaseResponse::fromArray($response, static fn ($data) => $data);
+        /** @var BaseResponse<mixed> $result */
+        $result = BaseResponse::fromArray($response, static fn (mixed $data): mixed => $data);
+
+        return $result;
     }
 }

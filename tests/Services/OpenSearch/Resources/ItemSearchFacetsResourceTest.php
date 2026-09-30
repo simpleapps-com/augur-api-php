@@ -20,7 +20,7 @@ final class ItemSearchFacetsResourceTest extends AugurApiTestCase
 
         $response = $this->api->openSearch->itemSearchFacets->list();
 
-        $this->assertCount(2, $response->data);
+        $this->assertCount(2, self::arrayAt($response->data));
         $this->assertRequestPath('/item-search-facets');
         $this->assertRequestMethod('GET');
         $this->assertHasSiteIdHeader();
@@ -35,7 +35,7 @@ final class ItemSearchFacetsResourceTest extends AugurApiTestCase
 
         $response = $this->api->openSearch->itemSearchFacets->list(['q' => 'widget']);
 
-        $this->assertCount(1, $response->data);
+        $this->assertCount(1, self::arrayAt($response->data));
         $this->assertStringContainsString('q=widget', $this->getLastRequest()->getUri()->getQuery());
     }
 }

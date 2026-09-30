@@ -27,8 +27,8 @@ final class TransCompanyResourceTest extends AugurApiTestCase
             'active' => true,
         ]);
 
-        $this->assertEquals(1, $response->data['companyUid']);
-        $this->assertEquals('Test Company', $response->data['companyName']);
+        $this->assertEquals(1, self::at($response->data, 'companyUid'));
+        $this->assertEquals('Test Company', self::at($response->data, 'companyName'));
         $this->assertRequestMethod('POST');
         $this->assertRequestPath('/trans-company');
         $this->assertHasSiteIdHeader();
@@ -45,8 +45,8 @@ final class TransCompanyResourceTest extends AugurApiTestCase
 
         $response = $this->api->p21Apis->transCompany->get(1);
 
-        $this->assertEquals(1, $response->data['companyUid']);
-        $this->assertEquals('Test Company', $response->data['companyName']);
+        $this->assertEquals(1, self::at($response->data, 'companyUid'));
+        $this->assertEquals('Test Company', self::at($response->data, 'companyName'));
         $this->assertRequestMethod('GET');
         $this->assertRequestPath('/trans-company/1');
     }
@@ -60,7 +60,7 @@ final class TransCompanyResourceTest extends AugurApiTestCase
 
         $response = $this->api->p21Apis->transCompany->get(1, ['includeDetails' => true]);
 
-        $this->assertEquals(1, $response->data['companyUid']);
+        $this->assertEquals(1, self::at($response->data, 'companyUid'));
         $this->assertHasSiteIdHeader();
         $this->assertHasAuthHeader();
     }
@@ -78,8 +78,8 @@ final class TransCompanyResourceTest extends AugurApiTestCase
             'active' => false,
         ]);
 
-        $this->assertEquals('Updated Company', $response->data['companyName']);
-        $this->assertFalse($response->data['active']);
+        $this->assertEquals('Updated Company', self::at($response->data, 'companyName'));
+        $this->assertFalse(self::at($response->data, 'active'));
         $this->assertRequestMethod('PUT');
         $this->assertRequestPath('/trans-company/1');
     }
@@ -92,7 +92,7 @@ final class TransCompanyResourceTest extends AugurApiTestCase
 
         $response = $this->api->p21Apis->transCompany->delete(1);
 
-        $this->assertTrue($response->data['success']);
+        $this->assertTrue(self::at($response->data, 'success'));
         $this->assertRequestMethod('DELETE');
         $this->assertRequestPath('/trans-company/1');
     }

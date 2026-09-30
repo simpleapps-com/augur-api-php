@@ -19,9 +19,9 @@ final class InvoiceHdrResourceTest extends AugurApiTestCase
 
         $response = $this->api->orders->invoiceHdr->listReprint(123);
 
-        $this->assertEquals(123, $response->data['invoiceNo']);
-        $this->assertEquals('queued', $response->data['status']);
-        $this->assertEquals('PJ12345', $response->data['printJobId']);
+        $this->assertEquals(123, self::at($response->data, 'invoiceNo'));
+        $this->assertEquals('queued', self::at($response->data, 'status'));
+        $this->assertEquals('PJ12345', self::at($response->data, 'printJobId'));
         $this->assertRequestPath('/invoice-hdr/123/reprint');
         $this->assertRequestMethod('GET');
         $this->assertHasAuthHeader();
@@ -36,7 +36,7 @@ final class InvoiceHdrResourceTest extends AugurApiTestCase
 
         $response = $this->api->orders->invoiceHdr->listReprint(999);
 
-        $this->assertEquals(999, $response->data['invoiceNo']);
+        $this->assertEquals(999, self::at($response->data, 'invoiceNo'));
         $this->assertRequestPath('/invoice-hdr/999/reprint');
     }
 
@@ -50,8 +50,8 @@ final class InvoiceHdrResourceTest extends AugurApiTestCase
 
         $response = $this->api->orders->invoiceHdr->listReprint(456);
 
-        $this->assertEquals('completed', $response->data['status']);
-        $this->assertArrayHasKey('printedAt', $response->data);
+        $this->assertEquals('completed', self::at($response->data, 'status'));
+        $this->assertArrayHasKey('printedAt', self::arrayAt($response->data));
     }
 
     public function testListReprintWithEmail(): void
@@ -64,6 +64,6 @@ final class InvoiceHdrResourceTest extends AugurApiTestCase
 
         $response = $this->api->orders->invoiceHdr->listReprint(789);
 
-        $this->assertEquals('emailed', $response->data['status']);
+        $this->assertEquals('emailed', self::at($response->data, 'status'));
     }
 }

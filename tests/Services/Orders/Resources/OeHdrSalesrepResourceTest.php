@@ -27,7 +27,7 @@ final class OeHdrSalesrepResourceTest extends AugurApiTestCase
 
         $response = $this->api->orders->oeHdrSalesrep->listOeHdr('100');
 
-        $this->assertCount(2, $response->data);
+        $this->assertCount(2, self::arrayAt($response->data));
         /** @var list<array<string, mixed>> $data */
         $data = $response->data;
         $this->assertEquals(1001, $data[0]['orderNo']);
@@ -47,7 +47,7 @@ final class OeHdrSalesrepResourceTest extends AugurApiTestCase
             'limit' => 10,
         ]);
 
-        $this->assertCount(1, $response->data);
+        $this->assertCount(1, self::arrayAt($response->data));
         /** @var list<array<string, mixed>> $data */
         $data = $response->data;
         $this->assertEquals('open', $data[0]['status']);
@@ -64,7 +64,7 @@ final class OeHdrSalesrepResourceTest extends AugurApiTestCase
             'endDate' => '2024-01-15',
         ]);
 
-        $this->assertCount(1, $response->data);
+        $this->assertCount(1, self::arrayAt($response->data));
     }
 
     public function testListOeHdrEmpty(): void
@@ -98,7 +98,7 @@ final class OeHdrSalesrepResourceTest extends AugurApiTestCase
         $this->assertEquals(12345, $response->data['orderNo']);
         $this->assertEquals(100, $response->data['salesrepId']);
         $this->assertEquals(125.00, $response->data['commission']);
-        $this->assertCount(1, $response->data['lines']);
+        $this->assertCount(1, self::arrayAt($response->data, 'lines'));
         $this->assertRequestPath('/oe-hdr-salesrep/100/oe-hdr/12345/doc');
         $this->assertRequestMethod('GET');
     }

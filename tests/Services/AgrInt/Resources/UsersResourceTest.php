@@ -28,7 +28,11 @@ final class UsersResourceTest extends AugurApiTestCase
     {
         $this->mockResponse(['usersUid' => 5, 'username' => 'jdoe']);
 
-        $response = $this->api->agrInt->users->create(['username' => 'jdoe']);
+        $response = $this->api->agrInt->users->create([
+            'username' => 'jdoe',
+            'password' => 'secret',
+            'email' => 'jdoe@example.com',
+        ]);
 
         $this->assertEquals('jdoe', $response->data['username']);
         $this->assertRequestPath('/users');
@@ -39,7 +43,11 @@ final class UsersResourceTest extends AugurApiTestCase
     {
         $this->mockResponse(['usersUid' => 5, 'verified' => true]);
 
-        $response = $this->api->agrInt->users->createVerify(['username' => 'jdoe', 'password' => 'x']);
+        $response = $this->api->agrInt->users->createVerify([
+            'siteId' => 'testsite',
+            'username' => 'jdoe',
+            'password' => 'x',
+        ]);
 
         $this->assertTrue($response->data['verified']);
         $this->assertRequestPath('/users/verify');

@@ -24,23 +24,62 @@ final class TodosSummaryResource
      * GET /todos-summary
      *
      * Response data type: array
-     * Known fields: id, summary, summaryTokens, context, contextTokens, modelName, vector, vectorCd, ... (19 total)
+     *   id: int
+     *   summary: string|null
+     *   summaryTokens: int
+     *   context: string|null
+     *   contextTokens: int
+     *   modelName: string|null
+     *   vector: string|null
+     *   vectorCd: int
+     *   statusCd: int
+     *   processCd: int
+     *   updateCd: int
+     *   dateCreated: string
+     *   dateLastModified: string
+     *   akashaCd: int
+     *   complexityScore: int|null
+     *   complexityReason: string|null
+     *   estimatedMinutes: int|null
+     *   requiredServices: string|null
+     *   worthinessReason: string|null
      *
      * @param array<string, mixed> $params
-     * @return BaseResponse<array<string, mixed>>
+     * @return BaseResponse<list<array<string, mixed>>>
      */
     public function list(array $params = []): BaseResponse
     {
         $response = $this->client->get($this->baseUrl, '', $params);
 
-        return BaseResponse::fromArray($response, static fn ($data) => $data);
+        /** @var BaseResponse<list<array<string, mixed>>> $result */
+        $result = BaseResponse::fromArray($response, static fn (mixed $data): mixed => $data);
+
+        return $result;
     }
 
     /**
      * GET /todos-summary/{id}
      *
      * Response data type: object
-     * Known fields: id, summary, summaryTokens, context, contextTokens, modelName, vector, vectorCd, ... (19 total)
+     *   id: int
+     *   summary: string|null
+     *   summaryTokens: int
+     *   context: string|null
+     *   contextTokens: int
+     *   modelName: string|null
+     *   vector: string|null
+     *   vectorCd: int
+     *   statusCd: int
+     *   processCd: int
+     *   updateCd: int
+     *   dateCreated: string
+     *   dateLastModified: string
+     *   akashaCd: int
+     *   complexityScore: int|null
+     *   complexityReason: string|null
+     *   estimatedMinutes: int|null
+     *   requiredServices: string|null
+     *   worthinessReason: string|null
      *
      * @param array<string, mixed> $params
      * @return BaseResponse<array<string, mixed>>
@@ -54,6 +93,9 @@ final class TodosSummaryResource
             ['id' => (string) $id],
         );
 
-        return BaseResponse::fromArray($response, static fn ($data) => $data);
+        /** @var BaseResponse<array<string, mixed>> $result */
+        $result = BaseResponse::fromArray($response, static fn (mixed $data): mixed => $data);
+
+        return $result;
     }
 }

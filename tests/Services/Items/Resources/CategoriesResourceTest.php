@@ -23,7 +23,7 @@ final class CategoriesResourceTest extends AugurApiTestCase
 
         $response = $this->api->items->categories->getLookup();
 
-        $this->assertCount(2, $response->data);
+        $this->assertCount(2, self::arrayAt($response->data));
         /** @var list<array<string, mixed>> $data */
         $data = $response->data;
         $this->assertEquals(1, $data[0]['itemCategoryUid']);
@@ -40,7 +40,7 @@ final class CategoriesResourceTest extends AugurApiTestCase
 
         $response = $this->api->items->categories->getLookup(['limit' => 10, 'q' => 'elec']);
 
-        $this->assertCount(1, $response->data);
+        $this->assertCount(1, self::arrayAt($response->data));
         $this->assertHasSiteIdHeader();
         $this->assertHasAuthHeader();
     }
@@ -55,8 +55,8 @@ final class CategoriesResourceTest extends AugurApiTestCase
 
         $response = $this->api->items->categories->get(1);
 
-        $this->assertEquals(1, $response->data['itemCategoryUid']);
-        $this->assertEquals('Electronics', $response->data['name']);
+        $this->assertEquals(1, self::at($response->data, 'itemCategoryUid'));
+        $this->assertEquals('Electronics', self::at($response->data, 'name'));
         $this->assertRequestMethod('GET');
         $this->assertRequestPath('/categories/1');
     }
@@ -73,8 +73,8 @@ final class CategoriesResourceTest extends AugurApiTestCase
 
         $response = $this->api->items->categories->listAttributes(1);
 
-        $this->assertCount(2, $response->data['attributes']);
-        $this->assertEquals('Voltage', $response->data['attributes'][0]['name']);
+        $this->assertCount(2, self::arrayAt($response->data, 'attributes'));
+        $this->assertEquals('Voltage', self::at($response->data, 'attributes', 0, 'name'));
         $this->assertRequestMethod('GET');
         $this->assertRequestPath('/categories/1/attributes');
     }
@@ -121,10 +121,10 @@ final class CategoriesResourceTest extends AugurApiTestCase
 
         $response = $this->api->items->categories->listImages(1);
 
-        $this->assertCount(2, $response->data);
+        $this->assertCount(2, self::arrayAt($response->data));
         /** @var list<array<string, mixed>> $data */
         $data = $response->data;
-        $this->assertStringContainsString('image1', $data[0]['url']);
+        $this->assertStringContainsString('image1', self::stringAt($data, 0, 'url'));
         $this->assertRequestMethod('GET');
         $this->assertRequestPath('/categories/1/images');
     }
@@ -145,9 +145,9 @@ final class CategoriesResourceTest extends AugurApiTestCase
 
         $response = $this->api->items->categories->listItems(1);
 
-        $this->assertCount(2, $response->data['items']);
-        $this->assertEquals('ITEM001', $response->data['items'][0]['itemId']);
-        $this->assertEquals(50, $response->data['total']);
+        $this->assertCount(2, self::arrayAt($response->data, 'items'));
+        $this->assertEquals('ITEM001', self::at($response->data, 'items', 0, 'itemId'));
+        $this->assertEquals(50, self::at($response->data, 'total'));
         $this->assertRequestMethod('GET');
         $this->assertRequestPath('/categories/1/items');
     }
@@ -166,7 +166,7 @@ final class CategoriesResourceTest extends AugurApiTestCase
 
         $response = $this->api->items->categories->listItems(1, ['limit' => 10, 'offset' => 20]);
 
-        $this->assertCount(1, $response->data['items']);
-        $this->assertEquals(100, $response->data['total']);
+        $this->assertCount(1, self::arrayAt($response->data, 'items'));
+        $this->assertEquals(100, self::at($response->data, 'total'));
     }
 }

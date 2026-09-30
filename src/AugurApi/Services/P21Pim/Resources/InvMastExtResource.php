@@ -24,23 +24,60 @@ final class InvMastExtResource
      * GET /inv-mast-ext
      *
      * Response data type: array
-     * Known fields: invMastExtUid, invMastUid, dateCreated, dateLastModified, updateCd, statusCd, processCd, upcOrEan, ... (18 total)
+     *   invMastExtUid: int
+     *   invMastUid: int
+     *   dateCreated: string
+     *   dateLastModified: string
+     *   updateCd: int
+     *   statusCd: int
+     *   processCd: int
+     *   upcOrEan: string|null
+     *   upcOrEanId: string|null
+     *   upcOrEanPrefix: string|null
+     *   upcOrEanItem: string|null
+     *   attributeGroupUid: int|null
+     *   brandName: string|null
+     *   manufacturerName: string|null
+     *   partNumber: string|null
+     *   metaTitle: string|null
+     *   metaDescription: string|null
+     *   metaKeywords: string|null
      *
      * @param array<string, mixed> $params
-     * @return BaseResponse<array<string, mixed>>
+     * @return BaseResponse<list<array<string, mixed>>>
      */
     public function list(array $params = []): BaseResponse
     {
         $response = $this->client->get($this->baseUrl, '', $params);
 
-        return BaseResponse::fromArray($response, static fn ($data) => $data);
+        /** @var BaseResponse<list<array<string, mixed>>> $result */
+        $result = BaseResponse::fromArray($response, static fn (mixed $data): mixed => $data);
+
+        return $result;
     }
 
     /**
      * POST /inv-mast-ext
      *
      * Response data type: object
-     * Known fields: invMastExtUid, invMastUid, dateCreated, dateLastModified, updateCd, statusCd, processCd, upcOrEan, ... (18 total)
+     *   invMastExtUid: int
+     *   invMastUid: int
+     *   dateCreated: string
+     *   dateLastModified: string
+     *   updateCd: int
+     *   statusCd: int
+     *   processCd: int
+     *   upcOrEan: string|null
+     *   upcOrEanId: string|null
+     *   upcOrEanPrefix: string|null
+     *   upcOrEanItem: string|null
+     *   attributeGroupUid: int|null
+     *   brandName: string|null
+     *   manufacturerName: string|null
+     *   partNumber: string|null
+     *   metaTitle: string|null
+     *   metaDescription: string|null
+     *   metaKeywords: string|null
      *
      * @param array<string, mixed> $data
      * @return BaseResponse<array<string, mixed>>
@@ -49,13 +86,16 @@ final class InvMastExtResource
     {
         $response = $this->client->post($this->baseUrl, '', $data);
 
-        return BaseResponse::fromArray($response, static fn ($data) => $data);
+        /** @var BaseResponse<array<string, mixed>> $result */
+        $result = BaseResponse::fromArray($response, static fn (mixed $data): mixed => $data);
+
+        return $result;
     }
 
     /**
      * DELETE /inv-mast-ext/{invMastExtUid}
      *
-     * @return BaseResponse<array<string, mixed>>
+     * @return BaseResponse<mixed>
      */
     public function delete(int $invMastExtUid): BaseResponse
     {
@@ -65,14 +105,34 @@ final class InvMastExtResource
             ['invMastExtUid' => (string) $invMastExtUid],
         );
 
-        return BaseResponse::fromArray($response, static fn ($data) => $data);
+        /** @var BaseResponse<mixed> $result */
+        $result = BaseResponse::fromArray($response, static fn (mixed $data): mixed => $data);
+
+        return $result;
     }
 
     /**
      * GET /inv-mast-ext/{invMastExtUid}
      *
      * Response data type: object
-     * Known fields: invMastExtUid, invMastUid, dateCreated, dateLastModified, updateCd, statusCd, processCd, upcOrEan, ... (18 total)
+     *   invMastExtUid: int
+     *   invMastUid: int
+     *   dateCreated: string
+     *   dateLastModified: string
+     *   updateCd: int
+     *   statusCd: int
+     *   processCd: int
+     *   upcOrEan: string|null
+     *   upcOrEanId: string|null
+     *   upcOrEanPrefix: string|null
+     *   upcOrEanItem: string|null
+     *   attributeGroupUid: int|null
+     *   brandName: string|null
+     *   manufacturerName: string|null
+     *   partNumber: string|null
+     *   metaTitle: string|null
+     *   metaDescription: string|null
+     *   metaKeywords: string|null
      *
      * @param array<string, mixed> $params
      * @return BaseResponse<array<string, mixed>>
@@ -86,14 +146,34 @@ final class InvMastExtResource
             ['invMastExtUid' => (string) $invMastExtUid],
         );
 
-        return BaseResponse::fromArray($response, static fn ($data) => $data);
+        /** @var BaseResponse<array<string, mixed>> $result */
+        $result = BaseResponse::fromArray($response, static fn (mixed $data): mixed => $data);
+
+        return $result;
     }
 
     /**
      * PUT /inv-mast-ext/{invMastExtUid}
      *
      * Response data type: object
-     * Known fields: invMastExtUid, invMastUid, dateCreated, dateLastModified, updateCd, statusCd, processCd, upcOrEan, ... (18 total)
+     *   invMastExtUid: int
+     *   invMastUid: int
+     *   dateCreated: string
+     *   dateLastModified: string
+     *   updateCd: int
+     *   statusCd: int
+     *   processCd: int
+     *   upcOrEan: string|null
+     *   upcOrEanId: string|null
+     *   upcOrEanPrefix: string|null
+     *   upcOrEanItem: string|null
+     *   attributeGroupUid: int|null
+     *   brandName: string|null
+     *   manufacturerName: string|null
+     *   partNumber: string|null
+     *   metaTitle: string|null
+     *   metaDescription: string|null
+     *   metaKeywords: string|null
      *
      * @param array<string, mixed> $data
      * @return BaseResponse<array<string, mixed>>
@@ -107,6 +187,9 @@ final class InvMastExtResource
             ['invMastExtUid' => (string) $invMastExtUid],
         );
 
-        return BaseResponse::fromArray($response, static fn ($data) => $data);
+        /** @var BaseResponse<array<string, mixed>> $result */
+        $result = BaseResponse::fromArray($response, static fn (mixed $data): mixed => $data);
+
+        return $result;
     }
 }

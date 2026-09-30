@@ -24,39 +24,81 @@ final class ProductsResource
      * GET /products
      *
      * Response data type: array
-     * Known fields: productsUid, distributorsUid, productsId, productsDesc, defaultSellingUnit, dateCreated, dateLastModified, updateCd, ... (13 total)
+     *   productsUid: int
+     *   distributorsUid: int
+     *   productsId: string
+     *   productsDesc: string
+     *   defaultSellingUnit: string
+     *   dateCreated: string
+     *   dateLastModified: string
+     *   updateCd: int
+     *   statusCd: int
+     *   processCd: int
+     *   upcOrEanId: string|null
+     *   imageUrl: string|null
+     *   partNumber: string|null
      *
      * @param array<string, mixed> $params
-     * @return BaseResponse<array<string, mixed>>
+     * @return BaseResponse<list<array<string, mixed>>>
      */
     public function list(array $params = []): BaseResponse
     {
         $response = $this->client->get($this->baseUrl, '', $params);
 
-        return BaseResponse::fromArray($response, static fn ($data) => $data);
+        /** @var BaseResponse<list<array<string, mixed>>> $result */
+        $result = BaseResponse::fromArray($response, static fn (mixed $data): mixed => $data);
+
+        return $result;
     }
 
     /**
      * GET /products/find
      *
      * Response data type: array
-     * Known fields: productsUid, distributorsUid, productsId, productsDesc, defaultSellingUnit, dateCreated, dateLastModified, updateCd, ... (13 total)
+     *   productsUid: int
+     *   distributorsUid: int
+     *   productsId: string
+     *   productsDesc: string
+     *   defaultSellingUnit: string
+     *   dateCreated: string
+     *   dateLastModified: string
+     *   updateCd: int
+     *   statusCd: int
+     *   processCd: int
+     *   upcOrEanId: string|null
+     *   imageUrl: string|null
+     *   partNumber: string|null
      *
      * @param array<string, mixed> $params
-     * @return BaseResponse<array<string, mixed>>
+     * @return BaseResponse<list<array<string, mixed>>>
      */
     public function listFind(array $params = []): BaseResponse
     {
         $response = $this->client->get($this->baseUrl, '/find', $params);
 
-        return BaseResponse::fromArray($response, static fn ($data) => $data);
+        /** @var BaseResponse<list<array<string, mixed>>> $result */
+        $result = BaseResponse::fromArray($response, static fn (mixed $data): mixed => $data);
+
+        return $result;
     }
 
     /**
      * DELETE /products/{productsUid}
      *
      * Response data type: object
-     * Known fields: productsUid, distributorsUid, productsId, productsDesc, defaultSellingUnit, dateCreated, dateLastModified, updateCd, ... (13 total)
+     *   productsUid: int
+     *   distributorsUid: int
+     *   productsId: string
+     *   productsDesc: string
+     *   defaultSellingUnit: string
+     *   dateCreated: string
+     *   dateLastModified: string
+     *   updateCd: int
+     *   statusCd: int
+     *   processCd: int
+     *   upcOrEanId: string|null
+     *   imageUrl: string|null
+     *   partNumber: string|null
      *
      * @return BaseResponse<array<string, mixed>>
      */
@@ -68,14 +110,29 @@ final class ProductsResource
             ['productsUid' => (string) $productsUid],
         );
 
-        return BaseResponse::fromArray($response, static fn ($data) => $data);
+        /** @var BaseResponse<array<string, mixed>> $result */
+        $result = BaseResponse::fromArray($response, static fn (mixed $data): mixed => $data);
+
+        return $result;
     }
 
     /**
      * GET /products/{productsUid}
      *
      * Response data type: object
-     * Known fields: productsUid, distributorsUid, productsId, productsDesc, defaultSellingUnit, dateCreated, dateLastModified, updateCd, ... (13 total)
+     *   productsUid: int
+     *   distributorsUid: int
+     *   productsId: string
+     *   productsDesc: string
+     *   defaultSellingUnit: string
+     *   dateCreated: string
+     *   dateLastModified: string
+     *   updateCd: int
+     *   statusCd: int
+     *   processCd: int
+     *   upcOrEanId: string|null
+     *   imageUrl: string|null
+     *   partNumber: string|null
      *
      * @param array<string, mixed> $params
      * @return BaseResponse<array<string, mixed>>
@@ -89,14 +146,29 @@ final class ProductsResource
             ['productsUid' => (string) $productsUid],
         );
 
-        return BaseResponse::fromArray($response, static fn ($data) => $data);
+        /** @var BaseResponse<array<string, mixed>> $result */
+        $result = BaseResponse::fromArray($response, static fn (mixed $data): mixed => $data);
+
+        return $result;
     }
 
     /**
      * PUT /products/{productsUid}
      *
      * Response data type: object
-     * Known fields: productsUid, distributorsUid, productsId, productsDesc, defaultSellingUnit, dateCreated, dateLastModified, updateCd, ... (13 total)
+     *   productsUid: int
+     *   distributorsUid: int
+     *   productsId: string
+     *   productsDesc: string
+     *   defaultSellingUnit: string
+     *   dateCreated: string
+     *   dateLastModified: string
+     *   updateCd: int
+     *   statusCd: int
+     *   processCd: int
+     *   upcOrEanId: string|null
+     *   imageUrl: string|null
+     *   partNumber: string|null
      *
      * @param array<string, mixed> $data
      * @return BaseResponse<array<string, mixed>>
@@ -110,17 +182,32 @@ final class ProductsResource
             ['productsUid' => (string) $productsUid],
         );
 
-        return BaseResponse::fromArray($response, static fn ($data) => $data);
+        /** @var BaseResponse<array<string, mixed>> $result */
+        $result = BaseResponse::fromArray($response, static fn (mixed $data): mixed => $data);
+
+        return $result;
     }
 
     /**
      * PUT /products/{productsUid}/enable
      *
      * Response data type: array
-     * Known fields: productsUid, distributorsUid, productsId, productsDesc, defaultSellingUnit, dateCreated, dateLastModified, updateCd, ... (13 total)
+     *   productsUid: int
+     *   distributorsUid: int
+     *   productsId: string
+     *   productsDesc: string
+     *   defaultSellingUnit: string
+     *   dateCreated: string
+     *   dateLastModified: string
+     *   updateCd: int
+     *   statusCd: int
+     *   processCd: int
+     *   upcOrEanId: string|null
+     *   imageUrl: string|null
+     *   partNumber: string|null
      *
      * @param array<string, mixed> $data
-     * @return BaseResponse<array<string, mixed>>
+     * @return BaseResponse<list<array<string, mixed>>>
      */
     public function updateEnable(int $productsUid, array $data = []): BaseResponse
     {
@@ -131,6 +218,9 @@ final class ProductsResource
             ['productsUid' => (string) $productsUid],
         );
 
-        return BaseResponse::fromArray($response, static fn ($data) => $data);
+        /** @var BaseResponse<list<array<string, mixed>>> $result */
+        $result = BaseResponse::fromArray($response, static fn (mixed $data): mixed => $data);
+
+        return $result;
     }
 }

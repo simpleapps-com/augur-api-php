@@ -27,8 +27,8 @@ final class TransCategoryResourceTest extends AugurApiTestCase
             'description' => 'Electronic products',
         ]);
 
-        $this->assertEquals(1, $response->data['categoryUid']);
-        $this->assertEquals('Electronics', $response->data['categoryName']);
+        $this->assertEquals(1, self::at($response->data, 'categoryUid'));
+        $this->assertEquals('Electronics', self::at($response->data, 'categoryName'));
         $this->assertRequestMethod('POST');
         $this->assertRequestPath('/trans-category');
         $this->assertHasSiteIdHeader();
@@ -45,8 +45,8 @@ final class TransCategoryResourceTest extends AugurApiTestCase
 
         $response = $this->api->p21Apis->transCategory->get(1);
 
-        $this->assertEquals(1, $response->data['categoryUid']);
-        $this->assertEquals('Electronics', $response->data['categoryName']);
+        $this->assertEquals(1, self::at($response->data, 'categoryUid'));
+        $this->assertEquals('Electronics', self::at($response->data, 'categoryName'));
         $this->assertRequestMethod('GET');
         $this->assertRequestPath('/trans-category/1');
     }
@@ -60,7 +60,7 @@ final class TransCategoryResourceTest extends AugurApiTestCase
 
         $response = $this->api->p21Apis->transCategory->get(1, ['includeChildren' => true]);
 
-        $this->assertEquals(1, $response->data['categoryUid']);
+        $this->assertEquals(1, self::at($response->data, 'categoryUid'));
         $this->assertHasSiteIdHeader();
         $this->assertHasAuthHeader();
     }
@@ -78,7 +78,7 @@ final class TransCategoryResourceTest extends AugurApiTestCase
             'description' => 'Updated description',
         ]);
 
-        $this->assertEquals('Updated Electronics', $response->data['categoryName']);
+        $this->assertEquals('Updated Electronics', self::at($response->data, 'categoryName'));
         $this->assertRequestMethod('PUT');
         $this->assertRequestPath('/trans-category/1');
     }
@@ -91,7 +91,7 @@ final class TransCategoryResourceTest extends AugurApiTestCase
 
         $response = $this->api->p21Apis->transCategory->delete(1);
 
-        $this->assertTrue($response->data['success']);
+        $this->assertTrue(self::at($response->data, 'success'));
         $this->assertRequestMethod('DELETE');
         $this->assertRequestPath('/trans-category/1');
     }

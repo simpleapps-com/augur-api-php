@@ -48,11 +48,15 @@ final class ResourcesResourceTest extends AugurApiTestCase
 
     public function testCreate(): void
     {
-        $this->mockResponse(['resourcesUid' => 3, 'resourceId' => 'pricing']);
+        $this->mockResponse(['resourcesUid' => 3, 'resourceName' => 'pricing']);
 
-        $response = $this->api->agrInt->resources->create(['resourceId' => 'pricing']);
+        $response = $this->api->agrInt->resources->create([
+            'resourceName' => 'pricing',
+            'resourceType' => 'service',
+            'resourcePath' => '/pricing',
+        ]);
 
-        $this->assertEquals('pricing', $response->data['resourceId']);
+        $this->assertEquals('pricing', $response->data['resourceName']);
         $this->assertRequestPath('/resources');
         $this->assertRequestMethod('POST');
     }

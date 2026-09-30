@@ -24,87 +24,141 @@ final class UsersResource
      * GET /users
      *
      * Response data type: array
-     * Known fields: usersUid, username, password, name, email, phoneNumber, dateCreated, dateLastModified, ... (11 total)
+     *   usersUid: int
+     *   username: string
+     *   name: string|null
+     *   email: string
+     *   phoneNumber: string|null
+     *   dateCreated: string
+     *   dateLastModified: string
+     *   updateCd: int
+     *   statusCd: int
+     *   processCd: int
      *
      * @param array<string, mixed> $params
-     * @return BaseResponse<array<string, mixed>>
+     * @return BaseResponse<list<array<string, mixed>>>
      */
     public function list(array $params = []): BaseResponse
     {
         $response = $this->client->get($this->baseUrl, '', $params);
 
-        return BaseResponse::fromArray($response, static fn ($data) => $data);
+        /** @var BaseResponse<list<array<string, mixed>>> $result */
+        $result = BaseResponse::fromArray($response, static fn (mixed $data): mixed => $data);
+
+        return $result;
     }
 
     /**
      * POST /users
      *
      * Response data type: object
-     * Known fields: usersUid, username, password, name, email, phoneNumber, dateCreated, dateLastModified, ... (11 total)
+     *   usersUid: int
+     *   username: string
+     *   name: string|null
+     *   email: string
+     *   phoneNumber: string|null
+     *   dateCreated: string
+     *   dateLastModified: string
+     *   updateCd: int
+     *   statusCd: int
+     *   processCd: int
      *
-     * @param array<string, mixed> $data
+     * @param array{username: string, password: string, email: string, name?: string|null, phoneNumber?: string|null, statusCd?: int|null, processCd?: int|null, updateCd?: int|null} $data
      * @return BaseResponse<array<string, mixed>>
      */
-    public function create(array $data = []): BaseResponse
+    public function create(array $data): BaseResponse
     {
         $response = $this->client->post($this->baseUrl, '', $data);
 
-        return BaseResponse::fromArray($response, static fn ($data) => $data);
+        /** @var BaseResponse<array<string, mixed>> $result */
+        $result = BaseResponse::fromArray($response, static fn (mixed $data): mixed => $data);
+
+        return $result;
     }
 
     /**
      * POST /users/rotate
      *
      * Response data type: object
-     * Known fields: usersUid, username, token
+     *   usersUid: int
+     *   username: string
+     *   token?: string
      *
-     * @param array<string, mixed> $data
+     * @param array{token: string} $data
      * @return BaseResponse<array<string, mixed>>
      */
-    public function createRotate(array $data = []): BaseResponse
+    public function createRotate(array $data): BaseResponse
     {
         $response = $this->client->post($this->baseUrl, '/rotate', $data);
 
-        return BaseResponse::fromArray($response, static fn ($data) => $data);
+        /** @var BaseResponse<array<string, mixed>> $result */
+        $result = BaseResponse::fromArray($response, static fn (mixed $data): mixed => $data);
+
+        return $result;
     }
 
     /**
      * POST /users/validate
      *
      * Response data type: object
-     * Known fields: valid, scope, userId, username, email, name, roles, bundles, ... (9 total)
+     *   valid?: bool
+     *   scope?: string
+     *   userId?: int
+     *   username?: string
+     *   email?: string
+     *   name?: string
+     *   roles?: list<string>
+     *   bundles?: list<string>
+     *   resources?: list<string>
      *
-     * @param array<string, mixed> $data
+     * @param array{token: string} $data
      * @return BaseResponse<array<string, mixed>>
      */
-    public function createValidate(array $data = []): BaseResponse
+    public function createValidate(array $data): BaseResponse
     {
         $response = $this->client->post($this->baseUrl, '/validate', $data);
 
-        return BaseResponse::fromArray($response, static fn ($data) => $data);
+        /** @var BaseResponse<array<string, mixed>> $result */
+        $result = BaseResponse::fromArray($response, static fn (mixed $data): mixed => $data);
+
+        return $result;
     }
 
     /**
      * POST /users/verify
      *
      * Response data type: object
-     * Known fields: usersUid, username, token
+     *   usersUid: int
+     *   username: string
+     *   token?: string
      *
-     * @param array<string, mixed> $data
+     * @param array{siteId: string, username: string, password: string} $data
      * @return BaseResponse<array<string, mixed>>
      */
-    public function createVerify(array $data = []): BaseResponse
+    public function createVerify(array $data): BaseResponse
     {
         $response = $this->client->post($this->baseUrl, '/verify', $data);
 
-        return BaseResponse::fromArray($response, static fn ($data) => $data);
+        /** @var BaseResponse<array<string, mixed>> $result */
+        $result = BaseResponse::fromArray($response, static fn (mixed $data): mixed => $data);
+
+        return $result;
     }
 
     /**
      * DELETE /users/{usersUid}
      *
      * Response data type: object
-     * Known fields: usersUid, username, password, name, email, phoneNumber, dateCreated, dateLastModified, ... (11 total)
+     *   usersUid: int
+     *   username: string
+     *   name: string|null
+     *   email: string
+     *   phoneNumber: string|null
+     *   dateCreated: string
+     *   dateLastModified: string
+     *   updateCd: int
+     *   statusCd: int
+     *   processCd: int
      *
      * @return BaseResponse<array<string, mixed>>
      */
@@ -116,14 +170,26 @@ final class UsersResource
             ['usersUid' => (string) $usersUid],
         );
 
-        return BaseResponse::fromArray($response, static fn ($data) => $data);
+        /** @var BaseResponse<array<string, mixed>> $result */
+        $result = BaseResponse::fromArray($response, static fn (mixed $data): mixed => $data);
+
+        return $result;
     }
 
     /**
      * GET /users/{usersUid}
      *
      * Response data type: object
-     * Known fields: usersUid, username, password, name, email, phoneNumber, dateCreated, dateLastModified, ... (11 total)
+     *   usersUid: int
+     *   username: string
+     *   name: string|null
+     *   email: string
+     *   phoneNumber: string|null
+     *   dateCreated: string
+     *   dateLastModified: string
+     *   updateCd: int
+     *   statusCd: int
+     *   processCd: int
      *
      * @param array<string, mixed> $params
      * @return BaseResponse<array<string, mixed>>
@@ -137,16 +203,28 @@ final class UsersResource
             ['usersUid' => (string) $usersUid],
         );
 
-        return BaseResponse::fromArray($response, static fn ($data) => $data);
+        /** @var BaseResponse<array<string, mixed>> $result */
+        $result = BaseResponse::fromArray($response, static fn (mixed $data): mixed => $data);
+
+        return $result;
     }
 
     /**
      * PUT /users/{usersUid}
      *
      * Response data type: object
-     * Known fields: usersUid, username, password, name, email, phoneNumber, dateCreated, dateLastModified, ... (11 total)
+     *   usersUid: int
+     *   username: string
+     *   name: string|null
+     *   email: string
+     *   phoneNumber: string|null
+     *   dateCreated: string
+     *   dateLastModified: string
+     *   updateCd: int
+     *   statusCd: int
+     *   processCd: int
      *
-     * @param array<string, mixed> $data
+     * @param array{username?: string|null, password?: string|null, name?: string|null, email?: string|null, phoneNumber?: string|null, statusCd?: int|null, processCd?: int|null, updateCd?: int|null} $data
      * @return BaseResponse<array<string, mixed>>
      */
     public function update(int $usersUid, array $data = []): BaseResponse
@@ -158,17 +236,27 @@ final class UsersResource
             ['usersUid' => (string) $usersUid],
         );
 
-        return BaseResponse::fromArray($response, static fn ($data) => $data);
+        /** @var BaseResponse<array<string, mixed>> $result */
+        $result = BaseResponse::fromArray($response, static fn (mixed $data): mixed => $data);
+
+        return $result;
     }
 
     /**
      * GET /users/{usersUid}/roles
      *
      * Response data type: array
-     * Known fields: usersXRolesUid, usersUid, rolesUid, dateCreated, dateLastModified, updateCd, statusCd, processCd
+     *   usersXRolesUid: int
+     *   usersUid: int
+     *   rolesUid: int
+     *   dateCreated: string
+     *   dateLastModified: string
+     *   updateCd: int
+     *   statusCd: int
+     *   processCd: int
      *
      * @param array<string, mixed> $params
-     * @return BaseResponse<array<string, mixed>>
+     * @return BaseResponse<list<array<string, mixed>>>
      */
     public function listRoles(int $usersUid, array $params = []): BaseResponse
     {
@@ -179,19 +267,29 @@ final class UsersResource
             ['usersUid' => (string) $usersUid],
         );
 
-        return BaseResponse::fromArray($response, static fn ($data) => $data);
+        /** @var BaseResponse<list<array<string, mixed>>> $result */
+        $result = BaseResponse::fromArray($response, static fn (mixed $data): mixed => $data);
+
+        return $result;
     }
 
     /**
      * POST /users/{usersUid}/roles
      *
      * Response data type: object
-     * Known fields: usersXRolesUid, usersUid, rolesUid, dateCreated, dateLastModified, updateCd, statusCd, processCd
+     *   usersXRolesUid: int
+     *   usersUid: int
+     *   rolesUid: int
+     *   dateCreated: string
+     *   dateLastModified: string
+     *   updateCd: int
+     *   statusCd: int
+     *   processCd: int
      *
-     * @param array<string, mixed> $data
+     * @param array{rolesUid: int} $data
      * @return BaseResponse<array<string, mixed>>
      */
-    public function createRoles(int $usersUid, array $data = []): BaseResponse
+    public function createRoles(int $usersUid, array $data): BaseResponse
     {
         $response = $this->client->post(
             $this->baseUrl,
@@ -200,14 +298,24 @@ final class UsersResource
             ['usersUid' => (string) $usersUid],
         );
 
-        return BaseResponse::fromArray($response, static fn ($data) => $data);
+        /** @var BaseResponse<array<string, mixed>> $result */
+        $result = BaseResponse::fromArray($response, static fn (mixed $data): mixed => $data);
+
+        return $result;
     }
 
     /**
      * DELETE /users/{usersUid}/roles/{usersXRolesUid}
      *
      * Response data type: object
-     * Known fields: usersXRolesUid, usersUid, rolesUid, dateCreated, dateLastModified, updateCd, statusCd, processCd
+     *   usersXRolesUid: int
+     *   usersUid: int
+     *   rolesUid: int
+     *   dateCreated: string
+     *   dateLastModified: string
+     *   updateCd: int
+     *   statusCd: int
+     *   processCd: int
      *
      * @return BaseResponse<array<string, mixed>>
      */
@@ -219,14 +327,24 @@ final class UsersResource
             ['usersUid' => (string) $usersUid, 'usersXRolesUid' => (string) $usersXRolesUid],
         );
 
-        return BaseResponse::fromArray($response, static fn ($data) => $data);
+        /** @var BaseResponse<array<string, mixed>> $result */
+        $result = BaseResponse::fromArray($response, static fn (mixed $data): mixed => $data);
+
+        return $result;
     }
 
     /**
      * GET /users/{usersUid}/roles/{usersXRolesUid}
      *
      * Response data type: object
-     * Known fields: usersXRolesUid, usersUid, rolesUid, dateCreated, dateLastModified, updateCd, statusCd, processCd
+     *   usersXRolesUid: int
+     *   usersUid: int
+     *   rolesUid: int
+     *   dateCreated: string
+     *   dateLastModified: string
+     *   updateCd: int
+     *   statusCd: int
+     *   processCd: int
      *
      * @param array<string, mixed> $params
      * @return BaseResponse<array<string, mixed>>
@@ -240,16 +358,26 @@ final class UsersResource
             ['usersUid' => (string) $usersUid, 'usersXRolesUid' => (string) $usersXRolesUid],
         );
 
-        return BaseResponse::fromArray($response, static fn ($data) => $data);
+        /** @var BaseResponse<array<string, mixed>> $result */
+        $result = BaseResponse::fromArray($response, static fn (mixed $data): mixed => $data);
+
+        return $result;
     }
 
     /**
      * PUT /users/{usersUid}/roles/{usersXRolesUid}
      *
      * Response data type: object
-     * Known fields: usersXRolesUid, usersUid, rolesUid, dateCreated, dateLastModified, updateCd, statusCd, processCd
+     *   usersXRolesUid: int
+     *   usersUid: int
+     *   rolesUid: int
+     *   dateCreated: string
+     *   dateLastModified: string
+     *   updateCd: int
+     *   statusCd: int
+     *   processCd: int
      *
-     * @param array<string, mixed> $data
+     * @param array{statusCd?: int|null, processCd?: int|null} $data
      * @return BaseResponse<array<string, mixed>>
      */
     public function updateRoles(int $usersUid, int $usersXRolesUid, array $data = []): BaseResponse
@@ -261,6 +389,9 @@ final class UsersResource
             ['usersUid' => (string) $usersUid, 'usersXRolesUid' => (string) $usersXRolesUid],
         );
 
-        return BaseResponse::fromArray($response, static fn ($data) => $data);
+        /** @var BaseResponse<array<string, mixed>> $result */
+        $result = BaseResponse::fromArray($response, static fn (mixed $data): mixed => $data);
+
+        return $result;
     }
 }

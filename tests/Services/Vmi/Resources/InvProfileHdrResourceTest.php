@@ -23,7 +23,7 @@ final class InvProfileHdrResourceTest extends AugurApiTestCase
 
         $response = $this->api->vmi->invProfileHdr->list();
 
-        $this->assertCount(2, $response->data);
+        $this->assertCount(2, self::arrayAt($response->data));
 
         /** @var list<array<string, mixed>> $data */
         $data = $response->data;
@@ -46,7 +46,7 @@ final class InvProfileHdrResourceTest extends AugurApiTestCase
 
         $response = $this->api->vmi->invProfileHdr->list(['customerId' => 100, 'limit' => 25]);
 
-        $this->assertCount(1, $response->data);
+        $this->assertCount(1, self::arrayAt($response->data));
         $this->assertEquals(50, $response->total);
     }
 
@@ -61,8 +61,8 @@ final class InvProfileHdrResourceTest extends AugurApiTestCase
 
         $response = $this->api->vmi->invProfileHdr->get(1);
 
-        $this->assertEquals(1, $response->data['invProfileHdrUid']);
-        $this->assertEquals('Profile A', $response->data['name']);
+        $this->assertEquals(1, self::at($response->data, 'invProfileHdrUid'));
+        $this->assertEquals('Profile A', self::at($response->data, 'name'));
         $this->assertRequestMethod('GET');
         $this->assertRequestPath('/inv-profile-hdr/1');
     }
@@ -123,8 +123,8 @@ final class InvProfileHdrResourceTest extends AugurApiTestCase
 
         $response = $this->api->vmi->invProfileHdr->createUpload(100);
 
-        $this->assertEquals(100, $response->data['customerId']);
-        $this->assertEquals(5, $response->data['profilesCreated']);
+        $this->assertEquals(100, self::at($response->data, 'customerId'));
+        $this->assertEquals(5, self::at($response->data, 'profilesCreated'));
         $this->assertRequestMethod('POST');
         $this->assertRequestPath('/inv-profile-hdr/100/upload');
     }
@@ -181,14 +181,12 @@ final class InvProfileHdrResourceTest extends AugurApiTestCase
         $this->mockResponse([
             'invProfileLineUid' => 3,
             'invMastUid' => 1002,
-            'minQty' => 15,
+            'invProfileHdrMinQty' => 15.0,
         ]);
 
-        /** @var array<string, mixed> $lineData */
-        $lineData = [
-            ['invMastUid' => 1002, 'invProfileLineType' => 'products', 'minQty' => 15],
-        ];
-        $response = $this->api->vmi->invProfileHdr->createInvProfileLine(1, $lineData);
+        $response = $this->api->vmi->invProfileHdr->createInvProfileLine(1, [
+            ['invMastUid' => 1002, 'invProfileLineType' => 'products', 'invProfileHdrMinQty' => 15.0],
+        ]);
 
         $this->assertEquals(3, $response->data['invProfileLineUid']);
         $this->assertRequestMethod('POST');

@@ -21,8 +21,8 @@ final class OrdersResourceTest extends AugurApiTestCase
 
         $response = $this->api->legacy->orders->listReset(12345);
 
-        $this->assertTrue($response->data['reset']);
-        $this->assertEquals('Order reset for reprocessing', $response->data['message']);
+        $this->assertTrue(self::at($response->data, 'reset'));
+        $this->assertEquals('Order reset for reprocessing', self::at($response->data, 'message'));
         $this->assertRequestPath('/orders/12345/reset');
         $this->assertRequestMethod('GET');
         $this->assertHasSiteIdHeader();

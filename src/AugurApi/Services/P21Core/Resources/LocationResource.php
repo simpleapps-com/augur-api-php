@@ -24,23 +24,62 @@ final class LocationResource
      * GET /location
      *
      * Response data type: array
-     * Known fields: locationId, companyId, defaultBranchId, deleteFlag, dateCreated, dateLastModified, lastMaintainedBy, locationName, ... (19 total)
+     *   locationId: float
+     *   companyId: string
+     *   defaultBranchId: string|null
+     *   deleteFlag: string
+     *   dateCreated: string
+     *   dateLastModified: string
+     *   lastMaintainedBy: string
+     *   locationName: string|null
+     *   lotBinIntegration: string|null
+     *   fedexLocAcctNo: string|null
+     *   fedexMeterNo: string|null
+     *   upsAccountNo: string|null
+     *   upsPickupTypeCd: int|null
+     *   upsCustomerTypeCd: int|null
+     *   upsOltAccessKey: string|null
+     *   upsOltPassword: string|null
+     *   upsOltUserId: string|null
+     *   distributionCenter: string
+     *   updateCd: int
      *
      * @param array<string, mixed> $params
-     * @return BaseResponse<array<string, mixed>>
+     * @return BaseResponse<list<array<string, mixed>>>
      */
     public function list(array $params = []): BaseResponse
     {
         $response = $this->client->get($this->baseUrl, '', $params);
 
-        return BaseResponse::fromArray($response, static fn ($data) => $data);
+        /** @var BaseResponse<list<array<string, mixed>>> $result */
+        $result = BaseResponse::fromArray($response, static fn (mixed $data): mixed => $data);
+
+        return $result;
     }
 
     /**
      * GET /location/{locationId}
      *
      * Response data type: object
-     * Known fields: locationId, companyId, defaultBranchId, deleteFlag, dateCreated, dateLastModified, lastMaintainedBy, locationName, ... (19 total)
+     *   locationId: float
+     *   companyId: string
+     *   defaultBranchId: string|null
+     *   deleteFlag: string
+     *   dateCreated: string
+     *   dateLastModified: string
+     *   lastMaintainedBy: string
+     *   locationName: string|null
+     *   lotBinIntegration: string|null
+     *   fedexLocAcctNo: string|null
+     *   fedexMeterNo: string|null
+     *   upsAccountNo: string|null
+     *   upsPickupTypeCd: int|null
+     *   upsCustomerTypeCd: int|null
+     *   upsOltAccessKey: string|null
+     *   upsOltPassword: string|null
+     *   upsOltUserId: string|null
+     *   distributionCenter: string
+     *   updateCd: int
      *
      * @param array<string, mixed> $params
      * @return BaseResponse<array<string, mixed>>
@@ -54,6 +93,9 @@ final class LocationResource
             ['locationId' => (string) $locationId],
         );
 
-        return BaseResponse::fromArray($response, static fn ($data) => $data);
+        /** @var BaseResponse<array<string, mixed>> $result */
+        $result = BaseResponse::fromArray($response, static fn (mixed $data): mixed => $data);
+
+        return $result;
     }
 }

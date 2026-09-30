@@ -24,23 +24,104 @@ final class FreightCodeResource
      * GET /freight-code
      *
      * Response data type: array
-     * Known fields: freightCodeUid, companyId, freightCd, freightDesc, incomingFreight, outgoingFreight, incomingReduceCommission, outgoingIncreaseCommission, ... (40 total)
+     *   freightCodeUid: int
+     *   companyId: string
+     *   freightCd: string
+     *   freightDesc: string
+     *   incomingFreight: string
+     *   outgoingFreight: string
+     *   incomingReduceCommission: string
+     *   outgoingIncreaseCommission: string
+     *   prorateMethodCodeNo: int
+     *   taxGroupId: string|null
+     *   revenueAccountNo: string
+     *   rowStatus: int
+     *   dateCreated: string|null
+     *   dateLastModified: string|null
+     *   lastMaintainedBy: string
+     *   freeFreightBasisCd: int|null
+     *   freeInFreightMin: float|null
+     *   freeOutFreightMin: float|null
+     *   directShipFreeFreightFlag: string|null
+     *   freeInFreightMinWeb: float|null
+     *   freeOutFreightMinWeb: float|null
+     *   handlingChargeOptionCd: int|null
+     *   externalTaxProductCodeIn: string|null
+     *   externalTaxProductCodeOut: string|null
+     *   incomingIncreaseCommission: string|null
+     *   paySpecialFlag: string|null
+     *   skipFirstShipmentFlag: string|null
+     *   excludeFromSalesMasterInquiry: string
+     *   deductibleFlag: string|null
+     *   freeColdFreight: string
+     *   freeHazmatFreight: string
+     *   freeExpressFreight: string
+     *   freeBulkFreight: string
+     *   fedexPaymentMethod: int|null
+     *   excludeDiscountedFreight: string
+     *   freeFreightDefaultFlag: string|null
+     *   outgoingAdjustCommissionByProfitFlag: string|null
+     *   updateCd: int
+     *   statusCd: int
+     *   processCd: int
      *
      * @param array<string, mixed> $params
-     * @return BaseResponse<array<string, mixed>>
+     * @return BaseResponse<list<array<string, mixed>>>
      */
     public function list(array $params = []): BaseResponse
     {
         $response = $this->client->get($this->baseUrl, '', $params);
 
-        return BaseResponse::fromArray($response, static fn ($data) => $data);
+        /** @var BaseResponse<list<array<string, mixed>>> $result */
+        $result = BaseResponse::fromArray($response, static fn (mixed $data): mixed => $data);
+
+        return $result;
     }
 
     /**
      * GET /freight-code/{freightCodeUid}
      *
      * Response data type: object
-     * Known fields: freightCodeUid, companyId, freightCd, freightDesc, incomingFreight, outgoingFreight, incomingReduceCommission, outgoingIncreaseCommission, ... (40 total)
+     *   freightCodeUid: int
+     *   companyId: string
+     *   freightCd: string
+     *   freightDesc: string
+     *   incomingFreight: string
+     *   outgoingFreight: string
+     *   incomingReduceCommission: string
+     *   outgoingIncreaseCommission: string
+     *   prorateMethodCodeNo: int
+     *   taxGroupId: string|null
+     *   revenueAccountNo: string
+     *   rowStatus: int
+     *   dateCreated: string|null
+     *   dateLastModified: string|null
+     *   lastMaintainedBy: string
+     *   freeFreightBasisCd: int|null
+     *   freeInFreightMin: float|null
+     *   freeOutFreightMin: float|null
+     *   directShipFreeFreightFlag: string|null
+     *   freeInFreightMinWeb: float|null
+     *   freeOutFreightMinWeb: float|null
+     *   handlingChargeOptionCd: int|null
+     *   externalTaxProductCodeIn: string|null
+     *   externalTaxProductCodeOut: string|null
+     *   incomingIncreaseCommission: string|null
+     *   paySpecialFlag: string|null
+     *   skipFirstShipmentFlag: string|null
+     *   excludeFromSalesMasterInquiry: string
+     *   deductibleFlag: string|null
+     *   freeColdFreight: string
+     *   freeHazmatFreight: string
+     *   freeExpressFreight: string
+     *   freeBulkFreight: string
+     *   fedexPaymentMethod: int|null
+     *   excludeDiscountedFreight: string
+     *   freeFreightDefaultFlag: string|null
+     *   outgoingAdjustCommissionByProfitFlag: string|null
+     *   updateCd: int
+     *   statusCd: int
+     *   processCd: int
      *
      * @param array<string, mixed> $params
      * @return BaseResponse<array<string, mixed>>
@@ -54,6 +135,9 @@ final class FreightCodeResource
             ['freightCodeUid' => (string) $freightCodeUid],
         );
 
-        return BaseResponse::fromArray($response, static fn ($data) => $data);
+        /** @var BaseResponse<array<string, mixed>> $result */
+        $result = BaseResponse::fromArray($response, static fn (mixed $data): mixed => $data);
+
+        return $result;
     }
 }

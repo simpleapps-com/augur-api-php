@@ -24,9 +24,9 @@ final class MonerisResourceTest extends AugurApiTestCase
             'orderId' => 'ORD001',
         ]);
 
-        $this->assertEquals('TXN123456', $response->data['transactionId']);
-        $this->assertEquals('AUTH123', $response->data['authCode']);
-        $this->assertEquals('00', $response->data['responseCode']);
+        $this->assertEquals('TXN123456', self::at($response->data, 'transactionId'));
+        $this->assertEquals('AUTH123', self::at($response->data, 'authCode'));
+        $this->assertEquals('00', self::at($response->data, 'responseCode'));
         $this->assertRequestPath('/moneris/pre-auth');
         $this->assertRequestMethod('GET');
         $this->assertHasAuthHeader();
@@ -47,7 +47,7 @@ final class MonerisResourceTest extends AugurApiTestCase
             'cvv' => '123',
         ]);
 
-        $this->assertEquals('M', $response->data['cvvResult']);
+        $this->assertEquals('M', self::at($response->data, 'cvvResult'));
     }
 
     public function testPreAuthDeclined(): void
@@ -65,8 +65,8 @@ final class MonerisResourceTest extends AugurApiTestCase
             'orderId' => 'ORD003',
         ]);
 
-        $this->assertEquals('05', $response->data['responseCode']);
-        $this->assertFalse($response->data['approved']);
+        $this->assertEquals('05', self::at($response->data, 'responseCode'));
+        $this->assertFalse(self::at($response->data, 'approved'));
     }
 
     public function testPreAuthComplete(): void
@@ -85,9 +85,9 @@ final class MonerisResourceTest extends AugurApiTestCase
             'amount' => 100.00,
         ]);
 
-        $this->assertEquals('TXN123456', $response->data['transactionId']);
-        $this->assertEquals('Completion Approved', $response->data['message']);
-        $this->assertEquals(100.00, $response->data['completedAmount']);
+        $this->assertEquals('TXN123456', self::at($response->data, 'transactionId'));
+        $this->assertEquals('Completion Approved', self::at($response->data, 'message'));
+        $this->assertEquals(100.00, self::at($response->data, 'completedAmount'));
         $this->assertRequestPath('/moneris/pre-auth-complete');
         $this->assertRequestMethod('GET');
     }
@@ -107,7 +107,7 @@ final class MonerisResourceTest extends AugurApiTestCase
             'amount' => 200.00,
         ]);
 
-        $this->assertEquals(250.00, $response->data['originalAmount']);
-        $this->assertEquals(200.00, $response->data['completedAmount']);
+        $this->assertEquals(250.00, self::at($response->data, 'originalAmount'));
+        $this->assertEquals(200.00, self::at($response->data, 'completedAmount'));
     }
 }

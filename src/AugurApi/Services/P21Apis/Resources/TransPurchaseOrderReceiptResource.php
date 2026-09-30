@@ -24,7 +24,7 @@ final class TransPurchaseOrderReceiptResource
      * GET /trans-purchase-order-receipt/{poNo}
      *
      * @param array<string, mixed> $params
-     * @return BaseResponse<array<string, mixed>>
+     * @return BaseResponse<mixed>
      */
     public function get(string $poNo, array $params = []): BaseResponse
     {
@@ -35,14 +35,17 @@ final class TransPurchaseOrderReceiptResource
             ['poNo' => (string) $poNo],
         );
 
-        return BaseResponse::fromArray($response, static fn ($data) => $data);
+        /** @var BaseResponse<mixed> $result */
+        $result = BaseResponse::fromArray($response, static fn (mixed $data): mixed => $data);
+
+        return $result;
     }
 
     /**
      * PUT /trans-purchase-order-receipt/{poNo}
      *
      * @param array<string, mixed> $data
-     * @return BaseResponse<array<string, mixed>>
+     * @return BaseResponse<mixed>
      */
     public function update(string $poNo, array $data = []): BaseResponse
     {
@@ -53,6 +56,9 @@ final class TransPurchaseOrderReceiptResource
             ['poNo' => (string) $poNo],
         );
 
-        return BaseResponse::fromArray($response, static fn ($data) => $data);
+        /** @var BaseResponse<mixed> $result */
+        $result = BaseResponse::fromArray($response, static fn (mixed $data): mixed => $data);
+
+        return $result;
     }
 }

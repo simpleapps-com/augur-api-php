@@ -23,7 +23,7 @@ final class InvMastLinksResourceTest extends AugurApiTestCase
 
         $response = $this->api->items->invMastLinks->get(100);
 
-        $this->assertCount(2, $response->data);
+        $this->assertCount(2, self::arrayAt($response->data));
         /** @var list<array<string, mixed>> $data */
         $data = $response->data;
         $this->assertEquals(1, $data[0]['linkUid']);

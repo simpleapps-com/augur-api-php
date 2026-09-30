@@ -24,23 +24,56 @@ final class CommentsResource
      * GET /comments
      *
      * Response data type: array
-     * Known fields: id, content, updatedAt, createdAt, creatorId, updateCd, statusCd, processCd, ... (16 total)
+     *   id: int
+     *   content: string
+     *   updatedAt: string
+     *   createdAt: string
+     *   creatorId: int|null
+     *   updateCd: int
+     *   statusCd: int
+     *   processCd: int
+     *   todosId: int|null
+     *   vector: string|null
+     *   vectorCd: int
+     *   vectorFlag: string
+     *   dateLastVector: string
+     *   location: string|null
+     *   contentLength: int
+     *   tokenCount: int
      *
      * @param array<string, mixed> $params
-     * @return BaseResponse<array<string, mixed>>
+     * @return BaseResponse<list<array<string, mixed>>>
      */
     public function list(array $params = []): BaseResponse
     {
         $response = $this->client->get($this->baseUrl, '', $params);
 
-        return BaseResponse::fromArray($response, static fn ($data) => $data);
+        /** @var BaseResponse<list<array<string, mixed>>> $result */
+        $result = BaseResponse::fromArray($response, static fn (mixed $data): mixed => $data);
+
+        return $result;
     }
 
     /**
      * GET /comments/{id}
      *
      * Response data type: object
-     * Known fields: id, content, updatedAt, createdAt, creatorId, updateCd, statusCd, processCd, ... (16 total)
+     *   id: int
+     *   content: string
+     *   updatedAt: string
+     *   createdAt: string
+     *   creatorId: int|null
+     *   updateCd: int
+     *   statusCd: int
+     *   processCd: int
+     *   todosId: int|null
+     *   vector: string|null
+     *   vectorCd: int
+     *   vectorFlag: string
+     *   dateLastVector: string
+     *   location: string|null
+     *   contentLength: int
+     *   tokenCount: int
      *
      * @param array<string, mixed> $params
      * @return BaseResponse<array<string, mixed>>
@@ -54,6 +87,9 @@ final class CommentsResource
             ['id' => (string) $id],
         );
 
-        return BaseResponse::fromArray($response, static fn ($data) => $data);
+        /** @var BaseResponse<array<string, mixed>> $result */
+        $result = BaseResponse::fromArray($response, static fn (mixed $data): mixed => $data);
+
+        return $result;
     }
 }

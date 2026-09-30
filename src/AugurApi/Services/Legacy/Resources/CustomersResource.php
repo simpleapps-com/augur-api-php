@@ -24,10 +24,17 @@ final class CustomersResource
      * GET /customers/{customerId}/tags
      *
      * Response data type: array
-     * Known fields: customerTagsUid, customerId, tag, updateCd, statusCd, processCd, dateCreated, dateLastModified
+     *   customerTagsUid: int
+     *   customerId: float
+     *   tag: string|null
+     *   updateCd: int
+     *   statusCd: int
+     *   processCd: int
+     *   dateCreated: string
+     *   dateLastModified: string
      *
      * @param array<string, mixed> $params
-     * @return BaseResponse<array<string, mixed>>
+     * @return BaseResponse<list<array<string, mixed>>>
      */
     public function listTags(int $customerId, array $params = []): BaseResponse
     {
@@ -38,19 +45,29 @@ final class CustomersResource
             ['customerId' => (string) $customerId],
         );
 
-        return BaseResponse::fromArray($response, static fn ($data) => $data);
+        /** @var BaseResponse<list<array<string, mixed>>> $result */
+        $result = BaseResponse::fromArray($response, static fn (mixed $data): mixed => $data);
+
+        return $result;
     }
 
     /**
      * POST /customers/{customerId}/tags
      *
      * Response data type: object
-     * Known fields: customerTagsUid, customerId, tag, updateCd, statusCd, processCd, dateCreated, dateLastModified
+     *   customerTagsUid: int
+     *   customerId: float
+     *   tag: string|null
+     *   updateCd: int
+     *   statusCd: int
+     *   processCd: int
+     *   dateCreated: string
+     *   dateLastModified: string
      *
      * @param array<string, mixed> $data
      * @return BaseResponse<array<string, mixed>>
      */
-    public function createTags(string $customerId, array $data = []): BaseResponse
+    public function createTags(int $customerId, array $data = []): BaseResponse
     {
         $response = $this->client->post(
             $this->baseUrl,
@@ -59,13 +76,16 @@ final class CustomersResource
             ['customerId' => (string) $customerId],
         );
 
-        return BaseResponse::fromArray($response, static fn ($data) => $data);
+        /** @var BaseResponse<array<string, mixed>> $result */
+        $result = BaseResponse::fromArray($response, static fn (mixed $data): mixed => $data);
+
+        return $result;
     }
 
     /**
      * DELETE /customers/{customerId}/tags/{customerTagsUid}
      *
-     * @return BaseResponse<array<string, mixed>>
+     * @return BaseResponse<mixed>
      */
     public function deleteTags(int $customerId, int $customerTagsUid): BaseResponse
     {
@@ -75,14 +95,24 @@ final class CustomersResource
             ['customerId' => (string) $customerId, 'customerTagsUid' => (string) $customerTagsUid],
         );
 
-        return BaseResponse::fromArray($response, static fn ($data) => $data);
+        /** @var BaseResponse<mixed> $result */
+        $result = BaseResponse::fromArray($response, static fn (mixed $data): mixed => $data);
+
+        return $result;
     }
 
     /**
      * GET /customers/{customerId}/tags/{customerTagsUid}
      *
      * Response data type: object
-     * Known fields: customerTagsUid, customerId, tag, updateCd, statusCd, processCd, dateCreated, dateLastModified
+     *   customerTagsUid: int
+     *   customerId: float
+     *   tag: string|null
+     *   updateCd: int
+     *   statusCd: int
+     *   processCd: int
+     *   dateCreated: string
+     *   dateLastModified: string
      *
      * @param array<string, mixed> $params
      * @return BaseResponse<array<string, mixed>>
@@ -96,14 +126,24 @@ final class CustomersResource
             ['customerId' => (string) $customerId, 'customerTagsUid' => (string) $customerTagsUid],
         );
 
-        return BaseResponse::fromArray($response, static fn ($data) => $data);
+        /** @var BaseResponse<array<string, mixed>> $result */
+        $result = BaseResponse::fromArray($response, static fn (mixed $data): mixed => $data);
+
+        return $result;
     }
 
     /**
      * PUT /customers/{customerId}/tags/{customerTagsUid}
      *
      * Response data type: object
-     * Known fields: customerTagsUid, customerId, tag, updateCd, statusCd, processCd, dateCreated, dateLastModified
+     *   customerTagsUid: int
+     *   customerId: float
+     *   tag: string|null
+     *   updateCd: int
+     *   statusCd: int
+     *   processCd: int
+     *   dateCreated: string
+     *   dateLastModified: string
      *
      * @param array<string, mixed> $data
      * @return BaseResponse<array<string, mixed>>
@@ -117,6 +157,9 @@ final class CustomersResource
             ['customerId' => (string) $customerId, 'customerTagsUid' => (string) $customerTagsUid],
         );
 
-        return BaseResponse::fromArray($response, static fn ($data) => $data);
+        /** @var BaseResponse<array<string, mixed>> $result */
+        $result = BaseResponse::fromArray($response, static fn (mixed $data): mixed => $data);
+
+        return $result;
     }
 }

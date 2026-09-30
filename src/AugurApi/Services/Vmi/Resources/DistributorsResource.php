@@ -24,23 +24,48 @@ final class DistributorsResource
      * GET /distributors
      *
      * Response data type: array
-     * Known fields: distributorsUid, customerId, distributorsId, distributorsName, distributorsDesc, distributorsEmail, distributorsAccount, dateCreated, ... (12 total)
+     *   distributorsUid: int
+     *   customerId: float
+     *   distributorsId: string
+     *   distributorsName: string
+     *   distributorsDesc: string
+     *   distributorsEmail: string
+     *   distributorsAccount: string
+     *   dateCreated: string
+     *   dateLastModified: string
+     *   updateCd: int
+     *   statusCd: int
+     *   processCd: int
      *
      * @param array<string, mixed> $params
-     * @return BaseResponse<array<string, mixed>>
+     * @return BaseResponse<list<array<string, mixed>>>
      */
     public function list(array $params = []): BaseResponse
     {
         $response = $this->client->get($this->baseUrl, '', $params);
 
-        return BaseResponse::fromArray($response, static fn ($data) => $data);
+        /** @var BaseResponse<list<array<string, mixed>>> $result */
+        $result = BaseResponse::fromArray($response, static fn (mixed $data): mixed => $data);
+
+        return $result;
     }
 
     /**
      * POST /distributors
      *
      * Response data type: object
-     * Known fields: distributorsUid, customerId, distributorsId, distributorsName, distributorsDesc, distributorsEmail, distributorsAccount, dateCreated, ... (12 total)
+     *   distributorsUid: int
+     *   customerId: float
+     *   distributorsId: string
+     *   distributorsName: string
+     *   distributorsDesc: string
+     *   distributorsEmail: string
+     *   distributorsAccount: string
+     *   dateCreated: string
+     *   dateLastModified: string
+     *   updateCd: int
+     *   statusCd: int
+     *   processCd: int
      *
      * @param array<string, mixed> $data
      * @return BaseResponse<array<string, mixed>>
@@ -49,14 +74,28 @@ final class DistributorsResource
     {
         $response = $this->client->post($this->baseUrl, '', $data);
 
-        return BaseResponse::fromArray($response, static fn ($data) => $data);
+        /** @var BaseResponse<array<string, mixed>> $result */
+        $result = BaseResponse::fromArray($response, static fn (mixed $data): mixed => $data);
+
+        return $result;
     }
 
     /**
      * DELETE /distributors/{distributorsUid}
      *
      * Response data type: object
-     * Known fields: distributorsUid, customerId, distributorsId, distributorsName, distributorsDesc, distributorsEmail, distributorsAccount, dateCreated, ... (12 total)
+     *   distributorsUid: int
+     *   customerId: float
+     *   distributorsId: string
+     *   distributorsName: string
+     *   distributorsDesc: string
+     *   distributorsEmail: string
+     *   distributorsAccount: string
+     *   dateCreated: string
+     *   dateLastModified: string
+     *   updateCd: int
+     *   statusCd: int
+     *   processCd: int
      *
      * @return BaseResponse<array<string, mixed>>
      */
@@ -68,14 +107,28 @@ final class DistributorsResource
             ['distributorsUid' => (string) $distributorsUid],
         );
 
-        return BaseResponse::fromArray($response, static fn ($data) => $data);
+        /** @var BaseResponse<array<string, mixed>> $result */
+        $result = BaseResponse::fromArray($response, static fn (mixed $data): mixed => $data);
+
+        return $result;
     }
 
     /**
      * GET /distributors/{distributorsUid}
      *
      * Response data type: object
-     * Known fields: distributorsUid, customerId, distributorsId, distributorsName, distributorsDesc, distributorsEmail, distributorsAccount, dateCreated, ... (12 total)
+     *   distributorsUid: int
+     *   customerId: float
+     *   distributorsId: string
+     *   distributorsName: string
+     *   distributorsDesc: string
+     *   distributorsEmail: string
+     *   distributorsAccount: string
+     *   dateCreated: string
+     *   dateLastModified: string
+     *   updateCd: int
+     *   statusCd: int
+     *   processCd: int
      *
      * @param array<string, mixed> $params
      * @return BaseResponse<array<string, mixed>>
@@ -89,14 +142,28 @@ final class DistributorsResource
             ['distributorsUid' => (string) $distributorsUid],
         );
 
-        return BaseResponse::fromArray($response, static fn ($data) => $data);
+        /** @var BaseResponse<array<string, mixed>> $result */
+        $result = BaseResponse::fromArray($response, static fn (mixed $data): mixed => $data);
+
+        return $result;
     }
 
     /**
      * PUT /distributors/{distributorsUid}
      *
      * Response data type: object
-     * Known fields: distributorsUid, customerId, distributorsId, distributorsName, distributorsDesc, distributorsEmail, distributorsAccount, dateCreated, ... (12 total)
+     *   distributorsUid: int
+     *   customerId: float
+     *   distributorsId: string
+     *   distributorsName: string
+     *   distributorsDesc: string
+     *   distributorsEmail: string
+     *   distributorsAccount: string
+     *   dateCreated: string
+     *   dateLastModified: string
+     *   updateCd: int
+     *   statusCd: int
+     *   processCd: int
      *
      * @param array<string, mixed> $data
      * @return BaseResponse<array<string, mixed>>
@@ -110,14 +177,17 @@ final class DistributorsResource
             ['distributorsUid' => (string) $distributorsUid],
         );
 
-        return BaseResponse::fromArray($response, static fn ($data) => $data);
+        /** @var BaseResponse<array<string, mixed>> $result */
+        $result = BaseResponse::fromArray($response, static fn (mixed $data): mixed => $data);
+
+        return $result;
     }
 
     /**
      * PUT /distributors/{distributorsUid}/enable
      *
      * @param array<string, mixed> $data
-     * @return BaseResponse<array<string, mixed>>
+     * @return BaseResponse<mixed>
      */
     public function updateEnable(int $distributorsUid, array $data = []): BaseResponse
     {
@@ -128,17 +198,32 @@ final class DistributorsResource
             ['distributorsUid' => (string) $distributorsUid],
         );
 
-        return BaseResponse::fromArray($response, static fn ($data) => $data);
+        /** @var BaseResponse<mixed> $result */
+        $result = BaseResponse::fromArray($response, static fn (mixed $data): mixed => $data);
+
+        return $result;
     }
 
     /**
      * POST /distributors/{distributorsUid}/products
      *
      * Response data type: array
-     * Known fields: productsUid, distributorsUid, productsId, productsDesc, defaultSellingUnit, dateCreated, dateLastModified, updateCd, ... (13 total)
+     *   productsUid: int
+     *   distributorsUid: int
+     *   productsId: string
+     *   productsDesc: string
+     *   defaultSellingUnit: string
+     *   dateCreated: string
+     *   dateLastModified: string
+     *   updateCd: int
+     *   statusCd: int
+     *   processCd: int
+     *   upcOrEanId: string|null
+     *   imageUrl: string|null
+     *   partNumber: string|null
      *
      * @param array<string, mixed> $data
-     * @return BaseResponse<array<string, mixed>>
+     * @return BaseResponse<list<array<string, mixed>>>
      */
     public function createProducts(int $distributorsUid, array $data = []): BaseResponse
     {
@@ -149,6 +234,9 @@ final class DistributorsResource
             ['distributorsUid' => (string) $distributorsUid],
         );
 
-        return BaseResponse::fromArray($response, static fn ($data) => $data);
+        /** @var BaseResponse<list<array<string, mixed>>> $result */
+        $result = BaseResponse::fromArray($response, static fn (mixed $data): mixed => $data);
+
+        return $result;
     }
 }

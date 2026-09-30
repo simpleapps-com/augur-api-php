@@ -17,7 +17,7 @@ final class CartHdrResourceTest extends AugurApiTestCase
 
         $response = $this->api->commerce->cartHdr->listList(['userId' => 'user1']);
 
-        $this->assertCount(2, $response->data);
+        $this->assertCount(2, self::arrayAt($response->data));
 
         /** @var list<array<string, mixed>> $data */
         $data = $response->data;
@@ -45,7 +45,7 @@ final class CartHdrResourceTest extends AugurApiTestCase
 
         $response = $this->api->commerce->cartHdr->getLookup(['cartId' => 'CART001']);
 
-        $this->assertCount(1, $response->data);
+        $this->assertCount(1, self::arrayAt($response->data));
 
         /** @var list<array<string, mixed>> $data */
         $data = $response->data;
@@ -72,7 +72,7 @@ final class CartHdrResourceTest extends AugurApiTestCase
 
         $response = $this->api->commerce->cartHdr->listAlsoBought(123);
 
-        $this->assertCount(2, $response->data);
+        $this->assertCount(2, self::arrayAt($response->data));
 
         /** @var list<array<string, mixed>> $data */
         $data = $response->data;

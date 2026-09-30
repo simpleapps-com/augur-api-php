@@ -55,9 +55,11 @@
     "cs-check": "php-cs-fixer fix --dry-run --diff",
     "cs-fix": "php-cs-fixer fix",
     "analyse": "phpstan analyse --memory-limit=512M",
+    "deadcode": "php bin/deadcode.php",
     "check": [
       "@cs-check",
       "@analyse",
+      "@deadcode",
       "@coverage:check"
     ]
   },

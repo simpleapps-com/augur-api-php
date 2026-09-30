@@ -23,7 +23,7 @@ final class EntityCustomersResourceTest extends AugurApiTestCase
 
         $response = $this->api->p21Apis->entityCustomers->getRefresh();
 
-        $this->assertTrue($response->data['success']);
+        $this->assertTrue(self::at($response->data, 'success'));
         $this->assertRequestMethod('GET');
         $this->assertRequestPath('/entity-customers/refresh');
         $this->assertHasSiteIdHeader();
@@ -39,7 +39,7 @@ final class EntityCustomersResourceTest extends AugurApiTestCase
 
         $response = $this->api->p21Apis->entityCustomers->getRefresh(['forceUpdate' => true]);
 
-        $this->assertTrue($response->data['success']);
-        $this->assertEquals(50, $response->data['count']);
+        $this->assertTrue(self::at($response->data, 'success'));
+        $this->assertEquals(50, self::at($response->data, 'count'));
     }
 }

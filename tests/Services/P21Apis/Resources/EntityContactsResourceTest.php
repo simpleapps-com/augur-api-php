@@ -23,7 +23,7 @@ final class EntityContactsResourceTest extends AugurApiTestCase
 
         $response = $this->api->p21Apis->entityContacts->getRefresh();
 
-        $this->assertTrue($response->data['success']);
+        $this->assertTrue(self::at($response->data, 'success'));
         $this->assertRequestMethod('GET');
         $this->assertRequestPath('/entity-contacts/refresh');
         $this->assertHasSiteIdHeader();
@@ -39,7 +39,7 @@ final class EntityContactsResourceTest extends AugurApiTestCase
 
         $response = $this->api->p21Apis->entityContacts->getRefresh(['forceUpdate' => true]);
 
-        $this->assertTrue($response->data['success']);
-        $this->assertEquals(100, $response->data['count']);
+        $this->assertTrue(self::at($response->data, 'success'));
+        $this->assertEquals(100, self::at($response->data, 'count'));
     }
 }

@@ -23,7 +23,7 @@ final class P21ResourceTest extends AugurApiTestCase
 
         $response = $this->api->items->p21->listInvMast();
 
-        $this->assertCount(2, $response->data);
+        $this->assertCount(2, self::arrayAt($response->data));
         /** @var list<array<string, mixed>> $data */
         $data = $response->data;
         $this->assertEquals(100, $data[0]['inv_mast_uid']);
@@ -40,7 +40,7 @@ final class P21ResourceTest extends AugurApiTestCase
 
         $response = $this->api->items->p21->listInvMast(['limit' => 50, 'offset' => 0, 'modifiedSince' => '2024-01-01']);
 
-        $this->assertCount(1, $response->data);
+        $this->assertCount(1, self::arrayAt($response->data));
         $this->assertEquals(1000, $response->total);
         $this->assertHasSiteIdHeader();
         $this->assertHasAuthHeader();

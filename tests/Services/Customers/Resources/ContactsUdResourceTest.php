@@ -21,8 +21,8 @@ final class ContactsUdResourceTest extends AugurApiTestCase
 
         $response = $this->api->customers->contactsUd->get(123);
 
-        $this->assertEquals(123, $response->data['contactId']);
-        $this->assertEquals('Custom Value 1', $response->data['udField1']);
+        $this->assertEquals(123, self::at($response->data, 'contactId'));
+        $this->assertEquals('Custom Value 1', self::at($response->data, 'udField1'));
         $this->assertRequestPath('/contacts-ud/123');
         $this->assertRequestMethod('GET');
         $this->assertHasSiteIdHeader();

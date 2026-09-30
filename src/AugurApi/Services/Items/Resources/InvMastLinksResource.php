@@ -24,7 +24,7 @@ final class InvMastLinksResource
      * GET /inv-mast-links/{invMastUid}
      *
      * @param array<string, mixed> $params
-     * @return BaseResponse<array<string, mixed>>
+     * @return BaseResponse<mixed>
      */
     public function get(int $invMastUid, array $params = []): BaseResponse
     {
@@ -35,6 +35,9 @@ final class InvMastLinksResource
             ['invMastUid' => (string) $invMastUid],
         );
 
-        return BaseResponse::fromArray($response, static fn ($data) => $data);
+        /** @var BaseResponse<mixed> $result */
+        $result = BaseResponse::fromArray($response, static fn (mixed $data): mixed => $data);
+
+        return $result;
     }
 }

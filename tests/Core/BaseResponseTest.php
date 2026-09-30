@@ -66,4 +66,31 @@ final class BaseResponseTest extends TestCase
         $this->assertNull($response->message);
         $this->assertNull($response->total);
     }
+
+    public function testFromArrayConvertsNumericStrings(): void
+    {
+        $response = BaseResponse::fromArray(
+            ['data' => [], 'status' => '201', 'total' => '42', 'limit' => 10.0, 'offset' => '0'],
+            static fn ($data) => $data,
+        );
+
+        $this->assertSame(201, $response->status);
+        $this->assertSame(42, $response->total);
+        $this->assertSame(10, $response->limit);
+        $this->assertSame(0, $response->offset);
+    }
+
+    public function testFromArrayIgnoresMalformedEnvelopeFields(): void
+    {
+        $response = BaseResponse::fromArray(
+            ['data' => null, 'status' => 'ok', 'message' => ['x'], 'total' => 'many', 'limit' => true],
+            static fn ($data) => $data,
+        );
+
+        $this->assertSame(200, $response->status);
+        $this->assertNull($response->message);
+        $this->assertNull($response->total);
+        $this->assertNull($response->limit);
+        $this->assertNull($response->offset);
+    }
 }

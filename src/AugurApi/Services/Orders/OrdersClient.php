@@ -12,6 +12,7 @@ use AugurApi\Services\Orders\Resources\OeHdrResource;
 use AugurApi\Services\Orders\Resources\OeHdrSalesrepResource;
 use AugurApi\Services\Orders\Resources\PickTicketsResource;
 use AugurApi\Services\Orders\Resources\PoHdrResource;
+use AugurApi\Services\Orders\Resources\PoLineResource;
 
 /**
  * Orders service client — generated from spec.
@@ -25,6 +26,7 @@ final class OrdersClient extends BaseServiceClient
     public readonly OeHdrSalesrepResource $oeHdrSalesrep;
     public readonly PickTicketsResource $pickTickets;
     public readonly PoHdrResource $poHdr;
+    public readonly PoLineResource $poLine;
 
     public function __construct(Client $client, Config $config)
     {
@@ -34,6 +36,7 @@ final class OrdersClient extends BaseServiceClient
         $this->oeHdrSalesrep = new OeHdrSalesrepResource($client, $this->baseUrl . '/oe-hdr-salesrep');
         $this->pickTickets = new PickTicketsResource($client, $this->baseUrl . '/pick-tickets');
         $this->poHdr = new PoHdrResource($client, $this->baseUrl . '/po-hdr');
+        $this->poLine = new PoLineResource($client, $this->baseUrl . '/po-line');
     }
 
     protected function getServiceName(): string

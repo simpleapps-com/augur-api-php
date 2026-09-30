@@ -24,23 +24,44 @@ final class CodeP21Resource
      * GET /code-p21
      *
      * Response data type: array
-     * Known fields: codeUid, codeNo, languageId, codeDescription, rowStatusFlag, dateCreated, dateLastModified, lastMaintainedBy, ... (10 total)
+     *   codeUid: int
+     *   codeNo: int
+     *   languageId: string
+     *   codeDescription: string
+     *   rowStatusFlag: string
+     *   dateCreated: string
+     *   dateLastModified: string
+     *   lastMaintainedBy: string
+     *   codeSubDescription: string|null
+     *   updateCd: int
      *
      * @param array<string, mixed> $params
-     * @return BaseResponse<array<string, mixed>>
+     * @return BaseResponse<list<array<string, mixed>>>
      */
     public function list(array $params = []): BaseResponse
     {
         $response = $this->client->get($this->baseUrl, '', $params);
 
-        return BaseResponse::fromArray($response, static fn ($data) => $data);
+        /** @var BaseResponse<list<array<string, mixed>>> $result */
+        $result = BaseResponse::fromArray($response, static fn (mixed $data): mixed => $data);
+
+        return $result;
     }
 
     /**
      * GET /code-p21/{codeUid}
      *
      * Response data type: object
-     * Known fields: codeUid, codeNo, languageId, codeDescription, rowStatusFlag, dateCreated, dateLastModified, lastMaintainedBy, ... (10 total)
+     *   codeUid: int
+     *   codeNo: int
+     *   languageId: string
+     *   codeDescription: string
+     *   rowStatusFlag: string
+     *   dateCreated: string
+     *   dateLastModified: string
+     *   lastMaintainedBy: string
+     *   codeSubDescription: string|null
+     *   updateCd: int
      *
      * @param array<string, mixed> $params
      * @return BaseResponse<array<string, mixed>>
@@ -54,6 +75,9 @@ final class CodeP21Resource
             ['codeUid' => (string) $codeUid],
         );
 
-        return BaseResponse::fromArray($response, static fn ($data) => $data);
+        /** @var BaseResponse<array<string, mixed>> $result */
+        $result = BaseResponse::fromArray($response, static fn (mixed $data): mixed => $data);
+
+        return $result;
     }
 }

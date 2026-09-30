@@ -24,19 +24,22 @@ final class ShippingMethodsResource
      * GET /shipping-methods
      *
      * @param array<string, mixed> $params
-     * @return BaseResponse<array<string, mixed>>
+     * @return BaseResponse<mixed>
      */
     public function list(array $params = []): BaseResponse
     {
         $response = $this->client->get($this->baseUrl, '', $params);
 
-        return BaseResponse::fromArray($response, static fn ($data) => $data);
+        /** @var BaseResponse<mixed> $result */
+        $result = BaseResponse::fromArray($response, static fn (mixed $data): mixed => $data);
+
+        return $result;
     }
 
     /**
      * DELETE /shipping-methods/{shippingMethodsUid}
      *
-     * @return BaseResponse<array<string, mixed>>
+     * @return BaseResponse<mixed>
      */
     public function delete(int $shippingMethodsUid): BaseResponse
     {
@@ -46,14 +49,17 @@ final class ShippingMethodsResource
             ['shippingMethodsUid' => (string) $shippingMethodsUid],
         );
 
-        return BaseResponse::fromArray($response, static fn ($data) => $data);
+        /** @var BaseResponse<mixed> $result */
+        $result = BaseResponse::fromArray($response, static fn (mixed $data): mixed => $data);
+
+        return $result;
     }
 
     /**
      * GET /shipping-methods/{shippingMethodsUid}
      *
      * @param array<string, mixed> $params
-     * @return BaseResponse<array<string, mixed>>
+     * @return BaseResponse<mixed>
      */
     public function get(int $shippingMethodsUid, array $params = []): BaseResponse
     {
@@ -64,14 +70,17 @@ final class ShippingMethodsResource
             ['shippingMethodsUid' => (string) $shippingMethodsUid],
         );
 
-        return BaseResponse::fromArray($response, static fn ($data) => $data);
+        /** @var BaseResponse<mixed> $result */
+        $result = BaseResponse::fromArray($response, static fn (mixed $data): mixed => $data);
+
+        return $result;
     }
 
     /**
      * PUT /shipping-methods/{shippingMethodsUid}
      *
      * @param array<string, mixed> $data
-     * @return BaseResponse<array<string, mixed>>
+     * @return BaseResponse<mixed>
      */
     public function update(int $shippingMethodsUid, array $data = []): BaseResponse
     {
@@ -82,6 +91,9 @@ final class ShippingMethodsResource
             ['shippingMethodsUid' => (string) $shippingMethodsUid],
         );
 
-        return BaseResponse::fromArray($response, static fn ($data) => $data);
+        /** @var BaseResponse<mixed> $result */
+        $result = BaseResponse::fromArray($response, static fn (mixed $data): mixed => $data);
+
+        return $result;
     }
 }

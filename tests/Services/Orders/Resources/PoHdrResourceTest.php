@@ -17,7 +17,7 @@ final class PoHdrResourceTest extends AugurApiTestCase
 
         $response = $this->api->orders->poHdr->list();
 
-        $this->assertCount(2, $response->data);
+        $this->assertCount(2, self::arrayAt($response->data));
         /** @var list<array<string, mixed>> $data */
         $data = $response->data;
         $this->assertEquals(5001, $data[0]['poNo']);
@@ -39,7 +39,7 @@ final class PoHdrResourceTest extends AugurApiTestCase
             'offset' => 0,
         ]);
 
-        $this->assertCount(1, $response->data);
+        $this->assertCount(1, self::arrayAt($response->data));
         $this->assertEquals(25, $response->total);
     }
 
@@ -67,9 +67,9 @@ final class PoHdrResourceTest extends AugurApiTestCase
 
         $response = $this->api->orders->poHdr->get(5001);
 
-        $this->assertEquals(5001, $response->data['poNo']);
-        $this->assertEquals('Test Vendor', $response->data['vendorName']);
-        $this->assertEquals(5000.00, $response->data['total']);
+        $this->assertEquals(5001, self::at($response->data, 'poNo'));
+        $this->assertEquals('Test Vendor', self::at($response->data, 'vendorName'));
+        $this->assertEquals(5000.00, self::at($response->data, 'total'));
         $this->assertRequestPath('/po-hdr/5001');
         $this->assertRequestMethod('GET');
     }
@@ -83,7 +83,7 @@ final class PoHdrResourceTest extends AugurApiTestCase
 
         $response = $this->api->orders->poHdr->get(9999);
 
-        $this->assertEquals(9999, $response->data['poNo']);
+        $this->assertEquals(9999, self::at($response->data, 'poNo'));
         $this->assertRequestPath('/po-hdr/9999');
     }
 
@@ -104,9 +104,9 @@ final class PoHdrResourceTest extends AugurApiTestCase
 
         $response = $this->api->orders->poHdr->getDoc(5001);
 
-        $this->assertEquals(5001, $response->data['poNo']);
-        $this->assertCount(2, $response->data['lines']);
-        $this->assertEquals(100, $response->data['lines'][0]['quantity']);
+        $this->assertEquals(5001, self::at($response->data, 'poNo'));
+        $this->assertCount(2, self::arrayAt($response->data, 'lines'));
+        $this->assertEquals(100, self::at($response->data, 'lines', 0, 'quantity'));
         $this->assertRequestPath('/po-hdr/5001/doc');
         $this->assertRequestMethod('GET');
     }
@@ -120,7 +120,7 @@ final class PoHdrResourceTest extends AugurApiTestCase
 
         $response = $this->api->orders->poHdr->getDoc(8888);
 
-        $this->assertEquals(8888, $response->data['poNo']);
+        $this->assertEquals(8888, self::at($response->data, 'poNo'));
         $this->assertRequestPath('/po-hdr/8888/doc');
     }
 
@@ -137,7 +137,7 @@ final class PoHdrResourceTest extends AugurApiTestCase
             'quantity' => 100,
         ]);
 
-        $this->assertCount(2, $response->data);
+        $this->assertCount(2, self::arrayAt($response->data));
         /** @var list<array<string, mixed>> $data */
         $data = $response->data;
         $this->assertEquals(5001, $data[0]['poNo']);
@@ -158,7 +158,7 @@ final class PoHdrResourceTest extends AugurApiTestCase
             'itemId' => 'ITEM001',
         ]);
 
-        $this->assertCount(1, $response->data);
+        $this->assertCount(1, self::arrayAt($response->data));
     }
 
     public function testCreateScanEmpty(): void

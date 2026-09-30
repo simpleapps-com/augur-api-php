@@ -143,7 +143,7 @@ final class PriceEngineResourceTest extends AugurApiTestCase
     public function testCreateBatchPrice(): void
     {
         $this->mockResponse([
-            'customerId' => 'CUST001',
+            'customerId' => 1001,
             'items' => [
                 ['itemId' => 'ITEM001', 'customerPrice' => 85.00],
                 ['itemId' => 'ITEM002', 'customerPrice' => 40.00],
@@ -151,14 +151,14 @@ final class PriceEngineResourceTest extends AugurApiTestCase
         ]);
 
         $response = $this->api->pricing->priceEngine->create([
-            'customerId' => 'CUST001',
+            'customerId' => 1001,
             'items' => [
-                ['itemId' => 'ITEM001', 'quantity' => 10],
-                ['itemId' => 'ITEM002', 'quantity' => 100],
+                ['itemId' => 'ITEM001', 'quantity' => 10.0],
+                ['itemId' => 'ITEM002', 'quantity' => 100.0],
             ],
         ]);
 
-        $this->assertCount(2, $response->data['items']);
+        $this->assertCount(2, self::arrayAt($response->data, 'items'));
         $this->assertRequestPath('/price-engine');
         $this->assertRequestMethod('POST');
         $this->assertHasAuthHeader();

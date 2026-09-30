@@ -80,8 +80,8 @@ final class StateResourceTest extends AugurApiTestCase
             'countryCode' => 'US',
         ]);
 
-        $this->assertEquals(51, $response->data['stateUid']);
-        $this->assertEquals('PR', $response->data['stateCode']);
+        $this->assertEquals(51, self::at($response->data, 'stateUid'));
+        $this->assertEquals('PR', self::at($response->data, 'stateCode'));
         $this->assertRequestPath('/legacy/state');
         $this->assertRequestMethod('POST');
     }
@@ -107,7 +107,7 @@ final class StateResourceTest extends AugurApiTestCase
 
         $response = $this->api->legacy->legacy->deleteState(1);
 
-        $this->assertTrue($response->data['deleted']);
+        $this->assertTrue(self::at($response->data, 'deleted'));
         $this->assertRequestPath('/legacy/state/1');
         $this->assertRequestMethod('DELETE');
     }

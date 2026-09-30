@@ -22,8 +22,8 @@ final class UnifiedResourceTest extends AugurApiTestCase
             'returnUrl' => 'https://mysite.com/return',
         ]);
 
-        $this->assertEquals('TS123456', $response->data['transactionSetupId']);
-        $this->assertStringContainsString('https://pay.example.com', $response->data['redirectUrl']);
+        $this->assertEquals('TS123456', self::at($response->data, 'transactionSetupId'));
+        $this->assertStringContainsString('https://pay.example.com', self::stringAt($response->data, 'redirectUrl'));
         $this->assertRequestPath('/unified/transaction-setup');
         $this->assertRequestMethod('GET');
         $this->assertHasAuthHeader();
@@ -42,7 +42,7 @@ final class UnifiedResourceTest extends AugurApiTestCase
             'includeBilling' => true,
         ]);
 
-        $this->assertTrue($response->data['billingIncluded']);
+        $this->assertTrue(self::at($response->data, 'billingIncluded'));
     }
 
     public function testValidate(): void
@@ -58,8 +58,8 @@ final class UnifiedResourceTest extends AugurApiTestCase
             'transactionSetupId' => 'TS123456',
         ]);
 
-        $this->assertTrue($response->data['valid']);
-        $this->assertEquals('PAY789', $response->data['paymentAccountId']);
+        $this->assertTrue(self::at($response->data, 'valid'));
+        $this->assertEquals('PAY789', self::at($response->data, 'paymentAccountId'));
         $this->assertRequestPath('/unified/validate');
         $this->assertRequestMethod('GET');
     }
@@ -76,8 +76,8 @@ final class UnifiedResourceTest extends AugurApiTestCase
             'transactionSetupId' => 'TS999999',
         ]);
 
-        $this->assertFalse($response->data['valid']);
-        $this->assertEquals('Transaction setup expired', $response->data['error']);
+        $this->assertFalse(self::at($response->data, 'valid'));
+        $this->assertEquals('Transaction setup expired', self::at($response->data, 'error'));
     }
 
     public function testAccountQuery(): void
@@ -100,9 +100,9 @@ final class UnifiedResourceTest extends AugurApiTestCase
             'transactionSetupId' => 'TS123456',
         ]);
 
-        $this->assertEquals('PAY789', $response->data['paymentAccountId']);
-        $this->assertEquals('Visa', $response->data['cardType']);
-        $this->assertArrayHasKey('billingAddress', $response->data);
+        $this->assertEquals('PAY789', self::at($response->data, 'paymentAccountId'));
+        $this->assertEquals('Visa', self::at($response->data, 'cardType'));
+        $this->assertArrayHasKey('billingAddress', self::arrayAt($response->data));
         $this->assertRequestPath('/unified/account-query');
         $this->assertRequestMethod('GET');
     }
@@ -128,8 +128,8 @@ final class UnifiedResourceTest extends AugurApiTestCase
             'zip' => '67890',
         ]);
 
-        $this->assertTrue($response->data['updated']);
-        $this->assertEquals('456 New St', $response->data['billingAddress']['street']);
+        $this->assertTrue(self::at($response->data, 'updated'));
+        $this->assertEquals('456 New St', self::at($response->data, 'billingAddress', 'street'));
         $this->assertRequestPath('/unified/billing-update');
         $this->assertRequestMethod('GET');
     }
@@ -148,9 +148,9 @@ final class UnifiedResourceTest extends AugurApiTestCase
             'transactionSetupId' => 'TS123456',
         ]);
 
-        $this->assertEquals('Visa', $response->data['cardType']);
-        $this->assertEquals('4242', $response->data['last4']);
-        $this->assertEquals('John Doe', $response->data['cardholderName']);
+        $this->assertEquals('Visa', self::at($response->data, 'cardType'));
+        $this->assertEquals('4242', self::at($response->data, 'last4'));
+        $this->assertEquals('John Doe', self::at($response->data, 'cardholderName'));
         $this->assertRequestPath('/unified/card-info');
         $this->assertRequestMethod('GET');
     }
@@ -170,9 +170,9 @@ final class UnifiedResourceTest extends AugurApiTestCase
             'amount' => 250.00,
         ]);
 
-        $this->assertEquals(2.5, $response->data['surchargeRate']);
-        $this->assertEquals(6.25, $response->data['surchargeAmount']);
-        $this->assertEquals(256.25, $response->data['totalAmount']);
+        $this->assertEquals(2.5, self::at($response->data, 'surchargeRate'));
+        $this->assertEquals(6.25, self::at($response->data, 'surchargeAmount'));
+        $this->assertEquals(256.25, self::at($response->data, 'totalAmount'));
         $this->assertRequestPath('/unified/surcharge');
         $this->assertRequestMethod('GET');
     }
@@ -191,7 +191,7 @@ final class UnifiedResourceTest extends AugurApiTestCase
             'amount' => 100.00,
         ]);
 
-        $this->assertEquals(0, $response->data['surchargeAmount']);
+        $this->assertEquals(0, self::at($response->data, 'surchargeAmount'));
     }
 
     public function testListTransactionResponse(): void
@@ -205,7 +205,7 @@ final class UnifiedResourceTest extends AugurApiTestCase
             'transactionId' => 'TXN123',
         ]);
 
-        $this->assertTrue($response->data['approved']);
+        $this->assertTrue(self::at($response->data, 'approved'));
         $this->assertRequestPath('/unified/transaction-response');
         $this->assertRequestMethod('GET');
         $this->assertHasSiteIdHeader();

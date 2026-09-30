@@ -19,33 +19,31 @@ composer require simpleapps-com/augur-api
 <?php
 
 use AugurApi\AugurApiClient;
-use AugurApi\Services\Items\Schemas\BrandsListParams;
 
 $api = new AugurApiClient(
     siteId: 'your-site-id',
     bearerToken: 'your-token'
 );
 
-// List items with typed params
-$params = new BrandsListParams(limit: 10, orderBy: 'brandName');
-$response = $api->items->brands->list($params);
+// List: query params are a plain array (camelCase names, as the API expects)
+$response = $api->items->brands->list(['limit' => 10, 'orderBy' => 'brandsName']);
 foreach ($response->data as $brand) {
-    echo $brand->brandName . "\n";
+    echo $brand['brandsName'] . "\n";
 }
 
-// Get single item
+// Get single item: data is an array of the documented fields (the API may add more)
 $brand = $api->items->brands->get(123);
-echo $brand->data->brandName;
+echo $brand->data['brandsName'];
 
-// Create
+// Create: the body's required keys are checked by PHPStan (see the method docblock)
 $newBrand = $api->items->brands->create([
-    'brandName' => 'New Brand',
-    'brandDescription' => 'A new brand',
+    'brandsName' => 'New Brand',
+    'brandsDesc' => 'A new brand',
 ]);
 
 // Update
 $updated = $api->items->brands->update(123, [
-    'brandName' => 'Updated Name',
+    'brandsName' => 'Updated Name',
 ]);
 
 // Delete
@@ -58,10 +56,9 @@ Full documentation: https://augur-api.info
 
 ## Available Services
 
-| Service | Access | Endpoints |
-|---------|--------|-----------|
-| Items | `$api->items` | 99 |
-| More coming... | | |
+Every Augur service is a property of the client, named in camelCase: `$api->items`,
+`$api->pricing`, `$api->agrInt`, `$api->openSearch`, and so on. Each resource method's
+docblock lists its PHPStan request-body shape and the documented response fields.
 
 ## Custom HTTP Client
 

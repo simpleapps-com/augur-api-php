@@ -22,8 +22,8 @@ final class PaytraceResourceTest extends AugurApiTestCase
             'amount' => 150.00,
         ]);
 
-        $this->assertEquals('PT123456', $response->data['transactionId']);
-        $this->assertEquals('Approved', $response->data['responseCode']);
+        $this->assertEquals('PT123456', self::at($response->data, 'transactionId'));
+        $this->assertEquals('Approved', self::at($response->data, 'responseCode'));
         $this->assertRequestPath('/paytrace/authorization');
         $this->assertRequestMethod('POST');
         $this->assertHasAuthHeader();
@@ -44,7 +44,7 @@ final class PaytraceResourceTest extends AugurApiTestCase
             'amount' => 200.00,
         ]);
 
-        $this->assertEquals('4242', $response->data['last4']);
+        $this->assertEquals('4242', self::at($response->data, 'last4'));
     }
 
     public function testCapture(): void
@@ -60,8 +60,8 @@ final class PaytraceResourceTest extends AugurApiTestCase
             'amount' => 150.00,
         ]);
 
-        $this->assertEquals('Captured', $response->data['responseCode']);
-        $this->assertEquals(150.00, $response->data['capturedAmount']);
+        $this->assertEquals('Captured', self::at($response->data, 'responseCode'));
+        $this->assertEquals(150.00, self::at($response->data, 'capturedAmount'));
         $this->assertRequestPath('/paytrace/capture');
         $this->assertRequestMethod('POST');
     }
@@ -79,7 +79,7 @@ final class PaytraceResourceTest extends AugurApiTestCase
             'amount' => 150.00,
         ]);
 
-        $this->assertLessThan($response->data['originalAmount'], $response->data['capturedAmount']);
+        $this->assertLessThan(self::at($response->data, 'originalAmount'), self::at($response->data, 'capturedAmount'));
     }
 
     public function testSale(): void
@@ -97,8 +97,8 @@ final class PaytraceResourceTest extends AugurApiTestCase
             'amount' => 99.99,
         ]);
 
-        $this->assertEquals('SAL789', $response->data['approvalCode']);
-        $this->assertTrue($response->data['captured']);
+        $this->assertEquals('SAL789', self::at($response->data, 'approvalCode'));
+        $this->assertTrue(self::at($response->data, 'captured'));
         $this->assertRequestPath('/paytrace/sale');
         $this->assertRequestMethod('POST');
     }
@@ -117,8 +117,8 @@ final class PaytraceResourceTest extends AugurApiTestCase
             'amount' => 50.00,
         ]);
 
-        $this->assertEquals('Refunded', $response->data['responseCode']);
-        $this->assertEquals(50.00, $response->data['refundedAmount']);
+        $this->assertEquals('Refunded', self::at($response->data, 'responseCode'));
+        $this->assertEquals(50.00, self::at($response->data, 'refundedAmount'));
         $this->assertRequestPath('/paytrace/refund');
         $this->assertRequestMethod('POST');
     }
@@ -135,7 +135,7 @@ final class PaytraceResourceTest extends AugurApiTestCase
             'transactionId' => 'PT345678',
         ]);
 
-        $this->assertTrue($response->data['fullRefund']);
+        $this->assertTrue(self::at($response->data, 'fullRefund'));
     }
 
     public function testVoid(): void
@@ -150,8 +150,8 @@ final class PaytraceResourceTest extends AugurApiTestCase
             'transactionId' => 'PT123456',
         ]);
 
-        $this->assertEquals('Voided', $response->data['responseCode']);
-        $this->assertEquals(150.00, $response->data['voidedAmount']);
+        $this->assertEquals('Voided', self::at($response->data, 'responseCode'));
+        $this->assertEquals(150.00, self::at($response->data, 'voidedAmount'));
         $this->assertRequestPath('/paytrace/void');
         $this->assertRequestMethod('POST');
     }
@@ -169,7 +169,7 @@ final class PaytraceResourceTest extends AugurApiTestCase
             'reason' => 'Customer cancelled',
         ]);
 
-        $this->assertEquals('Customer cancelled', $response->data['reason']);
+        $this->assertEquals('Customer cancelled', self::at($response->data, 'reason'));
     }
 
     /**

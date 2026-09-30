@@ -24,36 +24,86 @@ final class CategoriesResource
      * GET /categories
      *
      * Response data type: array
-     * Known fields: itemCategoryUid, itemCategoryId, itemCategoryDesc, dateCreated, dateLastModified, updateCd, statusCd, processCd, ... (23 total)
+     *   itemCategoryUid: int
+     *   itemCategoryId: string
+     *   itemCategoryDesc: string
+     *   dateCreated: string
+     *   dateLastModified: string
+     *   updateCd: int
+     *   statusCd: int
+     *   processCd: int
+     *   rootCategoryId: string
+     *   labelsId: string|null
+     *   imagesAssetsId: string|null
+     *   roomScenesAssetsId: string|null
+     *   brochuresAssetsId: string|null
+     *   contractorsAssetsId: string|null
+     *   dateLastProcessed: string
+     *   dateLastCheckImages: string
+     *   dateLastCheckRoomScene: string
+     *   itemCategoryDescPc: string|null
+     *   dateLastUpload: string
+     *   leedAssetsId: string|null
+     *   colorsList: string|null
+     *   colorsCount: int
+     *   focusCd: int
      *
      * @param array<string, mixed> $params
-     * @return BaseResponse<array<string, mixed>>
+     * @return BaseResponse<list<array<string, mixed>>>
      */
     public function list(array $params = []): BaseResponse
     {
         $response = $this->client->get($this->baseUrl, '', $params);
 
-        return BaseResponse::fromArray($response, static fn ($data) => $data);
+        /** @var BaseResponse<list<array<string, mixed>>> $result */
+        $result = BaseResponse::fromArray($response, static fn (mixed $data): mixed => $data);
+
+        return $result;
     }
 
     /**
      * POST /categories/focus
      *
      * @param array<string, mixed> $data
-     * @return BaseResponse<array<string, mixed>>
+     * @return BaseResponse<mixed>
      */
     public function createFocus(array $data = []): BaseResponse
     {
         $response = $this->client->post($this->baseUrl, '/focus', $data);
 
-        return BaseResponse::fromArray($response, static fn ($data) => $data);
+        /** @var BaseResponse<mixed> $result */
+        $result = BaseResponse::fromArray($response, static fn (mixed $data): mixed => $data);
+
+        return $result;
     }
 
     /**
      * GET /categories/{itemCategoryUid}
      *
      * Response data type: object
-     * Known fields: itemCategoryUid, itemCategoryId, itemCategoryDesc, dateCreated, dateLastModified, updateCd, statusCd, processCd, ... (23 total)
+     *   itemCategoryUid: int
+     *   itemCategoryId: string
+     *   itemCategoryDesc: string
+     *   dateCreated: string
+     *   dateLastModified: string
+     *   updateCd: int
+     *   statusCd: int
+     *   processCd: int
+     *   rootCategoryId: string
+     *   labelsId: string|null
+     *   imagesAssetsId: string|null
+     *   roomScenesAssetsId: string|null
+     *   brochuresAssetsId: string|null
+     *   contractorsAssetsId: string|null
+     *   dateLastProcessed: string
+     *   dateLastCheckImages: string
+     *   dateLastCheckRoomScene: string
+     *   itemCategoryDescPc: string|null
+     *   dateLastUpload: string
+     *   leedAssetsId: string|null
+     *   colorsList: string|null
+     *   colorsCount: int
+     *   focusCd: int
      *
      * @param array<string, mixed> $params
      * @return BaseResponse<array<string, mixed>>
@@ -67,6 +117,9 @@ final class CategoriesResource
             ['itemCategoryUid' => (string) $itemCategoryUid],
         );
 
-        return BaseResponse::fromArray($response, static fn ($data) => $data);
+        /** @var BaseResponse<array<string, mixed>> $result */
+        $result = BaseResponse::fromArray($response, static fn (mixed $data): mixed => $data);
+
+        return $result;
     }
 }

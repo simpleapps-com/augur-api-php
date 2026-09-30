@@ -24,23 +24,50 @@ final class InvMastFilesResource
      * GET /inv-mast-files
      *
      * Response data type: array
-     * Known fields: invMastFilesUid, invMastUid, fileName, filePath, linkArea, rowStatusFlag, sequenceNo, dateCreated, ... (13 total)
+     *   invMastFilesUid: int
+     *   invMastUid: int
+     *   fileName: string
+     *   filePath: string
+     *   linkArea: int
+     *   rowStatusFlag: int
+     *   sequenceNo: int
+     *   dateCreated: string
+     *   dateLastModified: string
+     *   updateCd: int
+     *   statusCd: int
+     *   processCd: int
+     *   fileDesc: string
      *
      * @param array<string, mixed> $params
-     * @return BaseResponse<array<string, mixed>>
+     * @return BaseResponse<list<array<string, mixed>>>
      */
     public function list(array $params = []): BaseResponse
     {
         $response = $this->client->get($this->baseUrl, '', $params);
 
-        return BaseResponse::fromArray($response, static fn ($data) => $data);
+        /** @var BaseResponse<list<array<string, mixed>>> $result */
+        $result = BaseResponse::fromArray($response, static fn (mixed $data): mixed => $data);
+
+        return $result;
     }
 
     /**
      * POST /inv-mast-files
      *
      * Response data type: object
-     * Known fields: invMastFilesUid, invMastUid, fileName, filePath, linkArea, rowStatusFlag, sequenceNo, dateCreated, ... (13 total)
+     *   invMastFilesUid: int
+     *   invMastUid: int
+     *   fileName: string
+     *   filePath: string
+     *   linkArea: int
+     *   rowStatusFlag: int
+     *   sequenceNo: int
+     *   dateCreated: string
+     *   dateLastModified: string
+     *   updateCd: int
+     *   statusCd: int
+     *   processCd: int
+     *   fileDesc: string
      *
      * @param array<string, mixed> $data
      * @return BaseResponse<array<string, mixed>>
@@ -49,13 +76,16 @@ final class InvMastFilesResource
     {
         $response = $this->client->post($this->baseUrl, '', $data);
 
-        return BaseResponse::fromArray($response, static fn ($data) => $data);
+        /** @var BaseResponse<array<string, mixed>> $result */
+        $result = BaseResponse::fromArray($response, static fn (mixed $data): mixed => $data);
+
+        return $result;
     }
 
     /**
      * DELETE /inv-mast-files/{invMastFilesUid}
      *
-     * @return BaseResponse<array<string, mixed>>
+     * @return BaseResponse<mixed>
      */
     public function delete(int $invMastFilesUid): BaseResponse
     {
@@ -65,14 +95,29 @@ final class InvMastFilesResource
             ['invMastFilesUid' => (string) $invMastFilesUid],
         );
 
-        return BaseResponse::fromArray($response, static fn ($data) => $data);
+        /** @var BaseResponse<mixed> $result */
+        $result = BaseResponse::fromArray($response, static fn (mixed $data): mixed => $data);
+
+        return $result;
     }
 
     /**
      * GET /inv-mast-files/{invMastFilesUid}
      *
      * Response data type: object
-     * Known fields: invMastFilesUid, invMastUid, fileName, filePath, linkArea, rowStatusFlag, sequenceNo, dateCreated, ... (13 total)
+     *   invMastFilesUid: int
+     *   invMastUid: int
+     *   fileName: string
+     *   filePath: string
+     *   linkArea: int
+     *   rowStatusFlag: int
+     *   sequenceNo: int
+     *   dateCreated: string
+     *   dateLastModified: string
+     *   updateCd: int
+     *   statusCd: int
+     *   processCd: int
+     *   fileDesc: string
      *
      * @param array<string, mixed> $params
      * @return BaseResponse<array<string, mixed>>
@@ -86,14 +131,29 @@ final class InvMastFilesResource
             ['invMastFilesUid' => (string) $invMastFilesUid],
         );
 
-        return BaseResponse::fromArray($response, static fn ($data) => $data);
+        /** @var BaseResponse<array<string, mixed>> $result */
+        $result = BaseResponse::fromArray($response, static fn (mixed $data): mixed => $data);
+
+        return $result;
     }
 
     /**
      * PUT /inv-mast-files/{invMastFilesUid}
      *
      * Response data type: object
-     * Known fields: invMastFilesUid, invMastUid, fileName, filePath, linkArea, rowStatusFlag, sequenceNo, dateCreated, ... (13 total)
+     *   invMastFilesUid: int
+     *   invMastUid: int
+     *   fileName: string
+     *   filePath: string
+     *   linkArea: int
+     *   rowStatusFlag: int
+     *   sequenceNo: int
+     *   dateCreated: string
+     *   dateLastModified: string
+     *   updateCd: int
+     *   statusCd: int
+     *   processCd: int
+     *   fileDesc: string
      *
      * @param array<string, mixed> $data
      * @return BaseResponse<array<string, mixed>>
@@ -107,6 +167,9 @@ final class InvMastFilesResource
             ['invMastFilesUid' => (string) $invMastFilesUid],
         );
 
-        return BaseResponse::fromArray($response, static fn ($data) => $data);
+        /** @var BaseResponse<array<string, mixed>> $result */
+        $result = BaseResponse::fromArray($response, static fn (mixed $data): mixed => $data);
+
+        return $result;
     }
 }

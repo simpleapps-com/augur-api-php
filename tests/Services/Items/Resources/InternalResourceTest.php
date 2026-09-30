@@ -28,9 +28,9 @@ final class InternalResourceTest extends AugurApiTestCase
             'includeImages' => true,
         ]);
 
-        $this->assertTrue($response->data['success']);
-        $this->assertStringContainsString('pdf', $response->data['pdfUrl']);
-        $this->assertEquals(12345, $response->data['fileSize']);
+        $this->assertTrue(self::at($response->data, 'success'));
+        $this->assertStringContainsString('pdf', self::stringAt($response->data, 'pdfUrl'));
+        $this->assertEquals(12345, self::at($response->data, 'fileSize'));
         $this->assertRequestMethod('POST');
         $this->assertRequestPath('/internal/pdf');
         $this->assertHasSiteIdHeader();

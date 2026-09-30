@@ -31,11 +31,11 @@ final class UsResourceTest extends AugurApiTestCase
             'state' => 'DC',
         ]);
 
-        $this->assertEquals('1600 Pennsylvania Ave NW', $response->data['street']);
-        $this->assertEquals('Washington', $response->data['city']);
-        $this->assertEquals('DC', $response->data['state']);
-        $this->assertEquals('20500', $response->data['zipcode']);
-        $this->assertTrue($response->data['valid']);
+        $this->assertEquals('1600 Pennsylvania Ave NW', self::at($response->data, 'street'));
+        $this->assertEquals('Washington', self::at($response->data, 'city'));
+        $this->assertEquals('DC', self::at($response->data, 'state'));
+        $this->assertEquals('20500', self::at($response->data, 'zipcode'));
+        $this->assertTrue(self::at($response->data, 'valid'));
         $this->assertRequestPath('/us/lookup');
         $this->assertRequestMethod('GET');
         $this->assertHasSiteIdHeader();
@@ -57,10 +57,10 @@ final class UsResourceTest extends AugurApiTestCase
             'zipcode' => '10118',
         ]);
 
-        $this->assertEquals('350 5th Ave', $response->data['street']);
-        $this->assertEquals('New York', $response->data['city']);
-        $this->assertEquals('10118', $response->data['zipcode']);
-        $this->assertTrue($response->data['valid']);
+        $this->assertEquals('350 5th Ave', self::at($response->data, 'street'));
+        $this->assertEquals('New York', self::at($response->data, 'city'));
+        $this->assertEquals('10118', self::at($response->data, 'zipcode'));
+        $this->assertTrue(self::at($response->data, 'valid'));
     }
 
     public function testLookupInvalidAddress(): void
@@ -80,8 +80,8 @@ final class UsResourceTest extends AugurApiTestCase
             'state' => 'XX',
         ]);
 
-        $this->assertFalse($response->data['valid']);
-        $this->assertEquals('Address not found', $response->data['errorMessage']);
+        $this->assertFalse(self::at($response->data, 'valid'));
+        $this->assertEquals('Address not found', self::at($response->data, 'errorMessage'));
     }
 
     public function testLookupReturnsBaseResponse(): void
@@ -118,7 +118,7 @@ final class UsResourceTest extends AugurApiTestCase
             'state' => 'CA',
         ]);
 
-        $this->assertEquals('Apt 4B', $response->data['secondary']);
-        $this->assertTrue($response->data['valid']);
+        $this->assertEquals('Apt 4B', self::at($response->data, 'secondary'));
+        $this->assertTrue(self::at($response->data, 'valid'));
     }
 }

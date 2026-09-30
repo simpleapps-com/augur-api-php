@@ -24,20 +24,31 @@ final class InvProfileHdrResource
      * GET /inv-profile-hdr
      *
      * @param array<string, mixed> $params
-     * @return BaseResponse<array<string, mixed>>
+     * @return BaseResponse<mixed>
      */
     public function list(array $params = []): BaseResponse
     {
         $response = $this->client->get($this->baseUrl, '', $params);
 
-        return BaseResponse::fromArray($response, static fn ($data) => $data);
+        /** @var BaseResponse<mixed> $result */
+        $result = BaseResponse::fromArray($response, static fn (mixed $data): mixed => $data);
+
+        return $result;
     }
 
     /**
      * POST /inv-profile-hdr
      *
      * Response data type: object
-     * Known fields: invProfileHdrUid, invProfileHdrId, invProfileHdrDesc, customerId, dateCreated, dateLastModified, updateCd, statusCd, ... (9 total)
+     *   invProfileHdrUid: int
+     *   invProfileHdrId: string
+     *   invProfileHdrDesc: string
+     *   customerId: float
+     *   dateCreated: string
+     *   dateLastModified: string
+     *   updateCd: int
+     *   statusCd: int
+     *   processCd: int
      *
      * @param array<string, mixed> $data
      * @return BaseResponse<array<string, mixed>>
@@ -46,14 +57,17 @@ final class InvProfileHdrResource
     {
         $response = $this->client->post($this->baseUrl, '', $data);
 
-        return BaseResponse::fromArray($response, static fn ($data) => $data);
+        /** @var BaseResponse<array<string, mixed>> $result */
+        $result = BaseResponse::fromArray($response, static fn (mixed $data): mixed => $data);
+
+        return $result;
     }
 
     /**
      * POST /inv-profile-hdr/{customerId}/upload
      *
      * @param array<string, mixed> $data
-     * @return BaseResponse<array<string, mixed>>
+     * @return BaseResponse<mixed>
      */
     public function createUpload(int $customerId, array $data = []): BaseResponse
     {
@@ -64,13 +78,16 @@ final class InvProfileHdrResource
             ['customerId' => (string) $customerId],
         );
 
-        return BaseResponse::fromArray($response, static fn ($data) => $data);
+        /** @var BaseResponse<mixed> $result */
+        $result = BaseResponse::fromArray($response, static fn (mixed $data): mixed => $data);
+
+        return $result;
     }
 
     /**
      * DELETE /inv-profile-hdr/{invProfileHdrUid}
      *
-     * @return BaseResponse<array<string, mixed>>
+     * @return BaseResponse<mixed>
      */
     public function delete(int $invProfileHdrUid): BaseResponse
     {
@@ -80,14 +97,17 @@ final class InvProfileHdrResource
             ['invProfileHdrUid' => (string) $invProfileHdrUid],
         );
 
-        return BaseResponse::fromArray($response, static fn ($data) => $data);
+        /** @var BaseResponse<mixed> $result */
+        $result = BaseResponse::fromArray($response, static fn (mixed $data): mixed => $data);
+
+        return $result;
     }
 
     /**
      * GET /inv-profile-hdr/{invProfileHdrUid}
      *
      * @param array<string, mixed> $params
-     * @return BaseResponse<array<string, mixed>>
+     * @return BaseResponse<mixed>
      */
     public function get(int $invProfileHdrUid, array $params = []): BaseResponse
     {
@@ -98,14 +118,25 @@ final class InvProfileHdrResource
             ['invProfileHdrUid' => (string) $invProfileHdrUid],
         );
 
-        return BaseResponse::fromArray($response, static fn ($data) => $data);
+        /** @var BaseResponse<mixed> $result */
+        $result = BaseResponse::fromArray($response, static fn (mixed $data): mixed => $data);
+
+        return $result;
     }
 
     /**
      * PUT /inv-profile-hdr/{invProfileHdrUid}
      *
      * Response data type: object
-     * Known fields: invProfileHdrUid, invProfileHdrId, invProfileHdrDesc, customerId, dateCreated, dateLastModified, updateCd, statusCd, ... (9 total)
+     *   invProfileHdrUid: int
+     *   invProfileHdrId: string
+     *   invProfileHdrDesc: string
+     *   customerId: float
+     *   dateCreated: string
+     *   dateLastModified: string
+     *   updateCd: int
+     *   statusCd: int
+     *   processCd: int
      *
      * @param array<string, mixed> $data
      * @return BaseResponse<array<string, mixed>>
@@ -119,17 +150,33 @@ final class InvProfileHdrResource
             ['invProfileHdrUid' => (string) $invProfileHdrUid],
         );
 
-        return BaseResponse::fromArray($response, static fn ($data) => $data);
+        /** @var BaseResponse<array<string, mixed>> $result */
+        $result = BaseResponse::fromArray($response, static fn (mixed $data): mixed => $data);
+
+        return $result;
     }
 
     /**
      * GET /inv-profile-hdr/{invProfileHdrUid}/inv-profile-line
      *
      * Response data type: array
-     * Known fields: invProfileLineUid, invProfileHdrUid, invMastUid, invProfileLineType, invProfileHdrMinQty, invProfileHdrMaxQty, invProfileHdrReorderQty, dateCreated, ... (14 total)
+     *   invProfileLineUid: int
+     *   invProfileHdrUid: int
+     *   invMastUid: int
+     *   invProfileLineType: string
+     *   invProfileHdrMinQty: float
+     *   invProfileHdrMaxQty: float
+     *   invProfileHdrReorderQty: float
+     *   dateCreated: string
+     *   dateLastModified: string
+     *   updateCd: int
+     *   statusCd: int
+     *   processCd: int
+     *   sectionsUid: int
+     *   keywords: string|null
      *
      * @param array<string, mixed> $params
-     * @return BaseResponse<array<string, mixed>>
+     * @return BaseResponse<list<array<string, mixed>>>
      */
     public function listInvProfileLine(int $invProfileHdrUid, array $params = []): BaseResponse
     {
@@ -140,16 +187,32 @@ final class InvProfileHdrResource
             ['invProfileHdrUid' => (string) $invProfileHdrUid],
         );
 
-        return BaseResponse::fromArray($response, static fn ($data) => $data);
+        /** @var BaseResponse<list<array<string, mixed>>> $result */
+        $result = BaseResponse::fromArray($response, static fn (mixed $data): mixed => $data);
+
+        return $result;
     }
 
     /**
      * POST /inv-profile-hdr/{invProfileHdrUid}/inv-profile-line
      *
      * Response data type: object
-     * Known fields: invProfileLineUid, invProfileHdrUid, invMastUid, invProfileLineType, invProfileHdrMinQty, invProfileHdrMaxQty, invProfileHdrReorderQty, dateCreated, ... (14 total)
+     *   invProfileLineUid: int
+     *   invProfileHdrUid: int
+     *   invMastUid: int
+     *   invProfileLineType: string
+     *   invProfileHdrMinQty: float
+     *   invProfileHdrMaxQty: float
+     *   invProfileHdrReorderQty: float
+     *   dateCreated: string
+     *   dateLastModified: string
+     *   updateCd: int
+     *   statusCd: int
+     *   processCd: int
+     *   sectionsUid: int
+     *   keywords: string|null
      *
-     * @param array<string, mixed> $data
+     * @param list<array{invProfileLineType: string, invMastUid: int, sectionsUid?: int, invProfileHdrMinQty?: float, invProfileHdrMaxQty?: float, invProfileHdrReorderQty?: float}> $data
      * @return BaseResponse<array<string, mixed>>
      */
     public function createInvProfileLine(int $invProfileHdrUid, array $data = []): BaseResponse
@@ -161,14 +224,30 @@ final class InvProfileHdrResource
             ['invProfileHdrUid' => (string) $invProfileHdrUid],
         );
 
-        return BaseResponse::fromArray($response, static fn ($data) => $data);
+        /** @var BaseResponse<array<string, mixed>> $result */
+        $result = BaseResponse::fromArray($response, static fn (mixed $data): mixed => $data);
+
+        return $result;
     }
 
     /**
      * DELETE /inv-profile-hdr/{invProfileHdrUid}/inv-profile-line/{invProfileLineUid}
      *
      * Response data type: object
-     * Known fields: invProfileLineUid, invProfileHdrUid, invMastUid, invProfileLineType, invProfileHdrMinQty, invProfileHdrMaxQty, invProfileHdrReorderQty, dateCreated, ... (14 total)
+     *   invProfileLineUid: int
+     *   invProfileHdrUid: int
+     *   invMastUid: int
+     *   invProfileLineType: string
+     *   invProfileHdrMinQty: float
+     *   invProfileHdrMaxQty: float
+     *   invProfileHdrReorderQty: float
+     *   dateCreated: string
+     *   dateLastModified: string
+     *   updateCd: int
+     *   statusCd: int
+     *   processCd: int
+     *   sectionsUid: int
+     *   keywords: string|null
      *
      * @return BaseResponse<array<string, mixed>>
      */
@@ -180,14 +259,30 @@ final class InvProfileHdrResource
             ['invProfileHdrUid' => (string) $invProfileHdrUid, 'invProfileLineUid' => (string) $invProfileLineUid],
         );
 
-        return BaseResponse::fromArray($response, static fn ($data) => $data);
+        /** @var BaseResponse<array<string, mixed>> $result */
+        $result = BaseResponse::fromArray($response, static fn (mixed $data): mixed => $data);
+
+        return $result;
     }
 
     /**
      * GET /inv-profile-hdr/{invProfileHdrUid}/inv-profile-line/{invProfileLineUid}
      *
      * Response data type: object
-     * Known fields: invProfileLineUid, invProfileHdrUid, invMastUid, invProfileLineType, invProfileHdrMinQty, invProfileHdrMaxQty, invProfileHdrReorderQty, dateCreated, ... (14 total)
+     *   invProfileLineUid: int
+     *   invProfileHdrUid: int
+     *   invMastUid: int
+     *   invProfileLineType: string
+     *   invProfileHdrMinQty: float
+     *   invProfileHdrMaxQty: float
+     *   invProfileHdrReorderQty: float
+     *   dateCreated: string
+     *   dateLastModified: string
+     *   updateCd: int
+     *   statusCd: int
+     *   processCd: int
+     *   sectionsUid: int
+     *   keywords: string|null
      *
      * @param array<string, mixed> $params
      * @return BaseResponse<array<string, mixed>>
@@ -201,14 +296,30 @@ final class InvProfileHdrResource
             ['invProfileHdrUid' => (string) $invProfileHdrUid, 'invProfileLineUid' => (string) $invProfileLineUid],
         );
 
-        return BaseResponse::fromArray($response, static fn ($data) => $data);
+        /** @var BaseResponse<array<string, mixed>> $result */
+        $result = BaseResponse::fromArray($response, static fn (mixed $data): mixed => $data);
+
+        return $result;
     }
 
     /**
      * PUT /inv-profile-hdr/{invProfileHdrUid}/inv-profile-line/{invProfileLineUid}
      *
      * Response data type: object
-     * Known fields: invProfileLineUid, invProfileHdrUid, invMastUid, invProfileLineType, invProfileHdrMinQty, invProfileHdrMaxQty, invProfileHdrReorderQty, dateCreated, ... (14 total)
+     *   invProfileLineUid: int
+     *   invProfileHdrUid: int
+     *   invMastUid: int
+     *   invProfileLineType: string
+     *   invProfileHdrMinQty: float
+     *   invProfileHdrMaxQty: float
+     *   invProfileHdrReorderQty: float
+     *   dateCreated: string
+     *   dateLastModified: string
+     *   updateCd: int
+     *   statusCd: int
+     *   processCd: int
+     *   sectionsUid: int
+     *   keywords: string|null
      *
      * @param array<string, mixed> $data
      * @return BaseResponse<array<string, mixed>>
@@ -222,6 +333,9 @@ final class InvProfileHdrResource
             ['invProfileHdrUid' => (string) $invProfileHdrUid, 'invProfileLineUid' => (string) $invProfileLineUid],
         );
 
-        return BaseResponse::fromArray($response, static fn ($data) => $data);
+        /** @var BaseResponse<array<string, mixed>> $result */
+        $result = BaseResponse::fromArray($response, static fn (mixed $data): mixed => $data);
+
+        return $result;
     }
 }

@@ -73,8 +73,8 @@ final class RubricsResourceTest extends AugurApiTestCase
             'description' => 'A custom rubric',
         ]);
 
-        $this->assertEquals(3, $response->data['rubricsUid']);
-        $this->assertEquals('New Rubric', $response->data['name']);
+        $this->assertEquals(3, self::at($response->data, 'rubricsUid'));
+        $this->assertEquals('New Rubric', self::at($response->data, 'name'));
         $this->assertRequestPath('/rubrics');
         $this->assertRequestMethod('POST');
     }

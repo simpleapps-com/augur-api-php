@@ -59,6 +59,7 @@ final class WorkflowsResourceTest extends AugurApiTestCase
 
         $response = $this->api->agrInfo->workflows->create([
             'title' => 'New Workflow',
+            'workflow' => '{"steps":[]}',
         ]);
 
         $this->assertEquals(3, $response->data['workflowsUid']);

@@ -20,7 +20,7 @@ final class PurchasedItemsResourceTest extends AugurApiTestCase
 
         $response = $this->api->customers->customer->listPurchasedItems(1001);
 
-        $this->assertCount(2, $response->data);
+        $this->assertCount(2, self::arrayAt($response->data));
         /** @var list<array<string, mixed>> $data */
         $data = $response->data;
         $this->assertEquals('ITEM001', $data[0]['itemId']);
@@ -39,7 +39,7 @@ final class PurchasedItemsResourceTest extends AugurApiTestCase
 
         $response = $this->api->customers->customer->listPurchasedItems(1001, ['limit' => 10, 'offset' => 0]);
 
-        $this->assertCount(1, $response->data);
+        $this->assertCount(1, self::arrayAt($response->data));
         $this->assertRequestPath('/customer/1001/purchased-items');
     }
 }

@@ -17,7 +17,7 @@ final class ShipToResourceTest extends AugurApiTestCase
 
         $response = $this->api->customers->shipTo->getRefresh();
 
-        $this->assertTrue($response->data['refreshed']);
+        $this->assertTrue(self::at($response->data, 'refreshed'));
         $this->assertRequestPath('/ship-to/refresh');
         $this->assertRequestMethod('GET');
         $this->assertHasSiteIdHeader();

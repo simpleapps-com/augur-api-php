@@ -24,39 +24,72 @@ final class BrandsResource
      * GET /brands
      *
      * Response data type: array
-     * Known fields: brandsUid, brandsName, brandsId, brandsDesc, dateCreated, dateLastModified, updateCd, statusCd, ... (10 total)
+     *   brandsUid: int
+     *   brandsName: string
+     *   brandsId: string
+     *   brandsDesc: string|null
+     *   dateCreated: string
+     *   dateLastModified: string
+     *   updateCd: int
+     *   statusCd: int
+     *   processCd: int
+     *   contentId: int|null
      *
      * @param array<string, mixed> $params
-     * @return BaseResponse<array<string, mixed>>
+     * @return BaseResponse<list<array<string, mixed>>>
      */
     public function list(array $params = []): BaseResponse
     {
         $response = $this->client->get($this->baseUrl, '', $params);
 
-        return BaseResponse::fromArray($response, static fn ($data) => $data);
+        /** @var BaseResponse<list<array<string, mixed>>> $result */
+        $result = BaseResponse::fromArray($response, static fn (mixed $data): mixed => $data);
+
+        return $result;
     }
 
     /**
      * POST /brands
      *
      * Response data type: object
-     * Known fields: brandsUid, brandsName, brandsId, brandsDesc, dateCreated, dateLastModified, updateCd, statusCd, ... (10 total)
+     *   brandsUid: int
+     *   brandsName: string
+     *   brandsId: string
+     *   brandsDesc: string|null
+     *   dateCreated: string
+     *   dateLastModified: string
+     *   updateCd: int
+     *   statusCd: int
+     *   processCd: int
+     *   contentId: int|null
      *
-     * @param array<string, mixed> $data
+     * @param array{brandsName: string, brandsDesc?: string, contentId?: int} $data
      * @return BaseResponse<array<string, mixed>>
      */
-    public function create(array $data = []): BaseResponse
+    public function create(array $data): BaseResponse
     {
         $response = $this->client->post($this->baseUrl, '', $data);
 
-        return BaseResponse::fromArray($response, static fn ($data) => $data);
+        /** @var BaseResponse<array<string, mixed>> $result */
+        $result = BaseResponse::fromArray($response, static fn (mixed $data): mixed => $data);
+
+        return $result;
     }
 
     /**
      * DELETE /brands/{brandsUid}
      *
      * Response data type: object
-     * Known fields: brandsUid, brandsName, brandsId, brandsDesc, dateCreated, dateLastModified, updateCd, statusCd, ... (10 total)
+     *   brandsUid: int
+     *   brandsName: string
+     *   brandsId: string
+     *   brandsDesc: string|null
+     *   dateCreated: string
+     *   dateLastModified: string
+     *   updateCd: int
+     *   statusCd: int
+     *   processCd: int
+     *   contentId: int|null
      *
      * @return BaseResponse<array<string, mixed>>
      */
@@ -68,14 +101,26 @@ final class BrandsResource
             ['brandsUid' => (string) $brandsUid],
         );
 
-        return BaseResponse::fromArray($response, static fn ($data) => $data);
+        /** @var BaseResponse<array<string, mixed>> $result */
+        $result = BaseResponse::fromArray($response, static fn (mixed $data): mixed => $data);
+
+        return $result;
     }
 
     /**
      * GET /brands/{brandsUid}
      *
      * Response data type: object
-     * Known fields: brandsUid, brandsName, brandsId, brandsDesc, dateCreated, dateLastModified, updateCd, statusCd, ... (10 total)
+     *   brandsUid: int
+     *   brandsName: string
+     *   brandsId: string
+     *   brandsDesc: string|null
+     *   dateCreated: string
+     *   dateLastModified: string
+     *   updateCd: int
+     *   statusCd: int
+     *   processCd: int
+     *   contentId: int|null
      *
      * @param array<string, mixed> $params
      * @return BaseResponse<array<string, mixed>>
@@ -89,14 +134,26 @@ final class BrandsResource
             ['brandsUid' => (string) $brandsUid],
         );
 
-        return BaseResponse::fromArray($response, static fn ($data) => $data);
+        /** @var BaseResponse<array<string, mixed>> $result */
+        $result = BaseResponse::fromArray($response, static fn (mixed $data): mixed => $data);
+
+        return $result;
     }
 
     /**
      * PUT /brands/{brandsUid}
      *
      * Response data type: object
-     * Known fields: brandsUid, brandsName, brandsId, brandsDesc, dateCreated, dateLastModified, updateCd, statusCd, ... (10 total)
+     *   brandsUid: int
+     *   brandsName: string
+     *   brandsId: string
+     *   brandsDesc: string|null
+     *   dateCreated: string
+     *   dateLastModified: string
+     *   updateCd: int
+     *   statusCd: int
+     *   processCd: int
+     *   contentId: int|null
      *
      * @param array<string, mixed> $data
      * @return BaseResponse<array<string, mixed>>
@@ -110,14 +167,17 @@ final class BrandsResource
             ['brandsUid' => (string) $brandsUid],
         );
 
-        return BaseResponse::fromArray($response, static fn ($data) => $data);
+        /** @var BaseResponse<array<string, mixed>> $result */
+        $result = BaseResponse::fromArray($response, static fn (mixed $data): mixed => $data);
+
+        return $result;
     }
 
     /**
      * GET /brands/{brandsUid}/attributes
      *
      * @param array<string, mixed> $params
-     * @return BaseResponse<array<string, mixed>>
+     * @return BaseResponse<mixed>
      */
     public function listAttributes(int $brandsUid, array $params = []): BaseResponse
     {
@@ -128,14 +188,17 @@ final class BrandsResource
             ['brandsUid' => (string) $brandsUid],
         );
 
-        return BaseResponse::fromArray($response, static fn ($data) => $data);
+        /** @var BaseResponse<mixed> $result */
+        $result = BaseResponse::fromArray($response, static fn (mixed $data): mixed => $data);
+
+        return $result;
     }
 
     /**
      * GET /brands/{brandsUid}/facets
      *
      * @param array<string, mixed> $params
-     * @return BaseResponse<array<string, mixed>>
+     * @return BaseResponse<mixed>
      */
     public function listFacets(int $brandsUid, array $params = []): BaseResponse
     {
@@ -146,14 +209,17 @@ final class BrandsResource
             ['brandsUid' => (string) $brandsUid],
         );
 
-        return BaseResponse::fromArray($response, static fn ($data) => $data);
+        /** @var BaseResponse<mixed> $result */
+        $result = BaseResponse::fromArray($response, static fn (mixed $data): mixed => $data);
+
+        return $result;
     }
 
     /**
      * GET /brands/{brandsUid}/items
      *
      * @param array<string, mixed> $params
-     * @return BaseResponse<array<string, mixed>>
+     * @return BaseResponse<mixed>
      */
     public function listItems(int $brandsUid, array $params = []): BaseResponse
     {
@@ -164,14 +230,24 @@ final class BrandsResource
             ['brandsUid' => (string) $brandsUid],
         );
 
-        return BaseResponse::fromArray($response, static fn ($data) => $data);
+        /** @var BaseResponse<mixed> $result */
+        $result = BaseResponse::fromArray($response, static fn (mixed $data): mixed => $data);
+
+        return $result;
     }
 
     /**
      * POST /brands/{brandsUid}/items
      *
      * Response data type: object
-     * Known fields: brandsXItemsUid, brandsUid, invMastUid, dateCreated, dateLastModified, updateCd, statusCd, processCd
+     *   brandsXItemsUid: int
+     *   brandsUid: int
+     *   invMastUid: int
+     *   dateCreated: string
+     *   dateLastModified: string
+     *   updateCd: int
+     *   statusCd: int
+     *   processCd: int
      *
      * @param array<string, mixed> $data
      * @return BaseResponse<array<string, mixed>>
@@ -185,14 +261,24 @@ final class BrandsResource
             ['brandsUid' => (string) $brandsUid],
         );
 
-        return BaseResponse::fromArray($response, static fn ($data) => $data);
+        /** @var BaseResponse<array<string, mixed>> $result */
+        $result = BaseResponse::fromArray($response, static fn (mixed $data): mixed => $data);
+
+        return $result;
     }
 
     /**
      * DELETE /brands/{brandsUid}/items/{brandsXItemsUid}
      *
      * Response data type: object
-     * Known fields: brandsXItemsUid, brandsUid, invMastUid, dateCreated, dateLastModified, updateCd, statusCd, processCd
+     *   brandsXItemsUid: int
+     *   brandsUid: int
+     *   invMastUid: int
+     *   dateCreated: string
+     *   dateLastModified: string
+     *   updateCd: int
+     *   statusCd: int
+     *   processCd: int
      *
      * @return BaseResponse<array<string, mixed>>
      */
@@ -204,14 +290,24 @@ final class BrandsResource
             ['brandsUid' => (string) $brandsUid, 'brandsXItemsUid' => (string) $brandsXItemsUid],
         );
 
-        return BaseResponse::fromArray($response, static fn ($data) => $data);
+        /** @var BaseResponse<array<string, mixed>> $result */
+        $result = BaseResponse::fromArray($response, static fn (mixed $data): mixed => $data);
+
+        return $result;
     }
 
     /**
      * GET /brands/{brandsUid}/items/{brandsXItemsUid}
      *
      * Response data type: object
-     * Known fields: brandsXItemsUid, brandsUid, invMastUid, dateCreated, dateLastModified, updateCd, statusCd, processCd
+     *   brandsXItemsUid: int
+     *   brandsUid: int
+     *   invMastUid: int
+     *   dateCreated: string
+     *   dateLastModified: string
+     *   updateCd: int
+     *   statusCd: int
+     *   processCd: int
      *
      * @param array<string, mixed> $params
      * @return BaseResponse<array<string, mixed>>
@@ -225,14 +321,24 @@ final class BrandsResource
             ['brandsUid' => (string) $brandsUid, 'brandsXItemsUid' => (string) $brandsXItemsUid],
         );
 
-        return BaseResponse::fromArray($response, static fn ($data) => $data);
+        /** @var BaseResponse<array<string, mixed>> $result */
+        $result = BaseResponse::fromArray($response, static fn (mixed $data): mixed => $data);
+
+        return $result;
     }
 
     /**
      * PUT /brands/{brandsUid}/items/{brandsXItemsUid}
      *
      * Response data type: object
-     * Known fields: brandsXItemsUid, brandsUid, invMastUid, dateCreated, dateLastModified, updateCd, statusCd, processCd
+     *   brandsXItemsUid: int
+     *   brandsUid: int
+     *   invMastUid: int
+     *   dateCreated: string
+     *   dateLastModified: string
+     *   updateCd: int
+     *   statusCd: int
+     *   processCd: int
      *
      * @param array<string, mixed> $data
      * @return BaseResponse<array<string, mixed>>
@@ -246,6 +352,9 @@ final class BrandsResource
             ['brandsUid' => (string) $brandsUid, 'brandsXItemsUid' => (string) $brandsXItemsUid],
         );
 
-        return BaseResponse::fromArray($response, static fn ($data) => $data);
+        /** @var BaseResponse<array<string, mixed>> $result */
+        $result = BaseResponse::fromArray($response, static fn (mixed $data): mixed => $data);
+
+        return $result;
     }
 }

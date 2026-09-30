@@ -20,7 +20,7 @@ final class CategoriesResourceTest extends AugurApiTestCase
 
         $response = $this->api->joomla->categories->list();
 
-        $this->assertCount(2, $response->data);
+        $this->assertCount(2, self::arrayAt($response->data));
         /** @var list<array<string, mixed>> $data */
         $data = $response->data;
         $this->assertEquals('Category One', $data[0]['title']);
@@ -38,7 +38,7 @@ final class CategoriesResourceTest extends AugurApiTestCase
 
         $response = $this->api->joomla->categories->list(['limit' => 10, 'extension' => 'com_content']);
 
-        $this->assertCount(1, $response->data);
+        $this->assertCount(1, self::arrayAt($response->data));
         $this->assertRequestPath('/categories');
     }
 
@@ -52,8 +52,8 @@ final class CategoriesResourceTest extends AugurApiTestCase
 
         $response = $this->api->joomla->categories->get(1);
 
-        $this->assertEquals(1, $response->data['id']);
-        $this->assertEquals('Category One', $response->data['title']);
+        $this->assertEquals(1, self::at($response->data, 'id'));
+        $this->assertEquals('Category One', self::at($response->data, 'title'));
         $this->assertRequestPath('/categories/1');
         $this->assertRequestMethod('GET');
     }

@@ -286,6 +286,19 @@ final class ClientTest extends TestCase
         }
     }
 
+    public function testMalformedErrorBodyFallsBackToDefaults(): void
+    {
+        $this->addResponse(['message' => ['not', 'a', 'string'], 'errors' => 'oops'], 400);
+
+        try {
+            $this->client->post('https://api.example.com', '/items', []);
+            $this->fail('Expected ValidationException');
+        } catch (ValidationException $e) {
+            $this->assertSame('Validation failed', $e->getMessage());
+            $this->assertSame([], $e->errors);
+        }
+    }
+
     public function testError500ThrowsAugurApiException(): void
     {
         // Add enough responses for all retries

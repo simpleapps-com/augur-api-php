@@ -24,23 +24,40 @@ final class PostalCodesXShiptosResource
      * GET /postal-codes-x-shiptos
      *
      * Response data type: array
-     * Known fields: postalCodesXShiptosUid, postalCode, shipToId, dateCreated, dateLastModified, updateCd, statusCd, processCd
+     *   postalCodesXShiptosUid: int
+     *   postalCode: string
+     *   shipToId: float
+     *   dateCreated: string
+     *   dateLastModified: string
+     *   updateCd: int
+     *   statusCd: int
+     *   processCd: int
      *
      * @param array<string, mixed> $params
-     * @return BaseResponse<array<string, mixed>>
+     * @return BaseResponse<list<array<string, mixed>>>
      */
     public function list(array $params = []): BaseResponse
     {
         $response = $this->client->get($this->baseUrl, '', $params);
 
-        return BaseResponse::fromArray($response, static fn ($data) => $data);
+        /** @var BaseResponse<list<array<string, mixed>>> $result */
+        $result = BaseResponse::fromArray($response, static fn (mixed $data): mixed => $data);
+
+        return $result;
     }
 
     /**
      * POST /postal-codes-x-shiptos
      *
      * Response data type: object
-     * Known fields: postalCodesXShiptosUid, postalCode, shipToId, dateCreated, dateLastModified, updateCd, statusCd, processCd
+     *   postalCodesXShiptosUid: int
+     *   postalCode: string
+     *   shipToId: float
+     *   dateCreated: string
+     *   dateLastModified: string
+     *   updateCd: int
+     *   statusCd: int
+     *   processCd: int
      *
      * @param array<string, mixed> $data
      * @return BaseResponse<array<string, mixed>>
@@ -49,14 +66,24 @@ final class PostalCodesXShiptosResource
     {
         $response = $this->client->post($this->baseUrl, '', $data);
 
-        return BaseResponse::fromArray($response, static fn ($data) => $data);
+        /** @var BaseResponse<array<string, mixed>> $result */
+        $result = BaseResponse::fromArray($response, static fn (mixed $data): mixed => $data);
+
+        return $result;
     }
 
     /**
      * DELETE /postal-codes-x-shiptos/{postalCodesXShiptosUid}
      *
      * Response data type: object
-     * Known fields: postalCodesXShiptosUid, postalCode, shipToId, dateCreated, dateLastModified, updateCd, statusCd, processCd
+     *   postalCodesXShiptosUid: int
+     *   postalCode: string
+     *   shipToId: float
+     *   dateCreated: string
+     *   dateLastModified: string
+     *   updateCd: int
+     *   statusCd: int
+     *   processCd: int
      *
      * @return BaseResponse<array<string, mixed>>
      */
@@ -68,14 +95,24 @@ final class PostalCodesXShiptosResource
             ['postalCodesXShiptosUid' => (string) $postalCodesXShiptosUid],
         );
 
-        return BaseResponse::fromArray($response, static fn ($data) => $data);
+        /** @var BaseResponse<array<string, mixed>> $result */
+        $result = BaseResponse::fromArray($response, static fn (mixed $data): mixed => $data);
+
+        return $result;
     }
 
     /**
      * GET /postal-codes-x-shiptos/{postalCodesXShiptosUid}
      *
      * Response data type: object
-     * Known fields: postalCodesXShiptosUid, postalCode, shipToId, dateCreated, dateLastModified, updateCd, statusCd, processCd
+     *   postalCodesXShiptosUid: int
+     *   postalCode: string
+     *   shipToId: float
+     *   dateCreated: string
+     *   dateLastModified: string
+     *   updateCd: int
+     *   statusCd: int
+     *   processCd: int
      *
      * @param array<string, mixed> $params
      * @return BaseResponse<array<string, mixed>>
@@ -89,14 +126,24 @@ final class PostalCodesXShiptosResource
             ['postalCodesXShiptosUid' => (string) $postalCodesXShiptosUid],
         );
 
-        return BaseResponse::fromArray($response, static fn ($data) => $data);
+        /** @var BaseResponse<array<string, mixed>> $result */
+        $result = BaseResponse::fromArray($response, static fn (mixed $data): mixed => $data);
+
+        return $result;
     }
 
     /**
      * PUT /postal-codes-x-shiptos/{postalCodesXShiptosUid}
      *
      * Response data type: object
-     * Known fields: postalCodesXShiptosUid, postalCode, shipToId, dateCreated, dateLastModified, updateCd, statusCd, processCd
+     *   postalCodesXShiptosUid: int
+     *   postalCode: string
+     *   shipToId: float
+     *   dateCreated: string
+     *   dateLastModified: string
+     *   updateCd: int
+     *   statusCd: int
+     *   processCd: int
      *
      * @param array<string, mixed> $data
      * @return BaseResponse<array<string, mixed>>
@@ -110,6 +157,9 @@ final class PostalCodesXShiptosResource
             ['postalCodesXShiptosUid' => (string) $postalCodesXShiptosUid],
         );
 
-        return BaseResponse::fromArray($response, static fn ($data) => $data);
+        /** @var BaseResponse<array<string, mixed>> $result */
+        $result = BaseResponse::fromArray($response, static fn (mixed $data): mixed => $data);
+
+        return $result;
     }
 }

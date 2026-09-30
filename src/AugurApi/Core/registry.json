@@ -6947,6 +6947,39 @@
     "edgeCache": false
   },
   {
+    "id": "orders.poLine.get",
+    "service": "orders",
+    "method": "GET",
+    "path": "/po-line/{poLineUid}",
+    "pathParams": [
+      "poLineUid"
+    ],
+    "queryParams": [],
+    "aliases": [],
+    "hasBody": false,
+    "auth": "bearer",
+    "edgeCache": true
+  },
+  {
+    "id": "orders.poLine.list",
+    "service": "orders",
+    "method": "GET",
+    "path": "/po-line",
+    "pathParams": [],
+    "queryParams": [
+      "complete",
+      "invMastUid",
+      "limit",
+      "offset",
+      "orderBy",
+      "poNo"
+    ],
+    "aliases": [],
+    "hasBody": false,
+    "auth": "bearer",
+    "edgeCache": true
+  },
+  {
     "id": "orders.whoami.get",
     "service": "orders",
     "method": "GET",

@@ -21,7 +21,7 @@ final class OllamaResourceTest extends AugurApiTestCase
 
         $response = $this->api->agrInfo->ollama->listTags();
 
-        $this->assertCount(3, $response->data);
+        $this->assertCount(3, self::arrayAt($response->data));
 
         /** @var list<array<string, mixed>> $data */
         $data = $response->data;

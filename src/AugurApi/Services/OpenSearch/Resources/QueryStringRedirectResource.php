@@ -24,23 +24,42 @@ final class QueryStringRedirectResource
      * GET /query-string-redirect
      *
      * Response data type: array
-     * Known fields: queryStringRedirectUid, queryStringUid, queryStringRedirectLink, dateCreated, dateLastModified, updateCd, statusCd, processCd, ... (9 total)
+     *   queryStringRedirectUid: int
+     *   queryStringUid: int
+     *   queryStringRedirectLink: string
+     *   dateCreated: string
+     *   dateLastModified: string
+     *   updateCd: int
+     *   statusCd: int
+     *   processCd: int
+     *   queryString: string|null
      *
      * @param array<string, mixed> $params
-     * @return BaseResponse<array<string, mixed>>
+     * @return BaseResponse<list<array<string, mixed>>>
      */
     public function list(array $params = []): BaseResponse
     {
         $response = $this->client->get($this->baseUrl, '', $params);
 
-        return BaseResponse::fromArray($response, static fn ($data) => $data);
+        /** @var BaseResponse<list<array<string, mixed>>> $result */
+        $result = BaseResponse::fromArray($response, static fn (mixed $data): mixed => $data);
+
+        return $result;
     }
 
     /**
      * POST /query-string-redirect
      *
      * Response data type: object
-     * Known fields: queryStringRedirectUid, queryStringUid, queryStringRedirectLink, dateCreated, dateLastModified, updateCd, statusCd, processCd, ... (9 total)
+     *   queryStringRedirectUid: int
+     *   queryStringUid: int
+     *   queryStringRedirectLink: string
+     *   dateCreated: string
+     *   dateLastModified: string
+     *   updateCd: int
+     *   statusCd: int
+     *   processCd: int
+     *   queryString: string|null
      *
      * @param array<string, mixed> $data
      * @return BaseResponse<array<string, mixed>>
@@ -49,14 +68,25 @@ final class QueryStringRedirectResource
     {
         $response = $this->client->post($this->baseUrl, '', $data);
 
-        return BaseResponse::fromArray($response, static fn ($data) => $data);
+        /** @var BaseResponse<array<string, mixed>> $result */
+        $result = BaseResponse::fromArray($response, static fn (mixed $data): mixed => $data);
+
+        return $result;
     }
 
     /**
      * DELETE /query-string-redirect/{queryStringRedirectUid}
      *
      * Response data type: object
-     * Known fields: queryStringRedirectUid, queryStringUid, queryStringRedirectLink, dateCreated, dateLastModified, updateCd, statusCd, processCd, ... (9 total)
+     *   queryStringRedirectUid: int
+     *   queryStringUid: int
+     *   queryStringRedirectLink: string
+     *   dateCreated: string
+     *   dateLastModified: string
+     *   updateCd: int
+     *   statusCd: int
+     *   processCd: int
+     *   queryString: string|null
      *
      * @return BaseResponse<array<string, mixed>>
      */
@@ -68,14 +98,25 @@ final class QueryStringRedirectResource
             ['queryStringRedirectUid' => (string) $queryStringRedirectUid],
         );
 
-        return BaseResponse::fromArray($response, static fn ($data) => $data);
+        /** @var BaseResponse<array<string, mixed>> $result */
+        $result = BaseResponse::fromArray($response, static fn (mixed $data): mixed => $data);
+
+        return $result;
     }
 
     /**
      * GET /query-string-redirect/{queryStringRedirectUid}
      *
      * Response data type: object
-     * Known fields: queryStringRedirectUid, queryStringUid, queryStringRedirectLink, dateCreated, dateLastModified, updateCd, statusCd, processCd, ... (9 total)
+     *   queryStringRedirectUid: int
+     *   queryStringUid: int
+     *   queryStringRedirectLink: string
+     *   dateCreated: string
+     *   dateLastModified: string
+     *   updateCd: int
+     *   statusCd: int
+     *   processCd: int
+     *   queryString: string|null
      *
      * @param array<string, mixed> $params
      * @return BaseResponse<array<string, mixed>>
@@ -89,14 +130,25 @@ final class QueryStringRedirectResource
             ['queryStringRedirectUid' => (string) $queryStringRedirectUid],
         );
 
-        return BaseResponse::fromArray($response, static fn ($data) => $data);
+        /** @var BaseResponse<array<string, mixed>> $result */
+        $result = BaseResponse::fromArray($response, static fn (mixed $data): mixed => $data);
+
+        return $result;
     }
 
     /**
      * PUT /query-string-redirect/{queryStringRedirectUid}
      *
      * Response data type: object
-     * Known fields: queryStringRedirectUid, queryStringUid, queryStringRedirectLink, dateCreated, dateLastModified, updateCd, statusCd, processCd, ... (9 total)
+     *   queryStringRedirectUid: int
+     *   queryStringUid: int
+     *   queryStringRedirectLink: string
+     *   dateCreated: string
+     *   dateLastModified: string
+     *   updateCd: int
+     *   statusCd: int
+     *   processCd: int
+     *   queryString: string|null
      *
      * @param array<string, mixed> $data
      * @return BaseResponse<array<string, mixed>>
@@ -110,6 +162,9 @@ final class QueryStringRedirectResource
             ['queryStringRedirectUid' => (string) $queryStringRedirectUid],
         );
 
-        return BaseResponse::fromArray($response, static fn ($data) => $data);
+        /** @var BaseResponse<array<string, mixed>> $result */
+        $result = BaseResponse::fromArray($response, static fn (mixed $data): mixed => $data);
+
+        return $result;
     }
 }

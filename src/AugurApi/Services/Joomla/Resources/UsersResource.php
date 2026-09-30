@@ -24,23 +24,26 @@ final class UsersResource
      * GET /users
      *
      * @param array<string, mixed> $params
-     * @return BaseResponse<array<string, mixed>>
+     * @return BaseResponse<mixed>
      */
     public function list(array $params = []): BaseResponse
     {
         $response = $this->client->get($this->baseUrl, '', $params);
 
-        return BaseResponse::fromArray($response, static fn ($data) => $data);
+        /** @var BaseResponse<mixed> $result */
+        $result = BaseResponse::fromArray($response, static fn (mixed $data): mixed => $data);
+
+        return $result;
     }
 
     /**
      * POST /users
      *
-     * @param array<string, mixed> $data
+     * @param array{username: string, password: string, siteId?: string} $data
      * @param array<string, mixed> $params
-     * @return BaseResponse<array<string, mixed>>
+     * @return BaseResponse<mixed>
      */
-    public function create(array $data = [], array $params = []): BaseResponse
+    public function create(array $data, array $params = []): BaseResponse
     {
         $response = $this->client->post(
             $this->baseUrl,
@@ -50,29 +53,39 @@ final class UsersResource
             $params,
         );
 
-        return BaseResponse::fromArray($response, static fn ($data) => $data);
+        /** @var BaseResponse<mixed> $result */
+        $result = BaseResponse::fromArray($response, static fn (mixed $data): mixed => $data);
+
+        return $result;
     }
 
     /**
      * POST /users/verify-password
      *
      * Response data type: object
-     * Known fields: id, isVerified, username, token, email
+     *   id: int
+     *   isVerified: bool
+     *   username: string
+     *   token: string
+     *   email: string
      *
-     * @param array<string, mixed> $data
+     * @param array{username: string, password: string, siteId?: string} $data
      * @return BaseResponse<array<string, mixed>>
      */
-    public function createVerifyPassword(array $data = []): BaseResponse
+    public function createVerifyPassword(array $data): BaseResponse
     {
         $response = $this->client->post($this->baseUrl, '/verify-password', $data);
 
-        return BaseResponse::fromArray($response, static fn ($data) => $data);
+        /** @var BaseResponse<array<string, mixed>> $result */
+        $result = BaseResponse::fromArray($response, static fn (mixed $data): mixed => $data);
+
+        return $result;
     }
 
     /**
      * DELETE /users/{id}
      *
-     * @return BaseResponse<array<string, mixed>>
+     * @return BaseResponse<mixed>
      */
     public function delete(int $id): BaseResponse
     {
@@ -82,14 +95,17 @@ final class UsersResource
             ['id' => (string) $id],
         );
 
-        return BaseResponse::fromArray($response, static fn ($data) => $data);
+        /** @var BaseResponse<mixed> $result */
+        $result = BaseResponse::fromArray($response, static fn (mixed $data): mixed => $data);
+
+        return $result;
     }
 
     /**
      * GET /users/{id}
      *
      * @param array<string, mixed> $params
-     * @return BaseResponse<array<string, mixed>>
+     * @return BaseResponse<mixed>
      */
     public function get(int $id, array $params = []): BaseResponse
     {
@@ -100,14 +116,17 @@ final class UsersResource
             ['id' => (string) $id],
         );
 
-        return BaseResponse::fromArray($response, static fn ($data) => $data);
+        /** @var BaseResponse<mixed> $result */
+        $result = BaseResponse::fromArray($response, static fn (mixed $data): mixed => $data);
+
+        return $result;
     }
 
     /**
      * PUT /users/{id}
      *
      * @param array<string, mixed> $data
-     * @return BaseResponse<array<string, mixed>>
+     * @return BaseResponse<mixed>
      */
     public function update(int $id, array $data = []): BaseResponse
     {
@@ -118,14 +137,17 @@ final class UsersResource
             ['id' => (string) $id],
         );
 
-        return BaseResponse::fromArray($response, static fn ($data) => $data);
+        /** @var BaseResponse<mixed> $result */
+        $result = BaseResponse::fromArray($response, static fn (mixed $data): mixed => $data);
+
+        return $result;
     }
 
     /**
      * GET /users/{id}/doc
      *
      * @param array<string, mixed> $params
-     * @return BaseResponse<array<string, mixed>>
+     * @return BaseResponse<mixed>
      */
     public function listDoc(int $id, array $params = []): BaseResponse
     {
@@ -136,14 +158,17 @@ final class UsersResource
             ['id' => (string) $id],
         );
 
-        return BaseResponse::fromArray($response, static fn ($data) => $data);
+        /** @var BaseResponse<mixed> $result */
+        $result = BaseResponse::fromArray($response, static fn (mixed $data): mixed => $data);
+
+        return $result;
     }
 
     /**
      * Alias for listDoc — GET /users/{id}/doc
      *
      * @param array<string, mixed> $params
-     * @return BaseResponse<array<string, mixed>>
+     * @return BaseResponse<mixed>
      */
     public function getDoc(int $id, array $params = []): BaseResponse
     {
@@ -154,7 +179,7 @@ final class UsersResource
      * GET /users/{id}/groups
      *
      * @param array<string, mixed> $params
-     * @return BaseResponse<array<string, mixed>>
+     * @return BaseResponse<mixed>
      */
     public function listGroups(int $id, array $params = []): BaseResponse
     {
@@ -165,16 +190,19 @@ final class UsersResource
             ['id' => (string) $id],
         );
 
-        return BaseResponse::fromArray($response, static fn ($data) => $data);
+        /** @var BaseResponse<mixed> $result */
+        $result = BaseResponse::fromArray($response, static fn (mixed $data): mixed => $data);
+
+        return $result;
     }
 
     /**
      * POST /users/{id}/groups
      *
-     * @param array<string, mixed> $data
-     * @return BaseResponse<array<string, mixed>>
+     * @param array{groupId: int} $data
+     * @return BaseResponse<mixed>
      */
-    public function createGroups(int $id, array $data = []): BaseResponse
+    public function createGroups(int $id, array $data): BaseResponse
     {
         $response = $this->client->post(
             $this->baseUrl,
@@ -183,13 +211,16 @@ final class UsersResource
             ['id' => (string) $id],
         );
 
-        return BaseResponse::fromArray($response, static fn ($data) => $data);
+        /** @var BaseResponse<mixed> $result */
+        $result = BaseResponse::fromArray($response, static fn (mixed $data): mixed => $data);
+
+        return $result;
     }
 
     /**
      * DELETE /users/{id}/groups/{groupId}
      *
-     * @return BaseResponse<array<string, mixed>>
+     * @return BaseResponse<mixed>
      */
     public function deleteGroups(int $id, int $groupId): BaseResponse
     {
@@ -199,14 +230,17 @@ final class UsersResource
             ['id' => (string) $id, 'groupId' => (string) $groupId],
         );
 
-        return BaseResponse::fromArray($response, static fn ($data) => $data);
+        /** @var BaseResponse<mixed> $result */
+        $result = BaseResponse::fromArray($response, static fn (mixed $data): mixed => $data);
+
+        return $result;
     }
 
     /**
      * GET /users/{id}/groups/{groupId}
      *
      * @param array<string, mixed> $params
-     * @return BaseResponse<array<string, mixed>>
+     * @return BaseResponse<mixed>
      */
     public function getGroups(int $id, int $groupId, array $params = []): BaseResponse
     {
@@ -217,14 +251,17 @@ final class UsersResource
             ['id' => (string) $id, 'groupId' => (string) $groupId],
         );
 
-        return BaseResponse::fromArray($response, static fn ($data) => $data);
+        /** @var BaseResponse<mixed> $result */
+        $result = BaseResponse::fromArray($response, static fn (mixed $data): mixed => $data);
+
+        return $result;
     }
 
     /**
      * GET /users/{id}/trinity
      *
      * @param array<string, mixed> $params
-     * @return BaseResponse<array<string, mixed>>
+     * @return BaseResponse<mixed>
      */
     public function listTrinity(int $id, array $params = []): BaseResponse
     {
@@ -235,6 +272,9 @@ final class UsersResource
             ['id' => (string) $id],
         );
 
-        return BaseResponse::fromArray($response, static fn ($data) => $data);
+        /** @var BaseResponse<mixed> $result */
+        $result = BaseResponse::fromArray($response, static fn (mixed $data): mixed => $data);
+
+        return $result;
     }
 }

@@ -24,23 +24,54 @@ final class TrainingResource
      * GET /training
      *
      * Response data type: array
-     * Known fields: trainingSetUid, name, description, formatType, systemPrompt, developerPrompt, modelTarget, trainSplitPct, ... (15 total)
+     *   trainingSetUid: int
+     *   name: string
+     *   description: string|null
+     *   formatType: string|null
+     *   systemPrompt: string|null
+     *   developerPrompt: string|null
+     *   modelTarget: string|null
+     *   trainSplitPct: int
+     *   totalConversations: int
+     *   totalTokens: int
+     *   statusCd: int
+     *   processCd: int
+     *   updateCd: int
+     *   dateCreated: string
+     *   dateLastModified: string
      *
      * @param array<string, mixed> $params
-     * @return BaseResponse<array<string, mixed>>
+     * @return BaseResponse<list<array<string, mixed>>>
      */
     public function list(array $params = []): BaseResponse
     {
         $response = $this->client->get($this->baseUrl, '', $params);
 
-        return BaseResponse::fromArray($response, static fn ($data) => $data);
+        /** @var BaseResponse<list<array<string, mixed>>> $result */
+        $result = BaseResponse::fromArray($response, static fn (mixed $data): mixed => $data);
+
+        return $result;
     }
 
     /**
      * POST /training
      *
      * Response data type: object
-     * Known fields: trainingSetUid, name, description, formatType, systemPrompt, developerPrompt, modelTarget, trainSplitPct, ... (15 total)
+     *   trainingSetUid: int
+     *   name: string
+     *   description: string|null
+     *   formatType: string|null
+     *   systemPrompt: string|null
+     *   developerPrompt: string|null
+     *   modelTarget: string|null
+     *   trainSplitPct: int
+     *   totalConversations: int
+     *   totalTokens: int
+     *   statusCd: int
+     *   processCd: int
+     *   updateCd: int
+     *   dateCreated: string
+     *   dateLastModified: string
      *
      * @param array<string, mixed> $data
      * @return BaseResponse<array<string, mixed>>
@@ -49,14 +80,31 @@ final class TrainingResource
     {
         $response = $this->client->post($this->baseUrl, '', $data);
 
-        return BaseResponse::fromArray($response, static fn ($data) => $data);
+        /** @var BaseResponse<array<string, mixed>> $result */
+        $result = BaseResponse::fromArray($response, static fn (mixed $data): mixed => $data);
+
+        return $result;
     }
 
     /**
      * DELETE /training/{trainingSetUid}
      *
      * Response data type: object
-     * Known fields: trainingSetUid, name, description, formatType, systemPrompt, developerPrompt, modelTarget, trainSplitPct, ... (15 total)
+     *   trainingSetUid: int
+     *   name: string
+     *   description: string|null
+     *   formatType: string|null
+     *   systemPrompt: string|null
+     *   developerPrompt: string|null
+     *   modelTarget: string|null
+     *   trainSplitPct: int
+     *   totalConversations: int
+     *   totalTokens: int
+     *   statusCd: int
+     *   processCd: int
+     *   updateCd: int
+     *   dateCreated: string
+     *   dateLastModified: string
      *
      * @return BaseResponse<array<string, mixed>>
      */
@@ -68,14 +116,31 @@ final class TrainingResource
             ['trainingSetUid' => (string) $trainingSetUid],
         );
 
-        return BaseResponse::fromArray($response, static fn ($data) => $data);
+        /** @var BaseResponse<array<string, mixed>> $result */
+        $result = BaseResponse::fromArray($response, static fn (mixed $data): mixed => $data);
+
+        return $result;
     }
 
     /**
      * GET /training/{trainingSetUid}
      *
      * Response data type: object
-     * Known fields: trainingSetUid, name, description, formatType, systemPrompt, developerPrompt, modelTarget, trainSplitPct, ... (15 total)
+     *   trainingSetUid: int
+     *   name: string
+     *   description: string|null
+     *   formatType: string|null
+     *   systemPrompt: string|null
+     *   developerPrompt: string|null
+     *   modelTarget: string|null
+     *   trainSplitPct: int
+     *   totalConversations: int
+     *   totalTokens: int
+     *   statusCd: int
+     *   processCd: int
+     *   updateCd: int
+     *   dateCreated: string
+     *   dateLastModified: string
      *
      * @param array<string, mixed> $params
      * @return BaseResponse<array<string, mixed>>
@@ -89,14 +154,31 @@ final class TrainingResource
             ['trainingSetUid' => (string) $trainingSetUid],
         );
 
-        return BaseResponse::fromArray($response, static fn ($data) => $data);
+        /** @var BaseResponse<array<string, mixed>> $result */
+        $result = BaseResponse::fromArray($response, static fn (mixed $data): mixed => $data);
+
+        return $result;
     }
 
     /**
      * PUT /training/{trainingSetUid}
      *
      * Response data type: object
-     * Known fields: trainingSetUid, name, description, formatType, systemPrompt, developerPrompt, modelTarget, trainSplitPct, ... (15 total)
+     *   trainingSetUid: int
+     *   name: string
+     *   description: string|null
+     *   formatType: string|null
+     *   systemPrompt: string|null
+     *   developerPrompt: string|null
+     *   modelTarget: string|null
+     *   trainSplitPct: int
+     *   totalConversations: int
+     *   totalTokens: int
+     *   statusCd: int
+     *   processCd: int
+     *   updateCd: int
+     *   dateCreated: string
+     *   dateLastModified: string
      *
      * @param array<string, mixed> $data
      * @return BaseResponse<array<string, mixed>>
@@ -110,17 +192,35 @@ final class TrainingResource
             ['trainingSetUid' => (string) $trainingSetUid],
         );
 
-        return BaseResponse::fromArray($response, static fn ($data) => $data);
+        /** @var BaseResponse<array<string, mixed>> $result */
+        $result = BaseResponse::fromArray($response, static fn (mixed $data): mixed => $data);
+
+        return $result;
     }
 
     /**
      * GET /training/{trainingSetUid}/conversations
      *
      * Response data type: array
-     * Known fields: trainingConvUid, trainingSetUid, sourceType, generatorModel, serviceName, dataTypeName, dataTypeUid, category, ... (16 total)
+     *   trainingConvUid: int
+     *   trainingSetUid: int
+     *   sourceType: string
+     *   generatorModel: string|null
+     *   serviceName: string|null
+     *   dataTypeName: string|null
+     *   dataTypeUid: int|null
+     *   category: string|null
+     *   qualityScore: float|null
+     *   splitType: string
+     *   totalTokens: int
+     *   statusCd: int
+     *   processCd: int
+     *   updateCd: int
+     *   dateCreated: string
+     *   dateLastModified: string
      *
      * @param array<string, mixed> $params
-     * @return BaseResponse<array<string, mixed>>
+     * @return BaseResponse<list<array<string, mixed>>>
      */
     public function listConversations(int $trainingSetUid, array $params = []): BaseResponse
     {
@@ -131,14 +231,32 @@ final class TrainingResource
             ['trainingSetUid' => (string) $trainingSetUid],
         );
 
-        return BaseResponse::fromArray($response, static fn ($data) => $data);
+        /** @var BaseResponse<list<array<string, mixed>>> $result */
+        $result = BaseResponse::fromArray($response, static fn (mixed $data): mixed => $data);
+
+        return $result;
     }
 
     /**
      * POST /training/{trainingSetUid}/conversations
      *
      * Response data type: object
-     * Known fields: trainingConvUid, trainingSetUid, sourceType, generatorModel, serviceName, dataTypeName, dataTypeUid, category, ... (16 total)
+     *   trainingConvUid: int
+     *   trainingSetUid: int
+     *   sourceType: string
+     *   generatorModel: string|null
+     *   serviceName: string|null
+     *   dataTypeName: string|null
+     *   dataTypeUid: int|null
+     *   category: string|null
+     *   qualityScore: float|null
+     *   splitType: string
+     *   totalTokens: int
+     *   statusCd: int
+     *   processCd: int
+     *   updateCd: int
+     *   dateCreated: string
+     *   dateLastModified: string
      *
      * @param array<string, mixed> $data
      * @return BaseResponse<array<string, mixed>>
@@ -152,14 +270,32 @@ final class TrainingResource
             ['trainingSetUid' => (string) $trainingSetUid],
         );
 
-        return BaseResponse::fromArray($response, static fn ($data) => $data);
+        /** @var BaseResponse<array<string, mixed>> $result */
+        $result = BaseResponse::fromArray($response, static fn (mixed $data): mixed => $data);
+
+        return $result;
     }
 
     /**
      * DELETE /training/{trainingSetUid}/conversations/{trainingConvUid}
      *
      * Response data type: object
-     * Known fields: trainingConvUid, trainingSetUid, sourceType, generatorModel, serviceName, dataTypeName, dataTypeUid, category, ... (16 total)
+     *   trainingConvUid: int
+     *   trainingSetUid: int
+     *   sourceType: string
+     *   generatorModel: string|null
+     *   serviceName: string|null
+     *   dataTypeName: string|null
+     *   dataTypeUid: int|null
+     *   category: string|null
+     *   qualityScore: float|null
+     *   splitType: string
+     *   totalTokens: int
+     *   statusCd: int
+     *   processCd: int
+     *   updateCd: int
+     *   dateCreated: string
+     *   dateLastModified: string
      *
      * @return BaseResponse<array<string, mixed>>
      */
@@ -171,14 +307,32 @@ final class TrainingResource
             ['trainingSetUid' => (string) $trainingSetUid, 'trainingConvUid' => (string) $trainingConvUid],
         );
 
-        return BaseResponse::fromArray($response, static fn ($data) => $data);
+        /** @var BaseResponse<array<string, mixed>> $result */
+        $result = BaseResponse::fromArray($response, static fn (mixed $data): mixed => $data);
+
+        return $result;
     }
 
     /**
      * GET /training/{trainingSetUid}/conversations/{trainingConvUid}
      *
      * Response data type: object
-     * Known fields: trainingConvUid, trainingSetUid, sourceType, generatorModel, serviceName, dataTypeName, dataTypeUid, category, ... (16 total)
+     *   trainingConvUid: int
+     *   trainingSetUid: int
+     *   sourceType: string
+     *   generatorModel: string|null
+     *   serviceName: string|null
+     *   dataTypeName: string|null
+     *   dataTypeUid: int|null
+     *   category: string|null
+     *   qualityScore: float|null
+     *   splitType: string
+     *   totalTokens: int
+     *   statusCd: int
+     *   processCd: int
+     *   updateCd: int
+     *   dateCreated: string
+     *   dateLastModified: string
      *
      * @param array<string, mixed> $params
      * @return BaseResponse<array<string, mixed>>
@@ -192,14 +346,32 @@ final class TrainingResource
             ['trainingSetUid' => (string) $trainingSetUid, 'trainingConvUid' => (string) $trainingConvUid],
         );
 
-        return BaseResponse::fromArray($response, static fn ($data) => $data);
+        /** @var BaseResponse<array<string, mixed>> $result */
+        $result = BaseResponse::fromArray($response, static fn (mixed $data): mixed => $data);
+
+        return $result;
     }
 
     /**
      * PUT /training/{trainingSetUid}/conversations/{trainingConvUid}
      *
      * Response data type: object
-     * Known fields: trainingConvUid, trainingSetUid, sourceType, generatorModel, serviceName, dataTypeName, dataTypeUid, category, ... (16 total)
+     *   trainingConvUid: int
+     *   trainingSetUid: int
+     *   sourceType: string
+     *   generatorModel: string|null
+     *   serviceName: string|null
+     *   dataTypeName: string|null
+     *   dataTypeUid: int|null
+     *   category: string|null
+     *   qualityScore: float|null
+     *   splitType: string
+     *   totalTokens: int
+     *   statusCd: int
+     *   processCd: int
+     *   updateCd: int
+     *   dateCreated: string
+     *   dateLastModified: string
      *
      * @param array<string, mixed> $data
      * @return BaseResponse<array<string, mixed>>
@@ -213,17 +385,35 @@ final class TrainingResource
             ['trainingSetUid' => (string) $trainingSetUid, 'trainingConvUid' => (string) $trainingConvUid],
         );
 
-        return BaseResponse::fromArray($response, static fn ($data) => $data);
+        /** @var BaseResponse<array<string, mixed>> $result */
+        $result = BaseResponse::fromArray($response, static fn (mixed $data): mixed => $data);
+
+        return $result;
     }
 
     /**
      * GET /training/{trainingSetUid}/conversations/{trainingConvUid}/messages
      *
      * Response data type: array
-     * Known fields: trainingMsgUid, trainingConvUid, sequenceNo, role, channel, content, analysis, commentary, ... (16 total)
+     *   trainingMsgUid: int
+     *   trainingConvUid: int
+     *   sequenceNo: int
+     *   role: string
+     *   channel: string|null
+     *   content: string|null
+     *   analysis: string|null
+     *   commentary: string|null
+     *   final: string|null
+     *   weight: int
+     *   tokens: int
+     *   statusCd: int
+     *   processCd: int
+     *   updateCd: int
+     *   dateCreated: string
+     *   dateLastModified: string
      *
      * @param array<string, mixed> $params
-     * @return BaseResponse<array<string, mixed>>
+     * @return BaseResponse<list<array<string, mixed>>>
      */
     public function listConversationsMessages(int $trainingSetUid, int $trainingConvUid, array $params = []): BaseResponse
     {
@@ -234,14 +424,32 @@ final class TrainingResource
             ['trainingSetUid' => (string) $trainingSetUid, 'trainingConvUid' => (string) $trainingConvUid],
         );
 
-        return BaseResponse::fromArray($response, static fn ($data) => $data);
+        /** @var BaseResponse<list<array<string, mixed>>> $result */
+        $result = BaseResponse::fromArray($response, static fn (mixed $data): mixed => $data);
+
+        return $result;
     }
 
     /**
      * POST /training/{trainingSetUid}/conversations/{trainingConvUid}/messages
      *
      * Response data type: object
-     * Known fields: trainingMsgUid, trainingConvUid, sequenceNo, role, channel, content, analysis, commentary, ... (16 total)
+     *   trainingMsgUid: int
+     *   trainingConvUid: int
+     *   sequenceNo: int
+     *   role: string
+     *   channel: string|null
+     *   content: string|null
+     *   analysis: string|null
+     *   commentary: string|null
+     *   final: string|null
+     *   weight: int
+     *   tokens: int
+     *   statusCd: int
+     *   processCd: int
+     *   updateCd: int
+     *   dateCreated: string
+     *   dateLastModified: string
      *
      * @param array<string, mixed> $data
      * @return BaseResponse<array<string, mixed>>
@@ -255,14 +463,32 @@ final class TrainingResource
             ['trainingSetUid' => (string) $trainingSetUid, 'trainingConvUid' => (string) $trainingConvUid],
         );
 
-        return BaseResponse::fromArray($response, static fn ($data) => $data);
+        /** @var BaseResponse<array<string, mixed>> $result */
+        $result = BaseResponse::fromArray($response, static fn (mixed $data): mixed => $data);
+
+        return $result;
     }
 
     /**
      * DELETE /training/{trainingSetUid}/conversations/{trainingConvUid}/messages/{trainingMsgUid}
      *
      * Response data type: object
-     * Known fields: trainingMsgUid, trainingConvUid, sequenceNo, role, channel, content, analysis, commentary, ... (16 total)
+     *   trainingMsgUid: int
+     *   trainingConvUid: int
+     *   sequenceNo: int
+     *   role: string
+     *   channel: string|null
+     *   content: string|null
+     *   analysis: string|null
+     *   commentary: string|null
+     *   final: string|null
+     *   weight: int
+     *   tokens: int
+     *   statusCd: int
+     *   processCd: int
+     *   updateCd: int
+     *   dateCreated: string
+     *   dateLastModified: string
      *
      * @return BaseResponse<array<string, mixed>>
      */
@@ -274,14 +500,32 @@ final class TrainingResource
             ['trainingSetUid' => (string) $trainingSetUid, 'trainingConvUid' => (string) $trainingConvUid, 'trainingMsgUid' => (string) $trainingMsgUid],
         );
 
-        return BaseResponse::fromArray($response, static fn ($data) => $data);
+        /** @var BaseResponse<array<string, mixed>> $result */
+        $result = BaseResponse::fromArray($response, static fn (mixed $data): mixed => $data);
+
+        return $result;
     }
 
     /**
      * GET /training/{trainingSetUid}/conversations/{trainingConvUid}/messages/{trainingMsgUid}
      *
      * Response data type: object
-     * Known fields: trainingMsgUid, trainingConvUid, sequenceNo, role, channel, content, analysis, commentary, ... (16 total)
+     *   trainingMsgUid: int
+     *   trainingConvUid: int
+     *   sequenceNo: int
+     *   role: string
+     *   channel: string|null
+     *   content: string|null
+     *   analysis: string|null
+     *   commentary: string|null
+     *   final: string|null
+     *   weight: int
+     *   tokens: int
+     *   statusCd: int
+     *   processCd: int
+     *   updateCd: int
+     *   dateCreated: string
+     *   dateLastModified: string
      *
      * @param array<string, mixed> $params
      * @return BaseResponse<array<string, mixed>>
@@ -295,14 +539,32 @@ final class TrainingResource
             ['trainingSetUid' => (string) $trainingSetUid, 'trainingConvUid' => (string) $trainingConvUid, 'trainingMsgUid' => (string) $trainingMsgUid],
         );
 
-        return BaseResponse::fromArray($response, static fn ($data) => $data);
+        /** @var BaseResponse<array<string, mixed>> $result */
+        $result = BaseResponse::fromArray($response, static fn (mixed $data): mixed => $data);
+
+        return $result;
     }
 
     /**
      * PUT /training/{trainingSetUid}/conversations/{trainingConvUid}/messages/{trainingMsgUid}
      *
      * Response data type: object
-     * Known fields: trainingMsgUid, trainingConvUid, sequenceNo, role, channel, content, analysis, commentary, ... (16 total)
+     *   trainingMsgUid: int
+     *   trainingConvUid: int
+     *   sequenceNo: int
+     *   role: string
+     *   channel: string|null
+     *   content: string|null
+     *   analysis: string|null
+     *   commentary: string|null
+     *   final: string|null
+     *   weight: int
+     *   tokens: int
+     *   statusCd: int
+     *   processCd: int
+     *   updateCd: int
+     *   dateCreated: string
+     *   dateLastModified: string
      *
      * @param array<string, mixed> $data
      * @return BaseResponse<array<string, mixed>>
@@ -316,6 +578,9 @@ final class TrainingResource
             ['trainingSetUid' => (string) $trainingSetUid, 'trainingConvUid' => (string) $trainingConvUid, 'trainingMsgUid' => (string) $trainingMsgUid],
         );
 
-        return BaseResponse::fromArray($response, static fn ($data) => $data);
+        /** @var BaseResponse<array<string, mixed>> $result */
+        $result = BaseResponse::fromArray($response, static fn (mixed $data): mixed => $data);
+
+        return $result;
     }
 }

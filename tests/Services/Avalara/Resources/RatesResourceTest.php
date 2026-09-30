@@ -11,28 +11,39 @@ use AugurApi\Tests\AugurApiTestCase;
  */
 final class RatesResourceTest extends AugurApiTestCase
 {
+    /**
+     * @return array{line_1: string, line_2: string, line_3: string, city: string, region: string, postal_code: string, country_code: string}
+     */
+    private function address(): array
+    {
+        return [
+            'line_1' => '100 Main St',
+            'line_2' => '',
+            'line_3' => '',
+            'city' => 'Pittsburgh',
+            'region' => 'PA',
+            'postal_code' => '15222',
+            'country_code' => 'US',
+        ];
+    }
+
     public function testCreate(): void
     {
-        $this->mockResponse([
-            'totalTax' => 10.50,
-            'lines' => [
-                ['lineNumber' => 1, 'tax' => 10.50],
-            ],
-        ]);
+        $this->mockResponse(10.50);
 
         $response = $this->api->avalara->rates->create([
-            'lines' => [
+            'address' => $this->address(),
+            'items' => [
                 [
-                    'number' => 1,
                     'amount' => 100.00,
-                    'taxCode' => 'P0000000',
+                    'quantity' => 1.0,
+                    'item_code' => 'ITEM001',
+                    'tax_code' => 'P0000000',
                 ],
             ],
-            'commit' => false,
         ]);
 
-        $this->assertEquals(10.50, $response->data['totalTax']);
-        $this->assertCount(1, $response->data['lines']);
+        $this->assertEquals(10.50, $response->data);
         $this->assertRequestPath('/rates');
         $this->assertRequestMethod('POST');
         $this->assertHasSiteIdHeader();
@@ -41,43 +52,43 @@ final class RatesResourceTest extends AugurApiTestCase
 
     public function testCreateWithMultipleLines(): void
     {
-        $this->mockResponse([
-            'totalTax' => 25.75,
-            'lines' => [
-                ['lineNumber' => 1, 'tax' => 10.50],
-                ['lineNumber' => 2, 'tax' => 15.25],
-            ],
-        ]);
+        $this->mockResponse(25.75);
 
         $response = $this->api->avalara->rates->create([
-            'lines' => [
+            'address' => $this->address(),
+            'items' => [
                 [
-                    'number' => 1,
                     'amount' => 100.00,
+                    'quantity' => 1.0,
+                    'item_code' => 'ITEM001',
+                    'tax_code' => 'P0000000',
                 ],
                 [
-                    'number' => 2,
                     'amount' => 150.00,
+                    'quantity' => 3.0,
+                    'item_code' => 'ITEM002',
+                    'tax_code' => 'P0000000',
+                    'unit_price' => 50.00,
                 ],
             ],
         ]);
 
-        $this->assertEquals(25.75, $response->data['totalTax']);
-        $this->assertCount(2, $response->data['lines']);
+        $this->assertEquals(25.75, $response->data);
+        $body = json_decode((string) $this->getLastRequest()->getBody(), true);
+        $this->assertIsArray($body);
+        $this->assertCount(2, self::arrayAt($body, 'items'));
     }
 
     public function testCreateReturnsBaseResponse(): void
     {
-        $this->mockResponse([
-            'totalTax' => 5.00,
-            'lines' => [],
-        ]);
+        $this->mockResponse(5.25);
 
         $response = $this->api->avalara->rates->create([
-            'lines' => [],
+            'address' => $this->address(),
+            'items' => [],
         ]);
 
         $this->assertEquals(200, $response->status);
-        $this->assertIsArray($response->data);
+        $this->assertIsFloat($response->data);
     }
 }

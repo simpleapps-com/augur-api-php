@@ -39,7 +39,7 @@ final class RatesShopResourceTest extends AugurApiTestCase
             'weightUnit' => 'LBS',
         ]);
 
-        $this->assertCount(2, $response->data);
+        $this->assertCount(2, self::arrayAt($response->data));
 
         /** @var list<array<string, mixed>> $data */
         $data = $response->data;
@@ -81,7 +81,7 @@ final class RatesShopResourceTest extends AugurApiTestCase
             'height' => 10,
         ]);
 
-        $this->assertCount(1, $response->data);
+        $this->assertCount(1, self::arrayAt($response->data));
 
         /** @var list<array<string, mixed>> $data */
         $data = $response->data;
@@ -108,7 +108,7 @@ final class RatesShopResourceTest extends AugurApiTestCase
             'weight' => 5.0,
         ]);
 
-        $this->assertCount(1, $response->data);
+        $this->assertCount(1, self::arrayAt($response->data));
 
         /** @var list<array<string, mixed>> $data */
         $data = $response->data;

@@ -20,7 +20,7 @@ final class ContentResourceTest extends AugurApiTestCase
 
         $response = $this->api->joomla->content->list();
 
-        $this->assertCount(2, $response->data);
+        $this->assertCount(2, self::arrayAt($response->data));
         /** @var list<array<string, mixed>> $data */
         $data = $response->data;
         $this->assertEquals('Article One', $data[0]['title']);
@@ -38,7 +38,7 @@ final class ContentResourceTest extends AugurApiTestCase
 
         $response = $this->api->joomla->content->list(['limit' => 10, 'categoryIdList' => '5']);
 
-        $this->assertCount(1, $response->data);
+        $this->assertCount(1, self::arrayAt($response->data));
         $this->assertRequestPath('/content');
     }
 
@@ -54,8 +54,8 @@ final class ContentResourceTest extends AugurApiTestCase
 
         $response = $this->api->joomla->content->get(1);
 
-        $this->assertEquals(1, $response->data['id']);
-        $this->assertEquals('Article One', $response->data['title']);
+        $this->assertEquals(1, self::at($response->data, 'id'));
+        $this->assertEquals('Article One', self::at($response->data, 'title'));
         $this->assertRequestPath('/content/1');
         $this->assertRequestMethod('GET');
     }
@@ -70,7 +70,7 @@ final class ContentResourceTest extends AugurApiTestCase
 
         $response = $this->api->joomla->content->listDoc(1);
 
-        $this->assertEquals(1, $response->data['id']);
+        $this->assertEquals(1, self::at($response->data, 'id'));
         $this->assertRequestPath('/content/1/doc');
         $this->assertRequestMethod('GET');
     }
@@ -85,7 +85,7 @@ final class ContentResourceTest extends AugurApiTestCase
 
         $response = $this->api->joomla->content->getDoc(1);
 
-        $this->assertEquals(1, $response->data['id']);
+        $this->assertEquals(1, self::at($response->data, 'id'));
         $this->assertRequestPath('/content/1/doc');
         $this->assertRequestMethod('GET');
     }

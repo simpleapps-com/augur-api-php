@@ -24,23 +24,52 @@ final class CompanyResource
      * GET /company
      *
      * Response data type: array
-     * Known fields: companyUid, companyId, companyName, dateCreated, dateLastModified, deleteFlag, updateCd, lastMaintainedBy, ... (14 total)
+     *   companyUid: int
+     *   companyId: string
+     *   companyName: string|null
+     *   dateCreated: string
+     *   dateLastModified: string
+     *   deleteFlag: string
+     *   updateCd: int
+     *   lastMaintainedBy: string
+     *   addressId: float|null
+     *   defaultSalesLocationId: float|null
+     *   freightCodeUid: int|null
+     *   upsAccountNo: string|null
+     *   defaultSourcePriceCd: int|null
+     *   defaultMultiplier: float|null
      *
      * @param array<string, mixed> $params
-     * @return BaseResponse<array<string, mixed>>
+     * @return BaseResponse<list<array<string, mixed>>>
      */
     public function list(array $params = []): BaseResponse
     {
         $response = $this->client->get($this->baseUrl, '', $params);
 
-        return BaseResponse::fromArray($response, static fn ($data) => $data);
+        /** @var BaseResponse<list<array<string, mixed>>> $result */
+        $result = BaseResponse::fromArray($response, static fn (mixed $data): mixed => $data);
+
+        return $result;
     }
 
     /**
      * GET /company/{companyUid}
      *
      * Response data type: object
-     * Known fields: companyUid, companyId, companyName, dateCreated, dateLastModified, deleteFlag, updateCd, lastMaintainedBy, ... (14 total)
+     *   companyUid: int
+     *   companyId: string
+     *   companyName: string|null
+     *   dateCreated: string
+     *   dateLastModified: string
+     *   deleteFlag: string
+     *   updateCd: int
+     *   lastMaintainedBy: string
+     *   addressId: float|null
+     *   defaultSalesLocationId: float|null
+     *   freightCodeUid: int|null
+     *   upsAccountNo: string|null
+     *   defaultSourcePriceCd: int|null
+     *   defaultMultiplier: float|null
      *
      * @param array<string, mixed> $params
      * @return BaseResponse<array<string, mixed>>
@@ -54,6 +83,9 @@ final class CompanyResource
             ['companyUid' => (string) $companyUid],
         );
 
-        return BaseResponse::fromArray($response, static fn ($data) => $data);
+        /** @var BaseResponse<array<string, mixed>> $result */
+        $result = BaseResponse::fromArray($response, static fn (mixed $data): mixed => $data);
+
+        return $result;
     }
 }

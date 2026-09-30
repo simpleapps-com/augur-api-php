@@ -23,8 +23,8 @@ final class PaypalResourceTest extends AugurApiTestCase
             'cancelUrl' => 'https://example.com/cancel',
         ]);
 
-        $this->assertEquals('ORDER-1', $response->data['id']);
-        $this->assertEquals('CREATED', $response->data['status']);
+        $this->assertEquals('ORDER-1', self::at($response->data, 'id'));
+        $this->assertEquals('CREATED', self::at($response->data, 'status'));
         $this->assertRequestPath('/paypal/order');
         $this->assertRequestMethod('POST');
         $this->assertHasAuthHeader();
@@ -41,7 +41,7 @@ final class PaypalResourceTest extends AugurApiTestCase
             'orderId' => 'ORDER-1',
         ]);
 
-        $this->assertEquals('COMPLETED', $response->data['status']);
+        $this->assertEquals('COMPLETED', self::at($response->data, 'status'));
         $this->assertRequestPath('/paypal/order/authorize');
         $this->assertRequestMethod('POST');
     }
@@ -57,7 +57,7 @@ final class PaypalResourceTest extends AugurApiTestCase
             'orderId' => 'ORDER-1',
         ]);
 
-        $this->assertEquals('ORDER-1', $response->data['id']);
+        $this->assertEquals('ORDER-1', self::at($response->data, 'id'));
         $this->assertRequestPath('/paypal/order/capture');
         $this->assertRequestMethod('POST');
     }
@@ -74,7 +74,7 @@ final class PaypalResourceTest extends AugurApiTestCase
             'orderId' => 'ORDER-1',
         ]);
 
-        $this->assertEquals('APPROVED', $response->data['status']);
+        $this->assertEquals('APPROVED', self::at($response->data, 'status'));
         $this->assertRequestPath('/paypal/order/details');
         $this->assertRequestMethod('GET');
     }
@@ -92,7 +92,7 @@ final class PaypalResourceTest extends AugurApiTestCase
             'payerId' => 'PAYER-1',
         ]);
 
-        $this->assertEquals('EC-1', $response->data['token']);
+        $this->assertEquals('EC-1', self::at($response->data, 'token'));
         $this->assertRequestPath('/paypal/order-return');
         $this->assertRequestMethod('GET');
     }
@@ -110,7 +110,7 @@ final class PaypalResourceTest extends AugurApiTestCase
             'finalCapture' => true,
         ]);
 
-        $this->assertEquals('CAP-1', $response->data['id']);
+        $this->assertEquals('CAP-1', self::at($response->data, 'id'));
         $this->assertRequestPath('/paypal/authorization/capture');
         $this->assertRequestMethod('POST');
     }
@@ -125,7 +125,7 @@ final class PaypalResourceTest extends AugurApiTestCase
             'authorizationId' => 'AUTH-1',
         ]);
 
-        $this->assertEquals('VOIDED', $response->data['status']);
+        $this->assertEquals('VOIDED', self::at($response->data, 'status'));
         $this->assertRequestPath('/paypal/authorization/void');
         $this->assertRequestMethod('POST');
     }
@@ -143,7 +143,7 @@ final class PaypalResourceTest extends AugurApiTestCase
             'noteToPayer' => 'Partial refund',
         ]);
 
-        $this->assertEquals('REFUND-1', $response->data['id']);
+        $this->assertEquals('REFUND-1', self::at($response->data, 'id'));
         $this->assertRequestPath('/paypal/capture/refund');
         $this->assertRequestMethod('POST');
     }
@@ -160,7 +160,7 @@ final class PaypalResourceTest extends AugurApiTestCase
             'refundId' => 'REFUND-1',
         ]);
 
-        $this->assertEquals(25.00, $response->data['amount']);
+        $this->assertEquals(25.00, self::at($response->data, 'amount'));
         $this->assertRequestPath('/paypal/refund');
         $this->assertRequestMethod('GET');
     }
@@ -177,7 +177,7 @@ final class PaypalResourceTest extends AugurApiTestCase
             'siteId' => 'TEST123',
         ]);
 
-        $this->assertTrue($response->data['received']);
+        $this->assertTrue(self::at($response->data, 'received'));
         $this->assertRequestPath('/paypal/webhook');
         $this->assertRequestMethod('POST');
     }

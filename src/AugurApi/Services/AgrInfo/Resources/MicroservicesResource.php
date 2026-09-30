@@ -24,23 +24,40 @@ final class MicroservicesResource
      * GET /microservices
      *
      * Response data type: array
-     * Known fields: microservicesUid, name, id, updateCd, statusCd, processCd, dateCreated, dateLastModified
+     *   microservicesUid: int
+     *   name: string|null
+     *   id: string|null
+     *   updateCd: int
+     *   statusCd: int
+     *   processCd: int
+     *   dateCreated: string
+     *   dateLastModified: string
      *
      * @param array<string, mixed> $params
-     * @return BaseResponse<array<string, mixed>>
+     * @return BaseResponse<list<array<string, mixed>>>
      */
     public function list(array $params = []): BaseResponse
     {
         $response = $this->client->get($this->baseUrl, '', $params);
 
-        return BaseResponse::fromArray($response, static fn ($data) => $data);
+        /** @var BaseResponse<list<array<string, mixed>>> $result */
+        $result = BaseResponse::fromArray($response, static fn (mixed $data): mixed => $data);
+
+        return $result;
     }
 
     /**
      * POST /microservices
      *
      * Response data type: object
-     * Known fields: microservicesUid, name, id, updateCd, statusCd, processCd, dateCreated, dateLastModified
+     *   microservicesUid: int
+     *   name: string|null
+     *   id: string|null
+     *   updateCd: int
+     *   statusCd: int
+     *   processCd: int
+     *   dateCreated: string
+     *   dateLastModified: string
      *
      * @param array<string, mixed> $data
      * @return BaseResponse<array<string, mixed>>
@@ -49,13 +66,16 @@ final class MicroservicesResource
     {
         $response = $this->client->post($this->baseUrl, '', $data);
 
-        return BaseResponse::fromArray($response, static fn ($data) => $data);
+        /** @var BaseResponse<array<string, mixed>> $result */
+        $result = BaseResponse::fromArray($response, static fn (mixed $data): mixed => $data);
+
+        return $result;
     }
 
     /**
      * DELETE /microservices/{microservicesUid}
      *
-     * @return BaseResponse<array<string, mixed>>
+     * @return BaseResponse<mixed>
      */
     public function delete(int $microservicesUid): BaseResponse
     {
@@ -65,14 +85,24 @@ final class MicroservicesResource
             ['microservicesUid' => (string) $microservicesUid],
         );
 
-        return BaseResponse::fromArray($response, static fn ($data) => $data);
+        /** @var BaseResponse<mixed> $result */
+        $result = BaseResponse::fromArray($response, static fn (mixed $data): mixed => $data);
+
+        return $result;
     }
 
     /**
      * GET /microservices/{microservicesUid}
      *
      * Response data type: object
-     * Known fields: microservicesUid, name, id, updateCd, statusCd, processCd, dateCreated, dateLastModified
+     *   microservicesUid: int
+     *   name: string|null
+     *   id: string|null
+     *   updateCd: int
+     *   statusCd: int
+     *   processCd: int
+     *   dateCreated: string
+     *   dateLastModified: string
      *
      * @param array<string, mixed> $params
      * @return BaseResponse<array<string, mixed>>
@@ -86,14 +116,24 @@ final class MicroservicesResource
             ['microservicesUid' => (string) $microservicesUid],
         );
 
-        return BaseResponse::fromArray($response, static fn ($data) => $data);
+        /** @var BaseResponse<array<string, mixed>> $result */
+        $result = BaseResponse::fromArray($response, static fn (mixed $data): mixed => $data);
+
+        return $result;
     }
 
     /**
      * PUT /microservices/{microservicesUid}
      *
      * Response data type: object
-     * Known fields: microservicesUid, name, id, updateCd, statusCd, processCd, dateCreated, dateLastModified
+     *   microservicesUid: int
+     *   name: string|null
+     *   id: string|null
+     *   updateCd: int
+     *   statusCd: int
+     *   processCd: int
+     *   dateCreated: string
+     *   dateLastModified: string
      *
      * @param array<string, mixed> $data
      * @return BaseResponse<array<string, mixed>>
@@ -107,6 +147,9 @@ final class MicroservicesResource
             ['microservicesUid' => (string) $microservicesUid],
         );
 
-        return BaseResponse::fromArray($response, static fn ($data) => $data);
+        /** @var BaseResponse<array<string, mixed>> $result */
+        $result = BaseResponse::fromArray($response, static fn (mixed $data): mixed => $data);
+
+        return $result;
     }
 }

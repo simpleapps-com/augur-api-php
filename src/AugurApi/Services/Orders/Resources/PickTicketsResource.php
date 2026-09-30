@@ -24,23 +24,62 @@ final class PickTicketsResource
      * GET /pick-tickets
      *
      * Response data type: array
-     * Known fields: pickTicketNo, orderNo, companyId, carrierId, trackingNo, instructions, shipDate, invoiceNo, ... (19 total)
+     *   pickTicketNo: float
+     *   orderNo: string
+     *   companyId: string
+     *   carrierId: float|null
+     *   trackingNo: string|null
+     *   instructions: string|null
+     *   shipDate: string|null
+     *   invoiceNo: float|null
+     *   dateCreated: string
+     *   dateLastModified: string
+     *   locationId: float
+     *   deleteFlag: string
+     *   updateCd: int
+     *   printedFlag: string|null
+     *   confirmableRowStatusFlag: int
+     *   directShipment: string|null
+     *   auxiliary: string
+     *   printDate: string|null
+     *   oePickTicketTypeCd: int|null
      *
      * @param array<string, mixed> $params
-     * @return BaseResponse<array<string, mixed>>
+     * @return BaseResponse<list<array<string, mixed>>>
      */
     public function list(array $params = []): BaseResponse
     {
         $response = $this->client->get($this->baseUrl, '', $params);
 
-        return BaseResponse::fromArray($response, static fn ($data) => $data);
+        /** @var BaseResponse<list<array<string, mixed>>> $result */
+        $result = BaseResponse::fromArray($response, static fn (mixed $data): mixed => $data);
+
+        return $result;
     }
 
     /**
      * GET /pick-tickets/{pickTicketNo}
      *
      * Response data type: object
-     * Known fields: pickTicketNo, orderNo, companyId, carrierId, trackingNo, instructions, shipDate, invoiceNo, ... (19 total)
+     *   pickTicketNo: float
+     *   orderNo: string
+     *   companyId: string
+     *   carrierId: float|null
+     *   trackingNo: string|null
+     *   instructions: string|null
+     *   shipDate: string|null
+     *   invoiceNo: float|null
+     *   dateCreated: string
+     *   dateLastModified: string
+     *   locationId: float
+     *   deleteFlag: string
+     *   updateCd: int
+     *   printedFlag: string|null
+     *   confirmableRowStatusFlag: int
+     *   directShipment: string|null
+     *   auxiliary: string
+     *   printDate: string|null
+     *   oePickTicketTypeCd: int|null
      *
      * @param array<string, mixed> $params
      * @return BaseResponse<array<string, mixed>>
@@ -54,17 +93,38 @@ final class PickTicketsResource
             ['pickTicketNo' => (string) $pickTicketNo],
         );
 
-        return BaseResponse::fromArray($response, static fn ($data) => $data);
+        /** @var BaseResponse<array<string, mixed>> $result */
+        $result = BaseResponse::fromArray($response, static fn (mixed $data): mixed => $data);
+
+        return $result;
     }
 
     /**
      * GET /pick-tickets/{pickTicketNo}/lines
      *
      * Response data type: array
-     * Known fields: pickTicketNo, lineNumber, companyId, printQuantity, shipQuantity, dateCreated, dateLastModified, unitOfMeasure, ... (19 total)
+     *   pickTicketNo: float
+     *   lineNumber: float
+     *   companyId: string
+     *   printQuantity: float|null
+     *   shipQuantity: float|null
+     *   dateCreated: string
+     *   dateLastModified: string
+     *   unitOfMeasure: string
+     *   unitSize: float
+     *   unitQuantity: float
+     *   oeLineNo: float
+     *   qtyRequested: float|null
+     *   qtyToPick: float|null
+     *   invMastUid: int
+     *   invoiceLineUid: int|null
+     *   qtyScanned: float|null
+     *   boxNumber: string|null
+     *   originalQtyToPick: float|null
+     *   updateCd: int
      *
      * @param array<string, mixed> $params
-     * @return BaseResponse<array<string, mixed>>
+     * @return BaseResponse<list<array<string, mixed>>>
      */
     public function listLines(float $pickTicketNo, array $params = []): BaseResponse
     {
@@ -75,14 +135,35 @@ final class PickTicketsResource
             ['pickTicketNo' => (string) $pickTicketNo],
         );
 
-        return BaseResponse::fromArray($response, static fn ($data) => $data);
+        /** @var BaseResponse<list<array<string, mixed>>> $result */
+        $result = BaseResponse::fromArray($response, static fn (mixed $data): mixed => $data);
+
+        return $result;
     }
 
     /**
      * GET /pick-tickets/{pickTicketNo}/lines/{lineNumber}
      *
      * Response data type: object
-     * Known fields: pickTicketNo, lineNumber, companyId, printQuantity, shipQuantity, dateCreated, dateLastModified, unitOfMeasure, ... (19 total)
+     *   pickTicketNo: float
+     *   lineNumber: float
+     *   companyId: string
+     *   printQuantity: float|null
+     *   shipQuantity: float|null
+     *   dateCreated: string
+     *   dateLastModified: string
+     *   unitOfMeasure: string
+     *   unitSize: float
+     *   unitQuantity: float
+     *   oeLineNo: float
+     *   qtyRequested: float|null
+     *   qtyToPick: float|null
+     *   invMastUid: int
+     *   invoiceLineUid: int|null
+     *   qtyScanned: float|null
+     *   boxNumber: string|null
+     *   originalQtyToPick: float|null
+     *   updateCd: int
      *
      * @param array<string, mixed> $params
      * @return BaseResponse<array<string, mixed>>
@@ -96,6 +177,9 @@ final class PickTicketsResource
             ['pickTicketNo' => (string) $pickTicketNo, 'lineNumber' => (string) $lineNumber],
         );
 
-        return BaseResponse::fromArray($response, static fn ($data) => $data);
+        /** @var BaseResponse<array<string, mixed>> $result */
+        $result = BaseResponse::fromArray($response, static fn (mixed $data): mixed => $data);
+
+        return $result;
     }
 }

@@ -59,7 +59,7 @@ final class SuggestionsResourceTest extends AugurApiTestCase
 
         $this->assertEquals(123, $response->data['suggestionsUid']);
         $this->assertEquals('power tools', $response->data['term']);
-        $this->assertContains('drill', $response->data['relatedTerms']);
+        $this->assertContains('drill', self::arrayAt($response->data, 'relatedTerms'));
         $this->assertRequestPath('/suggestions/123');
         $this->assertRequestMethod('GET');
     }
@@ -77,8 +77,8 @@ final class SuggestionsResourceTest extends AugurApiTestCase
 
         $response = $this->api->openSearch->suggestions->listSuggest(['q' => 'ham']);
 
-        $this->assertCount(3, $response->data['suggestions']);
-        $this->assertEquals('hammer', $response->data['suggestions'][0]);
+        $this->assertCount(3, self::arrayAt($response->data, 'suggestions'));
+        $this->assertEquals('hammer', self::at($response->data, 'suggestions', 0));
         $this->assertRequestPath('/suggestions/suggest');
         $this->assertRequestMethod('GET');
     }
@@ -96,7 +96,7 @@ final class SuggestionsResourceTest extends AugurApiTestCase
             'limit' => 2,
         ]);
 
-        $this->assertCount(2, $response->data['suggestions']);
+        $this->assertCount(2, self::arrayAt($response->data, 'suggestions'));
     }
 
     public function testSuggestEmpty(): void
@@ -108,7 +108,7 @@ final class SuggestionsResourceTest extends AugurApiTestCase
 
         $response = $this->api->openSearch->suggestions->listSuggest(['q' => 'xyz123']);
 
-        $this->assertEmpty($response->data['suggestions']);
+        $this->assertEmpty(self::at($response->data, 'suggestions'));
     }
 
     public function testSuggestWithCategory(): void
@@ -124,8 +124,8 @@ final class SuggestionsResourceTest extends AugurApiTestCase
             'category' => 'Outdoor',
         ]);
 
-        $this->assertCount(2, $response->data['suggestions']);
-        $this->assertEquals('Outdoor', $response->data['category']);
+        $this->assertCount(2, self::arrayAt($response->data, 'suggestions'));
+        $this->assertEquals('Outdoor', self::at($response->data, 'category'));
     }
 
     public function testListEmpty(): void

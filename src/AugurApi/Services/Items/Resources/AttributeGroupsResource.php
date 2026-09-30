@@ -24,35 +24,55 @@ final class AttributeGroupsResource
      * GET /attribute-groups
      *
      * @param array<string, mixed> $params
-     * @return BaseResponse<array<string, mixed>>
+     * @return BaseResponse<mixed>
      */
     public function list(array $params = []): BaseResponse
     {
         $response = $this->client->get($this->baseUrl, '', $params);
 
-        return BaseResponse::fromArray($response, static fn ($data) => $data);
+        /** @var BaseResponse<mixed> $result */
+        $result = BaseResponse::fromArray($response, static fn (mixed $data): mixed => $data);
+
+        return $result;
     }
 
     /**
      * POST /attribute-groups
      *
      * Response data type: object
-     * Known fields: attributeGroupUid, attributeGroupId, attributeGroupDesc, rowStatusFlag, dateCreated, createdBy, dateLastModified, lastMaintainedBy, ... (15 total)
+     *   attributeGroupUid: int
+     *   attributeGroupId: string
+     *   attributeGroupDesc: string|null
+     *   rowStatusFlag: int
+     *   dateCreated: string
+     *   createdBy: string
+     *   dateLastModified: string
+     *   lastMaintainedBy: string
+     *   attributeGroupType: int
+     *   updateCd: int
+     *   processCd: int
+     *   statusCd: int
+     *   typeCd: int
+     *   searchableCd: int
+     *   itemCount: int
      *
-     * @param array<string, mixed> $data
+     * @param array{attributeGroupDesc: string, attributeGroupType?: int, typeCd?: int, searchableCd?: int, statusCd?: int} $data
      * @return BaseResponse<array<string, mixed>>
      */
-    public function create(array $data = []): BaseResponse
+    public function create(array $data): BaseResponse
     {
         $response = $this->client->post($this->baseUrl, '', $data);
 
-        return BaseResponse::fromArray($response, static fn ($data) => $data);
+        /** @var BaseResponse<array<string, mixed>> $result */
+        $result = BaseResponse::fromArray($response, static fn (mixed $data): mixed => $data);
+
+        return $result;
     }
 
     /**
      * DELETE /attribute-groups/{attributeGroupUid}
      *
-     * @return BaseResponse<array<string, mixed>>
+     * @return BaseResponse<mixed>
      */
     public function delete(int $attributeGroupUid): BaseResponse
     {
@@ -62,14 +82,17 @@ final class AttributeGroupsResource
             ['attributeGroupUid' => (string) $attributeGroupUid],
         );
 
-        return BaseResponse::fromArray($response, static fn ($data) => $data);
+        /** @var BaseResponse<mixed> $result */
+        $result = BaseResponse::fromArray($response, static fn (mixed $data): mixed => $data);
+
+        return $result;
     }
 
     /**
      * GET /attribute-groups/{attributeGroupUid}
      *
      * @param array<string, mixed> $params
-     * @return BaseResponse<array<string, mixed>>
+     * @return BaseResponse<mixed>
      */
     public function get(int $attributeGroupUid, array $params = []): BaseResponse
     {
@@ -80,14 +103,31 @@ final class AttributeGroupsResource
             ['attributeGroupUid' => (string) $attributeGroupUid],
         );
 
-        return BaseResponse::fromArray($response, static fn ($data) => $data);
+        /** @var BaseResponse<mixed> $result */
+        $result = BaseResponse::fromArray($response, static fn (mixed $data): mixed => $data);
+
+        return $result;
     }
 
     /**
      * PUT /attribute-groups/{attributeGroupUid}
      *
      * Response data type: object
-     * Known fields: attributeGroupUid, attributeGroupId, attributeGroupDesc, rowStatusFlag, dateCreated, createdBy, dateLastModified, lastMaintainedBy, ... (15 total)
+     *   attributeGroupUid: int
+     *   attributeGroupId: string
+     *   attributeGroupDesc: string|null
+     *   rowStatusFlag: int
+     *   dateCreated: string
+     *   createdBy: string
+     *   dateLastModified: string
+     *   lastMaintainedBy: string
+     *   attributeGroupType: int
+     *   updateCd: int
+     *   processCd: int
+     *   statusCd: int
+     *   typeCd: int
+     *   searchableCd: int
+     *   itemCount: int
      *
      * @param array<string, mixed> $data
      * @return BaseResponse<array<string, mixed>>
@@ -101,14 +141,17 @@ final class AttributeGroupsResource
             ['attributeGroupUid' => (string) $attributeGroupUid],
         );
 
-        return BaseResponse::fromArray($response, static fn ($data) => $data);
+        /** @var BaseResponse<array<string, mixed>> $result */
+        $result = BaseResponse::fromArray($response, static fn (mixed $data): mixed => $data);
+
+        return $result;
     }
 
     /**
      * GET /attribute-groups/{attributeGroupUid}/attributes
      *
      * @param array<string, mixed> $params
-     * @return BaseResponse<array<string, mixed>>
+     * @return BaseResponse<mixed>
      */
     public function listAttributes(int $attributeGroupUid, array $params = []): BaseResponse
     {
@@ -119,16 +162,19 @@ final class AttributeGroupsResource
             ['attributeGroupUid' => (string) $attributeGroupUid],
         );
 
-        return BaseResponse::fromArray($response, static fn ($data) => $data);
+        /** @var BaseResponse<mixed> $result */
+        $result = BaseResponse::fromArray($response, static fn (mixed $data): mixed => $data);
+
+        return $result;
     }
 
     /**
      * POST /attribute-groups/{attributeGroupUid}/attributes
      *
-     * @param array<string, mixed> $data
-     * @return BaseResponse<array<string, mixed>>
+     * @param array{attributeUid: int, requiredFlag?: string, sequenceNo?: int} $data
+     * @return BaseResponse<mixed>
      */
-    public function createAttributes(int $attributeGroupUid, array $data = []): BaseResponse
+    public function createAttributes(int $attributeGroupUid, array $data): BaseResponse
     {
         $response = $this->client->post(
             $this->baseUrl,
@@ -137,13 +183,16 @@ final class AttributeGroupsResource
             ['attributeGroupUid' => (string) $attributeGroupUid],
         );
 
-        return BaseResponse::fromArray($response, static fn ($data) => $data);
+        /** @var BaseResponse<mixed> $result */
+        $result = BaseResponse::fromArray($response, static fn (mixed $data): mixed => $data);
+
+        return $result;
     }
 
     /**
      * DELETE /attribute-groups/{attributeGroupUid}/attributes/{attributeXAttributeGroupUid}
      *
-     * @return BaseResponse<array<string, mixed>>
+     * @return BaseResponse<mixed>
      */
     public function deleteAttributes(int $attributeGroupUid, int $attributeXAttributeGroupUid): BaseResponse
     {
@@ -153,14 +202,17 @@ final class AttributeGroupsResource
             ['attributeGroupUid' => (string) $attributeGroupUid, 'attributeXAttributeGroupUid' => (string) $attributeXAttributeGroupUid],
         );
 
-        return BaseResponse::fromArray($response, static fn ($data) => $data);
+        /** @var BaseResponse<mixed> $result */
+        $result = BaseResponse::fromArray($response, static fn (mixed $data): mixed => $data);
+
+        return $result;
     }
 
     /**
      * GET /attribute-groups/{attributeGroupUid}/attributes/{attributeXAttributeGroupUid}
      *
      * @param array<string, mixed> $params
-     * @return BaseResponse<array<string, mixed>>
+     * @return BaseResponse<mixed>
      */
     public function getAttributes(int $attributeGroupUid, int $attributeXAttributeGroupUid, array $params = []): BaseResponse
     {
@@ -171,14 +223,29 @@ final class AttributeGroupsResource
             ['attributeGroupUid' => (string) $attributeGroupUid, 'attributeXAttributeGroupUid' => (string) $attributeXAttributeGroupUid],
         );
 
-        return BaseResponse::fromArray($response, static fn ($data) => $data);
+        /** @var BaseResponse<mixed> $result */
+        $result = BaseResponse::fromArray($response, static fn (mixed $data): mixed => $data);
+
+        return $result;
     }
 
     /**
      * PUT /attribute-groups/{attributeGroupUid}/attributes/{attributeXAttributeGroupUid}
      *
      * Response data type: object
-     * Known fields: attributeXAttributeGroupUid, requiredFlag, rowStatusFlag, dateCreated, createdBy, dateLastModified, lastMaintainedBy, attributeUid, ... (13 total)
+     *   attributeXAttributeGroupUid: int
+     *   requiredFlag: string
+     *   rowStatusFlag: int
+     *   dateCreated: string
+     *   createdBy: string
+     *   dateLastModified: string
+     *   lastMaintainedBy: string
+     *   attributeUid: int
+     *   attributeGroupUid: int
+     *   sequenceNo: int|null
+     *   updateCd: int
+     *   processCd: int
+     *   statusCd: int
      *
      * @param array<string, mixed> $data
      * @return BaseResponse<array<string, mixed>>
@@ -192,6 +259,9 @@ final class AttributeGroupsResource
             ['attributeGroupUid' => (string) $attributeGroupUid, 'attributeXAttributeGroupUid' => (string) $attributeXAttributeGroupUid],
         );
 
-        return BaseResponse::fromArray($response, static fn ($data) => $data);
+        /** @var BaseResponse<array<string, mixed>> $result */
+        $result = BaseResponse::fromArray($response, static fn (mixed $data): mixed => $data);
+
+        return $result;
     }
 }

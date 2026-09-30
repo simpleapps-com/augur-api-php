@@ -23,7 +23,7 @@ final class ItemWishlistResourceTest extends AugurApiTestCase
 
         $response = $this->api->items->itemWishlist->get(12345);
 
-        $this->assertCount(2, $response->data);
+        $this->assertCount(2, self::arrayAt($response->data));
         /** @var list<array<string, mixed>> $data */
         $data = $response->data;
         $this->assertEquals(1, $data[0]['itemWishlistHdrUid']);
@@ -40,7 +40,7 @@ final class ItemWishlistResourceTest extends AugurApiTestCase
 
         $response = $this->api->items->itemWishlist->get(12345, ['limit' => 10, 'offset' => 0]);
 
-        $this->assertCount(1, $response->data);
+        $this->assertCount(1, self::arrayAt($response->data));
         $this->assertEquals(10, $response->total);
         $this->assertHasSiteIdHeader();
         $this->assertHasAuthHeader();
@@ -52,8 +52,8 @@ final class ItemWishlistResourceTest extends AugurApiTestCase
 
         $response = $this->api->items->itemWishlist->create(12345, ['name' => 'New Wishlist']);
 
-        $this->assertEquals(3, $response->data['itemWishlistHdrUid']);
-        $this->assertEquals('New Wishlist', $response->data['name']);
+        $this->assertEquals(3, self::at($response->data, 'itemWishlistHdrUid'));
+        $this->assertEquals('New Wishlist', self::at($response->data, 'name'));
         $this->assertRequestMethod('POST');
         $this->assertRequestPath('/item-wishlist/12345');
     }
@@ -69,7 +69,7 @@ final class ItemWishlistResourceTest extends AugurApiTestCase
         // Distinct values catch URL-order regressions (would have been swapped pre-fix).
         $response = $this->api->items->itemWishlist->getHdr(12345, 7);
 
-        $this->assertCount(2, $response->data);
+        $this->assertCount(2, self::arrayAt($response->data));
         /** @var list<array<string, mixed>> $data */
         $data = $response->data;
         $this->assertEquals(1, $data[0]['itemWishlistLineUid']);
@@ -82,9 +82,9 @@ final class ItemWishlistResourceTest extends AugurApiTestCase
         $this->mockResponse(['itemWishlistLineUid' => 3, 'invMastUid' => 102]);
 
         // Generated signature: createHdr(int $usersId, int $itemWishlistHdrUid, ...)
-        $response = $this->api->items->itemWishlist->createHdr(12345, 7, ['invMastUid' => 102, 'qty' => 5]);
+        $response = $this->api->items->itemWishlist->createHdr(12345, 7, [['inv_mast_uid' => 102, 'quantity' => 5]]);
 
-        $this->assertEquals(3, $response->data['itemWishlistLineUid']);
+        $this->assertEquals(3, self::at($response->data, 'itemWishlistLineUid'));
         $this->assertRequestMethod('POST');
         $this->assertRequestPath('/item-wishlist/12345/hdr/7');
     }
@@ -96,7 +96,7 @@ final class ItemWishlistResourceTest extends AugurApiTestCase
         // Generated signature: updateHdr(int $usersId, int $itemWishlistHdrUid, ...)
         $response = $this->api->items->itemWishlist->updateHdr(12345, 7, ['name' => 'Updated Wishlist']);
 
-        $this->assertEquals('Updated Wishlist', $response->data['name']);
+        $this->assertEquals('Updated Wishlist', self::at($response->data, 'name'));
         $this->assertRequestMethod('PUT');
         $this->assertRequestPath('/item-wishlist/12345/hdr/7');
     }
@@ -108,7 +108,7 @@ final class ItemWishlistResourceTest extends AugurApiTestCase
         // Generated signature: deleteHdr(int $usersId, int $itemWishlistHdrUid)
         $response = $this->api->items->itemWishlist->deleteHdr(12345, 7);
 
-        $this->assertTrue($response->data['success']);
+        $this->assertTrue(self::at($response->data, 'success'));
         $this->assertRequestMethod('DELETE');
         $this->assertRequestPath('/item-wishlist/12345/hdr/7');
     }
@@ -121,7 +121,7 @@ final class ItemWishlistResourceTest extends AugurApiTestCase
         // Three distinct values prove the 3-segment path also lands in URL order.
         $response = $this->api->items->itemWishlist->deleteHdrLine(12345, 7, 3);
 
-        $this->assertTrue($response->data['success']);
+        $this->assertTrue(self::at($response->data, 'success'));
         $this->assertRequestMethod('DELETE');
         $this->assertRequestPath('/item-wishlist/12345/hdr/7/line/3');
     }

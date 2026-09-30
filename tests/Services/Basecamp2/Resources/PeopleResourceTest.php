@@ -119,30 +119,26 @@ final class PeopleResourceTest extends AugurApiTestCase
 
     public function testGetMetrics(): void
     {
-        $this->mockResponse([
-            'person_id' => 1,
-            'todos_completed' => 25,
-            'todos_pending' => 5,
-            'completion_rate' => 83.3,
+        $this->mockListResponse([
+            ['id' => 100, 'assigneeId' => 1, 'commentCount' => 25, 'daysOpen' => 5],
         ]);
 
         $response = $this->api->basecamp2->people->listMetrics(1);
 
-        $this->assertEquals(1, $response->data['person_id']);
-        $this->assertEquals(25, $response->data['todos_completed']);
+        $this->assertEquals(1, $response->data[0]['assigneeId']);
+        $this->assertEquals(25, $response->data[0]['commentCount']);
         $this->assertRequestPath('/people/1/metrics');
         $this->assertRequestMethod('GET');
     }
 
     public function testGetMetricsWithParams(): void
     {
-        $this->mockResponse([
-            'person_id' => 1,
-            'todos_completed' => 10,
+        $this->mockListResponse([
+            ['id' => 101, 'assigneeId' => 1, 'commentCount' => 10],
         ]);
 
         $response = $this->api->basecamp2->people->listMetrics(1, ['dateFrom' => '2024-01-01']);
 
-        $this->assertEquals(10, $response->data['todos_completed']);
+        $this->assertEquals(10, $response->data[0]['commentCount']);
     }
 }

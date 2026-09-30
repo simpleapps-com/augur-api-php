@@ -10,7 +10,7 @@ namespace AugurApi\Core\Exceptions;
 final class ValidationException extends AugurApiException
 {
     /**
-     * @param array<string, mixed> $errors
+     * @param array<array-key, mixed> $errors Field map or list, as the API sent it
      */
     public function __construct(
         string $message = 'Validation failed',

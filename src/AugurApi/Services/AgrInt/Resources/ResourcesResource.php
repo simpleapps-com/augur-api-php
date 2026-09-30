@@ -24,39 +24,75 @@ final class ResourcesResource
      * GET /resources
      *
      * Response data type: array
-     * Known fields: resourcesUid, resourceId, resourceName, resourceType, resourcePath, description, dateCreated, dateLastModified, ... (11 total)
+     *   resourcesUid: int
+     *   resourceId: string
+     *   resourceName: string
+     *   resourceType: string
+     *   resourcePath: string
+     *   description: string|null
+     *   dateCreated: string
+     *   dateLastModified: string
+     *   updateCd: int
+     *   statusCd: int
+     *   processCd: int
      *
      * @param array<string, mixed> $params
-     * @return BaseResponse<array<string, mixed>>
+     * @return BaseResponse<list<array<string, mixed>>>
      */
     public function list(array $params = []): BaseResponse
     {
         $response = $this->client->get($this->baseUrl, '', $params);
 
-        return BaseResponse::fromArray($response, static fn ($data) => $data);
+        /** @var BaseResponse<list<array<string, mixed>>> $result */
+        $result = BaseResponse::fromArray($response, static fn (mixed $data): mixed => $data);
+
+        return $result;
     }
 
     /**
      * POST /resources
      *
      * Response data type: object
-     * Known fields: resourcesUid, resourceId, resourceName, resourceType, resourcePath, description, dateCreated, dateLastModified, ... (11 total)
+     *   resourcesUid: int
+     *   resourceId: string
+     *   resourceName: string
+     *   resourceType: string
+     *   resourcePath: string
+     *   description: string|null
+     *   dateCreated: string
+     *   dateLastModified: string
+     *   updateCd: int
+     *   statusCd: int
+     *   processCd: int
      *
-     * @param array<string, mixed> $data
+     * @param array{resourceName: string, resourceType: string, resourcePath: string, description?: string|null, statusCd?: int|null, processCd?: int|null, updateCd?: int|null} $data
      * @return BaseResponse<array<string, mixed>>
      */
-    public function create(array $data = []): BaseResponse
+    public function create(array $data): BaseResponse
     {
         $response = $this->client->post($this->baseUrl, '', $data);
 
-        return BaseResponse::fromArray($response, static fn ($data) => $data);
+        /** @var BaseResponse<array<string, mixed>> $result */
+        $result = BaseResponse::fromArray($response, static fn (mixed $data): mixed => $data);
+
+        return $result;
     }
 
     /**
      * DELETE /resources/{resourcesUid}
      *
      * Response data type: object
-     * Known fields: resourcesUid, resourceId, resourceName, resourceType, resourcePath, description, dateCreated, dateLastModified, ... (11 total)
+     *   resourcesUid: int
+     *   resourceId: string
+     *   resourceName: string
+     *   resourceType: string
+     *   resourcePath: string
+     *   description: string|null
+     *   dateCreated: string
+     *   dateLastModified: string
+     *   updateCd: int
+     *   statusCd: int
+     *   processCd: int
      *
      * @return BaseResponse<array<string, mixed>>
      */
@@ -68,14 +104,27 @@ final class ResourcesResource
             ['resourcesUid' => (string) $resourcesUid],
         );
 
-        return BaseResponse::fromArray($response, static fn ($data) => $data);
+        /** @var BaseResponse<array<string, mixed>> $result */
+        $result = BaseResponse::fromArray($response, static fn (mixed $data): mixed => $data);
+
+        return $result;
     }
 
     /**
      * GET /resources/{resourcesUid}
      *
      * Response data type: object
-     * Known fields: resourcesUid, resourceId, resourceName, resourceType, resourcePath, description, dateCreated, dateLastModified, ... (11 total)
+     *   resourcesUid: int
+     *   resourceId: string
+     *   resourceName: string
+     *   resourceType: string
+     *   resourcePath: string
+     *   description: string|null
+     *   dateCreated: string
+     *   dateLastModified: string
+     *   updateCd: int
+     *   statusCd: int
+     *   processCd: int
      *
      * @param array<string, mixed> $params
      * @return BaseResponse<array<string, mixed>>
@@ -89,16 +138,29 @@ final class ResourcesResource
             ['resourcesUid' => (string) $resourcesUid],
         );
 
-        return BaseResponse::fromArray($response, static fn ($data) => $data);
+        /** @var BaseResponse<array<string, mixed>> $result */
+        $result = BaseResponse::fromArray($response, static fn (mixed $data): mixed => $data);
+
+        return $result;
     }
 
     /**
      * PUT /resources/{resourcesUid}
      *
      * Response data type: object
-     * Known fields: resourcesUid, resourceId, resourceName, resourceType, resourcePath, description, dateCreated, dateLastModified, ... (11 total)
+     *   resourcesUid: int
+     *   resourceId: string
+     *   resourceName: string
+     *   resourceType: string
+     *   resourcePath: string
+     *   description: string|null
+     *   dateCreated: string
+     *   dateLastModified: string
+     *   updateCd: int
+     *   statusCd: int
+     *   processCd: int
      *
-     * @param array<string, mixed> $data
+     * @param array{resourceName?: string|null, resourceType?: string|null, resourcePath?: string|null, description?: string|null, statusCd?: int|null, processCd?: int|null, updateCd?: int|null} $data
      * @return BaseResponse<array<string, mixed>>
      */
     public function update(int $resourcesUid, array $data = []): BaseResponse
@@ -110,6 +172,9 @@ final class ResourcesResource
             ['resourcesUid' => (string) $resourcesUid],
         );
 
-        return BaseResponse::fromArray($response, static fn ($data) => $data);
+        /** @var BaseResponse<array<string, mixed>> $result */
+        $result = BaseResponse::fromArray($response, static fn (mixed $data): mixed => $data);
+
+        return $result;
     }
 }

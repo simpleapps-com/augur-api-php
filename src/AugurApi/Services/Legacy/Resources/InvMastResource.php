@@ -24,7 +24,7 @@ final class InvMastResource
      * GET /inv-mast/{invMastUid}/also-bought
      *
      * @param array<string, mixed> $params
-     * @return BaseResponse<array<string, mixed>>
+     * @return BaseResponse<mixed>
      */
     public function listAlsoBought(int $invMastUid, array $params = []): BaseResponse
     {
@@ -35,17 +35,27 @@ final class InvMastResource
             ['invMastUid' => (string) $invMastUid],
         );
 
-        return BaseResponse::fromArray($response, static fn ($data) => $data);
+        /** @var BaseResponse<mixed> $result */
+        $result = BaseResponse::fromArray($response, static fn (mixed $data): mixed => $data);
+
+        return $result;
     }
 
     /**
      * GET /inv-mast/{invMastUid}/tags
      *
      * Response data type: array
-     * Known fields: invMastTagsUid, invMastUid, tag, updateCd, statusCd, processCd, dateCreated, dateLastModified
+     *   invMastTagsUid: int
+     *   invMastUid: int
+     *   tag: string|null
+     *   updateCd: int
+     *   statusCd: int
+     *   processCd: int
+     *   dateCreated: string
+     *   dateLastModified: string
      *
      * @param array<string, mixed> $params
-     * @return BaseResponse<array<string, mixed>>
+     * @return BaseResponse<list<array<string, mixed>>>
      */
     public function listTags(int $invMastUid, array $params = []): BaseResponse
     {
@@ -56,19 +66,29 @@ final class InvMastResource
             ['invMastUid' => (string) $invMastUid],
         );
 
-        return BaseResponse::fromArray($response, static fn ($data) => $data);
+        /** @var BaseResponse<list<array<string, mixed>>> $result */
+        $result = BaseResponse::fromArray($response, static fn (mixed $data): mixed => $data);
+
+        return $result;
     }
 
     /**
      * POST /inv-mast/{invMastUid}/tags
      *
      * Response data type: object
-     * Known fields: invMastTagsUid, invMastUid, tag, updateCd, statusCd, processCd, dateCreated, dateLastModified
+     *   invMastTagsUid: int
+     *   invMastUid: int
+     *   tag: string|null
+     *   updateCd: int
+     *   statusCd: int
+     *   processCd: int
+     *   dateCreated: string
+     *   dateLastModified: string
      *
      * @param array<string, mixed> $data
      * @return BaseResponse<array<string, mixed>>
      */
-    public function createTags(string $invMastUid, array $data = []): BaseResponse
+    public function createTags(int $invMastUid, array $data = []): BaseResponse
     {
         $response = $this->client->post(
             $this->baseUrl,
@@ -77,13 +97,16 @@ final class InvMastResource
             ['invMastUid' => (string) $invMastUid],
         );
 
-        return BaseResponse::fromArray($response, static fn ($data) => $data);
+        /** @var BaseResponse<array<string, mixed>> $result */
+        $result = BaseResponse::fromArray($response, static fn (mixed $data): mixed => $data);
+
+        return $result;
     }
 
     /**
      * DELETE /inv-mast/{invMastUid}/tags/{invMastTagsUid}
      *
-     * @return BaseResponse<array<string, mixed>>
+     * @return BaseResponse<mixed>
      */
     public function deleteTags(int $invMastUid, int $invMastTagsUid): BaseResponse
     {
@@ -93,14 +116,24 @@ final class InvMastResource
             ['invMastUid' => (string) $invMastUid, 'invMastTagsUid' => (string) $invMastTagsUid],
         );
 
-        return BaseResponse::fromArray($response, static fn ($data) => $data);
+        /** @var BaseResponse<mixed> $result */
+        $result = BaseResponse::fromArray($response, static fn (mixed $data): mixed => $data);
+
+        return $result;
     }
 
     /**
      * GET /inv-mast/{invMastUid}/tags/{invMastTagsUid}
      *
      * Response data type: object
-     * Known fields: invMastTagsUid, invMastUid, tag, updateCd, statusCd, processCd, dateCreated, dateLastModified
+     *   invMastTagsUid: int
+     *   invMastUid: int
+     *   tag: string|null
+     *   updateCd: int
+     *   statusCd: int
+     *   processCd: int
+     *   dateCreated: string
+     *   dateLastModified: string
      *
      * @param array<string, mixed> $params
      * @return BaseResponse<array<string, mixed>>
@@ -114,14 +147,24 @@ final class InvMastResource
             ['invMastUid' => (string) $invMastUid, 'invMastTagsUid' => (string) $invMastTagsUid],
         );
 
-        return BaseResponse::fromArray($response, static fn ($data) => $data);
+        /** @var BaseResponse<array<string, mixed>> $result */
+        $result = BaseResponse::fromArray($response, static fn (mixed $data): mixed => $data);
+
+        return $result;
     }
 
     /**
      * PUT /inv-mast/{invMastUid}/tags/{invMastTagsUid}
      *
      * Response data type: object
-     * Known fields: invMastTagsUid, invMastUid, tag, updateCd, statusCd, processCd, dateCreated, dateLastModified
+     *   invMastTagsUid: int
+     *   invMastUid: int
+     *   tag: string|null
+     *   updateCd: int
+     *   statusCd: int
+     *   processCd: int
+     *   dateCreated: string
+     *   dateLastModified: string
      *
      * @param array<string, mixed> $data
      * @return BaseResponse<array<string, mixed>>
@@ -135,17 +178,32 @@ final class InvMastResource
             ['invMastUid' => (string) $invMastUid, 'invMastTagsUid' => (string) $invMastTagsUid],
         );
 
-        return BaseResponse::fromArray($response, static fn ($data) => $data);
+        /** @var BaseResponse<array<string, mixed>> $result */
+        $result = BaseResponse::fromArray($response, static fn (mixed $data): mixed => $data);
+
+        return $result;
     }
 
     /**
      * GET /inv-mast/{invMastUid}/web-desc
      *
      * Response data type: array
-     * Known fields: invMastWebDescUid, invMastUid, webDesc1, webDesc2, webDesc3, webDesc4, webDescFull, dateCreated, ... (13 total)
+     *   invMastWebDescUid: int
+     *   invMastUid: int
+     *   webDesc1: string|null
+     *   webDesc2: string|null
+     *   webDesc3: string|null
+     *   webDesc4: string|null
+     *   webDescFull: string|null
+     *   dateCreated: string
+     *   active: int|null
+     *   dateLastModified: string
+     *   dateLastChecked: string
+     *   updateCd: int
+     *   statusCd: int
      *
      * @param array<string, mixed> $params
-     * @return BaseResponse<array<string, mixed>>
+     * @return BaseResponse<list<array<string, mixed>>>
      */
     public function listWebDesc(int $invMastUid, array $params = []): BaseResponse
     {
@@ -156,14 +214,29 @@ final class InvMastResource
             ['invMastUid' => (string) $invMastUid],
         );
 
-        return BaseResponse::fromArray($response, static fn ($data) => $data);
+        /** @var BaseResponse<list<array<string, mixed>>> $result */
+        $result = BaseResponse::fromArray($response, static fn (mixed $data): mixed => $data);
+
+        return $result;
     }
 
     /**
      * POST /inv-mast/{invMastUid}/web-desc
      *
      * Response data type: object
-     * Known fields: invMastWebDescUid, invMastUid, webDesc1, webDesc2, webDesc3, webDesc4, webDescFull, dateCreated, ... (13 total)
+     *   invMastWebDescUid: int
+     *   invMastUid: int
+     *   webDesc1: string|null
+     *   webDesc2: string|null
+     *   webDesc3: string|null
+     *   webDesc4: string|null
+     *   webDescFull: string|null
+     *   dateCreated: string
+     *   active: int|null
+     *   dateLastModified: string
+     *   dateLastChecked: string
+     *   updateCd: int
+     *   statusCd: int
      *
      * @param array<string, mixed> $data
      * @return BaseResponse<array<string, mixed>>
@@ -177,13 +250,16 @@ final class InvMastResource
             ['invMastUid' => (string) $invMastUid],
         );
 
-        return BaseResponse::fromArray($response, static fn ($data) => $data);
+        /** @var BaseResponse<array<string, mixed>> $result */
+        $result = BaseResponse::fromArray($response, static fn (mixed $data): mixed => $data);
+
+        return $result;
     }
 
     /**
      * DELETE /inv-mast/{invMastUid}/web-desc/{invMastWebDescUid}
      *
-     * @return BaseResponse<array<string, mixed>>
+     * @return BaseResponse<mixed>
      */
     public function deleteWebDesc(int $invMastUid, int $invMastWebDescUid): BaseResponse
     {
@@ -193,14 +269,29 @@ final class InvMastResource
             ['invMastUid' => (string) $invMastUid, 'invMastWebDescUid' => (string) $invMastWebDescUid],
         );
 
-        return BaseResponse::fromArray($response, static fn ($data) => $data);
+        /** @var BaseResponse<mixed> $result */
+        $result = BaseResponse::fromArray($response, static fn (mixed $data): mixed => $data);
+
+        return $result;
     }
 
     /**
      * GET /inv-mast/{invMastUid}/web-desc/{invMastWebDescUid}
      *
      * Response data type: object
-     * Known fields: invMastWebDescUid, invMastUid, webDesc1, webDesc2, webDesc3, webDesc4, webDescFull, dateCreated, ... (13 total)
+     *   invMastWebDescUid: int
+     *   invMastUid: int
+     *   webDesc1: string|null
+     *   webDesc2: string|null
+     *   webDesc3: string|null
+     *   webDesc4: string|null
+     *   webDescFull: string|null
+     *   dateCreated: string
+     *   active: int|null
+     *   dateLastModified: string
+     *   dateLastChecked: string
+     *   updateCd: int
+     *   statusCd: int
      *
      * @param array<string, mixed> $params
      * @return BaseResponse<array<string, mixed>>
@@ -214,14 +305,29 @@ final class InvMastResource
             ['invMastUid' => (string) $invMastUid, 'invMastWebDescUid' => (string) $invMastWebDescUid],
         );
 
-        return BaseResponse::fromArray($response, static fn ($data) => $data);
+        /** @var BaseResponse<array<string, mixed>> $result */
+        $result = BaseResponse::fromArray($response, static fn (mixed $data): mixed => $data);
+
+        return $result;
     }
 
     /**
      * PUT /inv-mast/{invMastUid}/web-desc/{invMastWebDescUid}
      *
      * Response data type: object
-     * Known fields: invMastWebDescUid, invMastUid, webDesc1, webDesc2, webDesc3, webDesc4, webDescFull, dateCreated, ... (13 total)
+     *   invMastWebDescUid: int
+     *   invMastUid: int
+     *   webDesc1: string|null
+     *   webDesc2: string|null
+     *   webDesc3: string|null
+     *   webDesc4: string|null
+     *   webDescFull: string|null
+     *   dateCreated: string
+     *   active: int|null
+     *   dateLastModified: string
+     *   dateLastChecked: string
+     *   updateCd: int
+     *   statusCd: int
      *
      * @param array<string, mixed> $data
      * @return BaseResponse<array<string, mixed>>
@@ -235,6 +341,9 @@ final class InvMastResource
             ['invMastUid' => (string) $invMastUid, 'invMastWebDescUid' => (string) $invMastWebDescUid],
         );
 
-        return BaseResponse::fromArray($response, static fn ($data) => $data);
+        /** @var BaseResponse<array<string, mixed>> $result */
+        $result = BaseResponse::fromArray($response, static fn (mixed $data): mixed => $data);
+
+        return $result;
     }
 }

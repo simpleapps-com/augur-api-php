@@ -24,20 +24,44 @@ final class ImportResource
      * GET /import
      *
      * @param array<string, mixed> $params
-     * @return BaseResponse<array<string, mixed>>
+     * @return BaseResponse<mixed>
      */
     public function list(array $params = []): BaseResponse
     {
         $response = $this->client->get($this->baseUrl, '', $params);
 
-        return BaseResponse::fromArray($response, static fn ($data) => $data);
+        /** @var BaseResponse<mixed> $result */
+        $result = BaseResponse::fromArray($response, static fn (mixed $data): mixed => $data);
+
+        return $result;
     }
 
     /**
      * GET /import/daily-summary
      *
      * Response data type: object
-     * Known fields: date, total, initial, processing, processingCoupon, processCoupon, validate, validating, ... (22 total)
+     *   date: string
+     *   total: int
+     *   initial: int
+     *   processing: int
+     *   processingCoupon: int
+     *   processCoupon: int
+     *   validate: int
+     *   validating: int
+     *   validated: int
+     *   processed: int
+     *   hold: int
+     *   delivering: int
+     *   delivered: int
+     *   importing: int
+     *   imported: int
+     *   redelivered: int
+     *   invalid: int
+     *   failed: int
+     *   error: int
+     *   cancelled: int
+     *   stopped: int
+     *   skipped: int
      *
      * @param array<string, mixed> $params
      * @return BaseResponse<array<string, mixed>>
@@ -46,40 +70,59 @@ final class ImportResource
     {
         $response = $this->client->get($this->baseUrl, '/daily-summary', $params);
 
-        return BaseResponse::fromArray($response, static fn ($data) => $data);
+        /** @var BaseResponse<array<string, mixed>> $result */
+        $result = BaseResponse::fromArray($response, static fn (mixed $data): mixed => $data);
+
+        return $result;
     }
 
     /**
      * GET /import/recent
      *
      * @param array<string, mixed> $params
-     * @return BaseResponse<array<string, mixed>>
+     * @return BaseResponse<mixed>
      */
     public function listRecent(array $params = []): BaseResponse
     {
         $response = $this->client->get($this->baseUrl, '/recent', $params);
 
-        return BaseResponse::fromArray($response, static fn ($data) => $data);
+        /** @var BaseResponse<mixed> $result */
+        $result = BaseResponse::fromArray($response, static fn (mixed $data): mixed => $data);
+
+        return $result;
     }
 
     /**
      * GET /import/stuck
      *
      * @param array<string, mixed> $params
-     * @return BaseResponse<array<string, mixed>>
+     * @return BaseResponse<mixed>
      */
     public function listStuck(array $params = []): BaseResponse
     {
         $response = $this->client->get($this->baseUrl, '/stuck', $params);
 
-        return BaseResponse::fromArray($response, static fn ($data) => $data);
+        /** @var BaseResponse<mixed> $result */
+        $result = BaseResponse::fromArray($response, static fn (mixed $data): mixed => $data);
+
+        return $result;
     }
 
     /**
      * DELETE /import/{importUid}
      *
      * Response data type: object
-     * Known fields: importUid, scheduledImportMasterUid, dateCreated, dateLastModified, sourceName, sourceId, importState, jsonData, ... (11 total)
+     *   importUid: int
+     *   scheduledImportMasterUid: int
+     *   dateCreated: string
+     *   dateLastModified: string
+     *   sourceName: string|null
+     *   sourceId: int
+     *   importState: string
+     *   jsonData: string|null
+     *   importStatusCd: int
+     *   importResults: string|null
+     *   referenceNo: string|null
      *
      * @return BaseResponse<array<string, mixed>>
      */
@@ -91,14 +134,27 @@ final class ImportResource
             ['importUid' => (string) $importUid],
         );
 
-        return BaseResponse::fromArray($response, static fn ($data) => $data);
+        /** @var BaseResponse<array<string, mixed>> $result */
+        $result = BaseResponse::fromArray($response, static fn (mixed $data): mixed => $data);
+
+        return $result;
     }
 
     /**
      * GET /import/{importUid}
      *
      * Response data type: object
-     * Known fields: importUid, scheduledImportMasterUid, dateCreated, dateLastModified, sourceName, sourceId, importState, jsonData, ... (11 total)
+     *   importUid: int
+     *   scheduledImportMasterUid: int
+     *   dateCreated: string
+     *   dateLastModified: string
+     *   sourceName: string|null
+     *   sourceId: int
+     *   importState: string
+     *   jsonData: string|null
+     *   importStatusCd: int
+     *   importResults: string|null
+     *   referenceNo: string|null
      *
      * @param array<string, mixed> $params
      * @return BaseResponse<array<string, mixed>>
@@ -112,14 +168,27 @@ final class ImportResource
             ['importUid' => (string) $importUid],
         );
 
-        return BaseResponse::fromArray($response, static fn ($data) => $data);
+        /** @var BaseResponse<array<string, mixed>> $result */
+        $result = BaseResponse::fromArray($response, static fn (mixed $data): mixed => $data);
+
+        return $result;
     }
 
     /**
      * PUT /import/{importUid}
      *
      * Response data type: object
-     * Known fields: importUid, scheduledImportMasterUid, dateCreated, dateLastModified, sourceName, sourceId, importState, jsonData, ... (11 total)
+     *   importUid: int
+     *   scheduledImportMasterUid: int
+     *   dateCreated: string
+     *   dateLastModified: string
+     *   sourceName: string|null
+     *   sourceId: int
+     *   importState: string
+     *   jsonData: string|null
+     *   importStatusCd: int
+     *   importResults: string|null
+     *   referenceNo: string|null
      *
      * @param array<string, mixed> $data
      * @return BaseResponse<array<string, mixed>>
@@ -133,14 +202,17 @@ final class ImportResource
             ['importUid' => (string) $importUid],
         );
 
-        return BaseResponse::fromArray($response, static fn ($data) => $data);
+        /** @var BaseResponse<array<string, mixed>> $result */
+        $result = BaseResponse::fromArray($response, static fn (mixed $data): mixed => $data);
+
+        return $result;
     }
 
     /**
      * GET /import/{importUid}/imp-oe-hdr
      *
      * @param array<string, mixed> $params
-     * @return BaseResponse<array<string, mixed>>
+     * @return BaseResponse<mixed>
      */
     public function listImpOeHdr(string $importUid, array $params = []): BaseResponse
     {
@@ -151,14 +223,17 @@ final class ImportResource
             ['importUid' => (string) $importUid],
         );
 
-        return BaseResponse::fromArray($response, static fn ($data) => $data);
+        /** @var BaseResponse<mixed> $result */
+        $result = BaseResponse::fromArray($response, static fn (mixed $data): mixed => $data);
+
+        return $result;
     }
 
     /**
      * PUT /import/{importUid}/imp-oe-hdr
      *
      * @param array<string, mixed> $data
-     * @return BaseResponse<array<string, mixed>>
+     * @return BaseResponse<mixed>
      */
     public function updateImpOeHdr(string $importUid, array $data = []): BaseResponse
     {
@@ -169,14 +244,17 @@ final class ImportResource
             ['importUid' => (string) $importUid],
         );
 
-        return BaseResponse::fromArray($response, static fn ($data) => $data);
+        /** @var BaseResponse<mixed> $result */
+        $result = BaseResponse::fromArray($response, static fn (mixed $data): mixed => $data);
+
+        return $result;
     }
 
     /**
      * GET /import/{importUid}/imp-oe-hdr-salesrep
      *
      * @param array<string, mixed> $params
-     * @return BaseResponse<array<string, mixed>>
+     * @return BaseResponse<mixed>
      */
     public function listImpOeHdrSalesrep(string $importUid, array $params = []): BaseResponse
     {
@@ -187,14 +265,17 @@ final class ImportResource
             ['importUid' => (string) $importUid],
         );
 
-        return BaseResponse::fromArray($response, static fn ($data) => $data);
+        /** @var BaseResponse<mixed> $result */
+        $result = BaseResponse::fromArray($response, static fn (mixed $data): mixed => $data);
+
+        return $result;
     }
 
     /**
      * PUT /import/{importUid}/imp-oe-hdr-salesrep
      *
      * @param array<string, mixed> $data
-     * @return BaseResponse<array<string, mixed>>
+     * @return BaseResponse<mixed>
      */
     public function updateImpOeHdrSalesrep(string $importUid, array $data = []): BaseResponse
     {
@@ -205,14 +286,17 @@ final class ImportResource
             ['importUid' => (string) $importUid],
         );
 
-        return BaseResponse::fromArray($response, static fn ($data) => $data);
+        /** @var BaseResponse<mixed> $result */
+        $result = BaseResponse::fromArray($response, static fn (mixed $data): mixed => $data);
+
+        return $result;
     }
 
     /**
      * GET /import/{importUid}/imp-oe-hdr-web
      *
      * @param array<string, mixed> $params
-     * @return BaseResponse<array<string, mixed>>
+     * @return BaseResponse<mixed>
      */
     public function listImpOeHdrWeb(string $importUid, array $params = []): BaseResponse
     {
@@ -223,6 +307,9 @@ final class ImportResource
             ['importUid' => (string) $importUid],
         );
 
-        return BaseResponse::fromArray($response, static fn ($data) => $data);
+        /** @var BaseResponse<mixed> $result */
+        $result = BaseResponse::fromArray($response, static fn (mixed $data): mixed => $data);
+
+        return $result;
     }
 }

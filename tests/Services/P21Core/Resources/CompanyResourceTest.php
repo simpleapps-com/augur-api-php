@@ -82,7 +82,7 @@ final class CompanyResourceTest extends AugurApiTestCase
         $response = $this->api->p21Core->company->get(1, ['includeLocations' => true]);
 
         $this->assertEquals(1, $response->data['companyUid']);
-        $this->assertCount(1, $response->data['locations']);
+        $this->assertCount(1, self::arrayAt($response->data, 'locations'));
         $this->assertHasSiteIdHeader();
         $this->assertHasAuthHeader();
     }

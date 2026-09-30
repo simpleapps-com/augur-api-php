@@ -17,7 +17,7 @@ final class DocumentsResourceTest extends AugurApiTestCase
 
         $response = $this->api->gregorovich->documents->list();
 
-        $this->assertCount(2, $response->data);
+        $this->assertCount(2, self::arrayAt($response->data));
 
         /** @var list<array<string, mixed>> $data */
         $data = $response->data;
@@ -42,7 +42,7 @@ final class DocumentsResourceTest extends AugurApiTestCase
             'limit' => 10,
         ]);
 
-        $this->assertCount(1, $response->data);
+        $this->assertCount(1, self::arrayAt($response->data));
 
         /** @var list<array<string, mixed>> $data */
         $data = $response->data;
@@ -71,7 +71,7 @@ final class DocumentsResourceTest extends AugurApiTestCase
             'offset' => 10,
         ]);
 
-        $this->assertCount(2, $response->data);
+        $this->assertCount(2, self::arrayAt($response->data));
         $this->assertEquals(50, $response->total);
     }
 }

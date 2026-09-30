@@ -70,8 +70,7 @@ final class InvMastTagsResourceTest extends AugurApiTestCase
             'tagValue' => 'value',
         ], 201);
 
-        // Generated signature: createTags(string $invMastUid, array $data = [])
-        $response = $this->api->legacy->invMast->createTags('12345', [
+        $response = $this->api->legacy->invMast->createTags(12345, [
             'tagName' => 'New Tag',
             'tagValue' => 'value',
         ]);
@@ -107,7 +106,7 @@ final class InvMastTagsResourceTest extends AugurApiTestCase
         // Generated signature: deleteTags(int $invMastUid, int $invMastTagsUid)
         $response = $this->api->legacy->invMast->deleteTags(12345, 1);
 
-        $this->assertTrue($response->data['deleted']);
+        $this->assertTrue(self::at($response->data, 'deleted'));
         $this->assertRequestPath('/inv-mast/12345/tags/1');
         $this->assertRequestMethod('DELETE');
     }

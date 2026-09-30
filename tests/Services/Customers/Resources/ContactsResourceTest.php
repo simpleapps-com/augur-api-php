@@ -17,7 +17,7 @@ final class ContactsResourceTest extends AugurApiTestCase
 
         $response = $this->api->customers->contacts->getRefresh();
 
-        $this->assertTrue($response->data['refreshed']);
+        $this->assertTrue(self::at($response->data, 'refreshed'));
         $this->assertRequestPath('/contacts/refresh');
         $this->assertRequestMethod('GET');
         $this->assertHasSiteIdHeader();
@@ -33,7 +33,7 @@ final class ContactsResourceTest extends AugurApiTestCase
 
         $response = $this->api->customers->contacts->listCustomers(123);
 
-        $this->assertCount(2, $response->data);
+        $this->assertCount(2, self::arrayAt($response->data));
         /** @var list<array<string, mixed>> $data */
         $data = $response->data;
         $this->assertEquals('CUST001', $data[0]['customerId']);
@@ -52,8 +52,8 @@ final class ContactsResourceTest extends AugurApiTestCase
 
         $response = $this->api->customers->contacts->listDoc(123);
 
-        $this->assertEquals(123, $response->data['contactId']);
-        $this->assertEquals('John', $response->data['firstName']);
+        $this->assertEquals(123, self::at($response->data, 'contactId'));
+        $this->assertEquals('John', self::at($response->data, 'firstName'));
         $this->assertRequestPath('/contacts/123/doc');
         $this->assertRequestMethod('GET');
     }
@@ -67,7 +67,7 @@ final class ContactsResourceTest extends AugurApiTestCase
 
         $response = $this->api->customers->contacts->getDoc(123);
 
-        $this->assertEquals(123, $response->data['contactId']);
+        $this->assertEquals(123, self::at($response->data, 'contactId'));
         $this->assertRequestPath('/contacts/123/doc');
     }
 
@@ -81,8 +81,8 @@ final class ContactsResourceTest extends AugurApiTestCase
 
         $response = $this->api->customers->contacts->listWebAllowance(123);
 
-        $this->assertEquals(123, $response->data['contactId']);
-        $this->assertEquals(1000.00, $response->data['allowance']);
+        $this->assertEquals(123, self::at($response->data, 'contactId'));
+        $this->assertEquals(1000.00, self::at($response->data, 'allowance'));
         $this->assertRequestPath('/contacts/123/web-allowance');
         $this->assertRequestMethod('GET');
     }

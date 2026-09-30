@@ -24,7 +24,7 @@ final class PaymentTypesResourceTest extends AugurApiTestCase
 
         $response = $this->api->p21Core->paymentTypes->list();
 
-        $this->assertCount(3, $response->data);
+        $this->assertCount(3, self::arrayAt($response->data));
 
         /** @var list<array<string, mixed>> $data */
         $data = $response->data;
@@ -52,7 +52,7 @@ final class PaymentTypesResourceTest extends AugurApiTestCase
 
         $response = $this->api->p21Core->paymentTypes->list(['active' => true, 'limit' => 5]);
 
-        $this->assertCount(2, $response->data);
+        $this->assertCount(2, self::arrayAt($response->data));
         $this->assertEquals(10, $response->total);
     }
 
@@ -62,7 +62,7 @@ final class PaymentTypesResourceTest extends AugurApiTestCase
 
         $response = $this->api->p21Core->paymentTypes->list(['active' => false]);
 
-        $this->assertCount(0, $response->data);
+        $this->assertCount(0, self::arrayAt($response->data));
         $this->assertEquals(0, $response->total);
     }
 }

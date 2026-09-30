@@ -21,9 +21,9 @@ final class OllamaResourceTest extends AugurApiTestCase
             'model' => 'llama2',
         ]);
 
-        $this->assertEquals('Generated text content here.', $response->data['response']);
-        $this->assertEquals('llama2', $response->data['model']);
-        $this->assertTrue($response->data['done']);
+        $this->assertEquals('Generated text content here.', self::at($response->data, 'response'));
+        $this->assertEquals('llama2', self::at($response->data, 'model'));
+        $this->assertTrue(self::at($response->data, 'done'));
         $this->assertRequestPath('/ollama/generate');
         $this->assertRequestMethod('POST');
         $this->assertHasAuthHeader();
@@ -42,7 +42,7 @@ final class OllamaResourceTest extends AugurApiTestCase
             'model' => 'codellama',
         ]);
 
-        $this->assertEquals('codellama', $response->data['model']);
+        $this->assertEquals('codellama', self::at($response->data, 'model'));
     }
 
     public function testGenerateWithContext(): void
@@ -60,7 +60,7 @@ final class OllamaResourceTest extends AugurApiTestCase
             'context' => [1, 2, 3, 4, 5],
         ]);
 
-        $this->assertArrayHasKey('context', $response->data);
+        $this->assertArrayHasKey('context', self::arrayAt($response->data));
     }
 
     public function testGenerateWithOptions(): void
@@ -80,7 +80,7 @@ final class OllamaResourceTest extends AugurApiTestCase
             ],
         ]);
 
-        $this->assertTrue($response->data['done']);
+        $this->assertTrue(self::at($response->data, 'done'));
     }
 
     public function testGenerateStream(): void
@@ -97,6 +97,6 @@ final class OllamaResourceTest extends AugurApiTestCase
             'stream' => true,
         ]);
 
-        $this->assertFalse($response->data['done']);
+        $this->assertFalse(self::at($response->data, 'done'));
     }
 }

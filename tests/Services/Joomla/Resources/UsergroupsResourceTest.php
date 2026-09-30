@@ -21,7 +21,7 @@ final class UsergroupsResourceTest extends AugurApiTestCase
 
         $response = $this->api->joomla->usergroups->list();
 
-        $this->assertCount(3, $response->data);
+        $this->assertCount(3, self::arrayAt($response->data));
         /** @var list<array<string, mixed>> $data */
         $data = $response->data;
         $this->assertEquals('Public', $data[0]['title']);
@@ -40,7 +40,7 @@ final class UsergroupsResourceTest extends AugurApiTestCase
 
         $response = $this->api->joomla->usergroups->list(['limit' => 10, 'parent_id' => 1]);
 
-        $this->assertCount(1, $response->data);
+        $this->assertCount(1, self::arrayAt($response->data));
         $this->assertRequestPath('/usergroups');
     }
 }

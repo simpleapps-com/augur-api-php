@@ -24,7 +24,7 @@ final class ContextResource
      * GET /context/{siteId}
      *
      * @param array<string, mixed> $params
-     * @return BaseResponse<array<string, mixed>>
+     * @return BaseResponse<mixed>
      */
     public function get(string $siteId, array $params = []): BaseResponse
     {
@@ -35,6 +35,9 @@ final class ContextResource
             ['siteId' => (string) $siteId],
         );
 
-        return BaseResponse::fromArray($response, static fn ($data) => $data);
+        /** @var BaseResponse<mixed> $result */
+        $result = BaseResponse::fromArray($response, static fn (mixed $data): mixed => $data);
+
+        return $result;
     }
 }

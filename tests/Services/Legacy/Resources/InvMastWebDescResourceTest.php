@@ -102,7 +102,7 @@ final class InvMastWebDescResourceTest extends AugurApiTestCase
 
         $response = $this->api->legacy->invMast->deleteWebDesc(12345, 1);
 
-        $this->assertTrue($response->data['deleted']);
+        $this->assertTrue(self::at($response->data, 'deleted'));
         $this->assertRequestPath('/inv-mast/12345/web-desc/1');
         $this->assertRequestMethod('DELETE');
     }

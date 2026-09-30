@@ -24,10 +24,27 @@ final class UsersResource
      * GET /users/{userId}/addresses
      *
      * Response data type: array
-     * Known fields: userAddressUid, userId, address1, address2, address3, city, state, postalCode, ... (18 total)
+     *   userAddressUid: int
+     *   userId: int
+     *   address1: string|null
+     *   address2: string|null
+     *   address3: string|null
+     *   city: string|null
+     *   state: string|null
+     *   postalCode: string|null
+     *   country: string|null
+     *   emailAddress: string|null
+     *   name: string|null
+     *   phoneNumberMain: string|null
+     *   phoneNumberMobile: string|null
+     *   dateCreated: string
+     *   dateLastModified: string
+     *   updateCd: int
+     *   statusCd: int
+     *   processCd: int
      *
      * @param array<string, mixed> $params
-     * @return BaseResponse<array<string, mixed>>
+     * @return BaseResponse<list<array<string, mixed>>>
      */
     public function listAddresses(int $userId, array $params = []): BaseResponse
     {
@@ -38,14 +55,34 @@ final class UsersResource
             ['userId' => (string) $userId],
         );
 
-        return BaseResponse::fromArray($response, static fn ($data) => $data);
+        /** @var BaseResponse<list<array<string, mixed>>> $result */
+        $result = BaseResponse::fromArray($response, static fn (mixed $data): mixed => $data);
+
+        return $result;
     }
 
     /**
      * POST /users/{userId}/addresses
      *
      * Response data type: object
-     * Known fields: userAddressUid, userId, address1, address2, address3, city, state, postalCode, ... (18 total)
+     *   userAddressUid: int
+     *   userId: int
+     *   address1: string|null
+     *   address2: string|null
+     *   address3: string|null
+     *   city: string|null
+     *   state: string|null
+     *   postalCode: string|null
+     *   country: string|null
+     *   emailAddress: string|null
+     *   name: string|null
+     *   phoneNumberMain: string|null
+     *   phoneNumberMobile: string|null
+     *   dateCreated: string
+     *   dateLastModified: string
+     *   updateCd: int
+     *   statusCd: int
+     *   processCd: int
      *
      * @param array<string, mixed> $data
      * @return BaseResponse<array<string, mixed>>
@@ -59,14 +96,34 @@ final class UsersResource
             ['userId' => (string) $userId],
         );
 
-        return BaseResponse::fromArray($response, static fn ($data) => $data);
+        /** @var BaseResponse<array<string, mixed>> $result */
+        $result = BaseResponse::fromArray($response, static fn (mixed $data): mixed => $data);
+
+        return $result;
     }
 
     /**
      * DELETE /users/{userId}/addresses/{userAddressUid}
      *
      * Response data type: object
-     * Known fields: userAddressUid, userId, address1, address2, address3, city, state, postalCode, ... (18 total)
+     *   userAddressUid: int
+     *   userId: int
+     *   address1: string|null
+     *   address2: string|null
+     *   address3: string|null
+     *   city: string|null
+     *   state: string|null
+     *   postalCode: string|null
+     *   country: string|null
+     *   emailAddress: string|null
+     *   name: string|null
+     *   phoneNumberMain: string|null
+     *   phoneNumberMobile: string|null
+     *   dateCreated: string
+     *   dateLastModified: string
+     *   updateCd: int
+     *   statusCd: int
+     *   processCd: int
      *
      * @return BaseResponse<array<string, mixed>>
      */
@@ -78,14 +135,34 @@ final class UsersResource
             ['userId' => (string) $userId, 'userAddressUid' => (string) $userAddressUid],
         );
 
-        return BaseResponse::fromArray($response, static fn ($data) => $data);
+        /** @var BaseResponse<array<string, mixed>> $result */
+        $result = BaseResponse::fromArray($response, static fn (mixed $data): mixed => $data);
+
+        return $result;
     }
 
     /**
      * GET /users/{userId}/addresses/{userAddressUid}
      *
      * Response data type: object
-     * Known fields: userAddressUid, userId, address1, address2, address3, city, state, postalCode, ... (18 total)
+     *   userAddressUid: int
+     *   userId: int
+     *   address1: string|null
+     *   address2: string|null
+     *   address3: string|null
+     *   city: string|null
+     *   state: string|null
+     *   postalCode: string|null
+     *   country: string|null
+     *   emailAddress: string|null
+     *   name: string|null
+     *   phoneNumberMain: string|null
+     *   phoneNumberMobile: string|null
+     *   dateCreated: string
+     *   dateLastModified: string
+     *   updateCd: int
+     *   statusCd: int
+     *   processCd: int
      *
      * @param array<string, mixed> $params
      * @return BaseResponse<array<string, mixed>>
@@ -99,14 +176,34 @@ final class UsersResource
             ['userId' => (string) $userId, 'userAddressUid' => (string) $userAddressUid],
         );
 
-        return BaseResponse::fromArray($response, static fn ($data) => $data);
+        /** @var BaseResponse<array<string, mixed>> $result */
+        $result = BaseResponse::fromArray($response, static fn (mixed $data): mixed => $data);
+
+        return $result;
     }
 
     /**
      * PUT /users/{userId}/addresses/{userAddressUid}
      *
      * Response data type: object
-     * Known fields: userAddressUid, userId, address1, address2, address3, city, state, postalCode, ... (18 total)
+     *   userAddressUid: int
+     *   userId: int
+     *   address1: string|null
+     *   address2: string|null
+     *   address3: string|null
+     *   city: string|null
+     *   state: string|null
+     *   postalCode: string|null
+     *   country: string|null
+     *   emailAddress: string|null
+     *   name: string|null
+     *   phoneNumberMain: string|null
+     *   phoneNumberMobile: string|null
+     *   dateCreated: string
+     *   dateLastModified: string
+     *   updateCd: int
+     *   statusCd: int
+     *   processCd: int
      *
      * @param array<string, mixed> $data
      * @return BaseResponse<array<string, mixed>>
@@ -120,6 +217,9 @@ final class UsersResource
             ['userId' => (string) $userId, 'userAddressUid' => (string) $userAddressUid],
         );
 
-        return BaseResponse::fromArray($response, static fn ($data) => $data);
+        /** @var BaseResponse<array<string, mixed>> $result */
+        $result = BaseResponse::fromArray($response, static fn (mixed $data): mixed => $data);
+
+        return $result;
     }
 }

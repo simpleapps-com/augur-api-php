@@ -20,7 +20,7 @@ final class InvoicesResourceTest extends AugurApiTestCase
 
         $response = $this->api->customers->customer->listInvoices(1001);
 
-        $this->assertCount(2, $response->data);
+        $this->assertCount(2, self::arrayAt($response->data));
         /** @var list<array<string, mixed>> $data */
         $data = $response->data;
         $this->assertEquals(1001, $data[0]['invoiceNo']);
@@ -39,7 +39,7 @@ final class InvoicesResourceTest extends AugurApiTestCase
 
         $response = $this->api->customers->customer->listInvoices(1001, ['limit' => 10, 'offset' => 0]);
 
-        $this->assertCount(1, $response->data);
+        $this->assertCount(1, self::arrayAt($response->data));
         $this->assertRequestPath('/customer/1001/invoices');
     }
 
@@ -55,8 +55,8 @@ final class InvoicesResourceTest extends AugurApiTestCase
 
         $response = $this->api->customers->customer->getInvoices(1001, 1001);
 
-        $this->assertEquals(1001, $response->data['invoiceNo']);
-        $this->assertEquals(100.00, $response->data['amount']);
+        $this->assertEquals(1001, self::at($response->data, 'invoiceNo'));
+        $this->assertEquals(100.00, self::at($response->data, 'amount'));
         $this->assertRequestPath('/customer/1001/invoices/1001');
         $this->assertRequestMethod('GET');
     }

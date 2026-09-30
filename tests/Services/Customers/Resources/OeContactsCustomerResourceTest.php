@@ -17,7 +17,7 @@ final class OeContactsCustomerResourceTest extends AugurApiTestCase
 
         $response = $this->api->customers->oeContactsCustomer->getRefresh();
 
-        $this->assertTrue($response->data['refreshed']);
+        $this->assertTrue(self::at($response->data, 'refreshed'));
         $this->assertRequestPath('/oe-contacts-customer/refresh');
         $this->assertRequestMethod('GET');
         $this->assertHasSiteIdHeader();

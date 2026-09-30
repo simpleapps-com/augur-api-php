@@ -24,23 +24,58 @@ final class ItemUomResource
      * GET /item-uom
      *
      * Response data type: array
-     * Known fields: unitOfMeasure, deleteFlag, dateCreated, dateLastModified, lastMaintainedBy, unitSize, sellingUnit, purchasingUnit, ... (17 total)
+     *   unitOfMeasure: string
+     *   deleteFlag: string
+     *   dateCreated: string
+     *   dateLastModified: string
+     *   lastMaintainedBy: string
+     *   unitSize: float
+     *   sellingUnit: string|null
+     *   purchasingUnit: string|null
+     *   invMastUid: int
+     *   createdBy: string|null
+     *   itemUomUid: int
+     *   b2bUnitFlag: string
+     *   tallyFactor: float|null
+     *   wwmsFlag: string|null
+     *   prodOrderFactor: int|null
+     *   minimumOrderQty: float|null
+     *   updateCd: int
      *
      * @param array<string, mixed> $params
-     * @return BaseResponse<array<string, mixed>>
+     * @return BaseResponse<list<array<string, mixed>>>
      */
     public function list(array $params = []): BaseResponse
     {
         $response = $this->client->get($this->baseUrl, '', $params);
 
-        return BaseResponse::fromArray($response, static fn ($data) => $data);
+        /** @var BaseResponse<list<array<string, mixed>>> $result */
+        $result = BaseResponse::fromArray($response, static fn (mixed $data): mixed => $data);
+
+        return $result;
     }
 
     /**
      * GET /item-uom/{itemUomUid}
      *
      * Response data type: object
-     * Known fields: unitOfMeasure, deleteFlag, dateCreated, dateLastModified, lastMaintainedBy, unitSize, sellingUnit, purchasingUnit, ... (17 total)
+     *   unitOfMeasure: string
+     *   deleteFlag: string
+     *   dateCreated: string
+     *   dateLastModified: string
+     *   lastMaintainedBy: string
+     *   unitSize: float
+     *   sellingUnit: string|null
+     *   purchasingUnit: string|null
+     *   invMastUid: int
+     *   createdBy: string|null
+     *   itemUomUid: int
+     *   b2bUnitFlag: string
+     *   tallyFactor: float|null
+     *   wwmsFlag: string|null
+     *   prodOrderFactor: int|null
+     *   minimumOrderQty: float|null
+     *   updateCd: int
      *
      * @param array<string, mixed> $params
      * @return BaseResponse<array<string, mixed>>
@@ -54,6 +89,9 @@ final class ItemUomResource
             ['itemUomUid' => (string) $itemUomUid],
         );
 
-        return BaseResponse::fromArray($response, static fn ($data) => $data);
+        /** @var BaseResponse<array<string, mixed>> $result */
+        $result = BaseResponse::fromArray($response, static fn (mixed $data): mixed => $data);
+
+        return $result;
     }
 }

@@ -23,7 +23,7 @@ final class CartLineResource
     /**
      * DELETE /cart-line/{cartHdrUid}
      *
-     * @return BaseResponse<array<string, mixed>>
+     * @return BaseResponse<mixed>
      */
     public function delete(int $cartHdrUid): BaseResponse
     {
@@ -33,14 +33,17 @@ final class CartLineResource
             ['cartHdrUid' => (string) $cartHdrUid],
         );
 
-        return BaseResponse::fromArray($response, static fn ($data) => $data);
+        /** @var BaseResponse<mixed> $result */
+        $result = BaseResponse::fromArray($response, static fn (mixed $data): mixed => $data);
+
+        return $result;
     }
 
     /**
      * GET /cart-line/{cartHdrUid}
      *
      * @param array<string, mixed> $params
-     * @return BaseResponse<array<string, mixed>>
+     * @return BaseResponse<mixed>
      */
     public function get(int $cartHdrUid, array $params = []): BaseResponse
     {
@@ -51,14 +54,17 @@ final class CartLineResource
             ['cartHdrUid' => (string) $cartHdrUid],
         );
 
-        return BaseResponse::fromArray($response, static fn ($data) => $data);
+        /** @var BaseResponse<mixed> $result */
+        $result = BaseResponse::fromArray($response, static fn (mixed $data): mixed => $data);
+
+        return $result;
     }
 
     /**
      * POST /cart-line/{cartHdrUid}/add
      *
      * @param array<string, mixed> $data
-     * @return BaseResponse<array<string, mixed>>
+     * @return BaseResponse<mixed>
      */
     public function createAdd(int $cartHdrUid, array $data = []): BaseResponse
     {
@@ -69,13 +75,16 @@ final class CartLineResource
             ['cartHdrUid' => (string) $cartHdrUid],
         );
 
-        return BaseResponse::fromArray($response, static fn ($data) => $data);
+        /** @var BaseResponse<mixed> $result */
+        $result = BaseResponse::fromArray($response, static fn (mixed $data): mixed => $data);
+
+        return $result;
     }
 
     /**
      * DELETE /cart-line/{cartHdrUid}/lines/{lineNo}
      *
-     * @return BaseResponse<array<string, mixed>>
+     * @return BaseResponse<mixed>
      */
     public function deleteLines(int $cartHdrUid, int $lineNo): BaseResponse
     {
@@ -85,14 +94,17 @@ final class CartLineResource
             ['cartHdrUid' => (string) $cartHdrUid, 'lineNo' => (string) $lineNo],
         );
 
-        return BaseResponse::fromArray($response, static fn ($data) => $data);
+        /** @var BaseResponse<mixed> $result */
+        $result = BaseResponse::fromArray($response, static fn (mixed $data): mixed => $data);
+
+        return $result;
     }
 
     /**
      * POST /cart-line/{cartHdrUid}/update
      *
      * @param array<string, mixed> $data
-     * @return BaseResponse<array<string, mixed>>
+     * @return BaseResponse<mixed>
      */
     public function createUpdate(int $cartHdrUid, array $data = []): BaseResponse
     {
@@ -103,6 +115,9 @@ final class CartLineResource
             ['cartHdrUid' => (string) $cartHdrUid],
         );
 
-        return BaseResponse::fromArray($response, static fn ($data) => $data);
+        /** @var BaseResponse<mixed> $result */
+        $result = BaseResponse::fromArray($response, static fn (mixed $data): mixed => $data);
+
+        return $result;
     }
 }

@@ -23,7 +23,7 @@ final class ContractsResourceTest extends AugurApiTestCase
 
         $response = $this->api->items->contracts->listAttributes(12345);
 
-        $this->assertCount(2, $response->data);
+        $this->assertCount(2, self::arrayAt($response->data));
         /** @var list<array<string, mixed>> $data */
         $data = $response->data;
         $this->assertEquals(1, $data[0]['attributeUid']);
@@ -74,7 +74,7 @@ final class ContractsResourceTest extends AugurApiTestCase
 
         $response = $this->api->items->contracts->listItems(12345);
 
-        $this->assertCount(2, $response->data);
+        $this->assertCount(2, self::arrayAt($response->data));
         /** @var list<array<string, mixed>> $data */
         $data = $response->data;
         $this->assertEquals('ITEM001', $data[0]['itemId']);
@@ -92,7 +92,7 @@ final class ContractsResourceTest extends AugurApiTestCase
 
         $response = $this->api->items->contracts->listItems(12345, ['limit' => 25, 'offset' => 0]);
 
-        $this->assertCount(1, $response->data);
+        $this->assertCount(1, self::arrayAt($response->data));
         $this->assertEquals(100, $response->total);
         $this->assertHasSiteIdHeader();
         $this->assertHasAuthHeader();

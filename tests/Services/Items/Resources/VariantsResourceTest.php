@@ -23,7 +23,7 @@ final class VariantsResourceTest extends AugurApiTestCase
 
         $response = $this->api->items->variants->list();
 
-        $this->assertCount(2, $response->data);
+        $this->assertCount(2, self::arrayAt($response->data));
         /** @var list<array<string, mixed>> $data */
         $data = $response->data;
         $this->assertEquals(1, $data[0]['itemVariantHdrUid']);
@@ -40,7 +40,7 @@ final class VariantsResourceTest extends AugurApiTestCase
 
         $response = $this->api->items->variants->list(['limit' => 10, 'offset' => 0]);
 
-        $this->assertCount(1, $response->data);
+        $this->assertCount(1, self::arrayAt($response->data));
         $this->assertEquals(10, $response->total);
         $this->assertHasSiteIdHeader();
         $this->assertHasAuthHeader();
@@ -56,8 +56,8 @@ final class VariantsResourceTest extends AugurApiTestCase
 
         $response = $this->api->items->variants->get(1);
 
-        $this->assertEquals(1, $response->data['itemVariantHdrUid']);
-        $this->assertEquals('Variant A', $response->data['name']);
+        $this->assertEquals(1, self::at($response->data, 'itemVariantHdrUid'));
+        $this->assertEquals('Variant A', self::at($response->data, 'name'));
         $this->assertRequestMethod('GET');
         $this->assertRequestPath('/variants/1');
     }
@@ -68,8 +68,8 @@ final class VariantsResourceTest extends AugurApiTestCase
 
         $response = $this->api->items->variants->create(['name' => 'New Variant']);
 
-        $this->assertEquals(3, $response->data['itemVariantHdrUid']);
-        $this->assertEquals('New Variant', $response->data['name']);
+        $this->assertEquals(3, self::at($response->data, 'itemVariantHdrUid'));
+        $this->assertEquals('New Variant', self::at($response->data, 'name'));
         $this->assertRequestMethod('POST');
         $this->assertRequestPath('/variants');
     }
@@ -80,7 +80,7 @@ final class VariantsResourceTest extends AugurApiTestCase
 
         $response = $this->api->items->variants->update(1, ['name' => 'Updated Variant']);
 
-        $this->assertEquals('Updated Variant', $response->data['name']);
+        $this->assertEquals('Updated Variant', self::at($response->data, 'name'));
         $this->assertRequestMethod('PUT');
         $this->assertRequestPath('/variants/1');
     }
@@ -91,7 +91,7 @@ final class VariantsResourceTest extends AugurApiTestCase
 
         $response = $this->api->items->variants->delete(1);
 
-        $this->assertTrue($response->data['success']);
+        $this->assertTrue(self::at($response->data, 'success'));
         $this->assertRequestMethod('DELETE');
         $this->assertRequestPath('/variants/1');
     }
@@ -108,8 +108,8 @@ final class VariantsResourceTest extends AugurApiTestCase
 
         $response = $this->api->items->variants->getDoc(1);
 
-        $this->assertEquals(1, $response->data['itemVariantHdrUid']);
-        $this->assertCount(2, $response->data['documents']);
+        $this->assertEquals(1, self::at($response->data, 'itemVariantHdrUid'));
+        $this->assertCount(2, self::arrayAt($response->data, 'documents'));
         $this->assertRequestMethod('GET');
         $this->assertRequestPath('/variants/1/doc');
     }
@@ -123,7 +123,7 @@ final class VariantsResourceTest extends AugurApiTestCase
 
         $response = $this->api->items->variants->listSimilar(1);
 
-        $this->assertCount(2, $response->data);
+        $this->assertCount(2, self::arrayAt($response->data));
         /** @var list<array<string, mixed>> $data */
         $data = $response->data;
         $this->assertEquals('SIM001', $data[0]['itemId']);
@@ -207,7 +207,7 @@ final class VariantsResourceTest extends AugurApiTestCase
 
         $response = $this->api->items->variants->listAttributes(1);
 
-        $this->assertCount(2, $response->data);
+        $this->assertCount(2, self::arrayAt($response->data));
         /** @var list<array<string, mixed>> $data */
         $data = $response->data;
         $this->assertEquals('Color', $data[0]['name']);
@@ -223,7 +223,7 @@ final class VariantsResourceTest extends AugurApiTestCase
 
         $response = $this->api->items->variants->listAttributes(1, ['limit' => 5]);
 
-        $this->assertCount(1, $response->data);
+        $this->assertCount(1, self::arrayAt($response->data));
     }
 
     public function testGetAttributes(): void
@@ -237,8 +237,8 @@ final class VariantsResourceTest extends AugurApiTestCase
         // Generated signature: getAttributes(int $itemVariantHdrUid, int $attributeUid, ...)
         $response = $this->api->items->variants->getAttributes(1, 10);
 
-        $this->assertEquals(10, $response->data['attributeUid']);
-        $this->assertEquals('Red', $response->data['value']);
+        $this->assertEquals(10, self::at($response->data, 'attributeUid'));
+        $this->assertEquals('Red', self::at($response->data, 'value'));
         $this->assertRequestMethod('GET');
         $this->assertRequestPath('/variants/1/attributes/10');
     }
@@ -249,7 +249,7 @@ final class VariantsResourceTest extends AugurApiTestCase
 
         $response = $this->api->items->variants->createAttributes(1, ['attributeUid' => 12, 'value' => 'Medium']);
 
-        $this->assertEquals(12, $response->data['attributeUid']);
+        $this->assertEquals(12, self::at($response->data, 'attributeUid'));
         $this->assertRequestMethod('POST');
         $this->assertRequestPath('/variants/1/attributes');
     }
@@ -261,7 +261,7 @@ final class VariantsResourceTest extends AugurApiTestCase
         // Generated signature: updateAttributes(int $itemVariantHdrUid, int $attributeUid, ...)
         $response = $this->api->items->variants->updateAttributes(1, 10, ['value' => 'Blue']);
 
-        $this->assertEquals('Blue', $response->data['value']);
+        $this->assertEquals('Blue', self::at($response->data, 'value'));
         $this->assertRequestMethod('PUT');
         $this->assertRequestPath('/variants/1/attributes/10');
     }
@@ -273,7 +273,7 @@ final class VariantsResourceTest extends AugurApiTestCase
         // Generated signature: deleteAttributes(int $itemVariantHdrUid, int $attributeUid)
         $response = $this->api->items->variants->deleteAttributes(1, 10);
 
-        $this->assertTrue($response->data['success']);
+        $this->assertTrue(self::at($response->data, 'success'));
         $this->assertRequestMethod('DELETE');
         $this->assertRequestPath('/variants/1/attributes/10');
     }

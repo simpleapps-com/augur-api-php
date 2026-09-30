@@ -20,8 +20,8 @@ final class ChatGptResourceTest extends AugurApiTestCase
             'question' => 'What is the capital of France?',
         ]);
 
-        $this->assertEquals('The capital of France is Paris.', $response->data['answer']);
-        $this->assertEquals('gpt-4', $response->data['model']);
+        $this->assertEquals('The capital of France is Paris.', self::at($response->data, 'answer'));
+        $this->assertEquals('gpt-4', self::at($response->data, 'model'));
         $this->assertRequestPath('/chat-gpt/ask');
         $this->assertRequestMethod('GET');
         $this->assertHasAuthHeader();
@@ -40,7 +40,7 @@ final class ChatGptResourceTest extends AugurApiTestCase
             'context' => 'Product document context here',
         ]);
 
-        $this->assertStringContainsString('$99.99', $response->data['answer']);
+        $this->assertStringContainsString('$99.99', self::stringAt($response->data, 'answer'));
     }
 
     public function testAskWithModel(): void
@@ -56,7 +56,7 @@ final class ChatGptResourceTest extends AugurApiTestCase
             'model' => 'gpt-3.5-turbo',
         ]);
 
-        $this->assertEquals('gpt-3.5-turbo', $response->data['model']);
+        $this->assertEquals('gpt-3.5-turbo', self::at($response->data, 'model'));
     }
 
     public function testAskWithMaxTokens(): void
@@ -72,6 +72,6 @@ final class ChatGptResourceTest extends AugurApiTestCase
             'maxTokens' => 100,
         ]);
 
-        $this->assertLessThanOrEqual(100, $response->data['tokens']);
+        $this->assertLessThanOrEqual(100, self::at($response->data, 'tokens'));
     }
 }

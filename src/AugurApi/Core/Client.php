@@ -294,34 +294,46 @@ final class Client
 
         if ($statusCode === 401 || $statusCode === 403) {
             throw new AuthenticationException(
-                $data['message'] ?? 'Authentication failed',
+                self::messageOf($data, 'Authentication failed'),
                 $statusCode,
             );
         }
 
         if ($statusCode === 429) {
             throw new RateLimitException(
-                $data['message'] ?? 'Rate limit exceeded',
+                self::messageOf($data, 'Rate limit exceeded'),
                 $statusCode,
             );
         }
 
         if ($statusCode === 400) {
+            $errors = $data['errors'] ?? [];
             throw new ValidationException(
-                $data['message'] ?? 'Validation failed',
+                self::messageOf($data, 'Validation failed'),
                 $statusCode,
-                $data['errors'] ?? [],
+                is_array($errors) ? $errors : [],
             );
         }
 
         if ($statusCode >= 400) {
             throw new AugurApiException(
-                $data['message'] ?? 'API request failed',
+                self::messageOf($data, 'API request failed'),
                 $statusCode,
             );
         }
 
         return $data;
+    }
+
+    /**
+     * Error message from the body when it is a string, else the default.
+     *
+     * @param array<string, mixed> $data
+     */
+    private static function messageOf(array $data, string $default): string
+    {
+        $message = $data['message'] ?? null;
+        return is_string($message) ? $message : $default;
     }
 
     private function isRetryableError(\Exception $e): bool

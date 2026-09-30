@@ -24,23 +24,60 @@ final class GeoCodesPostalCodesResource
      * GET /geo-codes-postal-codes
      *
      * Response data type: array
-     * Known fields: geoCodesPostalCodesUid, countryCode, postalCode, placeName, adminName1, adminCode1, adminName2, adminCode2, ... (18 total)
+     *   geoCodesPostalCodesUid: int
+     *   countryCode: string
+     *   postalCode: string
+     *   placeName: string
+     *   adminName1: string
+     *   adminCode1: string
+     *   adminName2: string|null
+     *   adminCode2: string|null
+     *   adminName3: string|null
+     *   adminCode3: string|null
+     *   latitude: float
+     *   longitude: float
+     *   accuracy: int|null
+     *   dateCreated: string
+     *   dateLastModified: string
+     *   updateCd: int
+     *   statusCd: int
+     *   processCd: int
      *
      * @param array<string, mixed> $params
-     * @return BaseResponse<array<string, mixed>>
+     * @return BaseResponse<list<array<string, mixed>>>
      */
     public function list(array $params = []): BaseResponse
     {
         $response = $this->client->get($this->baseUrl, '', $params);
 
-        return BaseResponse::fromArray($response, static fn ($data) => $data);
+        /** @var BaseResponse<list<array<string, mixed>>> $result */
+        $result = BaseResponse::fromArray($response, static fn (mixed $data): mixed => $data);
+
+        return $result;
     }
 
     /**
      * GET /geo-codes-postal-codes/{geoCodesPostalCodesUid}
      *
      * Response data type: object
-     * Known fields: geoCodesPostalCodesUid, countryCode, postalCode, placeName, adminName1, adminCode1, adminName2, adminCode2, ... (18 total)
+     *   geoCodesPostalCodesUid: int
+     *   countryCode: string
+     *   postalCode: string
+     *   placeName: string
+     *   adminName1: string
+     *   adminCode1: string
+     *   adminName2: string|null
+     *   adminCode2: string|null
+     *   adminName3: string|null
+     *   adminCode3: string|null
+     *   latitude: float
+     *   longitude: float
+     *   accuracy: int|null
+     *   dateCreated: string
+     *   dateLastModified: string
+     *   updateCd: int
+     *   statusCd: int
+     *   processCd: int
      *
      * @param array<string, mixed> $params
      * @return BaseResponse<array<string, mixed>>
@@ -54,6 +91,9 @@ final class GeoCodesPostalCodesResource
             ['geoCodesPostalCodesUid' => (string) $geoCodesPostalCodesUid],
         );
 
-        return BaseResponse::fromArray($response, static fn ($data) => $data);
+        /** @var BaseResponse<array<string, mixed>> $result */
+        $result = BaseResponse::fromArray($response, static fn (mixed $data): mixed => $data);
+
+        return $result;
     }
 }

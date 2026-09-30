@@ -24,23 +24,44 @@ final class SectionsResource
      * GET /sections
      *
      * Response data type: array
-     * Known fields: sectionsUid, customerId, sectionsId, sectionsName, sectionsDesc, dateCreated, dateLastModified, updateCd, ... (10 total)
+     *   sectionsUid: int
+     *   customerId: float
+     *   sectionsId: string
+     *   sectionsName: string
+     *   sectionsDesc: string
+     *   dateCreated: string
+     *   dateLastModified: string
+     *   updateCd: int
+     *   statusCd: int
+     *   processCd: int
      *
      * @param array<string, mixed> $params
-     * @return BaseResponse<array<string, mixed>>
+     * @return BaseResponse<list<array<string, mixed>>>
      */
     public function list(array $params = []): BaseResponse
     {
         $response = $this->client->get($this->baseUrl, '', $params);
 
-        return BaseResponse::fromArray($response, static fn ($data) => $data);
+        /** @var BaseResponse<list<array<string, mixed>>> $result */
+        $result = BaseResponse::fromArray($response, static fn (mixed $data): mixed => $data);
+
+        return $result;
     }
 
     /**
      * POST /sections
      *
      * Response data type: object
-     * Known fields: sectionsUid, customerId, sectionsId, sectionsName, sectionsDesc, dateCreated, dateLastModified, updateCd, ... (10 total)
+     *   sectionsUid: int
+     *   customerId: float
+     *   sectionsId: string
+     *   sectionsName: string
+     *   sectionsDesc: string
+     *   dateCreated: string
+     *   dateLastModified: string
+     *   updateCd: int
+     *   statusCd: int
+     *   processCd: int
      *
      * @param array<string, mixed> $data
      * @return BaseResponse<array<string, mixed>>
@@ -49,14 +70,26 @@ final class SectionsResource
     {
         $response = $this->client->post($this->baseUrl, '', $data);
 
-        return BaseResponse::fromArray($response, static fn ($data) => $data);
+        /** @var BaseResponse<array<string, mixed>> $result */
+        $result = BaseResponse::fromArray($response, static fn (mixed $data): mixed => $data);
+
+        return $result;
     }
 
     /**
      * DELETE /sections/{sectionsUid}
      *
      * Response data type: object
-     * Known fields: sectionsUid, customerId, sectionsId, sectionsName, sectionsDesc, dateCreated, dateLastModified, updateCd, ... (10 total)
+     *   sectionsUid: int
+     *   customerId: float
+     *   sectionsId: string
+     *   sectionsName: string
+     *   sectionsDesc: string
+     *   dateCreated: string
+     *   dateLastModified: string
+     *   updateCd: int
+     *   statusCd: int
+     *   processCd: int
      *
      * @return BaseResponse<array<string, mixed>>
      */
@@ -68,14 +101,26 @@ final class SectionsResource
             ['sectionsUid' => (string) $sectionsUid],
         );
 
-        return BaseResponse::fromArray($response, static fn ($data) => $data);
+        /** @var BaseResponse<array<string, mixed>> $result */
+        $result = BaseResponse::fromArray($response, static fn (mixed $data): mixed => $data);
+
+        return $result;
     }
 
     /**
      * GET /sections/{sectionsUid}
      *
      * Response data type: object
-     * Known fields: sectionsUid, customerId, sectionsId, sectionsName, sectionsDesc, dateCreated, dateLastModified, updateCd, ... (10 total)
+     *   sectionsUid: int
+     *   customerId: float
+     *   sectionsId: string
+     *   sectionsName: string
+     *   sectionsDesc: string
+     *   dateCreated: string
+     *   dateLastModified: string
+     *   updateCd: int
+     *   statusCd: int
+     *   processCd: int
      *
      * @param array<string, mixed> $params
      * @return BaseResponse<array<string, mixed>>
@@ -89,14 +134,26 @@ final class SectionsResource
             ['sectionsUid' => (string) $sectionsUid],
         );
 
-        return BaseResponse::fromArray($response, static fn ($data) => $data);
+        /** @var BaseResponse<array<string, mixed>> $result */
+        $result = BaseResponse::fromArray($response, static fn (mixed $data): mixed => $data);
+
+        return $result;
     }
 
     /**
      * PUT /sections/{sectionsUid}
      *
      * Response data type: object
-     * Known fields: sectionsUid, customerId, sectionsId, sectionsName, sectionsDesc, dateCreated, dateLastModified, updateCd, ... (10 total)
+     *   sectionsUid: int
+     *   customerId: float
+     *   sectionsId: string
+     *   sectionsName: string
+     *   sectionsDesc: string
+     *   dateCreated: string
+     *   dateLastModified: string
+     *   updateCd: int
+     *   statusCd: int
+     *   processCd: int
      *
      * @param array<string, mixed> $data
      * @return BaseResponse<array<string, mixed>>
@@ -110,14 +167,17 @@ final class SectionsResource
             ['sectionsUid' => (string) $sectionsUid],
         );
 
-        return BaseResponse::fromArray($response, static fn ($data) => $data);
+        /** @var BaseResponse<array<string, mixed>> $result */
+        $result = BaseResponse::fromArray($response, static fn (mixed $data): mixed => $data);
+
+        return $result;
     }
 
     /**
      * PUT /sections/{sectionsUid}/enable
      *
      * @param array<string, mixed> $data
-     * @return BaseResponse<array<string, mixed>>
+     * @return BaseResponse<mixed>
      */
     public function updateEnable(int $sectionsUid, array $data = []): BaseResponse
     {
@@ -128,6 +188,9 @@ final class SectionsResource
             ['sectionsUid' => (string) $sectionsUid],
         );
 
-        return BaseResponse::fromArray($response, static fn ($data) => $data);
+        /** @var BaseResponse<mixed> $result */
+        $result = BaseResponse::fromArray($response, static fn (mixed $data): mixed => $data);
+
+        return $result;
     }
 }

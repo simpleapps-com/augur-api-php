@@ -24,7 +24,7 @@ final class ContractsResource
      * GET /contracts/{jobNo}/attributes
      *
      * @param array<string, mixed> $params
-     * @return BaseResponse<array<string, mixed>>
+     * @return BaseResponse<mixed>
      */
     public function listAttributes(int $jobNo, array $params = []): BaseResponse
     {
@@ -35,14 +35,17 @@ final class ContractsResource
             ['jobNo' => (string) $jobNo],
         );
 
-        return BaseResponse::fromArray($response, static fn ($data) => $data);
+        /** @var BaseResponse<mixed> $result */
+        $result = BaseResponse::fromArray($response, static fn (mixed $data): mixed => $data);
+
+        return $result;
     }
 
     /**
      * GET /contracts/{jobNo}/facets
      *
      * @param array<string, mixed> $params
-     * @return BaseResponse<array<string, mixed>>
+     * @return BaseResponse<mixed>
      */
     public function listFacets(int $jobNo, array $params = []): BaseResponse
     {
@@ -53,14 +56,17 @@ final class ContractsResource
             ['jobNo' => (string) $jobNo],
         );
 
-        return BaseResponse::fromArray($response, static fn ($data) => $data);
+        /** @var BaseResponse<mixed> $result */
+        $result = BaseResponse::fromArray($response, static fn (mixed $data): mixed => $data);
+
+        return $result;
     }
 
     /**
      * GET /contracts/{jobNo}/items
      *
      * @param array<string, mixed> $params
-     * @return BaseResponse<array<string, mixed>>
+     * @return BaseResponse<mixed>
      */
     public function listItems(int $jobNo, array $params = []): BaseResponse
     {
@@ -71,6 +77,9 @@ final class ContractsResource
             ['jobNo' => (string) $jobNo],
         );
 
-        return BaseResponse::fromArray($response, static fn ($data) => $data);
+        /** @var BaseResponse<mixed> $result */
+        $result = BaseResponse::fromArray($response, static fn (mixed $data): mixed => $data);
+
+        return $result;
     }
 }

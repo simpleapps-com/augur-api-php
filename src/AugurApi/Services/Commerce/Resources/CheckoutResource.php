@@ -24,20 +24,23 @@ final class CheckoutResource
      * POST /checkout
      *
      * @param array<string, mixed> $data
-     * @return BaseResponse<array<string, mixed>>
+     * @return BaseResponse<mixed>
      */
     public function create(array $data = []): BaseResponse
     {
         $response = $this->client->post($this->baseUrl, '', $data);
 
-        return BaseResponse::fromArray($response, static fn ($data) => $data);
+        /** @var BaseResponse<mixed> $result */
+        $result = BaseResponse::fromArray($response, static fn (mixed $data): mixed => $data);
+
+        return $result;
     }
 
     /**
      * GET /checkout/{checkoutUid}
      *
      * @param array<string, mixed> $params
-     * @return BaseResponse<array<string, mixed>>
+     * @return BaseResponse<mixed>
      */
     public function get(int $checkoutUid, array $params = []): BaseResponse
     {
@@ -48,14 +51,17 @@ final class CheckoutResource
             ['checkoutUid' => (string) $checkoutUid],
         );
 
-        return BaseResponse::fromArray($response, static fn ($data) => $data);
+        /** @var BaseResponse<mixed> $result */
+        $result = BaseResponse::fromArray($response, static fn (mixed $data): mixed => $data);
+
+        return $result;
     }
 
     /**
      * PUT /checkout/{checkoutUid}/activate
      *
      * @param array<string, mixed> $data
-     * @return BaseResponse<array<string, mixed>>
+     * @return BaseResponse<mixed>
      */
     public function updateActivate(int $checkoutUid, array $data = []): BaseResponse
     {
@@ -66,14 +72,17 @@ final class CheckoutResource
             ['checkoutUid' => (string) $checkoutUid],
         );
 
-        return BaseResponse::fromArray($response, static fn ($data) => $data);
+        /** @var BaseResponse<mixed> $result */
+        $result = BaseResponse::fromArray($response, static fn (mixed $data): mixed => $data);
+
+        return $result;
     }
 
     /**
      * GET /checkout/{checkoutUid}/doc
      *
      * @param array<string, mixed> $params
-     * @return BaseResponse<array<string, mixed>>
+     * @return BaseResponse<mixed>
      */
     public function listDoc(int $checkoutUid, array $params = []): BaseResponse
     {
@@ -84,14 +93,17 @@ final class CheckoutResource
             ['checkoutUid' => (string) $checkoutUid],
         );
 
-        return BaseResponse::fromArray($response, static fn ($data) => $data);
+        /** @var BaseResponse<mixed> $result */
+        $result = BaseResponse::fromArray($response, static fn (mixed $data): mixed => $data);
+
+        return $result;
     }
 
     /**
      * Alias for listDoc — GET /checkout/{checkoutUid}/doc
      *
      * @param array<string, mixed> $params
-     * @return BaseResponse<array<string, mixed>>
+     * @return BaseResponse<mixed>
      */
     public function getDoc(int $checkoutUid, array $params = []): BaseResponse
     {
@@ -102,7 +114,7 @@ final class CheckoutResource
      * POST /checkout/{checkoutUid}/prophet21-hdr
      *
      * @param array<string, mixed> $data
-     * @return BaseResponse<array<string, mixed>>
+     * @return BaseResponse<mixed>
      */
     public function createProphet21Hdr(int $checkoutUid, array $data = []): BaseResponse
     {
@@ -113,14 +125,17 @@ final class CheckoutResource
             ['checkoutUid' => (string) $checkoutUid],
         );
 
-        return BaseResponse::fromArray($response, static fn ($data) => $data);
+        /** @var BaseResponse<mixed> $result */
+        $result = BaseResponse::fromArray($response, static fn (mixed $data): mixed => $data);
+
+        return $result;
     }
 
     /**
      * POST /checkout/{checkoutUid}/prophet21-hdr/{prophet21HdrUid}/prophet21-line
      *
      * @param array<string, mixed> $data
-     * @return BaseResponse<array<string, mixed>>
+     * @return BaseResponse<mixed>
      */
     public function createProphet21HdrProphet21Line(int $checkoutUid, int $prophet21HdrUid, array $data = []): BaseResponse
     {
@@ -131,14 +146,17 @@ final class CheckoutResource
             ['checkoutUid' => (string) $checkoutUid, 'prophet21HdrUid' => (string) $prophet21HdrUid],
         );
 
-        return BaseResponse::fromArray($response, static fn ($data) => $data);
+        /** @var BaseResponse<mixed> $result */
+        $result = BaseResponse::fromArray($response, static fn (mixed $data): mixed => $data);
+
+        return $result;
     }
 
     /**
      * PUT /checkout/{checkoutUid}/validate
      *
      * @param array<string, mixed> $data
-     * @return BaseResponse<array<string, mixed>>
+     * @return BaseResponse<mixed>
      */
     public function updateValidate(int $checkoutUid, array $data = []): BaseResponse
     {
@@ -149,6 +167,9 @@ final class CheckoutResource
             ['checkoutUid' => (string) $checkoutUid],
         );
 
-        return BaseResponse::fromArray($response, static fn ($data) => $data);
+        /** @var BaseResponse<mixed> $result */
+        $result = BaseResponse::fromArray($response, static fn (mixed $data): mixed => $data);
+
+        return $result;
     }
 }

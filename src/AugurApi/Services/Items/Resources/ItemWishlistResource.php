@@ -24,7 +24,7 @@ final class ItemWishlistResource
      * GET /item-wishlist/{usersId}
      *
      * @param array<string, mixed> $params
-     * @return BaseResponse<array<string, mixed>>
+     * @return BaseResponse<mixed>
      */
     public function get(int $usersId, array $params = []): BaseResponse
     {
@@ -35,14 +35,17 @@ final class ItemWishlistResource
             ['usersId' => (string) $usersId],
         );
 
-        return BaseResponse::fromArray($response, static fn ($data) => $data);
+        /** @var BaseResponse<mixed> $result */
+        $result = BaseResponse::fromArray($response, static fn (mixed $data): mixed => $data);
+
+        return $result;
     }
 
     /**
      * POST /item-wishlist/{usersId}
      *
-     * @param array<string, mixed> $data
-     * @return BaseResponse<array<string, mixed>>
+     * @param array{name?: string, description?: string} $data
+     * @return BaseResponse<mixed>
      */
     public function create(int $usersId, array $data = []): BaseResponse
     {
@@ -53,13 +56,16 @@ final class ItemWishlistResource
             ['usersId' => (string) $usersId],
         );
 
-        return BaseResponse::fromArray($response, static fn ($data) => $data);
+        /** @var BaseResponse<mixed> $result */
+        $result = BaseResponse::fromArray($response, static fn (mixed $data): mixed => $data);
+
+        return $result;
     }
 
     /**
      * DELETE /item-wishlist/{usersId}/hdr/{itemWishlistHdrUid}
      *
-     * @return BaseResponse<array<string, mixed>>
+     * @return BaseResponse<mixed>
      */
     public function deleteHdr(int $usersId, int $itemWishlistHdrUid): BaseResponse
     {
@@ -69,14 +75,17 @@ final class ItemWishlistResource
             ['usersId' => (string) $usersId, 'itemWishlistHdrUid' => (string) $itemWishlistHdrUid],
         );
 
-        return BaseResponse::fromArray($response, static fn ($data) => $data);
+        /** @var BaseResponse<mixed> $result */
+        $result = BaseResponse::fromArray($response, static fn (mixed $data): mixed => $data);
+
+        return $result;
     }
 
     /**
      * GET /item-wishlist/{usersId}/hdr/{itemWishlistHdrUid}
      *
      * @param array<string, mixed> $params
-     * @return BaseResponse<array<string, mixed>>
+     * @return BaseResponse<mixed>
      */
     public function getHdr(int $usersId, int $itemWishlistHdrUid, array $params = []): BaseResponse
     {
@@ -87,14 +96,17 @@ final class ItemWishlistResource
             ['usersId' => (string) $usersId, 'itemWishlistHdrUid' => (string) $itemWishlistHdrUid],
         );
 
-        return BaseResponse::fromArray($response, static fn ($data) => $data);
+        /** @var BaseResponse<mixed> $result */
+        $result = BaseResponse::fromArray($response, static fn (mixed $data): mixed => $data);
+
+        return $result;
     }
 
     /**
      * POST /item-wishlist/{usersId}/hdr/{itemWishlistHdrUid}
      *
-     * @param array<string, mixed> $data
-     * @return BaseResponse<array<string, mixed>>
+     * @param list<array{inv_mast_uid: int, quantity?: int}> $data
+     * @return BaseResponse<mixed>
      */
     public function createHdr(int $usersId, int $itemWishlistHdrUid, array $data = []): BaseResponse
     {
@@ -105,14 +117,17 @@ final class ItemWishlistResource
             ['usersId' => (string) $usersId, 'itemWishlistHdrUid' => (string) $itemWishlistHdrUid],
         );
 
-        return BaseResponse::fromArray($response, static fn ($data) => $data);
+        /** @var BaseResponse<mixed> $result */
+        $result = BaseResponse::fromArray($response, static fn (mixed $data): mixed => $data);
+
+        return $result;
     }
 
     /**
      * PUT /item-wishlist/{usersId}/hdr/{itemWishlistHdrUid}
      *
      * @param array<string, mixed> $data
-     * @return BaseResponse<array<string, mixed>>
+     * @return BaseResponse<mixed>
      */
     public function updateHdr(int $usersId, int $itemWishlistHdrUid, array $data = []): BaseResponse
     {
@@ -123,13 +138,16 @@ final class ItemWishlistResource
             ['usersId' => (string) $usersId, 'itemWishlistHdrUid' => (string) $itemWishlistHdrUid],
         );
 
-        return BaseResponse::fromArray($response, static fn ($data) => $data);
+        /** @var BaseResponse<mixed> $result */
+        $result = BaseResponse::fromArray($response, static fn (mixed $data): mixed => $data);
+
+        return $result;
     }
 
     /**
      * DELETE /item-wishlist/{usersId}/hdr/{itemWishlistHdrUid}/line/{itemWishlistLineUid}
      *
-     * @return BaseResponse<array<string, mixed>>
+     * @return BaseResponse<mixed>
      */
     public function deleteHdrLine(int $usersId, int $itemWishlistHdrUid, int $itemWishlistLineUid): BaseResponse
     {
@@ -139,6 +157,9 @@ final class ItemWishlistResource
             ['usersId' => (string) $usersId, 'itemWishlistHdrUid' => (string) $itemWishlistHdrUid, 'itemWishlistLineUid' => (string) $itemWishlistLineUid],
         );
 
-        return BaseResponse::fromArray($response, static fn ($data) => $data);
+        /** @var BaseResponse<mixed> $result */
+        $result = BaseResponse::fromArray($response, static fn (mixed $data): mixed => $data);
+
+        return $result;
     }
 }

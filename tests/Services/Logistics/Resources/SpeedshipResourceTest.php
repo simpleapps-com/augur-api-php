@@ -24,8 +24,8 @@ final class SpeedshipResourceTest extends AugurApiTestCase
             'fromCountryCode' => 'US',
         ]);
 
-        $this->assertCount(2, $response->data['freightQuotes']);
-        $this->assertEquals('ABF', $response->data['freightQuotes'][0]['carrier']);
+        $this->assertCount(2, self::arrayAt($response->data, 'freightQuotes'));
+        $this->assertEquals('ABF', self::at($response->data, 'freightQuotes', 0, 'carrier'));
         $this->assertRequestPath('/speedship/freight');
         $this->assertRequestMethod('GET');
         $this->assertHasAuthHeader();

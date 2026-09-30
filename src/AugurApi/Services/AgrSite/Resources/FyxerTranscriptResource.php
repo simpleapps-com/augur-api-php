@@ -24,23 +24,46 @@ final class FyxerTranscriptResource
      * GET /fyxer-transcript
      *
      * Response data type: array
-     * Known fields: fyxerTranscriptHdrUid, link, summary, transcript, dateRecorded, dateCreated, dateLastModified, updateCd, ... (11 total)
+     *   fyxerTranscriptHdrUid: int
+     *   link: string
+     *   summary: string|null
+     *   transcript: string|null
+     *   dateRecorded: string
+     *   dateCreated: string
+     *   dateLastModified: string
+     *   updateCd: int
+     *   statusCd: int
+     *   processCd: int
+     *   title: string|null
      *
      * @param array<string, mixed> $params
-     * @return BaseResponse<array<string, mixed>>
+     * @return BaseResponse<list<array<string, mixed>>>
      */
     public function list(array $params = []): BaseResponse
     {
         $response = $this->client->get($this->baseUrl, '', $params);
 
-        return BaseResponse::fromArray($response, static fn ($data) => $data);
+        /** @var BaseResponse<list<array<string, mixed>>> $result */
+        $result = BaseResponse::fromArray($response, static fn (mixed $data): mixed => $data);
+
+        return $result;
     }
 
     /**
      * POST /fyxer-transcript
      *
      * Response data type: object
-     * Known fields: fyxerTranscriptHdrUid, link, summary, transcript, dateRecorded, dateCreated, dateLastModified, updateCd, ... (11 total)
+     *   fyxerTranscriptHdrUid: int
+     *   link: string
+     *   summary: string|null
+     *   transcript: string|null
+     *   dateRecorded: string
+     *   dateCreated: string
+     *   dateLastModified: string
+     *   updateCd: int
+     *   statusCd: int
+     *   processCd: int
+     *   title: string|null
      *
      * @param array<string, mixed> $data
      * @return BaseResponse<array<string, mixed>>
@@ -49,13 +72,16 @@ final class FyxerTranscriptResource
     {
         $response = $this->client->post($this->baseUrl, '', $data);
 
-        return BaseResponse::fromArray($response, static fn ($data) => $data);
+        /** @var BaseResponse<array<string, mixed>> $result */
+        $result = BaseResponse::fromArray($response, static fn (mixed $data): mixed => $data);
+
+        return $result;
     }
 
     /**
      * DELETE /fyxer-transcript/{fyxerTranscriptHdrUid}
      *
-     * @return BaseResponse<array<string, mixed>>
+     * @return BaseResponse<mixed>
      */
     public function delete(int $fyxerTranscriptHdrUid): BaseResponse
     {
@@ -65,14 +91,27 @@ final class FyxerTranscriptResource
             ['fyxerTranscriptHdrUid' => (string) $fyxerTranscriptHdrUid],
         );
 
-        return BaseResponse::fromArray($response, static fn ($data) => $data);
+        /** @var BaseResponse<mixed> $result */
+        $result = BaseResponse::fromArray($response, static fn (mixed $data): mixed => $data);
+
+        return $result;
     }
 
     /**
      * GET /fyxer-transcript/{fyxerTranscriptHdrUid}
      *
      * Response data type: object
-     * Known fields: fyxerTranscriptHdrUid, link, summary, transcript, dateRecorded, dateCreated, dateLastModified, updateCd, ... (11 total)
+     *   fyxerTranscriptHdrUid: int
+     *   link: string
+     *   summary: string|null
+     *   transcript: string|null
+     *   dateRecorded: string
+     *   dateCreated: string
+     *   dateLastModified: string
+     *   updateCd: int
+     *   statusCd: int
+     *   processCd: int
+     *   title: string|null
      *
      * @param array<string, mixed> $params
      * @return BaseResponse<array<string, mixed>>
@@ -86,14 +125,27 @@ final class FyxerTranscriptResource
             ['fyxerTranscriptHdrUid' => (string) $fyxerTranscriptHdrUid],
         );
 
-        return BaseResponse::fromArray($response, static fn ($data) => $data);
+        /** @var BaseResponse<array<string, mixed>> $result */
+        $result = BaseResponse::fromArray($response, static fn (mixed $data): mixed => $data);
+
+        return $result;
     }
 
     /**
      * PUT /fyxer-transcript/{fyxerTranscriptHdrUid}
      *
      * Response data type: object
-     * Known fields: fyxerTranscriptHdrUid, link, summary, transcript, dateRecorded, dateCreated, dateLastModified, updateCd, ... (11 total)
+     *   fyxerTranscriptHdrUid: int
+     *   link: string
+     *   summary: string|null
+     *   transcript: string|null
+     *   dateRecorded: string
+     *   dateCreated: string
+     *   dateLastModified: string
+     *   updateCd: int
+     *   statusCd: int
+     *   processCd: int
+     *   title: string|null
      *
      * @param array<string, mixed> $data
      * @return BaseResponse<array<string, mixed>>
@@ -107,6 +159,9 @@ final class FyxerTranscriptResource
             ['fyxerTranscriptHdrUid' => (string) $fyxerTranscriptHdrUid],
         );
 
-        return BaseResponse::fromArray($response, static fn ($data) => $data);
+        /** @var BaseResponse<array<string, mixed>> $result */
+        $result = BaseResponse::fromArray($response, static fn (mixed $data): mixed => $data);
+
+        return $result;
     }
 }

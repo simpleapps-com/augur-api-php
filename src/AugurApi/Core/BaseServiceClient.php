@@ -28,7 +28,10 @@ abstract class BaseServiceClient
     public function healthCheck(): BaseResponse
     {
         $response = $this->client->get($this->baseUrl, '/health-check');
-        return BaseResponse::fromArray($response, static fn ($d) => $d);
+        /** @var BaseResponse<array{siteHash: string, siteId: string}> $result */
+        $result = BaseResponse::fromArray($response, static fn (mixed $d): mixed => $d);
+
+        return $result;
     }
 
     /**
@@ -39,7 +42,10 @@ abstract class BaseServiceClient
     public function ping(): BaseResponse
     {
         $response = $this->client->get($this->baseUrl, '/ping');
-        return BaseResponse::fromArray($response, static fn ($d) => $d);
+        /** @var BaseResponse<string> $result */
+        $result = BaseResponse::fromArray($response, static fn (mixed $d): mixed => $d);
+
+        return $result;
     }
 
     /**
@@ -58,6 +64,19 @@ abstract class BaseServiceClient
     public function whoami(): BaseResponse
     {
         $response = $this->client->get($this->baseUrl, '/whoami');
-        return BaseResponse::fromArray($response, static fn ($d) => $d);
+        /**
+         * @var BaseResponse<array{
+         *     email: string,
+         *     name: string,
+         *     scope: mixed,
+         *     siteId: string,
+         *     tokenType: string,
+         *     userId: int,
+         *     username: string
+         * }> $result
+         */
+        $result = BaseResponse::fromArray($response, static fn (mixed $d): mixed => $d);
+
+        return $result;
     }
 }

@@ -23,7 +23,7 @@ final class InvMastUdResourceTest extends AugurApiTestCase
 
         $response = $this->api->items->invMastUd->list();
 
-        $this->assertCount(2, $response->data);
+        $this->assertCount(2, self::arrayAt($response->data));
         /** @var list<array<string, mixed>> $data */
         $data = $response->data;
         $this->assertEquals(1, $data[0]['invMastUdUid']);
@@ -41,7 +41,7 @@ final class InvMastUdResourceTest extends AugurApiTestCase
 
         $response = $this->api->items->invMastUd->list(['limit' => 10, 'offset' => 0]);
 
-        $this->assertCount(1, $response->data);
+        $this->assertCount(1, self::arrayAt($response->data));
         $this->assertEquals(50, $response->total);
         $this->assertHasSiteIdHeader();
         $this->assertHasAuthHeader();

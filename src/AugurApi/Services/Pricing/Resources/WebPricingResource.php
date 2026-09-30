@@ -24,39 +24,87 @@ final class WebPricingResource
      * GET /web-pricing
      *
      * Response data type: array
-     * Known fields: webPricingUid, name, description, dateCreated, dateLastModified, statusCd, updateCd, processCd, ... (15 total)
+     *   webPricingUid: int
+     *   name: string
+     *   description: string|null
+     *   dateCreated: string
+     *   dateLastModified: string
+     *   statusCd: int
+     *   updateCd: int
+     *   processCd: int
+     *   sequenceNo: int
+     *   customerMode: string
+     *   minQty: int|null
+     *   maxQty: int|null
+     *   discountPct: float
+     *   effectiveDate: string|null
+     *   expirationDate: string|null
      *
      * @param array<string, mixed> $params
-     * @return BaseResponse<array<string, mixed>>
+     * @return BaseResponse<list<array<string, mixed>>>
      */
     public function list(array $params = []): BaseResponse
     {
         $response = $this->client->get($this->baseUrl, '', $params);
 
-        return BaseResponse::fromArray($response, static fn ($data) => $data);
+        /** @var BaseResponse<list<array<string, mixed>>> $result */
+        $result = BaseResponse::fromArray($response, static fn (mixed $data): mixed => $data);
+
+        return $result;
     }
 
     /**
      * POST /web-pricing
      *
      * Response data type: object
-     * Known fields: webPricingUid, name, description, dateCreated, dateLastModified, statusCd, updateCd, processCd, ... (15 total)
+     *   webPricingUid: int
+     *   name: string
+     *   description: string|null
+     *   dateCreated: string
+     *   dateLastModified: string
+     *   statusCd: int
+     *   updateCd: int
+     *   processCd: int
+     *   sequenceNo: int
+     *   customerMode: string
+     *   minQty: int|null
+     *   maxQty: int|null
+     *   discountPct: float
+     *   effectiveDate: string|null
+     *   expirationDate: string|null
      *
-     * @param array<string, mixed> $data
+     * @param array{name: string, description?: string|null, discountPct: float, sequenceNo?: int, customerMode?: 'NONE'|'ALL'|'ONLY'|'EXCEPT', minQty?: int|null, maxQty?: int|null, effectiveDate?: string|null, expirationDate?: string|null} $data
      * @return BaseResponse<array<string, mixed>>
      */
-    public function create(array $data = []): BaseResponse
+    public function create(array $data): BaseResponse
     {
         $response = $this->client->post($this->baseUrl, '', $data);
 
-        return BaseResponse::fromArray($response, static fn ($data) => $data);
+        /** @var BaseResponse<array<string, mixed>> $result */
+        $result = BaseResponse::fromArray($response, static fn (mixed $data): mixed => $data);
+
+        return $result;
     }
 
     /**
      * DELETE /web-pricing/{webPricingUid}
      *
      * Response data type: object
-     * Known fields: webPricingUid, name, description, dateCreated, dateLastModified, statusCd, updateCd, processCd, ... (15 total)
+     *   webPricingUid: int
+     *   name: string
+     *   description: string|null
+     *   dateCreated: string
+     *   dateLastModified: string
+     *   statusCd: int
+     *   updateCd: int
+     *   processCd: int
+     *   sequenceNo: int
+     *   customerMode: string
+     *   minQty: int|null
+     *   maxQty: int|null
+     *   discountPct: float
+     *   effectiveDate: string|null
+     *   expirationDate: string|null
      *
      * @return BaseResponse<array<string, mixed>>
      */
@@ -68,14 +116,31 @@ final class WebPricingResource
             ['webPricingUid' => (string) $webPricingUid],
         );
 
-        return BaseResponse::fromArray($response, static fn ($data) => $data);
+        /** @var BaseResponse<array<string, mixed>> $result */
+        $result = BaseResponse::fromArray($response, static fn (mixed $data): mixed => $data);
+
+        return $result;
     }
 
     /**
      * GET /web-pricing/{webPricingUid}
      *
      * Response data type: object
-     * Known fields: webPricingUid, name, description, dateCreated, dateLastModified, statusCd, updateCd, processCd, ... (15 total)
+     *   webPricingUid: int
+     *   name: string
+     *   description: string|null
+     *   dateCreated: string
+     *   dateLastModified: string
+     *   statusCd: int
+     *   updateCd: int
+     *   processCd: int
+     *   sequenceNo: int
+     *   customerMode: string
+     *   minQty: int|null
+     *   maxQty: int|null
+     *   discountPct: float
+     *   effectiveDate: string|null
+     *   expirationDate: string|null
      *
      * @param array<string, mixed> $params
      * @return BaseResponse<array<string, mixed>>
@@ -89,16 +154,33 @@ final class WebPricingResource
             ['webPricingUid' => (string) $webPricingUid],
         );
 
-        return BaseResponse::fromArray($response, static fn ($data) => $data);
+        /** @var BaseResponse<array<string, mixed>> $result */
+        $result = BaseResponse::fromArray($response, static fn (mixed $data): mixed => $data);
+
+        return $result;
     }
 
     /**
      * PUT /web-pricing/{webPricingUid}
      *
      * Response data type: object
-     * Known fields: webPricingUid, name, description, dateCreated, dateLastModified, statusCd, updateCd, processCd, ... (15 total)
+     *   webPricingUid: int
+     *   name: string
+     *   description: string|null
+     *   dateCreated: string
+     *   dateLastModified: string
+     *   statusCd: int
+     *   updateCd: int
+     *   processCd: int
+     *   sequenceNo: int
+     *   customerMode: string
+     *   minQty: int|null
+     *   maxQty: int|null
+     *   discountPct: float
+     *   effectiveDate: string|null
+     *   expirationDate: string|null
      *
-     * @param array<string, mixed> $data
+     * @param array{name?: string, description?: string|null, discountPct?: float, sequenceNo?: int, customerMode?: 'NONE'|'ALL'|'ONLY'|'EXCEPT', minQty?: int, maxQty?: int, effectiveDate?: string, expirationDate?: string, statusCd?: 704|705|700} $data
      * @return BaseResponse<array<string, mixed>>
      */
     public function update(int $webPricingUid, array $data = []): BaseResponse
@@ -110,17 +192,27 @@ final class WebPricingResource
             ['webPricingUid' => (string) $webPricingUid],
         );
 
-        return BaseResponse::fromArray($response, static fn ($data) => $data);
+        /** @var BaseResponse<array<string, mixed>> $result */
+        $result = BaseResponse::fromArray($response, static fn (mixed $data): mixed => $data);
+
+        return $result;
     }
 
     /**
      * GET /web-pricing/{webPricingUid}/customers
      *
      * Response data type: array
-     * Known fields: webPricingXCustomerUid, webPricingUid, customerId, dateCreated, dateLastModified, statusCd, updateCd, processCd
+     *   webPricingXCustomerUid: int
+     *   webPricingUid: int
+     *   customerId: float
+     *   dateCreated: string
+     *   dateLastModified: string
+     *   statusCd: int
+     *   updateCd: int
+     *   processCd: int
      *
      * @param array<string, mixed> $params
-     * @return BaseResponse<array<string, mixed>>
+     * @return BaseResponse<list<array<string, mixed>>>
      */
     public function listCustomers(int $webPricingUid, array $params = []): BaseResponse
     {
@@ -131,19 +223,29 @@ final class WebPricingResource
             ['webPricingUid' => (string) $webPricingUid],
         );
 
-        return BaseResponse::fromArray($response, static fn ($data) => $data);
+        /** @var BaseResponse<list<array<string, mixed>>> $result */
+        $result = BaseResponse::fromArray($response, static fn (mixed $data): mixed => $data);
+
+        return $result;
     }
 
     /**
      * POST /web-pricing/{webPricingUid}/customers
      *
      * Response data type: object
-     * Known fields: webPricingXCustomerUid, webPricingUid, customerId, dateCreated, dateLastModified, statusCd, updateCd, processCd
+     *   webPricingXCustomerUid: int
+     *   webPricingUid: int
+     *   customerId: float
+     *   dateCreated: string
+     *   dateLastModified: string
+     *   statusCd: int
+     *   updateCd: int
+     *   processCd: int
      *
-     * @param array<string, mixed> $data
+     * @param array{customerId: int} $data
      * @return BaseResponse<array<string, mixed>>
      */
-    public function createCustomers(int $webPricingUid, array $data = []): BaseResponse
+    public function createCustomers(int $webPricingUid, array $data): BaseResponse
     {
         $response = $this->client->post(
             $this->baseUrl,
@@ -152,14 +254,24 @@ final class WebPricingResource
             ['webPricingUid' => (string) $webPricingUid],
         );
 
-        return BaseResponse::fromArray($response, static fn ($data) => $data);
+        /** @var BaseResponse<array<string, mixed>> $result */
+        $result = BaseResponse::fromArray($response, static fn (mixed $data): mixed => $data);
+
+        return $result;
     }
 
     /**
      * DELETE /web-pricing/{webPricingUid}/customers/{customerId}
      *
      * Response data type: object
-     * Known fields: webPricingXCustomerUid, webPricingUid, customerId, dateCreated, dateLastModified, statusCd, updateCd, processCd
+     *   webPricingXCustomerUid: int
+     *   webPricingUid: int
+     *   customerId: float
+     *   dateCreated: string
+     *   dateLastModified: string
+     *   statusCd: int
+     *   updateCd: int
+     *   processCd: int
      *
      * @return BaseResponse<array<string, mixed>>
      */
@@ -171,14 +283,24 @@ final class WebPricingResource
             ['webPricingUid' => (string) $webPricingUid, 'customerId' => (string) $customerId],
         );
 
-        return BaseResponse::fromArray($response, static fn ($data) => $data);
+        /** @var BaseResponse<array<string, mixed>> $result */
+        $result = BaseResponse::fromArray($response, static fn (mixed $data): mixed => $data);
+
+        return $result;
     }
 
     /**
      * GET /web-pricing/{webPricingUid}/customers/{customerId}
      *
      * Response data type: object
-     * Known fields: webPricingXCustomerUid, webPricingUid, customerId, dateCreated, dateLastModified, statusCd, updateCd, processCd
+     *   webPricingXCustomerUid: int
+     *   webPricingUid: int
+     *   customerId: float
+     *   dateCreated: string
+     *   dateLastModified: string
+     *   statusCd: int
+     *   updateCd: int
+     *   processCd: int
      *
      * @param array<string, mixed> $params
      * @return BaseResponse<array<string, mixed>>
@@ -192,16 +314,26 @@ final class WebPricingResource
             ['webPricingUid' => (string) $webPricingUid, 'customerId' => (string) $customerId],
         );
 
-        return BaseResponse::fromArray($response, static fn ($data) => $data);
+        /** @var BaseResponse<array<string, mixed>> $result */
+        $result = BaseResponse::fromArray($response, static fn (mixed $data): mixed => $data);
+
+        return $result;
     }
 
     /**
      * PUT /web-pricing/{webPricingUid}/customers/{customerId}
      *
      * Response data type: object
-     * Known fields: webPricingXCustomerUid, webPricingUid, customerId, dateCreated, dateLastModified, statusCd, updateCd, processCd
+     *   webPricingXCustomerUid: int
+     *   webPricingUid: int
+     *   customerId: float
+     *   dateCreated: string
+     *   dateLastModified: string
+     *   statusCd: int
+     *   updateCd: int
+     *   processCd: int
      *
-     * @param array<string, mixed> $data
+     * @param array{statusCd?: 704|705|700} $data
      * @return BaseResponse<array<string, mixed>>
      */
     public function updateCustomers(int $webPricingUid, int $customerId, array $data = []): BaseResponse
@@ -213,6 +345,9 @@ final class WebPricingResource
             ['webPricingUid' => (string) $webPricingUid, 'customerId' => (string) $customerId],
         );
 
-        return BaseResponse::fromArray($response, static fn ($data) => $data);
+        /** @var BaseResponse<array<string, mixed>> $result */
+        $result = BaseResponse::fromArray($response, static fn (mixed $data): mixed => $data);
+
+        return $result;
     }
 }

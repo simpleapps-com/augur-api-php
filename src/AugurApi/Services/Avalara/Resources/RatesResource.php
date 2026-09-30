@@ -23,13 +23,18 @@ final class RatesResource
     /**
      * POST /rates
      *
-     * @param array<string, mixed> $data
-     * @return BaseResponse<array<string, mixed>>
+     * Response data type: number
+     *
+     * @param array{address: array{line_1: string, line_2: string, line_3: string, city: string, region: string, postal_code: string, country_code: string}, items: list<array{amount: float, quantity: float, item_code: string, tax_code: string, unit_price?: float}>} $data
+     * @return BaseResponse<float>
      */
-    public function create(array $data = []): BaseResponse
+    public function create(array $data): BaseResponse
     {
         $response = $this->client->post($this->baseUrl, '', $data);
 
-        return BaseResponse::fromArray($response, static fn ($data) => $data);
+        /** @var BaseResponse<float> $result */
+        $result = BaseResponse::fromArray($response, static fn (mixed $data): mixed => $data);
+
+        return $result;
     }
 }

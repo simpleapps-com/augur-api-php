@@ -24,7 +24,32 @@ final class ItemCategoryResource
      * GET /item-category/{itemCategoryUid}
      *
      * Response data type: object
-     * Known fields: itemCategoryUid, itemCategoryId, itemCategoryDesc, article, boxFolderId, masterCategoryFlag, parentCategoryFlag, displayOnWebFlag, ... (26 total)
+     *   itemCategoryUid: int
+     *   itemCategoryId: string
+     *   itemCategoryDesc: string
+     *   article: string|null
+     *   boxFolderId: string|null
+     *   masterCategoryFlag: string
+     *   parentCategoryFlag: string
+     *   displayOnWebFlag: string
+     *   deleteFlag: string
+     *   customerApproval: string|null
+     *   dateLastModified: string
+     *   dateLastChecked: string
+     *   article2: string|null
+     *   article3: string|null
+     *   article4: string|null
+     *   article5: string|null
+     *   sampleItemId: string|null
+     *   metaDesc: string|null
+     *   title: string|null
+     *   updateCd: int
+     *   subCategoryImageFile: string|null
+     *   lastMaintainedBy: string
+     *   dateCreated: string
+     *   createdBy: string
+     *   catalogPage: string|null
+     *   displayMasterProductFlag: string
      *
      * @param array<string, mixed> $params
      * @return BaseResponse<array<string, mixed>>
@@ -38,6 +63,9 @@ final class ItemCategoryResource
             ['itemCategoryUid' => (string) $itemCategoryUid],
         );
 
-        return BaseResponse::fromArray($response, static fn ($data) => $data);
+        /** @var BaseResponse<array<string, mixed>> $result */
+        $result = BaseResponse::fromArray($response, static fn (mixed $data): mixed => $data);
+
+        return $result;
     }
 }

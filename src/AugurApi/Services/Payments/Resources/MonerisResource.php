@@ -24,25 +24,31 @@ final class MonerisResource
      * GET /moneris/pre-auth
      *
      * @param array<string, mixed> $params
-     * @return BaseResponse<array<string, mixed>>
+     * @return BaseResponse<mixed>
      */
     public function listPreAuth(array $params = []): BaseResponse
     {
         $response = $this->client->get($this->baseUrl, '/pre-auth', $params);
 
-        return BaseResponse::fromArray($response, static fn ($data) => $data);
+        /** @var BaseResponse<mixed> $result */
+        $result = BaseResponse::fromArray($response, static fn (mixed $data): mixed => $data);
+
+        return $result;
     }
 
     /**
      * GET /moneris/pre-auth-complete
      *
      * @param array<string, mixed> $params
-     * @return BaseResponse<array<string, mixed>>
+     * @return BaseResponse<mixed>
      */
     public function listPreAuthComplete(array $params = []): BaseResponse
     {
         $response = $this->client->get($this->baseUrl, '/pre-auth-complete', $params);
 
-        return BaseResponse::fromArray($response, static fn ($data) => $data);
+        /** @var BaseResponse<mixed> $result */
+        $result = BaseResponse::fromArray($response, static fn (mixed $data): mixed => $data);
+
+        return $result;
     }
 }

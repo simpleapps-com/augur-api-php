@@ -23,8 +23,8 @@ final class DatafilesResourceTest extends AugurApiTestCase
             'contents' => 'sku,description',
         ]);
 
-        $this->assertTrue($response->data['success']);
-        $this->assertEquals('items.csv', $response->data['fileName']);
+        $this->assertTrue(self::at($response->data, 'success'));
+        $this->assertEquals('items.csv', self::at($response->data, 'fileName'));
         $this->assertRequestPath('/datafiles');
         $this->assertRequestMethod('POST');
         $this->assertHasSiteIdHeader();

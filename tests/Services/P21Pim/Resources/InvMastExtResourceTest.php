@@ -112,7 +112,7 @@ final class InvMastExtResourceTest extends AugurApiTestCase
 
         $response = $this->api->p21Pim->invMastExt->delete(1);
 
-        $this->assertTrue($response->data['success']);
+        $this->assertTrue(self::at($response->data, 'success'));
         $this->assertRequestMethod('DELETE');
         $this->assertRequestPath('/inv-mast-ext/1');
     }

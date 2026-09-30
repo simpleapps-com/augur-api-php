@@ -44,6 +44,6 @@ final class OpenSearchResourceTest extends AugurApiTestCase
             'model' => 'custom-model',
         ]);
 
-        $this->assertEquals('custom-model', $response->data['model']);
+        $this->assertEquals('custom-model', self::at($response->data, 'model'));
     }
 }

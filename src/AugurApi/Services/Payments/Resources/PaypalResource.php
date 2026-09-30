@@ -25,7 +25,7 @@ final class PaypalResource
      *
      * @param array<string, mixed> $data
      * @param array<string, mixed> $params
-     * @return BaseResponse<array<string, mixed>>
+     * @return BaseResponse<mixed>
      */
     public function createAuthorizationCapture(array $data = [], array $params = []): BaseResponse
     {
@@ -37,7 +37,10 @@ final class PaypalResource
             $params,
         );
 
-        return BaseResponse::fromArray($response, static fn ($data) => $data);
+        /** @var BaseResponse<mixed> $result */
+        $result = BaseResponse::fromArray($response, static fn (mixed $data): mixed => $data);
+
+        return $result;
     }
 
     /**
@@ -45,7 +48,7 @@ final class PaypalResource
      *
      * @param array<string, mixed> $data
      * @param array<string, mixed> $params
-     * @return BaseResponse<array<string, mixed>>
+     * @return BaseResponse<mixed>
      */
     public function createAuthorizationVoid(array $data = [], array $params = []): BaseResponse
     {
@@ -57,7 +60,10 @@ final class PaypalResource
             $params,
         );
 
-        return BaseResponse::fromArray($response, static fn ($data) => $data);
+        /** @var BaseResponse<mixed> $result */
+        $result = BaseResponse::fromArray($response, static fn (mixed $data): mixed => $data);
+
+        return $result;
     }
 
     /**
@@ -65,7 +71,7 @@ final class PaypalResource
      *
      * @param array<string, mixed> $data
      * @param array<string, mixed> $params
-     * @return BaseResponse<array<string, mixed>>
+     * @return BaseResponse<mixed>
      */
     public function createCaptureRefund(array $data = [], array $params = []): BaseResponse
     {
@@ -77,7 +83,10 @@ final class PaypalResource
             $params,
         );
 
-        return BaseResponse::fromArray($response, static fn ($data) => $data);
+        /** @var BaseResponse<mixed> $result */
+        $result = BaseResponse::fromArray($response, static fn (mixed $data): mixed => $data);
+
+        return $result;
     }
 
     /**
@@ -85,7 +94,7 @@ final class PaypalResource
      *
      * @param array<string, mixed> $data
      * @param array<string, mixed> $params
-     * @return BaseResponse<array<string, mixed>>
+     * @return BaseResponse<mixed>
      */
     public function createOrder(array $data = [], array $params = []): BaseResponse
     {
@@ -97,20 +106,26 @@ final class PaypalResource
             $params,
         );
 
-        return BaseResponse::fromArray($response, static fn ($data) => $data);
+        /** @var BaseResponse<mixed> $result */
+        $result = BaseResponse::fromArray($response, static fn (mixed $data): mixed => $data);
+
+        return $result;
     }
 
     /**
      * GET /paypal/order-return
      *
      * @param array<string, mixed> $params
-     * @return BaseResponse<array<string, mixed>>
+     * @return BaseResponse<mixed>
      */
     public function listOrderReturn(array $params = []): BaseResponse
     {
         $response = $this->client->get($this->baseUrl, '/order-return', $params);
 
-        return BaseResponse::fromArray($response, static fn ($data) => $data);
+        /** @var BaseResponse<mixed> $result */
+        $result = BaseResponse::fromArray($response, static fn (mixed $data): mixed => $data);
+
+        return $result;
     }
 
     /**
@@ -118,7 +133,7 @@ final class PaypalResource
      *
      * @param array<string, mixed> $data
      * @param array<string, mixed> $params
-     * @return BaseResponse<array<string, mixed>>
+     * @return BaseResponse<mixed>
      */
     public function createOrderAuthorize(array $data = [], array $params = []): BaseResponse
     {
@@ -130,7 +145,10 @@ final class PaypalResource
             $params,
         );
 
-        return BaseResponse::fromArray($response, static fn ($data) => $data);
+        /** @var BaseResponse<mixed> $result */
+        $result = BaseResponse::fromArray($response, static fn (mixed $data): mixed => $data);
+
+        return $result;
     }
 
     /**
@@ -138,7 +156,7 @@ final class PaypalResource
      *
      * @param array<string, mixed> $data
      * @param array<string, mixed> $params
-     * @return BaseResponse<array<string, mixed>>
+     * @return BaseResponse<mixed>
      */
     public function createOrderCapture(array $data = [], array $params = []): BaseResponse
     {
@@ -150,33 +168,42 @@ final class PaypalResource
             $params,
         );
 
-        return BaseResponse::fromArray($response, static fn ($data) => $data);
+        /** @var BaseResponse<mixed> $result */
+        $result = BaseResponse::fromArray($response, static fn (mixed $data): mixed => $data);
+
+        return $result;
     }
 
     /**
      * GET /paypal/order/details
      *
      * @param array<string, mixed> $params
-     * @return BaseResponse<array<string, mixed>>
+     * @return BaseResponse<mixed>
      */
     public function listOrderDetails(array $params = []): BaseResponse
     {
         $response = $this->client->get($this->baseUrl, '/order/details', $params);
 
-        return BaseResponse::fromArray($response, static fn ($data) => $data);
+        /** @var BaseResponse<mixed> $result */
+        $result = BaseResponse::fromArray($response, static fn (mixed $data): mixed => $data);
+
+        return $result;
     }
 
     /**
      * GET /paypal/refund
      *
      * @param array<string, mixed> $params
-     * @return BaseResponse<array<string, mixed>>
+     * @return BaseResponse<mixed>
      */
     public function listRefund(array $params = []): BaseResponse
     {
         $response = $this->client->get($this->baseUrl, '/refund', $params);
 
-        return BaseResponse::fromArray($response, static fn ($data) => $data);
+        /** @var BaseResponse<mixed> $result */
+        $result = BaseResponse::fromArray($response, static fn (mixed $data): mixed => $data);
+
+        return $result;
     }
 
     /**
@@ -184,7 +211,7 @@ final class PaypalResource
      *
      * @param array<string, mixed> $data
      * @param array<string, mixed> $params
-     * @return BaseResponse<array<string, mixed>>
+     * @return BaseResponse<mixed>
      */
     public function createWebhook(array $data = [], array $params = []): BaseResponse
     {
@@ -196,6 +223,9 @@ final class PaypalResource
             $params,
         );
 
-        return BaseResponse::fromArray($response, static fn ($data) => $data);
+        /** @var BaseResponse<mixed> $result */
+        $result = BaseResponse::fromArray($response, static fn (mixed $data): mixed => $data);
+
+        return $result;
     }
 }

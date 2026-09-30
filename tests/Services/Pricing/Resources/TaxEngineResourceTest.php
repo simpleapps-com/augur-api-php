@@ -8,30 +8,40 @@ use AugurApi\Tests\AugurApiTestCase;
 
 final class TaxEngineResourceTest extends AugurApiTestCase
 {
+    /**
+     * @return array<string, mixed>
+     */
+    private function lineResult(string $itemId, int $invMastUid, float $unitPrice, float $taxEstimate): array
+    {
+        return [
+            'itemId' => $itemId,
+            'invMastUid' => $invMastUid,
+            'quantity' => 1.0,
+            'unitOfMeasure' => 'EA',
+            'unitPrice' => $unitPrice,
+            'taxEstimate' => $taxEstimate,
+        ];
+    }
+
     public function testCalculate(): void
     {
         $this->mockResponse([
-            'subtotal' => 1000.00,
-            'taxAmount' => 80.00,
-            'total' => 1080.00,
+            'taxEstimate' => 80.00,
+            'customerId' => 1001,
+            'postalCode' => '90210',
             'taxRate' => 8.0,
-            'taxJurisdiction' => 'CA',
-            'breakdown' => [
-                ['type' => 'State', 'rate' => 6.0, 'amount' => 60.00],
-                ['type' => 'County', 'rate' => 1.0, 'amount' => 10.00],
-                ['type' => 'City', 'rate' => 1.0, 'amount' => 10.00],
-            ],
+            'items' => [$this->lineResult('ITEM001', 100, 1000.00, 80.00)],
         ]);
 
         $response = $this->api->pricing->taxEngine->create([
-            'subtotal' => 1000.00,
-            'shipToZip' => '90210',
-            'shipToState' => 'CA',
+            'customerId' => 1001,
+            'postalCode' => '90210',
+            'items' => [['itemId' => 'ITEM001', 'quantity' => 1.0, 'unitPrice' => 1000.00]],
         ]);
 
-        $this->assertEquals(80.00, $response->data['taxAmount']);
+        $this->assertEquals(80.00, $response->data['taxEstimate']);
         $this->assertEquals(8.0, $response->data['taxRate']);
-        $this->assertCount(3, $response->data['breakdown']);
+        $this->assertCount(1, self::arrayAt($response->data, 'items'));
         $this->assertRequestPath('/tax-engine');
         $this->assertRequestMethod('POST');
         $this->assertHasAuthHeader();
@@ -40,115 +50,114 @@ final class TaxEngineResourceTest extends AugurApiTestCase
     public function testCalculateWithExemption(): void
     {
         $this->mockResponse([
-            'subtotal' => 1000.00,
-            'taxAmount' => 0.00,
-            'total' => 1000.00,
-            'taxExempt' => true,
-            'exemptReason' => 'Resale Certificate',
+            'taxEstimate' => 0.00,
+            'customerId' => 2002,
+            'postalCode' => '90210',
+            'taxRate' => 0.0,
+            'items' => [$this->lineResult('ITEM001', 100, 1000.00, 0.00)],
         ]);
 
         $response = $this->api->pricing->taxEngine->create([
-            'subtotal' => 1000.00,
-            'customerId' => 'TAXEXEMPT001',
-            'shipToZip' => '90210',
+            'customerId' => 2002,
+            'postalCode' => '90210',
+            'items' => [['itemId' => 'ITEM001', 'unitPrice' => 1000.00]],
         ]);
 
-        $this->assertEquals(0.00, $response->data['taxAmount']);
-        $this->assertTrue($response->data['taxExempt']);
-        $this->assertEquals('Resale Certificate', $response->data['exemptReason']);
+        $this->assertEquals(0.00, $response->data['taxEstimate']);
+        $this->assertEquals(2002, $response->data['customerId']);
     }
 
     public function testCalculateWithLineItems(): void
     {
         $this->mockResponse([
-            'subtotal' => 500.00,
-            'taxAmount' => 35.00,
-            'total' => 535.00,
-            'lines' => [
-                ['lineNo' => 1, 'amount' => 300.00, 'taxAmount' => 21.00, 'taxable' => true],
-                ['lineNo' => 2, 'amount' => 200.00, 'taxAmount' => 14.00, 'taxable' => true],
+            'taxEstimate' => 35.00,
+            'customerId' => 1001,
+            'postalCode' => '75001',
+            'taxRate' => 7.0,
+            'items' => [
+                $this->lineResult('ITEM001', 100, 300.00, 21.00),
+                $this->lineResult('ITEM002', 101, 200.00, 14.00),
             ],
         ]);
 
         $response = $this->api->pricing->taxEngine->create([
-            'lines' => [
-                ['lineNo' => 1, 'itemId' => 'ITEM001', 'amount' => 300.00],
-                ['lineNo' => 2, 'itemId' => 'ITEM002', 'amount' => 200.00],
+            'customerId' => 1001,
+            'postalCode' => '75001',
+            'items' => [
+                ['itemId' => 'ITEM001', 'unitPrice' => 300.00],
+                ['itemId' => 'ITEM002', 'unitPrice' => 200.00],
             ],
-            'shipToZip' => '75001',
-            'shipToState' => 'TX',
         ]);
 
-        $this->assertEquals(35.00, $response->data['taxAmount']);
-        $this->assertCount(2, $response->data['lines']);
+        $this->assertEquals(35.00, $response->data['taxEstimate']);
+        $this->assertCount(2, self::arrayAt($response->data, 'items'));
     }
 
     public function testCalculateWithPartialExemption(): void
     {
         $this->mockResponse([
-            'subtotal' => 500.00,
-            'taxAmount' => 21.00,
-            'total' => 521.00,
-            'lines' => [
-                ['lineNo' => 1, 'amount' => 300.00, 'taxAmount' => 21.00, 'taxable' => true],
-                ['lineNo' => 2, 'amount' => 200.00, 'taxAmount' => 0.00, 'taxable' => false, 'exemptReason' => 'Food'],
+            'taxEstimate' => 21.00,
+            'customerId' => 1001,
+            'postalCode' => '10001',
+            'taxRate' => 7.0,
+            'items' => [
+                $this->lineResult('HARDWARE001', 100, 300.00, 21.00),
+                $this->lineResult('FOOD001', 101, 200.00, 0.00),
             ],
         ]);
 
         $response = $this->api->pricing->taxEngine->create([
-            'lines' => [
-                ['lineNo' => 1, 'itemId' => 'HARDWARE001', 'amount' => 300.00],
-                ['lineNo' => 2, 'itemId' => 'FOOD001', 'amount' => 200.00],
+            'customerId' => 1001,
+            'postalCode' => '10001',
+            'items' => [
+                ['itemId' => 'HARDWARE001', 'unitPrice' => 300.00],
+                ['itemId' => 'FOOD001', 'unitPrice' => 200.00],
             ],
-            'shipToZip' => '10001',
-            'shipToState' => 'NY',
         ]);
 
-        $this->assertEquals(21.00, $response->data['taxAmount']);
-        $this->assertFalse($response->data['lines'][1]['taxable']);
+        $this->assertEquals(21.00, $response->data['taxEstimate']);
+        $this->assertEquals(0.00, self::at($response->data, 'items', 1, 'taxEstimate'));
     }
 
-    public function testCalculateWithShipping(): void
+    public function testCalculateWithUnitOfMeasure(): void
     {
         $this->mockResponse([
-            'subtotal' => 100.00,
-            'shippingAmount' => 15.00,
-            'taxableShipping' => true,
-            'shippingTax' => 1.20,
-            'productTax' => 8.00,
-            'taxAmount' => 9.20,
-            'total' => 124.20,
+            'taxEstimate' => 9.20,
+            'customerId' => 1001,
+            'postalCode' => '12345',
+            'taxRate' => 6.0,
+            'items' => [$this->lineResult('ITEM001', 100, 115.00, 9.20)],
         ]);
 
         $response = $this->api->pricing->taxEngine->create([
-            'subtotal' => 100.00,
-            'shippingAmount' => 15.00,
-            'shipToZip' => '12345',
-            'shipToState' => 'PA',
+            'customerId' => 1001,
+            'postalCode' => '12345',
+            'items' => [
+                ['itemId' => 'ITEM001', 'quantity' => 1.0, 'unitOfMeasure' => 'EA', 'unitPrice' => 115.00],
+            ],
         ]);
 
-        $this->assertTrue($response->data['taxableShipping']);
-        $this->assertEquals(1.20, $response->data['shippingTax']);
+        $this->assertEquals('EA', self::at($response->data, 'items', 0, 'unitOfMeasure'));
+        $this->assertEquals(9.20, $response->data['taxEstimate']);
     }
 
     public function testCalculateNoTax(): void
     {
         $this->mockResponse([
-            'subtotal' => 500.00,
-            'taxAmount' => 0.00,
-            'total' => 500.00,
+            'taxEstimate' => 0.00,
+            'customerId' => 1001,
+            'postalCode' => '97201',
             'taxRate' => 0.0,
-            'taxJurisdiction' => 'OR',
-            'noSalesTax' => true,
+            'items' => [$this->lineResult('ITEM001', 100, 500.00, 0.00)],
         ]);
 
         $response = $this->api->pricing->taxEngine->create([
-            'subtotal' => 500.00,
-            'shipToZip' => '97201',
-            'shipToState' => 'OR',
+            'customerId' => 1001,
+            'postalCode' => '97201',
+            'items' => [['itemId' => 'ITEM001', 'unitPrice' => 500.00]],
         ]);
 
-        $this->assertEquals(0.00, $response->data['taxAmount']);
-        $this->assertTrue($response->data['noSalesTax']);
+        $this->assertEquals(0.00, $response->data['taxEstimate']);
+        $this->assertEquals(0.0, $response->data['taxRate']);
     }
 }

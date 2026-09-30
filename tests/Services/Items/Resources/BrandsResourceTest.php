@@ -82,9 +82,9 @@ final class BrandsResourceTest extends AugurApiTestCase
 
     public function testCreate(): void
     {
-        $this->mockResponse(['brandsUid' => 3, 'brandName' => 'New Brand']);
+        $this->mockResponse(['brandsUid' => 3, 'brandsName' => 'New Brand']);
 
-        $response = $this->api->items->brands->create(['brandName' => 'New Brand']);
+        $response = $this->api->items->brands->create(['brandsName' => 'New Brand']);
 
         $this->assertEquals(3, $response->data['brandsUid']);
         $this->assertRequestMethod('POST');

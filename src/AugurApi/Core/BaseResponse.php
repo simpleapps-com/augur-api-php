@@ -32,13 +32,15 @@ final readonly class BaseResponse
      */
     public static function fromArray(array $response, callable $dataMapper): self
     {
+        $message = $response['message'] ?? null;
+
         return new self(
             data: $dataMapper($response['data'] ?? null),
-            status: (int) ($response['status'] ?? 200),
-            message: $response['message'] ?? null,
-            total: isset($response['total']) ? (int) $response['total'] : null,
-            limit: isset($response['limit']) ? (int) $response['limit'] : null,
-            offset: isset($response['offset']) ? (int) $response['offset'] : null,
+            status: Field::int($response['status'] ?? null) ?? 200,
+            message: is_string($message) ? $message : null,
+            total: Field::int($response['total'] ?? null),
+            limit: Field::int($response['limit'] ?? null),
+            offset: Field::int($response['offset'] ?? null),
         );
     }
 }

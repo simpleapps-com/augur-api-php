@@ -42,7 +42,7 @@ final class ImportResourceTest extends AugurApiTestCase
 
         $response = $this->api->p21Sism->import->list(['status' => 'pending', 'limit' => 25]);
 
-        $this->assertCount(1, $response->data);
+        $this->assertCount(1, self::arrayAt($response->data));
         $this->assertEquals(50, $response->total);
     }
 
@@ -136,7 +136,7 @@ final class ImportResourceTest extends AugurApiTestCase
 
         $response = $this->api->p21Sism->import->listRecent(['limit' => 5, 'days' => 7]);
 
-        $this->assertCount(1, $response->data);
+        $this->assertCount(1, self::arrayAt($response->data));
         $this->assertHasSiteIdHeader();
         $this->assertHasAuthHeader();
     }
@@ -166,7 +166,7 @@ final class ImportResourceTest extends AugurApiTestCase
 
         $response = $this->api->p21Sism->import->listStuck(['hours' => 24]);
 
-        $this->assertCount(2, $response->data);
+        $this->assertCount(2, self::arrayAt($response->data));
         $this->assertEquals(10, $response->total);
     }
 
@@ -181,8 +181,8 @@ final class ImportResourceTest extends AugurApiTestCase
 
         $response = $this->api->p21Sism->import->listImpOeHdr('IMP001');
 
-        $this->assertEquals('IMP001', $response->data['importUid']);
-        $this->assertEquals('CUST001', $response->data['customerId']);
+        $this->assertEquals('IMP001', self::at($response->data, 'importUid'));
+        $this->assertEquals('CUST001', self::at($response->data, 'customerId'));
         $this->assertRequestMethod('GET');
         $this->assertRequestPath('/import/IMP001/imp-oe-hdr');
     }
@@ -200,8 +200,8 @@ final class ImportResourceTest extends AugurApiTestCase
             'shipVia' => 'EXPRESS',
         ]);
 
-        $this->assertEquals('CUST002', $response->data['customerId']);
-        $this->assertEquals('EXPRESS', $response->data['shipVia']);
+        $this->assertEquals('CUST002', self::at($response->data, 'customerId'));
+        $this->assertEquals('EXPRESS', self::at($response->data, 'shipVia'));
         $this->assertRequestMethod('PUT');
         $this->assertRequestPath('/import/IMP001/imp-oe-hdr');
     }
@@ -217,8 +217,8 @@ final class ImportResourceTest extends AugurApiTestCase
 
         $response = $this->api->p21Sism->import->listImpOeHdrSalesrep('IMP001');
 
-        $this->assertEquals('IMP001', $response->data['importUid']);
-        $this->assertEquals('REP001', $response->data['salesrepId']);
+        $this->assertEquals('IMP001', self::at($response->data, 'importUid'));
+        $this->assertEquals('REP001', self::at($response->data, 'salesrepId'));
         $this->assertRequestMethod('GET');
         $this->assertRequestPath('/import/IMP001/imp-oe-hdr-salesrep');
     }
@@ -236,8 +236,8 @@ final class ImportResourceTest extends AugurApiTestCase
             'commission' => 7.5,
         ]);
 
-        $this->assertEquals('REP002', $response->data['salesrepId']);
-        $this->assertEquals(7.5, $response->data['commission']);
+        $this->assertEquals('REP002', self::at($response->data, 'salesrepId'));
+        $this->assertEquals(7.5, self::at($response->data, 'commission'));
         $this->assertRequestMethod('PUT');
         $this->assertRequestPath('/import/IMP001/imp-oe-hdr-salesrep');
     }
@@ -253,9 +253,9 @@ final class ImportResourceTest extends AugurApiTestCase
 
         $response = $this->api->p21Sism->import->listImpOeHdrWeb('IMP001');
 
-        $this->assertEquals('IMP001', $response->data['importUid']);
-        $this->assertEquals('WEB12345', $response->data['webOrderId']);
-        $this->assertEquals('ecommerce', $response->data['source']);
+        $this->assertEquals('IMP001', self::at($response->data, 'importUid'));
+        $this->assertEquals('WEB12345', self::at($response->data, 'webOrderId'));
+        $this->assertEquals('ecommerce', self::at($response->data, 'source'));
         $this->assertRequestMethod('GET');
         $this->assertRequestPath('/import/IMP001/imp-oe-hdr-web');
     }

@@ -24,9 +24,9 @@ final class CategoriesResourceTest extends AugurApiTestCase
             'focus' => 'active',
         ]);
 
-        $this->assertTrue($response->data['success']);
-        $this->assertEquals(123, $response->data['categoryId']);
-        $this->assertEquals('active', $response->data['focus']);
+        $this->assertTrue(self::at($response->data, 'success'));
+        $this->assertEquals(123, self::at($response->data, 'categoryId'));
+        $this->assertEquals('active', self::at($response->data, 'focus'));
         $this->assertRequestPath('/categories/focus');
         $this->assertRequestMethod('POST');
         $this->assertHasSiteIdHeader();
@@ -50,8 +50,8 @@ final class CategoriesResourceTest extends AugurApiTestCase
             ],
         ]);
 
-        $this->assertTrue($response->data['success']);
-        $this->assertCount(2, $response->data['categories']);
+        $this->assertTrue(self::at($response->data, 'success'));
+        $this->assertCount(2, self::arrayAt($response->data, 'categories'));
     }
 
     public function testCreateFocusReturnsBaseResponse(): void

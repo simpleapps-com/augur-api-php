@@ -29,8 +29,8 @@ final class TransUserResourceTest extends AugurApiTestCase
             'active' => true,
         ]);
 
-        $this->assertEquals(1, $response->data['usersUid']);
-        $this->assertEquals('jdoe', $response->data['userName']);
+        $this->assertEquals(1, self::at($response->data, 'usersUid'));
+        $this->assertEquals('jdoe', self::at($response->data, 'userName'));
         $this->assertRequestMethod('POST');
         $this->assertRequestPath('/trans-user');
         $this->assertHasSiteIdHeader();
@@ -48,8 +48,8 @@ final class TransUserResourceTest extends AugurApiTestCase
 
         $response = $this->api->p21Apis->transUser->get(1);
 
-        $this->assertEquals(1, $response->data['usersUid']);
-        $this->assertEquals('jdoe', $response->data['userName']);
+        $this->assertEquals(1, self::at($response->data, 'usersUid'));
+        $this->assertEquals('jdoe', self::at($response->data, 'userName'));
         $this->assertRequestMethod('GET');
         $this->assertRequestPath('/trans-user/1');
     }
@@ -64,8 +64,8 @@ final class TransUserResourceTest extends AugurApiTestCase
 
         $response = $this->api->p21Apis->transUser->get(1, ['includePermissions' => true]);
 
-        $this->assertEquals(1, $response->data['usersUid']);
-        $this->assertCount(2, $response->data['permissions']);
+        $this->assertEquals(1, self::at($response->data, 'usersUid'));
+        $this->assertCount(2, self::arrayAt($response->data, 'permissions'));
         $this->assertHasSiteIdHeader();
         $this->assertHasAuthHeader();
     }
@@ -83,8 +83,8 @@ final class TransUserResourceTest extends AugurApiTestCase
             'email' => 'updated@example.com',
         ]);
 
-        $this->assertEquals('jdoe_updated', $response->data['userName']);
-        $this->assertEquals('updated@example.com', $response->data['email']);
+        $this->assertEquals('jdoe_updated', self::at($response->data, 'userName'));
+        $this->assertEquals('updated@example.com', self::at($response->data, 'email'));
         $this->assertRequestMethod('PUT');
         $this->assertRequestPath('/trans-user/1');
     }
@@ -97,7 +97,7 @@ final class TransUserResourceTest extends AugurApiTestCase
 
         $response = $this->api->p21Apis->transUser->delete(1);
 
-        $this->assertTrue($response->data['success']);
+        $this->assertTrue(self::at($response->data, 'success'));
         $this->assertRequestMethod('DELETE');
         $this->assertRequestPath('/trans-user/1');
     }

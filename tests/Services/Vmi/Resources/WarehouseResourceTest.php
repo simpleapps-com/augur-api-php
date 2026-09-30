@@ -122,7 +122,7 @@ final class WarehouseResourceTest extends AugurApiTestCase
 
         $response = $this->api->vmi->warehouse->listAvailability(1);
 
-        $this->assertCount(2, $response->data);
+        $this->assertCount(2, self::arrayAt($response->data));
 
         /** @var list<array<string, mixed>> $data */
         $data = $response->data;
@@ -143,7 +143,7 @@ final class WarehouseResourceTest extends AugurApiTestCase
 
         $response = $this->api->vmi->warehouse->listAvailability(1, ['productId' => 'PROD001']);
 
-        $this->assertCount(1, $response->data);
+        $this->assertCount(1, self::arrayAt($response->data));
         $this->assertHasSiteIdHeader();
         $this->assertHasAuthHeader();
     }
@@ -161,8 +161,8 @@ final class WarehouseResourceTest extends AugurApiTestCase
             'quantity' => 25,
         ]);
 
-        $this->assertEquals('REC001', $response->data['receiptId']);
-        $this->assertEquals(25, $response->data['itemsReceived']);
+        $this->assertEquals('REC001', self::at($response->data, 'receiptId'));
+        $this->assertEquals(25, self::at($response->data, 'itemsReceived'));
         $this->assertRequestMethod('POST');
         $this->assertRequestPath('/warehouse/1/receive');
     }
@@ -181,8 +181,8 @@ final class WarehouseResourceTest extends AugurApiTestCase
             'reason' => 'Damage',
         ]);
 
-        $this->assertEquals('ADJ001', $response->data['adjustmentId']);
-        $this->assertEquals(75, $response->data['newQuantity']);
+        $this->assertEquals('ADJ001', self::at($response->data, 'adjustmentId'));
+        $this->assertEquals(75, self::at($response->data, 'newQuantity'));
         $this->assertRequestMethod('POST');
         $this->assertRequestPath('/warehouse/1/adjust');
     }
@@ -202,8 +202,8 @@ final class WarehouseResourceTest extends AugurApiTestCase
             'quantity' => 50,
         ]);
 
-        $this->assertEquals('TRN001', $response->data['transferId']);
-        $this->assertEquals(50, $response->data['itemsTransferred']);
+        $this->assertEquals('TRN001', self::at($response->data, 'transferId'));
+        $this->assertEquals(50, self::at($response->data, 'itemsTransferred'));
         $this->assertRequestMethod('POST');
         $this->assertRequestPath('/warehouse/1/transfer');
     }
@@ -222,8 +222,8 @@ final class WarehouseResourceTest extends AugurApiTestCase
             'reason' => 'Production',
         ]);
 
-        $this->assertEquals('USG001', $response->data['usageId']);
-        $this->assertEquals(10, $response->data['itemsUsed']);
+        $this->assertEquals('USG001', self::at($response->data, 'usageId'));
+        $this->assertEquals(10, self::at($response->data, 'itemsUsed'));
         $this->assertRequestMethod('POST');
         $this->assertRequestPath('/warehouse/1/usage');
     }
@@ -237,7 +237,7 @@ final class WarehouseResourceTest extends AugurApiTestCase
 
         $response = $this->api->vmi->warehouse->updateEnable(1);
 
-        $this->assertTrue($response->data['active']);
+        $this->assertTrue(self::at($response->data, 'active'));
         $this->assertRequestMethod('PUT');
         $this->assertRequestPath('/warehouse/1/enable');
     }
@@ -251,7 +251,7 @@ final class WarehouseResourceTest extends AugurApiTestCase
 
         $response = $this->api->vmi->warehouse->updateEnable(1, ['active' => false]);
 
-        $this->assertFalse($response->data['active']);
+        $this->assertFalse(self::at($response->data, 'active'));
     }
 
     public function testGetReplenish(): void
@@ -263,7 +263,7 @@ final class WarehouseResourceTest extends AugurApiTestCase
 
         $response = $this->api->vmi->warehouse->listReplenish(1);
 
-        $this->assertCount(2, $response->data);
+        $this->assertCount(2, self::arrayAt($response->data));
 
         /** @var list<array<string, mixed>> $data */
         $data = $response->data;
@@ -280,7 +280,7 @@ final class WarehouseResourceTest extends AugurApiTestCase
 
         $response = $this->api->vmi->warehouse->listReplenish(1, ['belowMin' => true]);
 
-        $this->assertCount(1, $response->data);
+        $this->assertCount(1, self::arrayAt($response->data));
         $this->assertHasSiteIdHeader();
         $this->assertHasAuthHeader();
     }
@@ -299,8 +299,8 @@ final class WarehouseResourceTest extends AugurApiTestCase
             ],
         ]);
 
-        $this->assertEquals('REP001', $response->data['replenishId']);
-        $this->assertEquals(5, $response->data['itemsRequested']);
+        $this->assertEquals('REP001', self::at($response->data, 'replenishId'));
+        $this->assertEquals(5, self::at($response->data, 'itemsRequested'));
         $this->assertRequestMethod('POST');
         $this->assertRequestPath('/warehouse/1/replenish');
     }
@@ -314,7 +314,7 @@ final class WarehouseResourceTest extends AugurApiTestCase
 
         $response = $this->api->vmi->warehouse->listUsers(1);
 
-        $this->assertCount(2, $response->data);
+        $this->assertCount(2, self::arrayAt($response->data));
 
         /** @var list<array<string, mixed>> $data */
         $data = $response->data;
@@ -335,7 +335,7 @@ final class WarehouseResourceTest extends AugurApiTestCase
 
         $response = $this->api->vmi->warehouse->listUsers(1, ['role' => 'admin']);
 
-        $this->assertCount(1, $response->data);
+        $this->assertCount(1, self::arrayAt($response->data));
     }
 
     public function testGetUser(): void
@@ -349,8 +349,8 @@ final class WarehouseResourceTest extends AugurApiTestCase
 
         $response = $this->api->vmi->warehouse->getUsers(1, 1);
 
-        $this->assertEquals(1, $response->data['usersId']);
-        $this->assertEquals('user1', $response->data['username']);
+        $this->assertEquals(1, self::at($response->data, 'usersId'));
+        $this->assertEquals('user1', self::at($response->data, 'username'));
         $this->assertRequestMethod('GET');
         $this->assertRequestPath('/warehouse/1/users/1');
     }
@@ -368,8 +368,8 @@ final class WarehouseResourceTest extends AugurApiTestCase
             'role' => 'operator',
         ]);
 
-        $this->assertEquals(3, $response->data['usersId']);
-        $this->assertEquals('newuser', $response->data['username']);
+        $this->assertEquals(3, self::at($response->data, 'usersId'));
+        $this->assertEquals('newuser', self::at($response->data, 'username'));
         $this->assertRequestMethod('POST');
         $this->assertRequestPath('/warehouse/1/users');
     }
@@ -386,7 +386,7 @@ final class WarehouseResourceTest extends AugurApiTestCase
             'role' => 'manager',
         ]);
 
-        $this->assertEquals('manager', $response->data['role']);
+        $this->assertEquals('manager', self::at($response->data, 'role'));
         $this->assertRequestMethod('PUT');
         $this->assertRequestPath('/warehouse/1/users/1');
     }

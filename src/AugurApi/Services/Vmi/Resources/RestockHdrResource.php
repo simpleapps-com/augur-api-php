@@ -24,23 +24,54 @@ final class RestockHdrResource
      * GET /restock-hdr
      *
      * Response data type: array
-     * Known fields: restockHdrUid, warehouseUid, distributorsUid, dateCreated, dateLastModified, updateCd, statusCd, processCd, ... (15 total)
+     *   restockHdrUid: int
+     *   warehouseUid: int
+     *   distributorsUid: int
+     *   dateCreated: string
+     *   dateLastModified: string
+     *   updateCd: int
+     *   statusCd: int
+     *   processCd: int
+     *   jsonData: string|null
+     *   processState: string
+     *   poNo: string|null
+     *   usersId: int
+     *   customerId: float
+     *   contactId: string|null
+     *   deliveryInstructions: string|null
      *
      * @param array<string, mixed> $params
-     * @return BaseResponse<array<string, mixed>>
+     * @return BaseResponse<list<array<string, mixed>>>
      */
     public function list(array $params = []): BaseResponse
     {
         $response = $this->client->get($this->baseUrl, '', $params);
 
-        return BaseResponse::fromArray($response, static fn ($data) => $data);
+        /** @var BaseResponse<list<array<string, mixed>>> $result */
+        $result = BaseResponse::fromArray($response, static fn (mixed $data): mixed => $data);
+
+        return $result;
     }
 
     /**
      * POST /restock-hdr
      *
      * Response data type: object
-     * Known fields: restockHdrUid, warehouseUid, distributorsUid, dateCreated, dateLastModified, updateCd, statusCd, processCd, ... (15 total)
+     *   restockHdrUid: int
+     *   warehouseUid: int
+     *   distributorsUid: int
+     *   dateCreated: string
+     *   dateLastModified: string
+     *   updateCd: int
+     *   statusCd: int
+     *   processCd: int
+     *   jsonData: string|null
+     *   processState: string
+     *   poNo: string|null
+     *   usersId: int
+     *   customerId: float
+     *   contactId: string|null
+     *   deliveryInstructions: string|null
      *
      * @param array<string, mixed> $data
      * @return BaseResponse<array<string, mixed>>
@@ -49,14 +80,31 @@ final class RestockHdrResource
     {
         $response = $this->client->post($this->baseUrl, '', $data);
 
-        return BaseResponse::fromArray($response, static fn ($data) => $data);
+        /** @var BaseResponse<array<string, mixed>> $result */
+        $result = BaseResponse::fromArray($response, static fn (mixed $data): mixed => $data);
+
+        return $result;
     }
 
     /**
      * DELETE /restock-hdr/{restockHdrUid}
      *
      * Response data type: object
-     * Known fields: restockHdrUid, warehouseUid, distributorsUid, dateCreated, dateLastModified, updateCd, statusCd, processCd, ... (15 total)
+     *   restockHdrUid: int
+     *   warehouseUid: int
+     *   distributorsUid: int
+     *   dateCreated: string
+     *   dateLastModified: string
+     *   updateCd: int
+     *   statusCd: int
+     *   processCd: int
+     *   jsonData: string|null
+     *   processState: string
+     *   poNo: string|null
+     *   usersId: int
+     *   customerId: float
+     *   contactId: string|null
+     *   deliveryInstructions: string|null
      *
      * @return BaseResponse<array<string, mixed>>
      */
@@ -68,14 +116,31 @@ final class RestockHdrResource
             ['restockHdrUid' => (string) $restockHdrUid],
         );
 
-        return BaseResponse::fromArray($response, static fn ($data) => $data);
+        /** @var BaseResponse<array<string, mixed>> $result */
+        $result = BaseResponse::fromArray($response, static fn (mixed $data): mixed => $data);
+
+        return $result;
     }
 
     /**
      * GET /restock-hdr/{restockHdrUid}
      *
      * Response data type: object
-     * Known fields: restockHdrUid, warehouseUid, distributorsUid, dateCreated, dateLastModified, updateCd, statusCd, processCd, ... (15 total)
+     *   restockHdrUid: int
+     *   warehouseUid: int
+     *   distributorsUid: int
+     *   dateCreated: string
+     *   dateLastModified: string
+     *   updateCd: int
+     *   statusCd: int
+     *   processCd: int
+     *   jsonData: string|null
+     *   processState: string
+     *   poNo: string|null
+     *   usersId: int
+     *   customerId: float
+     *   contactId: string|null
+     *   deliveryInstructions: string|null
      *
      * @param array<string, mixed> $params
      * @return BaseResponse<array<string, mixed>>
@@ -89,14 +154,31 @@ final class RestockHdrResource
             ['restockHdrUid' => (string) $restockHdrUid],
         );
 
-        return BaseResponse::fromArray($response, static fn ($data) => $data);
+        /** @var BaseResponse<array<string, mixed>> $result */
+        $result = BaseResponse::fromArray($response, static fn (mixed $data): mixed => $data);
+
+        return $result;
     }
 
     /**
      * PUT /restock-hdr/{restockHdrUid}
      *
      * Response data type: object
-     * Known fields: restockHdrUid, warehouseUid, distributorsUid, dateCreated, dateLastModified, updateCd, statusCd, processCd, ... (15 total)
+     *   restockHdrUid: int
+     *   warehouseUid: int
+     *   distributorsUid: int
+     *   dateCreated: string
+     *   dateLastModified: string
+     *   updateCd: int
+     *   statusCd: int
+     *   processCd: int
+     *   jsonData: string|null
+     *   processState: string
+     *   poNo: string|null
+     *   usersId: int
+     *   customerId: float
+     *   contactId: string|null
+     *   deliveryInstructions: string|null
      *
      * @param array<string, mixed> $data
      * @return BaseResponse<array<string, mixed>>
@@ -110,6 +192,9 @@ final class RestockHdrResource
             ['restockHdrUid' => (string) $restockHdrUid],
         );
 
-        return BaseResponse::fromArray($response, static fn ($data) => $data);
+        /** @var BaseResponse<array<string, mixed>> $result */
+        $result = BaseResponse::fromArray($response, static fn (mixed $data): mixed => $data);
+
+        return $result;
     }
 }

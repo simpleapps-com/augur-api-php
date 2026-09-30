@@ -24,23 +24,62 @@ final class TodolistsResource
      * GET /todolists
      *
      * Response data type: array
-     * Known fields: id, name, description, updatedAt, createdAt, url, appUrl, completedFlag, ... (19 total)
+     *   id: int
+     *   name: string|null
+     *   description: string|null
+     *   updatedAt: string
+     *   createdAt: string
+     *   url: string|null
+     *   appUrl: string|null
+     *   completedFlag: string|null
+     *   privateFlag: string|null
+     *   trashedFlag: string|null
+     *   completedCount: int|null
+     *   remainingCount: int|null
+     *   creatorId: int|null
+     *   bucketId: int|null
+     *   updateCd: int
+     *   position: int
+     *   statusCd: int
+     *   processCd: int
+     *   projectsId: int
      *
      * @param array<string, mixed> $params
-     * @return BaseResponse<array<string, mixed>>
+     * @return BaseResponse<list<array<string, mixed>>>
      */
     public function list(array $params = []): BaseResponse
     {
         $response = $this->client->get($this->baseUrl, '', $params);
 
-        return BaseResponse::fromArray($response, static fn ($data) => $data);
+        /** @var BaseResponse<list<array<string, mixed>>> $result */
+        $result = BaseResponse::fromArray($response, static fn (mixed $data): mixed => $data);
+
+        return $result;
     }
 
     /**
      * GET /todolists/{id}
      *
      * Response data type: object
-     * Known fields: id, name, description, updatedAt, createdAt, url, appUrl, completedFlag, ... (19 total)
+     *   id: int
+     *   name: string|null
+     *   description: string|null
+     *   updatedAt: string
+     *   createdAt: string
+     *   url: string|null
+     *   appUrl: string|null
+     *   completedFlag: string|null
+     *   privateFlag: string|null
+     *   trashedFlag: string|null
+     *   completedCount: int|null
+     *   remainingCount: int|null
+     *   creatorId: int|null
+     *   bucketId: int|null
+     *   updateCd: int
+     *   position: int
+     *   statusCd: int
+     *   processCd: int
+     *   projectsId: int
      *
      * @param array<string, mixed> $params
      * @return BaseResponse<array<string, mixed>>
@@ -54,6 +93,9 @@ final class TodolistsResource
             ['id' => (string) $id],
         );
 
-        return BaseResponse::fromArray($response, static fn ($data) => $data);
+        /** @var BaseResponse<array<string, mixed>> $result */
+        $result = BaseResponse::fromArray($response, static fn (mixed $data): mixed => $data);
+
+        return $result;
     }
 }

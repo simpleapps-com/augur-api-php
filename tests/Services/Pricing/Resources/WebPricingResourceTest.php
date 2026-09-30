@@ -96,7 +96,7 @@ final class WebPricingResourceTest extends AugurApiTestCase
     {
         $this->mockResponse(['webPricingUid' => 3, 'name' => 'Spring Sale']);
 
-        $response = $this->api->pricing->webPricing->create(['name' => 'Spring Sale']);
+        $response = $this->api->pricing->webPricing->create(['name' => 'Spring Sale', 'discountPct' => 10.0]);
 
         $this->assertEquals(3, $response->data['webPricingUid']);
         $this->assertRequestPath('/web-pricing');

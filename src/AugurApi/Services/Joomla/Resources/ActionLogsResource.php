@@ -24,26 +24,43 @@ final class ActionLogsResource
      * GET /action-logs
      *
      * Response data type: array
-     * Known fields: id, messageLanguageKey, message, logDate, extension, userId, itemId, ipAddress
+     *   id: int
+     *   messageLanguageKey: string
+     *   message: string
+     *   logDate: string
+     *   extension: string
+     *   userId: int
+     *   itemId: int
+     *   ipAddress: string
      *
      * @param array<string, mixed> $params
-     * @return BaseResponse<array<string, mixed>>
+     * @return BaseResponse<list<array<string, mixed>>>
      */
     public function list(array $params = []): BaseResponse
     {
         $response = $this->client->get($this->baseUrl, '', $params);
 
-        return BaseResponse::fromArray($response, static fn ($data) => $data);
+        /** @var BaseResponse<list<array<string, mixed>>> $result */
+        $result = BaseResponse::fromArray($response, static fn (mixed $data): mixed => $data);
+
+        return $result;
     }
 
     /**
      * GET /action-logs/{id}
      *
      * Response data type: array
-     * Known fields: id, messageLanguageKey, message, logDate, extension, userId, itemId, ipAddress
+     *   id: int
+     *   messageLanguageKey: string
+     *   message: string
+     *   logDate: string
+     *   extension: string
+     *   userId: int
+     *   itemId: int
+     *   ipAddress: string
      *
      * @param array<string, mixed> $params
-     * @return BaseResponse<array<string, mixed>>
+     * @return BaseResponse<list<array<string, mixed>>>
      */
     public function get(int $id, array $params = []): BaseResponse
     {
@@ -54,6 +71,9 @@ final class ActionLogsResource
             ['id' => (string) $id],
         );
 
-        return BaseResponse::fromArray($response, static fn ($data) => $data);
+        /** @var BaseResponse<list<array<string, mixed>>> $result */
+        $result = BaseResponse::fromArray($response, static fn (mixed $data): mixed => $data);
+
+        return $result;
     }
 }

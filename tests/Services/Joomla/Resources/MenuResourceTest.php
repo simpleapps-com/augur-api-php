@@ -20,7 +20,7 @@ final class MenuResourceTest extends AugurApiTestCase
 
         $response = $this->api->joomla->menu->list();
 
-        $this->assertCount(2, $response->data);
+        $this->assertCount(2, self::arrayAt($response->data));
         /** @var list<array<string, mixed>> $data */
         $data = $response->data;
         $this->assertEquals('Home', $data[0]['title']);
@@ -38,7 +38,7 @@ final class MenuResourceTest extends AugurApiTestCase
 
         $response = $this->api->joomla->menu->list(['menutype' => 'mainmenu', 'published' => 1]);
 
-        $this->assertCount(1, $response->data);
+        $this->assertCount(1, self::arrayAt($response->data));
         $this->assertRequestPath('/menu');
     }
 
@@ -53,7 +53,7 @@ final class MenuResourceTest extends AugurApiTestCase
 
         $response = $this->api->joomla->menu->listDoc(1);
 
-        $this->assertEquals(1, $response->data['id']);
+        $this->assertEquals(1, self::at($response->data, 'id'));
         $this->assertRequestPath('/menu/1/doc');
         $this->assertRequestMethod('GET');
     }
@@ -70,8 +70,8 @@ final class MenuResourceTest extends AugurApiTestCase
 
         $response = $this->api->joomla->menu->getDoc(1);
 
-        $this->assertEquals(1, $response->data['id']);
-        $this->assertEquals('Main Menu', $response->data['title']);
+        $this->assertEquals(1, self::at($response->data, 'id'));
+        $this->assertEquals('Main Menu', self::at($response->data, 'title'));
         $this->assertRequestPath('/menu/1/doc');
         $this->assertRequestMethod('GET');
         $this->assertHasSiteIdHeader();

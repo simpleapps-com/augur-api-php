@@ -20,7 +20,7 @@ final class AlsoBoughtResourceTest extends AugurApiTestCase
 
         $response = $this->api->legacy->invMast->listAlsoBought(12345);
 
-        $this->assertCount(2, $response->data);
+        $this->assertCount(2, self::arrayAt($response->data));
 
         /** @var list<array<string, mixed>> $data */
         $data = $response->data;
@@ -43,7 +43,7 @@ final class AlsoBoughtResourceTest extends AugurApiTestCase
 
         $response = $this->api->legacy->invMast->listAlsoBought(12345, ['limit' => 10]);
 
-        $this->assertCount(1, $response->data);
+        $this->assertCount(1, self::arrayAt($response->data));
         $this->assertRequestPath('/inv-mast/12345/also-bought');
     }
 }

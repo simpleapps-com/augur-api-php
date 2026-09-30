@@ -24,32 +24,38 @@ final class VariantsResource
      * GET /variants
      *
      * @param array<string, mixed> $params
-     * @return BaseResponse<array<string, mixed>>
+     * @return BaseResponse<mixed>
      */
     public function list(array $params = []): BaseResponse
     {
         $response = $this->client->get($this->baseUrl, '', $params);
 
-        return BaseResponse::fromArray($response, static fn ($data) => $data);
+        /** @var BaseResponse<mixed> $result */
+        $result = BaseResponse::fromArray($response, static fn (mixed $data): mixed => $data);
+
+        return $result;
     }
 
     /**
      * POST /variants
      *
-     * @param array<string, mixed> $data
-     * @return BaseResponse<array<string, mixed>>
+     * @param array{name: string, description?: string} $data
+     * @return BaseResponse<mixed>
      */
-    public function create(array $data = []): BaseResponse
+    public function create(array $data): BaseResponse
     {
         $response = $this->client->post($this->baseUrl, '', $data);
 
-        return BaseResponse::fromArray($response, static fn ($data) => $data);
+        /** @var BaseResponse<mixed> $result */
+        $result = BaseResponse::fromArray($response, static fn (mixed $data): mixed => $data);
+
+        return $result;
     }
 
     /**
      * DELETE /variants/{itemVariantHdrUid}
      *
-     * @return BaseResponse<array<string, mixed>>
+     * @return BaseResponse<mixed>
      */
     public function delete(int $itemVariantHdrUid): BaseResponse
     {
@@ -59,14 +65,17 @@ final class VariantsResource
             ['itemVariantHdrUid' => (string) $itemVariantHdrUid],
         );
 
-        return BaseResponse::fromArray($response, static fn ($data) => $data);
+        /** @var BaseResponse<mixed> $result */
+        $result = BaseResponse::fromArray($response, static fn (mixed $data): mixed => $data);
+
+        return $result;
     }
 
     /**
      * GET /variants/{itemVariantHdrUid}
      *
      * @param array<string, mixed> $params
-     * @return BaseResponse<array<string, mixed>>
+     * @return BaseResponse<mixed>
      */
     public function get(int $itemVariantHdrUid, array $params = []): BaseResponse
     {
@@ -77,14 +86,17 @@ final class VariantsResource
             ['itemVariantHdrUid' => (string) $itemVariantHdrUid],
         );
 
-        return BaseResponse::fromArray($response, static fn ($data) => $data);
+        /** @var BaseResponse<mixed> $result */
+        $result = BaseResponse::fromArray($response, static fn (mixed $data): mixed => $data);
+
+        return $result;
     }
 
     /**
      * PUT /variants/{itemVariantHdrUid}
      *
-     * @param array<string, mixed> $data
-     * @return BaseResponse<array<string, mixed>>
+     * @param array{name?: string, description?: string, statusCd?: int} $data
+     * @return BaseResponse<mixed>
      */
     public function update(int $itemVariantHdrUid, array $data = []): BaseResponse
     {
@@ -95,14 +107,17 @@ final class VariantsResource
             ['itemVariantHdrUid' => (string) $itemVariantHdrUid],
         );
 
-        return BaseResponse::fromArray($response, static fn ($data) => $data);
+        /** @var BaseResponse<mixed> $result */
+        $result = BaseResponse::fromArray($response, static fn (mixed $data): mixed => $data);
+
+        return $result;
     }
 
     /**
      * GET /variants/{itemVariantHdrUid}/attributes
      *
      * @param array<string, mixed> $params
-     * @return BaseResponse<array<string, mixed>>
+     * @return BaseResponse<mixed>
      */
     public function listAttributes(int $itemVariantHdrUid, array $params = []): BaseResponse
     {
@@ -113,14 +128,17 @@ final class VariantsResource
             ['itemVariantHdrUid' => (string) $itemVariantHdrUid],
         );
 
-        return BaseResponse::fromArray($response, static fn ($data) => $data);
+        /** @var BaseResponse<mixed> $result */
+        $result = BaseResponse::fromArray($response, static fn (mixed $data): mixed => $data);
+
+        return $result;
     }
 
     /**
      * POST /variants/{itemVariantHdrUid}/attributes
      *
      * @param array<string, mixed> $data
-     * @return BaseResponse<array<string, mixed>>
+     * @return BaseResponse<mixed>
      */
     public function createAttributes(int $itemVariantHdrUid, array $data = []): BaseResponse
     {
@@ -131,13 +149,16 @@ final class VariantsResource
             ['itemVariantHdrUid' => (string) $itemVariantHdrUid],
         );
 
-        return BaseResponse::fromArray($response, static fn ($data) => $data);
+        /** @var BaseResponse<mixed> $result */
+        $result = BaseResponse::fromArray($response, static fn (mixed $data): mixed => $data);
+
+        return $result;
     }
 
     /**
      * DELETE /variants/{itemVariantHdrUid}/attributes/{attributeUid}
      *
-     * @return BaseResponse<array<string, mixed>>
+     * @return BaseResponse<mixed>
      */
     public function deleteAttributes(int $itemVariantHdrUid, int $attributeUid): BaseResponse
     {
@@ -147,14 +168,17 @@ final class VariantsResource
             ['itemVariantHdrUid' => (string) $itemVariantHdrUid, 'attributeUid' => (string) $attributeUid],
         );
 
-        return BaseResponse::fromArray($response, static fn ($data) => $data);
+        /** @var BaseResponse<mixed> $result */
+        $result = BaseResponse::fromArray($response, static fn (mixed $data): mixed => $data);
+
+        return $result;
     }
 
     /**
      * GET /variants/{itemVariantHdrUid}/attributes/{attributeUid}
      *
      * @param array<string, mixed> $params
-     * @return BaseResponse<array<string, mixed>>
+     * @return BaseResponse<mixed>
      */
     public function getAttributes(int $itemVariantHdrUid, int $attributeUid, array $params = []): BaseResponse
     {
@@ -165,14 +189,17 @@ final class VariantsResource
             ['itemVariantHdrUid' => (string) $itemVariantHdrUid, 'attributeUid' => (string) $attributeUid],
         );
 
-        return BaseResponse::fromArray($response, static fn ($data) => $data);
+        /** @var BaseResponse<mixed> $result */
+        $result = BaseResponse::fromArray($response, static fn (mixed $data): mixed => $data);
+
+        return $result;
     }
 
     /**
      * PUT /variants/{itemVariantHdrUid}/attributes/{attributeUid}
      *
      * @param array<string, mixed> $data
-     * @return BaseResponse<array<string, mixed>>
+     * @return BaseResponse<mixed>
      */
     public function updateAttributes(int $itemVariantHdrUid, int $attributeUid, array $data = []): BaseResponse
     {
@@ -183,14 +210,17 @@ final class VariantsResource
             ['itemVariantHdrUid' => (string) $itemVariantHdrUid, 'attributeUid' => (string) $attributeUid],
         );
 
-        return BaseResponse::fromArray($response, static fn ($data) => $data);
+        /** @var BaseResponse<mixed> $result */
+        $result = BaseResponse::fromArray($response, static fn (mixed $data): mixed => $data);
+
+        return $result;
     }
 
     /**
      * GET /variants/{itemVariantHdrUid}/doc
      *
      * @param array<string, mixed> $params
-     * @return BaseResponse<array<string, mixed>>
+     * @return BaseResponse<mixed>
      */
     public function listDoc(int $itemVariantHdrUid, array $params = []): BaseResponse
     {
@@ -201,14 +231,17 @@ final class VariantsResource
             ['itemVariantHdrUid' => (string) $itemVariantHdrUid],
         );
 
-        return BaseResponse::fromArray($response, static fn ($data) => $data);
+        /** @var BaseResponse<mixed> $result */
+        $result = BaseResponse::fromArray($response, static fn (mixed $data): mixed => $data);
+
+        return $result;
     }
 
     /**
      * Alias for listDoc — GET /variants/{itemVariantHdrUid}/doc
      *
      * @param array<string, mixed> $params
-     * @return BaseResponse<array<string, mixed>>
+     * @return BaseResponse<mixed>
      */
     public function getDoc(int $itemVariantHdrUid, array $params = []): BaseResponse
     {
@@ -219,10 +252,19 @@ final class VariantsResource
      * GET /variants/{itemVariantHdrUid}/lines
      *
      * Response data type: array
-     * Known fields: itemVariantLineUid, itemVariantHdrUid, invMastUid, dateCreated, dateLastModified, updateCd, statusCd, processCd, ... (10 total)
+     *   itemVariantLineUid: int
+     *   itemVariantHdrUid: int
+     *   invMastUid: int
+     *   dateCreated: string
+     *   dateLastModified: string
+     *   updateCd: int
+     *   statusCd: int
+     *   processCd: int
+     *   primaryCd: int
+     *   sequenceNo: int
      *
      * @param array<string, mixed> $params
-     * @return BaseResponse<array<string, mixed>>
+     * @return BaseResponse<list<array<string, mixed>>>
      */
     public function listLines(int $itemVariantHdrUid, array $params = []): BaseResponse
     {
@@ -233,19 +275,31 @@ final class VariantsResource
             ['itemVariantHdrUid' => (string) $itemVariantHdrUid],
         );
 
-        return BaseResponse::fromArray($response, static fn ($data) => $data);
+        /** @var BaseResponse<list<array<string, mixed>>> $result */
+        $result = BaseResponse::fromArray($response, static fn (mixed $data): mixed => $data);
+
+        return $result;
     }
 
     /**
      * POST /variants/{itemVariantHdrUid}/lines
      *
      * Response data type: object
-     * Known fields: itemVariantLineUid, itemVariantHdrUid, invMastUid, dateCreated, dateLastModified, updateCd, statusCd, processCd, ... (10 total)
+     *   itemVariantLineUid: int
+     *   itemVariantHdrUid: int
+     *   invMastUid: int
+     *   dateCreated: string
+     *   dateLastModified: string
+     *   updateCd: int
+     *   statusCd: int
+     *   processCd: int
+     *   primaryCd: int
+     *   sequenceNo: int
      *
-     * @param array<string, mixed> $data
+     * @param array{invMastUid: int, statusCd?: int, processCd?: int, updateCd?: int} $data
      * @return BaseResponse<array<string, mixed>>
      */
-    public function createLines(int $itemVariantHdrUid, array $data = []): BaseResponse
+    public function createLines(int $itemVariantHdrUid, array $data): BaseResponse
     {
         $response = $this->client->post(
             $this->baseUrl,
@@ -254,14 +308,26 @@ final class VariantsResource
             ['itemVariantHdrUid' => (string) $itemVariantHdrUid],
         );
 
-        return BaseResponse::fromArray($response, static fn ($data) => $data);
+        /** @var BaseResponse<array<string, mixed>> $result */
+        $result = BaseResponse::fromArray($response, static fn (mixed $data): mixed => $data);
+
+        return $result;
     }
 
     /**
      * DELETE /variants/{itemVariantHdrUid}/lines/{itemVariantLineUid}
      *
      * Response data type: object
-     * Known fields: itemVariantLineUid, itemVariantHdrUid, invMastUid, dateCreated, dateLastModified, updateCd, statusCd, processCd, ... (10 total)
+     *   itemVariantLineUid: int
+     *   itemVariantHdrUid: int
+     *   invMastUid: int
+     *   dateCreated: string
+     *   dateLastModified: string
+     *   updateCd: int
+     *   statusCd: int
+     *   processCd: int
+     *   primaryCd: int
+     *   sequenceNo: int
      *
      * @return BaseResponse<array<string, mixed>>
      */
@@ -273,14 +339,26 @@ final class VariantsResource
             ['itemVariantHdrUid' => (string) $itemVariantHdrUid, 'itemVariantLineUid' => (string) $itemVariantLineUid],
         );
 
-        return BaseResponse::fromArray($response, static fn ($data) => $data);
+        /** @var BaseResponse<array<string, mixed>> $result */
+        $result = BaseResponse::fromArray($response, static fn (mixed $data): mixed => $data);
+
+        return $result;
     }
 
     /**
      * GET /variants/{itemVariantHdrUid}/lines/{itemVariantLineUid}
      *
      * Response data type: object
-     * Known fields: itemVariantLineUid, itemVariantHdrUid, invMastUid, dateCreated, dateLastModified, updateCd, statusCd, processCd, ... (10 total)
+     *   itemVariantLineUid: int
+     *   itemVariantHdrUid: int
+     *   invMastUid: int
+     *   dateCreated: string
+     *   dateLastModified: string
+     *   updateCd: int
+     *   statusCd: int
+     *   processCd: int
+     *   primaryCd: int
+     *   sequenceNo: int
      *
      * @param array<string, mixed> $params
      * @return BaseResponse<array<string, mixed>>
@@ -294,14 +372,26 @@ final class VariantsResource
             ['itemVariantHdrUid' => (string) $itemVariantHdrUid, 'itemVariantLineUid' => (string) $itemVariantLineUid],
         );
 
-        return BaseResponse::fromArray($response, static fn ($data) => $data);
+        /** @var BaseResponse<array<string, mixed>> $result */
+        $result = BaseResponse::fromArray($response, static fn (mixed $data): mixed => $data);
+
+        return $result;
     }
 
     /**
      * PUT /variants/{itemVariantHdrUid}/lines/{itemVariantLineUid}
      *
      * Response data type: object
-     * Known fields: itemVariantLineUid, itemVariantHdrUid, invMastUid, dateCreated, dateLastModified, updateCd, statusCd, processCd, ... (10 total)
+     *   itemVariantLineUid: int
+     *   itemVariantHdrUid: int
+     *   invMastUid: int
+     *   dateCreated: string
+     *   dateLastModified: string
+     *   updateCd: int
+     *   statusCd: int
+     *   processCd: int
+     *   primaryCd: int
+     *   sequenceNo: int
      *
      * @param array<string, mixed> $data
      * @return BaseResponse<array<string, mixed>>
@@ -315,14 +405,17 @@ final class VariantsResource
             ['itemVariantHdrUid' => (string) $itemVariantHdrUid, 'itemVariantLineUid' => (string) $itemVariantLineUid],
         );
 
-        return BaseResponse::fromArray($response, static fn ($data) => $data);
+        /** @var BaseResponse<array<string, mixed>> $result */
+        $result = BaseResponse::fromArray($response, static fn (mixed $data): mixed => $data);
+
+        return $result;
     }
 
     /**
      * GET /variants/{itemVariantHdrUid}/similar
      *
      * @param array<string, mixed> $params
-     * @return BaseResponse<array<string, mixed>>
+     * @return BaseResponse<mixed>
      */
     public function listSimilar(int $itemVariantHdrUid, array $params = []): BaseResponse
     {
@@ -333,6 +426,9 @@ final class VariantsResource
             ['itemVariantHdrUid' => (string) $itemVariantHdrUid],
         );
 
-        return BaseResponse::fromArray($response, static fn ($data) => $data);
+        /** @var BaseResponse<mixed> $result */
+        $result = BaseResponse::fromArray($response, static fn (mixed $data): mixed => $data);
+
+        return $result;
     }
 }

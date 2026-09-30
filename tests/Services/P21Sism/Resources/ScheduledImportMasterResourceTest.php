@@ -31,9 +31,9 @@ final class ScheduledImportMasterResourceTest extends AugurApiTestCase
             'remotePath' => '/imports/',
         ]);
 
-        $this->assertEquals('SIM001', $response->data['scheduledImportMasterUid']);
-        $this->assertEquals('sftp.example.com', $response->data['sftpHost']);
-        $this->assertEquals(22, $response->data['sftpPort']);
+        $this->assertEquals('SIM001', self::at($response->data, 'scheduledImportMasterUid'));
+        $this->assertEquals('sftp.example.com', self::at($response->data, 'sftpHost'));
+        $this->assertEquals(22, self::at($response->data, 'sftpPort'));
         $this->assertRequestMethod('POST');
         $this->assertRequestPath('/scheduled-import-master/SIM001/metadata/sftp');
         $this->assertHasSiteIdHeader();
@@ -50,8 +50,8 @@ final class ScheduledImportMasterResourceTest extends AugurApiTestCase
 
         $response = $this->api->p21Sism->scheduledImportMaster->createMetadataSftp('SIM002');
 
-        $this->assertEquals('SIM002', $response->data['scheduledImportMasterUid']);
-        $this->assertFalse($response->data['configured']);
+        $this->assertEquals('SIM002', self::at($response->data, 'scheduledImportMasterUid'));
+        $this->assertFalse(self::at($response->data, 'configured'));
         $this->assertRequestMethod('POST');
         $this->assertRequestPath('/scheduled-import-master/SIM002/metadata/sftp');
     }
@@ -77,9 +77,9 @@ final class ScheduledImportMasterResourceTest extends AugurApiTestCase
             'archivePath' => '/data/archive/',
         ]);
 
-        $this->assertEquals('SIM003', $response->data['scheduledImportMasterUid']);
-        $this->assertEquals('secure-sftp.example.com', $response->data['sftpHost']);
-        $this->assertEquals('*.csv', $response->data['filePattern']);
-        $this->assertEquals('/data/archive/', $response->data['archivePath']);
+        $this->assertEquals('SIM003', self::at($response->data, 'scheduledImportMasterUid'));
+        $this->assertEquals('secure-sftp.example.com', self::at($response->data, 'sftpHost'));
+        $this->assertEquals('*.csv', self::at($response->data, 'filePattern'));
+        $this->assertEquals('/data/archive/', self::at($response->data, 'archivePath'));
     }
 }

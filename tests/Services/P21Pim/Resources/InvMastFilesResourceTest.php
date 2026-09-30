@@ -102,7 +102,7 @@ final class InvMastFilesResourceTest extends AugurApiTestCase
 
         $response = $this->api->p21Pim->invMastFiles->delete(1);
 
-        $this->assertTrue($response->data['success']);
+        $this->assertTrue(self::at($response->data, 'success'));
         $this->assertRequestMethod('DELETE');
         $this->assertRequestPath('/inv-mast-files/1');
     }

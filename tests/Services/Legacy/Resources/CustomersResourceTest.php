@@ -43,7 +43,7 @@ final class CustomersResourceTest extends AugurApiTestCase
             'tag' => 'New Tag',
         ], 201);
 
-        $response = $this->api->legacy->customers->createTags('123', [
+        $response = $this->api->legacy->customers->createTags(123, [
             'tag' => 'New Tag',
         ]);
 
@@ -87,7 +87,7 @@ final class CustomersResourceTest extends AugurApiTestCase
 
         $response = $this->api->legacy->customers->deleteTags(123, 1);
 
-        $this->assertTrue($response->data['deleted']);
+        $this->assertTrue(self::at($response->data, 'deleted'));
         $this->assertRequestPath('/customers/123/tags/1');
         $this->assertRequestMethod('DELETE');
     }

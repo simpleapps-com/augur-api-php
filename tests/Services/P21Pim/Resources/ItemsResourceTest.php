@@ -23,8 +23,8 @@ final class ItemsResourceTest extends AugurApiTestCase
 
         $response = $this->api->p21Pim->items->listSuggestDisplayDesc(12345);
 
-        $this->assertEquals(12345, $response->data['invMastUid']);
-        $this->assertStringContainsString('Premium', $response->data['suggestedDisplayDesc']);
+        $this->assertEquals(12345, self::at($response->data, 'invMastUid'));
+        $this->assertStringContainsString('Premium', self::stringAt($response->data, 'suggestedDisplayDesc'));
         $this->assertRequestMethod('GET');
         $this->assertRequestPath('/items/12345/suggest-display-desc');
         $this->assertHasSiteIdHeader();
@@ -44,8 +44,8 @@ final class ItemsResourceTest extends AugurApiTestCase
             'maxLength' => 100,
         ]);
 
-        $this->assertEquals(12345, $response->data['invMastUid']);
-        $this->assertEquals(0.95, $response->data['confidence']);
+        $this->assertEquals(12345, self::at($response->data, 'invMastUid'));
+        $this->assertEquals(0.95, self::at($response->data, 'confidence'));
     }
 
     public function testSuggestWebDesc(): void
@@ -57,8 +57,8 @@ final class ItemsResourceTest extends AugurApiTestCase
 
         $response = $this->api->p21Pim->items->listSuggestWebDesc(12345);
 
-        $this->assertEquals(12345, $response->data['invMastUid']);
-        $this->assertStringContainsString('premium industrial widget', $response->data['suggestedWebDesc']);
+        $this->assertEquals(12345, self::at($response->data, 'invMastUid'));
+        $this->assertStringContainsString('premium industrial widget', self::stringAt($response->data, 'suggestedWebDesc'));
         $this->assertRequestMethod('GET');
         $this->assertRequestPath('/items/12345/suggest-web-desc');
         $this->assertHasSiteIdHeader();
@@ -78,7 +78,7 @@ final class ItemsResourceTest extends AugurApiTestCase
             'includeBulletPoints' => true,
         ]);
 
-        $this->assertEquals(67890, $response->data['invMastUid']);
-        $this->assertEquals(50, $response->data['wordCount']);
+        $this->assertEquals(67890, self::at($response->data, 'invMastUid'));
+        $this->assertEquals(50, self::at($response->data, 'wordCount'));
     }
 }

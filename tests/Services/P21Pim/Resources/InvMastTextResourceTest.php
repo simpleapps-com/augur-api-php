@@ -104,7 +104,7 @@ final class InvMastTextResourceTest extends AugurApiTestCase
 
         $response = $this->api->p21Pim->invMastText->delete(1);
 
-        $this->assertTrue($response->data['success']);
+        $this->assertTrue(self::at($response->data, 'success'));
         $this->assertRequestMethod('DELETE');
         $this->assertRequestPath('/inv-mast-text/1');
     }

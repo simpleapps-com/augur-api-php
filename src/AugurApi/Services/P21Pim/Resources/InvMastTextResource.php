@@ -24,23 +24,48 @@ final class InvMastTextResource
      * GET /inv-mast-text
      *
      * Response data type: array
-     * Known fields: invMastTextUid, invMastUid, sequenceNo, textValue, displayOnWebFlag, webDisplayTypeUid, textTypeCd, dateCreated, ... (12 total)
+     *   invMastTextUid: int
+     *   invMastUid: int
+     *   sequenceNo: int
+     *   textValue: string
+     *   displayOnWebFlag: string
+     *   webDisplayTypeUid: int
+     *   textTypeCd: int
+     *   dateCreated: string
+     *   dateLastModified: string
+     *   updateCd: int
+     *   statusCd: int
+     *   processCd: int
      *
      * @param array<string, mixed> $params
-     * @return BaseResponse<array<string, mixed>>
+     * @return BaseResponse<list<array<string, mixed>>>
      */
     public function list(array $params = []): BaseResponse
     {
         $response = $this->client->get($this->baseUrl, '', $params);
 
-        return BaseResponse::fromArray($response, static fn ($data) => $data);
+        /** @var BaseResponse<list<array<string, mixed>>> $result */
+        $result = BaseResponse::fromArray($response, static fn (mixed $data): mixed => $data);
+
+        return $result;
     }
 
     /**
      * POST /inv-mast-text
      *
      * Response data type: object
-     * Known fields: invMastTextUid, invMastUid, sequenceNo, textValue, displayOnWebFlag, webDisplayTypeUid, textTypeCd, dateCreated, ... (12 total)
+     *   invMastTextUid: int
+     *   invMastUid: int
+     *   sequenceNo: int
+     *   textValue: string
+     *   displayOnWebFlag: string
+     *   webDisplayTypeUid: int
+     *   textTypeCd: int
+     *   dateCreated: string
+     *   dateLastModified: string
+     *   updateCd: int
+     *   statusCd: int
+     *   processCd: int
      *
      * @param array<string, mixed> $data
      * @return BaseResponse<array<string, mixed>>
@@ -49,13 +74,16 @@ final class InvMastTextResource
     {
         $response = $this->client->post($this->baseUrl, '', $data);
 
-        return BaseResponse::fromArray($response, static fn ($data) => $data);
+        /** @var BaseResponse<array<string, mixed>> $result */
+        $result = BaseResponse::fromArray($response, static fn (mixed $data): mixed => $data);
+
+        return $result;
     }
 
     /**
      * DELETE /inv-mast-text/{invMastTextUid}
      *
-     * @return BaseResponse<array<string, mixed>>
+     * @return BaseResponse<mixed>
      */
     public function delete(int $invMastTextUid): BaseResponse
     {
@@ -65,14 +93,28 @@ final class InvMastTextResource
             ['invMastTextUid' => (string) $invMastTextUid],
         );
 
-        return BaseResponse::fromArray($response, static fn ($data) => $data);
+        /** @var BaseResponse<mixed> $result */
+        $result = BaseResponse::fromArray($response, static fn (mixed $data): mixed => $data);
+
+        return $result;
     }
 
     /**
      * GET /inv-mast-text/{invMastTextUid}
      *
      * Response data type: object
-     * Known fields: invMastTextUid, invMastUid, sequenceNo, textValue, displayOnWebFlag, webDisplayTypeUid, textTypeCd, dateCreated, ... (12 total)
+     *   invMastTextUid: int
+     *   invMastUid: int
+     *   sequenceNo: int
+     *   textValue: string
+     *   displayOnWebFlag: string
+     *   webDisplayTypeUid: int
+     *   textTypeCd: int
+     *   dateCreated: string
+     *   dateLastModified: string
+     *   updateCd: int
+     *   statusCd: int
+     *   processCd: int
      *
      * @param array<string, mixed> $params
      * @return BaseResponse<array<string, mixed>>
@@ -86,14 +128,28 @@ final class InvMastTextResource
             ['invMastTextUid' => (string) $invMastTextUid],
         );
 
-        return BaseResponse::fromArray($response, static fn ($data) => $data);
+        /** @var BaseResponse<array<string, mixed>> $result */
+        $result = BaseResponse::fromArray($response, static fn (mixed $data): mixed => $data);
+
+        return $result;
     }
 
     /**
      * PUT /inv-mast-text/{invMastTextUid}
      *
      * Response data type: object
-     * Known fields: invMastTextUid, invMastUid, sequenceNo, textValue, displayOnWebFlag, webDisplayTypeUid, textTypeCd, dateCreated, ... (12 total)
+     *   invMastTextUid: int
+     *   invMastUid: int
+     *   sequenceNo: int
+     *   textValue: string
+     *   displayOnWebFlag: string
+     *   webDisplayTypeUid: int
+     *   textTypeCd: int
+     *   dateCreated: string
+     *   dateLastModified: string
+     *   updateCd: int
+     *   statusCd: int
+     *   processCd: int
      *
      * @param array<string, mixed> $data
      * @return BaseResponse<array<string, mixed>>
@@ -107,6 +163,9 @@ final class InvMastTextResource
             ['invMastTextUid' => (string) $invMastTextUid],
         );
 
-        return BaseResponse::fromArray($response, static fn ($data) => $data);
+        /** @var BaseResponse<array<string, mixed>> $result */
+        $result = BaseResponse::fromArray($response, static fn (mixed $data): mixed => $data);
+
+        return $result;
     }
 }

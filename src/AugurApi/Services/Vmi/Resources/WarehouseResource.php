@@ -24,23 +24,46 @@ final class WarehouseResource
      * GET /warehouse
      *
      * Response data type: array
-     * Known fields: warehouseUid, warehouseId, warehouseName, warehouseDesc, dateCreated, dateLastModified, updateCd, statusCd, ... (11 total)
+     *   warehouseUid: int
+     *   warehouseId: string
+     *   warehouseName: string
+     *   warehouseDesc: string
+     *   dateCreated: string
+     *   dateLastModified: string
+     *   updateCd: int
+     *   statusCd: int
+     *   processCd: int
+     *   customerId: float
+     *   invProfileHdrUid: int
      *
      * @param array<string, mixed> $params
-     * @return BaseResponse<array<string, mixed>>
+     * @return BaseResponse<list<array<string, mixed>>>
      */
     public function list(array $params = []): BaseResponse
     {
         $response = $this->client->get($this->baseUrl, '', $params);
 
-        return BaseResponse::fromArray($response, static fn ($data) => $data);
+        /** @var BaseResponse<list<array<string, mixed>>> $result */
+        $result = BaseResponse::fromArray($response, static fn (mixed $data): mixed => $data);
+
+        return $result;
     }
 
     /**
      * POST /warehouse
      *
      * Response data type: object
-     * Known fields: warehouseUid, warehouseId, warehouseName, warehouseDesc, dateCreated, dateLastModified, updateCd, statusCd, ... (11 total)
+     *   warehouseUid: int
+     *   warehouseId: string
+     *   warehouseName: string
+     *   warehouseDesc: string
+     *   dateCreated: string
+     *   dateLastModified: string
+     *   updateCd: int
+     *   statusCd: int
+     *   processCd: int
+     *   customerId: float
+     *   invProfileHdrUid: int
      *
      * @param array<string, mixed> $data
      * @return BaseResponse<array<string, mixed>>
@@ -49,14 +72,27 @@ final class WarehouseResource
     {
         $response = $this->client->post($this->baseUrl, '', $data);
 
-        return BaseResponse::fromArray($response, static fn ($data) => $data);
+        /** @var BaseResponse<array<string, mixed>> $result */
+        $result = BaseResponse::fromArray($response, static fn (mixed $data): mixed => $data);
+
+        return $result;
     }
 
     /**
      * DELETE /warehouse/{warehouseUid}
      *
      * Response data type: object
-     * Known fields: warehouseUid, warehouseId, warehouseName, warehouseDesc, dateCreated, dateLastModified, updateCd, statusCd, ... (11 total)
+     *   warehouseUid: int
+     *   warehouseId: string
+     *   warehouseName: string
+     *   warehouseDesc: string
+     *   dateCreated: string
+     *   dateLastModified: string
+     *   updateCd: int
+     *   statusCd: int
+     *   processCd: int
+     *   customerId: float
+     *   invProfileHdrUid: int
      *
      * @return BaseResponse<array<string, mixed>>
      */
@@ -68,14 +104,27 @@ final class WarehouseResource
             ['warehouseUid' => (string) $warehouseUid],
         );
 
-        return BaseResponse::fromArray($response, static fn ($data) => $data);
+        /** @var BaseResponse<array<string, mixed>> $result */
+        $result = BaseResponse::fromArray($response, static fn (mixed $data): mixed => $data);
+
+        return $result;
     }
 
     /**
      * GET /warehouse/{warehouseUid}
      *
      * Response data type: object
-     * Known fields: warehouseUid, warehouseId, warehouseName, warehouseDesc, dateCreated, dateLastModified, updateCd, statusCd, ... (11 total)
+     *   warehouseUid: int
+     *   warehouseId: string
+     *   warehouseName: string
+     *   warehouseDesc: string
+     *   dateCreated: string
+     *   dateLastModified: string
+     *   updateCd: int
+     *   statusCd: int
+     *   processCd: int
+     *   customerId: float
+     *   invProfileHdrUid: int
      *
      * @param array<string, mixed> $params
      * @return BaseResponse<array<string, mixed>>
@@ -89,14 +138,27 @@ final class WarehouseResource
             ['warehouseUid' => (string) $warehouseUid],
         );
 
-        return BaseResponse::fromArray($response, static fn ($data) => $data);
+        /** @var BaseResponse<array<string, mixed>> $result */
+        $result = BaseResponse::fromArray($response, static fn (mixed $data): mixed => $data);
+
+        return $result;
     }
 
     /**
      * PUT /warehouse/{warehouseUid}
      *
      * Response data type: object
-     * Known fields: warehouseUid, warehouseId, warehouseName, warehouseDesc, dateCreated, dateLastModified, updateCd, statusCd, ... (11 total)
+     *   warehouseUid: int
+     *   warehouseId: string
+     *   warehouseName: string
+     *   warehouseDesc: string
+     *   dateCreated: string
+     *   dateLastModified: string
+     *   updateCd: int
+     *   statusCd: int
+     *   processCd: int
+     *   customerId: float
+     *   invProfileHdrUid: int
      *
      * @param array<string, mixed> $data
      * @return BaseResponse<array<string, mixed>>
@@ -110,14 +172,17 @@ final class WarehouseResource
             ['warehouseUid' => (string) $warehouseUid],
         );
 
-        return BaseResponse::fromArray($response, static fn ($data) => $data);
+        /** @var BaseResponse<array<string, mixed>> $result */
+        $result = BaseResponse::fromArray($response, static fn (mixed $data): mixed => $data);
+
+        return $result;
     }
 
     /**
      * POST /warehouse/{warehouseUid}/adjust
      *
      * @param array<string, mixed> $data
-     * @return BaseResponse<array<string, mixed>>
+     * @return BaseResponse<mixed>
      */
     public function createAdjust(int $warehouseUid, array $data = []): BaseResponse
     {
@@ -128,14 +193,17 @@ final class WarehouseResource
             ['warehouseUid' => (string) $warehouseUid],
         );
 
-        return BaseResponse::fromArray($response, static fn ($data) => $data);
+        /** @var BaseResponse<mixed> $result */
+        $result = BaseResponse::fromArray($response, static fn (mixed $data): mixed => $data);
+
+        return $result;
     }
 
     /**
      * GET /warehouse/{warehouseUid}/availability
      *
      * @param array<string, mixed> $params
-     * @return BaseResponse<array<string, mixed>>
+     * @return BaseResponse<mixed>
      */
     public function listAvailability(int $warehouseUid, array $params = []): BaseResponse
     {
@@ -146,14 +214,17 @@ final class WarehouseResource
             ['warehouseUid' => (string) $warehouseUid],
         );
 
-        return BaseResponse::fromArray($response, static fn ($data) => $data);
+        /** @var BaseResponse<mixed> $result */
+        $result = BaseResponse::fromArray($response, static fn (mixed $data): mixed => $data);
+
+        return $result;
     }
 
     /**
      * PUT /warehouse/{warehouseUid}/enable
      *
      * @param array<string, mixed> $data
-     * @return BaseResponse<array<string, mixed>>
+     * @return BaseResponse<mixed>
      */
     public function updateEnable(int $warehouseUid, array $data = []): BaseResponse
     {
@@ -164,14 +235,17 @@ final class WarehouseResource
             ['warehouseUid' => (string) $warehouseUid],
         );
 
-        return BaseResponse::fromArray($response, static fn ($data) => $data);
+        /** @var BaseResponse<mixed> $result */
+        $result = BaseResponse::fromArray($response, static fn (mixed $data): mixed => $data);
+
+        return $result;
     }
 
     /**
      * POST /warehouse/{warehouseUid}/receive
      *
      * @param array<string, mixed> $data
-     * @return BaseResponse<array<string, mixed>>
+     * @return BaseResponse<mixed>
      */
     public function createReceive(int $warehouseUid, array $data = []): BaseResponse
     {
@@ -182,14 +256,17 @@ final class WarehouseResource
             ['warehouseUid' => (string) $warehouseUid],
         );
 
-        return BaseResponse::fromArray($response, static fn ($data) => $data);
+        /** @var BaseResponse<mixed> $result */
+        $result = BaseResponse::fromArray($response, static fn (mixed $data): mixed => $data);
+
+        return $result;
     }
 
     /**
      * GET /warehouse/{warehouseUid}/replenish
      *
      * @param array<string, mixed> $params
-     * @return BaseResponse<array<string, mixed>>
+     * @return BaseResponse<mixed>
      */
     public function listReplenish(int $warehouseUid, array $params = []): BaseResponse
     {
@@ -200,14 +277,17 @@ final class WarehouseResource
             ['warehouseUid' => (string) $warehouseUid],
         );
 
-        return BaseResponse::fromArray($response, static fn ($data) => $data);
+        /** @var BaseResponse<mixed> $result */
+        $result = BaseResponse::fromArray($response, static fn (mixed $data): mixed => $data);
+
+        return $result;
     }
 
     /**
      * POST /warehouse/{warehouseUid}/replenish
      *
      * @param array<string, mixed> $data
-     * @return BaseResponse<array<string, mixed>>
+     * @return BaseResponse<mixed>
      */
     public function createReplenish(int $warehouseUid, array $data = []): BaseResponse
     {
@@ -218,14 +298,17 @@ final class WarehouseResource
             ['warehouseUid' => (string) $warehouseUid],
         );
 
-        return BaseResponse::fromArray($response, static fn ($data) => $data);
+        /** @var BaseResponse<mixed> $result */
+        $result = BaseResponse::fromArray($response, static fn (mixed $data): mixed => $data);
+
+        return $result;
     }
 
     /**
      * POST /warehouse/{warehouseUid}/transfer
      *
      * @param array<string, mixed> $data
-     * @return BaseResponse<array<string, mixed>>
+     * @return BaseResponse<mixed>
      */
     public function createTransfer(int $warehouseUid, array $data = []): BaseResponse
     {
@@ -236,14 +319,17 @@ final class WarehouseResource
             ['warehouseUid' => (string) $warehouseUid],
         );
 
-        return BaseResponse::fromArray($response, static fn ($data) => $data);
+        /** @var BaseResponse<mixed> $result */
+        $result = BaseResponse::fromArray($response, static fn (mixed $data): mixed => $data);
+
+        return $result;
     }
 
     /**
      * POST /warehouse/{warehouseUid}/usage
      *
      * @param array<string, mixed> $data
-     * @return BaseResponse<array<string, mixed>>
+     * @return BaseResponse<mixed>
      */
     public function createUsage(int $warehouseUid, array $data = []): BaseResponse
     {
@@ -254,14 +340,17 @@ final class WarehouseResource
             ['warehouseUid' => (string) $warehouseUid],
         );
 
-        return BaseResponse::fromArray($response, static fn ($data) => $data);
+        /** @var BaseResponse<mixed> $result */
+        $result = BaseResponse::fromArray($response, static fn (mixed $data): mixed => $data);
+
+        return $result;
     }
 
     /**
      * GET /warehouse/{warehouseUid}/users
      *
      * @param array<string, mixed> $params
-     * @return BaseResponse<array<string, mixed>>
+     * @return BaseResponse<mixed>
      */
     public function listUsers(int $warehouseUid, array $params = []): BaseResponse
     {
@@ -272,7 +361,10 @@ final class WarehouseResource
             ['warehouseUid' => (string) $warehouseUid],
         );
 
-        return BaseResponse::fromArray($response, static fn ($data) => $data);
+        /** @var BaseResponse<mixed> $result */
+        $result = BaseResponse::fromArray($response, static fn (mixed $data): mixed => $data);
+
+        return $result;
     }
 
     /**
@@ -280,7 +372,7 @@ final class WarehouseResource
      *
      * @param array<string, mixed> $data
      * @param array<string, mixed> $params
-     * @return BaseResponse<array<string, mixed>>
+     * @return BaseResponse<mixed>
      */
     public function createUsers(int $warehouseUid, array $data = [], array $params = []): BaseResponse
     {
@@ -292,13 +384,16 @@ final class WarehouseResource
             $params,
         );
 
-        return BaseResponse::fromArray($response, static fn ($data) => $data);
+        /** @var BaseResponse<mixed> $result */
+        $result = BaseResponse::fromArray($response, static fn (mixed $data): mixed => $data);
+
+        return $result;
     }
 
     /**
      * DELETE /warehouse/{warehouseUid}/users/{usersId}
      *
-     * @return BaseResponse<array<string, mixed>>
+     * @return BaseResponse<mixed>
      */
     public function deleteUsers(int $warehouseUid, int $usersId): BaseResponse
     {
@@ -308,14 +403,17 @@ final class WarehouseResource
             ['warehouseUid' => (string) $warehouseUid, 'usersId' => (string) $usersId],
         );
 
-        return BaseResponse::fromArray($response, static fn ($data) => $data);
+        /** @var BaseResponse<mixed> $result */
+        $result = BaseResponse::fromArray($response, static fn (mixed $data): mixed => $data);
+
+        return $result;
     }
 
     /**
      * GET /warehouse/{warehouseUid}/users/{usersId}
      *
      * @param array<string, mixed> $params
-     * @return BaseResponse<array<string, mixed>>
+     * @return BaseResponse<mixed>
      */
     public function getUsers(int $warehouseUid, int $usersId, array $params = []): BaseResponse
     {
@@ -326,14 +424,17 @@ final class WarehouseResource
             ['warehouseUid' => (string) $warehouseUid, 'usersId' => (string) $usersId],
         );
 
-        return BaseResponse::fromArray($response, static fn ($data) => $data);
+        /** @var BaseResponse<mixed> $result */
+        $result = BaseResponse::fromArray($response, static fn (mixed $data): mixed => $data);
+
+        return $result;
     }
 
     /**
      * PUT /warehouse/{warehouseUid}/users/{usersId}
      *
      * @param array<string, mixed> $data
-     * @return BaseResponse<array<string, mixed>>
+     * @return BaseResponse<mixed>
      */
     public function updateUsers(int $warehouseUid, int $usersId, array $data = []): BaseResponse
     {
@@ -344,6 +445,9 @@ final class WarehouseResource
             ['warehouseUid' => (string) $warehouseUid, 'usersId' => (string) $usersId],
         );
 
-        return BaseResponse::fromArray($response, static fn ($data) => $data);
+        /** @var BaseResponse<mixed> $result */
+        $result = BaseResponse::fromArray($response, static fn (mixed $data): mixed => $data);
+
+        return $result;
     }
 }

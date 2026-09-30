@@ -53,9 +53,9 @@ final class RatesResourceTest extends AugurApiTestCase
             ],
         ]);
 
-        $this->assertCount(2, $response->data['rates']);
-        $this->assertEquals('UPS', $response->data['rates'][0]['carrier']);
-        $this->assertEquals('FedEx Ground', $response->data['cheapest']);
+        $this->assertCount(2, self::arrayAt($response->data, 'rates'));
+        $this->assertEquals('UPS', self::at($response->data, 'rates', 0, 'carrier'));
+        $this->assertEquals('FedEx Ground', self::at($response->data, 'cheapest'));
         $this->assertRequestPath('/rates');
         $this->assertRequestMethod('POST');
         $this->assertHasSiteIdHeader();
@@ -81,8 +81,8 @@ final class RatesResourceTest extends AugurApiTestCase
             ],
         ]);
 
-        $this->assertEquals(15.0, $response->data['totalWeight']);
-        $this->assertCount(1, $response->data['rates']);
+        $this->assertEquals(15.0, self::at($response->data, 'totalWeight'));
+        $this->assertCount(1, self::arrayAt($response->data, 'rates'));
     }
 
     public function testCreateReturnsBaseResponse(): void

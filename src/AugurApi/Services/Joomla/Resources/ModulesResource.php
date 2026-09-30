@@ -24,23 +24,60 @@ final class ModulesResource
      * GET /modules
      *
      * Response data type: array
-     * Known fields: id, assetId, title, note, content, ordering, position, checkedOut, ... (18 total)
+     *   id: int
+     *   assetId: int
+     *   title: string
+     *   note: string
+     *   content: string|null
+     *   ordering: int
+     *   position: string
+     *   checkedOut: int
+     *   checkedOutTime: string
+     *   publishUp: string
+     *   publishDown: string
+     *   published: int
+     *   module: string|null
+     *   access: int
+     *   showtitle: int
+     *   params: string
+     *   clientId: int
+     *   language: string
      *
      * @param array<string, mixed> $params
-     * @return BaseResponse<array<string, mixed>>
+     * @return BaseResponse<list<array<string, mixed>>>
      */
     public function list(array $params = []): BaseResponse
     {
         $response = $this->client->get($this->baseUrl, '', $params);
 
-        return BaseResponse::fromArray($response, static fn ($data) => $data);
+        /** @var BaseResponse<list<array<string, mixed>>> $result */
+        $result = BaseResponse::fromArray($response, static fn (mixed $data): mixed => $data);
+
+        return $result;
     }
 
     /**
      * GET /modules/{id}
      *
      * Response data type: object
-     * Known fields: id, assetId, title, note, content, ordering, position, checkedOut, ... (18 total)
+     *   id: int
+     *   assetId: int
+     *   title: string
+     *   note: string
+     *   content: string|null
+     *   ordering: int
+     *   position: string
+     *   checkedOut: int
+     *   checkedOutTime: string
+     *   publishUp: string
+     *   publishDown: string
+     *   published: int
+     *   module: string|null
+     *   access: int
+     *   showtitle: int
+     *   params: string
+     *   clientId: int
+     *   language: string
      *
      * @param array<string, mixed> $params
      * @return BaseResponse<array<string, mixed>>
@@ -54,6 +91,9 @@ final class ModulesResource
             ['id' => (string) $id],
         );
 
-        return BaseResponse::fromArray($response, static fn ($data) => $data);
+        /** @var BaseResponse<array<string, mixed>> $result */
+        $result = BaseResponse::fromArray($response, static fn (mixed $data): mixed => $data);
+
+        return $result;
     }
 }

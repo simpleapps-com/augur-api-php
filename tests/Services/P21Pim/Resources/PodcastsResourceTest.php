@@ -84,8 +84,8 @@ final class PodcastsResourceTest extends AugurApiTestCase
             'duration' => 3600,
         ]);
 
-        $this->assertEquals(3, $response->data['podcastsUid']);
-        $this->assertEquals('New Podcast Episode', $response->data['title']);
+        $this->assertEquals(3, self::at($response->data, 'podcastsUid'));
+        $this->assertEquals('New Podcast Episode', self::at($response->data, 'title'));
         $this->assertRequestMethod('POST');
         $this->assertRequestPath('/podcasts');
     }
@@ -103,7 +103,7 @@ final class PodcastsResourceTest extends AugurApiTestCase
             'description' => 'Updated description',
         ]);
 
-        $this->assertEquals('Updated Podcast Title', $response->data['title']);
+        $this->assertEquals('Updated Podcast Title', self::at($response->data, 'title'));
         $this->assertRequestMethod('PUT');
         $this->assertRequestPath('/podcasts/1');
     }
@@ -116,7 +116,7 @@ final class PodcastsResourceTest extends AugurApiTestCase
 
         $response = $this->api->p21Pim->podcasts->delete(1);
 
-        $this->assertTrue($response->data['success']);
+        $this->assertTrue(self::at($response->data, 'success'));
         $this->assertRequestMethod('DELETE');
         $this->assertRequestPath('/podcasts/1');
     }

@@ -24,38 +24,81 @@ final class AttributesResource
      * GET /attributes
      *
      * Response data type: array
-     * Known fields: attributeUid, attributeDesc, extendedDesc, attributeId, dataType, maxLength, noOfDecimal, rowStatusFlag, ... (21 total)
+     *   attributeUid: int
+     *   attributeDesc: string|null
+     *   extendedDesc: string|null
+     *   attributeId: string
+     *   dataType: int
+     *   maxLength: int
+     *   noOfDecimal: int|null
+     *   rowStatusFlag: int
+     *   validationRequiredFlag: string
+     *   dateCreated: string
+     *   createdBy: string
+     *   dateLastModified: string
+     *   lastMaintainedBy: string
+     *   cfdiAttributeType: int|null
+     *   updateCd: int
+     *   processCd: int
+     *   statusCd: int
+     *   typeCd: int
+     *   activeValueCount: int
+     *   inactiveValueCount: int
+     *   deletedValueCount: int
      *
      * @param array<string, mixed> $params
-     * @return BaseResponse<array<string, mixed>>
+     * @return BaseResponse<list<array<string, mixed>>>
      */
     public function list(array $params = []): BaseResponse
     {
         $response = $this->client->get($this->baseUrl, '', $params);
 
-        return BaseResponse::fromArray($response, static fn ($data) => $data);
+        /** @var BaseResponse<list<array<string, mixed>>> $result */
+        $result = BaseResponse::fromArray($response, static fn (mixed $data): mixed => $data);
+
+        return $result;
     }
 
     /**
      * POST /attributes
      *
      * Response data type: object
-     * Known fields: attributeUid, attributeDesc, extendedDesc, attributeId, dataType, maxLength, noOfDecimal, rowStatusFlag, ... (18 total)
+     *   attributeUid: int
+     *   attributeDesc: string|null
+     *   extendedDesc: string|null
+     *   attributeId: string
+     *   dataType: int
+     *   maxLength: int
+     *   noOfDecimal: int|null
+     *   rowStatusFlag: int
+     *   validationRequiredFlag: string
+     *   dateCreated: string
+     *   createdBy: string
+     *   dateLastModified: string
+     *   lastMaintainedBy: string
+     *   cfdiAttributeType: int|null
+     *   updateCd: int
+     *   processCd: int
+     *   statusCd: int
+     *   typeCd: int
      *
-     * @param array<string, mixed> $data
+     * @param array{attributeDesc: string, extendedDesc?: string, dataType?: int, maxLength?: int, noOfDecimal?: int, validationRequiredFlag?: string, cfdiAttributeType?: int} $data
      * @return BaseResponse<array<string, mixed>>
      */
-    public function create(array $data = []): BaseResponse
+    public function create(array $data): BaseResponse
     {
         $response = $this->client->post($this->baseUrl, '', $data);
 
-        return BaseResponse::fromArray($response, static fn ($data) => $data);
+        /** @var BaseResponse<array<string, mixed>> $result */
+        $result = BaseResponse::fromArray($response, static fn (mixed $data): mixed => $data);
+
+        return $result;
     }
 
     /**
      * DELETE /attributes/{attributeUid}
      *
-     * @return BaseResponse<array<string, mixed>>
+     * @return BaseResponse<mixed>
      */
     public function delete(int $attributeUid): BaseResponse
     {
@@ -65,14 +108,37 @@ final class AttributesResource
             ['attributeUid' => (string) $attributeUid],
         );
 
-        return BaseResponse::fromArray($response, static fn ($data) => $data);
+        /** @var BaseResponse<mixed> $result */
+        $result = BaseResponse::fromArray($response, static fn (mixed $data): mixed => $data);
+
+        return $result;
     }
 
     /**
      * GET /attributes/{attributeUid}
      *
      * Response data type: object
-     * Known fields: attributeUid, attributeDesc, extendedDesc, attributeId, dataType, maxLength, noOfDecimal, rowStatusFlag, ... (21 total)
+     *   attributeUid: int
+     *   attributeDesc: string|null
+     *   extendedDesc: string|null
+     *   attributeId: string
+     *   dataType: int
+     *   maxLength: int
+     *   noOfDecimal: int|null
+     *   rowStatusFlag: int
+     *   validationRequiredFlag: string
+     *   dateCreated: string
+     *   createdBy: string
+     *   dateLastModified: string
+     *   lastMaintainedBy: string
+     *   cfdiAttributeType: int|null
+     *   updateCd: int
+     *   processCd: int
+     *   statusCd: int
+     *   typeCd: int
+     *   activeValueCount: int
+     *   inactiveValueCount: int
+     *   deletedValueCount: int
      *
      * @param array<string, mixed> $params
      * @return BaseResponse<array<string, mixed>>
@@ -86,14 +152,34 @@ final class AttributesResource
             ['attributeUid' => (string) $attributeUid],
         );
 
-        return BaseResponse::fromArray($response, static fn ($data) => $data);
+        /** @var BaseResponse<array<string, mixed>> $result */
+        $result = BaseResponse::fromArray($response, static fn (mixed $data): mixed => $data);
+
+        return $result;
     }
 
     /**
      * PUT /attributes/{attributeUid}
      *
      * Response data type: object
-     * Known fields: attributeUid, attributeDesc, extendedDesc, attributeId, dataType, maxLength, noOfDecimal, rowStatusFlag, ... (18 total)
+     *   attributeUid: int
+     *   attributeDesc: string|null
+     *   extendedDesc: string|null
+     *   attributeId: string
+     *   dataType: int
+     *   maxLength: int
+     *   noOfDecimal: int|null
+     *   rowStatusFlag: int
+     *   validationRequiredFlag: string
+     *   dateCreated: string
+     *   createdBy: string
+     *   dateLastModified: string
+     *   lastMaintainedBy: string
+     *   cfdiAttributeType: int|null
+     *   updateCd: int
+     *   processCd: int
+     *   statusCd: int
+     *   typeCd: int
      *
      * @param array<string, mixed> $data
      * @return BaseResponse<array<string, mixed>>
@@ -107,17 +193,36 @@ final class AttributesResource
             ['attributeUid' => (string) $attributeUid],
         );
 
-        return BaseResponse::fromArray($response, static fn ($data) => $data);
+        /** @var BaseResponse<array<string, mixed>> $result */
+        $result = BaseResponse::fromArray($response, static fn (mixed $data): mixed => $data);
+
+        return $result;
     }
 
     /**
      * GET /attributes/{attributeUid}/items
      *
      * Response data type: array
-     * Known fields: itemAttributeValueUid, invMastUid, attributeUid, attributeValue, dateCreated, createdBy, dateLastModified, lastMaintainedBy, ... (17 total)
+     *   itemAttributeValueUid: int
+     *   invMastUid: int
+     *   attributeUid: int
+     *   attributeValue: string|null
+     *   dateCreated: string
+     *   createdBy: string
+     *   dateLastModified: string
+     *   lastMaintainedBy: string
+     *   updateCd: int
+     *   processCd: int
+     *   statusCd: int
+     *   attributeValueUid: int
+     *   onlineCd: int
+     *   attributeDesc: string|null
+     *   attributeId: string
+     *   itemId: string
+     *   itemDesc: string|null
      *
      * @param array<string, mixed> $params
-     * @return BaseResponse<array<string, mixed>>
+     * @return BaseResponse<list<array<string, mixed>>>
      */
     public function listItems(int $attributeUid, array $params = []): BaseResponse
     {
@@ -128,17 +233,32 @@ final class AttributesResource
             ['attributeUid' => (string) $attributeUid],
         );
 
-        return BaseResponse::fromArray($response, static fn ($data) => $data);
+        /** @var BaseResponse<list<array<string, mixed>>> $result */
+        $result = BaseResponse::fromArray($response, static fn (mixed $data): mixed => $data);
+
+        return $result;
     }
 
     /**
      * GET /attributes/{attributeUid}/values
      *
      * Response data type: array
-     * Known fields: attributeValueUid, attributeUid, attributeValue, rowStatusFlag, dateCreated, createdBy, dateLastModified, lastMaintainedBy, ... (13 total)
+     *   attributeValueUid: int
+     *   attributeUid: int
+     *   attributeValue: string
+     *   rowStatusFlag: int
+     *   dateCreated: string
+     *   createdBy: string
+     *   dateLastModified: string
+     *   lastMaintainedBy: string
+     *   updateCd: int
+     *   processCd: int
+     *   statusCd: int
+     *   sequenceNo: int
+     *   itemCount: int
      *
      * @param array<string, mixed> $params
-     * @return BaseResponse<array<string, mixed>>
+     * @return BaseResponse<list<array<string, mixed>>>
      */
     public function listValues(int $attributeUid, array $params = []): BaseResponse
     {
@@ -149,19 +269,34 @@ final class AttributesResource
             ['attributeUid' => (string) $attributeUid],
         );
 
-        return BaseResponse::fromArray($response, static fn ($data) => $data);
+        /** @var BaseResponse<list<array<string, mixed>>> $result */
+        $result = BaseResponse::fromArray($response, static fn (mixed $data): mixed => $data);
+
+        return $result;
     }
 
     /**
      * POST /attributes/{attributeUid}/values
      *
      * Response data type: object
-     * Known fields: attributeValueUid, attributeUid, attributeValue, rowStatusFlag, dateCreated, createdBy, dateLastModified, lastMaintainedBy, ... (13 total)
+     *   attributeValueUid: int
+     *   attributeUid: int
+     *   attributeValue: string
+     *   rowStatusFlag: int
+     *   dateCreated: string
+     *   createdBy: string
+     *   dateLastModified: string
+     *   lastMaintainedBy: string
+     *   updateCd: int
+     *   processCd: int
+     *   statusCd: int
+     *   sequenceNo: int
+     *   itemCount: int
      *
-     * @param array<string, mixed> $data
+     * @param array{attributeValue: string, sequenceNo?: int} $data
      * @return BaseResponse<array<string, mixed>>
      */
-    public function createValues(int $attributeUid, array $data = []): BaseResponse
+    public function createValues(int $attributeUid, array $data): BaseResponse
     {
         $response = $this->client->post(
             $this->baseUrl,
@@ -170,14 +305,29 @@ final class AttributesResource
             ['attributeUid' => (string) $attributeUid],
         );
 
-        return BaseResponse::fromArray($response, static fn ($data) => $data);
+        /** @var BaseResponse<array<string, mixed>> $result */
+        $result = BaseResponse::fromArray($response, static fn (mixed $data): mixed => $data);
+
+        return $result;
     }
 
     /**
      * DELETE /attributes/{attributeUid}/values/{attributeValueUid}
      *
      * Response data type: object
-     * Known fields: attributeValueUid, attributeUid, attributeValue, rowStatusFlag, dateCreated, createdBy, dateLastModified, lastMaintainedBy, ... (13 total)
+     *   attributeValueUid: int
+     *   attributeUid: int
+     *   attributeValue: string
+     *   rowStatusFlag: int
+     *   dateCreated: string
+     *   createdBy: string
+     *   dateLastModified: string
+     *   lastMaintainedBy: string
+     *   updateCd: int
+     *   processCd: int
+     *   statusCd: int
+     *   sequenceNo: int
+     *   itemCount: int
      *
      * @return BaseResponse<array<string, mixed>>
      */
@@ -189,14 +339,29 @@ final class AttributesResource
             ['attributeUid' => (string) $attributeUid, 'attributeValueUid' => (string) $attributeValueUid],
         );
 
-        return BaseResponse::fromArray($response, static fn ($data) => $data);
+        /** @var BaseResponse<array<string, mixed>> $result */
+        $result = BaseResponse::fromArray($response, static fn (mixed $data): mixed => $data);
+
+        return $result;
     }
 
     /**
      * GET /attributes/{attributeUid}/values/{attributeValueUid}
      *
      * Response data type: object
-     * Known fields: attributeValueUid, attributeUid, attributeValue, rowStatusFlag, dateCreated, createdBy, dateLastModified, lastMaintainedBy, ... (13 total)
+     *   attributeValueUid: int
+     *   attributeUid: int
+     *   attributeValue: string
+     *   rowStatusFlag: int
+     *   dateCreated: string
+     *   createdBy: string
+     *   dateLastModified: string
+     *   lastMaintainedBy: string
+     *   updateCd: int
+     *   processCd: int
+     *   statusCd: int
+     *   sequenceNo: int
+     *   itemCount: int
      *
      * @param array<string, mixed> $params
      * @return BaseResponse<array<string, mixed>>
@@ -210,14 +375,29 @@ final class AttributesResource
             ['attributeUid' => (string) $attributeUid, 'attributeValueUid' => (string) $attributeValueUid],
         );
 
-        return BaseResponse::fromArray($response, static fn ($data) => $data);
+        /** @var BaseResponse<array<string, mixed>> $result */
+        $result = BaseResponse::fromArray($response, static fn (mixed $data): mixed => $data);
+
+        return $result;
     }
 
     /**
      * PUT /attributes/{attributeUid}/values/{attributeValueUid}
      *
      * Response data type: object
-     * Known fields: attributeValueUid, attributeUid, attributeValue, rowStatusFlag, dateCreated, createdBy, dateLastModified, lastMaintainedBy, ... (13 total)
+     *   attributeValueUid: int
+     *   attributeUid: int
+     *   attributeValue: string
+     *   rowStatusFlag: int
+     *   dateCreated: string
+     *   createdBy: string
+     *   dateLastModified: string
+     *   lastMaintainedBy: string
+     *   updateCd: int
+     *   processCd: int
+     *   statusCd: int
+     *   sequenceNo: int
+     *   itemCount: int
      *
      * @param array<string, mixed> $data
      * @return BaseResponse<array<string, mixed>>
@@ -231,6 +411,9 @@ final class AttributesResource
             ['attributeUid' => (string) $attributeUid, 'attributeValueUid' => (string) $attributeValueUid],
         );
 
-        return BaseResponse::fromArray($response, static fn ($data) => $data);
+        /** @var BaseResponse<array<string, mixed>> $result */
+        $result = BaseResponse::fromArray($response, static fn (mixed $data): mixed => $data);
+
+        return $result;
     }
 }

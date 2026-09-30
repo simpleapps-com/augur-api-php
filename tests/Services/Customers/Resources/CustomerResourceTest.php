@@ -20,7 +20,7 @@ final class CustomerResourceTest extends AugurApiTestCase
 
         $response = $this->api->customers->customer->list();
 
-        $this->assertCount(2, $response->data);
+        $this->assertCount(2, self::arrayAt($response->data));
         /** @var list<array<string, mixed>> $data */
         $data = $response->data;
         $this->assertEquals('Customer A', $data[0]['customerName']);
@@ -37,7 +37,7 @@ final class CustomerResourceTest extends AugurApiTestCase
 
         $response = $this->api->customers->customer->list(['limit' => 10, 'offset' => 0]);
 
-        $this->assertCount(1, $response->data);
+        $this->assertCount(1, self::arrayAt($response->data));
         $this->assertRequestPath('/customer');
     }
 
@@ -49,7 +49,7 @@ final class CustomerResourceTest extends AugurApiTestCase
 
         $response = $this->api->customers->customer->getLookup(['q' => 'Customer']);
 
-        $this->assertCount(1, $response->data);
+        $this->assertCount(1, self::arrayAt($response->data));
         $this->assertRequestPath('/customer/lookup');
         $this->assertRequestMethod('GET');
     }
@@ -63,7 +63,7 @@ final class CustomerResourceTest extends AugurApiTestCase
 
         $response = $this->api->customers->customer->listAddress(1001);
 
-        $this->assertCount(2, $response->data);
+        $this->assertCount(2, self::arrayAt($response->data));
         /** @var list<array<string, mixed>> $data */
         $data = $response->data;
         $this->assertEquals('123 Main St', $data[0]['street']);
@@ -80,7 +80,7 @@ final class CustomerResourceTest extends AugurApiTestCase
 
         $response = $this->api->customers->customer->listContacts(1001);
 
-        $this->assertCount(2, $response->data);
+        $this->assertCount(2, self::arrayAt($response->data));
         /** @var list<array<string, mixed>> $data */
         $data = $response->data;
         $this->assertEquals('John Doe', $data[0]['name']);
@@ -140,7 +140,7 @@ final class CustomerResourceTest extends AugurApiTestCase
             'email' => 'new@example.com',
         ]);
 
-        $this->assertEquals('New Contact', $response->data['name']);
+        $this->assertEquals('New Contact', self::at($response->data, 'name'));
         $this->assertRequestPath('/customer/1001/contacts');
         $this->assertRequestMethod('POST');
     }
@@ -155,7 +155,7 @@ final class CustomerResourceTest extends AugurApiTestCase
 
         $response = $this->api->customers->customer->listDoc(1001);
 
-        $this->assertEquals(1001, $response->data['customerId']);
+        $this->assertEquals(1001, self::at($response->data, 'customerId'));
         $this->assertRequestPath('/customer/1001/doc');
         $this->assertRequestMethod('GET');
     }
@@ -169,7 +169,7 @@ final class CustomerResourceTest extends AugurApiTestCase
 
         $response = $this->api->customers->customer->getDoc(1001);
 
-        $this->assertEquals(1001, $response->data['customerId']);
+        $this->assertEquals(1001, self::at($response->data, 'customerId'));
         $this->assertRequestPath('/customer/1001/doc');
     }
 
@@ -181,7 +181,7 @@ final class CustomerResourceTest extends AugurApiTestCase
 
         $response = $this->api->customers->customer->listInvoices(1001);
 
-        $this->assertCount(1, $response->data);
+        $this->assertCount(1, self::arrayAt($response->data));
         $this->assertRequestPath('/customer/1001/invoices');
         $this->assertRequestMethod('GET');
     }
@@ -195,7 +195,7 @@ final class CustomerResourceTest extends AugurApiTestCase
 
         $response = $this->api->customers->customer->getInvoices(1001, 1001);
 
-        $this->assertEquals(1001, $response->data['invoiceNo']);
+        $this->assertEquals(1001, self::at($response->data, 'invoiceNo'));
         $this->assertRequestPath('/customer/1001/invoices/1001');
         $this->assertRequestMethod('GET');
     }
@@ -208,7 +208,7 @@ final class CustomerResourceTest extends AugurApiTestCase
 
         $response = $this->api->customers->customer->listOrders(1001);
 
-        $this->assertCount(1, $response->data);
+        $this->assertCount(1, self::arrayAt($response->data));
         $this->assertRequestPath('/customer/1001/orders');
         $this->assertRequestMethod('GET');
     }
@@ -262,7 +262,7 @@ final class CustomerResourceTest extends AugurApiTestCase
 
         $response = $this->api->customers->customer->listPurchasedItems(1001);
 
-        $this->assertCount(1, $response->data);
+        $this->assertCount(1, self::arrayAt($response->data));
         $this->assertRequestPath('/customer/1001/purchased-items');
         $this->assertRequestMethod('GET');
     }
@@ -315,7 +315,7 @@ final class CustomerResourceTest extends AugurApiTestCase
 
         $response = $this->api->customers->customer->getShipToLookup(1001, ['q' => 'Main']);
 
-        $this->assertCount(1, $response->data);
+        $this->assertCount(1, self::arrayAt($response->data));
         $this->assertRequestPath('/customer/1001/ship-to/lookup');
         $this->assertRequestMethod('GET');
     }
@@ -331,7 +331,7 @@ final class CustomerResourceTest extends AugurApiTestCase
             'address' => '789 New Ship St',
         ]);
 
-        $this->assertEquals('789 New Ship St', $response->data['address']);
+        $this->assertEquals('789 New Ship St', self::at($response->data, 'address'));
         $this->assertRequestPath('/customer/1001/ship-to');
         $this->assertRequestMethod('POST');
     }
@@ -344,7 +344,7 @@ final class CustomerResourceTest extends AugurApiTestCase
 
         $response = $this->api->customers->customer->listShipToFreightCodes(1001, 2002);
 
-        $this->assertCount(1, $response->data);
+        $this->assertCount(1, self::arrayAt($response->data));
         $this->assertRequestPath('/customer/1001/ship-to/2002/freight-codes');
         $this->assertRequestMethod('GET');
     }
@@ -505,7 +505,7 @@ final class CustomerResourceTest extends AugurApiTestCase
             'q' => 'ACME',
         ]);
 
-        $this->assertCount(1, $response->data);
+        $this->assertCount(1, self::arrayAt($response->data));
         $this->assertRequestPath('/customer/1001/invoices');
         $this->assertRequestMethod('GET');
     }

@@ -38,11 +38,11 @@ abstract class AugurApiTestCase extends TestCase
     /**
      * Add a successful JSON response to the mock client.
      *
-     * @param array<string, mixed> $data Response data
+     * @param array<mixed>|scalar $data Response data (object, list, or scalar per spec)
      * @param int $status HTTP status code
      * @param int|null $total Total count for paginated responses
      */
-    protected function mockResponse(array $data, int $status = 200, ?int $total = null): void
+    protected function mockResponse(array|int|float|string|bool $data, int $status = 200, ?int $total = null): void
     {
         $body = [
             'data' => $data,
@@ -159,5 +159,40 @@ abstract class AugurApiTestCase extends TestCase
     {
         $request = $this->getLastRequest();
         $this->assertEquals('Bearer test-token', $request->getHeaderLine('Authorization'));
+    }
+
+    /**
+     * Walk $path through nested arrays, asserting each step is an array holding the key.
+     */
+    protected static function at(mixed $value, int|string ...$path): mixed
+    {
+        foreach ($path as $key) {
+            self::assertIsArray($value);
+            self::assertArrayHasKey($key, $value);
+            $value = $value[$key];
+        }
+        return $value;
+    }
+
+    /**
+     * Value at $path, asserted to be an array.
+     *
+     * @return array<array-key, mixed>
+     */
+    protected static function arrayAt(mixed $value, int|string ...$path): array
+    {
+        $found = self::at($value, ...$path);
+        self::assertIsArray($found);
+        return $found;
+    }
+
+    /**
+     * Value at $path, asserted to be a string.
+     */
+    protected static function stringAt(mixed $value, int|string ...$path): string
+    {
+        $found = self::at($value, ...$path);
+        self::assertIsString($found);
+        return $found;
     }
 }

@@ -28,7 +28,7 @@ final class UpsResourceTest extends AugurApiTestCase
             'weight' => 10,
         ]);
 
-        $this->assertCount(1, $response->data['rates']);
+        $this->assertCount(1, self::arrayAt($response->data, 'rates'));
         $this->assertRequestPath('/ups/rates');
         $this->assertRequestMethod('GET');
         $this->assertHasAuthHeader();

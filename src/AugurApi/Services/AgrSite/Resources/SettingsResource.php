@@ -24,23 +24,42 @@ final class SettingsResource
      * GET /settings
      *
      * Response data type: array
-     * Known fields: settingsUid, serviceName, name, value, dateCreated, dateLastModified, updateCd, statusCd, ... (9 total)
+     *   settingsUid: int
+     *   serviceName: string
+     *   name: string
+     *   value: string|null
+     *   dateCreated: string
+     *   dateLastModified: string
+     *   updateCd: int
+     *   statusCd: int
+     *   processCd: int
      *
      * @param array<string, mixed> $params
-     * @return BaseResponse<array<string, mixed>>
+     * @return BaseResponse<list<array<string, mixed>>>
      */
     public function list(array $params = []): BaseResponse
     {
         $response = $this->client->get($this->baseUrl, '', $params);
 
-        return BaseResponse::fromArray($response, static fn ($data) => $data);
+        /** @var BaseResponse<list<array<string, mixed>>> $result */
+        $result = BaseResponse::fromArray($response, static fn (mixed $data): mixed => $data);
+
+        return $result;
     }
 
     /**
      * POST /settings
      *
      * Response data type: object
-     * Known fields: settingsUid, serviceName, name, value, dateCreated, dateLastModified, updateCd, statusCd, ... (9 total)
+     *   settingsUid: int
+     *   serviceName: string
+     *   name: string
+     *   value: string|null
+     *   dateCreated: string
+     *   dateLastModified: string
+     *   updateCd: int
+     *   statusCd: int
+     *   processCd: int
      *
      * @param array<string, mixed> $data
      * @return BaseResponse<array<string, mixed>>
@@ -49,13 +68,16 @@ final class SettingsResource
     {
         $response = $this->client->post($this->baseUrl, '', $data);
 
-        return BaseResponse::fromArray($response, static fn ($data) => $data);
+        /** @var BaseResponse<array<string, mixed>> $result */
+        $result = BaseResponse::fromArray($response, static fn (mixed $data): mixed => $data);
+
+        return $result;
     }
 
     /**
      * DELETE /settings/{settingsUid}
      *
-     * @return BaseResponse<array<string, mixed>>
+     * @return BaseResponse<mixed>
      */
     public function delete(int $settingsUid): BaseResponse
     {
@@ -65,14 +87,25 @@ final class SettingsResource
             ['settingsUid' => (string) $settingsUid],
         );
 
-        return BaseResponse::fromArray($response, static fn ($data) => $data);
+        /** @var BaseResponse<mixed> $result */
+        $result = BaseResponse::fromArray($response, static fn (mixed $data): mixed => $data);
+
+        return $result;
     }
 
     /**
      * GET /settings/{settingsUid}
      *
      * Response data type: object
-     * Known fields: settingsUid, serviceName, name, value, dateCreated, dateLastModified, updateCd, statusCd, ... (9 total)
+     *   settingsUid: int
+     *   serviceName: string
+     *   name: string
+     *   value: string|null
+     *   dateCreated: string
+     *   dateLastModified: string
+     *   updateCd: int
+     *   statusCd: int
+     *   processCd: int
      *
      * @param array<string, mixed> $params
      * @return BaseResponse<array<string, mixed>>
@@ -86,14 +119,25 @@ final class SettingsResource
             ['settingsUid' => (string) $settingsUid],
         );
 
-        return BaseResponse::fromArray($response, static fn ($data) => $data);
+        /** @var BaseResponse<array<string, mixed>> $result */
+        $result = BaseResponse::fromArray($response, static fn (mixed $data): mixed => $data);
+
+        return $result;
     }
 
     /**
      * PUT /settings/{settingsUid}
      *
      * Response data type: object
-     * Known fields: settingsUid, serviceName, name, value, dateCreated, dateLastModified, updateCd, statusCd, ... (9 total)
+     *   settingsUid: int
+     *   serviceName: string
+     *   name: string
+     *   value: string|null
+     *   dateCreated: string
+     *   dateLastModified: string
+     *   updateCd: int
+     *   statusCd: int
+     *   processCd: int
      *
      * @param array<string, mixed> $data
      * @return BaseResponse<array<string, mixed>>
@@ -107,6 +151,9 @@ final class SettingsResource
             ['settingsUid' => (string) $settingsUid],
         );
 
-        return BaseResponse::fromArray($response, static fn ($data) => $data);
+        /** @var BaseResponse<array<string, mixed>> $result */
+        $result = BaseResponse::fromArray($response, static fn (mixed $data): mixed => $data);
+
+        return $result;
     }
 }
