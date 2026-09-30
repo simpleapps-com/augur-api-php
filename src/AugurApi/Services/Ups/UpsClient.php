@@ -21,7 +21,7 @@ final class UpsClient extends BaseServiceClient
     public function __construct(Client $client, Config $config)
     {
         parent::__construct($client, $config);
-        $this->ratesShop = new RatesShopResource($client, $this->baseUrl . '/rates-shop');
+        $this->ratesShop = new RatesShopResource($this->client, $this->baseUrl . '/rates-shop');
     }
 
     protected function getServiceName(): string

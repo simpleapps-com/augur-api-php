@@ -12,7 +12,8 @@ use AugurApi\Core\Exceptions\InvalidArgumentException;
  * Rejects toxic stringified primitives ("NaN", "null", "undefined") and empty
  * strings for placeholders whose name encodes an integer type per the Augur
  * API placeholder naming convention (Id/Uid/No/Num/Number suffix, or exact
- * `id`/`lineNumber`). String-typed placeholders are checked for emptiness only.
+ * `id`/`lineNumber`). String-typed placeholders must be non-empty and use only
+ * characters a URL path carries literally, since values are sent unencoded.
  *
  * Re-derived from shared/specs/*.json on 2026-07-28. Of 93 distinct
  * placeholders, six have an integer-looking suffix but are typed as string in
@@ -58,36 +59,62 @@ final class PathValidator
     }
 
     /**
+     * A value made only of the characters a URL path segment carries literally
+     * (RFC 3986 pchar minus "%"). Path values are sent unencoded because the API
+     * never decodes them ("D%2FS" is looked up literally); anything else would
+     * split or end the path, or be percent-encoded on the way and never match.
+     */
+    private const PATH_SAFE = '/\A[A-Za-z0-9\-._~!$&\'()*+,;=:@]+\z/';
+
+    /**
      * Validate a path-segment value before substitution.
      *
      * For numeric placeholders the value MUST match /^-?\d+$/ — stringified
      * primitives ("NaN", "null", "undefined") and empty strings are rejected.
      *
-     * For string placeholders only the empty string is rejected.
+     * For string placeholders the value MUST be non-empty and use only
+     * path-safe characters (PATH_SAFE). Any other value can only be sent as a
+     * query parameter (e.g. bins list with query ['bin' => 'D/S']).
      *
-     * @throws InvalidArgumentException when the value would produce a malformed URL.
+     * Messages name the placeholder, never the value; the exception's
+     * endpoint carries the template.
+     *
+     * @ensures (returns) ⇒ $value is safe to insert into the URL path unencoded
+     * @ensures ∀ thrown e. $value ∉ e.message  (values may be card data or PII)
+     * @trusted Last line of defence before the value reaches the wire; the API
+     *          does not decode path segments, so a miss here misroutes the
+     *          request or silently matches nothing.
+     *
+     * @param string $service Kebab service name carried on the exception
+     * @throws InvalidArgumentException when the value would produce a malformed or misrouted URL.
      */
-    public static function validate(string $pathTemplate, string $placeholder, string $value): void
+    public static function validate(
+        string $pathTemplate,
+        string $placeholder,
+        string $value,
+        string $service = '',
+    ): void {
+        $problem = self::problem($placeholder, $value);
+        if ($problem !== null) {
+            throw new InvalidArgumentException(
+                "Invalid path parameter '{$placeholder}': {$problem}",
+                $service,
+                $pathTemplate,
+            );
+        }
+    }
+
+    /**
+     * What is wrong with $value as a path segment, or null when it is safe.
+     */
+    private static function problem(string $placeholder, string $value): ?string
     {
         if (self::isNumericPlaceholder($placeholder)) {
-            if (preg_match('/^-?\d+$/', $value) !== 1) {
-                throw new InvalidArgumentException(sprintf(
-                    "Invalid path parameter '%s' for %s: expected an integer, received %s",
-                    $placeholder,
-                    $pathTemplate,
-                    json_encode($value),
-                ));
-            }
-            return;
+            return preg_match('/\A-?\d+\z/', $value) === 1 ? null : 'expected an integer';
         }
-
         if ($value === '') {
-            throw new InvalidArgumentException(sprintf(
-                "Invalid path parameter '%s' for %s: expected a non-empty string, received %s",
-                $placeholder,
-                $pathTemplate,
-                json_encode($value),
-            ));
+            return 'expected a non-empty string';
         }
+        return preg_match(self::PATH_SAFE, $value) === 1 ? null : "contains characters a URL path can't carry";
     }
 }

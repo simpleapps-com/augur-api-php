@@ -64,14 +64,16 @@ final class CategoriesResource
     /**
      * POST /categories/focus
      *
-     * @param array<string, mixed> $data
-     * @return BaseResponse<mixed>
+     * Response data type: boolean
+     *
+     * @param array{itemCategoryUid?: int|null, itemCategoryId?: string|null} $data
+     * @return BaseResponse<bool>
      */
     public function createFocus(array $data = []): BaseResponse
     {
         $response = $this->client->post($this->baseUrl, '/focus', $data);
 
-        /** @var BaseResponse<mixed> $result */
+        /** @var BaseResponse<bool> $result */
         $result = BaseResponse::fromArray($response, static fn (mixed $data): mixed => $data);
 
         return $result;

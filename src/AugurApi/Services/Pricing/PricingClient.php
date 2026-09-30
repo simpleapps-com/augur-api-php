@@ -27,10 +27,10 @@ final class PricingClient extends BaseServiceClient
     public function __construct(Client $client, Config $config)
     {
         parent::__construct($client, $config);
-        $this->jobPriceHdr = new JobPriceHdrResource($client, $this->baseUrl . '/job-price-hdr');
-        $this->priceEngine = new PriceEngineResource($client, $this->baseUrl . '/price-engine');
-        $this->taxEngine = new TaxEngineResource($client, $this->baseUrl . '/tax-engine');
-        $this->webPricing = new WebPricingResource($client, $this->baseUrl . '/web-pricing');
+        $this->jobPriceHdr = new JobPriceHdrResource($this->client, $this->baseUrl . '/job-price-hdr');
+        $this->priceEngine = new PriceEngineResource($this->client, $this->baseUrl . '/price-engine');
+        $this->taxEngine = new TaxEngineResource($this->client, $this->baseUrl . '/tax-engine');
+        $this->webPricing = new WebPricingResource($this->client, $this->baseUrl . '/web-pricing');
     }
 
     protected function getServiceName(): string

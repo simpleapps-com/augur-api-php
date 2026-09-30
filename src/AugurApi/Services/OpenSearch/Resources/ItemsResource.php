@@ -23,14 +23,34 @@ final class ItemsResource
     /**
      * GET /items
      *
+     * Response data type: array
+     *   invMastUid: int
+     *   itemId: string|null
+     *   online: string
+     *   updateCd: int
+     *   doc: string|null
+     *   indexCd: int
+     *   statusCd: int
+     *   processCd: int
+     *   indexStatusCd: int
+     *   dateCreated: string
+     *   dateLastModified: string
+     *   classId5: string|null
+     *   dateLastChecked: string
+     *   embeddingCd: int
+     *   docHash: string|null
+     *   indexHash: string|null
+     *   location: string|null
+     *   uuid: string|null
+     *
      * @param array<string, mixed> $params
-     * @return BaseResponse<mixed>
+     * @return BaseResponse<list<array<string, mixed>>>
      */
     public function list(array $params = []): BaseResponse
     {
         $response = $this->client->get($this->baseUrl, '', $params);
 
-        /** @var BaseResponse<mixed> $result */
+        /** @var BaseResponse<list<array<string, mixed>>> $result */
         $result = BaseResponse::fromArray($response, static fn (mixed $data): mixed => $data);
 
         return $result;
@@ -39,14 +59,16 @@ final class ItemsResource
     /**
      * PUT /items/refresh
      *
-     * @param array<string, mixed> $data
-     * @return BaseResponse<mixed>
+     * Response data type: boolean
+     *
+     * @param array{updateCd?: bool, indexCd?: bool, processCd?: bool} $data
+     * @return BaseResponse<bool>
      */
     public function updateRefresh(array $data = []): BaseResponse
     {
         $response = $this->client->put($this->baseUrl, '/refresh', $data);
 
-        /** @var BaseResponse<mixed> $result */
+        /** @var BaseResponse<bool> $result */
         $result = BaseResponse::fromArray($response, static fn (mixed $data): mixed => $data);
 
         return $result;
@@ -55,8 +77,28 @@ final class ItemsResource
     /**
      * GET /items/{invMastUid}
      *
+     * Response data type: object
+     *   invMastUid: int
+     *   itemId: string|null
+     *   online: string
+     *   updateCd: int
+     *   doc: string|null
+     *   indexCd: int
+     *   statusCd: int
+     *   processCd: int
+     *   indexStatusCd: int
+     *   dateCreated: string
+     *   dateLastModified: string
+     *   classId5: string|null
+     *   dateLastChecked: string
+     *   embeddingCd: int
+     *   docHash: string|null
+     *   indexHash: string|null
+     *   location: string|null
+     *   uuid: string|null
+     *
      * @param array<string, mixed> $params
-     * @return BaseResponse<mixed>
+     * @return BaseResponse<array<string, mixed>>
      */
     public function get(int $invMastUid, array $params = []): BaseResponse
     {
@@ -67,7 +109,7 @@ final class ItemsResource
             ['invMastUid' => (string) $invMastUid],
         );
 
-        /** @var BaseResponse<mixed> $result */
+        /** @var BaseResponse<array<string, mixed>> $result */
         $result = BaseResponse::fromArray($response, static fn (mixed $data): mixed => $data);
 
         return $result;
@@ -76,8 +118,28 @@ final class ItemsResource
     /**
      * PUT /items/{invMastUid}
      *
-     * @param array<string, mixed> $data
-     * @return BaseResponse<mixed>
+     * Response data type: object
+     *   invMastUid: int
+     *   itemId: string|null
+     *   online: string
+     *   updateCd: int
+     *   doc: string|null
+     *   indexCd: int
+     *   statusCd: int
+     *   processCd: int
+     *   indexStatusCd: int
+     *   dateCreated: string
+     *   dateLastModified: string
+     *   classId5: string|null
+     *   dateLastChecked: string
+     *   embeddingCd: int
+     *   docHash: string|null
+     *   indexHash: string|null
+     *   location: string|null
+     *   uuid: string|null
+     *
+     * @param array{statusCd?: int|null, processCd?: int|null} $data
+     * @return BaseResponse<array<string, mixed>>
      */
     public function update(int $invMastUid, array $data = []): BaseResponse
     {
@@ -88,7 +150,7 @@ final class ItemsResource
             ['invMastUid' => (string) $invMastUid],
         );
 
-        /** @var BaseResponse<mixed> $result */
+        /** @var BaseResponse<array<string, mixed>> $result */
         $result = BaseResponse::fromArray($response, static fn (mixed $data): mixed => $data);
 
         return $result;
@@ -97,8 +159,28 @@ final class ItemsResource
     /**
      * GET /items/{invMastUid}/refresh
      *
+     * Response data type: object
+     *   invMastUid: int
+     *   itemId: string|null
+     *   online: string
+     *   updateCd: int
+     *   doc: string|null
+     *   indexCd: int
+     *   statusCd: int
+     *   processCd: int
+     *   indexStatusCd: int
+     *   dateCreated: string
+     *   dateLastModified: string
+     *   classId5: string|null
+     *   dateLastChecked: string
+     *   embeddingCd: int
+     *   docHash: string|null
+     *   indexHash: string|null
+     *   location: string|null
+     *   uuid: string|null
+     *
      * @param array<string, mixed> $params
-     * @return BaseResponse<mixed>
+     * @return BaseResponse<array<string, mixed>>
      */
     public function getRefresh(int $invMastUid, array $params = []): BaseResponse
     {
@@ -109,7 +191,7 @@ final class ItemsResource
             ['invMastUid' => (string) $invMastUid],
         );
 
-        /** @var BaseResponse<mixed> $result */
+        /** @var BaseResponse<array<string, mixed>> $result */
         $result = BaseResponse::fromArray($response, static fn (mixed $data): mixed => $data);
 
         return $result;

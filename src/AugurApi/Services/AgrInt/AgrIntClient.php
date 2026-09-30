@@ -29,11 +29,11 @@ final class AgrIntClient extends BaseServiceClient
     public function __construct(Client $client, Config $config)
     {
         parent::__construct($client, $config);
-        $this->bundles = new BundlesResource($client, $this->baseUrl . '/bundles');
-        $this->clients = new ClientsResource($client, $this->baseUrl . '/clients');
-        $this->resources = new ResourcesResource($client, $this->baseUrl . '/resources');
-        $this->roles = new RolesResource($client, $this->baseUrl . '/roles');
-        $this->users = new UsersResource($client, $this->baseUrl . '/users');
+        $this->bundles = new BundlesResource($this->client, $this->baseUrl . '/bundles');
+        $this->clients = new ClientsResource($this->client, $this->baseUrl . '/clients');
+        $this->resources = new ResourcesResource($this->client, $this->baseUrl . '/resources');
+        $this->roles = new RolesResource($this->client, $this->baseUrl . '/roles');
+        $this->users = new UsersResource($this->client, $this->baseUrl . '/users');
     }
 
     protected function getServiceName(): string

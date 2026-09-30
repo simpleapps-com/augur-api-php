@@ -61,7 +61,7 @@ final class QueryStringRedirectResource
      *   processCd: int
      *   queryString: string|null
      *
-     * @param array<string, mixed> $data
+     * @param array{queryString?: string|null, queryStringUid?: int|null, queryStringRedirectLink?: string|null} $data
      * @return BaseResponse<array<string, mixed>>
      */
     public function create(array $data = []): BaseResponse
@@ -150,7 +150,7 @@ final class QueryStringRedirectResource
      *   processCd: int
      *   queryString: string|null
      *
-     * @param array<string, mixed> $data
+     * @param array{queryString?: string|null, queryStringUid?: int|null, queryStringRedirectLink?: string|null, statusCd?: int|null, processCd?: int|null, updateCd?: int|null} $data
      * @return BaseResponse<array<string, mixed>>
      */
     public function update(int $queryStringRedirectUid, array $data = []): BaseResponse

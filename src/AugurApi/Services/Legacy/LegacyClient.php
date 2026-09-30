@@ -29,11 +29,11 @@ final class LegacyClient extends BaseServiceClient
     public function __construct(Client $client, Config $config)
     {
         parent::__construct($client, $config);
-        $this->customers = new CustomersResource($client, $this->baseUrl . '/customers');
-        $this->invMast = new InvMastResource($client, $this->baseUrl . '/inv-mast');
-        $this->itemCategory = new ItemCategoryResource($client, $this->baseUrl . '/item-category');
-        $this->legacy = new LegacyResource($client, $this->baseUrl . '/legacy');
-        $this->orders = new OrdersResource($client, $this->baseUrl . '/orders');
+        $this->customers = new CustomersResource($this->client, $this->baseUrl . '/customers');
+        $this->invMast = new InvMastResource($this->client, $this->baseUrl . '/inv-mast');
+        $this->itemCategory = new ItemCategoryResource($this->client, $this->baseUrl . '/item-category');
+        $this->legacy = new LegacyResource($this->client, $this->baseUrl . '/legacy');
+        $this->orders = new OrdersResource($this->client, $this->baseUrl . '/orders');
     }
 
     protected function getServiceName(): string

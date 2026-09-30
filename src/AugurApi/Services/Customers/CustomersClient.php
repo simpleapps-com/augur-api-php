@@ -29,11 +29,11 @@ final class CustomersClient extends BaseServiceClient
     public function __construct(Client $client, Config $config)
     {
         parent::__construct($client, $config);
-        $this->contacts = new ContactsResource($client, $this->baseUrl . '/contacts');
-        $this->contactsUd = new ContactsUdResource($client, $this->baseUrl . '/contacts-ud');
-        $this->customer = new CustomerResource($client, $this->baseUrl . '/customer');
-        $this->oeContactsCustomer = new OeContactsCustomerResource($client, $this->baseUrl . '/oe-contacts-customer');
-        $this->shipTo = new ShipToResource($client, $this->baseUrl . '/ship-to');
+        $this->contacts = new ContactsResource($this->client, $this->baseUrl . '/contacts');
+        $this->contactsUd = new ContactsUdResource($this->client, $this->baseUrl . '/contacts-ud');
+        $this->customer = new CustomerResource($this->client, $this->baseUrl . '/customer');
+        $this->oeContactsCustomer = new OeContactsCustomerResource($this->client, $this->baseUrl . '/oe-contacts-customer');
+        $this->shipTo = new ShipToResource($this->client, $this->baseUrl . '/ship-to');
     }
 
     protected function getServiceName(): string

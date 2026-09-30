@@ -35,14 +35,14 @@ final class AgrInfoClient extends BaseServiceClient
     public function __construct(Client $client, Config $config)
     {
         parent::__construct($client, $config);
-        $this->akasha = new AkashaResource($client, $this->baseUrl . '/akasha');
-        $this->context = new ContextResource($client, $this->baseUrl . '/context');
-        $this->joomla = new JoomlaResource($client, $this->baseUrl . '/joomla');
-        $this->microservices = new MicroservicesResource($client, $this->baseUrl . '/microservices');
-        $this->ollama = new OllamaResource($client, $this->baseUrl . '/ollama');
-        $this->rubrics = new RubricsResource($client, $this->baseUrl . '/rubrics');
-        $this->sites = new SitesResource($client, $this->baseUrl . '/sites');
-        $this->workflows = new WorkflowsResource($client, $this->baseUrl . '/workflows');
+        $this->akasha = new AkashaResource($this->client, $this->baseUrl . '/akasha');
+        $this->context = new ContextResource($this->client, $this->baseUrl . '/context');
+        $this->joomla = new JoomlaResource($this->client, $this->baseUrl . '/joomla');
+        $this->microservices = new MicroservicesResource($this->client, $this->baseUrl . '/microservices');
+        $this->ollama = new OllamaResource($this->client, $this->baseUrl . '/ollama');
+        $this->rubrics = new RubricsResource($this->client, $this->baseUrl . '/rubrics');
+        $this->sites = new SitesResource($this->client, $this->baseUrl . '/sites');
+        $this->workflows = new WorkflowsResource($this->client, $this->baseUrl . '/workflows');
     }
 
     protected function getServiceName(): string

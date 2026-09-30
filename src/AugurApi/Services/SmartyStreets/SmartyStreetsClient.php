@@ -21,7 +21,7 @@ final class SmartyStreetsClient extends BaseServiceClient
     public function __construct(Client $client, Config $config)
     {
         parent::__construct($client, $config);
-        $this->us = new UsResource($client, $this->baseUrl . '/us');
+        $this->us = new UsResource($this->client, $this->baseUrl . '/us');
     }
 
     protected function getServiceName(): string

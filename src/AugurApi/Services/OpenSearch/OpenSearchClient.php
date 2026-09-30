@@ -29,11 +29,11 @@ final class OpenSearchClient extends BaseServiceClient
     public function __construct(Client $client, Config $config)
     {
         parent::__construct($client, $config);
-        $this->itemSearch = new ItemSearchResource($client, $this->baseUrl . '/item-search');
-        $this->itemSearchFacets = new ItemSearchFacetsResource($client, $this->baseUrl . '/item-search-facets');
-        $this->items = new ItemsResource($client, $this->baseUrl . '/items');
-        $this->queryStringRedirect = new QueryStringRedirectResource($client, $this->baseUrl . '/query-string-redirect');
-        $this->suggestions = new SuggestionsResource($client, $this->baseUrl . '/suggestions');
+        $this->itemSearch = new ItemSearchResource($this->client, $this->baseUrl . '/item-search');
+        $this->itemSearchFacets = new ItemSearchFacetsResource($this->client, $this->baseUrl . '/item-search-facets');
+        $this->items = new ItemsResource($this->client, $this->baseUrl . '/items');
+        $this->queryStringRedirect = new QueryStringRedirectResource($this->client, $this->baseUrl . '/query-string-redirect');
+        $this->suggestions = new SuggestionsResource($this->client, $this->baseUrl . '/suggestions');
     }
 
     protected function getServiceName(): string

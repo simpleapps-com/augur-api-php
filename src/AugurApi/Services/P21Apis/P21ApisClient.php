@@ -33,13 +33,13 @@ final class P21ApisClient extends BaseServiceClient
     public function __construct(Client $client, Config $config)
     {
         parent::__construct($client, $config);
-        $this->entityContacts = new EntityContactsResource($client, $this->baseUrl . '/entity-contacts');
-        $this->entityCustomers = new EntityCustomersResource($client, $this->baseUrl . '/entity-customers');
-        $this->transCategory = new TransCategoryResource($client, $this->baseUrl . '/trans-category');
-        $this->transCompany = new TransCompanyResource($client, $this->baseUrl . '/trans-company');
-        $this->transPurchaseOrderReceipt = new TransPurchaseOrderReceiptResource($client, $this->baseUrl . '/trans-purchase-order-receipt');
-        $this->transUser = new TransUserResource($client, $this->baseUrl . '/trans-user');
-        $this->transWebDisplayType = new TransWebDisplayTypeResource($client, $this->baseUrl . '/trans-web-display-type');
+        $this->entityContacts = new EntityContactsResource($this->client, $this->baseUrl . '/entity-contacts');
+        $this->entityCustomers = new EntityCustomersResource($this->client, $this->baseUrl . '/entity-customers');
+        $this->transCategory = new TransCategoryResource($this->client, $this->baseUrl . '/trans-category');
+        $this->transCompany = new TransCompanyResource($this->client, $this->baseUrl . '/trans-company');
+        $this->transPurchaseOrderReceipt = new TransPurchaseOrderReceiptResource($this->client, $this->baseUrl . '/trans-purchase-order-receipt');
+        $this->transUser = new TransUserResource($this->client, $this->baseUrl . '/trans-user');
+        $this->transWebDisplayType = new TransWebDisplayTypeResource($this->client, $this->baseUrl . '/trans-web-display-type');
     }
 
     protected function getServiceName(): string

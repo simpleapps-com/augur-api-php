@@ -6417,11 +6417,16 @@
     "path": "/item-search/attributes",
     "pathParams": [],
     "queryParams": [
-      "cacheSiteId",
-      "cacheTtl",
+      "classId5List",
+      "fields",
       "filters",
+      "from",
+      "operator",
       "q",
-      "searchType"
+      "searchType",
+      "size",
+      "sort",
+      "sourceFieldsList"
     ],
     "aliases": [],
     "hasBody": false,
@@ -6452,6 +6457,7 @@
       "sourceFieldsList",
       "stockStatus",
       "tags",
+      "useBrandFolderDoc",
       "variantFilter"
     ],
     "aliases": [],
@@ -6516,6 +6522,7 @@
       "limit",
       "offset",
       "online",
+      "orderBy",
       "statusCd"
     ],
     "aliases": [],

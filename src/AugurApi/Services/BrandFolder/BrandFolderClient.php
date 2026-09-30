@@ -21,7 +21,7 @@ final class BrandFolderClient extends BaseServiceClient
     public function __construct(Client $client, Config $config)
     {
         parent::__construct($client, $config);
-        $this->categories = new CategoriesResource($client, $this->baseUrl . '/categories');
+        $this->categories = new CategoriesResource($this->client, $this->baseUrl . '/categories');
     }
 
     protected function getServiceName(): string

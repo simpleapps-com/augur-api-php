@@ -118,19 +118,17 @@ final class ClientTest extends TestCase
         $this->assertStringContainsString('/items/ABC/variants/123', $request->getUri()->getPath());
     }
 
-    public function testPathParameterUrlEncoding(): void
+    public function testPathParameterWithSlashesIsRejectedBeforeSending(): void
     {
-        $this->addResponse(['data' => 'test']);
-
-        $this->client->get(
-            'https://api.example.com',
-            '/items/{slug}',
-            [],
-            ['slug' => 'item/with/slashes'],
-        );
-
-        $request = $this->mockClient->getLastRequest();
-        $this->assertStringContainsString('/items/item%2Fwith%2Fslashes', (string) $request->getUri());
+        // The API never decodes path segments, so "item%2Fwith%2Fslashes" would be
+        // looked up literally; the value can only travel as a query param.
+        try {
+            $this->client->get('https://api.example.com', '/items/{slug}', [], ['slug' => 'item/with/slashes']);
+            $this->fail('Expected InvalidArgumentException');
+        } catch (InvalidArgumentException $e) {
+            $this->assertSame("Invalid path parameter 'slug': contains characters a URL path can't carry", $e->getMessage());
+        }
+        $this->assertSame([], $this->mockClient->getRequests());
     }
 
     public function testQueryParameterFiltering(): void
@@ -232,15 +230,19 @@ final class ClientTest extends TestCase
         $this->client->get('https://api.example.com', '/items');
     }
 
-    public function testError403ThrowsAuthenticationException(): void
+    public function testError403ThrowsBaseExceptionWithoutRetry(): void
     {
+        // One response only: 403 is not retried
         $this->addResponse(['message' => 'Access denied'], 403);
 
-        $this->expectException(AuthenticationException::class);
-        $this->expectExceptionMessage('Access denied');
-        $this->expectExceptionCode(403);
-
-        $this->client->get('https://api.example.com', '/items');
+        try {
+            $this->client->get('https://api.example.com', '/items');
+            $this->fail('Expected AugurApiException');
+        } catch (AugurApiException $e) {
+            $this->assertSame(AugurApiException::class, $e::class);
+            $this->assertSame('Access denied', $e->getMessage());
+            $this->assertSame(403, $e->getCode());
+        }
     }
 
     public function testError429ThrowsRateLimitException(): void
@@ -514,21 +516,21 @@ final class ClientTest extends TestCase
         $this->assertEquals('https://api.example.com/items/42', (string) $request->getUri());
     }
 
-    public function testPathParamUrlEncodesValue(): void
+    public function testPathParamIsSentUnencoded(): void
     {
         $this->addResponse(['data' => 'ok']);
 
-        // itemCode is string-typed (no Id/Uid/No suffix), so slashes and spaces
-        // must be percent-encoded rather than rejected.
+        // itemCode is string-typed (no Id/Uid/No suffix); path-safe punctuation
+        // goes out as-is because the API never decodes path segments.
         $this->client->get(
             'https://api.example.com',
             '/items/{itemCode}',
             [],
-            ['itemCode' => 'A B/C'],
+            ['itemCode' => "O'B&C+D"],
         );
 
         $request = $this->mockClient->getLastRequest();
-        $this->assertEquals('https://api.example.com/items/A+B%2FC', (string) $request->getUri());
+        $this->assertEquals("https://api.example.com/items/O'B&C+D", (string) $request->getUri());
     }
 
     public function testPathParamMatchesKebabPlaceholderFromCamelCaseKey(): void

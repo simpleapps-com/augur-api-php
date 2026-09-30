@@ -31,12 +31,12 @@ final class OrdersClient extends BaseServiceClient
     public function __construct(Client $client, Config $config)
     {
         parent::__construct($client, $config);
-        $this->invoiceHdr = new InvoiceHdrResource($client, $this->baseUrl . '/invoice-hdr');
-        $this->oeHdr = new OeHdrResource($client, $this->baseUrl . '/oe-hdr');
-        $this->oeHdrSalesrep = new OeHdrSalesrepResource($client, $this->baseUrl . '/oe-hdr-salesrep');
-        $this->pickTickets = new PickTicketsResource($client, $this->baseUrl . '/pick-tickets');
-        $this->poHdr = new PoHdrResource($client, $this->baseUrl . '/po-hdr');
-        $this->poLine = new PoLineResource($client, $this->baseUrl . '/po-line');
+        $this->invoiceHdr = new InvoiceHdrResource($this->client, $this->baseUrl . '/invoice-hdr');
+        $this->oeHdr = new OeHdrResource($this->client, $this->baseUrl . '/oe-hdr');
+        $this->oeHdrSalesrep = new OeHdrSalesrepResource($this->client, $this->baseUrl . '/oe-hdr-salesrep');
+        $this->pickTickets = new PickTicketsResource($this->client, $this->baseUrl . '/pick-tickets');
+        $this->poHdr = new PoHdrResource($this->client, $this->baseUrl . '/po-hdr');
+        $this->poLine = new PoLineResource($this->client, $this->baseUrl . '/po-line');
     }
 
     protected function getServiceName(): string

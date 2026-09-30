@@ -41,17 +41,17 @@ final class AgrSiteClient extends BaseServiceClient
     public function __construct(Client $client, Config $config)
     {
         parent::__construct($client, $config);
-        $this->context = new ContextResource($client, $this->baseUrl . '/context');
-        $this->datafiles = new DatafilesResource($client, $this->baseUrl . '/datafiles');
-        $this->fyxerTranscript = new FyxerTranscriptResource($client, $this->baseUrl . '/fyxer-transcript');
-        $this->geoCodesPostalCodes = new GeoCodesPostalCodesResource($client, $this->baseUrl . '/geo-codes-postal-codes');
-        $this->metaFiles = new MetaFilesResource($client, $this->baseUrl . '/meta-files');
-        $this->notifications = new NotificationsResource($client, $this->baseUrl . '/notifications');
-        $this->openSearch = new OpenSearchResource($client, $this->baseUrl . '/open-search');
-        $this->postalCodesXShiptos = new PostalCodesXShiptosResource($client, $this->baseUrl . '/postal-codes-x-shiptos');
-        $this->settings = new SettingsResource($client, $this->baseUrl . '/settings');
-        $this->training = new TrainingResource($client, $this->baseUrl . '/training');
-        $this->users = new UsersResource($client, $this->baseUrl . '/users');
+        $this->context = new ContextResource($this->client, $this->baseUrl . '/context');
+        $this->datafiles = new DatafilesResource($this->client, $this->baseUrl . '/datafiles');
+        $this->fyxerTranscript = new FyxerTranscriptResource($this->client, $this->baseUrl . '/fyxer-transcript');
+        $this->geoCodesPostalCodes = new GeoCodesPostalCodesResource($this->client, $this->baseUrl . '/geo-codes-postal-codes');
+        $this->metaFiles = new MetaFilesResource($this->client, $this->baseUrl . '/meta-files');
+        $this->notifications = new NotificationsResource($this->client, $this->baseUrl . '/notifications');
+        $this->openSearch = new OpenSearchResource($this->client, $this->baseUrl . '/open-search');
+        $this->postalCodesXShiptos = new PostalCodesXShiptosResource($this->client, $this->baseUrl . '/postal-codes-x-shiptos');
+        $this->settings = new SettingsResource($this->client, $this->baseUrl . '/settings');
+        $this->training = new TrainingResource($this->client, $this->baseUrl . '/training');
+        $this->users = new UsersResource($this->client, $this->baseUrl . '/users');
     }
 
     protected function getServiceName(): string

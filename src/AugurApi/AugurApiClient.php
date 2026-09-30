@@ -4,9 +4,13 @@ declare(strict_types=1);
 
 namespace AugurApi;
 
+use AugurApi\Core\CallArguments;
+use AugurApi\Core\CallResult;
 use AugurApi\Core\Client;
 use AugurApi\Core\Config;
 use AugurApi\Core\EndpointEntry;
+use AugurApi\Core\Exceptions\AugurApiException;
+use AugurApi\Core\Exceptions\InvalidArgumentException;
 use AugurApi\Core\Registry;
 use AugurApi\Services\AgrInfo\AgrInfoClient;
 use AugurApi\Services\AgrInt\AgrIntClient;
@@ -165,5 +169,39 @@ final class AugurApiClient
     public static function endpoints(): array
     {
         return Registry::entries();
+    }
+
+    /**
+     * Call any registry endpoint by id (canonical or alias) without a typed method.
+     *
+     * Arguments are checked before any I/O. Non-2xx responses throw the same
+     * exceptions as typed methods (see wiki Endpoint-Registry, call()).
+     *
+     * @param array<array-key, mixed> $pathParams Exactly the entry's pathParams
+     * @param array<array-key, mixed> $query A subset of queryParams (+ edgeCache when cached); nulls skipped
+     * @param array<array-key, mixed>|null $body Only for entries with hasBody
+     * @throws InvalidArgumentException On an unknown id or arguments that do not fit the entry
+     * @throws AugurApiException On a non-2xx response or a network failure
+     */
+    public function call(string $id, array $pathParams = [], array $query = [], ?array $body = null): CallResult
+    {
+        $entry = Registry::find($id) ?? throw new InvalidArgumentException("Unknown endpoint id: {$id}");
+        $filled = CallArguments::pathParams($entry, $pathParams);
+        CallArguments::query($entry, $query);
+        CallArguments::body($entry, $body);
+
+        // The id's first segment is the camelCase service name Config keys base URLs by.
+        $service = explode('.', $entry->id, 2)[0];
+        /** @var array<string, mixed> $query */
+        $response = $this->client->forService($service)->send(
+            $entry->method,
+            $this->config->getBaseUrl($service),
+            $entry->path,
+            $query,
+            $body,
+            $filled,
+        );
+
+        return CallResult::fromResponse($response);
     }
 }

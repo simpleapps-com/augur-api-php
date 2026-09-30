@@ -25,9 +25,9 @@ final class GregorovichClient extends BaseServiceClient
     public function __construct(Client $client, Config $config)
     {
         parent::__construct($client, $config);
-        $this->chatGpt = new ChatGptResource($client, $this->baseUrl . '/chat-gpt');
-        $this->documents = new DocumentsResource($client, $this->baseUrl . '/documents');
-        $this->ollama = new OllamaResource($client, $this->baseUrl . '/ollama');
+        $this->chatGpt = new ChatGptResource($this->client, $this->baseUrl . '/chat-gpt');
+        $this->documents = new DocumentsResource($this->client, $this->baseUrl . '/documents');
+        $this->ollama = new OllamaResource($this->client, $this->baseUrl . '/ollama');
     }
 
     protected function getServiceName(): string

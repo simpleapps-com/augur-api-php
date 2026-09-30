@@ -51,14 +51,27 @@ final class SuggestionsResource
     /**
      * GET /suggestions/suggest
      *
+     * Response data type: array
+     *   suggestionsUid: int
+     *   queryStringUid: int
+     *   suggestionsString: string
+     *   suggestionsMetaphone: string|null
+     *   avgTotalResults: int
+     *   dateCreated: string
+     *   dateLastModified: string
+     *   updateCd: int
+     *   statusCd: int
+     *   processCd: int
+     *   score: int
+     *
      * @param array<string, mixed> $params
-     * @return BaseResponse<mixed>
+     * @return BaseResponse<list<array<string, mixed>>>
      */
     public function listSuggest(array $params = []): BaseResponse
     {
         $response = $this->client->get($this->baseUrl, '/suggest', $params);
 
-        /** @var BaseResponse<mixed> $result */
+        /** @var BaseResponse<list<array<string, mixed>>> $result */
         $result = BaseResponse::fromArray($response, static fn (mixed $data): mixed => $data);
 
         return $result;

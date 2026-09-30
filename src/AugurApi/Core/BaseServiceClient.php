@@ -9,12 +9,15 @@ namespace AugurApi\Core;
  */
 abstract class BaseServiceClient
 {
+    /** Bound to this service; resources share it so errors name the service. */
+    protected readonly Client $client;
     protected readonly string $baseUrl;
 
     public function __construct(
-        protected readonly Client $client,
+        Client $client,
         protected readonly Config $config,
     ) {
+        $this->client = $client->forService($this->getServiceName());
         $this->baseUrl = $config->getBaseUrl($this->getServiceName());
     }
 

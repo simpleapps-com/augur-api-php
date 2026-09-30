@@ -39,14 +39,17 @@ final class ItemSearchResource
     /**
      * GET /item-search/attributes
      *
+     * Response data type: object
+     *   attributes: list<array{attributeUid: int, attributeId: string, attributeDesc: string|null, sequenceNo: int|null, values: list<array{attributeValueUid: int, attributeValue: string, sequenceNo: int}>, valueCount: int}>
+     *
      * @param array<string, mixed> $params
-     * @return BaseResponse<mixed>
+     * @return BaseResponse<array<string, mixed>>
      */
     public function listAttributes(array $params = []): BaseResponse
     {
         $response = $this->client->get($this->baseUrl, '/attributes', $params);
 
-        /** @var BaseResponse<mixed> $result */
+        /** @var BaseResponse<array<string, mixed>> $result */
         $result = BaseResponse::fromArray($response, static fn (mixed $data): mixed => $data);
 
         return $result;

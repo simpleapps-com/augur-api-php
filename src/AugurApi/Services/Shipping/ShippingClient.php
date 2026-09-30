@@ -21,7 +21,7 @@ final class ShippingClient extends BaseServiceClient
     public function __construct(Client $client, Config $config)
     {
         parent::__construct($client, $config);
-        $this->rates = new RatesResource($client, $this->baseUrl . '/rates');
+        $this->rates = new RatesResource($this->client, $this->baseUrl . '/rates');
     }
 
     protected function getServiceName(): string

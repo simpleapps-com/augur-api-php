@@ -25,9 +25,9 @@ final class CommerceClient extends BaseServiceClient
     public function __construct(Client $client, Config $config)
     {
         parent::__construct($client, $config);
-        $this->cartHdr = new CartHdrResource($client, $this->baseUrl . '/cart-hdr');
-        $this->cartLine = new CartLineResource($client, $this->baseUrl . '/cart-line');
-        $this->checkout = new CheckoutResource($client, $this->baseUrl . '/checkout');
+        $this->cartHdr = new CartHdrResource($this->client, $this->baseUrl . '/cart-hdr');
+        $this->cartLine = new CartLineResource($this->client, $this->baseUrl . '/cart-line');
+        $this->checkout = new CheckoutResource($this->client, $this->baseUrl . '/checkout');
     }
 
     protected function getServiceName(): string

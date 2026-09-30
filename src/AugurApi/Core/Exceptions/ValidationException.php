@@ -16,7 +16,9 @@ final class ValidationException extends AugurApiException
         string $message = 'Validation failed',
         int $code = 400,
         public readonly array $errors = [],
+        string $service = '',
+        string $endpoint = '',
     ) {
-        parent::__construct($message, $code);
+        parent::__construct($message, $code, null, $service, $endpoint);
     }
 }

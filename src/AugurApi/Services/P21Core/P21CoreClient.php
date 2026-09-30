@@ -33,13 +33,13 @@ final class P21CoreClient extends BaseServiceClient
     public function __construct(Client $client, Config $config)
     {
         parent::__construct($client, $config);
-        $this->address = new AddressResource($client, $this->baseUrl . '/address');
-        $this->cashDrawer = new CashDrawerResource($client, $this->baseUrl . '/cash-drawer');
-        $this->codeP21 = new CodeP21Resource($client, $this->baseUrl . '/code-p21');
-        $this->company = new CompanyResource($client, $this->baseUrl . '/company');
-        $this->freightCode = new FreightCodeResource($client, $this->baseUrl . '/freight-code');
-        $this->location = new LocationResource($client, $this->baseUrl . '/location');
-        $this->paymentTypes = new PaymentTypesResource($client, $this->baseUrl . '/payment-types');
+        $this->address = new AddressResource($this->client, $this->baseUrl . '/address');
+        $this->cashDrawer = new CashDrawerResource($this->client, $this->baseUrl . '/cash-drawer');
+        $this->codeP21 = new CodeP21Resource($this->client, $this->baseUrl . '/code-p21');
+        $this->company = new CompanyResource($this->client, $this->baseUrl . '/company');
+        $this->freightCode = new FreightCodeResource($this->client, $this->baseUrl . '/freight-code');
+        $this->location = new LocationResource($this->client, $this->baseUrl . '/location');
+        $this->paymentTypes = new PaymentTypesResource($this->client, $this->baseUrl . '/payment-types');
     }
 
     protected function getServiceName(): string

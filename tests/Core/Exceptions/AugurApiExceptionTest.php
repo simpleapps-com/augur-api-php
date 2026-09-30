@@ -6,6 +6,8 @@ namespace AugurApi\Tests\Core\Exceptions;
 
 use AugurApi\Core\Exceptions\AugurApiException;
 use AugurApi\Core\Exceptions\AuthenticationException;
+use AugurApi\Core\Exceptions\InvalidArgumentException;
+use AugurApi\Core\Exceptions\NotFoundException;
 use AugurApi\Core\Exceptions\RateLimitException;
 use AugurApi\Core\Exceptions\ValidationException;
 use PHPUnit\Framework\TestCase;
@@ -26,6 +28,43 @@ final class AugurApiExceptionTest extends TestCase
 
         $this->assertEquals('Server error', $exception->getMessage());
         $this->assertEquals(500, $exception->getCode());
+    }
+
+    public function testServiceAndEndpointDefaultToEmpty(): void
+    {
+        $exceptions = [
+            new AugurApiException(),
+            new AuthenticationException(),
+            new NotFoundException(),
+            new RateLimitException(),
+            new ValidationException(),
+            new InvalidArgumentException('bad'),
+        ];
+
+        foreach ($exceptions as $exception) {
+            $this->assertSame('', $exception->service, $exception::class);
+            $this->assertSame('', $exception->endpoint, $exception::class);
+        }
+        $this->assertSame('Resource not found', (new NotFoundException())->getMessage());
+        $this->assertSame(404, (new NotFoundException())->getCode());
+    }
+
+    public function testServiceAndEndpointAreCarried(): void
+    {
+        $exceptions = [
+            new AugurApiException('m', 500, null, 'items', '/inv-mast/{invMastUid}'),
+            new AuthenticationException('m', 401, 'items', '/inv-mast/{invMastUid}'),
+            new NotFoundException('m', 404, 'items', '/inv-mast/{invMastUid}'),
+            new RateLimitException('m', 429, 'items', '/inv-mast/{invMastUid}'),
+            new ValidationException('m', 400, [], 'items', '/inv-mast/{invMastUid}'),
+            new InvalidArgumentException('m', 'items', '/inv-mast/{invMastUid}'),
+        ];
+
+        foreach ($exceptions as $exception) {
+            $this->assertInstanceOf(AugurApiException::class, $exception);
+            $this->assertSame('items', $exception->service, $exception::class);
+            $this->assertSame('/inv-mast/{invMastUid}', $exception->endpoint, $exception::class);
+        }
     }
 
     public function testAugurApiExceptionWithPreviousException(): void

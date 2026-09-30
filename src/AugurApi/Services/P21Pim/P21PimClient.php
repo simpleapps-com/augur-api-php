@@ -29,11 +29,11 @@ final class P21PimClient extends BaseServiceClient
     public function __construct(Client $client, Config $config)
     {
         parent::__construct($client, $config);
-        $this->invMastExt = new InvMastExtResource($client, $this->baseUrl . '/inv-mast-ext');
-        $this->invMastFiles = new InvMastFilesResource($client, $this->baseUrl . '/inv-mast-files');
-        $this->invMastText = new InvMastTextResource($client, $this->baseUrl . '/inv-mast-text');
-        $this->items = new ItemsResource($client, $this->baseUrl . '/items');
-        $this->podcasts = new PodcastsResource($client, $this->baseUrl . '/podcasts');
+        $this->invMastExt = new InvMastExtResource($this->client, $this->baseUrl . '/inv-mast-ext');
+        $this->invMastFiles = new InvMastFilesResource($this->client, $this->baseUrl . '/inv-mast-files');
+        $this->invMastText = new InvMastTextResource($this->client, $this->baseUrl . '/inv-mast-text');
+        $this->items = new ItemsResource($this->client, $this->baseUrl . '/items');
+        $this->podcasts = new PodcastsResource($this->client, $this->baseUrl . '/podcasts');
     }
 
     protected function getServiceName(): string

@@ -35,14 +35,14 @@ final class Basecamp2Client extends BaseServiceClient
     public function __construct(Client $client, Config $config)
     {
         parent::__construct($client, $config);
-        $this->comments = new CommentsResource($client, $this->baseUrl . '/comments');
-        $this->events = new EventsResource($client, $this->baseUrl . '/events');
-        $this->metrics = new MetricsResource($client, $this->baseUrl . '/metrics');
-        $this->people = new PeopleResource($client, $this->baseUrl . '/people');
-        $this->projects = new ProjectsResource($client, $this->baseUrl . '/projects');
-        $this->todolists = new TodolistsResource($client, $this->baseUrl . '/todolists');
-        $this->todos = new TodosResource($client, $this->baseUrl . '/todos');
-        $this->todosSummary = new TodosSummaryResource($client, $this->baseUrl . '/todos-summary');
+        $this->comments = new CommentsResource($this->client, $this->baseUrl . '/comments');
+        $this->events = new EventsResource($this->client, $this->baseUrl . '/events');
+        $this->metrics = new MetricsResource($this->client, $this->baseUrl . '/metrics');
+        $this->people = new PeopleResource($this->client, $this->baseUrl . '/people');
+        $this->projects = new ProjectsResource($this->client, $this->baseUrl . '/projects');
+        $this->todolists = new TodolistsResource($this->client, $this->baseUrl . '/todolists');
+        $this->todos = new TodosResource($this->client, $this->baseUrl . '/todos');
+        $this->todosSummary = new TodosSummaryResource($this->client, $this->baseUrl . '/todos-summary');
     }
 
     protected function getServiceName(): string

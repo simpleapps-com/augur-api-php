@@ -23,8 +23,8 @@ final class P21SismClient extends BaseServiceClient
     public function __construct(Client $client, Config $config)
     {
         parent::__construct($client, $config);
-        $this->import = new ImportResource($client, $this->baseUrl . '/import');
-        $this->scheduledImportMaster = new ScheduledImportMasterResource($client, $this->baseUrl . '/scheduled-import-master');
+        $this->import = new ImportResource($this->client, $this->baseUrl . '/import');
+        $this->scheduledImportMaster = new ScheduledImportMasterResource($this->client, $this->baseUrl . '/scheduled-import-master');
     }
 
     protected function getServiceName(): string

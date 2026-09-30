@@ -29,11 +29,11 @@ final class PaymentsClient extends BaseServiceClient
     public function __construct(Client $client, Config $config)
     {
         parent::__construct($client, $config);
-        $this->element = new ElementResource($client, $this->baseUrl . '/element');
-        $this->moneris = new MonerisResource($client, $this->baseUrl . '/moneris');
-        $this->paypal = new PaypalResource($client, $this->baseUrl . '/paypal');
-        $this->paytrace = new PaytraceResource($client, $this->baseUrl . '/paytrace');
-        $this->unified = new UnifiedResource($client, $this->baseUrl . '/unified');
+        $this->element = new ElementResource($this->client, $this->baseUrl . '/element');
+        $this->moneris = new MonerisResource($this->client, $this->baseUrl . '/moneris');
+        $this->paypal = new PaypalResource($this->client, $this->baseUrl . '/paypal');
+        $this->paytrace = new PaytraceResource($this->client, $this->baseUrl . '/paytrace');
+        $this->unified = new UnifiedResource($this->client, $this->baseUrl . '/unified');
     }
 
     protected function getServiceName(): string

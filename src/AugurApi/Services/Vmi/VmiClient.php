@@ -31,12 +31,12 @@ final class VmiClient extends BaseServiceClient
     public function __construct(Client $client, Config $config)
     {
         parent::__construct($client, $config);
-        $this->distributors = new DistributorsResource($client, $this->baseUrl . '/distributors');
-        $this->invProfileHdr = new InvProfileHdrResource($client, $this->baseUrl . '/inv-profile-hdr');
-        $this->products = new ProductsResource($client, $this->baseUrl . '/products');
-        $this->restockHdr = new RestockHdrResource($client, $this->baseUrl . '/restock-hdr');
-        $this->sections = new SectionsResource($client, $this->baseUrl . '/sections');
-        $this->warehouse = new WarehouseResource($client, $this->baseUrl . '/warehouse');
+        $this->distributors = new DistributorsResource($this->client, $this->baseUrl . '/distributors');
+        $this->invProfileHdr = new InvProfileHdrResource($this->client, $this->baseUrl . '/inv-profile-hdr');
+        $this->products = new ProductsResource($this->client, $this->baseUrl . '/products');
+        $this->restockHdr = new RestockHdrResource($this->client, $this->baseUrl . '/restock-hdr');
+        $this->sections = new SectionsResource($this->client, $this->baseUrl . '/sections');
+        $this->warehouse = new WarehouseResource($this->client, $this->baseUrl . '/warehouse');
     }
 
     protected function getServiceName(): string

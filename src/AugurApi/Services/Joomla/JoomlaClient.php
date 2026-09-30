@@ -35,14 +35,14 @@ final class JoomlaClient extends BaseServiceClient
     public function __construct(Client $client, Config $config)
     {
         parent::__construct($client, $config);
-        $this->actionLogs = new ActionLogsResource($client, $this->baseUrl . '/action-logs');
-        $this->categories = new CategoriesResource($client, $this->baseUrl . '/categories');
-        $this->content = new ContentResource($client, $this->baseUrl . '/content');
-        $this->menu = new MenuResource($client, $this->baseUrl . '/menu');
-        $this->modules = new ModulesResource($client, $this->baseUrl . '/modules');
-        $this->tags = new TagsResource($client, $this->baseUrl . '/tags');
-        $this->usergroups = new UsergroupsResource($client, $this->baseUrl . '/usergroups');
-        $this->users = new UsersResource($client, $this->baseUrl . '/users');
+        $this->actionLogs = new ActionLogsResource($this->client, $this->baseUrl . '/action-logs');
+        $this->categories = new CategoriesResource($this->client, $this->baseUrl . '/categories');
+        $this->content = new ContentResource($this->client, $this->baseUrl . '/content');
+        $this->menu = new MenuResource($this->client, $this->baseUrl . '/menu');
+        $this->modules = new ModulesResource($this->client, $this->baseUrl . '/modules');
+        $this->tags = new TagsResource($this->client, $this->baseUrl . '/tags');
+        $this->usergroups = new UsergroupsResource($this->client, $this->baseUrl . '/usergroups');
+        $this->users = new UsersResource($this->client, $this->baseUrl . '/users');
     }
 
     protected function getServiceName(): string

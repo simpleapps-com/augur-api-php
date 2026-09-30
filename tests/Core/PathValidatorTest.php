@@ -6,6 +6,7 @@ namespace AugurApi\Tests\Core;
 
 use AugurApi\Core\Exceptions\InvalidArgumentException;
 use AugurApi\Core\PathValidator;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 
 final class PathValidatorTest extends TestCase
@@ -203,35 +204,93 @@ final class PathValidatorTest extends TestCase
         PathValidator::validate('/test/{bin}', 'bin', '');
     }
 
+    public function testValidateAcceptsPathSafePunctuation(): void
+    {
+        $this->expectNotToPerformAssertions();
+        PathValidator::validate('/test/{bin}', 'bin', "A.1_~O'B&C+D");
+    }
+
+    /**
+     * The API never decodes path segments, so these can only travel as query params.
+     *
+     * @return array<string, array{string}>
+     */
+    public static function unsafePathValueProvider(): array
+    {
+        return [
+            'slash' => ['D/S'],
+            'question mark' => ['a?b'],
+            'hash' => ['a#b'],
+            'percent' => ['50%'],
+            'already encoded' => ['a%2Fb'],
+            'space' => ['A 1'],
+            'tab' => ["tab\there"],
+            'newline' => ["nl\n"],
+            'nul' => ["nul\0"],
+            'backslash' => ['a\\b'],
+            'quote' => ['"q"'],
+            'angle brackets' => ['<b>'],
+            'braces' => ['{x}'],
+            'non-ASCII' => ['Ä1'],
+        ];
+    }
+
+    #[DataProvider('unsafePathValueProvider')]
+    public function testValidateRejectsValuesAPathCannotCarry(string $value): void
+    {
+        try {
+            PathValidator::validate('/test/{bin}', 'bin', $value, 'items');
+            $this->fail('Expected InvalidArgumentException');
+        } catch (InvalidArgumentException $e) {
+            $this->assertSame("Invalid path parameter 'bin': contains characters a URL path can't carry", $e->getMessage());
+            $this->assertSame('items', $e->service);
+            $this->assertSame('/test/{bin}', $e->endpoint);
+        }
+    }
+
+    public function testValidateRejectsIntegerWithTrailingNewline(): void
+    {
+        $this->expectException(InvalidArgumentException::class);
+        $this->expectExceptionMessage('expected an integer');
+
+        PathValidator::validate('/inv-mast/{invMastUid}', 'invMastUid', "1\n");
+    }
+
     // ----- error message format -----
 
-    public function testNumericErrorMessageContainsPathTemplate(): void
+    public function testNumericErrorNamesKeyAndCarriesTemplate(): void
     {
         try {
             PathValidator::validate('/inv-mast/{invMastUid}/doc', 'invMastUid', 'NaN');
             $this->fail('Expected InvalidArgumentException');
         } catch (InvalidArgumentException $e) {
-            $this->assertStringContainsString('/inv-mast/{invMastUid}/doc', $e->getMessage());
+            $this->assertSame("Invalid path parameter 'invMastUid': expected an integer", $e->getMessage());
+            $this->assertSame('/inv-mast/{invMastUid}/doc', $e->endpoint);
         }
     }
 
-    public function testNumericErrorMessageContainsValue(): void
+    public function testNumericErrorMessageOmitsValue(): void
     {
         try {
-            PathValidator::validate('/inv-mast/{invMastUid}', 'invMastUid', 'NaN');
+            PathValidator::validate('/inv-mast/{invMastUid}', 'invMastUid', 'secret-NaN', 'items');
             $this->fail('Expected InvalidArgumentException');
         } catch (InvalidArgumentException $e) {
-            $this->assertStringContainsString('"NaN"', $e->getMessage());
+            $this->assertStringNotContainsString('secret-NaN', $e->getMessage());
+            $this->assertStringNotContainsString('received', $e->getMessage());
+            $this->assertSame('items', $e->service);
+            $this->assertSame('/inv-mast/{invMastUid}', $e->endpoint);
         }
     }
 
-    public function testStringErrorMessageContainsValue(): void
+    public function testStringErrorMessageOmitsValue(): void
     {
         try {
             PathValidator::validate('/test/{bin}', 'bin', '');
             $this->fail('Expected InvalidArgumentException');
         } catch (InvalidArgumentException $e) {
-            $this->assertStringContainsString('""', $e->getMessage());
+            $this->assertStringNotContainsString('""', $e->getMessage());
+            $this->assertSame('', $e->service);
+            $this->assertSame('/test/{bin}', $e->endpoint);
         }
     }
 
