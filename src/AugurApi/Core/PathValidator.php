@@ -20,10 +20,6 @@ use AugurApi\Core\Exceptions\InvalidArgumentException;
  * (`path_params[].type`) after every sync that adds a path param; a missing
  * entry rejects valid string ids client-side. `grantid` and `salesrepid`
  * belong to endpoints since removed and are kept so older paths stay accepted.
- *
- * Known ambiguity: `invMastUid` is typed `integer` everywhere except `legacy`
- * (POST /inv-mast/{invMastUid}/tags). It stays classified numeric — the
- * integer typing is the majority and the stricter check.
  */
 final class PathValidator
 {
@@ -43,6 +39,7 @@ final class PathValidator
         'grantid',
         'salesrepid',
         'companyid',
+        'orderno',
     ];
 
     /**

@@ -175,6 +175,7 @@ final class PickTicketsResource
      *
      * Errors:
      *   400: orderBy is not column|ASC or column|DESC on an oe_pick_ticket_detail column.
+     *   404: No pick ticket with this number.
      *
      * GET https://orders.augur-api.com/pick-tickets/{pickTicketNo}/lines
      * Contract:

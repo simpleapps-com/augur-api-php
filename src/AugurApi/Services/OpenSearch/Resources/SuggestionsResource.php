@@ -89,7 +89,8 @@ final class SuggestionsResource
      *   processCd?: int — Process Code filter
      *   query?: string — Search query string
      *   queryStringUid?: int — Query String UID filter
-     *   statusCd?: int — Status Code filter
+     *   statusCd?: int|int[] — Status code or list of codes (700=DELETE, 704=ACTIVE, 705=INACTIVE),
+     *       sent comma-joined (704,705); -1 for every status. Default: every status
      *
      * $params also takes edgeCache, the Cloudflare edge cache time: '30s', '1m', '5m', or 1-5 or 8
      * (hours).
@@ -125,6 +126,8 @@ final class SuggestionsResource
      *   limit?: int — Limit number of results (Default: 10)
      *   offset?: int — Starting offset results (Default: 0)
      *   q?: string — Search query string for autocomplete
+     *   statusCd?: int|int[] — Status code or list of codes (700=DELETE, 704=ACTIVE, 705=INACTIVE),
+     *       sent comma-joined (704,705); -1 for every status. Default: every status
      *
      * $params also takes edgeCache, the Cloudflare edge cache time: '30s', '1m', '5m', or 1-5 or 8
      * (hours).

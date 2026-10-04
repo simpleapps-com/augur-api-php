@@ -76,11 +76,11 @@ final class TypedErrorContextTest extends AugurApiTestCase
         ))->forService('orders');
 
         try {
-            $client->get('https://orders.augur-api.com/oe-hdr', '/{orderNo}', [], ['orderNo' => 'secret-no']);
+            $client->get('https://orders.augur-api.com/oe-hdr', '/{oeHdrUid}', [], ['oeHdrUid' => 'secret-no']);
             $this->fail('Expected InvalidArgumentException');
         } catch (InvalidArgumentException $e) {
             $this->assertSame('orders', $e->service);
-            $this->assertSame('/oe-hdr/{orderNo}', $e->endpoint);
+            $this->assertSame('/oe-hdr/{oeHdrUid}', $e->endpoint);
             $this->assertStringNotContainsString('secret-no', $e->getMessage());
         }
     }

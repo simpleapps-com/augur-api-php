@@ -86,7 +86,8 @@ final class SettingsResource
      *   offset?: int — Starting offset results (Default: 0)
      *   orderBy?: string — Order By (Default: settings_uid|ASC)
      *   serviceName: string — Only settings for this service
-     *   statusCd?: int — Status Code (status_cd) [(704)|(705)|(700)]
+     *   statusCd?: int|int[] — Status code or list of codes (700=DELETE, 704=ACTIVE, 705=INACTIVE),
+     *       sent comma-joined (704,705); -1 for every status. Default: every status
      *
      * $params also takes edgeCache, the Cloudflare edge cache time: '30s', '1m', '5m', or 1-5 or 8
      * (hours).

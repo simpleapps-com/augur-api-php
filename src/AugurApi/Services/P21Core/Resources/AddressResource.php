@@ -83,7 +83,8 @@ final class AddressResource
      *   limit?: int — Limit number of results (Default: 10)
      *   offset?: int — Starting offset results (Default: 0)
      *   orderBy?: string — Order By (Default: id|ASC)
-     *   statusCd?: int — Status Code (status_cd) [(704)|705|700]
+     *   statusCd?: int|int[] — Status code or list of codes (700=DELETE, 704=ACTIVE, 705=INACTIVE),
+     *       sent comma-joined (704,705); -1 for every status. Default: 704
      *
      * $params also takes edgeCache, the Cloudflare edge cache time: '30s', '1m', '5m', or 1-5 or 8
      * (hours).
@@ -160,6 +161,8 @@ final class AddressResource
      *   offset?: int — Starting offset results (Default: 0)
      *   orderBy?: string — Order By (Default: id|ASC)
      *   q?: string — Search Query
+     *   statusCd?: int|int[] — Status code or list of codes (700=DELETE, 704=ACTIVE, 705=INACTIVE),
+     *       sent comma-joined (704,705); -1 for every status. Default: every status
      *
      * $params also takes edgeCache, the Cloudflare edge cache time: '30s', '1m', '5m', or 1-5 or 8
      * (hours).

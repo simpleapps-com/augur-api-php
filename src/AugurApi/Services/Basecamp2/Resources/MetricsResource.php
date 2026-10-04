@@ -90,6 +90,8 @@ final class MetricsResource
      *   offset?: int — Starting offset results (Default: 0)
      *   orderBy?: string — Order By (Default: id|ASC)
      *   projectsId?: int — Filter by project ID
+     *   statusCd?: int|int[] — Status code or list of codes (700=DELETE, 704=ACTIVE, 705=INACTIVE),
+     *       sent comma-joined (704,705); -1 for every status. Default: every status
      *   todosStatusCd?: int — Filter by status (1=open, 2=completed)
      *
      * $params also takes edgeCache, the Cloudflare edge cache time: '30s', '1m', '5m', or 1-5 or 8

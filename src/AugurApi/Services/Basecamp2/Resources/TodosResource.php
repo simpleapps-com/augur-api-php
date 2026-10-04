@@ -191,6 +191,8 @@ final class TodosResource
      *   offset?: int — Starting offset results (Default: 0)
      *   orderBy?: string — Sort field (Default: id|asc)
      *   projectsId?: int — Filter by project ID
+     *   statusCd?: int|int[] — Status code or list of codes (700=DELETE, 704=ACTIVE, 705=INACTIVE),
+     *       sent comma-joined (704,705); -1 for every status. Default: every status
      *   todolistId?: int — Filter by todolist ID
      *
      * $params also takes edgeCache, the Cloudflare edge cache time: '30s', '1m', '5m', or 1-5 or 8
@@ -260,6 +262,8 @@ final class TodosResource
      *   limit?: int — Limit number of results (Default: 10)
      *   offset?: int — Starting offset results (Default: 0)
      *   orderBy?: string — Sort field (Default: id|asc)
+     *   statusCd?: int|int[] — Status code or list of codes (700=DELETE, 704=ACTIVE, 705=INACTIVE),
+     *       sent comma-joined (704,705); -1 for every status. Default: every status
      *
      * $params also takes edgeCache, the Cloudflare edge cache time: '30s', '1m', '5m', or 1-5 or 8
      * (hours).
@@ -304,6 +308,8 @@ final class TodosResource
      *   orderBy?: string — Sort as field|ASC or field|DESC on a todos_events column (Default:
      *       id|desc)
      *   peopleId?: int — Filter by person ID
+     *   statusCd?: int|int[] — Status code or list of codes (700=DELETE, 704=ACTIVE, 705=INACTIVE),
+     *       sent comma-joined (704,705); -1 for every status. Default: every status
      *
      * $params also takes edgeCache, the Cloudflare edge cache time: '30s', '1m', '5m', or 1-5 or 8
      * (hours).
@@ -418,6 +424,8 @@ final class TodosResource
      *   orderBy?: string — Sort as field|ASC or field|DESC on a todos_sessions column (Default:
      *       todos_sessions_uid|asc)
      *   sessionStatusCd?: int — Filter by session status (100=open, 101=closed, 102=blocked)
+     *   statusCd?: int|int[] — Status code or list of codes (700=DELETE, 704=ACTIVE, 705=INACTIVE),
+     *       sent comma-joined (704,705); -1 for every status. Default: every status
      *
      * $params also takes edgeCache, the Cloudflare edge cache time: '30s', '1m', '5m', or 1-5 or 8
      * (hours).

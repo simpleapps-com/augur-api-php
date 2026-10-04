@@ -187,7 +187,8 @@ final class ItemWishlistResource
      *   limit?: int — Number of results to return (default: 10)
      *   offset?: int — Number of results to skip
      *   orderBy?: string — Order By (default: sequence_no|ASC)
-     *   statusCd?: int — Status code filter (default: 704 ACTIVE)
+     *   statusCd?: int|int[] — Status code or list of codes (700=DELETE, 704=ACTIVE, 705=INACTIVE),
+     *       sent comma-joined (704,705); -1 for every status. Default: 704
      *
      * $params also takes edgeCache, the Cloudflare edge cache time: '30s', '1m', '5m', or 1-5 or 8
      * (hours).
@@ -305,7 +306,8 @@ final class ItemWishlistResource
      *   limit?: int — Number of results to return (default: 10)
      *   offset?: int — Number of results to skip
      *   orderBy?: string — Order By (Default: sequence_no|ASC)
-     *   statusCd?: int — Status code filter (default: 704 ACTIVE)
+     *   statusCd?: int|int[] — Status code or list of codes (700=DELETE, 704=ACTIVE, 705=INACTIVE),
+     *       sent comma-joined (704,705); -1 for every status. Default: 704
      *
      * $params also takes edgeCache, the Cloudflare edge cache time: '30s', '1m', '5m', or 1-5 or 8
      * (hours).

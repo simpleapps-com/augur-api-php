@@ -28,7 +28,7 @@ final class PathValidatorTest extends TestCase
 
     public function testIsNumericPlaceholderRecognisesNoSuffix(): void
     {
-        $this->assertTrue(PathValidator::isNumericPlaceholder('orderNo'));
+        $this->assertTrue(PathValidator::isNumericPlaceholder('quoteNo'));
     }
 
     public function testIsNumericPlaceholderRecognisesNumSuffix(): void
@@ -98,6 +98,11 @@ final class PathValidatorTest extends TestCase
     public function testIsNumericPlaceholderRespectsCompanyIdOverride(): void
     {
         $this->assertFalse(PathValidator::isNumericPlaceholder('companyId'));
+    }
+
+    public function testIsNumericPlaceholderRespectsOrderNoOverride(): void
+    {
+        $this->assertFalse(PathValidator::isNumericPlaceholder('orderNo'));
     }
 
     // ----- validate: numeric placeholders accept integers -----

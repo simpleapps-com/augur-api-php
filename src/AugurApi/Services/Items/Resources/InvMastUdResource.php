@@ -75,7 +75,8 @@ final class InvMastUdResource
      *   modifiedSince?: string — Filter by date_last_modified since date (YYYY-MM-DD HH:MM:SS)
      *   offset?: int — Number of records to skip
      *   orderBy?: string — Order by field and direction (e.g., inv_mast_ud_uid|DESC)
-     *   statusCd?: int — Filter by status_cd
+     *   statusCd?: int|int[] — Status code or list of codes (700=DELETE, 704=ACTIVE, 705=INACTIVE),
+     *       sent comma-joined (704,705); -1 for every status. Default: every status
      *
      * $params also takes edgeCache, the Cloudflare edge cache time: '30s', '1m', '5m', or 1-5 or 8
      * (hours).

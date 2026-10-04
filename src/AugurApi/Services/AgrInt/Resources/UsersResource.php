@@ -172,7 +172,8 @@ final class UsersResource
      *   offset?: int — Starting offset for results (Default: 0)
      *   orderBy?: string — Order By (Default: users_uid|ASC)
      *   phoneNumber?: string — Filter by phone_number
-     *   statusCd?: int — Status Code (status_cd) [(704)|705|700]
+     *   statusCd?: int|int[] — Status code or list of codes (700=DELETE, 704=ACTIVE, 705=INACTIVE),
+     *       sent comma-joined (704,705); -1 for every status. Default: 704
      *   username?: string — Filter by username
      *
      * $params also takes edgeCache, the Cloudflare edge cache time: '30s', '1m', '5m', or 1-5 or 8
@@ -467,7 +468,8 @@ final class UsersResource
      *   limit?: int — Limit number of results (Default: 10)
      *   offset?: int — Starting offset for results (Default: 0)
      *   orderBy?: string — Order By (Default: users_x_roles_uid|ASC)
-     *   statusCd?: int — Status Code (status_cd) [(704)|705|700]
+     *   statusCd?: int|int[] — Status code or list of codes (700=DELETE, 704=ACTIVE, 705=INACTIVE),
+     *       sent comma-joined (704,705); -1 for every status. Default: every status
      *
      * $params also takes edgeCache, the Cloudflare edge cache time: '30s', '1m', '5m', or 1-5 or 8
      * (hours).

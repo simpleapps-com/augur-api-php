@@ -97,6 +97,8 @@ final class CategoriesResource
      *   orderBy?: string — Sort as one column|ASC or column|DESC on a categories column (Default:
      *       item_category_uid|ASC)
      *   q?: string — Search item_category_id or item_category_desc (LIKE)
+     *   statusCd?: int|int[] — Status code or list of codes (700=DELETE, 704=ACTIVE, 705=INACTIVE),
+     *       sent comma-joined (704,705); -1 for every status. Default: every status
      *
      * $params also takes edgeCache, the Cloudflare edge cache time: '30s', '1m', '5m', or 1-5 or 8
      * (hours).

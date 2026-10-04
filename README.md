@@ -33,6 +33,9 @@ foreach ($response->data as $brand) {
     echo $brand['brandsName'] . "\n";
 }
 
+// statusCd takes one code or a list (sent as statusCd=704,705)
+$response = $api->items->brands->list(['statusCd' => [704, 705]]);
+
 // Get single item: data is an array of the documented fields (the API may add more)
 $brand = $api->items->brands->get(123);
 echo $brand->data['brandsName'];

@@ -50,6 +50,9 @@ final class InvoiceHdrResource
      *
      * Render the invoice as a PDF through Prophet 21's document service
      *
+     * Errors:
+     *   404: No invoice with this number.
+     *
      * GET https://orders.augur-api.com/invoice-hdr/{invoiceNo}/reprint
      * Contract:
      * https://orders.augur-api.com/openapi.json#/paths/~1invoice-hdr~1{invoiceNo}~1reprint/get

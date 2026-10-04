@@ -83,7 +83,7 @@ final class OeHdrResourceTest extends AugurApiTestCase
     public function testGetDoc(): void
     {
         $this->mockResponse([
-            'orderNo' => 12345,
+            'orderNo' => '12345',
             'customerId' => 'CUST001',
             'customerName' => 'Test Customer',
             'orderDate' => '2024-01-15',
@@ -95,9 +95,9 @@ final class OeHdrResourceTest extends AugurApiTestCase
             ],
         ]);
 
-        $response = $this->api->orders->oeHdr->getDoc(12345);
+        $response = $this->api->orders->oeHdr->getDoc('12345');
 
-        $this->assertEquals(12345, $response->data['orderNo']);
+        $this->assertEquals('12345', $response->data['orderNo']);
         $this->assertEquals('Test Customer', $response->data['customerName']);
         $this->assertCount(2, self::arrayAt($response->data, 'lines'));
         $this->assertRequestPath('/oe-hdr/12345/doc');
@@ -107,13 +107,13 @@ final class OeHdrResourceTest extends AugurApiTestCase
     public function testGetDocWithDifferentOrder(): void
     {
         $this->mockResponse([
-            'orderNo' => 99999,
+            'orderNo' => '99999',
             'lines' => [],
         ]);
 
-        $response = $this->api->orders->oeHdr->getDoc(99999);
+        $response = $this->api->orders->oeHdr->getDoc('99999');
 
-        $this->assertEquals(99999, $response->data['orderNo']);
+        $this->assertEquals('99999', $response->data['orderNo']);
         $this->assertRequestPath('/oe-hdr/99999/doc');
     }
 }

@@ -69,6 +69,8 @@ final class ItemFavoritesResource
      *   limit?: int — Limit number of results (Default: 10)
      *   offset?: int — Number of results to skip
      *   orderBy?: string — Order By (Default: item_favorites_uid|ASC)
+     *   statusCd?: int|int[] — Status code or list of codes (700=DELETE, 704=ACTIVE, 705=INACTIVE),
+     *       sent comma-joined (704,705); -1 for every status. Default: 704
      *
      * $params also takes edgeCache, the Cloudflare edge cache time: '30s', '1m', '5m', or 1-5 or 8
      * (hours).

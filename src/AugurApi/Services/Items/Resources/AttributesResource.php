@@ -228,8 +228,8 @@ final class AttributesResource
      *   offset?: int — Starting offset results (Default: 0)
      *   orderBy?: string — Order By (Default: attribute_uid|ASC)
      *   q?: string — Search Query
-     *   statusCd?: int — Status Code (status_cd) [(704)|(705)|(700)]. Defaults to 704 when omitted;
-     *       pass 0 to return all statuses.
+     *   statusCd?: int|int[] — Status code or list of codes (700=DELETE, 704=ACTIVE, 705=INACTIVE),
+     *       sent comma-joined (704,705); -1 for every status. Default: 704
      *
      * $params also takes edgeCache, the Cloudflare edge cache time: '30s', '1m', '5m', or 1-5 or 8
      * (hours).
@@ -454,7 +454,8 @@ final class AttributesResource
      *       item_attribute_value column (snake_case or camelCase). Anything else returns 400.
      *       (Default: item_attribute_value_uid|ASC)
      *   q?: string — Search query on attribute value
-     *   statusCd?: int — Status Code (status_cd) [(704)|(705)|(700)]
+     *   statusCd?: int|int[] — Status code or list of codes (700=DELETE, 704=ACTIVE, 705=INACTIVE),
+     *       sent comma-joined (704,705); -1 for every status. Default: every status
      *
      * $params also takes edgeCache, the Cloudflare edge cache time: '30s', '1m', '5m', or 1-5 or 8
      * (hours).
@@ -499,8 +500,8 @@ final class AttributesResource
      *   offset?: int — Starting offset results (Default: 0)
      *   orderBy?: string — Order By (Default: attribute_value_uid|ASC)
      *   q?: string — Search Query
-     *   statusCd?: int — Status Code (status_cd) [(704)|(705)|(700)]. Defaults to 704 when omitted;
-     *       pass 0 to return all statuses.
+     *   statusCd?: int|int[] — Status code or list of codes (700=DELETE, 704=ACTIVE, 705=INACTIVE),
+     *       sent comma-joined (704,705); -1 for every status. Default: 704
      *
      * $params also takes edgeCache, the Cloudflare edge cache time: '30s', '1m', '5m', or 1-5 or 8
      * (hours).

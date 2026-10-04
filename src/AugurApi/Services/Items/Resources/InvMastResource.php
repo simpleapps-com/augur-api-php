@@ -674,7 +674,8 @@ final class InvMastResource
      *       inv_mast_uid|ASC)
      *   prefix?: string — ItemId Prefix
      *   q?: string — Search query for items
-     *   statusCd?: int — Status Code (status_cd) [(704)|(705)|(700)]
+     *   statusCd?: int|int[] — Status code or list of codes (700=DELETE, 704=ACTIVE, 705=INACTIVE),
+     *       sent comma-joined (704,705); -1 for every status. Default: every status
      *
      * $params also takes edgeCache, the Cloudflare edge cache time: '30s', '1m', '5m', or 1-5 or 8
      * (hours).
@@ -751,7 +752,8 @@ final class InvMastResource
      *   onlineCd?: int — Online Code (online_cd) [(704)|(705)|(700)]
      *   orderBy?: string — Order by field and direction (e.g., item_id|ASC)
      *   q: string — Search query for item lookup
-     *   statusCd?: int — Status Code (status_cd) [(704)|(705)|(700)]
+     *   statusCd?: int|int[] — Status code or list of codes (700=DELETE, 704=ACTIVE, 705=INACTIVE),
+     *       sent comma-joined (704,705); -1 for every status. Default: 704
      *
      * $params also takes edgeCache, the Cloudflare edge cache time: '30s', '1m', '5m', or 1-5 or 8
      * (hours).
@@ -875,7 +877,8 @@ final class InvMastResource
      *   offset?: int — Record number to start from
      *   orderBy?: string — Order By (Default: item_attribute_value_uid|ASC)
      *   q?: string — Filter attribute values
-     *   statusCd?: int — item_attribute_value.status_cd
+     *   statusCd?: int|int[] — Status code or list of codes (700=DELETE, 704=ACTIVE, 705=INACTIVE),
+     *       sent comma-joined (704,705); -1 for every status. Default: 704
      *
      * $params also takes edgeCache, the Cloudflare edge cache time: '30s', '1m', '5m', or 1-5 or 8
      * (hours).
@@ -966,6 +969,8 @@ final class InvMastResource
      *   offset?: int — Starting offset results (Default: 0)
      *   orderBy?: string — Order By (Default: item_attribute_value_uid|ASC)
      *   q?: string — Search Query
+     *   statusCd?: int|int[] — Status code or list of codes (700=DELETE, 704=ACTIVE, 705=INACTIVE),
+     *       sent comma-joined (704,705); -1 for every status. Default: every status
      *
      * $params also takes edgeCache, the Cloudflare edge cache time: '30s', '1m', '5m', or 1-5 or 8
      * (hours).
@@ -1188,7 +1193,8 @@ final class InvMastResource
      *   offset?: int — Starting offset results (Default: 0)
      *   orderBy?: string — Order By (Default: inv_mast_faq_uid|ASC)
      *   q?: string — Search Query
-     *   statusCd?: int — Status Code (status_cd) [(704)|705|700|-1]
+     *   statusCd?: int|int[] — Status code or list of codes (700=DELETE, 704=ACTIVE, 705=INACTIVE),
+     *       sent comma-joined (704,705); -1 for every status. Default: 704
      *
      * $params also takes edgeCache, the Cloudflare edge cache time: '30s', '1m', '5m', or 1-5 or 8
      * (hours).

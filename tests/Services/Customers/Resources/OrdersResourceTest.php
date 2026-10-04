@@ -53,7 +53,7 @@ final class OrdersResourceTest extends AugurApiTestCase
             'orderDate' => '2024-01-15',
         ]);
 
-        $response = $this->api->customers->customer->getOrders(1001, 12345);
+        $response = $this->api->customers->customer->getOrders(1001, '12345');
 
         $this->assertEquals(12345, $response->data['orderNo']);
         $this->assertEquals(150.00, $response->data['total']);

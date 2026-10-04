@@ -198,6 +198,8 @@ final class OeHdrResource
      *   q?: string — Text matched anywhere in the order number, PO number, web reference number,
      *       ship-to name or ship-to email
      *   salesrepId?: string — Only orders assigned to this salesrep (their 100 most recent)
+     *   statusCd?: int|int[] — Status code or list of codes (700=DELETE, 704=ACTIVE, 705=INACTIVE),
+     *       sent comma-joined (704,705); -1 for every status. Default: every status
      *   taker?: string — Only orders entered by this user
      *
      * $params also takes edgeCache, the Cloudflare edge cache time: '30s', '1m', '5m', or 1-5 or 8
@@ -243,11 +245,11 @@ final class OeHdrResource
      *
      * Response data type: OeHdrDocListData (fields listed on the class)
      *
-     * @param int $orderNo Prophet 21 order number
+     * @param string $orderNo Prophet 21 order number
      * @param array<string, mixed> $params
      * @return BaseResponse<array<string, mixed>>
      */
-    public function listDoc(int $orderNo, array $params = []): BaseResponse
+    public function listDoc(string $orderNo, array $params = []): BaseResponse
     {
         $response = $this->client->get(
             $this->baseUrl,
@@ -266,11 +268,11 @@ final class OeHdrResource
      * Alias for listDoc — GET /oe-hdr/{orderNo}/doc
      * Call: $api->orders->oeHdr->getDoc($orderNo)
      *
-     * @param int $orderNo Prophet 21 order number
+     * @param string $orderNo Prophet 21 order number
      * @param array<string, mixed> $params
      * @return BaseResponse<array<string, mixed>>
      */
-    public function getDoc(int $orderNo, array $params = []): BaseResponse
+    public function getDoc(string $orderNo, array $params = []): BaseResponse
     {
         return $this->listDoc($orderNo, $params);
     }

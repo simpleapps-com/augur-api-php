@@ -406,6 +406,10 @@ final class InvMastResource
      * Contract:
      * https://legacy.augur-api.com/openapi.json#/paths/~1inv-mast~1{invMastUid}~1also-bought/get
      *
+     * Query params ($params; `?` = optional):
+     *   statusCd?: int|int[] — Status code or list of codes (700=DELETE, 704=ACTIVE, 705=INACTIVE),
+     *       sent comma-joined (704,705); -1 for every status. Default: every status
+     *
      * $params also takes edgeCache, the Cloudflare edge cache time: '30s', '1m', '5m', or 1-5 or 8
      * (hours).
      *
@@ -437,7 +441,9 @@ final class InvMastResource
      * Call: $api->legacy->invMast->listTags($invMastUid)
      *
      * Errors:
-     *   400: orderBy is not column|ASC or column|DESC on an inv_mast_tags column.
+     *   400: invMastUid is below 1, or orderBy is not column|ASC or column|DESC on an inv_mast_tags
+     *       column.
+     *   404: No item (inv_mast) with this invMastUid.
      *
      * GET https://legacy.augur-api.com/inv-mast/{invMastUid}/tags
      * Contract: https://legacy.augur-api.com/openapi.json#/paths/~1inv-mast~1{invMastUid}~1tags/get
@@ -446,6 +452,8 @@ final class InvMastResource
      *   limit?: int — Maximum rows to return (Default: 10)
      *   offset?: int — Starting offset results (Default: 0)
      *   orderBy?: string — Order By (Default: inv_mast_tags_uid|ASC)
+     *   statusCd?: int|int[] — Status code or list of codes (700=DELETE, 704=ACTIVE, 705=INACTIVE),
+     *       sent comma-joined (704,705); -1 for every status. Default: every status
      *
      * $params also takes edgeCache, the Cloudflare edge cache time: '30s', '1m', '5m', or 1-5 or 8
      * (hours).
@@ -480,7 +488,8 @@ final class InvMastResource
      * Request body: Add a tag to the item in the path
      *
      * Errors:
-     *   400: The body is missing or not a JSON object.
+     *   400: invMastUid is below 1, or the body is missing or not a JSON object.
+     *   404: No item (inv_mast) with this invMastUid.
      *
      * POST https://legacy.augur-api.com/inv-mast/{invMastUid}/tags
      * Contract:
@@ -490,11 +499,11 @@ final class InvMastResource
      *
      * Response data type: InvMastTagsListItem (fields listed on the class)
      *
-     * @param string $invMastUid invMastUid path value
+     * @param int $invMastUid Unique identifier of the item (inv_mast) the tag belongs to
      * @param InvMastTagsCreateBody $data
      * @return BaseResponse<array<string, mixed>>
      */
-    public function createTags(string $invMastUid, array $data = []): BaseResponse
+    public function createTags(int $invMastUid, array $data = []): BaseResponse
     {
         $response = $this->client->post(
             $this->baseUrl,
@@ -516,7 +525,8 @@ final class InvMastResource
      * Call: $api->legacy->invMast->deleteTags($invMastUid, $invMastTagsUid)
      *
      * Errors:
-     *   404: No item tag with this ID.
+     *   400: invMastUid is below 1.
+     *   404: No item (inv_mast) with this invMastUid, or no tag with this ID on that item.
      *
      * DELETE https://legacy.augur-api.com/inv-mast/{invMastUid}/tags/{invMastTagsUid}
      * Contract:
@@ -549,7 +559,8 @@ final class InvMastResource
      * Call: $api->legacy->invMast->getTags($invMastUid, $invMastTagsUid)
      *
      * Errors:
-     *   404: No item tag with this ID.
+     *   400: invMastUid is below 1.
+     *   404: No item (inv_mast) with this invMastUid, or no tag with this ID on that item.
      *
      * GET https://legacy.augur-api.com/inv-mast/{invMastUid}/tags/{invMastTagsUid}
      * Contract:
@@ -589,8 +600,8 @@ final class InvMastResource
      * Request body: Partial update of an item tag; an absent field keeps its current value
      *
      * Errors:
-     *   400: The body is missing or not a JSON object.
-     *   404: No item tag with this ID.
+     *   400: invMastUid is below 1, or the body is missing or not a JSON object.
+     *   404: No item (inv_mast) with this invMastUid, or no tag with this ID on that item.
      *
      * PUT https://legacy.augur-api.com/inv-mast/{invMastUid}/tags/{invMastTagsUid}
      * Contract:
@@ -638,6 +649,8 @@ final class InvMastResource
      *   offset?: int — Starting offset results (Default: 0)
      *   orderBy?: string — Order By (Default: inv_mast_web_desc_uid|ASC)
      *   q?: string — Text matched (LIKE) against any of the web description fields
+     *   statusCd?: int|int[] — Status code or list of codes (700=DELETE, 704=ACTIVE, 705=INACTIVE),
+     *       sent comma-joined (704,705); -1 for every status. Default: 704
      *
      * $params also takes edgeCache, the Cloudflare edge cache time: '30s', '1m', '5m', or 1-5 or 8
      * (hours).

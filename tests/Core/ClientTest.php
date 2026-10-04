@@ -146,6 +146,16 @@ final class ClientTest extends TestCase
         $this->assertEquals('q=test&limit=10', $request->getUri()->getQuery());
     }
 
+    public function testListQueryParameterIsCommaJoined(): void
+    {
+        $this->addResponse(['data' => []]);
+
+        $this->client->get('https://api.example.com', '/items', ['statusCd' => [704, 705], 'limit' => 10]);
+
+        $request = $this->mockClient->getLastRequest();
+        $this->assertEquals('statusCd=704%2C705&limit=10', $request->getUri()->getQuery());
+    }
+
     public function testEmptyQueryParametersNotIncluded(): void
     {
         $this->addResponse(['data' => []]);

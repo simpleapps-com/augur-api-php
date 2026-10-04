@@ -311,12 +311,18 @@ final class Client
     }
 
     /**
+     * Drop nulls; send a list comma-joined ([704, 705] → "704,705"), as the API expects.
+     *
      * @param array<string, mixed> $params
      * @return array<string, mixed>
      */
     private function filterParams(array $params): array
     {
-        return array_filter($params, static fn ($v) => $v !== null);
+        $kept = array_filter($params, static fn ($v) => $v !== null);
+        return array_map(
+            static fn ($v) => is_array($v) && array_is_list($v) ? implode(',', $v) : $v,
+            $kept,
+        );
     }
 
     /**

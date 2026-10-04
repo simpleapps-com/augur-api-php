@@ -739,6 +739,8 @@ final class CustomerResource
      *   offset?: int — Offset number of results (Default: 0)
      *   orderBy?: string — Sort ordering: default (ordering|ASC)
      *   q?: string — Query string
+     *   statusCd?: int|int[] — Status code or list of codes (700=DELETE, 704=ACTIVE, 705=INACTIVE),
+     *       sent comma-joined (704,705); -1 for every status. Default: every status
      *
      * $params also takes edgeCache, the Cloudflare edge cache time: '30s', '1m', '5m', or 1-5 or 8
      * (hours).
@@ -779,6 +781,8 @@ final class CustomerResource
      *   offset?: int — offset (default 0)
      *   orderBy?: string — Order By (Default: customer_id|ASC)
      *   q: string — search query
+     *   statusCd?: int|int[] — Status code or list of codes (700=DELETE, 704=ACTIVE, 705=INACTIVE),
+     *       sent comma-joined (704,705); -1 for every status. Default: every status
      *
      * $params also takes edgeCache, the Cloudflare edge cache time: '30s', '1m', '5m', or 1-5 or 8
      * (hours).
@@ -857,7 +861,8 @@ final class CustomerResource
      *   limit?: int — Limit number of results (Default: 10)
      *   offset?: int — Starting offset results (Default: 0)
      *   orderBy?: string — Order By (Default: customer_address_uid|ASC)
-     *   statusCd?: int — Status Code (status_cd) [(704)|705|700]
+     *   statusCd?: int|int[] — Status code or list of codes (700=DELETE, 704=ACTIVE, 705=INACTIVE),
+     *       sent comma-joined (704,705); -1 for every status. Default: every status
      *
      * $params also takes edgeCache, the Cloudflare edge cache time: '30s', '1m', '5m', or 1-5 or 8
      * (hours).
@@ -1311,7 +1316,9 @@ final class CustomerResource
      * Call: $api->customers->customer->listOrders($customerId)
      *
      * Errors:
-     *   400: orderBy is not column|ASC or column|DESC on an oe_hdr column.
+     *   400: customerId is below 1, or orderBy is not column|ASC or column|DESC on an oe_hdr
+     *       column.
+     *   404: No customer with this customerId.
      *
      * GET https://customers.augur-api.com/customer/{customerId}/orders
      * Contract:
@@ -1388,11 +1395,11 @@ final class CustomerResource
      * Response data type: CustomerOrdersGetData (fields listed on the class)
      *
      * @param int $customerId customer.customer_id
-     * @param int $orderNo oe_hdr.order_no
+     * @param string $orderNo oe_hdr.order_no
      * @param array<string, mixed> $params
      * @return BaseResponse<array<string, mixed>>
      */
-    public function getOrders(int $customerId, int $orderNo, array $params = []): BaseResponse
+    public function getOrders(int $customerId, string $orderNo, array $params = []): BaseResponse
     {
         $response = $this->client->get(
             $this->baseUrl,
@@ -1870,7 +1877,8 @@ final class CustomerResource
      *   limit?: int — Limit number of results (Default: 10)
      *   offset?: int — Starting offset results (Default: 0)
      *   orderBy?: string — Order By (Default: customer_tags_uid|ASC)
-     *   statusCd?: int — Status Code (status_cd) [(704)|705|700]
+     *   statusCd?: int|int[] — Status code or list of codes (700=DELETE, 704=ACTIVE, 705=INACTIVE),
+     *       sent comma-joined (704,705); -1 for every status. Default: every status
      *
      * $params also takes edgeCache, the Cloudflare edge cache time: '30s', '1m', '5m', or 1-5 or 8
      * (hours).

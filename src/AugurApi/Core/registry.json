@@ -1080,7 +1080,8 @@
     "queryParams": [
       "limit",
       "offset",
-      "orderBy"
+      "orderBy",
+      "statusCd"
     ],
     "aliases": [],
     "hasBody": false,
@@ -1348,7 +1349,8 @@
     "queryParams": [
       "limit",
       "offset",
-      "orderBy"
+      "orderBy",
+      "statusCd"
     ],
     "aliases": [],
     "hasBody": false,
@@ -1414,7 +1416,8 @@
     "queryParams": [
       "limit",
       "offset",
-      "orderBy"
+      "orderBy",
+      "statusCd"
     ],
     "aliases": [],
     "hasBody": false,
@@ -1501,7 +1504,8 @@
     "queryParams": [
       "limit",
       "offset",
-      "orderBy"
+      "orderBy",
+      "statusCd"
     ],
     "aliases": [],
     "hasBody": false,
@@ -1722,6 +1726,7 @@
       "limit",
       "offset",
       "orderBy",
+      "statusCd",
       "todosId"
     ],
     "aliases": [],
@@ -1741,7 +1746,8 @@
       "limit",
       "offset",
       "orderBy",
-      "peopleId"
+      "peopleId",
+      "statusCd"
     ],
     "aliases": [],
     "hasBody": false,
@@ -1776,6 +1782,7 @@
       "offset",
       "orderBy",
       "projectsId",
+      "statusCd",
       "todosStatusCd"
     ],
     "aliases": [],
@@ -1809,6 +1816,7 @@
       "offset",
       "orderBy",
       "q",
+      "statusCd",
       "trashedFlag"
     ],
     "aliases": [],
@@ -1833,6 +1841,7 @@
       "offset",
       "orderBy",
       "projectsId",
+      "statusCd",
       "todosStatusCd"
     ],
     "aliases": [],
@@ -1854,7 +1863,8 @@
       "dueAt",
       "limit",
       "offset",
-      "orderBy"
+      "orderBy",
+      "statusCd"
     ],
     "aliases": [],
     "hasBody": false,
@@ -1875,7 +1885,8 @@
       "limit",
       "offset",
       "orderBy",
-      "projectsId"
+      "projectsId",
+      "statusCd"
     ],
     "aliases": [],
     "hasBody": false,
@@ -1919,6 +1930,7 @@
       "limit",
       "offset",
       "orderBy",
+      "statusCd",
       "trashedFlag"
     ],
     "aliases": [],
@@ -1943,6 +1955,7 @@
       "needsResponse",
       "offset",
       "orderBy",
+      "statusCd",
       "todosStatusCd"
     ],
     "aliases": [],
@@ -1962,7 +1975,8 @@
       "completedFlag",
       "limit",
       "offset",
-      "orderBy"
+      "orderBy",
+      "statusCd"
     ],
     "aliases": [],
     "hasBody": false,
@@ -1983,7 +1997,8 @@
       "completedFlag",
       "limit",
       "offset",
-      "orderBy"
+      "orderBy",
+      "statusCd"
     ],
     "aliases": [],
     "hasBody": false,
@@ -2003,7 +2018,8 @@
       "completedFlag",
       "limit",
       "offset",
-      "orderBy"
+      "orderBy",
+      "statusCd"
     ],
     "aliases": [],
     "hasBody": false,
@@ -2036,7 +2052,8 @@
       "limit",
       "offset",
       "orderBy",
-      "projectsId"
+      "projectsId",
+      "statusCd"
     ],
     "aliases": [],
     "hasBody": false,
@@ -2054,7 +2071,8 @@
     "queryParams": [
       "limit",
       "offset",
-      "orderBy"
+      "orderBy",
+      "statusCd"
     ],
     "aliases": [],
     "hasBody": false,
@@ -2089,7 +2107,8 @@
       "limit",
       "offset",
       "orderBy",
-      "peopleId"
+      "peopleId",
+      "statusCd"
     ],
     "aliases": [],
     "hasBody": false,
@@ -2124,6 +2143,7 @@
       "offset",
       "orderBy",
       "projectsId",
+      "statusCd",
       "todolistId"
     ],
     "aliases": [],
@@ -2201,7 +2221,8 @@
       "limit",
       "offset",
       "orderBy",
-      "sessionStatusCd"
+      "sessionStatusCd",
+      "statusCd"
     ],
     "aliases": [],
     "hasBody": false,
@@ -2248,7 +2269,8 @@
       "limit",
       "offset",
       "orderBy",
-      "processCd"
+      "processCd",
+      "statusCd"
     ],
     "aliases": [],
     "hasBody": false,
@@ -2303,7 +2325,8 @@
       "limit",
       "offset",
       "orderBy",
-      "q"
+      "q",
+      "statusCd"
     ],
     "aliases": [],
     "hasBody": false,
@@ -2372,6 +2395,7 @@
     "queryParams": [
       "limit",
       "offset",
+      "statusCd",
       "userId"
     ],
     "aliases": [],
@@ -2857,7 +2881,8 @@
       "limit",
       "offset",
       "orderBy",
-      "q"
+      "q",
+      "statusCd"
     ],
     "aliases": [],
     "hasBody": false,
@@ -2874,7 +2899,8 @@
       "limit",
       "offset",
       "orderBy",
-      "q"
+      "q",
+      "statusCd"
     ],
     "aliases": [],
     "hasBody": false,
@@ -3227,7 +3253,8 @@
     "pathParams": [],
     "queryParams": [
       "limit",
-      "offset"
+      "offset",
+      "statusCd"
     ],
     "aliases": [],
     "hasBody": false,
@@ -3788,7 +3815,8 @@
     "queryParams": [
       "limit",
       "offset",
-      "orderBy"
+      "orderBy",
+      "statusCd"
     ],
     "aliases": [],
     "hasBody": false,
@@ -4159,7 +4187,8 @@
       "limit",
       "offset",
       "orderBy",
-      "q"
+      "q",
+      "statusCd"
     ],
     "aliases": [],
     "hasBody": false,
@@ -4500,7 +4529,8 @@
       "limit",
       "offset",
       "orderBy",
-      "q"
+      "q",
+      "statusCd"
     ],
     "aliases": [],
     "hasBody": false,
@@ -4591,7 +4621,8 @@
     "queryParams": [
       "limit",
       "offset",
-      "orderBy"
+      "orderBy",
+      "statusCd"
     ],
     "aliases": [],
     "hasBody": false,
@@ -4921,7 +4952,8 @@
     "queryParams": [
       "limit",
       "offset",
-      "orderBy"
+      "orderBy",
+      "statusCd"
     ],
     "aliases": [],
     "hasBody": false,
@@ -5605,7 +5637,9 @@
     "pathParams": [
       "invMastUid"
     ],
-    "queryParams": [],
+    "queryParams": [
+      "statusCd"
+    ],
     "aliases": [],
     "hasBody": false,
     "auth": "bearer",
@@ -5666,7 +5700,8 @@
     "queryParams": [
       "limit",
       "offset",
-      "orderBy"
+      "orderBy",
+      "statusCd"
     ],
     "aliases": [],
     "hasBody": false,
@@ -5744,7 +5779,8 @@
       "limit",
       "offset",
       "orderBy",
-      "q"
+      "q",
+      "statusCd"
     ],
     "aliases": [],
     "hasBody": false,
@@ -5834,6 +5870,7 @@
       "limit",
       "offset",
       "orderBy",
+      "statusCd",
       "twoLetterCode"
     ],
     "aliases": [],
@@ -6468,7 +6505,8 @@
     "queryParams": [
       "limit",
       "offset",
-      "orderBy"
+      "orderBy",
+      "statusCd"
     ],
     "aliases": [],
     "hasBody": false,
@@ -6532,7 +6570,8 @@
     "queryParams": [
       "limit",
       "offset",
-      "q"
+      "q",
+      "statusCd"
     ],
     "aliases": [],
     "hasBody": false,
@@ -6611,6 +6650,7 @@
       "orderBy",
       "q",
       "salesrepId",
+      "statusCd",
       "taker"
     ],
     "aliases": [],
@@ -6983,7 +7023,8 @@
       "limit",
       "offset",
       "orderBy",
-      "q"
+      "q",
+      "statusCd"
     ],
     "aliases": [],
     "hasBody": false,
