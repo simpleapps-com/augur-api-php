@@ -21,4 +21,15 @@ final class SitesResourceTest extends AugurApiTestCase
         $this->assertRequestPath('/sites/validate');
         $this->assertRequestMethod('POST');
     }
+
+    public function testCreateStaffToken(): void
+    {
+        $this->mockResponse(['token' => 'jwt-token', 'siteId' => 'abc', 'username' => 'staff']);
+
+        $response = $this->api->agrInfo->sites->createStaffToken(['siteId' => 'abc']);
+
+        $this->assertSame('jwt-token', self::at($response->data, 'token'));
+        $this->assertRequestPath('/sites/staff-token');
+        $this->assertRequestMethod('POST');
+    }
 }

@@ -24,6 +24,17 @@ use AugurApi\Core\Client;
  * Shapes used in this class, as PHPStan type aliases (`?` = optional key), each with where it is
  * used. Response shapes are the documented MINIMUM: the API MAY send more fields.
  *
+ * SitesStaffTokenCreateData: A user token on the target site, issued to an augur_info staff member
+ * as that site's mirror account
+ * Returned by: $api->agrInfo->sites->createStaffToken($data)
+ *   token: string — User-scope JWT for the mirror account on the target site
+ *   siteId: string — Target site the token is bound to
+ *   username: string — Mirror account username on the target site
+ *
+ * SitesStaffTokenCreateBody: Exchange an augur_info staff token for a token on a target site
+ * Request body of: $api->agrInfo->sites->createStaffToken($data)
+ *   siteId: string — Target site to issue the token for
+ *
  * SitesValidateCreateData: Result of validating a site's token or client credential, with the
  * site's Prophet 21 connection when valid
  * Returned by: $api->agrInfo->sites->createValidate($data)
@@ -58,6 +69,8 @@ use AugurApi\Core\Client;
  *   siteId: string — Site the token was issued for
  *   token: string — JWT, or an agr_int client credential (agrc_...)
  *
+ * @phpstan-type SitesStaffTokenCreateData array{token: string, siteId: string, username: string}
+ * @phpstan-type SitesStaffTokenCreateBody array{siteId: string}
  * @phpstan-type SitesValidateCreateData array{valid: bool, siteId: string, error: string, tokenType: string|null, isAdmin: bool, user: SitesValidateCreateDataUser, connection: SitesValidateCreateDataConnection}
  * @phpstan-type SitesValidateCreateDataUser array{userId: int, username: string, email: string, name: string, roles: list<string>}
  * @phpstan-type SitesValidateCreateDataConnection array{host: string|null, port: int|null, database: string|null, username: string|null, password: string|null}
@@ -69,6 +82,46 @@ final class SitesResource
         private readonly Client $client,
         private readonly string $baseUrl,
     ) {
+    }
+
+    /**
+     * POST /sites/staff-token
+     *
+     * Staff token for a target site
+     * Call: $api->agrInfo->sites->createStaffToken($data)
+     *
+     * Exchange an augur_info Super User token for a token on a target site, as the mirror account
+     * with the same username and email
+     *
+     * Request body: Exchange an augur_info staff token for a token on a target site
+     * Response data: A user token on the target site, issued to an augur_info staff member as that
+     * site's mirror account
+     *
+     * Errors:
+     *   400: The body is not JSON or has no siteId.
+     *   403: x-site-id is not augur_info; the caller is not an unblocked augur_info Super User; or
+     *       the target site has no unblocked Super User with the same username and email
+     *       (case-insensitive).
+     *   404: The target siteId is not a known site.
+     *
+     * POST https://agr-info.augur-api.com/sites/staff-token
+     * Contract: https://agr-info.augur-api.com/openapi.json#/paths/~1sites~1staff-token/post
+     *
+     * Request body ($data): SitesStaffTokenCreateBody (fields listed on the class)
+     *
+     * Response data type: SitesStaffTokenCreateData (fields listed on the class)
+     *
+     * @param SitesStaffTokenCreateBody $data
+     * @return BaseResponse<array<string, mixed>>
+     */
+    public function createStaffToken(array $data): BaseResponse
+    {
+        $response = $this->client->post($this->baseUrl, '/staff-token', $data);
+
+        /** @var BaseResponse<array<string, mixed>> $result */
+        $result = BaseResponse::fromArray($response, static fn (mixed $data): mixed => $data);
+
+        return $result;
     }
 
     /**

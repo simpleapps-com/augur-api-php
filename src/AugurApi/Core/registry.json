@@ -205,6 +205,18 @@
     "edgeCache": false
   },
   {
+    "id": "agrInfo.sites.staffToken.create",
+    "service": "agr-info",
+    "method": "POST",
+    "path": "/sites/staff-token",
+    "pathParams": [],
+    "queryParams": [],
+    "aliases": [],
+    "hasBody": true,
+    "auth": "bearer",
+    "edgeCache": false
+  },
+  {
     "id": "agrInfo.sites.validate.create",
     "service": "agr-info",
     "method": "POST",
