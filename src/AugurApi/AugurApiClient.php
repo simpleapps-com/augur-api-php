@@ -76,7 +76,7 @@ use Psr\Http\Message\StreamFactoryInterface;
  */
 final class AugurApiClient
 {
-    public const string VERSION = '2026.10.1';
+    public const string VERSION = '2026.10.2';
 
     /** Endpoint registry contract version (see wiki Endpoint-Registry). */
     public const int REGISTRY_VERSION = 1;
