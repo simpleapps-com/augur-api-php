@@ -12,18 +12,18 @@ use AugurApi\Tests\AugurApiTestCase;
 final class RatesResourceTest extends AugurApiTestCase
 {
     /**
-     * @return array{line_1: string, line_2: string, line_3: string, city: string, region: string, postal_code: string, country_code: string}
+     * @return array{line1: string, line2: string, line3: string, city: string, region: string, postalCode: string, countryCode: string}
      */
     private function address(): array
     {
         return [
-            'line_1' => '100 Main St',
-            'line_2' => '',
-            'line_3' => '',
+            'line1' => '100 Main St',
+            'line2' => '',
+            'line3' => '',
             'city' => 'Pittsburgh',
             'region' => 'PA',
-            'postal_code' => '15222',
-            'country_code' => 'US',
+            'postalCode' => '15222',
+            'countryCode' => 'US',
         ];
     }
 
@@ -37,8 +37,8 @@ final class RatesResourceTest extends AugurApiTestCase
                 [
                     'amount' => 100.00,
                     'quantity' => 1.0,
-                    'item_code' => 'ITEM001',
-                    'tax_code' => 'P0000000',
+                    'itemCode' => 'ITEM001',
+                    'taxCode' => 'P0000000',
                 ],
             ],
         ]);
@@ -60,15 +60,15 @@ final class RatesResourceTest extends AugurApiTestCase
                 [
                     'amount' => 100.00,
                     'quantity' => 1.0,
-                    'item_code' => 'ITEM001',
-                    'tax_code' => 'P0000000',
+                    'itemCode' => 'ITEM001',
+                    'taxCode' => 'P0000000',
                 ],
                 [
                     'amount' => 150.00,
                     'quantity' => 3.0,
-                    'item_code' => 'ITEM002',
-                    'tax_code' => 'P0000000',
-                    'unit_price' => 50.00,
+                    'itemCode' => 'ITEM002',
+                    'taxCode' => 'P0000000',
+                    'unitPrice' => 50.00,
                 ],
             ],
         ]);

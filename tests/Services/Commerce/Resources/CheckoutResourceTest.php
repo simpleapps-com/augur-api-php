@@ -62,28 +62,6 @@ final class CheckoutResourceTest extends AugurApiTestCase
         $this->assertRequestMethod('GET');
     }
 
-    public function testCreateProphet21Hdr(): void
-    {
-        $this->mockResponse(['prophet21HdrUid' => 10]);
-
-        $response = $this->api->commerce->checkout->createProphet21Hdr(1);
-
-        $this->assertEquals(10, self::at($response->data, 'prophet21HdrUid'));
-        $this->assertRequestPath('/checkout/1/prophet21-hdr');
-        $this->assertRequestMethod('POST');
-    }
-
-    public function testCreateProphet21HdrProphet21Line(): void
-    {
-        $this->mockResponse(['lineNo' => 1]);
-
-        $response = $this->api->commerce->checkout->createProphet21HdrProphet21Line(1, 10);
-
-        $this->assertEquals(1, self::at($response->data, 'lineNo'));
-        $this->assertRequestPath('/checkout/1/prophet21-hdr/10/prophet21-line');
-        $this->assertRequestMethod('POST');
-    }
-
     public function testUpdateValidate(): void
     {
         $this->mockResponse(['valid' => true]);

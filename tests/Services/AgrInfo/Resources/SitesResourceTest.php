@@ -15,7 +15,7 @@ final class SitesResourceTest extends AugurApiTestCase
     {
         $this->mockResponse(['valid' => true]);
 
-        $response = $this->api->agrInfo->sites->createValidate(['siteId' => 'abc']);
+        $response = $this->api->agrInfo->sites->createValidate(['siteId' => 'abc', 'token' => 'jwt-token']);
 
         $this->assertTrue(self::at($response->data, 'valid'));
         $this->assertRequestPath('/sites/validate');

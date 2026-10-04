@@ -77,6 +77,7 @@ final class InvMastTextResourceTest extends AugurApiTestCase
         $response = $this->api->p21Pim->invMastText->create([
             'invMastUid' => 102,
             'webDisplayTypeUid' => 7,
+            'textValue' => 'Text',
         ]);
 
         $this->assertEquals(3, $response->data['invMastTextUid']);

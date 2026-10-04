@@ -14,27 +14,6 @@ use PHPUnit\Framework\Attributes\CoversClass;
 #[CoversClass(TransCompanyResource::class)]
 final class TransCompanyResourceTest extends AugurApiTestCase
 {
-    public function testCreate(): void
-    {
-        $this->mockResponse([
-            'companyUid' => 1,
-            'companyName' => 'Test Company',
-            'active' => true,
-        ]);
-
-        $response = $this->api->p21Apis->transCompany->create([
-            'companyName' => 'Test Company',
-            'active' => true,
-        ]);
-
-        $this->assertEquals(1, self::at($response->data, 'companyUid'));
-        $this->assertEquals('Test Company', self::at($response->data, 'companyName'));
-        $this->assertRequestMethod('POST');
-        $this->assertRequestPath('/trans-company');
-        $this->assertHasSiteIdHeader();
-        $this->assertHasAuthHeader();
-    }
-
     public function testGet(): void
     {
         $this->mockResponse([
@@ -63,37 +42,5 @@ final class TransCompanyResourceTest extends AugurApiTestCase
         $this->assertEquals(1, self::at($response->data, 'companyUid'));
         $this->assertHasSiteIdHeader();
         $this->assertHasAuthHeader();
-    }
-
-    public function testUpdate(): void
-    {
-        $this->mockResponse([
-            'companyUid' => 1,
-            'companyName' => 'Updated Company',
-            'active' => false,
-        ]);
-
-        $response = $this->api->p21Apis->transCompany->update(1, [
-            'companyName' => 'Updated Company',
-            'active' => false,
-        ]);
-
-        $this->assertEquals('Updated Company', self::at($response->data, 'companyName'));
-        $this->assertFalse(self::at($response->data, 'active'));
-        $this->assertRequestMethod('PUT');
-        $this->assertRequestPath('/trans-company/1');
-    }
-
-    public function testDelete(): void
-    {
-        $this->mockResponse([
-            'success' => true,
-        ]);
-
-        $response = $this->api->p21Apis->transCompany->delete(1);
-
-        $this->assertTrue(self::at($response->data, 'success'));
-        $this->assertRequestMethod('DELETE');
-        $this->assertRequestPath('/trans-company/1');
     }
 }

@@ -46,21 +46,6 @@ final class ResourcesResourceTest extends AugurApiTestCase
         $this->assertEquals(25, $response->total);
     }
 
-    public function testCreate(): void
-    {
-        $this->mockResponse(['resourcesUid' => 3, 'resourceName' => 'pricing']);
-
-        $response = $this->api->agrInt->resources->create([
-            'resourceName' => 'pricing',
-            'resourceType' => 'service',
-            'resourcePath' => '/pricing',
-        ]);
-
-        $this->assertEquals('pricing', $response->data['resourceName']);
-        $this->assertRequestPath('/resources');
-        $this->assertRequestMethod('POST');
-    }
-
     public function testGet(): void
     {
         $this->mockResponse(['resourcesUid' => 1, 'resourceId' => 'items']);
@@ -70,26 +55,5 @@ final class ResourcesResourceTest extends AugurApiTestCase
         $this->assertEquals(1, $response->data['resourcesUid']);
         $this->assertRequestPath('/resources/1');
         $this->assertRequestMethod('GET');
-    }
-
-    public function testUpdate(): void
-    {
-        $this->mockResponse(['resourcesUid' => 1, 'resourceId' => 'renamed']);
-
-        $response = $this->api->agrInt->resources->update(1, ['resourceId' => 'renamed']);
-
-        $this->assertEquals('renamed', $response->data['resourceId']);
-        $this->assertRequestPath('/resources/1');
-        $this->assertRequestMethod('PUT');
-    }
-
-    public function testDelete(): void
-    {
-        $this->mockResponse(['success' => true]);
-
-        $this->api->agrInt->resources->delete(1);
-
-        $this->assertRequestPath('/resources/1');
-        $this->assertRequestMethod('DELETE');
     }
 }

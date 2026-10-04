@@ -75,9 +75,8 @@ final class StateResourceTest extends AugurApiTestCase
         ], 201);
 
         $response = $this->api->legacy->legacy->createState([
-            'stateCode' => 'PR',
             'stateName' => 'Puerto Rico',
-            'countryCode' => 'US',
+            'twoLetterCode' => 'PR',
         ]);
 
         $this->assertEquals(51, self::at($response->data, 'stateUid'));

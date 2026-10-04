@@ -85,12 +85,12 @@ final class ClientTransportTest extends TestCase
         return [
             '400' => [400, ValidationException::class, 'Validation failed'],
             '401' => [401, AuthenticationException::class, 'Authentication failed'],
-            '403' => [403, AugurApiException::class, 'API request failed'],
+            '403' => [403, AugurApiException::class, 'Request failed with status 403'],
             '404' => [404, NotFoundException::class, 'Resource not found'],
-            '409' => [409, AugurApiException::class, 'API request failed'],
+            '409' => [409, AugurApiException::class, 'Request failed with status 409'],
             '429' => [429, RateLimitException::class, 'Rate limit exceeded'],
-            '500' => [500, AugurApiException::class, 'API request failed'],
-            '302' => [302, AugurApiException::class, 'API request failed'],
+            '500' => [500, AugurApiException::class, 'Request failed with status 500'],
+            '302' => [302, AugurApiException::class, 'Request failed with status 302'],
         ];
     }
 
@@ -116,41 +116,24 @@ final class ClientTransportTest extends TestCase
         $this->assertSame('/inv-mast/{invMastUid}', $e->endpoint);
     }
 
-    public function testNonJsonBodyBecomesTrimmedMessage(): void
+    public function testNonJsonBodyNeverReachesTheMessage(): void
     {
-        $this->addRaw(502, "  <html>Bad gateway</html>\n", 'text/html');
+        $html = '<html><title>RuntimeException: stat failed for /augur/apps/x</title></html>';
+        $this->addRaw(502, $html, 'text/html');
 
         $e = $this->failure(fn () => $this->client->post('https://items.test', '/inv-mast', []));
 
-        $this->assertSame('<html>Bad gateway</html>', $e->getMessage());
+        $this->assertSame('Request failed with status 502', $e->getMessage());
     }
 
-    public function testNonJsonMessageIsTruncatedTo200Characters(): void
-    {
-        $this->addRaw(500, str_repeat('é', 250), 'text/plain');
-
-        $e = $this->failure(fn () => $this->client->delete('https://items.test', '/inv-mast'));
-
-        $this->assertSame(str_repeat('é', 200), $e->getMessage());
-    }
-
-    public function testInvalidUtf8MessageIsTruncatedTo200Bytes(): void
-    {
-        $this->addRaw(500, str_repeat("\xff", 250), 'text/plain');
-
-        $e = $this->failure(fn () => $this->client->put('https://items.test', '/inv-mast', []));
-
-        $this->assertSame(str_repeat("\xff", 200), $e->getMessage());
-    }
-
-    public function testShortNonJsonMessageIsKeptWhole(): void
+    public function testNonJsonBodyOnA404UsesTheFixedDefault(): void
     {
         $this->addRaw(404, 'Not Found', 'text/plain');
 
         $e = $this->failure(fn () => $this->client->post('https://items.test', '/nope', []));
 
         $this->assertInstanceOf(NotFoundException::class, $e);
-        $this->assertSame('Not Found', $e->getMessage());
+        $this->assertSame('Resource not found', $e->getMessage());
     }
 
     public function testEmptyStringMessageFallsBackToDefault(): void

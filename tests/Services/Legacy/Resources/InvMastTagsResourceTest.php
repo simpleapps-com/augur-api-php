@@ -70,9 +70,8 @@ final class InvMastTagsResourceTest extends AugurApiTestCase
             'tagValue' => 'value',
         ], 201);
 
-        $response = $this->api->legacy->invMast->createTags(12345, [
-            'tagName' => 'New Tag',
-            'tagValue' => 'value',
+        $response = $this->api->legacy->invMast->createTags('12345', [
+            'tag' => 'New Tag',
         ]);
 
         $this->assertEquals(3, $response->data['invMastTagsUid']);

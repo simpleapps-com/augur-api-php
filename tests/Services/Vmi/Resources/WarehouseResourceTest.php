@@ -76,8 +76,9 @@ final class WarehouseResourceTest extends AugurApiTestCase
         ]);
 
         $response = $this->api->vmi->warehouse->create([
-            'name' => 'New Warehouse',
-            'active' => true,
+            'customerId' => 100,
+            'warehouseName' => 'New Warehouse',
+            'warehouseDesc' => 'Main',
         ]);
 
         $this->assertEquals(3, $response->data['warehouseUid']);
@@ -150,62 +151,38 @@ final class WarehouseResourceTest extends AugurApiTestCase
 
     public function testReceive(): void
     {
-        $this->mockResponse([
-            'warehouseUid' => 1,
-            'receiptId' => 'REC001',
-            'itemsReceived' => 25,
+        $this->mockListResponse([
+            ['invMastUid' => 1000, 'qtyReceived' => 25],
         ]);
 
         $response = $this->api->vmi->warehouse->createReceive(1, [
-            'productId' => 'PROD001',
-            'quantity' => 25,
+            'items' => [
+                ['invMastUid' => 1000, 'invProfileLineType' => 'products', 'qtyReceived' => 25.0],
+            ],
         ]);
 
-        $this->assertEquals('REC001', self::at($response->data, 'receiptId'));
-        $this->assertEquals(25, self::at($response->data, 'itemsReceived'));
+        $this->assertEquals(1000, self::at($response->data, 0, 'invMastUid'));
+        $this->assertEquals(25, self::at($response->data, 0, 'qtyReceived'));
         $this->assertRequestMethod('POST');
         $this->assertRequestPath('/warehouse/1/receive');
     }
 
     public function testAdjust(): void
     {
-        $this->mockResponse([
-            'warehouseUid' => 1,
-            'adjustmentId' => 'ADJ001',
-            'newQuantity' => 75,
+        $this->mockListResponse([
+            ['invMastUid' => 1000, 'qtyAdjusted' => -25],
         ]);
 
         $response = $this->api->vmi->warehouse->createAdjust(1, [
-            'productId' => 'PROD001',
-            'adjustmentQty' => -25,
-            'reason' => 'Damage',
+            'items' => [
+                ['invMastUid' => 1000, 'invProfileLineType' => 'products', 'qtyAdjusted' => -25.0],
+            ],
         ]);
 
-        $this->assertEquals('ADJ001', self::at($response->data, 'adjustmentId'));
-        $this->assertEquals(75, self::at($response->data, 'newQuantity'));
+        $this->assertEquals(1000, self::at($response->data, 0, 'invMastUid'));
+        $this->assertEquals(-25, self::at($response->data, 0, 'qtyAdjusted'));
         $this->assertRequestMethod('POST');
         $this->assertRequestPath('/warehouse/1/adjust');
-    }
-
-    public function testTransfer(): void
-    {
-        $this->mockResponse([
-            'warehouseUid' => 1,
-            'transferId' => 'TRN001',
-            'destinationWarehouseUid' => 2,
-            'itemsTransferred' => 50,
-        ]);
-
-        $response = $this->api->vmi->warehouse->createTransfer(1, [
-            'destinationWarehouseUid' => 2,
-            'productId' => 'PROD001',
-            'quantity' => 50,
-        ]);
-
-        $this->assertEquals('TRN001', self::at($response->data, 'transferId'));
-        $this->assertEquals(50, self::at($response->data, 'itemsTransferred'));
-        $this->assertRequestMethod('POST');
-        $this->assertRequestPath('/warehouse/1/transfer');
     }
 
     public function testUsage(): void
@@ -217,9 +194,10 @@ final class WarehouseResourceTest extends AugurApiTestCase
         ]);
 
         $response = $this->api->vmi->warehouse->createUsage(1, [
-            'productId' => 'PROD001',
-            'quantity' => 10,
-            'reason' => 'Production',
+            'jobDescription' => 'Production',
+            'usageItems' => [
+                ['invMastUid' => 1000, 'qtyUsed' => 10.0],
+            ],
         ]);
 
         $this->assertEquals('USG001', self::at($response->data, 'usageId'));
@@ -285,26 +263,6 @@ final class WarehouseResourceTest extends AugurApiTestCase
         $this->assertHasAuthHeader();
     }
 
-    public function testCreateReplenish(): void
-    {
-        $this->mockResponse([
-            'warehouseUid' => 1,
-            'replenishId' => 'REP001',
-            'itemsRequested' => 5,
-        ]);
-
-        $response = $this->api->vmi->warehouse->createReplenish(1, [
-            'items' => [
-                ['productId' => 'PROD001', 'quantity' => 50],
-            ],
-        ]);
-
-        $this->assertEquals('REP001', self::at($response->data, 'replenishId'));
-        $this->assertEquals(5, self::at($response->data, 'itemsRequested'));
-        $this->assertRequestMethod('POST');
-        $this->assertRequestPath('/warehouse/1/replenish');
-    }
-
     public function testListUsers(): void
     {
         $this->mockListResponse([
@@ -359,17 +317,15 @@ final class WarehouseResourceTest extends AugurApiTestCase
     {
         $this->mockResponse([
             'usersId' => 3,
-            'username' => 'newuser',
-            'role' => 'operator',
+            'warehouseUid' => 1,
         ]);
 
         $response = $this->api->vmi->warehouse->createUsers(1, [
-            'username' => 'newuser',
-            'role' => 'operator',
+            'usersId' => 3,
         ]);
 
         $this->assertEquals(3, self::at($response->data, 'usersId'));
-        $this->assertEquals('newuser', self::at($response->data, 'username'));
+        $this->assertEquals(1, self::at($response->data, 'warehouseUid'));
         $this->assertRequestMethod('POST');
         $this->assertRequestPath('/warehouse/1/users');
     }

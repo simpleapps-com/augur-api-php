@@ -13,93 +13,38 @@ final class RatesResourceTest extends AugurApiTestCase
 {
     public function testCreate(): void
     {
-        $this->mockResponse([
-            'rates' => [
-                [
-                    'carrier' => 'UPS',
-                    'service' => 'Ground',
-                    'rate' => 12.50,
-                    'deliveryDays' => 5,
-                ],
-                [
-                    'carrier' => 'FedEx',
-                    'service' => 'Ground',
-                    'rate' => 11.75,
-                    'deliveryDays' => 4,
-                ],
-            ],
-            'cheapest' => 'FedEx Ground',
-            'fastest' => 'FedEx Ground',
+        $this->mockListResponse([
+            ['shipperName' => 'UPS', 'serviceType' => 'Ground', 'listAmount' => 12.50],
+            ['shipperName' => 'FedEx', 'serviceType' => 'Ground', 'listAmount' => 11.75],
         ]);
 
         $response = $this->api->shipping->rates->create([
-            'origin' => [
-                'postalCode' => '90210',
-                'country' => 'US',
-            ],
-            'destination' => [
-                'postalCode' => '10001',
-                'country' => 'US',
-            ],
-            'packages' => [
-                [
-                    'weight' => 5.0,
-                    'dimensions' => [
-                        'length' => 10,
-                        'width' => 8,
-                        'height' => 6,
-                    ],
-                ],
-            ],
+            'shippers' => ['UPS', 'FedEx'],
+            'fromAddress' => ['postalCode' => '90210', 'countryCode' => 'US'],
+            'toAddress' => ['postalCode' => '10001', 'countryCode' => 'US'],
+            'package' => ['weight' => 5],
         ]);
 
-        $this->assertCount(2, self::arrayAt($response->data, 'rates'));
-        $this->assertEquals('UPS', self::at($response->data, 'rates', 0, 'carrier'));
-        $this->assertEquals('FedEx Ground', self::at($response->data, 'cheapest'));
+        $this->assertCount(2, $response->data);
+        $this->assertEquals('UPS', self::at($response->data, 0, 'shipperName'));
         $this->assertRequestPath('/rates');
         $this->assertRequestMethod('POST');
         $this->assertHasSiteIdHeader();
         $this->assertHasAuthHeader();
     }
 
-    public function testCreateWithMultiplePackages(): void
-    {
-        $this->mockResponse([
-            'rates' => [
-                ['carrier' => 'UPS', 'service' => 'Ground', 'rate' => 25.00],
-            ],
-            'totalWeight' => 15.0,
-        ]);
-
-        $response = $this->api->shipping->rates->create([
-            'origin' => ['postalCode' => '90210', 'country' => 'US'],
-            'destination' => ['postalCode' => '10001', 'country' => 'US'],
-            'packages' => [
-                ['weight' => 5.0],
-                ['weight' => 5.0],
-                ['weight' => 5.0],
-            ],
-        ]);
-
-        $this->assertEquals(15.0, self::at($response->data, 'totalWeight'));
-        $this->assertCount(1, self::arrayAt($response->data, 'rates'));
-    }
-
     public function testCreateReturnsBaseResponse(): void
     {
-        $this->mockResponse([
-            'rates' => [],
-            'message' => 'No rates available',
-        ]);
+        $this->mockListResponse([]);
 
         $response = $this->api->shipping->rates->create([
-            'origin' => ['postalCode' => '00000'],
-            'destination' => ['postalCode' => '99999'],
-            'packages' => [],
+            'shippers' => ['UPS'],
+            'fromAddress' => ['postalCode' => '00000'],
+            'toAddress' => ['postalCode' => '99999'],
+            'package' => [],
         ]);
 
         $this->assertEquals(200, $response->status);
-        $this->assertIsArray($response->data);
-        $this->assertEmpty($response->data['rates']);
+        $this->assertEmpty($response->data);
     }
 }

@@ -68,9 +68,9 @@ final class RubricsResourceTest extends AugurApiTestCase
         ]);
 
         $response = $this->api->agrInfo->rubrics->create([
-            'name' => 'New Rubric',
-            'category' => 'custom',
-            'description' => 'A custom rubric',
+            'title' => 'New Rubric',
+            'id' => 'new-rubric',
+            'content' => 'Rubric body',
         ]);
 
         $this->assertEquals(3, self::at($response->data, 'rubricsUid'));

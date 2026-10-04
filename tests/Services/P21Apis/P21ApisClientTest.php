@@ -7,7 +7,6 @@ namespace AugurApi\Tests\Services\P21Apis;
 use AugurApi\Services\P21Apis\P21ApisClient;
 use AugurApi\Services\P21Apis\Resources\EntityContactsResource;
 use AugurApi\Services\P21Apis\Resources\EntityCustomersResource;
-use AugurApi\Services\P21Apis\Resources\TransCategoryResource;
 use AugurApi\Services\P21Apis\Resources\TransCompanyResource;
 use AugurApi\Services\P21Apis\Resources\TransPurchaseOrderReceiptResource;
 use AugurApi\Services\P21Apis\Resources\TransUserResource;
@@ -69,11 +68,6 @@ final class P21ApisClientTest extends AugurApiTestCase
     public function testEntityCustomersResourceAccess(): void
     {
         $this->assertInstanceOf(EntityCustomersResource::class, $this->api->p21Apis->entityCustomers);
-    }
-
-    public function testTransCategoryResourceAccess(): void
-    {
-        $this->assertInstanceOf(TransCategoryResource::class, $this->api->p21Apis->transCategory);
     }
 
     public function testTransCompanyResourceAccess(): void

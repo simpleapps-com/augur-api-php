@@ -15,14 +15,15 @@ use AugurApi\Core\Exceptions\InvalidArgumentException;
  * `id`/`lineNumber`). String-typed placeholders must be non-empty and use only
  * characters a URL path carries literally, since values are sent unencoded.
  *
- * Re-derived from shared/specs/*.json on 2026-07-28. Of 93 distinct
- * placeholders, six have an integer-looking suffix but are typed as string in
- * every spec that declares them (see STRING_OVERRIDES).
+ * STRING_OVERRIDES lists the placeholders with an integer-looking suffix that
+ * the specs type as string. Re-derive it from shared/specs/*.json
+ * (`path_params[].type`) after every sync that adds a path param; a missing
+ * entry rejects valid string ids client-side. `grantid` and `salesrepid`
+ * belong to endpoints since removed and are kept so older paths stay accepted.
  *
- * Known ambiguity: `customerId` and `invMastUid` are typed `integer` in most
- * services but `string` in `legacy` (POST /customers/{customerId}/tags, POST
- * /inv-mast/{invMastUid}/tags). They stay classified numeric — the integer
- * typing is the majority and the stricter check.
+ * Known ambiguity: `invMastUid` is typed `integer` everywhere except `legacy`
+ * (POST /inv-mast/{invMastUid}/tags). It stays classified numeric — the
+ * integer typing is the majority and the stricter check.
  */
 final class PathValidator
 {
@@ -41,6 +42,7 @@ final class PathValidator
         'scheduledimportmasteruid',
         'grantid',
         'salesrepid',
+        'companyid',
     ];
 
     /**

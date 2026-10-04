@@ -33,41 +33,4 @@ final class TransPurchaseOrderReceiptResourceTest extends AugurApiTestCase
         $this->assertHasSiteIdHeader();
         $this->assertHasAuthHeader();
     }
-
-    public function testUpdate(): void
-    {
-        $this->mockResponse([
-            'poNo' => 'PO-12345',
-            'vendorId' => 'VENDOR001',
-            'status' => 'completed',
-            'totalAmount' => 1500.00,
-        ]);
-
-        $response = $this->api->p21Apis->transPurchaseOrderReceipt->update('PO-12345', [
-            'status' => 'completed',
-        ]);
-
-        $this->assertEquals('completed', self::at($response->data, 'status'));
-        $this->assertRequestMethod('PUT');
-        $this->assertRequestPath('/trans-purchase-order-receipt/PO-12345');
-    }
-
-    public function testUpdateWithMultipleFields(): void
-    {
-        $this->mockResponse([
-            'poNo' => 'PO-67890',
-            'receivedDate' => '2024-01-15',
-            'receivedBy' => 'USER001',
-        ]);
-
-        $response = $this->api->p21Apis->transPurchaseOrderReceipt->update('PO-67890', [
-            'receivedDate' => '2024-01-15',
-            'receivedBy' => 'USER001',
-        ]);
-
-        $this->assertEquals('2024-01-15', self::at($response->data, 'receivedDate'));
-        $this->assertEquals('USER001', self::at($response->data, 'receivedBy'));
-        $this->assertHasSiteIdHeader();
-        $this->assertHasAuthHeader();
-    }
 }

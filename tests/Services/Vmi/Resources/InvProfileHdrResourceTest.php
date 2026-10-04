@@ -76,7 +76,7 @@ final class InvProfileHdrResourceTest extends AugurApiTestCase
         ]);
 
         $response = $this->api->vmi->invProfileHdr->create([
-            'name' => 'New Profile',
+            'invProfileHdrDesc' => 'New Profile',
             'customerId' => 300,
         ]);
 
@@ -121,7 +121,7 @@ final class InvProfileHdrResourceTest extends AugurApiTestCase
             'status' => 'success',
         ]);
 
-        $response = $this->api->vmi->invProfileHdr->createUpload(100);
+        $response = $this->api->vmi->invProfileHdr->createUpload(100, ['fileData' => 'c2t1LHF0eQ==']);
 
         $this->assertEquals(100, self::at($response->data, 'customerId'));
         $this->assertEquals(5, self::at($response->data, 'profilesCreated'));
@@ -178,33 +178,28 @@ final class InvProfileHdrResourceTest extends AugurApiTestCase
 
     public function testCreateInvProfileLine(): void
     {
-        $this->mockResponse([
-            'invProfileLineUid' => 3,
-            'invMastUid' => 1002,
-            'invProfileHdrMinQty' => 15.0,
+        $this->mockListResponse([
+            ['invProfileLineUid' => 3, 'invMastUid' => 1002],
         ]);
 
         $response = $this->api->vmi->invProfileHdr->createInvProfileLine(1, [
             ['invMastUid' => 1002, 'invProfileLineType' => 'products', 'invProfileHdrMinQty' => 15.0],
         ]);
 
-        $this->assertEquals(3, $response->data['invProfileLineUid']);
+        $this->assertEquals(3, $response->data[0]['invProfileLineUid']);
         $this->assertRequestMethod('POST');
         $this->assertRequestPath('/inv-profile-hdr/1/inv-profile-line');
     }
 
     public function testUpdateInvProfileLine(): void
     {
-        $this->mockResponse([
-            'invProfileLineUid' => 1,
-            'minQty' => 25,
-        ]);
+        $this->mockResponse(true);
 
         $response = $this->api->vmi->invProfileHdr->updateInvProfileLine(1, 1, [
-            'minQty' => 25,
+            'invProfileHdrMinQty' => 25.0,
         ]);
 
-        $this->assertEquals(25, $response->data['minQty']);
+        $this->assertTrue($response->data);
         $this->assertRequestMethod('PUT');
         $this->assertRequestPath('/inv-profile-hdr/1/inv-profile-line/1');
     }

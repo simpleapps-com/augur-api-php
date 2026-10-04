@@ -199,7 +199,7 @@ final class InvMastResourceTest extends AugurApiTestCase
         $this->mockResponse(['success' => true, 'created' => 1]);
 
         $response = $this->api->items->invMast->createAttributes(100, [
-            'attributeUid' => 5,
+            'attributeName' => 'Size',
             'attributeValue' => 'Medium',
         ]);
 
@@ -242,7 +242,7 @@ final class InvMastResourceTest extends AugurApiTestCase
         $this->mockResponse(['attributeValueUid' => 3, 'value' => 'Green']);
 
         // Generated signature: createAttributesValues(int $invMastUid, int $attributeUid, ...)
-        $response = $this->api->items->invMast->createAttributesValues(100, 1, ['value' => 'Green']);
+        $response = $this->api->items->invMast->createAttributesValues(100, 1, ['attributeValue' => 'Green']);
 
         $this->assertEquals(3, $response->data['attributeValueUid']);
         $this->assertRequestMethod('POST');
@@ -251,12 +251,12 @@ final class InvMastResourceTest extends AugurApiTestCase
 
     public function testUpdateAttributesValues(): void
     {
-        $this->mockResponse(['attributeValueUid' => 1, 'value' => 'Dark Red']);
+        $this->mockResponse(['attributeValueUid' => 1, 'statusCd' => 704]);
 
         // Generated signature: updateAttributesValues(int $invMastUid, int $attributeUid, int $attributeValueUid, ...)
-        $response = $this->api->items->invMast->updateAttributesValues(100, 1, 1, ['value' => 'Dark Red']);
+        $response = $this->api->items->invMast->updateAttributesValues(100, 1, 1, ['statusCd' => 704]);
 
-        $this->assertEquals('Dark Red', $response->data['value']);
+        $this->assertEquals(704, $response->data['statusCd']);
         $this->assertRequestMethod('PUT');
         $this->assertRequestPath('/inv-mast/100/attributes/1/values/1');
     }
@@ -319,24 +319,15 @@ final class InvMastResourceTest extends AugurApiTestCase
         $this->assertRequestPath('/inv-mast/100/faq/1');
     }
 
-    public function testCreateFaq(): void
+    public function testListPrecache(): void
     {
-        $this->mockListResponse([
-            [
-                'invMastFaqUid' => 3,
-                'question' => 'New question?',
-                'answer' => 'New answer.',
-            ],
-        ]);
+        $this->mockResponse(true);
 
-        $response = $this->api->items->invMast->createFaq(100, [
-            'question' => 'New question?',
-            'answer' => 'New answer.',
-        ]);
+        $response = $this->api->items->invMast->listPrecache(100);
 
-        $this->assertEquals(3, $response->data[0]['invMastFaqUid']);
-        $this->assertRequestMethod('POST');
-        $this->assertRequestPath('/inv-mast/100/faq');
+        $this->assertTrue($response->data);
+        $this->assertRequestMethod('GET');
+        $this->assertRequestPath('/inv-mast/100/precache');
     }
 
     public function testUpdateFaq(): void

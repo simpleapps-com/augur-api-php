@@ -56,12 +56,12 @@ final class PostalCodesXShiptosResourceTest extends AugurApiTestCase
         $this->mockResponse([
             'postalCodesXShiptosUid' => 3,
             'postalCode' => '94103',
-            'shipToId' => 'C3',
+            'shipToId' => 3,
         ], 201);
 
         $response = $this->api->agrSite->postalCodesXShiptos->create([
             'postalCode' => '94103',
-            'shipToId' => 'C3',
+            'shipToId' => 3,
         ]);
 
         $this->assertEquals(3, $response->data['postalCodesXShiptosUid']);
@@ -73,15 +73,15 @@ final class PostalCodesXShiptosResourceTest extends AugurApiTestCase
     {
         $this->mockResponse([
             'postalCodesXShiptosUid' => 1,
-            'shipToId' => 'updated',
+            'shipToId' => 4,
         ]);
 
         $response = $this->api->agrSite->postalCodesXShiptos->update(
             1,
-            ['shipToId' => 'updated'],
+            ['shipToId' => 4],
         );
 
-        $this->assertEquals('updated', $response->data['shipToId']);
+        $this->assertEquals(4, $response->data['shipToId']);
         $this->assertRequestPath('/postal-codes-x-shiptos/1');
         $this->assertRequestMethod('PUT');
     }

@@ -69,9 +69,8 @@ final class SettingsResourceTest extends AugurApiTestCase
         ]);
 
         $response = $this->api->agrSite->settings->create([
-            'key' => 'new_setting',
-            'value' => 'new_value',
-            'description' => 'A new setting',
+            'serviceName' => 'agr-site',
+            'name' => 'new_setting',
         ]);
 
         $this->assertEquals(3, $response->data['settingsUid']);

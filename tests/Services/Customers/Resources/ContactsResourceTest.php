@@ -11,19 +11,6 @@ use AugurApi\Tests\AugurApiTestCase;
  */
 final class ContactsResourceTest extends AugurApiTestCase
 {
-    public function testGetRefresh(): void
-    {
-        $this->mockResponse(['refreshed' => true, 'timestamp' => '2024-01-15T12:00:00Z']);
-
-        $response = $this->api->customers->contacts->getRefresh();
-
-        $this->assertTrue(self::at($response->data, 'refreshed'));
-        $this->assertRequestPath('/contacts/refresh');
-        $this->assertRequestMethod('GET');
-        $this->assertHasSiteIdHeader();
-        $this->assertHasAuthHeader();
-    }
-
     public function testListCustomers(): void
     {
         $this->mockListResponse([

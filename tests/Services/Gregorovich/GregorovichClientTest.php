@@ -5,9 +5,7 @@ declare(strict_types=1);
 namespace AugurApi\Tests\Services\Gregorovich;
 
 use AugurApi\Services\Gregorovich\GregorovichClient;
-use AugurApi\Services\Gregorovich\Resources\ChatGptResource;
 use AugurApi\Services\Gregorovich\Resources\DocumentsResource;
-use AugurApi\Services\Gregorovich\Resources\OllamaResource;
 use AugurApi\Tests\AugurApiTestCase;
 
 final class GregorovichClientTest extends AugurApiTestCase
@@ -47,19 +45,9 @@ final class GregorovichClientTest extends AugurApiTestCase
         $this->assertRequestPath('/whoami');
     }
 
-    public function testChatGptResourceAccess(): void
-    {
-        $this->assertInstanceOf(ChatGptResource::class, $this->api->gregorovich->chatGpt);
-    }
-
     public function testDocumentsResourceAccess(): void
     {
         $this->assertInstanceOf(DocumentsResource::class, $this->api->gregorovich->documents);
-    }
-
-    public function testOllamaResourceAccess(): void
-    {
-        $this->assertInstanceOf(OllamaResource::class, $this->api->gregorovich->ollama);
     }
 
     public function testServiceClientIsCached(): void

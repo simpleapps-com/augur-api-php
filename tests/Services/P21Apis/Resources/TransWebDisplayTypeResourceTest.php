@@ -96,37 +96,6 @@ final class TransWebDisplayTypeResourceTest extends AugurApiTestCase
         $this->assertRequestPath('/trans-web-display-type/1');
     }
 
-    public function testGetDefaults(): void
-    {
-        $this->mockResponse([
-            'defaultDisplayType' => 'Grid',
-            'itemsPerPage' => 20,
-            'showPrices' => true,
-        ]);
-
-        $response = $this->api->p21Apis->transWebDisplayType->listDefaults();
-
-        $this->assertEquals('Grid', self::at($response->data, 'defaultDisplayType'));
-        $this->assertEquals(20, self::at($response->data, 'itemsPerPage'));
-        $this->assertTrue(self::at($response->data, 'showPrices'));
-        $this->assertRequestMethod('GET');
-        $this->assertRequestPath('/trans-web-display-type/defaults');
-    }
-
-    public function testGetDefaultsWithParams(): void
-    {
-        $this->mockResponse([
-            'defaultDisplayType' => 'List',
-            'itemsPerPage' => 10,
-        ]);
-
-        $response = $this->api->p21Apis->transWebDisplayType->listDefaults(['context' => 'mobile']);
-
-        $this->assertEquals('List', self::at($response->data, 'defaultDisplayType'));
-        $this->assertHasSiteIdHeader();
-        $this->assertHasAuthHeader();
-    }
-
     public function testGetDefinition(): void
     {
         $this->mockResponse([

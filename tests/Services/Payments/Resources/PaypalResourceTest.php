@@ -15,7 +15,7 @@ final class PaypalResourceTest extends AugurApiTestCase
             'status' => 'CREATED',
         ]);
 
-        $response = $this->api->payments->paypal->createOrder([], [
+        $response = $this->api->payments->paypal->createOrder([
             'amount' => 100.00,
             'intent' => 'CAPTURE',
             'currencyCode' => 'USD',
@@ -37,7 +37,7 @@ final class PaypalResourceTest extends AugurApiTestCase
             'status' => 'COMPLETED',
         ]);
 
-        $response = $this->api->payments->paypal->createOrderAuthorize([], [
+        $response = $this->api->payments->paypal->createOrderAuthorize([
             'orderId' => 'ORDER-1',
         ]);
 
@@ -53,7 +53,7 @@ final class PaypalResourceTest extends AugurApiTestCase
             'status' => 'COMPLETED',
         ]);
 
-        $response = $this->api->payments->paypal->createOrderCapture([], [
+        $response = $this->api->payments->paypal->createOrderCapture([
             'orderId' => 'ORDER-1',
         ]);
 
@@ -104,7 +104,7 @@ final class PaypalResourceTest extends AugurApiTestCase
             'status' => 'COMPLETED',
         ]);
 
-        $response = $this->api->payments->paypal->createAuthorizationCapture([], [
+        $response = $this->api->payments->paypal->createAuthorizationCapture([
             'authorizationId' => 'AUTH-1',
             'amount' => 100.00,
             'finalCapture' => true,
@@ -121,7 +121,7 @@ final class PaypalResourceTest extends AugurApiTestCase
             'status' => 'VOIDED',
         ]);
 
-        $response = $this->api->payments->paypal->createAuthorizationVoid([], [
+        $response = $this->api->payments->paypal->createAuthorizationVoid([
             'authorizationId' => 'AUTH-1',
         ]);
 
@@ -137,7 +137,7 @@ final class PaypalResourceTest extends AugurApiTestCase
             'status' => 'COMPLETED',
         ]);
 
-        $response = $this->api->payments->paypal->createCaptureRefund([], [
+        $response = $this->api->payments->paypal->createCaptureRefund([
             'captureId' => 'CAP-1',
             'amount' => 25.00,
             'noteToPayer' => 'Partial refund',

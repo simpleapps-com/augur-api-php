@@ -95,6 +95,11 @@ final class PathValidatorTest extends TestCase
         $this->assertFalse(PathValidator::isNumericPlaceholder('scheduledImportMasterUid'));
     }
 
+    public function testIsNumericPlaceholderRespectsCompanyIdOverride(): void
+    {
+        $this->assertFalse(PathValidator::isNumericPlaceholder('companyId'));
+    }
+
     // ----- validate: numeric placeholders accept integers -----
 
     public function testValidateAcceptsPositiveInteger(): void

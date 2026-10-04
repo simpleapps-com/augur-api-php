@@ -74,50 +74,14 @@ final class ItemCategoryResourceTest extends AugurApiTestCase
         $this->assertCount(1, self::arrayAt($response->data));
     }
 
-    public function testGet(): void
+    public function testListPrecache(): void
     {
-        $this->mockResponse([
-            'itemCategoryUid' => 1,
-            'name' => 'Electronics',
-            'description' => 'Electronic products and components',
-            'parentUid' => null,
-        ]);
+        $this->mockResponse(true);
 
-        $response = $this->api->items->itemCategory->get(1);
+        $response = $this->api->items->itemCategory->listPrecache(1);
 
-        $this->assertEquals(1, self::at($response->data, 'itemCategoryUid'));
-        $this->assertEquals('Electronics', self::at($response->data, 'name'));
+        $this->assertTrue($response->data);
         $this->assertRequestMethod('GET');
-        $this->assertRequestPath('/item-category/1');
-    }
-
-    public function testListDoc(): void
-    {
-        $this->mockListResponse([
-            ['docUid' => 1, 'docType' => 'pdf', 'name' => 'Spec Sheet'],
-            ['docUid' => 2, 'docType' => 'image', 'name' => 'Category Image'],
-        ]);
-
-        $response = $this->api->items->itemCategory->listDoc(1);
-
-        $this->assertCount(2, self::arrayAt($response->data));
-        /** @var list<array<string, mixed>> $data */
-        $data = $response->data;
-        $this->assertEquals('Spec Sheet', $data[0]['name']);
-        $this->assertRequestMethod('GET');
-        $this->assertRequestPath('/item-category/1/doc');
-    }
-
-    public function testGetDocAlias(): void
-    {
-        $this->mockListResponse([
-            ['docUid' => 1, 'docType' => 'pdf', 'name' => 'Spec Sheet'],
-        ]);
-
-        $response = $this->api->items->itemCategory->getDoc(1);
-
-        $this->assertCount(1, self::arrayAt($response->data));
-        $this->assertRequestMethod('GET');
-        $this->assertRequestPath('/item-category/1/doc');
+        $this->assertRequestPath('/item-category/1/precache');
     }
 }

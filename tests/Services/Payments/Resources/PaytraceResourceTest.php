@@ -18,8 +18,8 @@ final class PaytraceResourceTest extends AugurApiTestCase
         ]);
 
         $response = $this->api->payments->paytrace->createAuthorization([
-            'customerId' => 'CUST001',
             'amount' => 150.00,
+            'creditCard' => ['number' => '4111111111111111', 'expirationMonth' => '12', 'expirationYear' => '2030'],
         ]);
 
         $this->assertEquals('PT123456', self::at($response->data, 'transactionId'));
@@ -38,10 +38,9 @@ final class PaytraceResourceTest extends AugurApiTestCase
         ]);
 
         $response = $this->api->payments->paytrace->createAuthorization([
-            'cardNumber' => '4242424242424242',
-            'expMonth' => '12',
-            'expYear' => '2025',
             'amount' => 200.00,
+            'creditCard' => ['number' => '4242424242424242', 'expirationMonth' => '12', 'expirationYear' => '2030'],
+            'csc' => '999',
         ]);
 
         $this->assertEquals('4242', self::at($response->data, 'last4'));

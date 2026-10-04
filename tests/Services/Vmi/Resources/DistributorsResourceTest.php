@@ -76,8 +76,8 @@ final class DistributorsResourceTest extends AugurApiTestCase
         ]);
 
         $response = $this->api->vmi->distributors->create([
-            'name' => 'New Distributor',
-            'active' => true,
+            'customerId' => 300,
+            'distributorsName' => 'New Distributor',
         ]);
 
         $this->assertEquals(3, $response->data['distributorsUid']);
@@ -88,19 +88,13 @@ final class DistributorsResourceTest extends AugurApiTestCase
 
     public function testUpdate(): void
     {
-        $this->mockResponse([
-            'distributorsUid' => 1,
-            'name' => 'Updated Distributor',
-            'active' => false,
-        ]);
+        $this->mockResponse(true);
 
         $response = $this->api->vmi->distributors->update(1, [
-            'name' => 'Updated Distributor',
-            'active' => false,
+            'distributorsName' => 'Updated Distributor',
         ]);
 
-        $this->assertEquals('Updated Distributor', $response->data['name']);
-        $this->assertFalse($response->data['active']);
+        $this->assertTrue($response->data);
         $this->assertRequestMethod('PUT');
         $this->assertRequestPath('/distributors/1');
     }
@@ -132,22 +126,18 @@ final class DistributorsResourceTest extends AugurApiTestCase
 
     public function testCreateProducts(): void
     {
-        $this->mockListResponse([
-            [
-                'productsUid' => 7,
-                'distributorsUid' => 1,
-                'productsId' => 'PROD-1',
-                'productsDesc' => 'Widget',
-            ],
+        $this->mockResponse([
+            'productsUid' => 7,
+            'distributorsUid' => 1,
+            'productsId' => 'PROD-1',
         ]);
 
         $response = $this->api->vmi->distributors->createProducts(1, [
             'productsId' => 'PROD-1',
-            'productsDesc' => 'Widget',
         ]);
 
-        $this->assertEquals(7, $response->data[0]['productsUid']);
-        $this->assertEquals('PROD-1', $response->data[0]['productsId']);
+        $this->assertEquals(7, $response->data['productsUid']);
+        $this->assertEquals('PROD-1', $response->data['productsId']);
         $this->assertRequestMethod('POST');
         $this->assertRequestPath('/distributors/1/products');
     }

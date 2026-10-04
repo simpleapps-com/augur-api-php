@@ -74,7 +74,7 @@ final class InvMastFilesResourceTest extends AugurApiTestCase
 
         $response = $this->api->p21Pim->invMastFiles->create([
             'invMastUid' => 102,
-            'fileName' => 'new-file.pdf',
+            'filePath' => '/files/new-file.pdf',
         ]);
 
         $this->assertEquals(3, $response->data['invMastFilesUid']);

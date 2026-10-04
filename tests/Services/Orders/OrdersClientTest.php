@@ -7,7 +7,6 @@ namespace AugurApi\Tests\Services\Orders;
 use AugurApi\Services\Orders\OrdersClient;
 use AugurApi\Services\Orders\Resources\InvoiceHdrResource;
 use AugurApi\Services\Orders\Resources\OeHdrResource;
-use AugurApi\Services\Orders\Resources\OeHdrSalesrepResource;
 use AugurApi\Services\Orders\Resources\PickTicketsResource;
 use AugurApi\Services\Orders\Resources\PoHdrResource;
 use AugurApi\Tests\AugurApiTestCase;
@@ -57,11 +56,6 @@ final class OrdersClientTest extends AugurApiTestCase
     public function testOeHdrResourceAccess(): void
     {
         $this->assertInstanceOf(OeHdrResource::class, $this->api->orders->oeHdr);
-    }
-
-    public function testOeHdrSalesrepResourceAccess(): void
-    {
-        $this->assertInstanceOf(OeHdrSalesrepResource::class, $this->api->orders->oeHdrSalesrep);
     }
 
     public function testPickTicketsResourceAccess(): void

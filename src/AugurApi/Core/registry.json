@@ -121,18 +121,6 @@
     "edgeCache": false
   },
   {
-    "id": "agrInfo.ollama.tags.list",
-    "service": "agr-info",
-    "method": "GET",
-    "path": "/ollama/tags",
-    "pathParams": [],
-    "queryParams": [],
-    "aliases": [],
-    "hasBody": false,
-    "auth": "bearer",
-    "edgeCache": true
-  },
-  {
     "id": "agrInfo.ping.get",
     "service": "agr-info",
     "method": "GET",
@@ -191,7 +179,11 @@
     "path": "/rubrics",
     "pathParams": [],
     "queryParams": [
-      "orderBy"
+      "id",
+      "limit",
+      "offset",
+      "orderBy",
+      "statusCd"
     ],
     "aliases": [],
     "hasBody": false,
@@ -283,7 +275,11 @@
     "path": "/workflows",
     "pathParams": [],
     "queryParams": [
-      "orderBy"
+      "limit",
+      "offset",
+      "orderBy",
+      "q",
+      "statusCd"
     ],
     "aliases": [],
     "hasBody": false,
@@ -565,32 +561,6 @@
     "edgeCache": false
   },
   {
-    "id": "agrInt.resources.create",
-    "service": "agr-int",
-    "method": "POST",
-    "path": "/resources",
-    "pathParams": [],
-    "queryParams": [],
-    "aliases": [],
-    "hasBody": true,
-    "auth": "bearer",
-    "edgeCache": false
-  },
-  {
-    "id": "agrInt.resources.delete",
-    "service": "agr-int",
-    "method": "DELETE",
-    "path": "/resources/{resourcesUid}",
-    "pathParams": [
-      "resourcesUid"
-    ],
-    "queryParams": [],
-    "aliases": [],
-    "hasBody": false,
-    "auth": "bearer",
-    "edgeCache": false
-  },
-  {
     "id": "agrInt.resources.get",
     "service": "agr-int",
     "method": "GET",
@@ -624,20 +594,6 @@
     "hasBody": false,
     "auth": "bearer",
     "edgeCache": true
-  },
-  {
-    "id": "agrInt.resources.update",
-    "service": "agr-int",
-    "method": "PUT",
-    "path": "/resources/{resourcesUid}",
-    "pathParams": [
-      "resourcesUid"
-    ],
-    "queryParams": [],
-    "aliases": [],
-    "hasBody": true,
-    "auth": "bearer",
-    "edgeCache": false
   },
   {
     "id": "agrInt.roles.bundles.create",
@@ -1857,12 +1813,14 @@
       "id"
     ],
     "queryParams": [
+      "creatorId",
       "hasComments",
       "isStale",
       "limit",
       "needsResponse",
       "offset",
       "orderBy",
+      "projectsId",
       "todosStatusCd"
     ],
     "aliases": [],
@@ -1881,6 +1839,7 @@
     ],
     "queryParams": [
       "completedFlag",
+      "dueAt",
       "limit",
       "offset",
       "orderBy"
@@ -1964,6 +1923,8 @@
       "id"
     ],
     "queryParams": [
+      "assigneeId",
+      "creatorId",
       "hasComments",
       "isStale",
       "limit",
@@ -2274,6 +2235,7 @@
       "akashaCd",
       "limit",
       "offset",
+      "orderBy",
       "processCd"
     ],
     "aliases": [],
@@ -2396,6 +2358,8 @@
     "path": "/cart-hdr/list",
     "pathParams": [],
     "queryParams": [
+      "limit",
+      "offset",
       "userId"
     ],
     "aliases": [],
@@ -2526,9 +2490,7 @@
     "pathParams": [
       "checkoutUid"
     ],
-    "queryParams": [
-      "cartHdrUid"
-    ],
+    "queryParams": [],
     "aliases": [
       "get"
     ],
@@ -2549,35 +2511,6 @@
     "hasBody": false,
     "auth": "bearer",
     "edgeCache": true
-  },
-  {
-    "id": "commerce.checkout.prophet21Hdr.create",
-    "service": "commerce",
-    "method": "POST",
-    "path": "/checkout/{checkoutUid}/prophet21-hdr",
-    "pathParams": [
-      "checkoutUid"
-    ],
-    "queryParams": [],
-    "aliases": [],
-    "hasBody": true,
-    "auth": "bearer",
-    "edgeCache": false
-  },
-  {
-    "id": "commerce.checkout.prophet21Hdr.prophet21Line.create",
-    "service": "commerce",
-    "method": "POST",
-    "path": "/checkout/{checkoutUid}/prophet21-hdr/{prophet21HdrUid}/prophet21-line",
-    "pathParams": [
-      "checkoutUid",
-      "prophet21HdrUid"
-    ],
-    "queryParams": [],
-    "aliases": [],
-    "hasBody": true,
-    "auth": "bearer",
-    "edgeCache": false
   },
   {
     "id": "commerce.checkout.validate.update",
@@ -2661,18 +2594,6 @@
     "aliases": [
       "get"
     ],
-    "hasBody": false,
-    "auth": "bearer",
-    "edgeCache": true
-  },
-  {
-    "id": "customers.contacts.refresh.get",
-    "service": "customers",
-    "method": "GET",
-    "path": "/contacts/refresh",
-    "pathParams": [],
-    "queryParams": [],
-    "aliases": [],
     "hasBody": false,
     "auth": "bearer",
     "edgeCache": true
@@ -2901,6 +2822,7 @@
       "createdTo",
       "limit",
       "offset",
+      "orderBy",
       "paidInFull",
       "q",
       "shipToId"
@@ -3262,18 +3184,6 @@
     "edgeCache": false
   },
   {
-    "id": "customers.oeContactsCustomer.refresh.get",
-    "service": "customers",
-    "method": "GET",
-    "path": "/oe-contacts-customer/refresh",
-    "pathParams": [],
-    "queryParams": [],
-    "aliases": [],
-    "hasBody": false,
-    "auth": "bearer",
-    "edgeCache": true
-  },
-  {
     "id": "customers.ping.get",
     "service": "customers",
     "method": "GET",
@@ -3284,18 +3194,6 @@
     "hasBody": false,
     "auth": "none",
     "edgeCache": false
-  },
-  {
-    "id": "customers.shipTo.refresh.get",
-    "service": "customers",
-    "method": "GET",
-    "path": "/ship-to/refresh",
-    "pathParams": [],
-    "queryParams": [],
-    "aliases": [],
-    "hasBody": false,
-    "auth": "bearer",
-    "edgeCache": true
   },
   {
     "id": "customers.whoami.get",
@@ -3310,26 +3208,15 @@
     "edgeCache": false
   },
   {
-    "id": "gregorovich.chatGpt.ask.get",
-    "service": "gregorovich",
-    "method": "GET",
-    "path": "/chat-gpt/ask",
-    "pathParams": [],
-    "queryParams": [
-      "question"
-    ],
-    "aliases": [],
-    "hasBody": false,
-    "auth": "bearer",
-    "edgeCache": true
-  },
-  {
     "id": "gregorovich.documents.list",
     "service": "gregorovich",
     "method": "GET",
     "path": "/documents",
     "pathParams": [],
-    "queryParams": [],
+    "queryParams": [
+      "limit",
+      "offset"
+    ],
     "aliases": [],
     "hasBody": false,
     "auth": "bearer",
@@ -3345,18 +3232,6 @@
     "aliases": [],
     "hasBody": false,
     "auth": "site",
-    "edgeCache": false
-  },
-  {
-    "id": "gregorovich.ollama.generate.create",
-    "service": "gregorovich",
-    "method": "POST",
-    "path": "/ollama/generate",
-    "pathParams": [],
-    "queryParams": [],
-    "aliases": [],
-    "hasBody": true,
-    "auth": "bearer",
     "edgeCache": false
   },
   {
@@ -3618,6 +3493,18 @@
     "edgeCache": true
   },
   {
+    "id": "items.attributes.resolve.create",
+    "service": "items",
+    "method": "POST",
+    "path": "/attributes/resolve",
+    "pathParams": [],
+    "queryParams": [],
+    "aliases": [],
+    "hasBody": true,
+    "auth": "bearer",
+    "edgeCache": false
+  },
+  {
     "id": "items.attributes.update",
     "service": "items",
     "method": "PUT",
@@ -3856,6 +3743,7 @@
       "offset",
       "q",
       "sortBy",
+      "sortOrder",
       "tags",
       "variantFilter"
     ],
@@ -3918,7 +3806,6 @@
       "itemCategoryUid"
     ],
     "queryParams": [
-      "cacheTtl",
       "includeSubCategories",
       "productCollection"
     ],
@@ -3963,11 +3850,9 @@
       "itemCategoryUid"
     ],
     "queryParams": [
-      "cacheTtl",
       "childrenFilter",
       "childrenLimit",
       "childrenOffset",
-      "classId5ExcludeList",
       "classId5List",
       "filters",
       "includeUd",
@@ -3989,9 +3874,7 @@
     "pathParams": [
       "itemCategoryUid"
     ],
-    "queryParams": [
-      "cacheTtl"
-    ],
+    "queryParams": [],
     "aliases": [],
     "hasBody": false,
     "auth": "bearer",
@@ -4006,7 +3889,6 @@
       "itemCategoryUid"
     ],
     "queryParams": [
-      "cacheTtl",
       "classId5ExcludeList",
       "classId5List",
       "displayOnWebFlag",
@@ -4018,6 +3900,7 @@
       "offset",
       "q",
       "sortBy",
+      "sortOrder",
       "stockStatus",
       "tags",
       "variantFilter"
@@ -4034,7 +3917,6 @@
     "path": "/categories/lookup",
     "pathParams": [],
     "queryParams": [
-      "cacheTtl",
       "path",
       "rootItemCategoryId"
     ],
@@ -4103,6 +3985,7 @@
       "offset",
       "q",
       "sortBy",
+      "sortOrder",
       "tags",
       "variantFilter"
     ],
@@ -4142,9 +4025,13 @@
     "path": "/inv-loc",
     "pathParams": [],
     "queryParams": [
+      "createdSince",
       "invMastUid",
       "limit",
-      "offset"
+      "locationId",
+      "modifiedSince",
+      "offset",
+      "orderBy"
     ],
     "aliases": [],
     "hasBody": false,
@@ -4303,20 +4190,6 @@
     "edgeCache": true
   },
   {
-    "id": "items.invMast.faq.create",
-    "service": "items",
-    "method": "POST",
-    "path": "/inv-mast/{invMastUid}/faq",
-    "pathParams": [
-      "invMastUid"
-    ],
-    "queryParams": [],
-    "aliases": [],
-    "hasBody": true,
-    "auth": "bearer",
-    "edgeCache": false
-  },
-  {
     "id": "items.invMast.faq.delete",
     "service": "items",
     "method": "DELETE",
@@ -4442,6 +4315,7 @@
       "limit",
       "offset",
       "onlineCd",
+      "orderBy",
       "prefix",
       "q",
       "statusCd"
@@ -4507,6 +4381,20 @@
     "edgeCache": true
   },
   {
+    "id": "items.invMast.precache.list",
+    "service": "items",
+    "method": "GET",
+    "path": "/inv-mast/{invMastUid}/precache",
+    "pathParams": [
+      "invMastUid"
+    ],
+    "queryParams": [],
+    "aliases": [],
+    "hasBody": false,
+    "auth": "bearer",
+    "edgeCache": true
+  },
+  {
     "id": "items.invMast.similar.list",
     "service": "items",
     "method": "GET",
@@ -4542,7 +4430,10 @@
     "pathParams": [
       "invMastUid"
     ],
-    "queryParams": [],
+    "queryParams": [
+      "limit",
+      "offset"
+    ],
     "aliases": [],
     "hasBody": false,
     "auth": "bearer",
@@ -4557,7 +4448,9 @@
       "invMastUid"
     ],
     "queryParams": [
-      "invMastLinksUid"
+      "invMastLinksUid",
+      "limit",
+      "offset"
     ],
     "aliases": [],
     "hasBody": false,
@@ -4580,36 +4473,6 @@
       "orderBy",
       "statusCd"
     ],
-    "aliases": [],
-    "hasBody": false,
-    "auth": "bearer",
-    "edgeCache": true
-  },
-  {
-    "id": "items.itemCategory.doc.list",
-    "service": "items",
-    "method": "GET",
-    "path": "/item-category/{itemCategoryUid}/doc",
-    "pathParams": [
-      "itemCategoryUid"
-    ],
-    "queryParams": [],
-    "aliases": [
-      "get"
-    ],
-    "hasBody": false,
-    "auth": "bearer",
-    "edgeCache": true
-  },
-  {
-    "id": "items.itemCategory.get",
-    "service": "items",
-    "method": "GET",
-    "path": "/item-category/{itemCategoryUid}",
-    "pathParams": [
-      "itemCategoryUid"
-    ],
-    "queryParams": [],
     "aliases": [],
     "hasBody": false,
     "auth": "bearer",
@@ -4642,6 +4505,20 @@
       "path",
       "rootItemCategoryId"
     ],
+    "aliases": [],
+    "hasBody": false,
+    "auth": "bearer",
+    "edgeCache": true
+  },
+  {
+    "id": "items.itemCategory.precache.list",
+    "service": "items",
+    "method": "GET",
+    "path": "/item-category/{itemCategoryUid}/precache",
+    "pathParams": [
+      "itemCategoryUid"
+    ],
+    "queryParams": [],
     "aliases": [],
     "hasBody": false,
     "auth": "bearer",
@@ -4702,8 +4579,7 @@
     "queryParams": [
       "limit",
       "offset",
-      "orderBy",
-      "useItemDoc"
+      "orderBy"
     ],
     "aliases": [],
     "hasBody": false,
@@ -4856,6 +4732,38 @@
     "queryParams": [],
     "aliases": [],
     "hasBody": false,
+    "auth": "bearer",
+    "edgeCache": false
+  },
+  {
+    "id": "items.itemWishlist.hdr.line.get",
+    "service": "items",
+    "method": "GET",
+    "path": "/item-wishlist/{usersId}/hdr/{itemWishlistHdrUid}/line/{itemWishlistLineUid}",
+    "pathParams": [
+      "usersId",
+      "itemWishlistHdrUid",
+      "itemWishlistLineUid"
+    ],
+    "queryParams": [],
+    "aliases": [],
+    "hasBody": false,
+    "auth": "bearer",
+    "edgeCache": true
+  },
+  {
+    "id": "items.itemWishlist.hdr.line.update",
+    "service": "items",
+    "method": "PUT",
+    "path": "/item-wishlist/{usersId}/hdr/{itemWishlistHdrUid}/line/{itemWishlistLineUid}",
+    "pathParams": [
+      "usersId",
+      "itemWishlistHdrUid",
+      "itemWishlistLineUid"
+    ],
+    "queryParams": [],
+    "aliases": [],
+    "hasBody": true,
     "auth": "bearer",
     "edgeCache": false
   },
@@ -5476,14 +5384,7 @@
     "method": "POST",
     "path": "/users",
     "pathParams": [],
-    "queryParams": [
-      "accessLevelList",
-      "customerId",
-      "limit",
-      "offset",
-      "orderBy",
-      "q"
-    ],
+    "queryParams": [],
     "aliases": [],
     "hasBody": true,
     "auth": "bearer",
@@ -5628,12 +5529,7 @@
     "pathParams": [
       "id"
     ],
-    "queryParams": [
-      "limit",
-      "offset",
-      "orderBy",
-      "q"
-    ],
+    "queryParams": [],
     "aliases": [],
     "hasBody": false,
     "auth": "bearer",
@@ -5674,79 +5570,6 @@
     "queryParams": [],
     "aliases": [],
     "hasBody": false,
-    "auth": "bearer",
-    "edgeCache": false
-  },
-  {
-    "id": "legacy.customers.tags.create",
-    "service": "legacy",
-    "method": "POST",
-    "path": "/customers/{customerId}/tags",
-    "pathParams": [
-      "customerId"
-    ],
-    "queryParams": [],
-    "aliases": [],
-    "hasBody": true,
-    "auth": "bearer",
-    "edgeCache": false
-  },
-  {
-    "id": "legacy.customers.tags.delete",
-    "service": "legacy",
-    "method": "DELETE",
-    "path": "/customers/{customerId}/tags/{customerTagsUid}",
-    "pathParams": [
-      "customerId",
-      "customerTagsUid"
-    ],
-    "queryParams": [],
-    "aliases": [],
-    "hasBody": false,
-    "auth": "bearer",
-    "edgeCache": false
-  },
-  {
-    "id": "legacy.customers.tags.get",
-    "service": "legacy",
-    "method": "GET",
-    "path": "/customers/{customerId}/tags/{customerTagsUid}",
-    "pathParams": [
-      "customerId",
-      "customerTagsUid"
-    ],
-    "queryParams": [],
-    "aliases": [],
-    "hasBody": false,
-    "auth": "bearer",
-    "edgeCache": true
-  },
-  {
-    "id": "legacy.customers.tags.list",
-    "service": "legacy",
-    "method": "GET",
-    "path": "/customers/{customerId}/tags",
-    "pathParams": [
-      "customerId"
-    ],
-    "queryParams": [],
-    "aliases": [],
-    "hasBody": false,
-    "auth": "bearer",
-    "edgeCache": true
-  },
-  {
-    "id": "legacy.customers.tags.update",
-    "service": "legacy",
-    "method": "PUT",
-    "path": "/customers/{customerId}/tags/{customerTagsUid}",
-    "pathParams": [
-      "customerId",
-      "customerTagsUid"
-    ],
-    "queryParams": [],
-    "aliases": [],
-    "hasBody": true,
     "auth": "bearer",
     "edgeCache": false
   },
@@ -5828,7 +5651,11 @@
     "pathParams": [
       "invMastUid"
     ],
-    "queryParams": [],
+    "queryParams": [
+      "limit",
+      "offset",
+      "orderBy"
+    ],
     "aliases": [],
     "hasBody": false,
     "auth": "bearer",
@@ -5901,7 +5728,12 @@
     "pathParams": [
       "invMastUid"
     ],
-    "queryParams": [],
+    "queryParams": [
+      "limit",
+      "offset",
+      "orderBy",
+      "q"
+    ],
     "aliases": [],
     "hasBody": false,
     "auth": "bearer",
@@ -5985,6 +5817,8 @@
     "path": "/legacy/state",
     "pathParams": [],
     "queryParams": [
+      "active",
+      "countryUid",
       "limit",
       "offset",
       "orderBy",
@@ -6008,20 +5842,6 @@
     "hasBody": true,
     "auth": "bearer",
     "edgeCache": false
-  },
-  {
-    "id": "legacy.orders.reset.list",
-    "service": "legacy",
-    "method": "GET",
-    "path": "/orders/{id}/reset",
-    "pathParams": [
-      "id"
-    ],
-    "queryParams": [],
-    "aliases": [],
-    "hasBody": false,
-    "auth": "bearer",
-    "edgeCache": true
   },
   {
     "id": "legacy.ping.get",
@@ -6321,6 +6141,8 @@
     "path": "/speedship/freight",
     "pathParams": [],
     "queryParams": [
+      "commodityClass",
+      "commodityDescription",
       "deliveryInstructions",
       "dimensionUnit",
       "fromAddressLine",
@@ -6335,10 +6157,12 @@
       "handlingCharge",
       "handlingChargeUnit",
       "international",
+      "isHazMat",
       "maxPalletWeight",
       "packageHeight",
       "packageLength",
       "packageWidth",
+      "packagingType",
       "pickupInstructions",
       "productType",
       "quantity",
@@ -6351,8 +6175,9 @@
       "toLastName",
       "toPhone",
       "toPostalCode",
-      "toRegion",
+      "toState",
       "totalWeight",
+      "vendorId",
       "weightUnit"
     ],
     "aliases": [],
@@ -6765,6 +6590,7 @@
     "path": "/oe-hdr/lookup",
     "pathParams": [],
     "queryParams": [
+      "addressId",
       "class1Id",
       "completed",
       "dateOrderCompleted",
@@ -6775,37 +6601,6 @@
       "salesrepId",
       "taker"
     ],
-    "aliases": [],
-    "hasBody": false,
-    "auth": "bearer",
-    "edgeCache": true
-  },
-  {
-    "id": "orders.oeHdrSalesrep.oeHdr.doc.list",
-    "service": "orders",
-    "method": "GET",
-    "path": "/oe-hdr-salesrep/{salesrepId}/oe-hdr/{orderNo}/doc",
-    "pathParams": [
-      "salesrepId",
-      "orderNo"
-    ],
-    "queryParams": [],
-    "aliases": [
-      "get"
-    ],
-    "hasBody": false,
-    "auth": "bearer",
-    "edgeCache": true
-  },
-  {
-    "id": "orders.oeHdrSalesrep.oeHdr.list",
-    "service": "orders",
-    "method": "GET",
-    "path": "/oe-hdr-salesrep/{salesrepId}/oe-hdr",
-    "pathParams": [
-      "salesrepId"
-    ],
-    "queryParams": [],
     "aliases": [],
     "hasBody": false,
     "auth": "bearer",
@@ -6851,8 +6646,7 @@
     "queryParams": [
       "limit",
       "offset",
-      "orderBy",
-      "q"
+      "orderBy"
     ],
     "aliases": [],
     "hasBody": false,
@@ -6934,24 +6728,13 @@
       "limit",
       "locationId",
       "offset",
+      "orderBy",
       "q"
     ],
     "aliases": [],
     "hasBody": false,
     "auth": "bearer",
     "edgeCache": true
-  },
-  {
-    "id": "orders.poHdr.scan.create",
-    "service": "orders",
-    "method": "POST",
-    "path": "/po-hdr/scan",
-    "pathParams": [],
-    "queryParams": [],
-    "aliases": [],
-    "hasBody": true,
-    "auth": "bearer",
-    "edgeCache": false
   },
   {
     "id": "orders.poLine.get",
@@ -7047,94 +6830,6 @@
     "edgeCache": false
   },
   {
-    "id": "p21Apis.transCategory.create",
-    "service": "p21-apis",
-    "method": "POST",
-    "path": "/trans-category",
-    "pathParams": [],
-    "queryParams": [],
-    "aliases": [],
-    "hasBody": true,
-    "auth": "bearer",
-    "edgeCache": false
-  },
-  {
-    "id": "p21Apis.transCategory.delete",
-    "service": "p21-apis",
-    "method": "DELETE",
-    "path": "/trans-category/{categoryUid}",
-    "pathParams": [
-      "categoryUid"
-    ],
-    "queryParams": [
-      "categoryId"
-    ],
-    "aliases": [],
-    "hasBody": false,
-    "auth": "bearer",
-    "edgeCache": false
-  },
-  {
-    "id": "p21Apis.transCategory.get",
-    "service": "p21-apis",
-    "method": "GET",
-    "path": "/trans-category/{categoryUid}",
-    "pathParams": [
-      "categoryUid"
-    ],
-    "queryParams": [
-      "categoryId"
-    ],
-    "aliases": [],
-    "hasBody": false,
-    "auth": "bearer",
-    "edgeCache": true
-  },
-  {
-    "id": "p21Apis.transCategory.update",
-    "service": "p21-apis",
-    "method": "PUT",
-    "path": "/trans-category/{categoryUid}",
-    "pathParams": [
-      "categoryUid"
-    ],
-    "queryParams": [
-      "categoryId"
-    ],
-    "aliases": [],
-    "hasBody": true,
-    "auth": "bearer",
-    "edgeCache": false
-  },
-  {
-    "id": "p21Apis.transCompany.create",
-    "service": "p21-apis",
-    "method": "POST",
-    "path": "/trans-company",
-    "pathParams": [],
-    "queryParams": [],
-    "aliases": [],
-    "hasBody": true,
-    "auth": "bearer",
-    "edgeCache": false
-  },
-  {
-    "id": "p21Apis.transCompany.delete",
-    "service": "p21-apis",
-    "method": "DELETE",
-    "path": "/trans-company/{companyUid}",
-    "pathParams": [
-      "companyUid"
-    ],
-    "queryParams": [
-      "companyId"
-    ],
-    "aliases": [],
-    "hasBody": false,
-    "auth": "bearer",
-    "edgeCache": false
-  },
-  {
     "id": "p21Apis.transCompany.get",
     "service": "p21-apis",
     "method": "GET",
@@ -7151,22 +6846,6 @@
     "edgeCache": true
   },
   {
-    "id": "p21Apis.transCompany.update",
-    "service": "p21-apis",
-    "method": "PUT",
-    "path": "/trans-company/{companyUid}",
-    "pathParams": [
-      "companyUid"
-    ],
-    "queryParams": [
-      "companyId"
-    ],
-    "aliases": [],
-    "hasBody": true,
-    "auth": "bearer",
-    "edgeCache": false
-  },
-  {
     "id": "p21Apis.transPurchaseOrderReceipt.get",
     "service": "p21-apis",
     "method": "GET",
@@ -7179,48 +6858,6 @@
     "hasBody": false,
     "auth": "bearer",
     "edgeCache": true
-  },
-  {
-    "id": "p21Apis.transPurchaseOrderReceipt.update",
-    "service": "p21-apis",
-    "method": "PUT",
-    "path": "/trans-purchase-order-receipt/{poNo}",
-    "pathParams": [
-      "poNo"
-    ],
-    "queryParams": [],
-    "aliases": [],
-    "hasBody": true,
-    "auth": "bearer",
-    "edgeCache": false
-  },
-  {
-    "id": "p21Apis.transUser.create",
-    "service": "p21-apis",
-    "method": "POST",
-    "path": "/trans-user",
-    "pathParams": [],
-    "queryParams": [],
-    "aliases": [],
-    "hasBody": true,
-    "auth": "bearer",
-    "edgeCache": false
-  },
-  {
-    "id": "p21Apis.transUser.delete",
-    "service": "p21-apis",
-    "method": "DELETE",
-    "path": "/trans-user/{usersUid}",
-    "pathParams": [
-      "usersUid"
-    ],
-    "queryParams": [
-      "userId"
-    ],
-    "aliases": [],
-    "hasBody": false,
-    "auth": "bearer",
-    "edgeCache": false
   },
   {
     "id": "p21Apis.transUser.get",
@@ -7239,22 +6876,6 @@
     "edgeCache": true
   },
   {
-    "id": "p21Apis.transUser.update",
-    "service": "p21-apis",
-    "method": "PUT",
-    "path": "/trans-user/{usersUid}",
-    "pathParams": [
-      "usersUid"
-    ],
-    "queryParams": [
-      "userId"
-    ],
-    "aliases": [],
-    "hasBody": true,
-    "auth": "bearer",
-    "edgeCache": false
-  },
-  {
     "id": "p21Apis.transWebDisplayType.create",
     "service": "p21-apis",
     "method": "POST",
@@ -7265,18 +6886,6 @@
     "hasBody": true,
     "auth": "bearer",
     "edgeCache": false
-  },
-  {
-    "id": "p21Apis.transWebDisplayType.defaults.list",
-    "service": "p21-apis",
-    "method": "GET",
-    "path": "/trans-web-display-type/defaults",
-    "pathParams": [],
-    "queryParams": [],
-    "aliases": [],
-    "hasBody": false,
-    "auth": "bearer",
-    "edgeCache": true
   },
   {
     "id": "p21Apis.transWebDisplayType.definition.list",
@@ -7434,18 +7043,6 @@
     "edgeCache": true
   },
   {
-    "id": "p21Core.address.refresh.get",
-    "service": "p21-core",
-    "method": "GET",
-    "path": "/address/refresh",
-    "pathParams": [],
-    "queryParams": [],
-    "aliases": [],
-    "hasBody": false,
-    "auth": "bearer",
-    "edgeCache": true
-  },
-  {
     "id": "p21Core.cashDrawer.get",
     "service": "p21-core",
     "method": "GET",
@@ -7515,13 +7112,11 @@
     "id": "p21Core.company.get",
     "service": "p21-core",
     "method": "GET",
-    "path": "/company/{companyUid}",
+    "path": "/company/{companyId}",
     "pathParams": [
-      "companyUid"
-    ],
-    "queryParams": [
       "companyId"
     ],
+    "queryParams": [],
     "aliases": [],
     "hasBody": false,
     "auth": "bearer",
@@ -8190,6 +7785,7 @@
       "hours",
       "importState",
       "limit",
+      "offset",
       "sourceId",
       "sourceName"
     ],
@@ -8206,7 +7802,8 @@
     "pathParams": [],
     "queryParams": [
       "hours",
-      "limit"
+      "limit",
+      "offset"
     ],
     "aliases": [],
     "hasBody": false,
@@ -8330,13 +7927,7 @@
     "method": "POST",
     "path": "/paypal/authorization/capture",
     "pathParams": [],
-    "queryParams": [
-      "amount",
-      "authorizationId",
-      "finalCapture",
-      "invoiceId",
-      "testMode"
-    ],
+    "queryParams": [],
     "aliases": [],
     "hasBody": true,
     "auth": "bearer",
@@ -8348,10 +7939,7 @@
     "method": "POST",
     "path": "/paypal/authorization/void",
     "pathParams": [],
-    "queryParams": [
-      "authorizationId",
-      "testMode"
-    ],
+    "queryParams": [],
     "aliases": [],
     "hasBody": true,
     "auth": "bearer",
@@ -8363,13 +7951,7 @@
     "method": "POST",
     "path": "/paypal/capture/refund",
     "pathParams": [],
-    "queryParams": [
-      "amount",
-      "captureId",
-      "invoiceId",
-      "noteToPayer",
-      "testMode"
-    ],
+    "queryParams": [],
     "aliases": [],
     "hasBody": true,
     "auth": "bearer",
@@ -8381,10 +7963,7 @@
     "method": "POST",
     "path": "/paypal/order/authorize",
     "pathParams": [],
-    "queryParams": [
-      "orderId",
-      "testMode"
-    ],
+    "queryParams": [],
     "aliases": [],
     "hasBody": true,
     "auth": "bearer",
@@ -8396,10 +7975,7 @@
     "method": "POST",
     "path": "/paypal/order/capture",
     "pathParams": [],
-    "queryParams": [
-      "orderId",
-      "testMode"
-    ],
+    "queryParams": [],
     "aliases": [],
     "hasBody": true,
     "auth": "bearer",
@@ -8411,15 +7987,7 @@
     "method": "POST",
     "path": "/paypal/order",
     "pathParams": [],
-    "queryParams": [
-      "amount",
-      "cancelUrl",
-      "currencyCode",
-      "intent",
-      "invoiceId",
-      "returnUrl",
-      "testMode"
-    ],
+    "queryParams": [],
     "aliases": [],
     "hasBody": true,
     "auth": "bearer",
@@ -8447,7 +8015,6 @@
     "path": "/paypal/order-return",
     "pathParams": [],
     "queryParams": [
-      "payerId",
       "siteId",
       "testMode",
       "token"
@@ -8493,14 +8060,7 @@
     "method": "POST",
     "path": "/paytrace/authorization",
     "pathParams": [],
-    "queryParams": [
-      "amount",
-      "billingAddress",
-      "creditCard",
-      "csc",
-      "invoiceId",
-      "testMode"
-    ],
+    "queryParams": [],
     "aliases": [],
     "hasBody": true,
     "auth": "bearer",
@@ -8610,6 +8170,7 @@
       "address1",
       "address2",
       "city",
+      "customerId",
       "mode",
       "state",
       "transactionSetupId",
@@ -8627,6 +8188,7 @@
     "path": "/unified/card-info",
     "pathParams": [],
     "queryParams": [
+      "customerId",
       "mode",
       "transactionSetupId"
     ],
@@ -8822,10 +8384,7 @@
     "path": "/price-engine",
     "pathParams": [],
     "queryParams": [
-      "cacheSiteId",
-      "cacheTtl",
       "cartItems",
-      "companyId",
       "customerId",
       "itemId",
       "quantity",
@@ -9143,7 +8702,6 @@
     "path": "/rates-shop",
     "pathParams": [],
     "queryParams": [
-      "cacheSiteId",
       "fromAddress1",
       "fromAddress2",
       "fromAddress3",
@@ -9501,6 +9059,8 @@
     "pathParams": [],
     "queryParams": [
       "customerId",
+      "limit",
+      "offset",
       "prefix"
     ],
     "aliases": [],
@@ -9834,20 +9394,6 @@
     "edgeCache": false
   },
   {
-    "id": "vmi.warehouse.replenish.create",
-    "service": "vmi",
-    "method": "POST",
-    "path": "/warehouse/{warehouseUid}/replenish",
-    "pathParams": [
-      "warehouseUid"
-    ],
-    "queryParams": [],
-    "aliases": [],
-    "hasBody": true,
-    "auth": "bearer",
-    "edgeCache": false
-  },
-  {
     "id": "vmi.warehouse.replenish.list",
     "service": "vmi",
     "method": "GET",
@@ -9862,20 +9408,6 @@
     "hasBody": false,
     "auth": "bearer",
     "edgeCache": true
-  },
-  {
-    "id": "vmi.warehouse.transfer.create",
-    "service": "vmi",
-    "method": "POST",
-    "path": "/warehouse/{warehouseUid}/transfer",
-    "pathParams": [
-      "warehouseUid"
-    ],
-    "queryParams": [],
-    "aliases": [],
-    "hasBody": true,
-    "auth": "bearer",
-    "edgeCache": false
   },
   {
     "id": "vmi.warehouse.update",

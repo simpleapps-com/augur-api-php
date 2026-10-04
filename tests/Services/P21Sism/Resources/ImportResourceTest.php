@@ -95,18 +95,14 @@ final class ImportResourceTest extends AugurApiTestCase
 
     public function testListDailySummary(): void
     {
-        $this->mockResponse([
-            'date' => '2024-01-15',
-            'total' => 42,
-            'initial' => 5,
-            'processing' => 3,
-            'validate' => 34,
+        $this->mockListResponse([
+            ['date' => '2024-01-15', 'total' => 42],
         ]);
 
         $response = $this->api->p21Sism->import->listDailySummary(['date' => '2024-01-15']);
 
-        $this->assertEquals('2024-01-15', $response->data['date']);
-        $this->assertEquals(42, $response->data['total']);
+        $this->assertEquals('2024-01-15', $response->data[0]['date']);
+        $this->assertEquals(42, $response->data[0]['total']);
         $this->assertRequestMethod('GET');
         $this->assertRequestPath('/import/daily-summary');
     }
@@ -191,17 +187,17 @@ final class ImportResourceTest extends AugurApiTestCase
     {
         $this->mockResponse([
             'importUid' => 'IMP001',
-            'customerId' => 'CUST002',
-            'shipVia' => 'EXPRESS',
+            'customerId' => 2002,
+            'customerPoNo' => 'PO-1',
         ]);
 
         $response = $this->api->p21Sism->import->updateImpOeHdr('IMP001', [
-            'customerId' => 'CUST002',
-            'shipVia' => 'EXPRESS',
+            'customerId' => 2002,
+            'customerPoNo' => 'PO-1',
         ]);
 
-        $this->assertEquals('CUST002', self::at($response->data, 'customerId'));
-        $this->assertEquals('EXPRESS', self::at($response->data, 'shipVia'));
+        $this->assertEquals(2002, self::at($response->data, 'customerId'));
+        $this->assertEquals('PO-1', self::at($response->data, 'customerPoNo'));
         $this->assertRequestMethod('PUT');
         $this->assertRequestPath('/import/IMP001/imp-oe-hdr');
     }

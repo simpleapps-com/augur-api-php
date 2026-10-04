@@ -125,4 +125,26 @@ final class ItemWishlistResourceTest extends AugurApiTestCase
         $this->assertRequestMethod('DELETE');
         $this->assertRequestPath('/item-wishlist/12345/hdr/7/line/3');
     }
+
+    public function testGetHdrLine(): void
+    {
+        $this->mockResponse(['itemWishlistLineUid' => 3, 'quantity' => 2]);
+
+        $response = $this->api->items->itemWishlist->getHdrLine(12345, 7, 3);
+
+        $this->assertEquals(3, $response->data['itemWishlistLineUid']);
+        $this->assertRequestMethod('GET');
+        $this->assertRequestPath('/item-wishlist/12345/hdr/7/line/3');
+    }
+
+    public function testUpdateHdrLine(): void
+    {
+        $this->mockResponse(['itemWishlistLineUid' => 3, 'quantity' => 5]);
+
+        $response = $this->api->items->itemWishlist->updateHdrLine(12345, 7, 3, ['quantity' => 5]);
+
+        $this->assertEquals(5, $response->data['quantity']);
+        $this->assertRequestMethod('PUT');
+        $this->assertRequestPath('/item-wishlist/12345/hdr/7/line/3');
+    }
 }

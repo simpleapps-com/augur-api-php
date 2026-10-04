@@ -13,35 +13,18 @@ final class DatafilesResourceTest extends AugurApiTestCase
 {
     public function testCreate(): void
     {
-        $this->mockResponse([
-            'success' => true,
-            'fileName' => 'items.csv',
-        ]);
+        $this->mockResponse('datafiles/items.csv');
 
         $response = $this->api->agrSite->datafiles->create([
-            'fileName' => 'items.csv',
-            'contents' => 'sku,description',
+            'location' => 'datafiles',
+            'path' => 'items.csv',
+            'content' => 'sku,description',
         ]);
 
-        $this->assertTrue(self::at($response->data, 'success'));
-        $this->assertEquals('items.csv', self::at($response->data, 'fileName'));
+        $this->assertEquals('datafiles/items.csv', $response->data);
         $this->assertRequestPath('/datafiles');
         $this->assertRequestMethod('POST');
         $this->assertHasSiteIdHeader();
         $this->assertHasAuthHeader();
-    }
-
-    public function testCreateReturnsBaseResponse(): void
-    {
-        $this->mockResponse([
-            'success' => true,
-        ]);
-
-        $response = $this->api->agrSite->datafiles->create([
-            'fileName' => 'other.csv',
-        ]);
-
-        $this->assertEquals(200, $response->status);
-        $this->assertIsArray($response->data);
     }
 }

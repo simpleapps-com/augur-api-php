@@ -52,39 +52,26 @@ final class CartLineResourceTest extends AugurApiTestCase
 
     public function testCreateAdd(): void
     {
-        $this->mockResponse([
-            'cartHdrUid' => 123,
-            'lineNo' => 1,
-            'itemId' => 'ITEM001',
-            'quantity' => 3,
-        ]);
+        $this->mockResponse(true);
 
         $response = $this->api->commerce->cartLine->createAdd(123, [
-            'itemId' => 'ITEM001',
-            'quantity' => 3,
+            ['invMastUid' => 1001, 'quantity' => 3.0, 'unitOfMeasure' => 'EA'],
         ]);
 
-        $this->assertEquals('ITEM001', self::at($response->data, 'itemId'));
-        $this->assertEquals(3, self::at($response->data, 'quantity'));
+        $this->assertTrue($response->data);
         $this->assertRequestPath('/cart-line/123/add');
         $this->assertRequestMethod('POST');
     }
 
     public function testCreateUpdate(): void
     {
-        $this->mockResponse([
-            'cartHdrUid' => 123,
-            'lineNo' => 1,
-            'itemId' => 'ITEM001',
-            'quantity' => 10,
-        ]);
+        $this->mockResponse(true);
 
         $response = $this->api->commerce->cartLine->createUpdate(123, [
-            'lineNo' => 1,
-            'quantity' => 10,
+            ['invMastUid' => 1001, 'quantity' => 10.0, 'unitOfMeasure' => 'EA', 'lineNo' => 1],
         ]);
 
-        $this->assertEquals(10, self::at($response->data, 'quantity'));
+        $this->assertTrue($response->data);
         $this->assertRequestPath('/cart-line/123/update');
         $this->assertRequestMethod('POST');
     }

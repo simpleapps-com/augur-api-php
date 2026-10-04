@@ -5,11 +5,9 @@ declare(strict_types=1);
 namespace AugurApi\Tests\Services\Legacy;
 
 use AugurApi\Services\Legacy\LegacyClient;
-use AugurApi\Services\Legacy\Resources\CustomersResource;
 use AugurApi\Services\Legacy\Resources\InvMastResource;
 use AugurApi\Services\Legacy\Resources\ItemCategoryResource;
 use AugurApi\Services\Legacy\Resources\LegacyResource;
-use AugurApi\Services\Legacy\Resources\OrdersResource;
 use AugurApi\Tests\AugurApiTestCase;
 
 final class LegacyClientTest extends AugurApiTestCase
@@ -17,11 +15,6 @@ final class LegacyClientTest extends AugurApiTestCase
     public function testLegacyClientAccess(): void
     {
         $this->assertInstanceOf(LegacyClient::class, $this->api->legacy);
-    }
-
-    public function testCustomersResourceAccess(): void
-    {
-        $this->assertInstanceOf(CustomersResource::class, $this->api->legacy->customers);
     }
 
     public function testInvMastResourceAccess(): void
@@ -37,11 +30,6 @@ final class LegacyClientTest extends AugurApiTestCase
     public function testLegacyResourceAccess(): void
     {
         $this->assertInstanceOf(LegacyResource::class, $this->api->legacy->legacy);
-    }
-
-    public function testOrdersResourceAccess(): void
-    {
-        $this->assertInstanceOf(OrdersResource::class, $this->api->legacy->orders);
     }
 
     public function testHealthCheck(): void

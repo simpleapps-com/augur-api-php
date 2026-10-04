@@ -8,8 +8,6 @@ use AugurApi\Services\Customers\CustomersClient;
 use AugurApi\Services\Customers\Resources\ContactsResource;
 use AugurApi\Services\Customers\Resources\ContactsUdResource;
 use AugurApi\Services\Customers\Resources\CustomerResource;
-use AugurApi\Services\Customers\Resources\OeContactsCustomerResource;
-use AugurApi\Services\Customers\Resources\ShipToResource;
 use AugurApi\Tests\AugurApiTestCase;
 
 /**
@@ -35,16 +33,6 @@ final class CustomersClientTest extends AugurApiTestCase
     public function testCustomerResourceAccess(): void
     {
         $this->assertInstanceOf(CustomerResource::class, $this->api->customers->customer);
-    }
-
-    public function testOeContactsCustomerResourceAccess(): void
-    {
-        $this->assertInstanceOf(OeContactsCustomerResource::class, $this->api->customers->oeContactsCustomer);
-    }
-
-    public function testShipToResourceAccess(): void
-    {
-        $this->assertInstanceOf(ShipToResource::class, $this->api->customers->shipTo);
     }
 
     public function testHealthCheck(): void

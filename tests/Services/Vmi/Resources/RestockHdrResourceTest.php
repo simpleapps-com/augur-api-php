@@ -79,6 +79,13 @@ final class RestockHdrResourceTest extends AugurApiTestCase
 
         $response = $this->api->vmi->restockHdr->create([
             'warehouseUid' => 300,
+            'distributorsUid' => 1,
+            'usersId' => 1,
+            'customerId' => 100,
+            'contactId' => 'C1',
+            'restockItems' => [
+                ['invMastUid' => 1000, 'invProfileLineType' => 'products', 'unitQty' => 1.0],
+            ],
         ]);
 
         $this->assertEquals(3, $response->data['restockHdrUid']);
@@ -89,16 +96,13 @@ final class RestockHdrResourceTest extends AugurApiTestCase
 
     public function testUpdate(): void
     {
-        $this->mockResponse([
-            'restockHdrUid' => 1,
-            'status' => 'processing',
-        ]);
+        $this->mockResponse(true);
 
         $response = $this->api->vmi->restockHdr->update(1, [
-            'status' => 'processing',
+            'statusCd' => 704,
         ]);
 
-        $this->assertEquals('processing', $response->data['status']);
+        $this->assertTrue($response->data);
         $this->assertRequestMethod('PUT');
         $this->assertRequestPath('/restock-hdr/1');
     }

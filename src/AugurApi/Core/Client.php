@@ -31,8 +31,6 @@ final class Client
     private const array EDGE_CACHE_SUB_HOUR = ['30s', '1m', '5m'];
     private const array EDGE_CACHE_HOURS = [1, 2, 3, 4, 5, 8];
 
-    private const int MESSAGE_LIMIT = 200;
-
     private ClientInterface $httpClient;
     private RequestFactoryInterface $requestFactory;
     private StreamFactoryInterface $streamFactory;
@@ -424,38 +422,28 @@ final class Client
             401 => new AuthenticationException($message('Authentication failed'), $status, $this->service, $template),
             404 => new NotFoundException($message('Resource not found'), $status, $this->service, $template),
             429 => new RateLimitException($message('Rate limit exceeded'), $status, $this->service, $template),
-            default => new AugurApiException($message('API request failed'), $status, null, $this->service, $template),
+            default => new AugurApiException(
+                $message("Request failed with status {$status}"),
+                $status,
+                null,
+                $this->service,
+                $template,
+            ),
         };
     }
 
     /**
-     * The body's `message` when it is a non-empty string; else the raw text,
-     * trimmed and truncated, when it is non-empty and not JSON; else $default.
+     * The body's `message` when it is a non-empty string; else the fixed $default.
+     *
+     * A non-JSON body (an HTML error page, say) never reaches the message: it can
+     * carry stack traces or server paths, and augur sends its reason as `message`.
      */
     private static function messageOf(RawResponse $response, string $default): string
     {
         $json = $response->json;
         $message = is_array($json) ? ($json['message'] ?? null) : null;
-        if (is_string($message) && $message !== '') {
-            return $message;
-        }
 
-        $text = trim($response->text);
-        if ($text !== '' && !$response->isJson) {
-            return self::truncate($text);
-        }
-
-        return $default;
-    }
-
-    /**
-     * First MESSAGE_LIMIT characters; bytes when the text is not valid UTF-8.
-     */
-    private static function truncate(string $text): string
-    {
-        $limit = self::MESSAGE_LIMIT;
-
-        return preg_replace("/^(.{{$limit}}).+$/su", '$1', $text) ?? substr($text, 0, $limit);
+        return is_string($message) && $message !== '' ? $message : $default;
     }
 
     /**

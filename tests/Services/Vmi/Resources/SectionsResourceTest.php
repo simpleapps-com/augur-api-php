@@ -77,8 +77,8 @@ final class SectionsResourceTest extends AugurApiTestCase
         ]);
 
         $response = $this->api->vmi->sections->create([
-            'name' => 'New Section',
-            'warehouseUid' => 100,
+            'sectionsName' => 'New Section',
+            'customerId' => 100,
         ]);
 
         $this->assertEquals(3, $response->data['sectionsUid']);
@@ -89,16 +89,13 @@ final class SectionsResourceTest extends AugurApiTestCase
 
     public function testUpdate(): void
     {
-        $this->mockResponse([
-            'sectionsUid' => 1,
-            'name' => 'Updated Section',
-        ]);
+        $this->mockResponse(true);
 
         $response = $this->api->vmi->sections->update(1, [
-            'name' => 'Updated Section',
+            'sectionsName' => 'Updated Section',
         ]);
 
-        $this->assertEquals('Updated Section', $response->data['name']);
+        $this->assertTrue($response->data);
         $this->assertRequestMethod('PUT');
         $this->assertRequestPath('/sections/1');
     }

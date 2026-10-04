@@ -192,4 +192,20 @@ final class AttributesResourceTest extends AugurApiTestCase
         $this->assertRequestMethod('DELETE');
         $this->assertRequestPath('/attributes/1/values/1');
     }
+
+    public function testCreateResolve(): void
+    {
+        $this->mockResponse([
+            'query' => 'red shirt',
+            'canonicalQuery' => 'shirt',
+            'filters' => [[5, 12]],
+            'unresolved' => [],
+        ]);
+
+        $response = $this->api->items->attributes->createResolve(['query' => 'red shirt']);
+
+        $this->assertEquals('shirt', $response->data['canonicalQuery']);
+        $this->assertRequestMethod('POST');
+        $this->assertRequestPath('/attributes/resolve');
+    }
 }

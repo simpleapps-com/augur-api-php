@@ -9,6 +9,7 @@ use AugurApi\Core\Config;
 use AugurApi\Core\Exceptions\AugurApiException;
 use AugurApi\Core\Exceptions\AuthenticationException;
 use AugurApi\Core\Exceptions\InvalidArgumentException;
+use AugurApi\Core\Exceptions\NotFoundException;
 use AugurApi\Core\Exceptions\RateLimitException;
 use AugurApi\Core\Exceptions\ValidationException;
 use Http\Mock\Client as MockClient;
@@ -315,6 +316,33 @@ final class ClientTest extends TestCase
         $this->client->get('https://api.example.com', '/items');
     }
 
+    public function testError500EnvelopeThrowsExactAugurApiException(): void
+    {
+        $envelope = [
+            'status' => 500,
+            'message' => 'There was a server issue',
+            'data' => null,
+            'count' => 0,
+            'total' => 0,
+            'totalResults' => 0,
+            'options' => [],
+            'params' => [],
+        ];
+        for ($i = 0; $i <= $this->config->retries; $i++) {
+            $this->addResponse($envelope, 500);
+        }
+
+        try {
+            $this->client->get('https://api.example.com', '/items/{invMastUid}', [], ['invMastUid' => '7']);
+            $this->fail('Expected AugurApiException');
+        } catch (AugurApiException $e) {
+            $this->assertSame(AugurApiException::class, get_class($e));
+            $this->assertSame(500, $e->getCode());
+            $this->assertSame('There was a server issue', $e->getMessage());
+            $this->assertSame('/items/{invMastUid}', $e->endpoint);
+        }
+    }
+
     public function testGenericErrorThrowsAugurApiException(): void
     {
         // 503 is >= 500 so it will retry; add enough responses for all retries
@@ -362,6 +390,30 @@ final class ClientTest extends TestCase
         $this->client->get('https://api.example.com', '/items');
     }
 
+    public function testNoRetryOnNotFound(): void
+    {
+        $this->assertGreaterThan(0, $this->config->retries);
+        // Only add one response - no retries should happen
+        $this->addResponse([
+            'status' => 404,
+            'message' => 'Not Found',
+            'data' => null,
+            'count' => 0,
+            'total' => 0,
+            'totalResults' => 0,
+            'options' => [],
+            'params' => [],
+        ], 404);
+
+        try {
+            $this->client->get('https://api.example.com', '/items');
+            $this->fail('Expected NotFoundException');
+        } catch (NotFoundException $e) {
+            $this->assertSame(404, $e->getCode());
+            $this->assertCount(1, $this->mockClient->getRequests());
+        }
+    }
+
     public function testMaxRetriesExhausted(): void
     {
         // Add responses for initial + all retries (config has 2 retries)
@@ -379,7 +431,7 @@ final class ClientTest extends TestCase
         $this->addResponse([], 500);
 
         $this->expectException(AugurApiException::class);
-        $this->expectExceptionMessage('API request failed');
+        $this->expectExceptionMessage('Request failed with status 500');
 
         // Exhaust retries
         for ($i = 0; $i < $this->config->retries; $i++) {

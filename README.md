@@ -8,6 +8,8 @@ PHP client library for Augur API microservices.
 composer require simpleapps-com/augur-api
 ```
 
+**Pin the version.** Versions are CalVer (`YYYY.MM.PATCH`), and a month roll can carry breaking changes when the Augur API changes upstream, but Composer treats `^2026.9` as accepting `2026.10.0`. Use an exact version or `~2026.9.0` (patch updates only), and read the [release notes](https://github.com/simpleapps-com/augur-api/releases) before moving to a new month.
+
 ## Requirements
 
 - PHP 8.3 or higher

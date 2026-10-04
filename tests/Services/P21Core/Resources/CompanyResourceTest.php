@@ -60,13 +60,13 @@ final class CompanyResourceTest extends AugurApiTestCase
             'phone' => '555-0100',
         ]);
 
-        $response = $this->api->p21Core->company->get(1);
+        $response = $this->api->p21Core->company->get('ACME');
 
         $this->assertEquals(1, $response->data['companyUid']);
         $this->assertEquals('Company A', $response->data['companyName']);
         $this->assertTrue($response->data['active']);
         $this->assertRequestMethod('GET');
-        $this->assertRequestPath('/company/1');
+        $this->assertRequestPath('/company/ACME');
     }
 
     public function testGetWithParams(): void
@@ -79,7 +79,7 @@ final class CompanyResourceTest extends AugurApiTestCase
             ],
         ]);
 
-        $response = $this->api->p21Core->company->get(1, ['includeLocations' => true]);
+        $response = $this->api->p21Core->company->get('ACME', ['includeLocations' => true]);
 
         $this->assertEquals(1, $response->data['companyUid']);
         $this->assertCount(1, self::arrayAt($response->data, 'locations'));

@@ -165,15 +165,15 @@ final class CallTest extends AugurApiTestCase
         $this->addRaw(200, '{}');
 
         $this->api->call(
-            'commerce.checkout.doc.list',
-            ['checkoutUid' => '7'],
-            ['cartHdrUid' => 3, 'edgeCache' => '5m'],
+            'commerce.cartHdr.alsoBought.list',
+            ['cartHdrUid' => '7'],
+            ['limit' => 3, 'edgeCache' => '5m'],
         );
         $this->addRaw(200, '{}');
-        $this->api->call('commerce.checkout.doc.list', ['checkoutUid' => 7], ['cartHdrUid' => null]);
+        $this->api->call('commerce.cartHdr.alsoBought.list', ['cartHdrUid' => 7], ['limit' => null]);
 
         $requests = $this->mockClient->getRequests();
-        $this->assertSame('cartHdrUid=3&cacheSiteId5m=TEST123', $requests[0]->getUri()->getQuery());
+        $this->assertSame('limit=3&cacheSiteId5m=TEST123', $requests[0]->getUri()->getQuery());
         $this->assertSame('', $requests[1]->getUri()->getQuery());
     }
 
@@ -302,12 +302,12 @@ final class CallTest extends AugurApiTestCase
         }
     }
 
-    public function testNonJsonErrorBodyBecomesMessage(): void
+    public function testNonJsonErrorBodyNeverReachesTheMessage(): void
     {
         $this->addRaw(500, 'upstream exploded', 'text/plain');
 
         $this->expectException(AugurApiException::class);
-        $this->expectExceptionMessage('upstream exploded');
+        $this->expectExceptionMessage('Request failed with status 500');
 
         $this->api->call('items.ping.get');
     }

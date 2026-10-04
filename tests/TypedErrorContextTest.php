@@ -42,7 +42,7 @@ final class TypedErrorContextTest extends AugurApiTestCase
             $this->assertSame(AugurApiException::class, $e::class);
             $this->assertSame('open-search', $e->service);
             $this->assertSame('/whoami', $e->endpoint);
-            $this->assertSame('API request failed', $e->getMessage());
+            $this->assertSame('Request failed with status 403', $e->getMessage());
         }
     }
 

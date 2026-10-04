@@ -15,15 +15,18 @@ final class ContextResourceTest extends AugurApiTestCase
     {
         $this->mockResponse([
             'siteId' => 'SITE001',
-            'siteName' => 'Test Site',
-            'config' => ['feature1' => true],
+            'domain' => 'example.com',
+            'uid' => 1,
+            'services' => ['items'],
+            'serviceCount' => 1,
+            'inactiveServices' => [],
         ]);
 
         $response = $this->api->agrInfo->context->get('SITE001');
 
         $this->assertIsArray($response->data);
         $this->assertEquals('SITE001', $response->data['siteId']);
-        $this->assertEquals('Test Site', $response->data['siteName']);
+        $this->assertEquals('example.com', $response->data['domain']);
         $this->assertRequestPath('/context/SITE001');
         $this->assertRequestMethod('GET');
         $this->assertHasSiteIdHeader();

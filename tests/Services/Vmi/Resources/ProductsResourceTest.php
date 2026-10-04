@@ -100,38 +100,30 @@ final class ProductsResourceTest extends AugurApiTestCase
 
     public function testCreate(): void
     {
-        $this->mockListResponse([
-            [
-                'productsUid' => 3,
-                'productsId' => 'PROD003',
-                'productsDesc' => 'New Product',
-            ],
+        $this->mockResponse([
+            'productsUid' => 3,
+            'productsId' => 'PROD003',
         ]);
 
         $response = $this->api->vmi->distributors->createProducts(1, [
             'productsId' => 'PROD003',
-            'productsDesc' => 'New Product',
         ]);
 
-        $this->assertEquals(3, $response->data[0]['productsUid']);
-        $this->assertEquals('New Product', $response->data[0]['productsDesc']);
+        $this->assertEquals(3, $response->data['productsUid']);
+        $this->assertEquals('PROD003', $response->data['productsId']);
         $this->assertRequestMethod('POST');
         $this->assertRequestPath('/distributors/1/products');
     }
 
     public function testUpdate(): void
     {
-        $this->mockResponse([
-            'productsUid' => 1,
-            'productId' => 'PROD001',
-            'name' => 'Updated Product',
-        ]);
+        $this->mockResponse(true);
 
         $response = $this->api->vmi->products->update(1, [
-            'name' => 'Updated Product',
+            'productsDesc' => 'Updated Product',
         ]);
 
-        $this->assertEquals('Updated Product', $response->data['name']);
+        $this->assertTrue($response->data);
         $this->assertRequestMethod('PUT');
         $this->assertRequestPath('/products/1');
     }
@@ -149,26 +141,22 @@ final class ProductsResourceTest extends AugurApiTestCase
 
     public function testEnable(): void
     {
-        $this->mockListResponse([
-            ['productsUid' => 1, 'statusCd' => 704],
-        ]);
+        $this->mockResponse(['statusCd' => 704]);
 
         $response = $this->api->vmi->products->updateEnable(1);
 
-        $this->assertEquals(704, $response->data[0]['statusCd']);
+        $this->assertEquals(704, $response->data['statusCd']);
         $this->assertRequestMethod('PUT');
         $this->assertRequestPath('/products/1/enable');
     }
 
     public function testEnableWithData(): void
     {
-        $this->mockListResponse([
-            ['productsUid' => 1, 'statusCd' => 705],
-        ]);
+        $this->mockResponse(['statusCd' => 705]);
 
         $response = $this->api->vmi->products->updateEnable(1, ['statusCd' => 705]);
 
-        $this->assertEquals(705, $response->data[0]['statusCd']);
+        $this->assertEquals(705, $response->data['statusCd']);
         $this->assertHasSiteIdHeader();
         $this->assertHasAuthHeader();
     }

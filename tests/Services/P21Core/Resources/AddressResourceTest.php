@@ -143,18 +143,4 @@ final class AddressResourceTest extends AugurApiTestCase
         $this->assertHasSiteIdHeader();
         $this->assertHasAuthHeader();
     }
-
-    public function testRefresh(): void
-    {
-        $this->mockResponse([
-            'success' => true,
-            'message' => 'Address data refresh triggered',
-        ]);
-
-        $response = $this->api->p21Core->address->getRefresh();
-
-        $this->assertTrue(self::at($response->data, 'success'));
-        $this->assertRequestMethod('GET');
-        $this->assertRequestPath('/address/refresh');
-    }
 }
