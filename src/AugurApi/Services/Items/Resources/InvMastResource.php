@@ -1131,12 +1131,18 @@ final class InvMastResource
      *
      * Response data: The full item doc (InvMastHelper::generateDoc)
      *
+     * Errors:
+     *   400: invMastUid is 0 and itemId is missing or blank.
+     *   404: No item (inv_mast) with this invMastUid, or no item with this itemId when invMastUid
+     *       is 0. Deleted and offline items still return 200.
+     *
      * GET https://items.augur-api.com/inv-mast/{invMastUid}/doc
      * Contract: https://items.augur-api.com/openapi.json#/paths/~1inv-mast~1{invMastUid}~1doc/get
      *
      * Query params ($params; `?` = optional):
      *   includePricing?: string — Include invMast price 1-10 [Y|N] (Default: N)
-     *   itemId?: string — itemId. Used for lookup if invMastUid is zero
+     *   itemId?: string — Item ID to look up when invMastUid is 0; required in that case, ignored
+     *       otherwise
      *
      * $params also takes edgeCache, the Cloudflare edge cache time: '30s', '1m', '5m', or 1-5 or 8
      * (hours).

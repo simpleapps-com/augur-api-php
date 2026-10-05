@@ -368,6 +368,9 @@ final class CategoriesResource
      *
      * Response data: A category with its hierarchy, counts and active children
      *
+     * Errors:
+     *   404: No item category at this path under rootItemCategoryId.
+     *
      * GET https://items.augur-api.com/categories/lookup
      * Contract: https://items.augur-api.com/openapi.json#/paths/~1categories~1lookup/get
      *
