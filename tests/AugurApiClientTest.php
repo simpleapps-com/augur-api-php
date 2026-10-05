@@ -86,7 +86,7 @@ final class AugurApiClientTest extends AugurApiTestCase
 
     public function testVersionConstant(): void
     {
-        $this->assertEquals('2026.10.4', AugurApiClient::VERSION);
+        $this->assertEquals('2026.10.5', AugurApiClient::VERSION);
     }
 
     public function testVersionConstantIsString(): void
