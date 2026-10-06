@@ -14,6 +14,32 @@ use PHPUnit\Framework\Attributes\CoversClass;
 #[CoversClass(ScheduledImportMasterResource::class)]
 final class ScheduledImportMasterResourceTest extends AugurApiTestCase
 {
+    public function testList(): void
+    {
+        $this->mockListResponse([
+            ['scheduledImportMasterUid' => 'SIM001'],
+        ]);
+
+        $response = $this->api->p21Sism->scheduledImportMaster->list(['limit' => 10]);
+
+        $this->assertCount(1, $response->data);
+        $this->assertRequestMethod('GET');
+        $this->assertRequestPath('/scheduled-import-master');
+        $this->assertHasSiteIdHeader();
+        $this->assertHasAuthHeader();
+    }
+
+    public function testGet(): void
+    {
+        $this->mockResponse(['scheduledImportMasterUid' => 'SIM001']);
+
+        $response = $this->api->p21Sism->scheduledImportMaster->get('SIM001');
+
+        $this->assertEquals('SIM001', self::at($response->data, 'scheduledImportMasterUid'));
+        $this->assertRequestMethod('GET');
+        $this->assertRequestPath('/scheduled-import-master/SIM001');
+    }
+
     public function testCreateMetadataSftp(): void
     {
         $this->mockResponse([

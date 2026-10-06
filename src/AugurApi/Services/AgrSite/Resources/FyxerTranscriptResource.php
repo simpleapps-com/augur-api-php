@@ -155,6 +155,7 @@ final class FyxerTranscriptResource
      * Call: $api->agrSite->fyxerTranscript->delete($fyxerTranscriptHdrUid)
      *
      * Errors:
+     *   400: fyxerTranscriptHdrUid is 0 or negative.
      *   404: No transcript with this ID.
      *
      * DELETE https://agr-site.augur-api.com/fyxer-transcript/{fyxerTranscriptHdrUid}

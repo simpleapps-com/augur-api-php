@@ -145,6 +145,7 @@ final class SettingsResource
      * Call: $api->agrSite->settings->delete($settingsUid)
      *
      * Errors:
+     *   400: settingsUid is 0 or negative.
      *   404: No setting with this ID.
      *
      * DELETE https://agr-site.augur-api.com/settings/{settingsUid}

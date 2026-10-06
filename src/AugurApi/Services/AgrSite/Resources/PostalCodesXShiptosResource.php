@@ -147,6 +147,7 @@ final class PostalCodesXShiptosResource
      * Call: $api->agrSite->postalCodesXShiptos->delete($postalCodesXShiptosUid)
      *
      * Errors:
+     *   400: postalCodesXShiptosUid is 0 or negative.
      *   404: No postal code ship-to link with this ID.
      *
      * DELETE https://agr-site.augur-api.com/postal-codes-x-shiptos/{postalCodesXShiptosUid}

@@ -261,6 +261,7 @@ final class TrainingResource
      * Call: $api->agrSite->training->delete($trainingSetUid)
      *
      * Errors:
+     *   400: trainingSetUid is 0 or negative.
      *   404: No training set with this ID.
      *
      * DELETE https://agr-site.augur-api.com/training/{trainingSetUid}
@@ -331,6 +332,7 @@ final class TrainingResource
      * Request body: Partial update of a training set; an absent field keeps its current value
      *
      * Errors:
+     *   400: trainingSetUid is 0 or negative.
      *   404: No training set with this ID.
      *
      * PUT https://agr-site.augur-api.com/training/{trainingSetUid}
@@ -367,6 +369,7 @@ final class TrainingResource
      *
      * Errors:
      *   400: orderBy is not column|ASC or column|DESC on a training_conv column.
+     *   404: No training set with this trainingSetUid.
      *
      * GET https://agr-site.augur-api.com/training/{trainingSetUid}/conversations
      * Contract:
@@ -411,6 +414,10 @@ final class TrainingResource
      *
      * Request body: Add a conversation to the training set in the path
      *
+     * Errors:
+     *   400: trainingSetUid is 0 or negative.
+     *   404: No training set with this trainingSetUid.
+     *
      * POST https://agr-site.augur-api.com/training/{trainingSetUid}/conversations
      * Contract:
      * https://agr-site.augur-api.com/openapi.json#/paths/~1training~1{trainingSetUid}~1conversations/post
@@ -445,6 +452,7 @@ final class TrainingResource
      * Call: $api->agrSite->training->deleteConversations($trainingSetUid, $trainingConvUid)
      *
      * Errors:
+     *   400: trainingSetUid or trainingConvUid is 0 or negative.
      *   404: No training conversation with this ID.
      *
      * DELETE
@@ -479,6 +487,7 @@ final class TrainingResource
      * Call: $api->agrSite->training->getConversations($trainingSetUid, $trainingConvUid)
      *
      * Errors:
+     *   400: trainingSetUid or trainingConvUid is 0 or negative.
      *   404: No training conversation with this ID.
      *
      * GET https://agr-site.augur-api.com/training/{trainingSetUid}/conversations/{trainingConvUid}
@@ -520,6 +529,7 @@ final class TrainingResource
      * value
      *
      * Errors:
+     *   400: trainingSetUid or trainingConvUid is 0 or negative.
      *   404: No training conversation with this ID.
      *
      * PUT https://agr-site.augur-api.com/training/{trainingSetUid}/conversations/{trainingConvUid}
@@ -558,6 +568,8 @@ final class TrainingResource
      *
      * Errors:
      *   400: orderBy is not column|ASC or column|DESC on a training_msg column.
+     *   404: No training set with this trainingSetUid, or no conversation with this trainingConvUid
+     *       in that set.
      *
      * GET
      * https://agr-site.augur-api.com/training/{trainingSetUid}/conversations/{trainingConvUid}/messages
@@ -606,6 +618,11 @@ final class TrainingResource
      *
      * Request body: Add a message to the training conversation in the path
      *
+     * Errors:
+     *   400: trainingSetUid or trainingConvUid is 0 or negative.
+     *   404: No training set with this trainingSetUid, or no conversation with this trainingConvUid
+     *       in that set.
+     *
      * POST
      * https://agr-site.augur-api.com/training/{trainingSetUid}/conversations/{trainingConvUid}/messages
      * Contract:
@@ -643,6 +660,7 @@ final class TrainingResource
      * $api->agrSite->training->deleteConversationsMessages($trainingSetUid, $trainingConvUid, $trainingMsgUid)
      *
      * Errors:
+     *   400: trainingSetUid, trainingConvUid or trainingMsgUid is 0 or negative.
      *   404: No training message with this ID.
      *
      * DELETE
@@ -679,6 +697,7 @@ final class TrainingResource
      * $api->agrSite->training->getConversationsMessages($trainingSetUid, $trainingConvUid, $trainingMsgUid)
      *
      * Errors:
+     *   400: trainingSetUid, trainingConvUid or trainingMsgUid is 0 or negative.
      *   404: No training message with this ID.
      *
      * GET
@@ -722,6 +741,7 @@ final class TrainingResource
      * Request body: Partial update of a training message; an absent field keeps its current value
      *
      * Errors:
+     *   400: trainingSetUid, trainingConvUid or trainingMsgUid is 0 or negative.
      *   404: No training message with this ID.
      *
      * PUT

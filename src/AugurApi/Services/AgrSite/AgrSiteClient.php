@@ -7,6 +7,7 @@ namespace AugurApi\Services\AgrSite;
 use AugurApi\Core\BaseServiceClient;
 use AugurApi\Core\Client;
 use AugurApi\Core\Config;
+use AugurApi\Services\AgrSite\Resources\ConfigsResource;
 use AugurApi\Services\AgrSite\Resources\ContextResource;
 use AugurApi\Services\AgrSite\Resources\DatafilesResource;
 use AugurApi\Services\AgrSite\Resources\FyxerTranscriptResource;
@@ -35,6 +36,10 @@ use AugurApi\Services\AgrSite\Resources\UsersResource;
  *
  * Endpoints, in spec order: path → exact call → response data type (`untyped` = any JSON). Shapes
  * are documented on each resource class.
+ *   GET /configs → $api->agrSite->configs->list() → list of ConfigsListItem
+ *   GET /configs/{serviceName} → $api->agrSite->configs->get($serviceName) → ConfigsGetData
+ *   PUT /configs/{serviceName} → $api->agrSite->configs->update($serviceName, $data) →
+ *       ConfigsGetData
  *   GET /context/{siteId} → $api->agrSite->context->get($siteId) →
  *       ContextGetDataOption1|ContextGetDataOption2
  *   POST /datafiles → $api->agrSite->datafiles->create($data) → string
@@ -130,6 +135,7 @@ use AugurApi\Services\AgrSite\Resources\UsersResource;
  */
 final class AgrSiteClient extends BaseServiceClient
 {
+    public readonly ConfigsResource $configs;
     public readonly ContextResource $context;
     public readonly DatafilesResource $datafiles;
     public readonly FyxerTranscriptResource $fyxerTranscript;
@@ -145,6 +151,7 @@ final class AgrSiteClient extends BaseServiceClient
     public function __construct(Client $client, Config $config)
     {
         parent::__construct($client, $config);
+        $this->configs = new ConfigsResource($this->client, $this->baseUrl . '/configs');
         $this->context = new ContextResource($this->client, $this->baseUrl . '/context');
         $this->datafiles = new DatafilesResource($this->client, $this->baseUrl . '/datafiles');
         $this->fyxerTranscript = new FyxerTranscriptResource($this->client, $this->baseUrl . '/fyxer-transcript');

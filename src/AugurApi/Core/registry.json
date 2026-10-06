@@ -960,6 +960,49 @@
     "edgeCache": false
   },
   {
+    "id": "agrSite.configs.get",
+    "service": "agr-site",
+    "method": "GET",
+    "path": "/configs/{serviceName}",
+    "pathParams": [
+      "serviceName"
+    ],
+    "queryParams": [],
+    "aliases": [],
+    "hasBody": false,
+    "auth": "bearer",
+    "edgeCache": true
+  },
+  {
+    "id": "agrSite.configs.list",
+    "service": "agr-site",
+    "method": "GET",
+    "path": "/configs",
+    "pathParams": [],
+    "queryParams": [
+      "limit",
+      "offset"
+    ],
+    "aliases": [],
+    "hasBody": false,
+    "auth": "bearer",
+    "edgeCache": true
+  },
+  {
+    "id": "agrSite.configs.update",
+    "service": "agr-site",
+    "method": "PUT",
+    "path": "/configs/{serviceName}",
+    "pathParams": [
+      "serviceName"
+    ],
+    "queryParams": [],
+    "aliases": [],
+    "hasBody": true,
+    "auth": "bearer",
+    "edgeCache": false
+  },
+  {
     "id": "agrSite.context.get",
     "service": "agr-site",
     "method": "GET",
@@ -7888,6 +7931,37 @@
     "hasBody": false,
     "auth": "none",
     "edgeCache": false
+  },
+  {
+    "id": "p21Sism.scheduledImportMaster.get",
+    "service": "p21-sism",
+    "method": "GET",
+    "path": "/scheduled-import-master/{scheduledImportMasterUid}",
+    "pathParams": [
+      "scheduledImportMasterUid"
+    ],
+    "queryParams": [],
+    "aliases": [],
+    "hasBody": false,
+    "auth": "bearer",
+    "edgeCache": true
+  },
+  {
+    "id": "p21Sism.scheduledImportMaster.list",
+    "service": "p21-sism",
+    "method": "GET",
+    "path": "/scheduled-import-master",
+    "pathParams": [],
+    "queryParams": [
+      "limit",
+      "offset",
+      "orderBy",
+      "suggestedDefault"
+    ],
+    "aliases": [],
+    "hasBody": false,
+    "auth": "bearer",
+    "edgeCache": true
   },
   {
     "id": "p21Sism.scheduledImportMaster.metadata.sftp.create",

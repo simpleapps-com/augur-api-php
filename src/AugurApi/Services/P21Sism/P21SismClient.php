@@ -45,6 +45,11 @@ use AugurApi\Services\P21Sism\Resources\ScheduledImportMasterResource;
  *       ImportImpOeHdrSalesrepListData
  *   GET /import/{importUid}/imp-oe-hdr-web → $api->p21Sism->import->listImpOeHdrWeb($importUid) →
  *       ImportImpOeHdrWebListData
+ *   GET /scheduled-import-master → $api->p21Sism->scheduledImportMaster->list() →
+ *       list of ScheduledImportMasterListItem
+ *   GET /scheduled-import-master/{scheduledImportMasterUid} →
+ *       $api->p21Sism->scheduledImportMaster->get($scheduledImportMasterUid) →
+ *       ScheduledImportMasterListItem
  *   POST /scheduled-import-master/{scheduledImportMasterUid}/metadata/sftp →
  *       $api->p21Sism->scheduledImportMaster->createMetadataSftp($scheduledImportMasterUid, $data) →
  *       ScheduledImportMasterMetadataSftpCreateData

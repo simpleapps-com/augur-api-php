@@ -77,6 +77,7 @@ final class ContextResource
      *
      * Errors:
      *   403: The siteId in the path does not match x-site-id.
+     *   404: The site has no domain configured.
      *
      * GET https://agr-site.augur-api.com/context/{siteId}
      * Contract: https://agr-site.augur-api.com/openapi.json#/paths/~1context~1{siteId}/get

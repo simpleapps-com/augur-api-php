@@ -107,6 +107,7 @@ final class UsersResource
      *
      * Errors:
      *   400: orderBy is not column|ASC or column|DESC on a user_address column.
+     *   404: No Joomla user with this userId.
      *
      * GET https://agr-site.augur-api.com/users/{userId}/addresses
      * Contract: https://agr-site.augur-api.com/openapi.json#/paths/~1users~1{userId}~1addresses/get
@@ -151,6 +152,10 @@ final class UsersResource
      *
      * Request body: Add an address for the user in the path
      *
+     * Errors:
+     *   400: userId is 0 or negative.
+     *   404: No Joomla user with this userId.
+     *
      * POST https://agr-site.augur-api.com/users/{userId}/addresses
      * Contract:
      * https://agr-site.augur-api.com/openapi.json#/paths/~1users~1{userId}~1addresses/post
@@ -185,6 +190,7 @@ final class UsersResource
      * Call: $api->agrSite->users->deleteAddresses($userId, $userAddressUid)
      *
      * Errors:
+     *   400: userId or userAddressUid is 0 or negative.
      *   404: No user address with this ID.
      *
      * DELETE https://agr-site.augur-api.com/users/{userId}/addresses/{userAddressUid}
@@ -220,6 +226,7 @@ final class UsersResource
      * Get a user_address row by UID
      *
      * Errors:
+     *   400: userId or userAddressUid is 0 or negative.
      *   404: No user address with this ID.
      *
      * GET https://agr-site.augur-api.com/users/{userId}/addresses/{userAddressUid}
@@ -260,6 +267,7 @@ final class UsersResource
      * Request body: Partial update of a user address; an absent field keeps its current value
      *
      * Errors:
+     *   400: userId or userAddressUid is 0 or negative.
      *   404: No user address with this ID.
      *
      * PUT https://agr-site.augur-api.com/users/{userId}/addresses/{userAddressUid}
