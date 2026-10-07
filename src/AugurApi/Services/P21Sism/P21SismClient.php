@@ -9,6 +9,7 @@ use AugurApi\Core\Client;
 use AugurApi\Core\Config;
 use AugurApi\Services\P21Sism\Resources\ImportResource;
 use AugurApi\Services\P21Sism\Resources\ScheduledImportMasterResource;
+use AugurApi\Services\P21Sism\Resources\ScheduledImportMetadataResource;
 
 /**
  * P21Sism service client — generated from spec.
@@ -50,20 +51,36 @@ use AugurApi\Services\P21Sism\Resources\ScheduledImportMasterResource;
  *   GET /scheduled-import-master/{scheduledImportMasterUid} →
  *       $api->p21Sism->scheduledImportMaster->get($scheduledImportMasterUid) →
  *       ScheduledImportMasterListItem
+ *   POST /scheduled-import-master/{scheduledImportMasterUid}/metadata →
+ *       $api->p21Sism->scheduledImportMaster->createMetadata($scheduledImportMasterUid, $data) →
+ *       ScheduledImportMasterMetadataCreateData
  *   POST /scheduled-import-master/{scheduledImportMasterUid}/metadata/sftp →
  *       $api->p21Sism->scheduledImportMaster->createMetadataSftp($scheduledImportMasterUid, $data) →
  *       ScheduledImportMasterMetadataSftpCreateData
+ *   GET /scheduled-import-metadata → $api->p21Sism->scheduledImportMetadata->list() →
+ *       list of ScheduledImportMasterMetadataCreateData
+ *   GET /scheduled-import-metadata/{scheduledImportMetadataUid} →
+ *       $api->p21Sism->scheduledImportMetadata->get($scheduledImportMetadataUid) →
+ *       ScheduledImportMasterMetadataCreateData
+ *   PUT /scheduled-import-metadata/{scheduledImportMetadataUid} →
+ *       $api->p21Sism->scheduledImportMetadata->update($scheduledImportMetadataUid, $data) →
+ *       ScheduledImportMasterMetadataCreateData
+ *   DELETE /scheduled-import-metadata/{scheduledImportMetadataUid} →
+ *       $api->p21Sism->scheduledImportMetadata->delete($scheduledImportMetadataUid) →
+ *       ScheduledImportMasterMetadataCreateData
  */
 final class P21SismClient extends BaseServiceClient
 {
     public readonly ImportResource $import;
     public readonly ScheduledImportMasterResource $scheduledImportMaster;
+    public readonly ScheduledImportMetadataResource $scheduledImportMetadata;
 
     public function __construct(Client $client, Config $config)
     {
         parent::__construct($client, $config);
         $this->import = new ImportResource($this->client, $this->baseUrl . '/import');
         $this->scheduledImportMaster = new ScheduledImportMasterResource($this->client, $this->baseUrl . '/scheduled-import-master');
+        $this->scheduledImportMetadata = new ScheduledImportMetadataResource($this->client, $this->baseUrl . '/scheduled-import-metadata');
     }
 
     protected function getServiceName(): string

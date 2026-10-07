@@ -40,6 +40,19 @@ final class ScheduledImportMasterResourceTest extends AugurApiTestCase
         $this->assertRequestPath('/scheduled-import-master/SIM001');
     }
 
+    public function testCreateMetadata(): void
+    {
+        $this->mockResponse(['scheduledImportMasterUid' => 12, 'deliveryMethod' => 'sftp']);
+
+        $response = $this->api->p21Sism->scheduledImportMaster->createMetadata('12', [
+            'deliveryMethod' => 'sftp',
+        ]);
+
+        $this->assertEquals('sftp', self::at($response->data, 'deliveryMethod'));
+        $this->assertRequestMethod('POST');
+        $this->assertRequestPath('/scheduled-import-master/12/metadata');
+    }
+
     public function testCreateMetadataSftp(): void
     {
         $this->mockResponse([

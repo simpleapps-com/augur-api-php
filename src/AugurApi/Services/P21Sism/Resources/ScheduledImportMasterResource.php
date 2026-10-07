@@ -47,6 +47,43 @@ use AugurApi\Core\Client;
  *   fileLockingFlag: string — Y when P21 locks import files while reading them (max 1 chars)
  *   updateCd: int — Update code (1185 = Import Complete)
  *
+ * ScheduledImportMasterMetadataCreateData:
+ * Returned by:
+ * $api->p21Sism->scheduledImportMaster->createMetadata($scheduledImportMasterUid, $data)
+ *   scheduledImportMetadataUid: int — Scheduled import metadata ID
+ *   scheduledImportMasterUid: int — Scheduled import master this delivery method is for; one record
+ *       per master
+ *   deliveryMethod: string — How import:deliver reaches P21: pending_import (on-premise P21), ftp
+ *       or sftp (hosted P21) (max 40 chars)
+ *   properties: string|null — FTP/SFTP connection as a JSON string (host, port, username, password,
+ *       path); pending_import does not read it (max 16777215 chars)
+ *   dateCreated: string — Date the record was created (mysql-datetime, e.g. 2025-07-30 15:50:49)
+ *   dateLastModified: string — Date the record was last modified (mysql-datetime, e.g. 2025-07-30
+ *       15:50:49)
+ *   updateCd: int — Update code (1185 = Import Complete)
+ *   statusCd: int — Status code (704 = Active, 705 = Inactive, 700 = Deleted)
+ *   processCd: int — Process code (704 = Active, 1185 = Import Complete)
+ *
+ * ScheduledImportMasterMetadataCreateBody: Create (or replace) the delivery-method record of a
+ * scheduled import master; a master has at most one
+ * Request body of:
+ * $api->p21Sism->scheduledImportMaster->createMetadata($scheduledImportMasterUid, $data)
+ *   deliveryMethod: string — How import:deliver reaches P21: pending_import (on-premise P21), ftp
+ *       or sftp (hosted P21); any casing
+ *   properties?: ScheduledImportMasterMetadataSftpCreateBody — FTP/SFTP connection; all five fields
+ *       are required for ftp and sftp; pending_import does not read them
+ *
+ * ScheduledImportMasterMetadataSftpCreateBody: FTP/SFTP connection; all five fields are required
+ * for ftp and sftp; pending_import does not read them
+ * Request body of:
+ * $api->p21Sism->scheduledImportMaster->createMetadataSftp($scheduledImportMasterUid, $data)
+ * Field `properties` of ScheduledImportMasterMetadataCreateBody
+ *   host?: string|null — FTP/SFTP server host name
+ *   port?: string|null — FTP/SFTP server port
+ *   username?: string|null — FTP/SFTP login user name
+ *   password?: string|null — FTP/SFTP login password
+ *   path?: string|null — Remote directory the import files are written to
+ *
  * ScheduledImportMasterMetadataSftpCreateData: The SFTP delivery metadata saved for a scheduled
  * import master
  * Returned by:
@@ -55,19 +92,11 @@ use AugurApi\Core\Client;
  *   scheduledImportMasterUid: int — Scheduled import master the metadata belongs to
  *   properties: string|null — Saved SFTP connection properties as a JSON string
  *
- * ScheduledImportMasterMetadataSftpCreateBody: SFTP connection properties for a scheduled import
- * master; the whole body is stored as-is as the metadata properties
- * Request body of:
- * $api->p21Sism->scheduledImportMaster->createMetadataSftp($scheduledImportMasterUid, $data)
- *   host?: string|null — SFTP server host name
- *   port?: string|null — SFTP server port
- *   username?: string|null — SFTP login user name
- *   password?: string|null — SFTP login password
- *   path?: string|null — Remote directory the import files are written to
- *
  * @phpstan-type ScheduledImportMasterListItem array{scheduledImportMasterUid: int, impexpSourceUid: int, transactionSetUid: int, pollingPath: string, transactionLogPath: string, transactionSumPath: string, transactionSusPath: string, transactionErrPath: string, active: string, dateCreated: string, dateLastModified: string, lastMaintainedBy: string, fileFormatCd: int|null, xmlDocumentUid: int|null, fileLockingFlag: string, updateCd: int}
- * @phpstan-type ScheduledImportMasterMetadataSftpCreateData array{scheduledImportMetadataUid: int, scheduledImportMasterUid: int, properties: string|null}
+ * @phpstan-type ScheduledImportMasterMetadataCreateData array{scheduledImportMetadataUid: int, scheduledImportMasterUid: int, deliveryMethod: string, properties: string|null, dateCreated: string, dateLastModified: string, updateCd: int, statusCd: int, processCd: int}
+ * @phpstan-type ScheduledImportMasterMetadataCreateBody array{deliveryMethod: string, properties?: ScheduledImportMasterMetadataSftpCreateBody}
  * @phpstan-type ScheduledImportMasterMetadataSftpCreateBody array{host?: string|null, port?: string|null, username?: string|null, password?: string|null, path?: string|null}
+ * @phpstan-type ScheduledImportMasterMetadataSftpCreateData array{scheduledImportMetadataUid: int, scheduledImportMasterUid: int, properties: string|null}
  */
 final class ScheduledImportMasterResource
 {
@@ -157,18 +186,66 @@ final class ScheduledImportMasterResource
     }
 
     /**
+     * POST /scheduled-import-master/{scheduledImportMasterUid}/metadata
+     *
+     * Set the delivery method of a scheduled import master
+     * Call: $api->p21Sism->scheduledImportMaster->createMetadata($scheduledImportMasterUid, $data)
+     *
+     * Set the delivery method (pending_import, ftp, sftp) of a scheduled import master; replaces
+     * its existing record and revives a soft-deleted one
+     *
+     * Request body: Create (or replace) the delivery-method record of a scheduled import master; a
+     * master has at most one
+     *
+     * Success status: 201 (not 200)
+     *
+     * Errors:
+     *   400: Body is not a JSON object, or deliveryMethod is missing.
+     *   404: No scheduled import master with this ID.
+     *   422: Unknown deliveryMethod, or ftp/sftp without all five connection properties.
+     *
+     * POST
+     * https://p21-sism.augur-api.com/scheduled-import-master/{scheduledImportMasterUid}/metadata
+     * Contract:
+     * https://p21-sism.augur-api.com/openapi.json#/paths/~1scheduled-import-master~1{scheduledImportMasterUid}~1metadata/post
+     *
+     * Request body ($data): ScheduledImportMasterMetadataCreateBody (fields listed on the class)
+     *
+     * Response data type: ScheduledImportMasterMetadataCreateData (fields listed on the class)
+     *
+     * @param string $scheduledImportMasterUid Scheduled import master the delivery method is for
+     * @param ScheduledImportMasterMetadataCreateBody $data
+     * @return BaseResponse<array<string, mixed>>
+     */
+    public function createMetadata(string $scheduledImportMasterUid, array $data): BaseResponse
+    {
+        $response = $this->client->post(
+            $this->baseUrl,
+            '/{scheduledImportMasterUid}/metadata',
+            $data,
+            ['scheduledImportMasterUid' => (string) $scheduledImportMasterUid],
+        );
+
+        /** @var BaseResponse<array<string, mixed>> $result */
+        $result = BaseResponse::fromArray($response, static fn (mixed $data): mixed => $data);
+
+        return $result;
+    }
+
+    /**
      * POST /scheduled-import-master/{scheduledImportMasterUid}/metadata/sftp
      *
      * Create SFTP metadata for a scheduled import master
      * Call:
      * $api->p21Sism->scheduledImportMaster->createMetadataSftp($scheduledImportMasterUid, $data)
      *
-     * Request body: SFTP connection properties for a scheduled import master; the whole body is
-     * stored as-is as the metadata properties
+     * Request body: FTP or SFTP connection properties for a scheduled import master, stored as the
+     * metadata properties
      * Response data: The SFTP delivery metadata saved for a scheduled import master
      *
      * Errors:
      *   400: The body is missing or not a JSON object.
+     *   404: No scheduled import master with this ID.
      *
      * POST
      * https://p21-sism.augur-api.com/scheduled-import-master/{scheduledImportMasterUid}/metadata/sftp

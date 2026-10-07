@@ -7964,12 +7964,87 @@
     "edgeCache": true
   },
   {
+    "id": "p21Sism.scheduledImportMaster.metadata.create",
+    "service": "p21-sism",
+    "method": "POST",
+    "path": "/scheduled-import-master/{scheduledImportMasterUid}/metadata",
+    "pathParams": [
+      "scheduledImportMasterUid"
+    ],
+    "queryParams": [],
+    "aliases": [],
+    "hasBody": true,
+    "auth": "bearer",
+    "edgeCache": false
+  },
+  {
     "id": "p21Sism.scheduledImportMaster.metadata.sftp.create",
     "service": "p21-sism",
     "method": "POST",
     "path": "/scheduled-import-master/{scheduledImportMasterUid}/metadata/sftp",
     "pathParams": [
       "scheduledImportMasterUid"
+    ],
+    "queryParams": [],
+    "aliases": [],
+    "hasBody": true,
+    "auth": "bearer",
+    "edgeCache": false
+  },
+  {
+    "id": "p21Sism.scheduledImportMetadata.delete",
+    "service": "p21-sism",
+    "method": "DELETE",
+    "path": "/scheduled-import-metadata/{scheduledImportMetadataUid}",
+    "pathParams": [
+      "scheduledImportMetadataUid"
+    ],
+    "queryParams": [],
+    "aliases": [],
+    "hasBody": false,
+    "auth": "bearer",
+    "edgeCache": false
+  },
+  {
+    "id": "p21Sism.scheduledImportMetadata.get",
+    "service": "p21-sism",
+    "method": "GET",
+    "path": "/scheduled-import-metadata/{scheduledImportMetadataUid}",
+    "pathParams": [
+      "scheduledImportMetadataUid"
+    ],
+    "queryParams": [],
+    "aliases": [],
+    "hasBody": false,
+    "auth": "bearer",
+    "edgeCache": true
+  },
+  {
+    "id": "p21Sism.scheduledImportMetadata.list",
+    "service": "p21-sism",
+    "method": "GET",
+    "path": "/scheduled-import-metadata",
+    "pathParams": [],
+    "queryParams": [
+      "deliveryMethod",
+      "limit",
+      "offset",
+      "orderBy",
+      "scheduledImportMasterUid",
+      "statusCd"
+    ],
+    "aliases": [],
+    "hasBody": false,
+    "auth": "bearer",
+    "edgeCache": true
+  },
+  {
+    "id": "p21Sism.scheduledImportMetadata.update",
+    "service": "p21-sism",
+    "method": "PUT",
+    "path": "/scheduled-import-metadata/{scheduledImportMetadataUid}",
+    "pathParams": [
+      "scheduledImportMetadataUid"
     ],
     "queryParams": [],
     "aliases": [],
