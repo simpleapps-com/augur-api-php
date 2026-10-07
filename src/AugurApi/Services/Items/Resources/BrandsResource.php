@@ -106,9 +106,9 @@ use AugurApi\Core\Client;
  * BrandsFacetsListDataItemsItem: One item hit: the items service inv_mast doc (GET
  * /api/items/{invMastUid}) plus its search score
  * Field `items` of BrandsFacetsListData
- *   score: int|float|null — OpenSearch relevance score, or null when the search was sorted
- *   brandFolder?: BrandsFacetsListDataItemsItemBrandFolder — Brandfolder assets; the key is present
- *       only when useBrandFolderDoc=Y
+ *   score: float|null — OpenSearch relevance score, or null when the search was sorted
+ *   brandFolder?: BrandsFacetsListDataItemsItemBrandFolder|null — Brandfolder assets; the key is
+ *       present only when useBrandFolderDoc=Y
  *
  * BrandsFacetsListDataItemsItemBrandFolder: Brandfolder assets; the key is present only when
  * useBrandFolderDoc=Y
@@ -197,7 +197,7 @@ use AugurApi\Core\Client;
  * @phpstan-type BrandsAttributesListDataAttributesItemValuesItem array{attributeValueUid: int, attributeValue: string, sequenceNo: int|null}
  * @phpstan-type BrandsFacetsListData array{meta: BrandsFacetsListDataMeta, items: list<BrandsFacetsListDataItemsItem>, facets: list<BrandsFacetsListDataFacetsItem>}
  * @phpstan-type BrandsFacetsListDataMeta array{took: int, total: int, pageableTotal: int, maxScore: float|null}
- * @phpstan-type BrandsFacetsListDataItemsItem array{score: int|float|null, brandFolder?: BrandsFacetsListDataItemsItemBrandFolder}
+ * @phpstan-type BrandsFacetsListDataItemsItem array{score: float|null, brandFolder?: BrandsFacetsListDataItemsItemBrandFolder|null}
  * @phpstan-type BrandsFacetsListDataItemsItemBrandFolder array{assets?: list<BrandsFacetsListDataItemsItemBrandFolderAssetsItem>|null}
  * @phpstan-type BrandsFacetsListDataItemsItemBrandFolderAssetsItem array{id: string, name: string|null, attachmentName: string|null, cdnLink: string, layout: string}
  * @phpstan-type BrandsFacetsListDataFacetsItem array{attributeUid: int, attributeId: string, label: string, sequence: int, headCoveragePct: float, values: list<BrandsFacetsListDataFacetsItemValuesItem>}

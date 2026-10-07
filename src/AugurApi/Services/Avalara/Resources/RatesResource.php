@@ -27,7 +27,7 @@ use AugurApi\Core\Client;
  * RatesCreateBody: Tax estimate request: ship-to address plus order lines; snake_case keys are
  * still accepted
  * Request body of: $api->avalara->rates->create($data)
- *   address: RatesCreateBodyAddress — Ship-to address
+ *   address: RatesCreateBodyAddress|null — Ship-to address
  *   items: list<RatesCreateBodyItemsItem> — Order lines to tax
  *     each item: RatesCreateBodyItemsItem — One order line to tax
  *
@@ -49,7 +49,7 @@ use AugurApi\Core\Client;
  *   taxCode: string|null — AvaTax tax code (empty string for the default)
  *   unitPrice?: float|null — Accepted but ignored; tax is calculated from amount
  *
- * @phpstan-type RatesCreateBody array{address: RatesCreateBodyAddress, items: list<RatesCreateBodyItemsItem>}
+ * @phpstan-type RatesCreateBody array{address: RatesCreateBodyAddress|null, items: list<RatesCreateBodyItemsItem>}
  * @phpstan-type RatesCreateBodyAddress array{line1: string|null, line2: string|null, line3: string|null, city: string|null, region: string|null, postalCode: string|null, countryCode: string|null}
  * @phpstan-type RatesCreateBodyItemsItem array{amount: float|null, quantity: float|null, itemCode: string|null, taxCode: string|null, unitPrice?: float|null}
  */

@@ -91,19 +91,30 @@ use AugurApi\Core\Client;
  *   languages: list<InvMastAlsoBoughtListItemLanguagesItem> — Descriptions in other languages
  *     each item: InvMastAlsoBoughtListItemLanguagesItem — An item description in another language
  *         (items inv_mast_language)
- *   brandFolder?: InvMastAlsoBoughtListItemBrandFolder — Brandfolder assets (trinitysurfaces only)
+ *   brandFolder?: InvMastAlsoBoughtListItemBrandFolder|null — Brandfolder assets (trinitysurfaces
+ *       only)
  *   docCatTrees?: list<list<int>>|null — Category trees for the item's non-root categories
  *       (trinitysurfaces only)
  *     each item: list<int>
  *   productCollection?: string|null — Product collection of the item's category under root 3
  *       (trinitysurfaces only)
- *   tsItemCategoryUid?: int|bool|null — Leaf category under root 3, or false (trinitysurfaces only)
- *   ttItemCategoryUid?: int|bool|null — Leaf category under root 5, or false (trinitysurfaces only)
+ *   tsItemCategoryUid?: int|null|false — Leaf category under root 3, or false (trinitysurfaces
+ *       only)
+ *   ttItemCategoryUid?: int|null|false — Leaf category under root 5, or false (trinitysurfaces
+ *       only)
  *   trim?: bool|null — True when the trim user-defined field is Y (trinitysurfaces only)
- *   fullSizedSamples?: InvMastAlsoBoughtListItemFullSizedSamples|bool|null — Full-sized sample
+ *   fullSizedSamples?: InvMastAlsoBoughtListItemFullSizedSamples|null|false — Full-sized sample
  *       item, or false (trinitysurfaces only)
- *   swatchSample?: InvMastAlsoBoughtListItemFullSizedSamples|bool|null — Swatch sample item, or
+ *     one of:
+ *       InvMastAlsoBoughtListItemFullSizedSamples|null — A sample item linked from an item's
+ *           user-defined fields (trinitysurfaces)
+ *       false
+ *   swatchSample?: InvMastAlsoBoughtListItemFullSizedSamples|null|false — Swatch sample item, or
  *       false (trinitysurfaces only)
+ *     one of:
+ *       InvMastAlsoBoughtListItemFullSizedSamples|null — A sample item linked from an item's
+ *           user-defined fields (trinitysurfaces)
+ *       false
  *   itemVariantHdrUid?: int|null — Variant group the item belongs to
  *   price1?: float|null — List price 1 (only with includePricing=Y)
  *   price2?: float|null — List price 2 (only with includePricing=Y)
@@ -283,7 +294,8 @@ use AugurApi\Core\Client;
  *   cdnLink: string — CDN URL of the asset
  *   layout: string — Attachment layout (square when unknown)
  *
- * InvMastAlsoBoughtListItemFullSizedSamples:
+ * InvMastAlsoBoughtListItemFullSizedSamples: A sample item linked from an item's user-defined
+ * fields (trinitysurfaces)
  * Field `fullSizedSamples` of InvMastAlsoBoughtListItem
  * Field `swatchSample` of InvMastAlsoBoughtListItem
  *   itemId: string — Sample item ID
@@ -364,7 +376,7 @@ use AugurApi\Core\Client;
  *   statusCd?: int|null — Status code (704 = Active, 705 = Inactive, 700 = Deleted)
  *   updateCd?: int|null — Update code
  *
- * @phpstan-type InvMastAlsoBoughtListItem array{invMastUid: int, itemId: string, itemDesc: string|null, displayDesc: string|null, extendedDesc: string|null, shortCode: string|null, defaultSellingUnit: string|null, defaultPurchasingUnit: string|null, deleteFlag: string, onlineCd: int, statusCd: int, baseUnit: string, vndrStock: int|null, classId1: string|null, classId2: string|null, classId3: string|null, classId4: string|null, classId5: string|null, serialized: string, trackLots: string, trackingPattern: string, defaultProductGroup: string|null, defaultSalesDiscountGroup: string|null, defaultPurchaseDiscGroup: string|null, upcOrEan: string|null, upcOrEanId: string|null, weight: float|null, length: float|null, width: float|null, height: float|null, parkerProductCd: string|null, brandName: string|null, manufacturerName: string|null, inventorySupplier: list<InvMastAlsoBoughtListItemInventorySupplierItem>, primarySupplierName: string|null, itemUom: list<InvMastAlsoBoughtListItemItemUomItem>, alternateCodes: list<string>, legacyTags: list<string>, legacyPersonalization: list<InvMastAlsoBoughtListItemLegacyPersonalizationItem>, categoryList: list<int>, attributes: list<InvMastAlsoBoughtListItemAttributesItem>, images: list<string>, stock: InvMastAlsoBoughtListItemStock, categoryDisplayDescriptions: array<string, string>, userDefined: array<string, mixed>|array{}, invMastText: list<InvMastAlsoBoughtListItemInvMastTextItem>, languages: list<InvMastAlsoBoughtListItemLanguagesItem>, brandFolder?: InvMastAlsoBoughtListItemBrandFolder, docCatTrees?: list<list<int>>|null, productCollection?: string|null, tsItemCategoryUid?: int|bool|null, ttItemCategoryUid?: int|bool|null, trim?: bool|null, fullSizedSamples?: InvMastAlsoBoughtListItemFullSizedSamples|bool|null, swatchSample?: InvMastAlsoBoughtListItemFullSizedSamples|bool|null, itemVariantHdrUid?: int|null, price1?: float|null, price2?: float|null, price3?: float|null, price4?: float|null, price5?: float|null, price6?: float|null, price7?: float|null, price8?: float|null, price9?: float|null, price10?: float|null}
+ * @phpstan-type InvMastAlsoBoughtListItem array{invMastUid: int, itemId: string, itemDesc: string|null, displayDesc: string|null, extendedDesc: string|null, shortCode: string|null, defaultSellingUnit: string|null, defaultPurchasingUnit: string|null, deleteFlag: string, onlineCd: int, statusCd: int, baseUnit: string, vndrStock: int|null, classId1: string|null, classId2: string|null, classId3: string|null, classId4: string|null, classId5: string|null, serialized: string, trackLots: string, trackingPattern: string, defaultProductGroup: string|null, defaultSalesDiscountGroup: string|null, defaultPurchaseDiscGroup: string|null, upcOrEan: string|null, upcOrEanId: string|null, weight: float|null, length: float|null, width: float|null, height: float|null, parkerProductCd: string|null, brandName: string|null, manufacturerName: string|null, inventorySupplier: list<InvMastAlsoBoughtListItemInventorySupplierItem>, primarySupplierName: string|null, itemUom: list<InvMastAlsoBoughtListItemItemUomItem>, alternateCodes: list<string>, legacyTags: list<string>, legacyPersonalization: list<InvMastAlsoBoughtListItemLegacyPersonalizationItem>, categoryList: list<int>, attributes: list<InvMastAlsoBoughtListItemAttributesItem>, images: list<string>, stock: InvMastAlsoBoughtListItemStock, categoryDisplayDescriptions: array<string, string>, userDefined: array<string, mixed>|array{}, invMastText: list<InvMastAlsoBoughtListItemInvMastTextItem>, languages: list<InvMastAlsoBoughtListItemLanguagesItem>, brandFolder?: InvMastAlsoBoughtListItemBrandFolder|null, docCatTrees?: list<list<int>>|null, productCollection?: string|null, tsItemCategoryUid?: int|null|false, ttItemCategoryUid?: int|null|false, trim?: bool|null, fullSizedSamples?: InvMastAlsoBoughtListItemFullSizedSamples|null|false, swatchSample?: InvMastAlsoBoughtListItemFullSizedSamples|null|false, itemVariantHdrUid?: int|null, price1?: float|null, price2?: float|null, price3?: float|null, price4?: float|null, price5?: float|null, price6?: float|null, price7?: float|null, price8?: float|null, price9?: float|null, price10?: float|null}
  * @phpstan-type InvMastAlsoBoughtListItemInventorySupplierItem array{inventorySupplierUid: int, invMastUid: int, supplierId: float, upcCode: string, checkDigit: string, upc: string, supplierPartNo: string|null, primarySupplierFlag: string|null, listPrice: float|null}
  * @phpstan-type InvMastAlsoBoughtListItemItemUomItem array{unitOfMeasure: string, unitSize: float}
  * @phpstan-type InvMastAlsoBoughtListItemLegacyPersonalizationItem array{itemPersonalizationHdrUid: int, invMastUid: int, itemOptionsHdrUid: int, ordering: int|null, defaultItemOptionsLineUid: int|null, required: int|null, dateLastModified: string|null, dateCreated: string|null, updateCd: int, statusCd: int, processCd: int, itemOptionsHdr: InvMastAlsoBoughtListItemLegacyPersonalizationItemItemOptionsHdr, itemPersonalizationLines: list<InvMastAlsoBoughtListItemLegacyPersonalizationItemItemPersonalizationLinesItem>}

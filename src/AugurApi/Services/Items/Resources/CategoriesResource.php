@@ -30,8 +30,8 @@ use AugurApi\Core\Client;
  *   itemCategoryUid: int — Category ID (item_category.item_category_uid)
  *   itemCategoryId: string — Category code
  *   itemCategoryDesc: string — Category description
- *   categoryImage: string|bool — Category image path, or false when none
- *   categoryText: string|bool — Category text, or false when none
+ *   categoryImage: string|false — Category image path, or false when none
+ *   categoryText: string|false — Category text, or false when none
  *   parentItemCategoryUid: int — Parent category ID
  *   nodeCount: int — Depth of the category in the hierarchy
  *   fullPath: string|null — Full hierarchy path
@@ -52,7 +52,7 @@ use AugurApi\Core\Client;
  *             category, with its online item count
  *   childrenTotal: int — Children before childrenFilter and paging
  *   childrenCount: int — Children returned
- *   userDefined?: array<string, string> — User-defined fields (only with includeUd=Y)
+ *   userDefined?: array<string, string>|null — User-defined fields (only with includeUd=Y)
  *     map of string
  *
  * CategoriesLookupGetDataChildrenOption1Item: One active child category of a category, with its
@@ -64,19 +64,24 @@ use AugurApi\Core\Client;
  *   statusCd: int — Status code (704 = Active; only active children are listed)
  *   fullPath: string|null — Full hierarchy path
  *   cleanPath: string|null — URL-safe hierarchy path
- *   categoryImage: string|bool — Category image path, or false when none
+ *   categoryImage: string|false — Category image path, or false when none
  *   sequenceNo: int — Display order under the parent
  *   productCollection: string|null — Product collection
  *   itemCount: int — Online items in the category
- *   userDefined?: array<string, string> — User-defined fields (only with includeUd=Y)
+ *   userDefined?: array<string, string>|null — User-defined fields (only with includeUd=Y)
  *     map of string
- *   roomScene?: CategoriesLookupGetDataChildrenOption1ItemRoomSceneOption1|bool|null — Primary
+ *   roomScene?: CategoriesLookupGetDataChildrenOption1ItemRoomSceneOption1|null|false — Primary
  *       room-scene asset, false when none, null when the lookup failed (trinitysurfaces only)
+ *     one of:
+ *       CategoriesLookupGetDataChildrenOption1ItemRoomSceneOption1|null — A category's primary
+ *           Brandfolder room-scene asset (sequence 1)
+ *       false
  *   colorList?: list<string>|null — Brandfolder color names (trinitysurfaces only)
  *   colorCount?: int|null — Brandfolder color count (trinitysurfaces only)
  *   bf?: bool|null — True when the Brandfolder lookup succeeded (trinitysurfaces only)
  *
- * CategoriesLookupGetDataChildrenOption1ItemRoomSceneOption1:
+ * CategoriesLookupGetDataChildrenOption1ItemRoomSceneOption1: A category's primary Brandfolder
+ * room-scene asset (sequence 1)
  * Field `roomScene` of CategoriesLookupGetDataChildrenOption1Item
  *   id: string — Brandfolder asset ID
  *   name: string|null — Asset name
@@ -132,9 +137,9 @@ use AugurApi\Core\Client;
  * BrandsFacetsListDataItemsItem: One item hit: the items service inv_mast doc (GET
  * /api/items/{invMastUid}) plus its search score
  * Field `items` of BrandsFacetsListData
- *   score: int|float|null — OpenSearch relevance score, or null when the search was sorted
- *   brandFolder?: BrandsFacetsListDataItemsItemBrandFolder — Brandfolder assets; the key is present
- *       only when useBrandFolderDoc=Y
+ *   score: float|null — OpenSearch relevance score, or null when the search was sorted
+ *   brandFolder?: BrandsFacetsListDataItemsItemBrandFolder|null — Brandfolder assets; the key is
+ *       present only when useBrandFolderDoc=Y
  *
  * BrandsFacetsListDataItemsItemBrandFolder: Brandfolder assets; the key is present only when
  * useBrandFolderDoc=Y
@@ -251,15 +256,23 @@ use AugurApi\Core\Client;
  *     each item: CategoriesItemsListDataItemsItemInventorySupplierItem — One supplier of an item
  *         (InventorySupplierHelper::generateDoc)
  *   displayDesc: string — The item's display description in this category
- *   stock?: InvMastStockGetData — Stock by location and per company (only with includeStock=Y)
+ *   stock?: InvMastStockGetData|null — Stock by location and per company (only with includeStock=Y)
  *   samplesApp?: bool|null — True when the 4th character of classId5 is 1 (trinitysurfaces only)
  *   trim?: bool|null — True when the trim user-defined field is Y (trinitysurfaces only)
- *   fullSizedSamples?: CategoriesItemsListDataItemsItemFullSizedSamplesOption1|bool|null —
+ *   fullSizedSamples?: CategoriesItemsListDataItemsItemFullSizedSamplesOption1|null|false —
  *       Full-sized sample item, or false (trinitysurfaces only)
- *   swatchSample?: CategoriesItemsListDataItemsItemFullSizedSamplesOption1|bool|null — Swatch
+ *     one of:
+ *       CategoriesItemsListDataItemsItemFullSizedSamplesOption1|null — A sample item linked from an
+ *           item's user-defined fields (trinitysurfaces)
+ *       false
+ *   swatchSample?: CategoriesItemsListDataItemsItemFullSizedSamplesOption1|null|false — Swatch
  *       sample item, or false (trinitysurfaces only)
- *   brandFolder?: BrandsFacetsListDataItemsItemBrandFolder — Brandfolder assets (trinitysurfaces
- *       only)
+ *     one of:
+ *       CategoriesItemsListDataItemsItemFullSizedSamplesOption1|null — A sample item linked from an
+ *           item's user-defined fields (trinitysurfaces)
+ *       false
+ *   brandFolder?: BrandsFacetsListDataItemsItemBrandFolder|null — Brandfolder assets
+ *       (trinitysurfaces only)
  *
  * CategoriesItemsListDataItemsItemItemUomItem: One unit of measure an item is sold in
  * Field `itemUom` of CategoriesItemsListDataItemsItem
@@ -318,7 +331,8 @@ use AugurApi\Core\Client;
  *   calcQtyAvailable: float — qtyAvailable in selling units
  *   locationName: string — Location name, or "Location {locationId}" when it cannot be resolved
  *
- * CategoriesItemsListDataItemsItemFullSizedSamplesOption1:
+ * CategoriesItemsListDataItemsItemFullSizedSamplesOption1: A sample item linked from an item's
+ * user-defined fields (trinitysurfaces)
  * Field `fullSizedSamples` of CategoriesItemsListDataItemsItem
  * Field `swatchSample` of CategoriesItemsListDataItemsItem
  *   itemId: string — Sample item ID
@@ -326,15 +340,15 @@ use AugurApi\Core\Client;
  *   classId5: string|null — Sample item class 5
  *   samplesApp: bool — True when the 4th character of classId5 is 1
  *
- * @phpstan-type CategoriesLookupGetData array{itemCategoryUid: int, itemCategoryId: string, itemCategoryDesc: string, categoryImage: string|bool, categoryText: string|bool, parentItemCategoryUid: int, nodeCount: int, fullPath: string|null, cleanPath: string|null, displayOnWebFlag: string, subItemCategoryUids: list<int>, maxItems: int, itemsByCategory: int, children: list<CategoriesLookupGetDataChildrenOption1Item>|array<string, CategoriesLookupGetDataChildrenOption1Item>, childrenTotal: int, childrenCount: int, userDefined?: array<string, string>}
- * @phpstan-type CategoriesLookupGetDataChildrenOption1Item array{itemCategoryUid: int, itemCategoryId: string, itemCategoryDesc: string, statusCd: int, fullPath: string|null, cleanPath: string|null, categoryImage: string|bool, sequenceNo: int, productCollection: string|null, itemCount: int, userDefined?: array<string, string>, roomScene?: CategoriesLookupGetDataChildrenOption1ItemRoomSceneOption1|bool|null, colorList?: list<string>|null, colorCount?: int|null, bf?: bool|null}
+ * @phpstan-type CategoriesLookupGetData array{itemCategoryUid: int, itemCategoryId: string, itemCategoryDesc: string, categoryImage: string|false, categoryText: string|false, parentItemCategoryUid: int, nodeCount: int, fullPath: string|null, cleanPath: string|null, displayOnWebFlag: string, subItemCategoryUids: list<int>, maxItems: int, itemsByCategory: int, children: list<CategoriesLookupGetDataChildrenOption1Item>|array<string, CategoriesLookupGetDataChildrenOption1Item>, childrenTotal: int, childrenCount: int, userDefined?: array<string, string>|null}
+ * @phpstan-type CategoriesLookupGetDataChildrenOption1Item array{itemCategoryUid: int, itemCategoryId: string, itemCategoryDesc: string, statusCd: int, fullPath: string|null, cleanPath: string|null, categoryImage: string|false, sequenceNo: int, productCollection: string|null, itemCount: int, userDefined?: array<string, string>|null, roomScene?: CategoriesLookupGetDataChildrenOption1ItemRoomSceneOption1|null|false, colorList?: list<string>|null, colorCount?: int|null, bf?: bool|null}
  * @phpstan-type CategoriesLookupGetDataChildrenOption1ItemRoomSceneOption1 array{id: string, name: string|null, cdnLink: string, sequenceNo: int}
  * @phpstan-type BrandsAttributesListData array{attributes: list<BrandsAttributesListDataAttributesItem>}
  * @phpstan-type BrandsAttributesListDataAttributesItem array{attributeUid: int, attributeId: string, attributeDesc: string|null, sequenceNo: int|null, values: list<BrandsAttributesListDataAttributesItemValuesItem>, valueCount?: int|null}
  * @phpstan-type BrandsAttributesListDataAttributesItemValuesItem array{attributeValueUid: int, attributeValue: string, sequenceNo: int|null}
  * @phpstan-type BrandsFacetsListData array{meta: BrandsFacetsListDataMeta, items: list<BrandsFacetsListDataItemsItem>, facets: list<BrandsFacetsListDataFacetsItem>}
  * @phpstan-type BrandsFacetsListDataMeta array{took: int, total: int, pageableTotal: int, maxScore: float|null}
- * @phpstan-type BrandsFacetsListDataItemsItem array{score: int|float|null, brandFolder?: BrandsFacetsListDataItemsItemBrandFolder}
+ * @phpstan-type BrandsFacetsListDataItemsItem array{score: float|null, brandFolder?: BrandsFacetsListDataItemsItemBrandFolder|null}
  * @phpstan-type BrandsFacetsListDataItemsItemBrandFolder array{assets?: list<BrandsFacetsListDataItemsItemBrandFolderAssetsItem>|null}
  * @phpstan-type BrandsFacetsListDataItemsItemBrandFolderAssetsItem array{id: string, name: string|null, attachmentName: string|null, cdnLink: string, layout: string}
  * @phpstan-type BrandsFacetsListDataFacetsItem array{attributeUid: int, attributeId: string, label: string, sequence: int, headCoveragePct: float, values: list<BrandsFacetsListDataFacetsItemValuesItem>}
@@ -343,7 +357,7 @@ use AugurApi\Core\Client;
  * @phpstan-type CategoriesImagesListDataBrandFolderAssetsItem array{id: string, name: string|null, cdnLink: string, sequenceNo: int, statusCd: int, hasWebTag: bool, hasRoomSceneTag: bool}
  * @phpstan-type CategoriesImagesListDataBrandFolderArchivesItem array{id: string, name: string|null, type: string, attachmentName: string|null, cdnLink: string}
  * @phpstan-type CategoriesItemsListData array{itemCategoryUid: int, itemCategoryId: string, itemCategoryDesc: string, took: int, total: int, items: list<CategoriesItemsListDataItemsItem>, count: int}
- * @phpstan-type CategoriesItemsListDataItemsItem array{invMastUid: int, itemId: string, itemDesc: string|null, extendedDesc: string|null, brandName: string|null, manufacturerName: string|null, shortCode: string|null, classId1: string|null, classId2: string|null, classId3: string|null, classId4: string|null, classId5: string|null, images: list<string>, defaultSellingUnit: string|null, itemUom: list<CategoriesItemsListDataItemsItemItemUomItem>, vndrStock: int, inventorySupplier: list<CategoriesItemsListDataItemsItemInventorySupplierItem>, displayDesc: string, stock?: InvMastStockGetData, samplesApp?: bool|null, trim?: bool|null, fullSizedSamples?: CategoriesItemsListDataItemsItemFullSizedSamplesOption1|bool|null, swatchSample?: CategoriesItemsListDataItemsItemFullSizedSamplesOption1|bool|null, brandFolder?: BrandsFacetsListDataItemsItemBrandFolder}
+ * @phpstan-type CategoriesItemsListDataItemsItem array{invMastUid: int, itemId: string, itemDesc: string|null, extendedDesc: string|null, brandName: string|null, manufacturerName: string|null, shortCode: string|null, classId1: string|null, classId2: string|null, classId3: string|null, classId4: string|null, classId5: string|null, images: list<string>, defaultSellingUnit: string|null, itemUom: list<CategoriesItemsListDataItemsItemItemUomItem>, vndrStock: int, inventorySupplier: list<CategoriesItemsListDataItemsItemInventorySupplierItem>, displayDesc: string, stock?: InvMastStockGetData|null, samplesApp?: bool|null, trim?: bool|null, fullSizedSamples?: CategoriesItemsListDataItemsItemFullSizedSamplesOption1|null|false, swatchSample?: CategoriesItemsListDataItemsItemFullSizedSamplesOption1|null|false, brandFolder?: BrandsFacetsListDataItemsItemBrandFolder|null}
  * @phpstan-type CategoriesItemsListDataItemsItemItemUomItem array{unitOfMeasure: string, unitSize: float}
  * @phpstan-type CategoriesItemsListDataItemsItemInventorySupplierItem array{inventorySupplierUid: int, invMastUid: int, supplierId: float, upcCode: string, checkDigit: string, upc: string, supplierPartNo: string|null, primarySupplierFlag: string|null, listPrice: float|null}
  * @phpstan-type InvMastStockGetData array{stockData: list<InvMastStockGetDataStockDataItem>, companySummary: array<string, float>}

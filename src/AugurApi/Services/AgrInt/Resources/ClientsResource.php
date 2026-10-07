@@ -55,17 +55,16 @@ use AugurApi\Core\Client;
  *
  * ClientsCreateData: Result of issuing an agr_int client credential (GH#114).
  * Returned by: $api->agrInt->clients->create($data)
- *   clientsUid?: int — Client credential unique ID; 0 when issuing failed
- *   clientId?: string — Public client identifier (agrc_ prefix)
- *   usersUid?: int — agr_int user the credential acts as
- *   keyVersion?: int — Site secret key version the client_id was issued under
- *   clientName?: string — Admin-facing label, e.g. the connector name
- *   description?: string|null — Admin-facing notes
- *   issuedById?: int|null — ID of the admin who issued the credential; null when issued from the
- *       CLI
- *   issuedByUsername?: string|null — Username of the admin who issued the credential
- *   statusCd?: int — Status code: 704 = Active
- *   credential?: string — Full bearer string agrc_<clientId>.<secret><crc32>
+ *   clientsUid: int — Client credential unique ID; 0 when issuing failed
+ *   clientId: string — Public client identifier (agrc_ prefix)
+ *   usersUid: int — agr_int user the credential acts as
+ *   keyVersion: int — Site secret key version the client_id was issued under
+ *   clientName: string — Admin-facing label, e.g. the connector name
+ *   description: string|null — Admin-facing notes
+ *   issuedById: int|null — ID of the admin who issued the credential; null when issued from the CLI
+ *   issuedByUsername: string|null — Username of the admin who issued the credential
+ *   statusCd: int — Status code: 704 = Active
+ *   credential: string — Full bearer string agrc_<clientId>.<secret><crc32>
  *
  * ClientsCreateBody: Issue a client credential for an existing ACTIVE agr_int user; issuedById and
  * issuedByUsername come from the admin bearer, never the body
@@ -77,17 +76,17 @@ use AugurApi\Core\Client;
  *
  * ClientsValidateCreateData: Result of validating a presented agr_int client credential (GH#114).
  * Returned by: $api->agrInt->clients->createValidate($data)
- *   valid?: bool — True only when the credential decrypts, matches, and its client and user are
+ *   valid: bool — True only when the credential decrypts, matches, and its client and user are
  *       ACTIVE
- *   siteId?: string — Site decrypted from the client_id; consumers MUST scope the connection to it
- *   tokenUse?: string — Always "client" for a valid credential
- *   clientUid?: int — Client credential unique ID
- *   clientId?: string — Public client identifier (agrc_ prefix)
- *   usersUid?: int — agr_int user the credential acts as
- *   username?: string — Username of that user
- *   roles?: list<string> — Active role ids the owning user holds
- *   bundles?: list<string> — Active bundle ids granted through those roles
- *   resources?: list<string> — P21 table set (resources.resource_path) the credential may query
+ *   siteId: string — Site decrypted from the client_id; consumers MUST scope the connection to it
+ *   tokenUse: string — Always "client" for a valid credential
+ *   clientUid: int — Client credential unique ID
+ *   clientId: string — Public client identifier (agrc_ prefix)
+ *   usersUid: int — agr_int user the credential acts as
+ *   username: string — Username of that user
+ *   roles: list<string> — Active role ids the owning user holds
+ *   bundles: list<string> — Active bundle ids granted through those roles
+ *   resources: list<string> — P21 table set (resources.resource_path) the credential may query
  *
  * ClientsValidateCreateBody: Introspect a client credential: send either credential (bearer form)
  * or clientId plus secret (Basic form)
@@ -99,28 +98,26 @@ use AugurApi\Core\Client;
  *
  * ClientsGetData: A single agr_int client credential with its recoverable secret (GH#115).
  * Returned by: $api->agrInt->clients->get($clientsUid)
- *   clientsUid?: int — Client credential unique ID
- *   clientId?: string — Public client identifier (agrc_ prefix)
- *   clientSecret?: string — Re-derived 43-char client secret; '' when the credential is not
+ *   clientsUid: int — Client credential unique ID
+ *   clientId: string — Public client identifier (agrc_ prefix)
+ *   clientSecret: string — Re-derived 43-char client secret; '' when the credential is not
  *       revealable
- *   usersUid?: int — agr_int user the credential acts as
- *   keyVersion?: int — Site secret key version the client_id was issued under
- *   clientName?: string — Admin-facing label, e.g. the connector name
- *   description?: string|null — Admin-facing notes
- *   issuedById?: int|null — ID of the admin who issued the credential; null when issued from the
- *       CLI
- *   issuedByUsername?: string|null — Username of the admin who issued the credential
- *   retiredById?: int|null — ID of the admin who retired the credential; null while active
- *   retiredByUsername?: string|null — Username of the admin who retired the credential
- *   dateLastUsed?: string|null — When the credential last authenticated (Y-m-d H:i:s); null if
- *       never used
- *   dateCreated?: string — When the credential was issued (Y-m-d H:i:s)
- *   dateLastModified?: string — When the credential was last modified (Y-m-d H:i:s)
- *   updateCd?: int — Update code (1185 = Import Complete)
- *   statusCd?: int — Status code: 704 = Active, 705 = Inactive, 700 = Retired
- *   processCd?: int — Process code
- *   credential?: string — Full bearer string agrc_<clientId>.<secret><crc32>; '' when not
- *       revealable
+ *   usersUid: int — agr_int user the credential acts as
+ *   keyVersion: int — Site secret key version the client_id was issued under
+ *   clientName: string — Admin-facing label, e.g. the connector name
+ *   description: string|null — Admin-facing notes
+ *   issuedById: int|null — ID of the admin who issued the credential; null when issued from the CLI
+ *   issuedByUsername: string|null — Username of the admin who issued the credential
+ *   retiredById: int|null — ID of the admin who retired the credential; null while active
+ *   retiredByUsername: string|null — Username of the admin who retired the credential
+ *   dateLastUsed: string|null — When the credential last authenticated (Y-m-d H:i:s); null if never
+ *       used
+ *   dateCreated: string — When the credential was issued (Y-m-d H:i:s)
+ *   dateLastModified: string — When the credential was last modified (Y-m-d H:i:s)
+ *   updateCd: int — Update code (1185 = Import Complete)
+ *   statusCd: int — Status code: 704 = Active, 705 = Inactive, 700 = Retired
+ *   processCd: int — Process code
+ *   credential: string — Full bearer string agrc_<clientId>.<secret><crc32>; '' when not revealable
  *
  * ClientsUpdateBody: Partial update of a client credential; usersUid, clientId, clientSecret and
  * keyVersion are immutable, and a retired (700) client refuses every update
@@ -135,11 +132,11 @@ use AugurApi\Core\Client;
  *       Deleted); any other value refuses the update
  *
  * @phpstan-type ClientsListItem array{clientsUid: int, clientId: string, usersUid: int, keyVersion: int, clientName: string, description: string|null, issuedById: int|null, issuedByUsername: string|null, retiredById: int|null, retiredByUsername: string|null, dateLastUsed: string|null, dateCreated: string, dateLastModified: string, updateCd: int, statusCd: int, processCd: int}
- * @phpstan-type ClientsCreateData array{clientsUid?: int, clientId?: string, usersUid?: int, keyVersion?: int, clientName?: string, description?: string|null, issuedById?: int|null, issuedByUsername?: string|null, statusCd?: int, credential?: string}
+ * @phpstan-type ClientsCreateData array{clientsUid: int, clientId: string, usersUid: int, keyVersion: int, clientName: string, description: string|null, issuedById: int|null, issuedByUsername: string|null, statusCd: int, credential: string}
  * @phpstan-type ClientsCreateBody array{usersUid: int|null, clientName: string|null, description?: string|null}
- * @phpstan-type ClientsValidateCreateData array{valid?: bool, siteId?: string, tokenUse?: string, clientUid?: int, clientId?: string, usersUid?: int, username?: string, roles?: list<string>, bundles?: list<string>, resources?: list<string>}
+ * @phpstan-type ClientsValidateCreateData array{valid: bool, siteId: string, tokenUse: string, clientUid: int, clientId: string, usersUid: int, username: string, roles: list<string>, bundles: list<string>, resources: list<string>}
  * @phpstan-type ClientsValidateCreateBody array{credential?: string, clientId?: string, secret?: string}
- * @phpstan-type ClientsGetData array{clientsUid?: int, clientId?: string, clientSecret?: string, usersUid?: int, keyVersion?: int, clientName?: string, description?: string|null, issuedById?: int|null, issuedByUsername?: string|null, retiredById?: int|null, retiredByUsername?: string|null, dateLastUsed?: string|null, dateCreated?: string, dateLastModified?: string, updateCd?: int, statusCd?: int, processCd?: int, credential?: string}
+ * @phpstan-type ClientsGetData array{clientsUid: int, clientId: string, clientSecret: string, usersUid: int, keyVersion: int, clientName: string, description: string|null, issuedById: int|null, issuedByUsername: string|null, retiredById: int|null, retiredByUsername: string|null, dateLastUsed: string|null, dateCreated: string, dateLastModified: string, updateCd: int, statusCd: int, processCd: int, credential: string}
  * @phpstan-type ClientsUpdateBody array{clientName?: string|null, description?: string|null, statusCd?: int|null, processCd?: int|null, updateCd?: int|null}
  */
 final class ClientsResource

@@ -133,7 +133,8 @@ final class DistributorsResource
      *   limit?: int — Limit number of results (Default: 10)
      *   offset?: int — Starting offset results (Default: 0)
      *   orderBy?: string — Order By (Default: distributors_uid|ASC)
-     *   statusCd?: int — Status Code (status_cd) [(704)|705,700]
+     *   statusCd?: int|int[] — Status code or list of codes (700=DELETE, 704=ACTIVE, 705=INACTIVE),
+     *       sent comma-joined (704,705); -1 for every status. Default: 704
      *
      * $params also takes edgeCache, the Cloudflare edge cache time: '30s', '1m', '5m', or 1-5 or 8
      * (hours).
@@ -192,6 +193,7 @@ final class DistributorsResource
      * Call: $api->vmi->distributors->delete($distributorsUid)
      *
      * Errors:
+     *   400: distributorsUid is below 1.
      *   404: No row exists with this ID.
      *
      * DELETE https://vmi.augur-api.com/distributors/{distributorsUid}
@@ -222,6 +224,10 @@ final class DistributorsResource
      *
      * Get distributor Details
      * Call: $api->vmi->distributors->get($distributorsUid)
+     *
+     * Errors:
+     *   400: distributorsUid is below 1.
+     *   404: No distributor with this distributorsUid.
      *
      * GET https://vmi.augur-api.com/distributors/{distributorsUid}
      * Contract: https://vmi.augur-api.com/openapi.json#/paths/~1distributors~1{distributorsUid}/get
@@ -298,6 +304,7 @@ final class DistributorsResource
      * Response data: Outcome of an enable, disable, or delete request
      *
      * Errors:
+     *   400: distributorsUid is below 1.
      *   404: No row exists with this ID.
      *
      * PUT https://vmi.augur-api.com/distributors/{distributorsUid}/enable
@@ -338,6 +345,7 @@ final class DistributorsResource
      *
      * Errors:
      *   400: Bad request: the body is missing or a parameter is invalid; message says which.
+     *   404: No distributor with this distributorsUid.
      *
      * POST https://vmi.augur-api.com/distributors/{distributorsUid}/products
      * Contract:

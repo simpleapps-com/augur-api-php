@@ -32,7 +32,7 @@ use AugurApi\Core\Client;
  *   status?: string|null — COMPLETED, DECLINED, PARTIALLY_REFUNDED, PENDING, REFUNDED or FAILED
  *   statusDetails?: array<string, mixed>|array{}|null — Reason the capture is in its status ([]
  *       when empty)
- *   amount?: PaypalAuthorizationCaptureCreateDataOption1Amount — Captured amount
+ *   amount?: PaypalAuthorizationCaptureCreateDataOption1Amount|null — Captured amount
  *   invoiceId?: string|null — Invoice identifier
  *   customId?: string|null — Merchant custom ID sent with the order
  *   networkTransactionReference?: array<string, mixed>|array{}|null — Card network transaction
@@ -124,7 +124,7 @@ use AugurApi\Core\Client;
  *   status?: string|null — CREATED, CAPTURED, DENIED, PARTIALLY_CAPTURED, VOIDED or PENDING
  *   statusDetails?: array<string, mixed>|array{}|null — Reason the authorization is in its status
  *       ([] when empty)
- *   amount?: PaypalAuthorizationCaptureCreateDataOption1Amount — Authorized amount
+ *   amount?: PaypalAuthorizationCaptureCreateDataOption1Amount|null — Authorized amount
  *   invoiceId?: string|null — Invoice identifier sent with the order
  *   customId?: string|null — Merchant custom ID sent with the order
  *   networkTransactionReference?: array<string, mixed>|array{}|null — Card network transaction
@@ -158,7 +158,7 @@ use AugurApi\Core\Client;
  *   status?: string|null — CANCELLED, FAILED, PENDING or COMPLETED
  *   statusDetails?: array<string, mixed>|array{}|null — Reason the refund is in its status ([] when
  *       empty)
- *   amount?: PaypalAuthorizationCaptureCreateDataOption1Amount — Refunded amount
+ *   amount?: PaypalAuthorizationCaptureCreateDataOption1Amount|null — Refunded amount
  *   invoiceId?: string|null — Invoice identifier
  *   customId?: string|null — Merchant custom ID
  *   acquirerReferenceNumber?: string|null — Card network acquirer reference number
@@ -196,7 +196,7 @@ use AugurApi\Core\Client;
  *       the payments made against each
  *     each item: PaypalOrderCreateDataOption1PurchaseUnitsItem — One PayPal order purchase unit; a
  *         field PayPal did not send is absent
- *   payer?: PaypalOrderCreateDataOption1Payer — Buyer who approved the order
+ *   payer?: PaypalOrderCreateDataOption1Payer|null — Buyer who approved the order
  *   createTime?: string|null — When the order was created (ISO 8601)
  *   updateTime?: string|null — When the order was last updated (ISO 8601)
  *   links?: list<PaypalAuthorizationCaptureCreateDataOption1LinksItem>|null — Related actions; rel
@@ -209,7 +209,7 @@ use AugurApi\Core\Client;
  * not send is absent
  * Field `purchaseUnits` of PaypalOrderCreateDataOption1
  *   referenceId?: string|null — Purchase unit reference ID
- *   amount?: PaypalAuthorizationCaptureCreateDataOption1Amount — Purchase unit amount
+ *   amount?: PaypalAuthorizationCaptureCreateDataOption1Amount|null — Purchase unit amount
  *   payee?: array<string, mixed>|array{}|null — Merchant receiving the payment ([] when empty)
  *   paymentInstruction?: array<string, mixed>|array{}|null — Platform fees and disbursement
  *       instructions ([] when empty)
@@ -220,8 +220,8 @@ use AugurApi\Core\Client;
  *   shipping?: array<string, mixed>|array{}|null — Shipping name, address and options ([] when
  *       empty)
  *   supplementaryData?: array<string, mixed>|array{}|null — Card and level 2/3 data ([] when empty)
- *   payments?: PaypalOrderCreateDataOption1PurchaseUnitsItemPayments — Authorizations, captures and
- *       refunds made against the unit
+ *   payments?: PaypalOrderCreateDataOption1PurchaseUnitsItemPayments|null — Authorizations,
+ *       captures and refunds made against the unit
  *
  * PaypalOrderCreateDataOption1PurchaseUnitsItemPayments: Authorizations, captures and refunds made
  * against the unit
@@ -240,13 +240,13 @@ use AugurApi\Core\Client;
  *
  * PaypalOrderCreateDataOption1Payer: Buyer who approved the order
  * Field `payer` of PaypalOrderCreateDataOption1
- *   name?: PaypalOrderCreateDataOption1PayerName — Payer name
+ *   name?: PaypalOrderCreateDataOption1PayerName|null — Payer name
  *   emailAddress?: string|null — Payer email address
  *   payerId?: string|null — PayPal payer ID (the PayerID PayPal appends to the return URL)
  *   phone?: array<string, mixed>|array{}|null — Payer phone ([] when empty)
  *   birthDate?: string|null — Payer birth date (YYYY-MM-DD)
  *   taxInfo?: array<string, mixed>|array{}|null — Payer tax ID ([] when empty)
- *   address?: PaypalOrderCreateDataOption1PayerAddress — Payer address
+ *   address?: PaypalOrderCreateDataOption1PayerAddress|null — Payer address
  *
  * PaypalOrderCreateDataOption1PayerName: Payer name
  * Field `name` of PaypalOrderCreateDataOption1Payer
@@ -296,20 +296,20 @@ use AugurApi\Core\Client;
  *   resource?: array<string, mixed>|array{}|null — The PayPal resource the event is about, as
  *       PayPal sent it ([] when empty)
  *
- * @phpstan-type PaypalAuthorizationCaptureCreateDataOption1 array{id: string, status?: string|null, statusDetails?: array<string, mixed>|array{}|null, amount?: PaypalAuthorizationCaptureCreateDataOption1Amount, invoiceId?: string|null, customId?: string|null, networkTransactionReference?: array<string, mixed>|array{}|null, sellerProtection?: array<string, mixed>|array{}|null, finalCapture?: bool|null, sellerReceivableBreakdown?: array<string, mixed>|array{}|null, disbursementMode?: string|null, links?: list<PaypalAuthorizationCaptureCreateDataOption1LinksItem>|null, processorResponse?: array<string, mixed>|array{}|null, createTime?: string|null, updateTime?: string|null, supplementaryData?: array<string, mixed>|array{}|null, payee?: array<string, mixed>|array{}|null}
+ * @phpstan-type PaypalAuthorizationCaptureCreateDataOption1 array{id: string, status?: string|null, statusDetails?: array<string, mixed>|array{}|null, amount?: PaypalAuthorizationCaptureCreateDataOption1Amount|null, invoiceId?: string|null, customId?: string|null, networkTransactionReference?: array<string, mixed>|array{}|null, sellerProtection?: array<string, mixed>|array{}|null, finalCapture?: bool|null, sellerReceivableBreakdown?: array<string, mixed>|array{}|null, disbursementMode?: string|null, links?: list<PaypalAuthorizationCaptureCreateDataOption1LinksItem>|null, processorResponse?: array<string, mixed>|array{}|null, createTime?: string|null, updateTime?: string|null, supplementaryData?: array<string, mixed>|array{}|null, payee?: array<string, mixed>|array{}|null}
  * @phpstan-type PaypalAuthorizationCaptureCreateDataOption1Amount array{currencyCode: string, value: string, breakdown?: array<string, mixed>|array{}|null}
  * @phpstan-type PaypalAuthorizationCaptureCreateDataOption1LinksItem array{href: string, rel: string, method?: string|null}
  * @phpstan-type PaypalAuthorizationCaptureCreateDataOption2 array{success: bool, statusMessage?: string|null, name?: string|null, details?: list<PaypalAuthorizationCaptureCreateDataOption2DetailsItem>|null, debugId?: string|null, responseBody?: string|null, statusCode?: int|null}
  * @phpstan-type PaypalAuthorizationCaptureCreateDataOption2DetailsItem array{issue?: string|null, description?: string|null, field?: string|null, value?: string|null, location?: string|null}
  * @phpstan-type PaypalAuthorizationCaptureCreateBody array{authorizationId: string|null, amount?: float|null, invoiceId?: string|null, finalCapture?: bool|null, testMode?: bool|null}
- * @phpstan-type PaypalAuthorizationVoidCreateDataOption1 array{id: string, status?: string|null, statusDetails?: array<string, mixed>|array{}|null, amount?: PaypalAuthorizationCaptureCreateDataOption1Amount, invoiceId?: string|null, customId?: string|null, networkTransactionReference?: array<string, mixed>|array{}|null, sellerProtection?: array<string, mixed>|array{}|null, expirationTime?: string|null, links?: list<PaypalAuthorizationCaptureCreateDataOption1LinksItem>|null, createTime?: string|null, updateTime?: string|null, processorResponse?: array<string, mixed>|array{}|null, supplementaryData?: array<string, mixed>|array{}|null, payee?: array<string, mixed>|array{}|null}
+ * @phpstan-type PaypalAuthorizationVoidCreateDataOption1 array{id: string, status?: string|null, statusDetails?: array<string, mixed>|array{}|null, amount?: PaypalAuthorizationCaptureCreateDataOption1Amount|null, invoiceId?: string|null, customId?: string|null, networkTransactionReference?: array<string, mixed>|array{}|null, sellerProtection?: array<string, mixed>|array{}|null, expirationTime?: string|null, links?: list<PaypalAuthorizationCaptureCreateDataOption1LinksItem>|null, createTime?: string|null, updateTime?: string|null, processorResponse?: array<string, mixed>|array{}|null, supplementaryData?: array<string, mixed>|array{}|null, payee?: array<string, mixed>|array{}|null}
  * @phpstan-type PaypalAuthorizationVoidCreateBody array{authorizationId: string|null, testMode?: bool|null}
- * @phpstan-type PaypalCaptureRefundCreateDataOption1 array{id: string, status?: string|null, statusDetails?: array<string, mixed>|array{}|null, amount?: PaypalAuthorizationCaptureCreateDataOption1Amount, invoiceId?: string|null, customId?: string|null, acquirerReferenceNumber?: string|null, noteToPayer?: string|null, sellerPayableBreakdown?: array<string, mixed>|array{}|null, payer?: array<string, mixed>|array{}|null, links?: list<PaypalAuthorizationCaptureCreateDataOption1LinksItem>|null, createTime?: string|null, updateTime?: string|null}
+ * @phpstan-type PaypalCaptureRefundCreateDataOption1 array{id: string, status?: string|null, statusDetails?: array<string, mixed>|array{}|null, amount?: PaypalAuthorizationCaptureCreateDataOption1Amount|null, invoiceId?: string|null, customId?: string|null, acquirerReferenceNumber?: string|null, noteToPayer?: string|null, sellerPayableBreakdown?: array<string, mixed>|array{}|null, payer?: array<string, mixed>|array{}|null, links?: list<PaypalAuthorizationCaptureCreateDataOption1LinksItem>|null, createTime?: string|null, updateTime?: string|null}
  * @phpstan-type PaypalCaptureRefundCreateBody array{captureId: string|null, amount?: float|null, invoiceId?: string|null, noteToPayer?: string|null, testMode?: bool|null}
- * @phpstan-type PaypalOrderCreateDataOption1 array{id: string, intent?: string|null, status?: string|null, paymentSource?: array<string, mixed>|array{}|null, purchaseUnits?: list<PaypalOrderCreateDataOption1PurchaseUnitsItem>|null, payer?: PaypalOrderCreateDataOption1Payer, createTime?: string|null, updateTime?: string|null, links?: list<PaypalAuthorizationCaptureCreateDataOption1LinksItem>|null, processingInstruction?: string|null}
- * @phpstan-type PaypalOrderCreateDataOption1PurchaseUnitsItem array{referenceId?: string|null, amount?: PaypalAuthorizationCaptureCreateDataOption1Amount, payee?: array<string, mixed>|array{}|null, paymentInstruction?: array<string, mixed>|array{}|null, description?: string|null, customId?: string|null, invoiceId?: string|null, softDescriptor?: string|null, shipping?: array<string, mixed>|array{}|null, supplementaryData?: array<string, mixed>|array{}|null, payments?: PaypalOrderCreateDataOption1PurchaseUnitsItemPayments}
+ * @phpstan-type PaypalOrderCreateDataOption1 array{id: string, intent?: string|null, status?: string|null, paymentSource?: array<string, mixed>|array{}|null, purchaseUnits?: list<PaypalOrderCreateDataOption1PurchaseUnitsItem>|null, payer?: PaypalOrderCreateDataOption1Payer|null, createTime?: string|null, updateTime?: string|null, links?: list<PaypalAuthorizationCaptureCreateDataOption1LinksItem>|null, processingInstruction?: string|null}
+ * @phpstan-type PaypalOrderCreateDataOption1PurchaseUnitsItem array{referenceId?: string|null, amount?: PaypalAuthorizationCaptureCreateDataOption1Amount|null, payee?: array<string, mixed>|array{}|null, paymentInstruction?: array<string, mixed>|array{}|null, description?: string|null, customId?: string|null, invoiceId?: string|null, softDescriptor?: string|null, shipping?: array<string, mixed>|array{}|null, supplementaryData?: array<string, mixed>|array{}|null, payments?: PaypalOrderCreateDataOption1PurchaseUnitsItemPayments|null}
  * @phpstan-type PaypalOrderCreateDataOption1PurchaseUnitsItemPayments array{authorizations?: list<PaypalAuthorizationVoidCreateDataOption1>|null, captures?: list<PaypalAuthorizationCaptureCreateDataOption1>|null, refunds?: list<PaypalCaptureRefundCreateDataOption1>|null}
- * @phpstan-type PaypalOrderCreateDataOption1Payer array{name?: PaypalOrderCreateDataOption1PayerName, emailAddress?: string|null, payerId?: string|null, phone?: array<string, mixed>|array{}|null, birthDate?: string|null, taxInfo?: array<string, mixed>|array{}|null, address?: PaypalOrderCreateDataOption1PayerAddress}
+ * @phpstan-type PaypalOrderCreateDataOption1Payer array{name?: PaypalOrderCreateDataOption1PayerName|null, emailAddress?: string|null, payerId?: string|null, phone?: array<string, mixed>|array{}|null, birthDate?: string|null, taxInfo?: array<string, mixed>|array{}|null, address?: PaypalOrderCreateDataOption1PayerAddress|null}
  * @phpstan-type PaypalOrderCreateDataOption1PayerName array{givenName?: string|null, surname?: string|null}
  * @phpstan-type PaypalOrderCreateDataOption1PayerAddress array{addressLine1?: string|null, addressLine2?: string|null, adminArea2?: string|null, adminArea1?: string|null, postalCode?: string|null, countryCode?: string|null}
  * @phpstan-type PaypalOrderCreateBody array{amount: float|null, intent: string|null, currencyCode?: string|null, invoiceId?: string|null, returnUrl?: string|null, cancelUrl?: string|null, testMode?: bool|null}

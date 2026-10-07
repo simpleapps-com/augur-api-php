@@ -60,7 +60,7 @@ use AugurApi\Core\Client;
  * Returned by: $api->agrInt->users->createVerify($data)
  *   usersUid: int — agr_int user unique ID; 0 means verification failed
  *   username: string — Username; '' on failure
- *   token?: string — Signed access JWT (scope agr-int-user) to present as a bearer; '' on failure
+ *   token: string — Signed access JWT (scope agr-int-user) to present as a bearer; '' on failure
  *
  * UsersRotateCreateBody: Exchange a current, still-valid agr_int user token for a fresh one
  * Request body of: $api->agrInt->users->createRotate($data)
@@ -69,16 +69,15 @@ use AugurApi\Core\Client;
  *
  * UsersValidateCreateData: Result of validating a presented agr_int user token.
  * Returned by: $api->agrInt->users->createValidate($data)
- *   valid?: bool — True only when the token verifies, has scope agr-int-user, and its user is
- *       ACTIVE
- *   scope?: string — Token scope; consumers MUST authorize on this, not on userId
- *   userId?: int — agr_int user unique ID (users_uid)
- *   username?: string — Username, refreshed from the user row
- *   email?: string — Email address, refreshed from the user row
- *   name?: string — Display name, refreshed from the user row
- *   roles?: list<string> — Active role ids the user holds
- *   bundles?: list<string> — Active bundle ids granted through those roles
- *   resources?: list<string> — P21 table set (resources.resource_path) the user may query
+ *   valid: bool — True only when the token verifies, has scope agr-int-user, and its user is ACTIVE
+ *   scope: string — Token scope; consumers MUST authorize on this, not on userId
+ *   userId: int — agr_int user unique ID (users_uid)
+ *   username: string — Username, refreshed from the user row
+ *   email: string — Email address, refreshed from the user row
+ *   name: string — Display name, refreshed from the user row
+ *   roles: list<string> — Active role ids the user holds
+ *   bundles: list<string> — Active bundle ids granted through those roles
+ *   resources: list<string> — P21 table set (resources.resource_path) the user may query
  *
  * UsersValidateCreateBody: Introspect an agr_int user access token
  * Request body of: $api->agrInt->users->createValidate($data)
@@ -133,9 +132,9 @@ use AugurApi\Core\Client;
  *
  * @phpstan-type UsersListItem array{usersUid: int, username: string, name: string|null, email: string, phoneNumber: string|null, dateCreated: string, dateLastModified: string, updateCd: int, statusCd: int, processCd: int}
  * @phpstan-type UsersCreateBody array{username: string, password: string, email: string, name?: string|null, phoneNumber?: string|null, statusCd?: int|null, processCd?: int|null, updateCd?: int|null}
- * @phpstan-type UsersRotateCreateData array{usersUid: int, username: string, token?: string}
+ * @phpstan-type UsersRotateCreateData array{usersUid: int, username: string, token: string}
  * @phpstan-type UsersRotateCreateBody array{token?: string}
- * @phpstan-type UsersValidateCreateData array{valid?: bool, scope?: string, userId?: int, username?: string, email?: string, name?: string, roles?: list<string>, bundles?: list<string>, resources?: list<string>}
+ * @phpstan-type UsersValidateCreateData array{valid: bool, scope: string, userId: int, username: string, email: string, name: string, roles: list<string>, bundles: list<string>, resources: list<string>}
  * @phpstan-type UsersValidateCreateBody array{token: string}
  * @phpstan-type UsersVerifyCreateBody array{siteId?: string, username?: string, password?: string}
  * @phpstan-type UsersUpdateBody array{username?: string|null, password?: string|null, name?: string|null, email?: string|null, phoneNumber?: string|null, statusCd?: int|null, processCd?: int|null, updateCd?: int|null}

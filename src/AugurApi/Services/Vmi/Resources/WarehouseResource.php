@@ -227,8 +227,8 @@ use AugurApi\Core\Client;
  *   qtyUsed: float — Quantity used
  *   usageHdrUid: int — Usage record the line belongs to
  *   usageLineUid: int — Usage line ID
- *   warranty?: WarehouseUsageCreateDataUsageItemsItemWarranty — Warranty claim; the key is absent
- *       when none was sent
+ *   warranty?: WarehouseUsageCreateDataUsageItemsItemWarranty|null — Warranty claim; the key is
+ *       absent when none was sent
  *
  * WarehouseUsageCreateDataUsageItemsItemWarranty: Warranty claim; the key is absent when none was
  * sent
@@ -255,7 +255,7 @@ use AugurApi\Core\Client;
  *   invMastUid: int|null — products_uid for a VMI product, inv_mast_uid for a Prophet 21 item
  *   qtyUsed: float|null — Quantity used; subtracted from on hand, never below zero
  *   invProfileLineType?: string|null — Item source: products or prophet21; defaults to prophet21
- *   warranty?: WarehouseUsageCreateBodyUsageItemsItemWarranty — Warranty claim for the item
+ *   warranty?: WarehouseUsageCreateBodyUsageItemsItemWarranty|null — Warranty claim for the item
  *
  * WarehouseUsageCreateBodyUsageItemsItemWarranty: Warranty claim for the item
  * Field `warranty` of WarehouseUsageCreateBodyUsageItemsItem
@@ -312,10 +312,10 @@ use AugurApi\Core\Client;
  * @phpstan-type WarehouseReplenishListDataLinesItem array{invMastUid: int, invProfileLineType: string, distributorsUid: int, distributorName: string, invProfileHdrUid: int, qtyOnHand: float, minQty: float, maxQty: float, reorderQty: float}
  * @phpstan-type WarehouseReplenishListDataParams array{warehouseUid: int, distributorsUid: int}
  * @phpstan-type WarehouseUsageCreateData array{department: string|null, jobDescription: string, usageHdrUid: int, usageItems: list<WarehouseUsageCreateDataUsageItemsItem>, warehouseUid: int}
- * @phpstan-type WarehouseUsageCreateDataUsageItemsItem array{invMastUid: int, invProfileLineType: string, lineNo: int, qtyOnHand: float, qtyUsed: float, usageHdrUid: int, usageLineUid: int, warranty?: WarehouseUsageCreateDataUsageItemsItemWarranty}
+ * @phpstan-type WarehouseUsageCreateDataUsageItemsItem array{invMastUid: int, invProfileLineType: string, lineNo: int, qtyOnHand: float, qtyUsed: float, usageHdrUid: int, usageLineUid: int, warranty?: WarehouseUsageCreateDataUsageItemsItemWarranty|null}
  * @phpstan-type WarehouseUsageCreateDataUsageItemsItemWarranty array{dateFailed: string|null, modelNo: string, notes: string|null, serialNo: string|null, usageLineUid: int, usageLineWarrantyUid: int, warrantyType: string|null}
  * @phpstan-type WarehouseUsageCreateBody array{jobDescription: string, usageItems: list<WarehouseUsageCreateBodyUsageItemsItem>, department?: string|null}
- * @phpstan-type WarehouseUsageCreateBodyUsageItemsItem array{invMastUid: int|null, qtyUsed: float|null, invProfileLineType?: string|null, warranty?: WarehouseUsageCreateBodyUsageItemsItemWarranty}
+ * @phpstan-type WarehouseUsageCreateBodyUsageItemsItem array{invMastUid: int|null, qtyUsed: float|null, invProfileLineType?: string|null, warranty?: WarehouseUsageCreateBodyUsageItemsItemWarranty|null}
  * @phpstan-type WarehouseUsageCreateBodyUsageItemsItemWarranty array{modelNo: string|null, serialNo?: string|null, warrantyType?: string|null, dateFailed?: string|null, notes?: string|null}
  * @phpstan-type WarehouseUsersCreateData array{warehouseXUsersUid: int, warehouseUid: int, usersId: int, dateCreated: string, dateLastModified: string, updateCd: int, statusCd: int, processCd: int}
  * @phpstan-type WarehouseUsersCreateBody array{usersId: int|null, makePrimaryUser?: bool|null}
@@ -349,7 +349,8 @@ final class WarehouseResource
      *   offset?: int — Starting offset results (Default: 0)
      *   orderBy?: string — Order By (Default: warehouse_uid|ASC)
      *   q?: string — Search Query
-     *   statusCd?: int — Status Code (status_cd) [(704)|(705)|(700)]
+     *   statusCd?: int|int[] — Status code or list of codes (700=DELETE, 704=ACTIVE, 705=INACTIVE),
+     *       sent comma-joined (704,705); -1 for every status. Default: 704
      *   usersId?: int — joomla.users.id; lists only the warehouses this user is assigned to
      *
      * $params also takes edgeCache, the Cloudflare edge cache time: '30s', '1m', '5m', or 1-5 or 8
@@ -409,6 +410,7 @@ final class WarehouseResource
      * Call: $api->vmi->warehouse->delete($warehouseUid)
      *
      * Errors:
+     *   400: warehouseUid is below 1.
      *   404: No row exists with this ID.
      *
      * DELETE https://vmi.augur-api.com/warehouse/{warehouseUid}
@@ -440,6 +442,10 @@ final class WarehouseResource
      * Call: $api->vmi->warehouse->get($warehouseUid)
      *
      * Response data: A warehouse with its active assigned users
+     *
+     * Errors:
+     *   400: warehouseUid is below 1.
+     *   404: No warehouse with this warehouseUid.
      *
      * GET https://vmi.augur-api.com/warehouse/{warehouseUid}
      * Contract: https://vmi.augur-api.com/openapi.json#/paths/~1warehouse~1{warehouseUid}/get
@@ -517,6 +523,7 @@ final class WarehouseResource
      *
      * Errors:
      *   400: Bad request: the body is missing or a parameter is invalid; message says which.
+     *   404: No warehouse with this warehouseUid.
      *
      * POST https://vmi.augur-api.com/warehouse/{warehouseUid}/adjust
      * Contract:
@@ -552,6 +559,10 @@ final class WarehouseResource
      * Call: $api->vmi->warehouse->listAvailability($warehouseUid)
      *
      * Response data: On-hand quantities of a warehouse's profile items, grouped by section
+     *
+     * Errors:
+     *   400: warehouseUid is below 1.
+     *   404: No warehouse with this warehouseUid.
      *
      * GET https://vmi.augur-api.com/warehouse/{warehouseUid}/availability
      * Contract:
@@ -594,6 +605,7 @@ final class WarehouseResource
      * Response data: Outcome of an enable, disable, or delete request
      *
      * Errors:
+     *   400: warehouseUid is below 1.
      *   404: No row exists with this ID.
      *
      * PUT https://vmi.augur-api.com/warehouse/{warehouseUid}/enable
@@ -634,6 +646,7 @@ final class WarehouseResource
      *
      * Errors:
      *   400: Bad request: the body is missing or a parameter is invalid; message says which.
+     *   404: No warehouse with this warehouseUid.
      *
      * POST https://vmi.augur-api.com/warehouse/{warehouseUid}/receive
      * Contract:
@@ -669,6 +682,10 @@ final class WarehouseResource
      * Call: $api->vmi->warehouse->listReplenish($warehouseUid)
      *
      * Response data: A warehouse's profile items with stock levels, for building a restock request
+     *
+     * Errors:
+     *   400: warehouseUid is below 1.
+     *   404: No warehouse with this warehouseUid.
      *
      * GET https://vmi.augur-api.com/warehouse/{warehouseUid}/replenish
      * Contract:
@@ -712,6 +729,7 @@ final class WarehouseResource
      *
      * Errors:
      *   400: Bad request: the body is missing or a parameter is invalid; message says which.
+     *   404: No warehouse with this warehouseUid.
      *
      * POST https://vmi.augur-api.com/warehouse/{warehouseUid}/usage
      * Contract:
@@ -751,6 +769,7 @@ final class WarehouseResource
      *
      * Errors:
      *   400: Bad request: the body is missing or a parameter is invalid; message says which.
+     *   404: No warehouse with this warehouseUid.
      *
      * GET https://vmi.augur-api.com/warehouse/{warehouseUid}/users
      * Contract:
@@ -760,7 +779,10 @@ final class WarehouseResource
      *   limit?: int — Limit number of results (Default: 10)
      *   offset?: int — Starting offset results (Default: 0)
      *   orderBy?: string — Order By (Default: warehouse_x_users_uid|ASC)
-     *   statusCdList?: string — CSV of status_cd to filter on [700|704|705]
+     *   statusCd?: int|int[] — Status code or list of codes (700=DELETE, 704=ACTIVE, 705=INACTIVE),
+     *       sent comma-joined (704,705); -1 for every status. Default: every status
+     *   statusCdList?: string — Deprecated: use statusCd. CSV of status codes [700|704|705], read
+     *       only when statusCd is absent
      *
      * $params also takes edgeCache, the Cloudflare edge cache time: '30s', '1m', '5m', or 1-5 or 8
      * (hours).
@@ -799,6 +821,7 @@ final class WarehouseResource
      *
      * Errors:
      *   400: Bad request: the body is missing or a parameter is invalid; message says which.
+     *   404: No warehouse with this warehouseUid.
      *
      * POST https://vmi.augur-api.com/warehouse/{warehouseUid}/users
      * Contract:
@@ -841,6 +864,7 @@ final class WarehouseResource
      * Remove User from Warehouse (sets status_cd to 700)
      *
      * Errors:
+     *   400: warehouseUid or usersId is below 1.
      *   404: No row exists with this ID.
      *
      * DELETE https://vmi.augur-api.com/warehouse/{warehouseUid}/users/{usersId}

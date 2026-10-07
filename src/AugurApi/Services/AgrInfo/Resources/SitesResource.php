@@ -44,7 +44,7 @@ use AugurApi\Core\Client;
  *   tokenType: string|null — site, user, agr-int-user or client; null when the token did not
  *       validate
  *   isAdmin: bool — True for a Joomla super user token
- *   user: SitesValidateCreateDataUser — The token's user; null for a site token or a failed
+ *   user: SitesValidateCreateDataUser|null — The token's user; null for a site token or a failed
  *       validation
  *   connection: SitesValidateCreateDataConnection — The site's P21 database connection
  *
@@ -71,7 +71,7 @@ use AugurApi\Core\Client;
  *
  * @phpstan-type SitesStaffTokenCreateData array{token: string, siteId: string, username: string}
  * @phpstan-type SitesStaffTokenCreateBody array{siteId: string}
- * @phpstan-type SitesValidateCreateData array{valid: bool, siteId: string, error: string, tokenType: string|null, isAdmin: bool, user: SitesValidateCreateDataUser, connection: SitesValidateCreateDataConnection}
+ * @phpstan-type SitesValidateCreateData array{valid: bool, siteId: string, error: string, tokenType: string|null, isAdmin: bool, user: SitesValidateCreateDataUser|null, connection: SitesValidateCreateDataConnection}
  * @phpstan-type SitesValidateCreateDataUser array{userId: int, username: string, email: string, name: string, roles: list<string>}
  * @phpstan-type SitesValidateCreateDataConnection array{host: string|null, port: int|null, database: string|null, username: string|null, password: string|null}
  * @phpstan-type SitesValidateCreateBody array{siteId: string, token: string}

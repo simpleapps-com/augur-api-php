@@ -42,7 +42,7 @@ use AugurApi\Core\Client;
  *       qty, unitOfMeasure or uom, unitPrice, manualPriceOverride, willCall, lineNote or note, key,
  *       ...)
  *   lines?: list<array<string, mixed>>|null — Alias of oeLine
- *   notes?: CheckoutCreateBodyNotes — Order-level note
+ *   notes?: CheckoutCreateBodyNotes|null — Order-level note
  *   oeHdrNotepad?: mixed — Order notepad entries, passed through to the import as sent
  *   headerNote?: mixed — Alias of oeHdrNotepad
  *   oeHdrSalesrep?: mixed — Order salesreps, passed through to the import as sent
@@ -106,7 +106,7 @@ use AugurApi\Core\Client;
  *   cartHdrUid: int — Cart the checkout was created from
  *
  * @phpstan-type CheckoutCreateData array{checkoutUid: int, checkoutUuid: string, statusCd: int, body: array<string, mixed>|array{}}
- * @phpstan-type CheckoutCreateBody array{oeHdr?: array<string, mixed>|array{}|null, header?: array<string, mixed>|array{}|null, oeLine?: list<array<string, mixed>>|null, lines?: list<array<string, mixed>>|null, notes?: CheckoutCreateBodyNotes, oeHdrNotepad?: mixed, headerNote?: mixed, oeHdrSalesrep?: mixed, salesRep?: mixed, arPaymentDetails?: mixed, creditcardPaymentDetails?: mixed, web?: array<string, mixed>|array{}|null, payments?: array<string, mixed>|array{}|null}
+ * @phpstan-type CheckoutCreateBody array{oeHdr?: array<string, mixed>|array{}|null, header?: array<string, mixed>|array{}|null, oeLine?: list<array<string, mixed>>|null, lines?: list<array<string, mixed>>|null, notes?: CheckoutCreateBodyNotes|null, oeHdrNotepad?: mixed, headerNote?: mixed, oeHdrSalesrep?: mixed, salesRep?: mixed, arPaymentDetails?: mixed, creditcardPaymentDetails?: mixed, web?: array<string, mixed>|array{}|null, payments?: array<string, mixed>|array{}|null}
  * @phpstan-type CheckoutCreateBodyNotes array{note?: string|null, topic?: string|null}
  * @phpstan-type CheckoutGetData array{checkoutUid: int, checkoutUuid: string, statusCd: int, checkoutType: string|null, dateCreated: string, dateLastModified: string, properties: string|null, checkoutProcessor: string|null, jsonData: string|null, sourceName: string|null, sourceId: string|null, cartHdrUid: int}
  * @phpstan-type CheckoutActivateUpdateData array{checkoutUid: int, checkoutUuid: string, statusCd: int}

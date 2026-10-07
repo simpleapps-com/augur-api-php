@@ -27,10 +27,10 @@ use AugurApi\Core\Client;
  * PaytraceAuthorizationCreateBody: Keyed PayTrace card authorization (pre-auth)
  * Request body of: $api->payments->paytrace->createAuthorization($data)
  *   amount: float|null — Dollar amount to authorize
- *   creditCard: PaytraceAuthorizationCreateBodyCreditCard — Card to authorize
+ *   creditCard: PaytraceAuthorizationCreateBodyCreditCard|null — Card to authorize
  *   csc?: string|null — Card security code (3-4 digits)
- *   billingAddress?: PaytraceAuthorizationCreateBodyBillingAddress — Billing address sent with the
- *       authorization
+ *   billingAddress?: PaytraceAuthorizationCreateBodyBillingAddress|null — Billing address sent with
+ *       the authorization
  *   invoiceId?: string|null — Invoice identifier
  *   testMode?: bool|null — true (or the string "true" or "1") uses the PayTrace sandbox; default
  *       live
@@ -49,7 +49,7 @@ use AugurApi\Core\Client;
  *   state?: string|null — State code
  *   zip?: string|null — ZIP code
  *
- * @phpstan-type PaytraceAuthorizationCreateBody array{amount: float|null, creditCard: PaytraceAuthorizationCreateBodyCreditCard, csc?: string|null, billingAddress?: PaytraceAuthorizationCreateBodyBillingAddress, invoiceId?: string|null, testMode?: bool|null}
+ * @phpstan-type PaytraceAuthorizationCreateBody array{amount: float|null, creditCard: PaytraceAuthorizationCreateBodyCreditCard|null, csc?: string|null, billingAddress?: PaytraceAuthorizationCreateBodyBillingAddress|null, invoiceId?: string|null, testMode?: bool|null}
  * @phpstan-type PaytraceAuthorizationCreateBodyCreditCard array{number: string|null, expirationMonth: string|null, expirationYear: string|null}
  * @phpstan-type PaytraceAuthorizationCreateBodyBillingAddress array{name?: string|null, streetAddress?: string|null, city?: string|null, state?: string|null, zip?: string|null}
  */

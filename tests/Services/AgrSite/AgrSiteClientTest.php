@@ -12,7 +12,6 @@ use AugurApi\Services\AgrSite\Resources\NotificationsResource;
 use AugurApi\Services\AgrSite\Resources\OpenSearchResource;
 use AugurApi\Services\AgrSite\Resources\PostalCodesXShiptosResource;
 use AugurApi\Services\AgrSite\Resources\SettingsResource;
-use AugurApi\Services\AgrSite\Resources\TrainingResource;
 use AugurApi\Tests\AugurApiTestCase;
 
 /**
@@ -94,10 +93,5 @@ final class AgrSiteClientTest extends AugurApiTestCase
     public function testSettingsResourceAccess(): void
     {
         $this->assertInstanceOf(SettingsResource::class, $this->api->agrSite->settings);
-    }
-
-    public function testTrainingResourceAccess(): void
-    {
-        $this->assertInstanceOf(TrainingResource::class, $this->api->agrSite->training);
     }
 }

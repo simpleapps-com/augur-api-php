@@ -46,9 +46,9 @@ use AugurApi\Core\Client;
  * ItemSearchFacetsListDataItemsItem: One item hit: the items service inv_mast doc (GET
  * /api/items/{invMastUid}) plus its search score
  * Field `items` of ItemSearchFacetsListData
- *   score: int|float|null — OpenSearch relevance score, or null when the search was sorted
- *   brandFolder?: ItemSearchListDataItemsItemBrandFolder — Brandfolder assets; the key is present
- *       only when useBrandFolderDoc=Y
+ *   score: float|null — OpenSearch relevance score, or null when the search was sorted
+ *   brandFolder?: ItemSearchListDataItemsItemBrandFolder|null — Brandfolder assets; the key is
+ *       present only when useBrandFolderDoc=Y
  *
  * ItemSearchListDataItemsItemBrandFolder: Brandfolder assets; the key is present only when
  * useBrandFolderDoc=Y
@@ -89,7 +89,7 @@ use AugurApi\Core\Client;
  *
  * @phpstan-type ItemSearchFacetsListData array{meta: ItemSearchFacetsListDataMeta, items: list<ItemSearchFacetsListDataItemsItem>, facets: list<ItemSearchFacetsListDataFacetsItem>}
  * @phpstan-type ItemSearchFacetsListDataMeta array{took: int, total: int, pageableTotal: int, maxScore: float|null}
- * @phpstan-type ItemSearchFacetsListDataItemsItem array{score: int|float|null, brandFolder?: ItemSearchListDataItemsItemBrandFolder}
+ * @phpstan-type ItemSearchFacetsListDataItemsItem array{score: float|null, brandFolder?: ItemSearchListDataItemsItemBrandFolder|null}
  * @phpstan-type ItemSearchListDataItemsItemBrandFolder array{assets?: list<ItemSearchListDataItemsItemBrandFolderAssetsItem>|null}
  * @phpstan-type ItemSearchListDataItemsItemBrandFolderAssetsItem array{id: string, name: string|null, attachmentName: string|null, cdnLink: string, layout: string}
  * @phpstan-type ItemSearchFacetsListDataFacetsItem array{attributeUid: int, attributeId: string, label: string, sequence: int, headCoveragePct: float, values: list<ItemSearchFacetsListDataFacetsItemValuesItem>}

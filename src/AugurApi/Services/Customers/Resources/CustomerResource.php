@@ -545,7 +545,7 @@ use AugurApi\Core\Client;
  *   shippingRouteUid: int|null — Shipping route assigned to the ship-to
  *   routeCode: string|null — Shipping route code
  *   routeDescription: string|null — Shipping route description
- *   address: CustomerShipToListItemAddress — The ship-to's address; null when no address row
+ *   address: CustomerShipToListItemAddress|null — The ship-to's address; null when no address row
  *       matches
  *
  * CustomerShipToListItemAddress: The ship-to's address; null when no address row matches
@@ -700,7 +700,7 @@ use AugurApi\Core\Client;
  * @phpstan-type CustomerSalesUsageListData array{customerId: string, invoicedFrom: string, invoicedTo: string, totalBy: string, bucketKeys: list<string>, invoiceCount: int, linesFolded: int, itemCount: int, data: list<CustomerSalesUsageListDataDataItem>}
  * @phpstan-type CustomerSalesUsageListDataDataItem array{itemId: string, itemDesc: string, unitOfMeasure: string|null, salesUnitSize: float|null, pricingUnitSize: float|null, buckets: list<CustomerSalesUsageListDataDataItemBucketsItem>}
  * @phpstan-type CustomerSalesUsageListDataDataItemBucketsItem array{key: string, quantity: float, total: float, lines: int}
- * @phpstan-type CustomerShipToListItem array{shipToId: float, customerId: float, companyId: string, defaultBranch: string, defaultCarrierId: float|null, preferredLocationId: float|null, deliveryInstructions: string|null, shippingRouteUid: int|null, routeCode: string|null, routeDescription: string|null, address: CustomerShipToListItemAddress}
+ * @phpstan-type CustomerShipToListItem array{shipToId: float, customerId: float, companyId: string, defaultBranch: string, defaultCarrierId: float|null, preferredLocationId: float|null, deliveryInstructions: string|null, shippingRouteUid: int|null, routeCode: string|null, routeDescription: string|null, address: CustomerShipToListItemAddress|null}
  * @phpstan-type CustomerShipToListItemAddress array{id: float, name: string, mailAddress1: string|null, mailAddress2: string|null, mailAddress3: string|null, mailCity: string|null, mailState: string|null, mailPostalCode: string|null, mailCountry: string|null, physAddress1: string|null, physAddress2: string|null, physAddress3: string|null, physCity: string|null, physState: string|null, physPostalCode: string|null, physCountry: string|null, class5Id: string|null, centralPhoneNumber: string|null, upsCode: string|null}
  * @phpstan-type CustomerShipToCreateBody array{shipToAddress?: array<string, mixed>|array{}|null}
  * @phpstan-type CustomerShipToLookupGetItem array{id: float, name: string, mailAddress1: string, mailAddress2: string|null, mailAddress3: string|null, mailCity: string|null, mailState: string|null, mailPostalCode: string|null, mailCountry: string|null, physAddress1: string|null, physAddress2: string|null, physAddress3: string|null, physCity: string|null, physState: string|null, physPostalCode: string|null, physCountry: string|null, class5Id: string|null, preferredLocationId: float|null, defaultBranch: string}

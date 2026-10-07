@@ -27,49 +27,49 @@ use AugurApi\Core\Client;
  * UsLookupGetData: Best US street match for the queried address; fields Smarty does not return are
  * null
  * Returned by: $api->smartyStreets->us->getLookup()
- *   addressee?: string|null — Recipient or firm name on the matched address
- *   buildingDefaultIndicator?: string|null — Y when the match defaulted to the building rather than
+ *   addressee: string|null — Recipient or firm name on the matched address
+ *   buildingDefaultIndicator: string|null — Y when the match defaulted to the building rather than
  *       a unit
- *   carrierRoute?: string|null — USPS carrier route code
- *   cityName?: string|null — USPS preferred city name
- *   congressionalDistrict?: string|null — Congressional district number
- *   defaultCityName?: string|null — USPS default city name for the ZIP code
- *   deliveryLine1?: string|null — Standardized first delivery line
- *   deliveryLine2?: string|null — Standardized second delivery line
- *   deliveryPoint?: string|null — Two-digit USPS delivery point
- *   deliveryPointBarcode?: string|null — Full USPS delivery point barcode
- *   deliveryPointCheckDigit?: string|null — Delivery point check digit
- *   elotSequence?: string|null — eLOT sequence number
- *   elotSort?: string|null — eLOT sort: A (ascending) or D (descending)
- *   extraSecondaryDesignator?: string|null — Extra secondary designator, e.g. Ste
- *   extraSecondaryNumber?: string|null — Extra secondary number
- *   inputId?: string|null — Caller-supplied input ID echoed back
- *   isEwsMatch?: bool|null — True when the address is on the USPS Early Warning System list
- *   lastLine?: string|null — Standardized city, state and ZIP line
- *   latitude?: float|null — Latitude of the matched address
- *   longitude?: float|null — Longitude of the matched address
- *   obeyDst?: bool|null — True when the address observes daylight saving time
- *   plus4Code?: string|null — ZIP+4 add-on code
- *   pmbDesignator?: string|null — Private mailbox designator
- *   pmbNumber?: string|null — Private mailbox number
- *   precision?: string|null — Geocode precision, e.g. Zip9
- *   primaryNumber?: string|null — House or building number
- *   rdi?: string|null — Residential Delivery Indicator: Residential or Commercial
- *   recordType?: string|null — USPS record type, e.g. S (street) or H (highrise)
- *   secondaryDesignator?: string|null — Secondary unit designator, e.g. Apt
- *   secondaryNumber?: string|null — Secondary unit number
- *   stateAbbreviation?: string|null — Two-letter state abbreviation
- *   streetName?: string|null — Street name
- *   streetPostDirection?: string|null — Street post-direction, e.g. N
- *   streetPreDirection?: string|null — Street pre-direction, e.g. N
- *   streetSuffix?: string|null — Street suffix, e.g. St
- *   timeZone?: string|null — Time zone name, e.g. Eastern
- *   urbanization?: string|null — Puerto Rico urbanization name
- *   utcOffset?: float|null — Hours offset from UTC
- *   zipCode?: string|null — Five-digit ZIP code
- *   zipType?: string|null — ZIP code type, e.g. Standard or POBox
+ *   carrierRoute: string|null — USPS carrier route code
+ *   cityName: string|null — USPS preferred city name
+ *   congressionalDistrict: string|null — Congressional district number
+ *   defaultCityName: string|null — USPS default city name for the ZIP code
+ *   deliveryLine1: string|null — Standardized first delivery line
+ *   deliveryLine2: string|null — Standardized second delivery line
+ *   deliveryPoint: string|null — Two-digit USPS delivery point
+ *   deliveryPointBarcode: string|null — Full USPS delivery point barcode
+ *   deliveryPointCheckDigit: string|null — Delivery point check digit
+ *   elotSequence: string|null — eLOT sequence number
+ *   elotSort: string|null — eLOT sort: A (ascending) or D (descending)
+ *   extraSecondaryDesignator: string|null — Extra secondary designator, e.g. Ste
+ *   extraSecondaryNumber: string|null — Extra secondary number
+ *   inputId: string|null — Caller-supplied input ID echoed back
+ *   isEwsMatch: bool|null — True when the address is on the USPS Early Warning System list
+ *   lastLine: string|null — Standardized city, state and ZIP line
+ *   latitude: float|null — Latitude of the matched address
+ *   longitude: float|null — Longitude of the matched address
+ *   obeyDst: bool|null — True when the address observes daylight saving time
+ *   plus4Code: string|null — ZIP+4 add-on code
+ *   pmbDesignator: string|null — Private mailbox designator
+ *   pmbNumber: string|null — Private mailbox number
+ *   precision: string|null — Geocode precision, e.g. Zip9
+ *   primaryNumber: string|null — House or building number
+ *   rdi: string|null — Residential Delivery Indicator: Residential or Commercial
+ *   recordType: string|null — USPS record type, e.g. S (street) or H (highrise)
+ *   secondaryDesignator: string|null — Secondary unit designator, e.g. Apt
+ *   secondaryNumber: string|null — Secondary unit number
+ *   stateAbbreviation: string|null — Two-letter state abbreviation
+ *   streetName: string|null — Street name
+ *   streetPostDirection: string|null — Street post-direction, e.g. N
+ *   streetPreDirection: string|null — Street pre-direction, e.g. N
+ *   streetSuffix: string|null — Street suffix, e.g. St
+ *   timeZone: string|null — Time zone name, e.g. Eastern
+ *   urbanization: string|null — Puerto Rico urbanization name
+ *   utcOffset: float|null — Hours offset from UTC
+ *   zipCode: string|null — Five-digit ZIP code
+ *   zipType: string|null — ZIP code type, e.g. Standard or POBox
  *
- * @phpstan-type UsLookupGetData array{addressee?: string|null, buildingDefaultIndicator?: string|null, carrierRoute?: string|null, cityName?: string|null, congressionalDistrict?: string|null, defaultCityName?: string|null, deliveryLine1?: string|null, deliveryLine2?: string|null, deliveryPoint?: string|null, deliveryPointBarcode?: string|null, deliveryPointCheckDigit?: string|null, elotSequence?: string|null, elotSort?: string|null, extraSecondaryDesignator?: string|null, extraSecondaryNumber?: string|null, inputId?: string|null, isEwsMatch?: bool|null, lastLine?: string|null, latitude?: float|null, longitude?: float|null, obeyDst?: bool|null, plus4Code?: string|null, pmbDesignator?: string|null, pmbNumber?: string|null, precision?: string|null, primaryNumber?: string|null, rdi?: string|null, recordType?: string|null, secondaryDesignator?: string|null, secondaryNumber?: string|null, stateAbbreviation?: string|null, streetName?: string|null, streetPostDirection?: string|null, streetPreDirection?: string|null, streetSuffix?: string|null, timeZone?: string|null, urbanization?: string|null, utcOffset?: float|null, zipCode?: string|null, zipType?: string|null}
+ * @phpstan-type UsLookupGetData array{addressee: string|null, buildingDefaultIndicator: string|null, carrierRoute: string|null, cityName: string|null, congressionalDistrict: string|null, defaultCityName: string|null, deliveryLine1: string|null, deliveryLine2: string|null, deliveryPoint: string|null, deliveryPointBarcode: string|null, deliveryPointCheckDigit: string|null, elotSequence: string|null, elotSort: string|null, extraSecondaryDesignator: string|null, extraSecondaryNumber: string|null, inputId: string|null, isEwsMatch: bool|null, lastLine: string|null, latitude: float|null, longitude: float|null, obeyDst: bool|null, plus4Code: string|null, pmbDesignator: string|null, pmbNumber: string|null, precision: string|null, primaryNumber: string|null, rdi: string|null, recordType: string|null, secondaryDesignator: string|null, secondaryNumber: string|null, stateAbbreviation: string|null, streetName: string|null, streetPostDirection: string|null, streetPreDirection: string|null, streetSuffix: string|null, timeZone: string|null, urbanization: string|null, utcOffset: float|null, zipCode: string|null, zipType: string|null}
  */
 final class UsResource
 {
@@ -87,6 +87,9 @@ final class UsResource
      *
      * Response data: Best US street match for the queried address; fields Smarty does not return
      * are null
+     *
+     * Errors:
+     *   404: No US address matched the lookup.
      *
      * GET https://smarty-streets.augur-api.com/us/lookup
      * Contract: https://smarty-streets.augur-api.com/openapi.json#/paths/~1us~1lookup/get

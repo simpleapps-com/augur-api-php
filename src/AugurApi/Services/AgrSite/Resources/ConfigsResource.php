@@ -44,10 +44,10 @@ use AugurApi\Core\Client;
  * definition's rules
  * Field `configs` of ConfigsGetData
  *   configName: string — Key name from the service definition's app.config (snake_case)
- *   value: string|int|float|bool|null — Value in the site's config file, or the default when the
- *       key is not set; null when neither exists
- *   default: string|int|float|bool|null — Default from the service definition; null when the
- *       definition has none
+ *   value: string|float|bool|null — Value in the site's config file, or the default when the key is
+ *       not set; null when neither exists
+ *   default: string|float|bool|null — Default from the service definition; null when the definition
+ *       has none
  *   type: string — Declared type: string, int, or float
  *   allowedValues: list<string> — Values the key accepts; empty when any value of the type is
  *       accepted
@@ -63,7 +63,7 @@ use AugurApi\Core\Client;
  *
  * @phpstan-type ConfigsListItem array{serviceName: string, isActive: bool}
  * @phpstan-type ConfigsGetData array{serviceName: string, fileExists: bool, configs: list<ConfigsGetDataConfigsItem>}
- * @phpstan-type ConfigsGetDataConfigsItem array{configName: string, value: string|int|float|bool|null, default: string|int|float|bool|null, type: string, allowedValues: list<string>, isSet: bool}
+ * @phpstan-type ConfigsGetDataConfigsItem array{configName: string, value: string|float|bool|null, default: string|float|bool|null, type: string, allowedValues: list<string>, isSet: bool}
  * @phpstan-type ConfigsUpdateBody array{values: array<string, string>}
  */
 final class ConfigsResource

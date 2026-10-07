@@ -48,8 +48,8 @@ use AugurApi\Core\Client;
  * Request body of:
  * $api->p21Sism->scheduledImportMetadata->update($scheduledImportMetadataUid, $data)
  *   deliveryMethod?: string|null — New delivery method: pending_import, ftp or sftp; any casing
- *   properties?: ScheduledImportMasterMetadataSftpCreateBody — New FTP/SFTP connection; replaces
- *       the stored properties as a whole
+ *   properties?: ScheduledImportMasterMetadataSftpCreateBody|null — New FTP/SFTP connection;
+ *       replaces the stored properties as a whole
  *
  * ScheduledImportMasterMetadataSftpCreateBody: New FTP/SFTP connection; replaces the stored
  * properties as a whole
@@ -61,7 +61,7 @@ use AugurApi\Core\Client;
  *   path?: string|null — Remote directory the import files are written to
  *
  * @phpstan-type ScheduledImportMasterMetadataCreateData array{scheduledImportMetadataUid: int, scheduledImportMasterUid: int, deliveryMethod: string, properties: string|null, dateCreated: string, dateLastModified: string, updateCd: int, statusCd: int, processCd: int}
- * @phpstan-type ScheduledImportMetadataUpdateBody array{deliveryMethod?: string|null, properties?: ScheduledImportMasterMetadataSftpCreateBody}
+ * @phpstan-type ScheduledImportMetadataUpdateBody array{deliveryMethod?: string|null, properties?: ScheduledImportMasterMetadataSftpCreateBody|null}
  * @phpstan-type ScheduledImportMasterMetadataSftpCreateBody array{host?: string|null, port?: string|null, username?: string|null, password?: string|null, path?: string|null}
  */
 final class ScheduledImportMetadataResource

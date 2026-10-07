@@ -205,6 +205,8 @@ final class InvProfileHdrResource
      *   limit?: int — Limit number of results (Default: 10)
      *   offset?: int — Starting offset results (Default: 0)
      *   orderBy?: string — Order By (Default: inv_profile_hdr_uid|ASC)
+     *   statusCd?: int|int[] — Status code or list of codes (700=DELETE, 704=ACTIVE, 705=INACTIVE),
+     *       sent comma-joined (704,705); -1 for every status. Default: every status
      *
      * $params also takes edgeCache, the Cloudflare edge cache time: '30s', '1m', '5m', or 1-5 or 8
      * (hours).
@@ -269,6 +271,7 @@ final class InvProfileHdrResource
      *
      * Errors:
      *   400: Bad request: the body is missing or a parameter is invalid; message says which.
+     *   404: No customer with this customerId.
      *
      * POST https://vmi.augur-api.com/inv-profile-hdr/{customerId}/upload
      * Contract:
@@ -304,6 +307,7 @@ final class InvProfileHdrResource
      * Call: $api->vmi->invProfileHdr->delete($invProfileHdrUid)
      *
      * Errors:
+     *   400: invProfileHdrUid is below 1.
      *   404: No row exists with this ID.
      *
      * DELETE https://vmi.augur-api.com/inv-profile-hdr/{invProfileHdrUid}
@@ -336,6 +340,10 @@ final class InvProfileHdrResource
      * Call: $api->vmi->invProfileHdr->get($invProfileHdrUid)
      *
      * Response data: An inventory profile with the active warehouses that stock it
+     *
+     * Errors:
+     *   400: invProfileHdrUid is below 1.
+     *   404: No inventory profile with this invProfileHdrUid.
      *
      * GET https://vmi.augur-api.com/inv-profile-hdr/{invProfileHdrUid}
      * Contract:
@@ -412,6 +420,7 @@ final class InvProfileHdrResource
      *
      * Errors:
      *   400: Bad request: the body is missing or a parameter is invalid; message says which.
+     *   404: No inventory profile with this invProfileHdrUid.
      *
      * GET https://vmi.augur-api.com/inv-profile-hdr/{invProfileHdrUid}/inv-profile-line
      * Contract:
@@ -422,7 +431,9 @@ final class InvProfileHdrResource
      *   offset?: int — Starting offset results (Default: 0)
      *   orderBy?: string — Order By (Default: inv_profile_line_uid|ASC)
      *   q?: string — Search keywords field
-     *   statusCd?: int — Filter by status code (700=DELETE, 704=ACTIVE, 705=INACTIVE)
+     *   statusCd?: int|int[] — Status code or list of codes (700=DELETE, 704=ACTIVE, 705=INACTIVE),
+     *       sent comma-joined (704,705); -1 for every status. Default: 704 and 705 (deleted lines
+     *       excluded)
      *
      * $params also takes edgeCache, the Cloudflare edge cache time: '30s', '1m', '5m', or 1-5 or 8
      * (hours).
@@ -459,6 +470,7 @@ final class InvProfileHdrResource
      *
      * Errors:
      *   400: Bad request: the body is missing or a parameter is invalid; message says which.
+     *   404: No inventory profile with this invProfileHdrUid.
      *
      * POST https://vmi.augur-api.com/inv-profile-hdr/{invProfileHdrUid}/inv-profile-line
      * Contract:
@@ -497,6 +509,7 @@ final class InvProfileHdrResource
      * DELETE Inventory Profile Line
      *
      * Errors:
+     *   400: invProfileHdrUid or invProfileLineUid is below 1.
      *   404: No row exists with this ID.
      *
      * DELETE
@@ -529,6 +542,11 @@ final class InvProfileHdrResource
      *
      * Get Inventory Profile line Details
      * Call: $api->vmi->invProfileHdr->getInvProfileLine($invProfileHdrUid, $invProfileLineUid)
+     *
+     * Errors:
+     *   400: invProfileHdrUid or invProfileLineUid is below 1.
+     *   404: No inventory profile with this invProfileHdrUid, or no line with this
+     *       invProfileLineUid on that profile.
      *
      * GET
      * https://vmi.augur-api.com/inv-profile-hdr/{invProfileHdrUid}/inv-profile-line/{invProfileLineUid}

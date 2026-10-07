@@ -72,14 +72,23 @@ use AugurApi\Core\Client;
  *   agentItemId?: string|null — User-defined private_label_desc_2 (trinitysurfaces only)
  *   agentDesc?: string|null — User-defined private_label_id_2 (trinitysurfaces only)
  *   trim?: bool|null — True when the trim user-defined field is Y (trinitysurfaces only)
- *   fullSizedSamples?: CategoriesItemsListDataItemsItemFullSizedSamplesOption1|bool|null —
+ *   fullSizedSamples?: CategoriesItemsListDataItemsItemFullSizedSamplesOption1|null|false —
  *       Full-sized sample item, or false (trinitysurfaces only)
- *   swatchSample?: CategoriesItemsListDataItemsItemFullSizedSamplesOption1|bool|null — Swatch
+ *     one of:
+ *       CategoriesItemsListDataItemsItemFullSizedSamplesOption1|null — A sample item linked from an
+ *           item's user-defined fields (trinitysurfaces)
+ *       false
+ *   swatchSample?: CategoriesItemsListDataItemsItemFullSizedSamplesOption1|null|false — Swatch
  *       sample item, or false (trinitysurfaces only)
- *   brandFolder?: BrandsFacetsListDataItemsItemBrandFolder — Brandfolder assets (trinitysurfaces
- *       only)
+ *     one of:
+ *       CategoriesItemsListDataItemsItemFullSizedSamplesOption1|null — A sample item linked from an
+ *           item's user-defined fields (trinitysurfaces)
+ *       false
+ *   brandFolder?: BrandsFacetsListDataItemsItemBrandFolder|null — Brandfolder assets
+ *       (trinitysurfaces only)
  *
- * CategoriesItemsListDataItemsItemFullSizedSamplesOption1:
+ * CategoriesItemsListDataItemsItemFullSizedSamplesOption1: A sample item linked from an item's
+ * user-defined fields (trinitysurfaces)
  * Field `fullSizedSamples` of ItemWishlistHdrGetItem
  * Field `swatchSample` of ItemWishlistHdrGetItem
  *   itemId: string — Sample item ID
@@ -151,7 +160,7 @@ use AugurApi\Core\Client;
  * @phpstan-type ItemWishlistGetItem array{itemWishlistHdrUid: int, name: string, accessLevel: string, sequenceNo: int, description: string}
  * @phpstan-type ItemWishlistCreateData array{itemWishlistHdrUid: int, usersId: int, name: string, sequenceNo: int, accessLevel: string, dateCreated: string, dateLastModified: string, updateCd: int, statusCd: int, processCd: int, description: string, itemWishlistHdrId: string}
  * @phpstan-type ItemWishlistCreateBody array{name?: string|null, description?: string|null}
- * @phpstan-type ItemWishlistHdrGetItem array{itemWishlistLineUid: int, invMastUid: int, sequenceNo: int, comment: string|null, quantity: int, itemWishlistHdrUid: int, itemWishlistHdrName: string, classId5?: string|null, samplesApp?: bool|null, trinityDesc?: string|null, trinityItemId?: string|null, agentItemId?: string|null, agentDesc?: string|null, trim?: bool|null, fullSizedSamples?: CategoriesItemsListDataItemsItemFullSizedSamplesOption1|bool|null, swatchSample?: CategoriesItemsListDataItemsItemFullSizedSamplesOption1|bool|null, brandFolder?: BrandsFacetsListDataItemsItemBrandFolder}
+ * @phpstan-type ItemWishlistHdrGetItem array{itemWishlistLineUid: int, invMastUid: int, sequenceNo: int, comment: string|null, quantity: int, itemWishlistHdrUid: int, itemWishlistHdrName: string, classId5?: string|null, samplesApp?: bool|null, trinityDesc?: string|null, trinityItemId?: string|null, agentItemId?: string|null, agentDesc?: string|null, trim?: bool|null, fullSizedSamples?: CategoriesItemsListDataItemsItemFullSizedSamplesOption1|null|false, swatchSample?: CategoriesItemsListDataItemsItemFullSizedSamplesOption1|null|false, brandFolder?: BrandsFacetsListDataItemsItemBrandFolder|null}
  * @phpstan-type CategoriesItemsListDataItemsItemFullSizedSamplesOption1 array{itemId: string, invMastUid: int, classId5: string|null, samplesApp: bool}
  * @phpstan-type BrandsFacetsListDataItemsItemBrandFolder array{assets?: list<BrandsFacetsListDataItemsItemBrandFolderAssetsItem>|null}
  * @phpstan-type BrandsFacetsListDataItemsItemBrandFolderAssetsItem array{id: string, name: string|null, attachmentName: string|null, cdnLink: string, layout: string}

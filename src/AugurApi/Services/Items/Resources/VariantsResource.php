@@ -98,12 +98,12 @@ use AugurApi\Core\Client;
  * VariantsDocListData: A variant group doc: the header, the attributes that differentiate its
  * items, the primary item and every item
  * Returned by: $api->items->variants->listDoc($itemVariantHdrUid)
- *   header: VariantsDocListDataHeader — The variant group
+ *   header: VariantsDocListDataHeader|null — The variant group
  *   attributes: list<VariantsDocListDataAttributesItem> — Attributes that differentiate the items,
  *       in sequence order
  *     each item: VariantsDocListDataAttributesItem — One attribute that differentiates the items of
  *         a variant group
- *   primary: VariantsDocListDataPrimary — The primary item; null when no line is primary
+ *   primary: VariantsDocListDataPrimary|null — The primary item; null when no line is primary
  *   lines: list<VariantsDocListDataLinesItem> — Every item in the group, in sequence order
  *     each item: VariantsDocListDataLinesItem — One item of a variant group doc, with its values
  *         for the group attributes and its images
@@ -210,7 +210,7 @@ use AugurApi\Core\Client;
  * @phpstan-type VariantsAttributesListItem array{itemVariantHdrXAttributeUid: int, itemVariantHdrUid: int, attributeUid: int, sequenceNo: int, dateCreated: string, dateLastModified: string, updateCd: int, statusCd: int, processCd: int}
  * @phpstan-type VariantsAttributesCreateBody array{attributeUid: int|null, sequenceNo?: int|null}
  * @phpstan-type VariantsAttributesUpdateBody array{sequenceNo?: int|null, updateCd?: int|null, statusCd?: int|null, processCd?: int|null}
- * @phpstan-type VariantsDocListData array{header: VariantsDocListDataHeader, attributes: list<VariantsDocListDataAttributesItem>, primary: VariantsDocListDataPrimary, lines: list<VariantsDocListDataLinesItem>, totalVariants: int}
+ * @phpstan-type VariantsDocListData array{header: VariantsDocListDataHeader|null, attributes: list<VariantsDocListDataAttributesItem>, primary: VariantsDocListDataPrimary|null, lines: list<VariantsDocListDataLinesItem>, totalVariants: int}
  * @phpstan-type VariantsDocListDataHeader array{itemVariantHdrUid: int, name: string, id: string, description: string, statusCd: int}
  * @phpstan-type VariantsDocListDataAttributesItem array{attributeUid: int, attributeName: string|null, sequenceNo: int}
  * @phpstan-type VariantsDocListDataPrimary array{invMastUid: int, itemId: string, itemDesc: string|null, sequenceNo: int}

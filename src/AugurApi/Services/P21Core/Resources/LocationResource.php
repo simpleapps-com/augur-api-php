@@ -46,7 +46,8 @@ use AugurApi\Core\Client;
  *   upsOltUserId: string|null — UPS OnLine Tools user ID, as Prophet 21 stores it
  *   distributionCenter: string — Y when the location is a distribution center
  *   updateCd: int — Update code (704 = queued for refresh from Prophet 21, 1185 = current)
- *   address?: AddressListItem — The location's address; the key is absent unless includeAddress=Y
+ *   address?: AddressListItem|null — The location's address; the key is absent unless
+ *       includeAddress=Y
  *
  * AddressListItem: The location's address; the key is absent unless includeAddress=Y
  * Field `address` of LocationListItem
@@ -70,7 +71,7 @@ use AugurApi\Core\Client;
  *   enabledCd: int — 704 when the address is enabled for the site, 705 when not
  *   defaultCd: int — 704 for the site's default address, 705 otherwise
  *
- * @phpstan-type LocationListItem array{locationId: float, companyId: string, defaultBranchId: string|null, deleteFlag: string, dateCreated: string, dateLastModified: string, lastMaintainedBy: string, locationName: string|null, lotBinIntegration: string|null, fedexLocAcctNo: string|null, fedexMeterNo: string|null, upsAccountNo: string|null, upsPickupTypeCd: int|null, upsCustomerTypeCd: int|null, upsOltAccessKey: string|null, upsOltPassword: string|null, upsOltUserId: string|null, distributionCenter: string, updateCd: int, address?: AddressListItem}
+ * @phpstan-type LocationListItem array{locationId: float, companyId: string, defaultBranchId: string|null, deleteFlag: string, dateCreated: string, dateLastModified: string, lastMaintainedBy: string, locationName: string|null, lotBinIntegration: string|null, fedexLocAcctNo: string|null, fedexMeterNo: string|null, upsAccountNo: string|null, upsPickupTypeCd: int|null, upsCustomerTypeCd: int|null, upsOltAccessKey: string|null, upsOltPassword: string|null, upsOltUserId: string|null, distributionCenter: string, updateCd: int, address?: AddressListItem|null}
  * @phpstan-type AddressListItem array{id: float, name: string, mailAddress1: string|null, mailAddress2: string|null, mailCity: string|null, mailState: string|null, mailPostalCode: string|null, mailCountry: string|null, physAddress1: string|null, physAddress2: string|null, physCity: string|null, physState: string|null, physPostalCode: string|null, physCountry: string|null, carrierFlag: string|null, statusCd: int, processCd: int, enabledCd: int, defaultCd: int}
  */
 final class LocationResource

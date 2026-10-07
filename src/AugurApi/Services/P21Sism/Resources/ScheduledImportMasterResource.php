@@ -70,8 +70,8 @@ use AugurApi\Core\Client;
  * $api->p21Sism->scheduledImportMaster->createMetadata($scheduledImportMasterUid, $data)
  *   deliveryMethod: string — How import:deliver reaches P21: pending_import (on-premise P21), ftp
  *       or sftp (hosted P21); any casing
- *   properties?: ScheduledImportMasterMetadataSftpCreateBody — FTP/SFTP connection; all five fields
- *       are required for ftp and sftp; pending_import does not read them
+ *   properties?: ScheduledImportMasterMetadataSftpCreateBody|null — FTP/SFTP connection; all five
+ *       fields are required for ftp and sftp; pending_import does not read them
  *
  * ScheduledImportMasterMetadataSftpCreateBody: FTP/SFTP connection; all five fields are required
  * for ftp and sftp; pending_import does not read them
@@ -94,7 +94,7 @@ use AugurApi\Core\Client;
  *
  * @phpstan-type ScheduledImportMasterListItem array{scheduledImportMasterUid: int, impexpSourceUid: int, transactionSetUid: int, pollingPath: string, transactionLogPath: string, transactionSumPath: string, transactionSusPath: string, transactionErrPath: string, active: string, dateCreated: string, dateLastModified: string, lastMaintainedBy: string, fileFormatCd: int|null, xmlDocumentUid: int|null, fileLockingFlag: string, updateCd: int}
  * @phpstan-type ScheduledImportMasterMetadataCreateData array{scheduledImportMetadataUid: int, scheduledImportMasterUid: int, deliveryMethod: string, properties: string|null, dateCreated: string, dateLastModified: string, updateCd: int, statusCd: int, processCd: int}
- * @phpstan-type ScheduledImportMasterMetadataCreateBody array{deliveryMethod: string, properties?: ScheduledImportMasterMetadataSftpCreateBody}
+ * @phpstan-type ScheduledImportMasterMetadataCreateBody array{deliveryMethod: string, properties?: ScheduledImportMasterMetadataSftpCreateBody|null}
  * @phpstan-type ScheduledImportMasterMetadataSftpCreateBody array{host?: string|null, port?: string|null, username?: string|null, password?: string|null, path?: string|null}
  * @phpstan-type ScheduledImportMasterMetadataSftpCreateData array{scheduledImportMetadataUid: int, scheduledImportMasterUid: int, properties: string|null}
  */

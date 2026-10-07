@@ -34,17 +34,17 @@ use AugurApi\Core\Client;
  *       Waterfall stage that produced the price, or false when none did
  *   priceType: 'J'|'S'|'L'|'C'|false — Short code of the winning stage (J, S, L, C), or false when
  *       none did
- *   jobPrice: float|bool — Job or contract price when job pricing matched, otherwise false
+ *   jobPrice: float|false — Job or contract price when job pricing matched, otherwise false
  *   listPrice: float — Primary supplier list price, always calculated for reference
  *   customer: PriceEngineListDataCustomer — Customer pricing setup used by the engine
  *   item: PriceEngineListDataItem — Item, quantity, and unit of measure that were priced
  *   options: array<string, mixed>|array{} — Input options the engine ran with, keyed by option name
  *       (customerId, itemId, quantity, unitOfMeasure, shipToId, cartItems) ([] when empty)
  *   messages: list<string> — Diagnostic messages collected while pricing
- *   jobNo?: string|null — Job number when job pricing matched
- *   jobPriceHdrUid?: int|null — Job price header UID when job pricing matched
- *   contractNo?: string|null — Contract number when job pricing matched
- *   libraryPriceData?:
+ *   jobNo: string|null — Job number when job pricing matched
+ *   jobPriceHdrUid: int|null — Job price header UID when job pricing matched
+ *   contractNo: string|null — Contract number when job pricing matched
+ *   libraryPriceData:
  *       PriceEngineListDataLibraryPriceDataOption1|PriceEngineListDataLibraryPriceDataOption2|null
  *       — Library pricing detail whenever the library stage ran, including when it found no price
  *     one of:
@@ -52,16 +52,16 @@ use AugurApi\Core\Client;
  *           the item (library, book, page chain)
  *       PriceEngineListDataLibraryPriceDataOption2 — Library price from a multiplier library (type
  *           211), which prices without consulting books or pages
- *   defaultCompanyPrice?: PriceEngineListDataDefaultCompanyPrice — Default company pricing detail
- *       when that stage ran
- *   webPrice?: float|bool — Web discount price for the customer, or false when no web pricing rule
+ *   defaultCompanyPrice: PriceEngineListDataDefaultCompanyPrice|null — Default company pricing
+ *       detail when that stage ran
+ *   webPrice: float|false — Web discount price for the customer, or false when no web pricing rule
  *       applies
  *
  * PriceEngineListDataCustomer: Customer pricing setup used by the engine
  * Field `customer` of PriceEngineListData
  *   customerId: float — P21 customer ID
  *   valid: bool — True when the customer was found
- *   sourcePriceCd: int|bool — Customer's source price code, or false when none is set
+ *   sourcePriceCd: int|false — Customer's source price code, or false when none is set
  *   sourcePriceDesc: string|null — Description of the source price code
  *   pricingMethodCd: int|null — Customer's pricing method code (211 Multiplier, 234 Libraries)
  *   pricingMethodDesc: string|null — Description of the pricing method code
@@ -82,9 +82,9 @@ use AugurApi\Core\Client;
  * PriceEngineListDataLibraryPriceDataOption1: Library price from the price page that matched the
  * item (library, book, page chain)
  * Field `libraryPriceData` of PriceEngineListData
- *   unitPrice: float|bool — Unit price in the requested unit of measure, or false when no page
+ *   unitPrice: float|false — Unit price in the requested unit of measure, or false when no page
  *       produced a price
- *   sourcePrice: float|bool|null — Source price the page calculation started from
+ *   sourcePrice: float|null|false — Source price the page calculation started from
  *   quantity: float — Quantity used to select the break tier
  *   pricePageUid: int — Price page UID that matched
  *   pricePageDescription: string — Description of the matched price page
@@ -116,30 +116,29 @@ use AugurApi\Core\Client;
  *   defaultPurchasingUnitSize: float|null — Size of the default purchasing unit
  *   baseUnit: string|null — Item's base unit
  *   baseUnitSize: float|null — Size of the base unit
- *   multiplier: int|float — Calculation value applied for the quantity (multiplier or markup
- *       percent)
+ *   multiplier: float — Calculation value applied for the quantity (multiplier or markup percent)
  *   breaks: list<PriceEngineListDataLibraryPriceDataOption1BreaksItem> — Quantity break tiers of
- *       the matched page
+ *       the matched page, lowest quantity first
  *     each item: PriceEngineListDataLibraryPriceDataOption1BreaksItem — One quantity break tier of
  *         a price page
- *   baseSize?: float|null — Base size the source price is divided by, set when the calculation runs
- *   basePrice?: float|null — Price per base unit, set when the calculation runs
- *   potentialCostValue?: float|null — Candidate cost value on the cost path, committed as source
+ *   baseSize: float|null — Base size the source price is divided by, set when the calculation runs
+ *   basePrice: float|null — Price per base unit, set when the calculation runs
+ *   potentialCostValue: float|null — Candidate cost value on the cost path, committed as source
  *       price only after a page match
- *   costPageUid?: float|null — Cost page UID used on the cost path
- *   costPageDescription?: string|null — Description of the cost page
- *   costPageMatched?: bool|null — True when a cost page matched on the cost path
- *   costSource?: string|null — Where the cost came from when a fallback was used
- *   lastReceivedPoCostSupplierId?: float|null — Supplier ID whose last received PO cost was used
+ *   costPageUid: float|null — Cost page UID used on the cost path
+ *   costPageDescription: string|null — Description of the cost page
+ *   costPageMatched: bool|null — True when a cost page matched on the cost path
+ *   costSource: string|null — Where the cost came from when a fallback was used
+ *   lastReceivedPoCostSupplierId: float|null — Supplier ID whose last received PO cost was used
  *       (source code 204)
- *   invLocProductGroupId?: string|null — Item's product group at the pricing location
- *   pricePageProductGroupId?: string|null — Product group on the matched page
- *   pricePageSupplierId?: float|null — Supplier ID on the matched page
- *   pricePageDiscountGroupId?: string|null — Discount group on the matched page
- *   pricePageMfgClassId?: string|null — Manufacturer class on the matched page
- *   pricePagePriceFamilyUid?: float|null — Price family UID on the matched page
- *   invLocSalesDiscountGroup?: string|null — Item's sales discount group at the pricing location
- *   invLocPriceFamilyUid?: float|null — Item's price family UID at the pricing location
+ *   invLocProductGroupId: string|null — Item's product group at the pricing location
+ *   pricePageProductGroupId: string|null — Product group on the matched page
+ *   pricePageSupplierId: float|null — Supplier ID on the matched page
+ *   pricePageDiscountGroupId: string|null — Discount group on the matched page
+ *   pricePageMfgClassId: string|null — Manufacturer class on the matched page
+ *   pricePagePriceFamilyUid: float|null — Price family UID on the matched page
+ *   invLocSalesDiscountGroup: string|null — Item's sales discount group at the pricing location
+ *   invLocPriceFamilyUid: float|null — Item's price family UID at the pricing location
  *
  * PriceEngineListDataLibraryPriceDataOption1BreaksItem: One quantity break tier of a price page
  * Field `breaks` of PriceEngineListDataLibraryPriceDataOption1
@@ -147,22 +146,22 @@ use AugurApi\Core\Client;
  *   break: float|null — Quantity at which the next tier starts, or null for the last tier
  *   startQuantity: float — First quantity this tier applies to
  *   endQuantity: float|null — Last quantity this tier applies to, or null when open-ended
- *   unitPrice: float|bool — Unit price at this tier, or false when it could not be calculated
+ *   unitPrice: float|false — Unit price at this tier, or false when it could not be calculated
  *
  * PriceEngineListDataLibraryPriceDataOption2: Library price from a multiplier library (type 211),
  * which prices without consulting books or pages
  * Field `libraryPriceData` of PriceEngineListData
- *   unitPrice: float|bool — Unit price, or false when the library produced no price
- *   pricedFrom?: string|null — Pricing source label, libraryMultiplier when a price was found
- *   sourcePrice?: float|null — Source price the multiplier was applied to
- *   sourcePriceCd?: int|null — Source price code the source price came from
- *   multiplier?: float|null — Library multiplier applied to the source price
- *   priceLibraryUid?: int|null — Price library UID that produced the price
- *   unitOfMeasureSize?: float|null — Unit of measure size applied to the base price
+ *   unitPrice: float|false — Unit price, or false when the library produced no price
+ *   pricedFrom: string|null — Pricing source label, libraryMultiplier when a price was found
+ *   sourcePrice: float|null — Source price the multiplier was applied to
+ *   sourcePriceCd: int|null — Source price code the source price came from
+ *   multiplier: float|null — Library multiplier applied to the source price
+ *   priceLibraryUid: int|null — Price library UID that produced the price
+ *   unitOfMeasureSize: float|null — Unit of measure size applied to the base price
  *
  * PriceEngineListDataDefaultCompanyPrice: Default company pricing detail when that stage ran
  * Field `defaultCompanyPrice` of PriceEngineListData
- *   unitPrice: float|bool — Unit price in the requested unit of measure, or false when none was
+ *   unitPrice: float|false — Unit price in the requested unit of measure, or false when none was
  *       found
  *   purchasePricingUnitSize: float|null — Item's purchase pricing unit size from inv_mast
  *   sourceTypeCd: int — Company price source code (PRICE_1 to PRICE_10 or supplier list price), 0
@@ -204,13 +203,13 @@ use AugurApi\Core\Client;
  *   quantity?: float — Quantity to price, defaults to 1
  *   unitOfMeasure?: string|null — Unit of measure to price in; the item's default when omitted
  *
- * @phpstan-type PriceEngineListData array{unitPrice: float, pricedFrom: 'jobPricing'|'sourceCd'|'libraryPrice'|'libraryMultiplier'|'defaultCompanyPrice'|false, priceType: 'J'|'S'|'L'|'C'|false, jobPrice: float|bool, listPrice: float, customer: PriceEngineListDataCustomer, item: PriceEngineListDataItem, options: array<string, mixed>|array{}, messages: list<string>, jobNo?: string|null, jobPriceHdrUid?: int|null, contractNo?: string|null, libraryPriceData?: PriceEngineListDataLibraryPriceDataOption1|PriceEngineListDataLibraryPriceDataOption2|null, defaultCompanyPrice?: PriceEngineListDataDefaultCompanyPrice, webPrice?: float|bool}
- * @phpstan-type PriceEngineListDataCustomer array{customerId: float, valid: bool, sourcePriceCd: int|bool, sourcePriceDesc: string|null, pricingMethodCd: int|null, pricingMethodDesc: string|null, hasJobPricing: bool, jobPricingEnabled: bool, corpAddressId: float|null, corpAddressJobCount: int, customerShipToJobCount: int}
+ * @phpstan-type PriceEngineListData array{unitPrice: float, pricedFrom: 'jobPricing'|'sourceCd'|'libraryPrice'|'libraryMultiplier'|'defaultCompanyPrice'|false, priceType: 'J'|'S'|'L'|'C'|false, jobPrice: float|false, listPrice: float, customer: PriceEngineListDataCustomer, item: PriceEngineListDataItem, options: array<string, mixed>|array{}, messages: list<string>, jobNo: string|null, jobPriceHdrUid: int|null, contractNo: string|null, libraryPriceData: PriceEngineListDataLibraryPriceDataOption1|PriceEngineListDataLibraryPriceDataOption2|null, defaultCompanyPrice: PriceEngineListDataDefaultCompanyPrice|null, webPrice: float|false}
+ * @phpstan-type PriceEngineListDataCustomer array{customerId: float, valid: bool, sourcePriceCd: int|false, sourcePriceDesc: string|null, pricingMethodCd: int|null, pricingMethodDesc: string|null, hasJobPricing: bool, jobPricingEnabled: bool, corpAddressId: float|null, corpAddressJobCount: int, customerShipToJobCount: int}
  * @phpstan-type PriceEngineListDataItem array{itemId: string, valid: bool, invMastUid: int|null, quantity: float, unitOfMeasure: string|null}
- * @phpstan-type PriceEngineListDataLibraryPriceDataOption1 array{unitPrice: float|bool, sourcePrice: float|bool|null, quantity: float, pricePageUid: int, pricePageDescription: string, pricePageCdType: int, pricePageCdDesc: string, effectiveDate: string, expirationDate: string, itemId: string, invMastUid: int, pricingMethodCd: int, pricingMethodCdDesc: string, sourcePriceCd: int, sourcePriceCdDesc: string, calculationMethodCd: int, calculationMethodCdDesc: string, totalingMethodCd: int, totalingMethodCdDesc: string, calculatorType: string, purchasePricingUnit: string|null, purchasePricingUnitSize: float|null, salesPricingUnit: string|null, salesPricingUnitSize: float|null, unitOfMeasure: string|null, unitOfMeasureSize: float|null, defaultSellingUnit: string|null, defaultSellingUnitSize: float|null, defaultPurchasingUnit: string|null, defaultPurchasingUnitSize: float|null, baseUnit: string|null, baseUnitSize: float|null, multiplier: int|float, breaks: list<PriceEngineListDataLibraryPriceDataOption1BreaksItem>, baseSize?: float|null, basePrice?: float|null, potentialCostValue?: float|null, costPageUid?: float|null, costPageDescription?: string|null, costPageMatched?: bool|null, costSource?: string|null, lastReceivedPoCostSupplierId?: float|null, invLocProductGroupId?: string|null, pricePageProductGroupId?: string|null, pricePageSupplierId?: float|null, pricePageDiscountGroupId?: string|null, pricePageMfgClassId?: string|null, pricePagePriceFamilyUid?: float|null, invLocSalesDiscountGroup?: string|null, invLocPriceFamilyUid?: float|null}
- * @phpstan-type PriceEngineListDataLibraryPriceDataOption1BreaksItem array{calculationValue: float|null, break: float|null, startQuantity: float, endQuantity: float|null, unitPrice: float|bool}
- * @phpstan-type PriceEngineListDataLibraryPriceDataOption2 array{unitPrice: float|bool, pricedFrom?: string|null, sourcePrice?: float|null, sourcePriceCd?: int|null, multiplier?: float|null, priceLibraryUid?: int|null, unitOfMeasureSize?: float|null}
- * @phpstan-type PriceEngineListDataDefaultCompanyPrice array{unitPrice: float|bool, purchasePricingUnitSize: float|null, sourceTypeCd: int, sourceTypeDesc: string|null, unitOfMeasure: string, unitOfMeasureSize: float, basePrice: float, baseSize: float}
+ * @phpstan-type PriceEngineListDataLibraryPriceDataOption1 array{unitPrice: float|false, sourcePrice: float|null|false, quantity: float, pricePageUid: int, pricePageDescription: string, pricePageCdType: int, pricePageCdDesc: string, effectiveDate: string, expirationDate: string, itemId: string, invMastUid: int, pricingMethodCd: int, pricingMethodCdDesc: string, sourcePriceCd: int, sourcePriceCdDesc: string, calculationMethodCd: int, calculationMethodCdDesc: string, totalingMethodCd: int, totalingMethodCdDesc: string, calculatorType: string, purchasePricingUnit: string|null, purchasePricingUnitSize: float|null, salesPricingUnit: string|null, salesPricingUnitSize: float|null, unitOfMeasure: string|null, unitOfMeasureSize: float|null, defaultSellingUnit: string|null, defaultSellingUnitSize: float|null, defaultPurchasingUnit: string|null, defaultPurchasingUnitSize: float|null, baseUnit: string|null, baseUnitSize: float|null, multiplier: float, breaks: list<PriceEngineListDataLibraryPriceDataOption1BreaksItem>, baseSize: float|null, basePrice: float|null, potentialCostValue: float|null, costPageUid: float|null, costPageDescription: string|null, costPageMatched: bool|null, costSource: string|null, lastReceivedPoCostSupplierId: float|null, invLocProductGroupId: string|null, pricePageProductGroupId: string|null, pricePageSupplierId: float|null, pricePageDiscountGroupId: string|null, pricePageMfgClassId: string|null, pricePagePriceFamilyUid: float|null, invLocSalesDiscountGroup: string|null, invLocPriceFamilyUid: float|null}
+ * @phpstan-type PriceEngineListDataLibraryPriceDataOption1BreaksItem array{calculationValue: float|null, break: float|null, startQuantity: float, endQuantity: float|null, unitPrice: float|false}
+ * @phpstan-type PriceEngineListDataLibraryPriceDataOption2 array{unitPrice: float|false, pricedFrom: string|null, sourcePrice: float|null, sourcePriceCd: int|null, multiplier: float|null, priceLibraryUid: int|null, unitOfMeasureSize: float|null}
+ * @phpstan-type PriceEngineListDataDefaultCompanyPrice array{unitPrice: float|false, purchasePricingUnitSize: float|null, sourceTypeCd: int, sourceTypeDesc: string|null, unitOfMeasure: string, unitOfMeasureSize: float, basePrice: float, baseSize: float}
  * @phpstan-type PriceEngineCreateData array{customerId: int, shipToId: int, itemCount: int, items: list<PriceEngineCreateDataItemsItem>}
  * @phpstan-type PriceEngineCreateDataItemsItem array{itemId: string, quantity: float, unitOfMeasure: string, priceEngine: PriceEngineListData}
  * @phpstan-type PriceEngineCreateBody array{customerId: int, items: list<PriceEngineCreateBodyItemsItem>, shipToId?: int|null}

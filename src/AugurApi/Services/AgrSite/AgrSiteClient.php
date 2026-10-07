@@ -17,7 +17,6 @@ use AugurApi\Services\AgrSite\Resources\NotificationsResource;
 use AugurApi\Services\AgrSite\Resources\OpenSearchResource;
 use AugurApi\Services\AgrSite\Resources\PostalCodesXShiptosResource;
 use AugurApi\Services\AgrSite\Resources\SettingsResource;
-use AugurApi\Services\AgrSite\Resources\TrainingResource;
 use AugurApi\Services\AgrSite\Resources\UsersResource;
 
 /**
@@ -83,44 +82,6 @@ use AugurApi\Services\AgrSite\Resources\UsersResource;
  *       SettingsListItem
  *   DELETE /settings/{settingsUid} → $api->agrSite->settings->delete($settingsUid) →
  *       SettingsListItem
- *   GET /training → $api->agrSite->training->list() → list of TrainingListItem
- *   POST /training → $api->agrSite->training->create($data) → TrainingListItem
- *   GET /training/{trainingSetUid} → $api->agrSite->training->get($trainingSetUid) →
- *       TrainingListItem
- *   PUT /training/{trainingSetUid} → $api->agrSite->training->update($trainingSetUid, $data) →
- *       TrainingListItem
- *   DELETE /training/{trainingSetUid} → $api->agrSite->training->delete($trainingSetUid) →
- *       TrainingListItem
- *   GET /training/{trainingSetUid}/conversations →
- *       $api->agrSite->training->listConversations($trainingSetUid) →
- *       list of TrainingConversationsListItem
- *   POST /training/{trainingSetUid}/conversations →
- *       $api->agrSite->training->createConversations($trainingSetUid, $data) →
- *       TrainingConversationsListItem
- *   GET /training/{trainingSetUid}/conversations/{trainingConvUid} →
- *       $api->agrSite->training->getConversations($trainingSetUid, $trainingConvUid) →
- *       TrainingConversationsListItem
- *   PUT /training/{trainingSetUid}/conversations/{trainingConvUid} →
- *       $api->agrSite->training->updateConversations($trainingSetUid, $trainingConvUid, $data) →
- *       TrainingConversationsListItem
- *   DELETE /training/{trainingSetUid}/conversations/{trainingConvUid} →
- *       $api->agrSite->training->deleteConversations($trainingSetUid, $trainingConvUid) →
- *       TrainingConversationsListItem
- *   GET /training/{trainingSetUid}/conversations/{trainingConvUid}/messages →
- *       $api->agrSite->training->listConversationsMessages($trainingSetUid, $trainingConvUid) →
- *       list of TrainingConversationsMessagesListItem
- *   POST /training/{trainingSetUid}/conversations/{trainingConvUid}/messages →
- *       $api->agrSite->training->createConversationsMessages($trainingSetUid, $trainingConvUid, $data) →
- *       TrainingConversationsMessagesListItem
- *   GET /training/{trainingSetUid}/conversations/{trainingConvUid}/messages/{trainingMsgUid} →
- *       $api->agrSite->training->getConversationsMessages($trainingSetUid, $trainingConvUid, $trainingMsgUid) →
- *       TrainingConversationsMessagesListItem
- *   PUT /training/{trainingSetUid}/conversations/{trainingConvUid}/messages/{trainingMsgUid} →
- *       $api->agrSite->training->updateConversationsMessages($trainingSetUid, $trainingConvUid, $trainingMsgUid, $data) →
- *       TrainingConversationsMessagesListItem
- *   DELETE /training/{trainingSetUid}/conversations/{trainingConvUid}/messages/{trainingMsgUid} →
- *       $api->agrSite->training->deleteConversationsMessages($trainingSetUid, $trainingConvUid, $trainingMsgUid) →
- *       TrainingConversationsMessagesListItem
  *   GET /users/{userId}/addresses → $api->agrSite->users->listAddresses($userId) →
  *       list of UsersAddressesListItem
  *   POST /users/{userId}/addresses → $api->agrSite->users->createAddresses($userId, $data) →
@@ -145,7 +106,6 @@ final class AgrSiteClient extends BaseServiceClient
     public readonly OpenSearchResource $openSearch;
     public readonly PostalCodesXShiptosResource $postalCodesXShiptos;
     public readonly SettingsResource $settings;
-    public readonly TrainingResource $training;
     public readonly UsersResource $users;
 
     public function __construct(Client $client, Config $config)
@@ -161,7 +121,6 @@ final class AgrSiteClient extends BaseServiceClient
         $this->openSearch = new OpenSearchResource($this->client, $this->baseUrl . '/open-search');
         $this->postalCodesXShiptos = new PostalCodesXShiptosResource($this->client, $this->baseUrl . '/postal-codes-x-shiptos');
         $this->settings = new SettingsResource($this->client, $this->baseUrl . '/settings');
-        $this->training = new TrainingResource($this->client, $this->baseUrl . '/training');
         $this->users = new UsersResource($this->client, $this->baseUrl . '/users');
     }
 

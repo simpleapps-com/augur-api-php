@@ -1338,238 +1338,6 @@
     "edgeCache": false
   },
   {
-    "id": "agrSite.training.conversations.create",
-    "service": "agr-site",
-    "method": "POST",
-    "path": "/training/{trainingSetUid}/conversations",
-    "pathParams": [
-      "trainingSetUid"
-    ],
-    "queryParams": [],
-    "aliases": [],
-    "hasBody": true,
-    "auth": "bearer",
-    "edgeCache": false
-  },
-  {
-    "id": "agrSite.training.conversations.delete",
-    "service": "agr-site",
-    "method": "DELETE",
-    "path": "/training/{trainingSetUid}/conversations/{trainingConvUid}",
-    "pathParams": [
-      "trainingSetUid",
-      "trainingConvUid"
-    ],
-    "queryParams": [],
-    "aliases": [],
-    "hasBody": false,
-    "auth": "bearer",
-    "edgeCache": false
-  },
-  {
-    "id": "agrSite.training.conversations.get",
-    "service": "agr-site",
-    "method": "GET",
-    "path": "/training/{trainingSetUid}/conversations/{trainingConvUid}",
-    "pathParams": [
-      "trainingSetUid",
-      "trainingConvUid"
-    ],
-    "queryParams": [],
-    "aliases": [],
-    "hasBody": false,
-    "auth": "bearer",
-    "edgeCache": true
-  },
-  {
-    "id": "agrSite.training.conversations.list",
-    "service": "agr-site",
-    "method": "GET",
-    "path": "/training/{trainingSetUid}/conversations",
-    "pathParams": [
-      "trainingSetUid"
-    ],
-    "queryParams": [
-      "limit",
-      "offset",
-      "orderBy",
-      "statusCd"
-    ],
-    "aliases": [],
-    "hasBody": false,
-    "auth": "bearer",
-    "edgeCache": true
-  },
-  {
-    "id": "agrSite.training.conversations.messages.create",
-    "service": "agr-site",
-    "method": "POST",
-    "path": "/training/{trainingSetUid}/conversations/{trainingConvUid}/messages",
-    "pathParams": [
-      "trainingSetUid",
-      "trainingConvUid"
-    ],
-    "queryParams": [],
-    "aliases": [],
-    "hasBody": true,
-    "auth": "bearer",
-    "edgeCache": false
-  },
-  {
-    "id": "agrSite.training.conversations.messages.delete",
-    "service": "agr-site",
-    "method": "DELETE",
-    "path": "/training/{trainingSetUid}/conversations/{trainingConvUid}/messages/{trainingMsgUid}",
-    "pathParams": [
-      "trainingSetUid",
-      "trainingConvUid",
-      "trainingMsgUid"
-    ],
-    "queryParams": [],
-    "aliases": [],
-    "hasBody": false,
-    "auth": "bearer",
-    "edgeCache": false
-  },
-  {
-    "id": "agrSite.training.conversations.messages.get",
-    "service": "agr-site",
-    "method": "GET",
-    "path": "/training/{trainingSetUid}/conversations/{trainingConvUid}/messages/{trainingMsgUid}",
-    "pathParams": [
-      "trainingSetUid",
-      "trainingConvUid",
-      "trainingMsgUid"
-    ],
-    "queryParams": [],
-    "aliases": [],
-    "hasBody": false,
-    "auth": "bearer",
-    "edgeCache": true
-  },
-  {
-    "id": "agrSite.training.conversations.messages.list",
-    "service": "agr-site",
-    "method": "GET",
-    "path": "/training/{trainingSetUid}/conversations/{trainingConvUid}/messages",
-    "pathParams": [
-      "trainingSetUid",
-      "trainingConvUid"
-    ],
-    "queryParams": [
-      "limit",
-      "offset",
-      "orderBy",
-      "statusCd"
-    ],
-    "aliases": [],
-    "hasBody": false,
-    "auth": "bearer",
-    "edgeCache": true
-  },
-  {
-    "id": "agrSite.training.conversations.messages.update",
-    "service": "agr-site",
-    "method": "PUT",
-    "path": "/training/{trainingSetUid}/conversations/{trainingConvUid}/messages/{trainingMsgUid}",
-    "pathParams": [
-      "trainingSetUid",
-      "trainingConvUid",
-      "trainingMsgUid"
-    ],
-    "queryParams": [],
-    "aliases": [],
-    "hasBody": true,
-    "auth": "bearer",
-    "edgeCache": false
-  },
-  {
-    "id": "agrSite.training.conversations.update",
-    "service": "agr-site",
-    "method": "PUT",
-    "path": "/training/{trainingSetUid}/conversations/{trainingConvUid}",
-    "pathParams": [
-      "trainingSetUid",
-      "trainingConvUid"
-    ],
-    "queryParams": [],
-    "aliases": [],
-    "hasBody": true,
-    "auth": "bearer",
-    "edgeCache": false
-  },
-  {
-    "id": "agrSite.training.create",
-    "service": "agr-site",
-    "method": "POST",
-    "path": "/training",
-    "pathParams": [],
-    "queryParams": [],
-    "aliases": [],
-    "hasBody": true,
-    "auth": "bearer",
-    "edgeCache": false
-  },
-  {
-    "id": "agrSite.training.delete",
-    "service": "agr-site",
-    "method": "DELETE",
-    "path": "/training/{trainingSetUid}",
-    "pathParams": [
-      "trainingSetUid"
-    ],
-    "queryParams": [],
-    "aliases": [],
-    "hasBody": false,
-    "auth": "bearer",
-    "edgeCache": false
-  },
-  {
-    "id": "agrSite.training.get",
-    "service": "agr-site",
-    "method": "GET",
-    "path": "/training/{trainingSetUid}",
-    "pathParams": [
-      "trainingSetUid"
-    ],
-    "queryParams": [],
-    "aliases": [],
-    "hasBody": false,
-    "auth": "bearer",
-    "edgeCache": true
-  },
-  {
-    "id": "agrSite.training.list",
-    "service": "agr-site",
-    "method": "GET",
-    "path": "/training",
-    "pathParams": [],
-    "queryParams": [
-      "limit",
-      "offset",
-      "orderBy",
-      "statusCd"
-    ],
-    "aliases": [],
-    "hasBody": false,
-    "auth": "bearer",
-    "edgeCache": true
-  },
-  {
-    "id": "agrSite.training.update",
-    "service": "agr-site",
-    "method": "PUT",
-    "path": "/training/{trainingSetUid}",
-    "pathParams": [
-      "trainingSetUid"
-    ],
-    "queryParams": [],
-    "aliases": [],
-    "hasBody": true,
-    "auth": "bearer",
-    "edgeCache": false
-  },
-  {
     "id": "agrSite.users.addresses.create",
     "service": "agr-site",
     "method": "POST",
@@ -9178,7 +8946,8 @@
       "customerId",
       "limit",
       "offset",
-      "orderBy"
+      "orderBy",
+      "statusCd"
     ],
     "aliases": [],
     "hasBody": false,
@@ -9263,7 +9032,8 @@
       "customerId",
       "limit",
       "offset",
-      "prefix"
+      "prefix",
+      "statusCd"
     ],
     "aliases": [],
     "hasBody": false,
@@ -9370,6 +9140,7 @@
       "limit",
       "offset",
       "orderBy",
+      "statusCd",
       "warehouseUid"
     ],
     "aliases": [],
@@ -9697,6 +9468,7 @@
       "limit",
       "offset",
       "orderBy",
+      "statusCd",
       "statusCdList"
     ],
     "aliases": [],

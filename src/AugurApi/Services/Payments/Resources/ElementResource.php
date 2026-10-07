@@ -37,9 +37,9 @@ use AugurApi\Core\Client;
  * ElementPaymentCreateBody: Card and address to tokenize through Element; a missing card or address
  * is sent to Element as empty
  * Request body of: $api->payments->element->createPayment($data)
- *   card?: ElementPaymentCreateBodyCard — Card to tokenize
- *   address?: ElementPaymentCreateBodyAddress — Billing and shipping addresses; shipping picks the
- *       processor, billing feeds AVS
+ *   card?: ElementPaymentCreateBodyCard|null — Card to tokenize
+ *   address?: ElementPaymentCreateBodyAddress|null — Billing and shipping addresses; shipping picks
+ *       the processor, billing feeds AVS
  *
  * ElementPaymentCreateBodyCard: Card to tokenize
  * Field `card` of ElementPaymentCreateBody
@@ -51,10 +51,10 @@ use AugurApi\Core\Client;
  * ElementPaymentCreateBodyAddress: Billing and shipping addresses; shipping picks the processor,
  * billing feeds AVS
  * Field `address` of ElementPaymentCreateBody
- *   billing?: ElementPaymentCreateBodyAddressBilling — Billing address; address1 and postalCode
- *       feed the AVS check
- *   shipping?: ElementPaymentCreateBodyAddressBilling — Shipping address; state and postalCode pick
- *       the site's Element processor
+ *   billing?: ElementPaymentCreateBodyAddressBilling|null — Billing address; address1 and
+ *       postalCode feed the AVS check
+ *   shipping?: ElementPaymentCreateBodyAddressBilling|null — Shipping address; state and postalCode
+ *       pick the site's Element processor
  *
  * ElementPaymentCreateBodyAddressBilling: Billing address; address1 and postalCode feed the AVS
  * check
@@ -71,9 +71,9 @@ use AugurApi\Core\Client;
  *   phone?: string|null — Phone number
  *
  * @phpstan-type ElementPaymentCreateData array{processor: string, cardData: array<string, mixed>|array{}, avs: array<string, mixed>|array{}}
- * @phpstan-type ElementPaymentCreateBody array{card?: ElementPaymentCreateBodyCard, address?: ElementPaymentCreateBodyAddress}
+ * @phpstan-type ElementPaymentCreateBody array{card?: ElementPaymentCreateBodyCard|null, address?: ElementPaymentCreateBodyAddress|null}
  * @phpstan-type ElementPaymentCreateBodyCard array{ccNumber?: string|null, cvv?: string|null, expMonth?: string|null, expYear?: string|null}
- * @phpstan-type ElementPaymentCreateBodyAddress array{billing?: ElementPaymentCreateBodyAddressBilling, shipping?: ElementPaymentCreateBodyAddressBilling}
+ * @phpstan-type ElementPaymentCreateBodyAddress array{billing?: ElementPaymentCreateBodyAddressBilling|null, shipping?: ElementPaymentCreateBodyAddressBilling|null}
  * @phpstan-type ElementPaymentCreateBodyAddressBilling array{firstName?: string|null, lastName?: string|null, address1?: string|null, address2?: string|null, city?: string|null, state?: string|null, postalCode?: string|null, email?: string|null, phone?: string|null}
  */
 final class ElementResource

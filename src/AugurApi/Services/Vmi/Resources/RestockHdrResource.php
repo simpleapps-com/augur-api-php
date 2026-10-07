@@ -141,6 +141,8 @@ final class RestockHdrResource
      *   limit?: int — Limit number of results (Default: 10)
      *   offset?: int — Starting offset results (Default: 0)
      *   orderBy?: string — Order By (Default: restock_hdr_uid|ASC)
+     *   statusCd?: int|int[] — Status code or list of codes (700=DELETE, 704=ACTIVE, 705=INACTIVE),
+     *       sent comma-joined (704,705); -1 for every status. Default: every status
      *   warehouseUid?: int — Filter by Warehouse UID
      *
      * $params also takes edgeCache, the Cloudflare edge cache time: '30s', '1m', '5m', or 1-5 or 8
@@ -201,6 +203,7 @@ final class RestockHdrResource
      * Call: $api->vmi->restockHdr->delete($restockHdrUid)
      *
      * Errors:
+     *   400: restockHdrUid is below 1.
      *   404: No row exists with this ID.
      *
      * DELETE https://vmi.augur-api.com/restock-hdr/{restockHdrUid}
@@ -230,6 +233,10 @@ final class RestockHdrResource
      *
      * Get Restock Header Details
      * Call: $api->vmi->restockHdr->get($restockHdrUid)
+     *
+     * Errors:
+     *   400: restockHdrUid is below 1.
+     *   404: No restock with this restockHdrUid.
      *
      * GET https://vmi.augur-api.com/restock-hdr/{restockHdrUid}
      * Contract: https://vmi.augur-api.com/openapi.json#/paths/~1restock-hdr~1{restockHdrUid}/get

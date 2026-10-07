@@ -69,7 +69,7 @@ use AugurApi\Core\Client;
  *   shippingRouteUid: int|null — Shipping route assigned to the ship-to
  *   routeCode: string|null — Shipping route code
  *   routeDescription: string|null — Shipping route description
- *   address: UsersListItemShipToItemAddress — The ship-to's address; null when no address row
+ *   address: UsersListItemShipToItemAddress|null — The ship-to's address; null when no address row
  *       matches
  *
  * UsersListItemShipToItemAddress: The ship-to's address; null when no address row matches
@@ -119,7 +119,7 @@ use AugurApi\Core\Client;
  *   id: int — Joomla user ID; 0 when the password did not match
  *   isVerified: bool — True when the password matched
  *   username: string — Username sent
- *   token: string|bool — User JWT; false when the password did not match
+ *   token: string|false — User JWT; false when the password did not match
  *   email: string — Email address; empty when the password did not match
  *   hasCustomerId: bool — True when the user's profile has a Prophet 21 customer ID
  *   hasContactId: bool — True when the user's profile has a Prophet 21 contact ID
@@ -173,13 +173,13 @@ use AugurApi\Core\Client;
  * UsersTrinityListData: A Trinity user's profile, Prophet 21 role, groups, territory and role
  * Returned by: $api->joomla->users->listTrinity($id)
  *   profile: UsersTrinityListDataProfile — Account fields and profile values
- *   p21Role: UsersTrinityListDataP21Role — Prophet 21 contact role; the key is absent when the user
- *       has no contact ID
  *   groups: list<UsersListItemGroupsItem> — User groups the user belongs to
  *     each item: UsersListItemGroupsItem — One Joomla user group a user belongs to
  *         (UsergroupsHelper::listByUserId)
  *   territory: string — trinitysurfaces, trinitytile, or empty when neither matches
  *   role: string — A&D, contractor, or empty
+ *   p21Role?: UsersTrinityListDataP21Role|null — Prophet 21 contact role; the key is absent when
+ *       the user has no contact ID
  *
  * UsersTrinityListDataProfile: Account fields and profile values
  * Field `profile` of UsersTrinityListData
@@ -229,17 +229,17 @@ use AugurApi\Core\Client;
  *
  * @phpstan-type UsersListItem array{email: string, id: int, lastResetTime: string, lastvisitDate: string, name: string, registerDate: string, username: string, block: int, profileValues: array<string, string>, customerId: string, contactId: string, timezone: string, language: string, groups: list<UsersListItemGroupsItem>, shipTo?: list<UsersListItemShipToItem>|null}
  * @phpstan-type UsersListItemGroupsItem array{id: int, title: string}
- * @phpstan-type UsersListItemShipToItem array{shipToId: float, customerId: float, companyId: string, defaultBranch: string, defaultCarrierId: float|null, preferredLocationId: float|null, deliveryInstructions: string|null, shippingRouteUid: int|null, routeCode: string|null, routeDescription: string|null, address: UsersListItemShipToItemAddress}
+ * @phpstan-type UsersListItemShipToItem array{shipToId: float, customerId: float, companyId: string, defaultBranch: string, defaultCarrierId: float|null, preferredLocationId: float|null, deliveryInstructions: string|null, shippingRouteUid: int|null, routeCode: string|null, routeDescription: string|null, address: UsersListItemShipToItemAddress|null}
  * @phpstan-type UsersListItemShipToItemAddress array{id: float, name: string, mailAddress1: string|null, mailAddress2: string|null, mailAddress3: string|null, mailCity: string|null, mailState: string|null, mailPostalCode: string|null, mailCountry: string|null, physAddress1: string|null, physAddress2: string|null, physAddress3: string|null, physCity: string|null, physState: string|null, physPostalCode: string|null, physCountry: string|null, class5Id: string|null, centralPhoneNumber: string|null, upsCode: string|null}
  * @phpstan-type UsersCreateData array{username: string, id: int, email: string, name: string}
  * @phpstan-type UsersCreateBody array{username: string, email?: string|null, name?: string|null, password?: string|null, groups?: list<int>|null, profileValues?: array<string, mixed>|array{}|null}
- * @phpstan-type UsersVerifyPasswordCreateData array{id: int, isVerified: bool, username: string, token: string|bool, email: string, hasCustomerId: bool, hasContactId: bool, hasShipToId: bool}
+ * @phpstan-type UsersVerifyPasswordCreateData array{id: int, isVerified: bool, username: string, token: string|false, email: string, hasCustomerId: bool, hasContactId: bool, hasShipToId: bool}
  * @phpstan-type UsersVerifyPasswordCreateBody array{username?: string, password?: string, siteId?: string|null}
  * @phpstan-type UsersGetData array{activation: string, email: string, id: int, lastResetTime: string, lastvisitDate: string, name: string, registerDate: string, username: string}
  * @phpstan-type UsersUpdateBody array{name?: string|null, email?: string|null, username?: string|null, password?: string|null, block?: int|null, groups?: list<int>|null, profileValues?: array<string, mixed>|array{}|null}
  * @phpstan-type UsersGroupsListItem array{userId: int, username: string, groupId: int, title: string}
  * @phpstan-type UsersGroupsCreateBody array{groupId: int}
- * @phpstan-type UsersTrinityListData array{profile: UsersTrinityListDataProfile, p21Role: UsersTrinityListDataP21Role, groups: list<UsersListItemGroupsItem>, territory: string, role: string}
+ * @phpstan-type UsersTrinityListData array{profile: UsersTrinityListDataProfile, groups: list<UsersListItemGroupsItem>, territory: string, role: string, p21Role?: UsersTrinityListDataP21Role|null}
  * @phpstan-type UsersTrinityListDataProfile array{id: int, name: string, username: string, email: string, lastvisitDate: string, registerDate: string, block: int, contactId?: int|null, customerId?: int|null, contractNo?: string|null, shipTo?: string|null, phone?: string|null, title?: string|null, companyName?: string|null, approved?: int|null}
  * @phpstan-type UsersTrinityListDataP21Role array{contactRoleUid: int|null, contactRoleId: int|null, contactRoleName: string|null, parentName: string|null, parentGroupId: int|null, groupId: int|null, id: int, address: UsersTrinityListDataP21RoleAddress}
  * @phpstan-type UsersTrinityListDataP21RoleAddress array{id: float, physAddress1: string|null, physAddress2: string|null, physCity: string|null, physState: string|null, physPostalCode: string|null, physCountry: string|null, mailAddress1: string|null, mailAddress2: string|null, mailCity: string|null, mailState: string|null, mailPostalCode: string|null, mailCountry: string|null}

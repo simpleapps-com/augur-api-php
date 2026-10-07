@@ -111,7 +111,8 @@ final class ProductsResource
      *   orderBy?: string — Order By (Default: products_uid|ASC)
      *   prefix?: string — Product Id Prefix
      *   q?: string — Query String
-     *   statusCd?: int — Status Code (status_cd) [(704)|(705)|(700)]
+     *   statusCd?: int|int[] — Status code or list of codes (700=DELETE, 704=ACTIVE, 705=INACTIVE),
+     *       sent comma-joined (704,705); -1 for every status. Default: 704
      *
      * $params also takes edgeCache, the Cloudflare edge cache time: '30s', '1m', '5m', or 1-5 or 8
      * (hours).
@@ -149,6 +150,8 @@ final class ProductsResource
      *   limit?: int — Limit number of results (Default: 10)
      *   offset?: int — Starting offset results (Default: 0)
      *   prefix?: string — Product Id Prefix
+     *   statusCd?: int|int[] — Status code or list of codes (700=DELETE, 704=ACTIVE, 705=INACTIVE),
+     *       sent comma-joined (704,705); -1 for every status. Default: 704
      *
      * $params also takes edgeCache, the Cloudflare edge cache time: '30s', '1m', '5m', or 1-5 or 8
      * (hours).
@@ -175,6 +178,7 @@ final class ProductsResource
      * Call: $api->vmi->products->delete($productsUid)
      *
      * Errors:
+     *   400: productsUid is below 1.
      *   404: No row exists with this ID.
      *
      * DELETE https://vmi.augur-api.com/products/{productsUid}
@@ -204,6 +208,10 @@ final class ProductsResource
      *
      * Get Product Details
      * Call: $api->vmi->products->get($productsUid)
+     *
+     * Errors:
+     *   400: productsUid is below 1.
+     *   404: No product with this productsUid.
      *
      * GET https://vmi.augur-api.com/products/{productsUid}
      * Contract: https://vmi.augur-api.com/openapi.json#/paths/~1products~1{productsUid}/get
@@ -280,6 +288,7 @@ final class ProductsResource
      * Response data: Outcome of an enable, disable, or delete request
      *
      * Errors:
+     *   400: productsUid is below 1.
      *   404: No row exists with this ID.
      *
      * PUT https://vmi.augur-api.com/products/{productsUid}/enable
