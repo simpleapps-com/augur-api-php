@@ -32,4 +32,15 @@ final class SitesResourceTest extends AugurApiTestCase
         $this->assertRequestPath('/sites/staff-token');
         $this->assertRequestMethod('POST');
     }
+
+    public function testCreateP21Api(): void
+    {
+        $this->mockResponse(['valid' => true, 'siteId' => 'abc', 'p21' => null]);
+
+        $response = $this->api->agrInfo->sites->createP21Api(['siteId' => 'abc', 'token' => 'jwt-token']);
+
+        $this->assertTrue(self::at($response->data, 'valid'));
+        $this->assertRequestPath('/sites/p21-api');
+        $this->assertRequestMethod('POST');
+    }
 }

@@ -86,6 +86,7 @@ final class WorkflowsResource
      *
      * Errors:
      *   400: orderBy is not column|ASC or column|DESC on a workflows column.
+     *   403: x-site-id is not augur_info: agr_info serves only the augur_info site.
      *
      * GET https://agr-info.augur-api.com/workflows
      * Contract: https://agr-info.augur-api.com/openapi.json#/paths/~1workflows/get
@@ -126,6 +127,7 @@ final class WorkflowsResource
      *
      * Errors:
      *   400: The body is missing or not a JSON object. Or title or workflow is missing.
+     *   403: x-site-id is not augur_info: agr_info serves only the augur_info site.
      *
      * POST https://agr-info.augur-api.com/workflows
      * Contract: https://agr-info.augur-api.com/openapi.json#/paths/~1workflows/post
@@ -154,6 +156,7 @@ final class WorkflowsResource
      * Call: $api->agrInfo->workflows->delete($workflowsUid)
      *
      * Errors:
+     *   403: x-site-id is not augur_info: agr_info serves only the augur_info site.
      *   404: No workflow with this ID.
      *
      * DELETE https://agr-info.augur-api.com/workflows/{workflowsUid}
@@ -186,6 +189,7 @@ final class WorkflowsResource
      * Call: $api->agrInfo->workflows->get($workflowsUid)
      *
      * Errors:
+     *   403: x-site-id is not augur_info: agr_info serves only the augur_info site.
      *   404: No workflow with this ID.
      *
      * GET https://agr-info.augur-api.com/workflows/{workflowsUid}
@@ -225,6 +229,7 @@ final class WorkflowsResource
      *
      * Errors:
      *   400: The body is missing or not a JSON object.
+     *   403: x-site-id is not augur_info: agr_info serves only the augur_info site.
      *   404: No workflow with this ID.
      *
      * PUT https://agr-info.augur-api.com/workflows/{workflowsUid}

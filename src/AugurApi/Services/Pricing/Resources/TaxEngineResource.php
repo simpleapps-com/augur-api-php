@@ -28,7 +28,8 @@ use AugurApi\Core\Client;
  * Returned by: $api->pricing->taxEngine->create($data)
  *   taxEstimate: float — Total estimated tax across all items
  *   customerId: int — P21 customer ID the items were priced for
- *   postalCode: string|float — Postal code the tax rate was looked up for
+ *   postalCode: string — Postal code the tax rate was looked up for, exactly as sent (leading zeros
+ *       kept)
  *   taxRate: float — Tax rate applied, as a fraction (0.089 = 8.9%)
  *   items: list<TaxEngineCreateDataItemsItem> — Per-item tax estimates
  *     each item: TaxEngineCreateDataItemsItem — Tax estimate for one item
@@ -56,7 +57,7 @@ use AugurApi\Core\Client;
  *   unitOfMeasure?: string|null — Unit of measure; defaults to the item's default selling unit
  *   unitPrice?: float|null — Unit price to tax; when absent or 0 the price engine prices the item
  *
- * @phpstan-type TaxEngineCreateData array{taxEstimate: float, customerId: int, postalCode: string|float, taxRate: float, items: list<TaxEngineCreateDataItemsItem>}
+ * @phpstan-type TaxEngineCreateData array{taxEstimate: float, customerId: int, postalCode: string, taxRate: float, items: list<TaxEngineCreateDataItemsItem>}
  * @phpstan-type TaxEngineCreateDataItemsItem array{itemId: string, invMastUid: int, quantity: float, unitOfMeasure: string|null, unitPrice: float|false, taxEstimate: float}
  * @phpstan-type TaxEngineCreateBody array{customerId: int, postalCode: string, items: list<TaxEngineCreateBodyItemsItem>}
  * @phpstan-type TaxEngineCreateBodyItemsItem array{itemId: string, quantity?: float, unitOfMeasure?: string|null, unitPrice?: float|null}

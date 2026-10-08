@@ -34,7 +34,7 @@ use AugurApi\Core\Client;
  *       metadata)
  *   took: int — OpenSearch query time in milliseconds
  *   queryStringUid: int — query_string row recorded for this search text (0 when not recorded)
- *   queryStringRedirectLink: string|false — Redirect link configured for this search text, or false
+ *   queryStringRedirectLink: string|null — Redirect link configured for this search text, or null
  *       when none
  *
  * ItemSearchListDataItemsItem: One item hit from GET /api/item-search
@@ -43,8 +43,8 @@ use AugurApi\Core\Client;
  *   itemId: string|null — Item ID
  *   itemDesc: string|null — Item description
  *   score: float|null — OpenSearch relevance score
- *   sourceFields: array<string, mixed>|array{}|null — Index source fields requested through
- *       sourceFieldsList, keyed by field name ([] when empty)
+ *   sourceFields: array<string, mixed>|null — Index source fields requested through
+ *       sourceFieldsList, keyed by field name; null when the item has none
  *   scoreInt: int — Relevance score truncated to an integer
  *   brandFolder?: ItemSearchListDataItemsItemBrandFolder|null — Brandfolder assets; the key is
  *       present only when useBrandFolderDoc=Y
@@ -94,8 +94,8 @@ use AugurApi\Core\Client;
  *   attributeValue: string — Display text of the value
  *   sequenceNo: int — Display order within the attribute
  *
- * @phpstan-type ItemSearchListData array{items: list<ItemSearchListDataItemsItem>, totalResults: int, maxScore: float|null, took: int, queryStringUid: int, queryStringRedirectLink: string|false}
- * @phpstan-type ItemSearchListDataItemsItem array{invMastUid: int, itemId: string|null, itemDesc: string|null, score: float|null, sourceFields: array<string, mixed>|array{}|null, scoreInt: int, brandFolder?: ItemSearchListDataItemsItemBrandFolder|null}
+ * @phpstan-type ItemSearchListData array{items: list<ItemSearchListDataItemsItem>, totalResults: int, maxScore: float|null, took: int, queryStringUid: int, queryStringRedirectLink: string|null}
+ * @phpstan-type ItemSearchListDataItemsItem array{invMastUid: int, itemId: string|null, itemDesc: string|null, score: float|null, sourceFields: array<string, mixed>|null, scoreInt: int, brandFolder?: ItemSearchListDataItemsItemBrandFolder|null}
  * @phpstan-type ItemSearchListDataItemsItemBrandFolder array{assets?: list<ItemSearchListDataItemsItemBrandFolderAssetsItem>|null}
  * @phpstan-type ItemSearchListDataItemsItemBrandFolderAssetsItem array{id: string, name: string|null, attachmentName: string|null, cdnLink: string, layout: string}
  * @phpstan-type ItemSearchAttributesListData array{attributes: list<ItemSearchAttributesListDataAttributesItem>}

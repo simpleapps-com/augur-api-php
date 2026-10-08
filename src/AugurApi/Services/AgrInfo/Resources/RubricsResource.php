@@ -80,6 +80,7 @@ final class RubricsResource
      *
      * Errors:
      *   400: orderBy is not column|ASC or column|DESC on a rubrics column.
+     *   403: x-site-id is not augur_info: agr_info serves only the augur_info site.
      *
      * GET https://agr-info.augur-api.com/rubrics
      * Contract: https://agr-info.augur-api.com/openapi.json#/paths/~1rubrics/get
@@ -121,6 +122,7 @@ final class RubricsResource
      *
      * Errors:
      *   400: The body is missing or not a JSON object. Or title, id or content is missing.
+     *   403: x-site-id is not augur_info: agr_info serves only the augur_info site.
      *
      * POST https://agr-info.augur-api.com/rubrics
      * Contract: https://agr-info.augur-api.com/openapi.json#/paths/~1rubrics/post
@@ -149,6 +151,7 @@ final class RubricsResource
      * Call: $api->agrInfo->rubrics->delete($rubricsUid)
      *
      * Errors:
+     *   403: x-site-id is not augur_info: agr_info serves only the augur_info site.
      *   404: No rubric with this ID.
      *
      * DELETE https://agr-info.augur-api.com/rubrics/{rubricsUid}
@@ -180,6 +183,7 @@ final class RubricsResource
      * Call: $api->agrInfo->rubrics->get($rubricsUid)
      *
      * Errors:
+     *   403: x-site-id is not augur_info: agr_info serves only the augur_info site.
      *   404: No rubric with this ID.
      *
      * GET https://agr-info.augur-api.com/rubrics/{rubricsUid}
@@ -219,6 +223,7 @@ final class RubricsResource
      *
      * Errors:
      *   400: The body is missing or not a JSON object.
+     *   403: x-site-id is not augur_info: agr_info serves only the augur_info site.
      *   404: No rubric with this ID.
      *
      * PUT https://agr-info.augur-api.com/rubrics/{rubricsUid}

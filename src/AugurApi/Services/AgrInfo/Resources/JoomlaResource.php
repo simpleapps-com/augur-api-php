@@ -55,6 +55,7 @@ final class JoomlaResource
      *
      * Errors:
      *   400: The body is missing or not a JSON object.
+     *   403: x-site-id is not augur_info: agr_info serves only the augur_info site.
      *
      * POST https://agr-info.augur-api.com/joomla/generate
      * Contract: https://agr-info.augur-api.com/openapi.json#/paths/~1joomla~1generate/post

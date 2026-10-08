@@ -30,8 +30,8 @@ use AugurApi\Core\Client;
  *   itemCategoryUid: int — Category ID (item_category.item_category_uid)
  *   itemCategoryId: string — Category code
  *   itemCategoryDesc: string — Category description
- *   categoryImage: string|false — Category image path, or false when none
- *   categoryText: string|false — Category text, or false when none
+ *   categoryImage: string|null — Category image path, or null when none
+ *   categoryText: string|null — Category text, or null when none
  *   parentItemCategoryUid: int — Parent category ID
  *   nodeCount: int — Depth of the category in the hierarchy
  *   fullPath: string|null — Full hierarchy path
@@ -40,23 +40,17 @@ use AugurApi\Core\Client;
  *   subItemCategoryUids: list<int> — This category and every descendant category ID
  *   maxItems: int — Active item links across the category and its descendants
  *   itemsByCategory: int — Online items in the category (OpenSearch count, after filters)
- *   children: list<CategoriesLookupGetDataChildrenOption1Item>|array<string,
- *       CategoriesLookupGetDataChildrenOption1Item> — Active child categories after childrenFilter,
- *       childrenLimit and childrenOffset
- *     one of:
- *       list<CategoriesLookupGetDataChildrenOption1Item>
- *         each item: CategoriesLookupGetDataChildrenOption1Item — One active child category of a
- *             category, with its online item count
- *       array<string, CategoriesLookupGetDataChildrenOption1Item>
- *         map of CategoriesLookupGetDataChildrenOption1Item — One active child category of a
- *             category, with its online item count
+ *   children: list<CategoriesLookupGetDataChildrenItem> — Active child categories after
+ *       childrenFilter, childrenLimit and childrenOffset, in display order
+ *     each item: CategoriesLookupGetDataChildrenItem — One active child category of a category,
+ *         with its online item count
  *   childrenTotal: int — Children before childrenFilter and paging
  *   childrenCount: int — Children returned
  *   userDefined?: array<string, string>|null — User-defined fields (only with includeUd=Y)
  *     map of string
  *
- * CategoriesLookupGetDataChildrenOption1Item: One active child category of a category, with its
- * online item count
+ * CategoriesLookupGetDataChildrenItem: One active child category of a category, with its online
+ * item count
  * Field `children` of CategoriesLookupGetData
  *   itemCategoryUid: int — Category ID (item_category.item_category_uid)
  *   itemCategoryId: string — Category code
@@ -64,7 +58,7 @@ use AugurApi\Core\Client;
  *   statusCd: int — Status code (704 = Active; only active children are listed)
  *   fullPath: string|null — Full hierarchy path
  *   cleanPath: string|null — URL-safe hierarchy path
- *   categoryImage: string|false — Category image path, or false when none
+ *   categoryImage: string|null — Category image path, or null when none
  *   sequenceNo: int — Display order under the parent
  *   productCollection: string|null — Product collection
  *   itemCount: int — Online items in the category
@@ -82,7 +76,7 @@ use AugurApi\Core\Client;
  *
  * CategoriesLookupGetDataChildrenOption1ItemRoomSceneOption1: A category's primary Brandfolder
  * room-scene asset (sequence 1)
- * Field `roomScene` of CategoriesLookupGetDataChildrenOption1Item
+ * Field `roomScene` of CategoriesLookupGetDataChildrenItem
  *   id: string — Brandfolder asset ID
  *   name: string|null — Asset name
  *   cdnLink: string — CDN URL of the asset
@@ -340,8 +334,8 @@ use AugurApi\Core\Client;
  *   classId5: string|null — Sample item class 5
  *   samplesApp: bool — True when the 4th character of classId5 is 1
  *
- * @phpstan-type CategoriesLookupGetData array{itemCategoryUid: int, itemCategoryId: string, itemCategoryDesc: string, categoryImage: string|false, categoryText: string|false, parentItemCategoryUid: int, nodeCount: int, fullPath: string|null, cleanPath: string|null, displayOnWebFlag: string, subItemCategoryUids: list<int>, maxItems: int, itemsByCategory: int, children: list<CategoriesLookupGetDataChildrenOption1Item>|array<string, CategoriesLookupGetDataChildrenOption1Item>, childrenTotal: int, childrenCount: int, userDefined?: array<string, string>|null}
- * @phpstan-type CategoriesLookupGetDataChildrenOption1Item array{itemCategoryUid: int, itemCategoryId: string, itemCategoryDesc: string, statusCd: int, fullPath: string|null, cleanPath: string|null, categoryImage: string|false, sequenceNo: int, productCollection: string|null, itemCount: int, userDefined?: array<string, string>|null, roomScene?: CategoriesLookupGetDataChildrenOption1ItemRoomSceneOption1|null|false, colorList?: list<string>|null, colorCount?: int|null, bf?: bool|null}
+ * @phpstan-type CategoriesLookupGetData array{itemCategoryUid: int, itemCategoryId: string, itemCategoryDesc: string, categoryImage: string|null, categoryText: string|null, parentItemCategoryUid: int, nodeCount: int, fullPath: string|null, cleanPath: string|null, displayOnWebFlag: string, subItemCategoryUids: list<int>, maxItems: int, itemsByCategory: int, children: list<CategoriesLookupGetDataChildrenItem>, childrenTotal: int, childrenCount: int, userDefined?: array<string, string>|null}
+ * @phpstan-type CategoriesLookupGetDataChildrenItem array{itemCategoryUid: int, itemCategoryId: string, itemCategoryDesc: string, statusCd: int, fullPath: string|null, cleanPath: string|null, categoryImage: string|null, sequenceNo: int, productCollection: string|null, itemCount: int, userDefined?: array<string, string>|null, roomScene?: CategoriesLookupGetDataChildrenOption1ItemRoomSceneOption1|null|false, colorList?: list<string>|null, colorCount?: int|null, bf?: bool|null}
  * @phpstan-type CategoriesLookupGetDataChildrenOption1ItemRoomSceneOption1 array{id: string, name: string|null, cdnLink: string, sequenceNo: int}
  * @phpstan-type BrandsAttributesListData array{attributes: list<BrandsAttributesListDataAttributesItem>}
  * @phpstan-type BrandsAttributesListDataAttributesItem array{attributeUid: int, attributeId: string, attributeDesc: string|null, sequenceNo: int|null, values: list<BrandsAttributesListDataAttributesItemValuesItem>, valueCount?: int|null}

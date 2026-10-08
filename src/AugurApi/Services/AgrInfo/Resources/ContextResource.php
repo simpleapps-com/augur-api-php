@@ -44,18 +44,8 @@ use AugurApi\Core\Client;
  *   prefix?: string|null — Table prefix for the site in this service; absent when the config sets
  *       none
  *
- * ContextGetDataOption2: A site's configuration as the site itself sees it: service names only
- * Returned by: $api->agrInfo->context->get($siteId)
- *   siteId: string — Site described
- *   domain: string|null — Site domain; null when the site is not provisioned
- *   uid: int — Site row in sites_table (dev port = 3000 + uid); 0 when the site is unknown
- *   services: list<string> — Services the site is configured for
- *   serviceCount: int — Number of configured services
- *   inactiveServices: list<string> — Services the site is not configured for
- *
  * @phpstan-type ContextGetDataOption1 array{siteId: string, domain: string|null, uid: int, services: list<ContextGetDataOption1ServicesItem>, serviceCount: int, inactiveServices: list<string>}
  * @phpstan-type ContextGetDataOption1ServicesItem array{name: string, prefix?: string|null}
- * @phpstan-type ContextGetDataOption2 array{siteId: string, domain: string|null, uid: int, services: list<string>, serviceCount: int, inactiveServices: list<string>}
  */
 final class ContextResource
 {
@@ -73,7 +63,13 @@ final class ContextResource
      *
      * get the context for a site
      *
+     * Response data: A site's configuration as the admin site (augur_info) sees it: every service
+     * with its full config
+     *
      * Auth: bearer token; spec scopes: none listed (most endpoints list `public`)
+     *
+     * Errors:
+     *   403: x-site-id is not augur_info: agr_info serves only the augur_info site.
      *
      * GET https://agr-info.augur-api.com/context/{siteId}
      * Contract: https://agr-info.augur-api.com/openapi.json#/paths/~1context~1{siteId}/get
@@ -81,16 +77,11 @@ final class ContextResource
      * $params also takes edgeCache, the Cloudflare edge cache time: '30s', '1m', '5m', or 1-5 or 8
      * (hours).
      *
-     * Response data type: ContextGetDataOption1|ContextGetDataOption2
-     *   one of:
-     *     ContextGetDataOption1 — A site's configuration as the admin site (augur_info) sees it:
-     *         every service with its full config
-     *     ContextGetDataOption2 — A site's configuration as the site itself sees it: service names
-     *         only
+     * Response data type: ContextGetDataOption1 (fields listed on the class)
      *
      * @param string $siteId target site ID to get context for
      * @param array<string, mixed> $params
-     * @return BaseResponse<ContextGetDataOption1|ContextGetDataOption2>
+     * @return BaseResponse<array<string, mixed>>
      */
     public function get(string $siteId, array $params = []): BaseResponse
     {
@@ -101,7 +92,7 @@ final class ContextResource
             ['siteId' => (string) $siteId],
         );
 
-        /** @var BaseResponse<ContextGetDataOption1|ContextGetDataOption2> $result */
+        /** @var BaseResponse<array<string, mixed>> $result */
         $result = BaseResponse::fromArray($response, static fn (mixed $data): mixed => $data);
 
         return $result;

@@ -72,6 +72,7 @@ final class MicroservicesResource
      *
      * Errors:
      *   400: orderBy is not column|ASC or column|DESC on a microservices column.
+     *   403: x-site-id is not augur_info: agr_info serves only the augur_info site.
      *
      * GET https://agr-info.augur-api.com/microservices
      * Contract: https://agr-info.augur-api.com/openapi.json#/paths/~1microservices/get
@@ -111,6 +112,7 @@ final class MicroservicesResource
      *
      * Errors:
      *   400: The body is missing or not a JSON object. Or name is missing.
+     *   403: x-site-id is not augur_info: agr_info serves only the augur_info site.
      *
      * POST https://agr-info.augur-api.com/microservices
      * Contract: https://agr-info.augur-api.com/openapi.json#/paths/~1microservices/post
@@ -139,6 +141,7 @@ final class MicroservicesResource
      * Call: $api->agrInfo->microservices->delete($microservicesUid)
      *
      * Errors:
+     *   403: x-site-id is not augur_info: agr_info serves only the augur_info site.
      *   404: No microservice with this ID.
      *
      * DELETE https://agr-info.augur-api.com/microservices/{microservicesUid}
@@ -171,6 +174,7 @@ final class MicroservicesResource
      * Call: $api->agrInfo->microservices->get($microservicesUid)
      *
      * Errors:
+     *   403: x-site-id is not augur_info: agr_info serves only the augur_info site.
      *   404: No microservice with this ID.
      *
      * GET https://agr-info.augur-api.com/microservices/{microservicesUid}
@@ -212,6 +216,7 @@ final class MicroservicesResource
      *
      * Errors:
      *   400: The body is missing or not a JSON object.
+     *   403: x-site-id is not augur_info: agr_info serves only the augur_info site.
      *   404: No microservice with this ID.
      *
      * PUT https://agr-info.augur-api.com/microservices/{microservicesUid}

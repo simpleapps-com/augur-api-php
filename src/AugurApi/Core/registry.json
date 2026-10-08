@@ -205,6 +205,18 @@
     "edgeCache": false
   },
   {
+    "id": "agrInfo.sites.p21Api.create",
+    "service": "agr-info",
+    "method": "POST",
+    "path": "/sites/p21-api",
+    "pathParams": [],
+    "queryParams": [],
+    "aliases": [],
+    "hasBody": true,
+    "auth": "bearer",
+    "edgeCache": false
+  },
+  {
     "id": "agrInfo.sites.staffToken.create",
     "service": "agr-info",
     "method": "POST",

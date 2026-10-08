@@ -32,8 +32,7 @@ use AugurApi\Services\AgrInfo\Resources\WorkflowsResource;
  * Endpoints, in spec order: path → exact call → response data type (`untyped` = any JSON). Shapes
  * are documented on each resource class.
  *   POST /akasha/generate → $api->agrInfo->akasha->createGenerate($data) → string
- *   GET /context/{siteId} → $api->agrInfo->context->get($siteId) →
- *       ContextGetDataOption1|ContextGetDataOption2
+ *   GET /context/{siteId} → $api->agrInfo->context->get($siteId) → ContextGetDataOption1
  *   POST /joomla/generate → $api->agrInfo->joomla->createGenerate($data) → string
  *   GET /microservices → $api->agrInfo->microservices->list() → list of MicroservicesListItem
  *   POST /microservices → $api->agrInfo->microservices->create($data) → MicroservicesListItem
@@ -49,6 +48,7 @@ use AugurApi\Services\AgrInfo\Resources\WorkflowsResource;
  *   PUT /rubrics/{rubricsUid} → $api->agrInfo->rubrics->update($rubricsUid, $data) →
  *       RubricsListItem
  *   DELETE /rubrics/{rubricsUid} → $api->agrInfo->rubrics->delete($rubricsUid) → RubricsListItem
+ *   POST /sites/p21-api → $api->agrInfo->sites->createP21Api($data) → SitesP21ApiCreateData
  *   POST /sites/staff-token → $api->agrInfo->sites->createStaffToken($data) →
  *       SitesStaffTokenCreateData
  *   POST /sites/validate → $api->agrInfo->sites->createValidate($data) → SitesValidateCreateData

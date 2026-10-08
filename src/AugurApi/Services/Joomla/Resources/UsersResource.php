@@ -35,7 +35,7 @@ use AugurApi\Core\Client;
  *   registerDate: string — Registration date (Y-m-d H:i:s)
  *   username: string — Username
  *   block: int — 1 when the user is blocked
- *   profileValues: array<string, string> — Profile values keyed by profile key; [] when the user
+ *   profileValues: array<string, string> — Profile values keyed by profile key; {} when the user
  *       has none
  *     map of string
  *   customerId: string — Prophet 21 customer ID from the profile; empty when unset
@@ -119,7 +119,7 @@ use AugurApi\Core\Client;
  *   id: int — Joomla user ID; 0 when the password did not match
  *   isVerified: bool — True when the password matched
  *   username: string — Username sent
- *   token: string|false — User JWT; false when the password did not match
+ *   token: string|null — User JWT; null when the password did not match
  *   email: string — Email address; empty when the password did not match
  *   hasCustomerId: bool — True when the user's profile has a Prophet 21 customer ID
  *   hasContactId: bool — True when the user's profile has a Prophet 21 contact ID
@@ -233,7 +233,7 @@ use AugurApi\Core\Client;
  * @phpstan-type UsersListItemShipToItemAddress array{id: float, name: string, mailAddress1: string|null, mailAddress2: string|null, mailAddress3: string|null, mailCity: string|null, mailState: string|null, mailPostalCode: string|null, mailCountry: string|null, physAddress1: string|null, physAddress2: string|null, physAddress3: string|null, physCity: string|null, physState: string|null, physPostalCode: string|null, physCountry: string|null, class5Id: string|null, centralPhoneNumber: string|null, upsCode: string|null}
  * @phpstan-type UsersCreateData array{username: string, id: int, email: string, name: string}
  * @phpstan-type UsersCreateBody array{username: string, email?: string|null, name?: string|null, password?: string|null, groups?: list<int>|null, profileValues?: array<string, mixed>|array{}|null}
- * @phpstan-type UsersVerifyPasswordCreateData array{id: int, isVerified: bool, username: string, token: string|false, email: string, hasCustomerId: bool, hasContactId: bool, hasShipToId: bool}
+ * @phpstan-type UsersVerifyPasswordCreateData array{id: int, isVerified: bool, username: string, token: string|null, email: string, hasCustomerId: bool, hasContactId: bool, hasShipToId: bool}
  * @phpstan-type UsersVerifyPasswordCreateBody array{username?: string, password?: string, siteId?: string|null}
  * @phpstan-type UsersGetData array{activation: string, email: string, id: int, lastResetTime: string, lastvisitDate: string, name: string, registerDate: string, username: string}
  * @phpstan-type UsersUpdateBody array{name?: string|null, email?: string|null, username?: string|null, password?: string|null, block?: int|null, groups?: list<int>|null, profileValues?: array<string, mixed>|array{}|null}
