@@ -40,17 +40,17 @@ use AugurApi\Core\Client;
  *   subItemCategoryUids: list<int> — This category and every descendant category ID
  *   maxItems: int — Active item links across the category and its descendants
  *   itemsByCategory: int — Online items in the category (OpenSearch count, after filters)
- *   children: list<CategoriesLookupGetDataChildrenItem> — Active child categories after
+ *   children: list<CategoriesLookupGetDataChildrenOption1Item> — Active child categories after
  *       childrenFilter, childrenLimit and childrenOffset, in display order
- *     each item: CategoriesLookupGetDataChildrenItem — One active child category of a category,
- *         with its online item count
+ *     each item: CategoriesLookupGetDataChildrenOption1Item — One active child category of a
+ *         category, with its online item count
  *   childrenTotal: int — Children before childrenFilter and paging
  *   childrenCount: int — Children returned
  *   userDefined?: array<string, string>|null — User-defined fields (only with includeUd=Y)
  *     map of string
  *
- * CategoriesLookupGetDataChildrenItem: One active child category of a category, with its online
- * item count
+ * CategoriesLookupGetDataChildrenOption1Item: One active child category of a category, with its
+ * online item count
  * Field `children` of CategoriesLookupGetData
  *   itemCategoryUid: int — Category ID (item_category.item_category_uid)
  *   itemCategoryId: string — Category code
@@ -76,7 +76,7 @@ use AugurApi\Core\Client;
  *
  * CategoriesLookupGetDataChildrenOption1ItemRoomSceneOption1: A category's primary Brandfolder
  * room-scene asset (sequence 1)
- * Field `roomScene` of CategoriesLookupGetDataChildrenItem
+ * Field `roomScene` of CategoriesLookupGetDataChildrenOption1Item
  *   id: string — Brandfolder asset ID
  *   name: string|null — Asset name
  *   cdnLink: string — CDN URL of the asset
@@ -334,8 +334,8 @@ use AugurApi\Core\Client;
  *   classId5: string|null — Sample item class 5
  *   samplesApp: bool — True when the 4th character of classId5 is 1
  *
- * @phpstan-type CategoriesLookupGetData array{itemCategoryUid: int, itemCategoryId: string, itemCategoryDesc: string, categoryImage: string|null, categoryText: string|null, parentItemCategoryUid: int, nodeCount: int, fullPath: string|null, cleanPath: string|null, displayOnWebFlag: string, subItemCategoryUids: list<int>, maxItems: int, itemsByCategory: int, children: list<CategoriesLookupGetDataChildrenItem>, childrenTotal: int, childrenCount: int, userDefined?: array<string, string>|null}
- * @phpstan-type CategoriesLookupGetDataChildrenItem array{itemCategoryUid: int, itemCategoryId: string, itemCategoryDesc: string, statusCd: int, fullPath: string|null, cleanPath: string|null, categoryImage: string|null, sequenceNo: int, productCollection: string|null, itemCount: int, userDefined?: array<string, string>|null, roomScene?: CategoriesLookupGetDataChildrenOption1ItemRoomSceneOption1|null|false, colorList?: list<string>|null, colorCount?: int|null, bf?: bool|null}
+ * @phpstan-type CategoriesLookupGetData array{itemCategoryUid: int, itemCategoryId: string, itemCategoryDesc: string, categoryImage: string|null, categoryText: string|null, parentItemCategoryUid: int, nodeCount: int, fullPath: string|null, cleanPath: string|null, displayOnWebFlag: string, subItemCategoryUids: list<int>, maxItems: int, itemsByCategory: int, children: list<CategoriesLookupGetDataChildrenOption1Item>, childrenTotal: int, childrenCount: int, userDefined?: array<string, string>|null}
+ * @phpstan-type CategoriesLookupGetDataChildrenOption1Item array{itemCategoryUid: int, itemCategoryId: string, itemCategoryDesc: string, statusCd: int, fullPath: string|null, cleanPath: string|null, categoryImage: string|null, sequenceNo: int, productCollection: string|null, itemCount: int, userDefined?: array<string, string>|null, roomScene?: CategoriesLookupGetDataChildrenOption1ItemRoomSceneOption1|null|false, colorList?: list<string>|null, colorCount?: int|null, bf?: bool|null}
  * @phpstan-type CategoriesLookupGetDataChildrenOption1ItemRoomSceneOption1 array{id: string, name: string|null, cdnLink: string, sequenceNo: int}
  * @phpstan-type BrandsAttributesListData array{attributes: list<BrandsAttributesListDataAttributesItem>}
  * @phpstan-type BrandsAttributesListDataAttributesItem array{attributeUid: int, attributeId: string, attributeDesc: string|null, sequenceNo: int|null, values: list<BrandsAttributesListDataAttributesItemValuesItem>, valueCount?: int|null}
