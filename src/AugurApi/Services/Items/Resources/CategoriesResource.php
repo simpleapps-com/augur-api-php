@@ -305,6 +305,7 @@ use AugurApi\Core\Client;
  *   stockable: string|null — Y when the item is stocked at the location
  *   sellable: string|null — Y when the item is sold from the location
  *   discontinued: string — Y when the item is discontinued at the location
+ *   deleteFlag: string|null — Y when the location record is deleted in P21 (inv_loc.delete_flag)
  *   unallocated: float — qtyOnHand minus qtyAllocated
  *   nextDueInPoDate: string|null — Date (Y-m-d) the next purchase order is due in
  *   qtyBackordered: float|null — Quantity backordered
@@ -355,7 +356,7 @@ use AugurApi\Core\Client;
  * @phpstan-type CategoriesItemsListDataItemsItemItemUomItem array{unitOfMeasure: string, unitSize: float}
  * @phpstan-type CategoriesItemsListDataItemsItemInventorySupplierItem array{inventorySupplierUid: int, invMastUid: int, supplierId: float, upcCode: string, checkDigit: string, upc: string, supplierPartNo: string|null, primarySupplierFlag: string|null, listPrice: float|null}
  * @phpstan-type InvMastStockGetData array{stockData: list<InvMastStockGetDataStockDataItem>, companySummary: array<string, float>}
- * @phpstan-type InvMastStockGetDataStockDataItem array{locationId: float, companyId: string, qtyOnHand: float, qtyAllocated: float, stockable: string|null, sellable: string|null, discontinued: string, unallocated: float, nextDueInPoDate: string|null, qtyBackordered: float|null, primaryBin: string|null, qtyFrozen: float, qtyQuarantined: float, qtyNonPickable: float, qtyAvailable: float, orderQuantity: float|null, productGroupId: string|null, baseUnit: string, baseUnitSize: float, defaultSellingUnit: string|null, defaultSellingUnitSize: float, divisor: float, calcQtyOnHand: float, calcQtyAllocated: float, calcQtyAvailable: float, locationName: string}
+ * @phpstan-type InvMastStockGetDataStockDataItem array{locationId: float, companyId: string, qtyOnHand: float, qtyAllocated: float, stockable: string|null, sellable: string|null, discontinued: string, deleteFlag: string|null, unallocated: float, nextDueInPoDate: string|null, qtyBackordered: float|null, primaryBin: string|null, qtyFrozen: float, qtyQuarantined: float, qtyNonPickable: float, qtyAvailable: float, orderQuantity: float|null, productGroupId: string|null, baseUnit: string, baseUnitSize: float, defaultSellingUnit: string|null, defaultSellingUnitSize: float, divisor: float, calcQtyOnHand: float, calcQtyAllocated: float, calcQtyAvailable: float, locationName: string}
  * @phpstan-type CategoriesItemsListDataItemsItemFullSizedSamplesOption1 array{itemId: string, invMastUid: int, classId5: string|null, samplesApp: bool}
  */
 final class CategoriesResource

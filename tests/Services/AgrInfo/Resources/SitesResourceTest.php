@@ -11,6 +11,17 @@ use AugurApi\Tests\AugurApiTestCase;
  */
 final class SitesResourceTest extends AugurApiTestCase
 {
+    public function testList(): void
+    {
+        $this->mockResponse([['sitesUid' => 1, 'siteId' => 'abc', 'services' => ['items']]]);
+
+        $response = $this->api->agrInfo->sites->list(['statusCd' => [704, 705], 'limit' => 5]);
+
+        $this->assertSame('abc', self::at($response->data, 0, 'siteId'));
+        $this->assertRequestPath('/sites');
+        $this->assertRequestMethod('GET');
+    }
+
     public function testCreateValidate(): void
     {
         $this->mockResponse(['valid' => true]);

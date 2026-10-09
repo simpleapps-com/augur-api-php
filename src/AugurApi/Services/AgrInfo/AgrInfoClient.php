@@ -48,6 +48,7 @@ use AugurApi\Services\AgrInfo\Resources\WorkflowsResource;
  *   PUT /rubrics/{rubricsUid} → $api->agrInfo->rubrics->update($rubricsUid, $data) →
  *       RubricsListItem
  *   DELETE /rubrics/{rubricsUid} → $api->agrInfo->rubrics->delete($rubricsUid) → RubricsListItem
+ *   GET /sites → $api->agrInfo->sites->list() → list of SitesListItem
  *   POST /sites/p21-api → $api->agrInfo->sites->createP21Api($data) → SitesP21ApiCreateData
  *   POST /sites/staff-token → $api->agrInfo->sites->createStaffToken($data) →
  *       SitesStaffTokenCreateData

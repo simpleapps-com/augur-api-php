@@ -24,6 +24,19 @@ use AugurApi\Core\Client;
  * Shapes used in this class, as PHPStan type aliases (`?` = optional key), each with where it is
  * used. Response shapes are the documented MINIMUM: the API MAY send more fields.
  *
+ * SitesListItem: One site with the services it is configured for (SitesHelper::generateDoc)
+ * Returned by: $api->agrInfo->sites->list()
+ *   sitesUid: int — agr_info sites row ID
+ *   siteId: string — Site ID
+ *   statusCd: int — Row status (704 = Active, 705 = Inactive, 700 = Deleted)
+ *   legacyActiveCd: int — 704 when sites_table.active is 1, else 705
+ *   services: list<string> — Services configured for the site (a config file with a non-empty
+ *       prefix), sorted by name
+ *   prophet21Version: string|null — Prophet 21 version last reported by the site
+ *   sqlserverVersion: string|null — SQL Server version last reported by the site
+ *   prophet21Hosting: string — Where the site's Prophet 21 is hosted
+ *   dateLastConnect: string — Last successful connection to the site's Prophet 21
+ *
  * SitesP21ApiCreateData: Result of validating a caller for a site, with the site's Prophet 21 API
  * (middleware) credentials; never the SQL connection
  * Returned by: $api->agrInfo->sites->createP21Api($data)
@@ -98,6 +111,7 @@ use AugurApi\Core\Client;
  *   username: string|null — Database username
  *   password: string|null — Database password
  *
+ * @phpstan-type SitesListItem array{sitesUid: int, siteId: string, statusCd: int, legacyActiveCd: int, services: list<string>, prophet21Version: string|null, sqlserverVersion: string|null, prophet21Hosting: string, dateLastConnect: string}
  * @phpstan-type SitesP21ApiCreateData array{valid: bool, siteId: string, error: string, tokenType: string|null, isAdmin: bool, user: SitesValidateCreateDataUser|null, p21: SitesP21ApiCreateDataP21|null}
  * @phpstan-type SitesValidateCreateDataUser array{userId: int, username: string, email: string, name: string, roles: list<string>}
  * @phpstan-type SitesP21ApiCreateDataP21 array{baseUrl: string, username: string, password: string, clientSecret: string|null, writable: bool}
@@ -113,6 +127,52 @@ final class SitesResource
         private readonly Client $client,
         private readonly string $baseUrl,
     ) {
+    }
+
+    /**
+     * GET /sites
+     *
+     * List sites
+     * Call: $api->agrInfo->sites->list()
+     *
+     * List sites with the services each is configured for (a per-site service config file with a
+     * non-empty prefix). Active means sites_table.active. augur_info only
+     *
+     * Response data, each item: One site with the services it is configured for
+     * (SitesHelper::generateDoc)
+     *
+     * Errors:
+     *   400: orderBy is not column|ASC or column|DESC on a sites column.
+     *   403: x-site-id is not augur_info: agr_info serves only the augur_info site.
+     *
+     * GET https://agr-info.augur-api.com/sites
+     * Contract: https://agr-info.augur-api.com/openapi.json#/paths/~1sites/get
+     *
+     * Query params ($params; `?` = optional):
+     *   legacyActiveCd?: int|int[] — Active code mirrored from sites_table.active (704=active,
+     *       705=inactive), sent comma-joined (704,705); -1 for every site. Default: 704
+     *   limit?: int — Limit number of results (Default: 10)
+     *   offset?: int — Starting offset results (Default: 0)
+     *   orderBy?: string — Order By (Default: sites_uid|ASC)
+     *   statusCd?: int|int[] — Status code or list of codes (700=DELETE, 704=ACTIVE, 705=INACTIVE),
+     *       sent comma-joined (704,705); -1 for every status. Default: 704
+     *
+     * $params also takes edgeCache, the Cloudflare edge cache time: '30s', '1m', '5m', or 1-5 or 8
+     * (hours).
+     *
+     * Response data type: list of SitesListItem (fields listed on the class)
+     *
+     * @param array<string, mixed> $params
+     * @return BaseResponse<list<array<string, mixed>>>
+     */
+    public function list(array $params = []): BaseResponse
+    {
+        $response = $this->client->get($this->baseUrl, '', $params);
+
+        /** @var BaseResponse<list<array<string, mixed>>> $result */
+        $result = BaseResponse::fromArray($response, static fn (mixed $data): mixed => $data);
+
+        return $result;
     }
 
     /**

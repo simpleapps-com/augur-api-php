@@ -205,6 +205,24 @@
     "edgeCache": false
   },
   {
+    "id": "agrInfo.sites.list",
+    "service": "agr-info",
+    "method": "GET",
+    "path": "/sites",
+    "pathParams": [],
+    "queryParams": [
+      "legacyActiveCd",
+      "limit",
+      "offset",
+      "orderBy",
+      "statusCd"
+    ],
+    "aliases": [],
+    "hasBody": false,
+    "auth": "bearer",
+    "edgeCache": true
+  },
+  {
     "id": "agrInfo.sites.p21Api.create",
     "service": "agr-info",
     "method": "POST",
